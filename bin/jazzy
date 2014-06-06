@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+require 'jazzy'
+require 'find'
+require 'fileutils'
+require 'optparse'
+
+options = {
+  input: File.expand_path('.'),
+  output: File.expand_path('jazzy-docs')
+}
+
+opt_parser = OptionParser.new do |opt|
+  opt.banner = "Usage: jazzy [-i input] [-o output]"
+  opt.separator  ""
+  opt.separator  "Options"
+
+  opt.on("-i","--input FOLDER","Folder to recursively look for files in. Default is: ./") do |input|
+    options[:input] = File.expand_path(input)
+  end
+
+  opt.on("-o","--output FOLDER","Folder to output the HTML docs to. Default is: ./jazzy-docs") do |output|
+    options[:output] = File.expand_path(output)
+  end
+
+  opt.on("-h","--help","help") do
+    puts opt_parser
+  end
+end
+
+opt_parser.parse!
+
+paths = Jazzy.headers(options[:input])
+
+FileUtils.rm_r options[:output] if File.directory?(options[:output]); Dir.mkdir options[:output]
+
+paths.each do |path|
+  doc = Jazzy.document(path)
+  path = File.join(options[:output], path.scan(/\/(\w+)\.h$/)[0][0]+'.html')
+  File.open(path, 'w') { |file| file.write(doc) }                   
+end
+
+Jazzy.assets(options[:output])
