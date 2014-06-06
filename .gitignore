@@ -1,3 +1,6 @@
+jazzy-docs/
+docs/
+
 *.gem
 *.rbc
 /.config
