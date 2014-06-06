@@ -6,7 +6,7 @@ require 'optparse'
 
 options = {
   input: File.expand_path('.'),
-  output: File.expand_path('jazzy-docs')
+  output: File.expand_path('docs')
 }
 
 opt_parser = OptionParser.new do |opt|
@@ -14,11 +14,11 @@ opt_parser = OptionParser.new do |opt|
   opt.separator  ""
   opt.separator  "Options"
 
-  opt.on("-i","--input FOLDER","Folder to recursively look for files in. Default is: ./") do |input|
+  opt.on("-i","--input FOLDER","Folder to recursively search for header files") do |input|
     options[:input] = File.expand_path(input)
   end
 
-  opt.on("-o","--output FOLDER","Folder to output the HTML docs to. Default is: ./jazzy-docs") do |output|
+  opt.on("-o","--output FOLDER","Folder to output the HTML docs to") do |output|
     options[:output] = File.expand_path(output)
   end
 
