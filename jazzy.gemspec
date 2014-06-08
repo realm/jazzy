@@ -18,6 +18,9 @@ Gem::Specification.new do |spec|
   spec.executables   << 'jazzy'
 
   spec.add_runtime_dependency 'mustache', '~> 0.99.5'
+  spec.add_runtime_dependency 'activesupport', '~> 4.1.1'
+  spec.add_runtime_dependency 'redcarpet', '~> 4.1.1'
+  spec.add_runtime_dependency 'nokogiri', '~> 1.6.2.1'
 
   spec.add_development_dependency "bundler", "~> 1.5"
   spec.add_development_dependency "rake"
