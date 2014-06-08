@@ -5,20 +5,18 @@
     <title>{{name}} Class Reference</title>
     <link rel="stylesheet" type="text/css" href="CSS/style-1.1.15.css" />
     <meta charset='utf-8'>
-
-    <!-- DO NOT REMOVE: JS DEPENDS ON THEM -->
     <meta id="g-version" name="g-version" content="fe723145" />
     <meta id="j-version" name="j-version" content="1.1.5" />
-    <meta id="build" name="build" content="30efae2d58a4c48ef326b53c42992004" />
+    <meta id="build" name="build" content="f1aa04d1aa2f963cad215bcb4e8adc61" />
     <meta id="document-version" name="document-version" content="1.0.4" />
-    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40014033" />
     <meta id="book-assignments" name="book-assignments" content="{Type/Reference}, {Framework/Core Services Layer/CloudKit}" />
-    <meta id="book-title" name="book-title" content="{{name}} Class Reference" />
+    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40014033" />
+    <meta id="book-title" name="book-title" content="CKAsset Class Reference" />
     <meta id="book-resource-type" name="book-resource-type" content="Reference" />
     <meta id="book-root" name="book-root" content="./" />
     <meta id="book-json" name="book-json" content="book.json">
-    <meta id="date" name="date" content="{{date}}" />
-    <meta id="description" name="description" content="{{description}}" />
+    <meta id="date" name="date" content="2014-05-22" />
+    <meta id="description" name="description" content="Describes a data file to be stored in iCloud." />
     <meta id="IndexTitle" name="IndexTitle" content="" />
 
     <meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
@@ -28,8 +26,7 @@
     <meta id="xcode-display" name="xcode-display" content="render" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="viewport" content="width=device-width, maximum-scale=1.0">
-    <meta id="framework" name="framework" content="{{framework}}" />
-    <!-- END DO NOT REMOVE -->
+    <meta id="framework" name="framework" content="CloudKit" />
 </head>
 
 <body id="reference" class="jazz both">
@@ -41,24 +38,25 @@
     <header id="ios_header" class="hideOnPrint hideInXcode">
         <div class="content-wrapper">
             <p class="header-text">
-                <a href="../../../../navigation/">Developer Library</a>
+                <a href="../../../../navigation/">iOS Developer Library</a>
             </p>
-            <!--<p id="wwdr"><img id="apple_logo" src="Images/apple2.png" height="14px" width="12px" aria-hidden="true" /><a href="https://developer.apple.com">Developer</a></p>-->
+            <p id="wwdr">
+                <img id="apple_logo" src="Images/apple2.png" height="14px" width="12px" aria-hidden="true" /><a href="https://developer.apple.com">Developer</a>
+            </p>
         </div>
     </header>
 
     <section id="valence">
         <div class="content-wrapper">
             <p id="hierarchial_navigation">
-                <a href="../CloudKit_Framework_Reference/index.html#//apple_ref/doc/uid/TP40014064" id="design_resources_link">{{framework}} Framework Reference</a>
+                <a href="../CloudKit_Framework_Reference/index.html#//apple_ref/doc/uid/TP40014064" id="design_resources_link">Framework Reference</a>
                 <img id="carat" src="Images/carat_2x.png" height="10px" width="6px" aria-hidden="true" />
                 <span id="book_title">{{name}} Class Reference</span>
             </p>
-            <!--
             <form id="search" class="hideInXcode" method="get" action="../../../../search/" accept-charset="utf-8" autocomplete="off">
                 <input type="search" id="ssi_SearchField" placeholder="Search iOS Developer Library" name="q" autocomplete="off" tabindex="2" />
-            </form> 
-            -->
+            </form>
+
             <img id="shortstack" src="Images/shortstack_2x.png" />
         </div>
     </section>
@@ -66,13 +64,17 @@
         <nav class='book-parts hideInXcode'>
             <ul class="nav-parts">
                 <li class="part-name tasks">
+
                     Tasks
+                
+                    <!--FIXME-->
                     <ul class="nav-chapters">
-                        {{#tasks}}
                         <li class="nav-chapter">
-                            <a href="#task-{{shortname}}" class="{{css}}">{{name}}</a>
+                            <a href="#//apple_ref/doc/uid/TP40014033-CH1-SW5">Initializing an Asset</a>
                         </li>
-                        {{/tasks}}
+                        <li class="nav-chapter">
+                            <a href="#//apple_ref/doc/uid/TP40014033-CH1-SW3">Getting the URL of the Asset</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -130,9 +132,9 @@
                         <div class="chevy chevron-right"></div>
                     </div>
                     <menu type="list" class="details">
-                        <!-- FIXME
                         <menuitem>
                             <span>Deployment Target:</span> 
+
                             <select id="deployment_target_ios" data-availability="8.0">
                                 <option value="999">Latest</option>
                                 <option value="8.0">iOS 8.0</option>
@@ -155,7 +157,6 @@
                             </select>
                         </menuitem>
                         <br />
-                        -->
                         <menuitem>
                             <input id="deprecated" type="checkbox" name="deprecated" />
                             <label for="deprecated">
@@ -176,29 +177,30 @@
             </menu>
             <div class="rubber-band-gap"></div>
 
-            <h1 class="chapter-name">CKAsset</h1>
+            <h1 class="chapter-name">{{name}}</h1>
 
             <section id="reference_container">
                 <!--
                 <div class="important clear">
+
                     <aside class="aside">
-                        <p class="aside-title">Important</p>
+                        <p class="aside-title">Important
+                        </p>
                         <p class="para">This is a preliminary document for an API or technology in development. Apple is supplying this information to help you plan for the adoption of the technologies and programming interfaces described herein for use on Apple-branded products. This information is subject to change, and software implemented according to this document should be tested with final operating system software and final documentation. Newer versions of this document may be provided with future seeds of the API or technology.
                         </p>
+
                     </aside>
                 </div>
                 -->
 
                 <section class="z-class-description section">
                     <a name="//apple_ref/doc/uid/TP40014033-CH1-DontLinkElementID_1"></a>
-                    <p class="para">
-                        A <code class="code-voice">{{name}}</code> {{overview}}
-                        
-                    </p>
+                    {{> jazzy/partials/klass-overview }}
                 </section>
 
-                <!-- FIXME
+
                 <section id="metadata_table">
+
                     <div class="inheritance">
                         <p class="para">Inheritance</p>
                         <hr />
@@ -208,6 +210,7 @@
                                     <a href="../../../Cocoa/Reference/Foundation/Classes/NSObject_Class/index.html#//apple_ref/swift/cl/NSObject">NSObject</a>
                                 </code>
                             </li>
+
                             <li class="depth5 subclass">
                                 <code class="code-voice">CKAsset</code>
                             </li>
@@ -219,9 +222,7 @@
                                 </code>
                             </li>
                             <li class="depth5 subclass">
-                                <code class="code-voice">
-                                    CKAsset
-                                </code>
+                                <code class="code-voice">CKAsset</code>
                             </li>
                         </ul>
                     </div>
@@ -231,7 +232,9 @@
                         <hr />
                         <ul>
                             <li class="Swift">
-                                <code class="code-voice"></code>
+                                <code class="code-voice">
+                                    <!-- a logicalPath='//apple_ref/swift/intf/AnyObject' href='' data-id='//apple_ref/swift/intf/AnyObject'-->AnyObject<!-- /a -->
+                                </code>
                             </li>
                             <li class="Swift">
                                 <code class="code-voice">
@@ -239,7 +242,9 @@
                                 </code>
                             </li>
                             <li class="Swift">
-                                <code class="code-voice"></code>
+                                <code class="code-voice">
+                                    <!-- a logicalPath='//apple_ref/swift/intf/CVarArg' href='' data-id='//apple_ref/swift/intf/CVarArg'-->CVarArg<!-- /a -->
+                                </code>
                             </li>
                             <li class="Swift">
                                 <code class="code-voice">
@@ -247,7 +252,9 @@
                                 </code>
                             </li>
                             <li class="Swift">
-                                <code class="code-voice"></code>
+                                <code class="code-voice">
+                                    <!-- a logicalPath='//apple_ref/swift/intf/Hashable' href='' data-id='//apple_ref/swift/intf/Hashable'-->Hashable<!-- /a -->
+                                </code>
                             </li>
                             <li class="Swift">
                                 <code class="code-voice">
@@ -279,115 +286,24 @@
                     </div>
 
                 </section>
-                -->
+
+
                 <section class="section task-group-section">
-                    <a name="task-{{name}}"></a>
-                    {{#tasks}}
+                    <a name="//apple_ref/doc/uid/TP40014033-CH1-DontLinkElementID_2"></a>
                     <div class="task-group">
                         <div class="task-name-container">
-                            <a name="task-{{shortname}}"></a>
-                            <a href="#task-{{shortname}}">
-                                <h3 class="section-name">{{name}}</h3>
+                            <a name="//apple_ref/doc/uid/TP40014033-CH1-SW3"></a>
+                            <a href="#//apple_ref/doc/uid/TP40014033-CH1-SW3">
+                                <h3 class="section-name">Getting the URL of the Asset</h3>
                             </a>
                         </div>
                         <ul class="task-group-list">
-                            {{#symbols}}
-                            <!-- FIXME
-                            <li class="item symbol" data-availability="8.0">
-                            -->
-                            <li class="item symbol">
-                                <div class="task-group-term">
-                                    <code class="code-voice">
-                                        <!-- FIXME
-                                        <a name="//apple_ref/occ/instm/CKAsset/initWithFileURL:"></a><a name="//apple_ref/doc/uid/TP40014033-CH1-SW4"></a><a name="//apple_ref/swift/instctr/CKAsset/fileURL(NSURL!)"></a>
-                                        -->
-                                        <a class="{{css2}} Swift" href="#children-{{signature.objc}}" title="{{title}}">{{signature.swift}}</a>
-                                        <a class="{{css2}} Objective-C" href="#children-{{signature.objc}}" title="{{title}}">{{signature.objc}}</a>
-                                    </code>
-                                </div>
-
-                                <div class="height-container">
-                                    <div class="pointy-thing-container"></div>
-                                    <section class="section {{css}}">
-                                        <div class="pointy-thing"></div>
-
-                                        <div class="abstract">
-                                            <p class="para">
-                                                {{abstract}}
-                                            </p>
-                                        </div>
-
-                                        <div class="declaration">
-                                            <h4>Declaration</h4>
-
-                                            <div class="Swift">
-                                                <p class="aside-title">Swift</p>
-                                                <p class="para">
-                                                    <code class="code-voice">{{declaration.swift}}</code>
-                                                </p>
-                                            </div>
-
-                                            <div class="Objective-C">
-                                                <p class="aside-title">Objective-C</p>
-                                                <p class="para">
-                                                    <code class="code-voice">{{declaration.objc}}</code>
-                                                </p>
-                                            </div>
-                                        </div>
-
-                                        {{#parameters}}
-                                        <div class="parameters">
-                                            <h4>Parameters</h4>
-                                            <table class="graybox" border="0" cellspacing="0" cellpadding="5">
-                                                <tbody>
-                                                    {{#params}}
-                                                    <tr>
-                                                        <td scope="row">
-                                                            <code class="code-voice">
-                                                                <em class="term">{{term}}</em>
-                                                            </code>
-                                                        </td>
-                                                        </td>
-                                                        <td>
-                                                            <div class="definition">
-                                                                <p class="para">
-                                                                    {{definition}}
-                                                                </p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    {{/params}}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        {{/parameters}}
-
-                                        <div class="result-description">
-                                            <h4>Return Value</h4>
-                                            <p class="para">
-                                                {{result}}
-                                            </p>
-
-                                        </div>
-
-                                        <div class="discussion">
-                                            <h4>Discussion</h4>
-                                            <p class="para">
-                                                {{discussion}}
-                                            </p>
-                                        </div>
-
-                                        <!-- FIXME
-                                        <div class="availability">
-                                            <h4>Availability</h4>
-                                            <p class="para availability-item">Available in iOS 8.0 and later.</p>
-                                        </div>
-                                        -->
-
-                                    </section>
-                                </div>
-                            </li>
-                            {{/symbols}}
+                            {{#methods}}
+                                {{> jazzy/partials/klass-method}}
+                            {{/methods}}
+                            {{#properties}}
+                                {{> jazzy/partials/klass-property}}
+                            {{/properties}}
                             <li class="hiding-symbol-counts">
                                 <p><em class="hiding-swift"></em>
                                 </p>
@@ -400,24 +316,29 @@
                             </li>
                         </ul>
                     </div>
-                    {{/tasks}}
                 </section>
+
+
             </section>
 
+            
             <section id="next_previous">
-                <!-- FIXME
                 <p class="copyright">Copyright &#x00a9; 2014 Apple Inc. All rights reserved.
                     <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank" rel="external">Terms of Use</a> |
                     <a class="link" href="http://www.apple.com/privacy/" target="_blank" rel="external">Privacy Policy</a> | Updated: 2014-05-22
                 </p>
-                -->
             </section>
             
         </article>
 
     </div>
     <footer id="footer">
+        <div class="content-wrapper">
+            <div id="leave_feedback" class="button" role="button" tabindex="0">Feedback</div>
+        </div>
         <script src="JavaScript/devpubs-1.1.15.js" type="text/javascript" charset="utf-8"></script>
     </footer>
+
+
 </body>
 </html>
