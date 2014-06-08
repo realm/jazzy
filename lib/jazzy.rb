@@ -45,6 +45,21 @@ class Jazzy
 			paras = []; e.xpath("./Discussion/Para").each {|p| paras << p.text.strip }
 			klass[:discussion] = paras.join("\n\n")
 		end
+
+		# Inherits
+		klass[:inherits] = []
+		map["key.inherits"].each do |i|
+			klass[:inherits] << { usr: i["key.usr"], name: i["key.name"] }
+		end
+
+		# Conforms to
+		klass[:conforms] = []
+		map["key.conforms"].each do |c|
+			klass[:conforms] << { usr: c["key.usr"], name: c["key.name"] }
+		end
+
+		# Import
+		klass[:import] = swift.split("\n")[0].chomp.gsub('import ', '')
 		
 		# Fill in Properties
 		klass[:properties] = []

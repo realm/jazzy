@@ -205,24 +205,28 @@
                         <p class="para">Inheritance</p>
                         <hr />
                         <ul class="Swift">
+                            {{#inherits}}
                             <li class="depth4">
                                 <code class="code-voice">
-                                    <a href="../../../Cocoa/Reference/Foundation/Classes/NSObject_Class/index.html#//apple_ref/swift/cl/NSObject">NSObject</a>
+                                    <a href="{{usr}}">{{name}}</a>
                                 </code>
                             </li>
+                            {{/inherits}}
 
                             <li class="depth5 subclass">
-                                <code class="code-voice">CKAsset</code>
+                                <code class="code-voice">{{name}}</code>
                             </li>
                         </ul>
                         <ul class="Objective-C">
+                            {{#inherits}}
                             <li class="depth4">
                                 <code class="code-voice">
-                                    <a href="../../../Cocoa/Reference/Foundation/Classes/NSObject_Class/index.html#//apple_ref/occ/cl/NSObject">NSObject</a>
+                                    <a href="{{usr}}">{{name}}</a>
                                 </code>
                             </li>
+                            {{/inherits}}
                             <li class="depth5 subclass">
-                                <code class="code-voice">CKAsset</code>
+                                <code class="code-voice">{{name}}</code>
                             </li>
                         </ul>
                     </div>
@@ -231,36 +235,13 @@
                         <p class="para">Conforms To</p>
                         <hr />
                         <ul>
+                            {{#conforms}}
                             <li class="Swift">
                                 <code class="code-voice">
-                                    <!-- a logicalPath='//apple_ref/swift/intf/AnyObject' href='' data-id='//apple_ref/swift/intf/AnyObject'-->AnyObject<!-- /a -->
+                                    {{name}}
                                 </code>
                             </li>
-                            <li class="Swift">
-                                <code class="code-voice">
-                                    <a href="../CKRecordValue_protocol/index.html#//apple_ref/swift/intf/CKRecordValue" data-id="//apple_ref/swift/intf/CKRecordValue">CKRecordValue</a>
-                                </code>
-                            </li>
-                            <li class="Swift">
-                                <code class="code-voice">
-                                    <!-- a logicalPath='//apple_ref/swift/intf/CVarArg' href='' data-id='//apple_ref/swift/intf/CVarArg'-->CVarArg<!-- /a -->
-                                </code>
-                            </li>
-                            <li class="Swift">
-                                <code class="code-voice">
-                                    <a href="../../../General/Reference/SwiftStandardLibraryReference/Equatable.html#//apple_ref/swift/intf/Equatable" data-id="//apple_ref/swift/intf/Equatable">Equatable</a>
-                                </code>
-                            </li>
-                            <li class="Swift">
-                                <code class="code-voice">
-                                    <!-- a logicalPath='//apple_ref/swift/intf/Hashable' href='' data-id='//apple_ref/swift/intf/Hashable'-->Hashable<!-- /a -->
-                                </code>
-                            </li>
-                            <li class="Swift">
-                                <code class="code-voice">
-                                    <a href="../../../Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/index.html#//apple_ref/swift/intf/NSObjectProtocol" data-id="//apple_ref/swift/intf/NSObjectProtocol">NSObjectProtocol</a>
-                                </code>
-                            </li>
+                            {{/conforms}}
                             <li class="Objective-C">
                                 <code class="code-voice">
                                     <a href="../../../Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/index.html#//apple_ref/occ/intf/NSObject" data-id="//apple_ref/occ/intf/NSObject">NSObject</a>
@@ -273,8 +254,8 @@
                         <div class="z-module-import half">
                             <p class="para">Import Statement</p>
                             <hr />
-                            <code class="code-voice Swift">import CloudKit</code>
-                            <code class="code-voice Objective-C">@import CloudKit;</code>
+                            <code class="code-voice Swift">import {{import}}</code>
+                            <code class="code-voice Objective-C">@import {{import}};</code>
                         </div>
 
                         <div class="z-reference-info-availability half">
