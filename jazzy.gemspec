@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Jazzy
-  VERSION = '0.0.1'
+  VERSION = '0.0.2'
 end
 
 Gem::Specification.new do |spec|
@@ -16,12 +16,10 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   << 'jazzy'
-  spec.executables   << 'ASTDump'
-  spec.executables   << 'SwiftHeader'
 
   spec.add_runtime_dependency 'mustache', '~> 0.99.5'
   spec.add_runtime_dependency 'activesupport', '~> 4.1.1'
-  spec.add_runtime_dependency 'redcarpet', '~> 4.1.1'
+  spec.add_runtime_dependency 'redcarpet', '~> 3.1.2'
   spec.add_runtime_dependency 'nokogiri', '~> 1.6.2.1'
 
   spec.add_development_dependency "bundler", "~> 1.5"

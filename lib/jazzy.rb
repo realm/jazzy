@@ -80,7 +80,6 @@ class Jazzy
 			property[:discussion] = paras.join("\n\n") unless paras.length == 0
 			klass[:properties] << property
 		end
-		ap klass[:properties]
 
 		# Fill in Methods
 		klass[:methods] = []
@@ -110,7 +109,6 @@ class Jazzy
 
 			klass[:methods] << method
 		end
-		ap klass[:methods]
 
 		klass.render
 	end
@@ -127,7 +125,6 @@ end
 require 'mustache'
 require 'redcarpet'
 require 'nokogiri'
-require 'awesome_print'
 require 'json'
 require 'active_support/core_ext/hash/conversions'
 require 'date'
