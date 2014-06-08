@@ -16,6 +16,8 @@ Gem::Specification.new do |spec|
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   << 'jazzy'
+  spec.executables   << 'ASTDump'
+  spec.executables   << 'SwiftHeader'
 
   spec.add_runtime_dependency 'mustache', '~> 0.99.5'
   spec.add_runtime_dependency 'activesupport', '~> 4.1.1'

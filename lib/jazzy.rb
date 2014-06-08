@@ -10,9 +10,11 @@ class Jazzy
 	end
 
 	def self.document(path)
+		bin_path = File.expand_path(File.join( File.dirname(__FILE__),'../bin'))
+
 		klass = Jazzy::Klass.new
 
-		string = `./bin/generate_swift_header.sh #{path}`
+		string = `#{bin_path}/SwiftHeader #{path}`
 		a = string.split(/^\[/); swift = a[0]; map = "[\n"+a[-1]
 
 		map.gsub!(/(key.\w+):/,'"\1":')
@@ -31,7 +33,7 @@ class Jazzy
 			swiftmap[e["key.usr"]]["name"] = e["key.name"]
 		end
 
-		xml = `./bin/ASTDump #{path}`
+		xml = `#{bin_path}/ASTDump #{path}`
 
 		doc = Nokogiri::XML(xml)
 
