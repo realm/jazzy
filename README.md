@@ -1,4 +1,4 @@
-# :musical_note: :saxophone: jazzy :trumpet: :musical_note:
+## :musical_note: :saxophone: jazzy :trumpet: :musical_note:
 **a soulful way to generate docs for Swift & Objective-C**
 
 jazzy is a command-line utility that generates documentation for your Swift or Objective-C projects.
@@ -7,19 +7,19 @@ Instead of parsing your source files, jazzy hooks into clang and uses the [AST][
 
 jazzy’s output matches the look & feel of Apple’s official reference documentation, post WWDC 2014.
 
-## Requirements
+### Requirements
 
 Jazzy requires [Xcode 6 Beta](https://developer.apple.com/xcode/) to run.
 
-## Installing
+### Installing
 
 To install jazzy, run `[sudo] gem install jazzy` from your command line.
 
-## Usage
+### Usage
 
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional options.
 
-## Front-End TODO
+### Front-End TODO
 
 - Index generation
 - Instance/class method distinction
@@ -34,7 +34,7 @@ Run `jazzy` from your command line. Run `jazzy -h` for a list of additional opti
 - Generate docsets for Dash & Xcode
 - Pass in arbitrary Mustache templates
 
-## Parsing TODO
+### Parsing TODO
 
 - Swift files
 - `@name`
@@ -44,7 +44,7 @@ Run `jazzy` from your command line. Run `jazzy -h` for a list of additional opti
 - Enum's
 - Instance variables
 
-## Design Goals
+### Design Goals
 
 jazzy's main design goals are:
 
@@ -55,7 +55,7 @@ jazzy's main design goals are:
 - Leverage the power and accuracy of the [Clang AST][ast]
 - Compatibility with [appldoc](https://github.com/tomaz/appledoc) when possible
 
-## License
+### License
 
 This project is under the MIT license.
 
