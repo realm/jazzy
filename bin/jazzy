@@ -6,7 +6,8 @@ require 'optparse'
 
 options = {
   input: File.expand_path('.'),
-  output: File.expand_path('docs')
+  output: File.expand_path('docs'),
+  excludes: []
 }
 
 opt_parser = OptionParser.new do |opt|
