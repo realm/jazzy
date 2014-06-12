@@ -1,4 +1,4 @@
-## jazzy ♪♫
+## jazzy <sup>♪♫</sup>
 **a soulful way to generate docs for Swift & Objective-C**
 
 jazzy is a command-line utility that generates documentation for your Swift or Objective-C projects.
