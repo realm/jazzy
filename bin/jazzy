@@ -22,6 +22,10 @@ opt_parser = OptionParser.new do |opt|
     options[:output] = File.expand_path(output)
   end
 
+  opt.on("-e", "--exclude filepath1,filepath2,…filepathN", Array, "Exclude specific files") do |e|
+    options[:excludes] = e # path will be expanded after we’re sure the input has been stored
+  end
+
   opt.on("-h","--help","help") do
     puts opt_parser
   end
@@ -29,7 +33,9 @@ end
 
 opt_parser.parse!
 
-paths = Jazzy.headers(options[:input])
+options[:excludes] = options[:excludes].map { |p| File.expand_path(File.join(options[:input], p)) }
+
+paths = Jazzy.headers(options[:input]) - options[:excludes]
 
 FileUtils.rm_r options[:output] if File.directory?(options[:output]); Dir.mkdir options[:output]
 

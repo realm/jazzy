@@ -15,85 +15,118 @@ class Jazzy
 		klass = Jazzy::Klass.new
 
 		string = `#{bin_path}/SwiftHeader #{path}`
-		a = string.split(/^\[/); swift = a[0]; map = "[\n"+a[-1]
+		a = string.split(/^\[/); swift = a[0]; rawmap = "[\n"+a[-1]
 
-		map.gsub!(/(key.\w+):/,'"\1":')
-		map.gsub!(/(source..+),/,'"\1",')
+		rawmap.gsub!(/(key.\w+):/,'"\1":')
+		rawmap.gsub!(/(source..+),/,'"\1",')
 
-		#print map
-		#gets
-
-		map = JSON.parse(map)[0]
-
-		swiftmap = {}
-
-		map["key.entities"].each do |e|
-			swiftmap[e["key.usr"]] = {}
-			swiftmap[e["key.usr"]]["declaration"] = swift.byteslice(e["key.offset"], e["key.length"])
-			swiftmap[e["key.usr"]]["name"] = e["key.name"]
-		end
 
 		xml = `#{bin_path}/ASTDump #{path}`
 
 		doc = Nokogiri::XML(xml)
 
+		results = doc.xpath("//*[@file='#{path}']")
+
+		#results = doc.find_all { |node| node.attribute("file") && node.attribute("file").strip.chomp == path.strip.chomp }
 		# Fill in Overview
-		doc.xpath("//Other[1]").each do |e|
-			klass[:name] = e.xpath("Name").text
-			klass[:usr] = e.xpath("USR").text
-			klass[:declaration] = {}
-			klass[:declaration][:objc] = e.xpath("Declaration").text.strip
-			klass[:abstract] = e.xpath("Abstract/Para").text.strip
-			paras = []; e.xpath("./Discussion/Para").each {|p| paras << p.text.strip }
-			klass[:discussion] = paras.join("\n\n")
+		top = results.first
+			#next if e.attribute("file") && e.attribute("file").text != path
+		#print top
+		#exit
+		klass[:name] = top.xpath("Name").text
+		klass[:usr] = top.xpath("USR").text
+		klass[:declaration] = {}
+		klass[:declaration][:objc] = top.xpath("Declaration").text.strip
+		klass[:abstract] = top.xpath("Abstract/Para").text.strip
+		paras = []; top.xpath("./Discussion/Para").each {|p| paras << p.text.strip }
+		klass[:discussion] = paras.join("\n\n")
+
+		# Only usable if Swift Header can be correctly generated
+		unless rawmap.include? "<<NULL>>"
+
+			swiftmap = {}
+			map = {}
+
+			JSON.parse(rawmap).each do |element|
+
+				next unless element["key.name"].downcase == klass[:name].downcase
+
+				# more than one matching element?
+
+				element["key.entities"].each do |e|
+					swiftmap[e["key.usr"]] = {}
+					swiftmap[e["key.usr"]]["declaration"] = swift.byteslice(e["key.offset"], e["key.length"])
+					swiftmap[e["key.usr"]]["name"] = e["key.name"]
+				end
+
+				# Inherits
+				klass[:inherits] = [] 
+				element["key.inherits"].each { |i| klass[:inherits] << { usr: i["key.usr"], name: i["key.name"] } } unless map["key.inherits"].nil?
+
+				# Conforms to
+				klass[:conforms] = []
+				element["key.conforms"].each { |c| klass[:conforms] << { usr: c["key.usr"], name: c["key.name"] } } unless map["key.conforms"].nil?
+			end
 		end
 
-		# Inherits
-		klass[:inherits] = []
-		map["key.inherits"].each do |i|
-			klass[:inherits] << { usr: i["key.usr"], name: i["key.name"] }
-		end
 
-		# Conforms to
-		klass[:conforms] = []
-		map["key.conforms"].each do |c|
-			klass[:conforms] << { usr: c["key.usr"], name: c["key.name"] }
-		end
+
 
 		# Import
 		klass[:import] = swift.split("\n")[0].chomp.gsub('import ', '')
 		
 		# Fill in Properties
 		klass[:properties] = []
-		doc.xpath("//Other[position()>1]").each do |e|
+
+		results[1..-1].each do |e|
+			next unless e.name == "Other"
 			property = {}
 			property[:usr] = e.xpath("USR").text
 			property[:name] = {}
 			property[:name][:objc] = e.xpath("Name").text
-			property[:name][:swift] = swiftmap[property[:usr]]["name"]
+			if !swiftmap.nil? && swiftmap[property[:usr]]
+				property[:name][:swift] = swiftmap[property[:usr]]["name"]
+			else
+				property[:name][:swift] = "Could not be generated"
+			end
 			property[:term] = property[:usr]
 			property[:declaration] = {}
 			property[:declaration][:objc] = e.xpath("Declaration").text.strip
-			property[:declaration][:swift] = swiftmap[property[:usr]]["declaration"]
+			if !swiftmap.nil? && swiftmap[property[:usr]]
+				property[:declaration][:swift] = swiftmap.nil?
+			else
+				property[:declaration][:swift] = "Could not be generated"
+			end
 			property[:abstract] = e.xpath("Abstract/Para").text.strip
 			paras = []; e.xpath("Discussion/Para").each {|p| paras << p.text.strip }
 			property[:discussion] = paras.join("\n\n") unless paras.length == 0
 			klass[:properties] << property
 		end
 
+		#puts klass[:properties]
+
 		# Fill in Methods
 		klass[:methods] = []
-		doc.xpath("//Function").each do |e|
+		results[1..-1].each do |e|
+			next unless e.name == "Function"
 			method = {}
 			method[:usr] = e.xpath("USR").text
 			method[:name] = {}
 			method[:name][:objc] = e.xpath("Name").text
-			method[:name][:swift] = swiftmap[method[:usr]]["name"]			
+			if !swiftmap.nil? && swiftmap[method[:usr]]
+				method[:name][:swift] = swiftmap[method[:usr]]["name"]
+			else
+				method[:name][:swift] = "Could not be generated"
+			end
 			next if method[:usr].include?('(py)')
 			method[:term] = method[:usr].split(')')[-1]
 			method[:declaration] = {}
 			method[:declaration][:objc] = e.xpath("Declaration").text
-			method[:declaration][:swift] = swiftmap[method[:usr]]["declaration"]
+			if !swiftmap.nil? && swiftmap[method[:usr]]
+				method[:declaration][:swift] = swiftmap[method[:usr]]["declaration"]
+			else
+				method[:declaration][:swift] = "Could not be generated"
+			end
 			method[:abstract] = e.xpath("Abstract/Para").text.strip
 			paras = []; e.xpath("Discussion/Para").each {|p| paras << p.text.strip }
 			method[:discussion] = paras.join("\n\n") unless paras.length == 0

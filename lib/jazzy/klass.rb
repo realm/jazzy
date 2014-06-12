@@ -14,7 +14,7 @@ class Jazzy::Klass < Mustache
   end
 
   def rendered_abstract_for_overview
-    self[:abstract].chop! + ' <a class="overview-bulk-toggle">More...</a>'
+    $markdown.render( self[:abstract].chop! + ' <a class="overview-bulk-toggle">More...</a>' )
   end
 
   def date
