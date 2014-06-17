@@ -53,7 +53,7 @@ jazzy's main design goals are:
 - High readability of source code comments
 - Leverage modern HTML templating ([Mustache](http://mustache.github.io))
 - Leverage the power and accuracy of the [Clang AST][ast]
-- Compatibility with [appldoc](https://github.com/tomaz/appledoc) when possible
+- Compatibility with [appledoc](https://github.com/tomaz/appledoc) when possible
 
 ### License
 
