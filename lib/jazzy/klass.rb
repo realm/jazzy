@@ -1,10 +1,6 @@
 class Jazzy::Klass < Mustache
   self.template_path = File.dirname(__FILE__) + '/..'
 
-  # def name
-  #   self[:root]["Other"][0]["Name"]
-  # end
-
   def rendered_abstract
     $markdown.render self[:abstract]
   end
