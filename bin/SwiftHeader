@@ -10,7 +10,7 @@ echo "module $module_name { header \"$header_file\" }" > $module_file
 sourcekitd_test='/Applications/Xcode6-Beta2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekitd-test'
 sdk='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk'
 
-# Print generated Swift header (full)
+# Print generated Swift header
 
 # Doc Info Version
 $sourcekitd_test -req=doc-info -module $module_name --  -I `pwd` -sdk $sdk
