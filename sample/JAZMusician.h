@@ -23,7 +23,7 @@
 
 /**
  Initialize a JAZMusician.
- Don't forget to have a name and an birthyear.
+ Don't forget to have a name and a birthyear.
  
  @warning Jazz can be addicting.
  Please be careful out there.

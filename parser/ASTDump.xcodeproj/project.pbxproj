@@ -8,9 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E80E07DE194125F400E2B0B5 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E80E07DD194125F400E2B0B5 /* libclang.dylib */; settings = {ATTRIBUTES = (Required, ); }; };
-		E80E07FA1941481800E2B0B5 /* JAZMusician.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E80E07F6194147EA00E2B0B5 /* JAZMusician.h */; };
 		E80E07FC1941488500E2B0B5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E80E07D4194125DB00E2B0B5 /* main.cpp */; };
-		E80E07FD1941494700E2B0B5 /* JAZMusician.m in Sources */ = {isa = PBXBuildFile; fileRef = E80E07F7194147EA00E2B0B5 /* JAZMusician.m */; };
+		E846E32819654CAC00B5569D /* JAZMusician.m in Sources */ = {isa = PBXBuildFile; fileRef = E846E32619654CAC00B5569D /* JAZMusician.m */; };
+		E846E32919654CAC00B5569D /* Musician.swift in Sources */ = {isa = PBXBuildFile; fileRef = E846E32719654CAC00B5569D /* Musician.swift */; };
+		E846E32A19654CBD00B5569D /* JAZMusician.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E846E32519654CAC00B5569D /* JAZMusician.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -20,7 +21,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				E80E07FA1941481800E2B0B5 /* JAZMusician.h in CopyFiles */,
+				E846E32A19654CBD00B5569D /* JAZMusician.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -37,8 +38,9 @@
 		E80E07EE1941280000E2B0B5 /* Documentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Documentation.h; sourceTree = "<group>"; };
 		E80E07EF1941280000E2B0B5 /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		E80E07F11941280000E2B0B5 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
-		E80E07F6194147EA00E2B0B5 /* JAZMusician.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAZMusician.h; sourceTree = "<group>"; };
-		E80E07F7194147EA00E2B0B5 /* JAZMusician.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAZMusician.m; sourceTree = "<group>"; };
+		E846E32519654CAC00B5569D /* JAZMusician.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAZMusician.h; sourceTree = "<group>"; };
+		E846E32619654CAC00B5569D /* JAZMusician.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAZMusician.m; sourceTree = "<group>"; };
+		E846E32719654CAC00B5569D /* Musician.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Musician.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		E80E07C8194125DB00E2B0B5 = {
 			isa = PBXGroup;
 			children = (
+				E846E32419654CAC00B5569D /* sample */,
 				E80E07E91941280000E2B0B5 /* clang-c */,
 				E80E07DD194125F400E2B0B5 /* libclang.dylib */,
 				E80E07D3194125DB00E2B0B5 /* ASTDump */,
@@ -74,8 +77,6 @@
 		E80E07D3194125DB00E2B0B5 /* ASTDump */ = {
 			isa = PBXGroup;
 			children = (
-				E80E07F6194147EA00E2B0B5 /* JAZMusician.h */,
-				E80E07F7194147EA00E2B0B5 /* JAZMusician.m */,
 				E80E07D4194125DB00E2B0B5 /* main.cpp */,
 			);
 			path = ASTDump;
@@ -93,6 +94,17 @@
 				E80E07F11941280000E2B0B5 /* Platform.h */,
 			);
 			path = "clang-c";
+			sourceTree = "<group>";
+		};
+		E846E32419654CAC00B5569D /* sample */ = {
+			isa = PBXGroup;
+			children = (
+				E846E32519654CAC00B5569D /* JAZMusician.h */,
+				E846E32619654CAC00B5569D /* JAZMusician.m */,
+				E846E32719654CAC00B5569D /* Musician.swift */,
+			);
+			name = sample;
+			path = ../sample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,8 +159,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E80E07FD1941494700E2B0B5 /* JAZMusician.m in Sources */,
+				E846E32819654CAC00B5569D /* JAZMusician.m in Sources */,
 				E80E07FC1941488500E2B0B5 /* main.cpp in Sources */,
+				E846E32919654CAC00B5569D /* Musician.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
