@@ -1,325 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>{{name}} Class Reference</title>
     <link rel="stylesheet" type="text/css" href="CSS/style-1.1.15.css" />
     <meta charset='utf-8'>
-    <meta id="g-version" name="g-version" content="fe723145" />
-    <meta id="j-version" name="j-version" content="1.1.5" />
-    <meta id="build" name="build" content="f1aa04d1aa2f963cad215bcb4e8adc61" />
-    <meta id="document-version" name="document-version" content="1.0.4" />
-    <meta id="book-assignments" name="book-assignments" content="{Type/Reference}, {Framework/Core Services Layer/CloudKit}" />
-    <meta scheme="apple_ref" id="identifier" name="identifier" content="//apple_ref/doc/uid/TP40014033" />
-    <meta id="book-title" name="book-title" content="CKAsset Class Reference" />
-    <meta id="book-resource-type" name="book-resource-type" content="Reference" />
-    <meta id="book-root" name="book-root" content="./" />
-    <meta id="book-json" name="book-json" content="book.json">
-    <meta id="date" name="date" content="2014-05-22" />
-    <meta id="description" name="description" content="Describes a data file to be stored in iCloud." />
-    <meta id="IndexTitle" name="IndexTitle" content="" />
-
-    <meta id="devcenter" name="devcenter" content="<!-- DEVCENTER_NAME -->" />
-    <meta id="devcenter-url" name="devcenter-url" content="<!-- DEVCENTER_URL -->" />
-    <meta id="reflib" name="reflib" content="<!-- REFLIB_NAME -->" />
-
-    <meta id="xcode-display" name="xcode-display" content="render" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="viewport" content="width=device-width, maximum-scale=1.0">
-    <meta id="framework" name="framework" content="CloudKit" />
-</head>
-
-<body id="reference" class="jazz both">
-    <div id="_omniture_top">
-        <!-- SiteCatalyst code will be injected here when viewed in production -->
-    </div>
-    <a name="//apple_ref/doc/uid/TP40014033" title="{{name}} Class Reference"></a>
-
+    <meta id="book-title" name="book-title" content="{{name}} Class Reference" />
+  </head>
+  <body id="reference" class="jazz both">
+    <a title="{{name}} Class Reference"></a>
     <header id="ios_header" class="hideOnPrint hideInXcode">
-        <div class="content-wrapper">
-            <p class="header-text">
-                <a href="../../../../navigation/">iOS Developer Library</a>
-            </p>
-            <p id="wwdr">
-                <img id="apple_logo" src="Images/apple2.png" height="14px" width="12px" aria-hidden="true" /><a href="https://developer.apple.com">Developer</a>
-            </p>
-        </div>
+      <div class="content-wrapper">
+        <p class="header-text">
+          <a href="#">jazzy ♪♫</a>
+        </p>
+        <p id="wwdr">
+          <img id="apple_logo" src="Images/apple2.png" height="14px" width="12px" aria-hidden="true" /><a href="#">jazzy ♪♫</a>
+        </p>
+      </div>
     </header>
-
     <section id="valence">
-        <div class="content-wrapper">
-            <p id="hierarchial_navigation">
-                <a href="../CloudKit_Framework_Reference/index.html#//apple_ref/doc/uid/TP40014064" id="design_resources_link">Framework Reference</a>
-                <img id="carat" src="Images/carat_2x.png" height="10px" width="6px" aria-hidden="true" />
-                <span id="book_title">{{name}} Class Reference</span>
-            </p>
-            <form id="search" class="hideInXcode" method="get" action="../../../../search/" accept-charset="utf-8" autocomplete="off">
-                <input type="search" id="ssi_SearchField" placeholder="Search iOS Developer Library" name="q" autocomplete="off" tabindex="2" />
-            </form>
-
-            <img id="shortstack" src="Images/shortstack_2x.png" />
-        </div>
+      <div class="content-wrapper">
+        <p id="hierarchial_navigation">
+          <a href="#" id="design_resources_link">Jazzy Docs</a>
+          <img id="carat" src="Images/carat_2x.png" height="10px" width="6px" aria-hidden="true" />
+          <span id="book_title">{{name}} Class Reference</span>
+        </p>
+        <img id="shortstack" src="Images/shortstack_2x.png" />
+      </div>
     </section>
     <div class="content-wrapper">
-        <nav class='book-parts hideInXcode'>
-            <ul class="nav-parts">
-                <li class="part-name tasks">
-
-                    Tasks
-                
-                    <!--FIXME-->
-                    <ul class="nav-chapters">
-                        <li class="nav-chapter">
-                            <a href="#//apple_ref/doc/uid/TP40014033-CH1-SW5">Initializing an Asset</a>
-                        </li>
-                        <li class="nav-chapter">
-                            <a href="#//apple_ref/doc/uid/TP40014033-CH1-SW3">Getting the URL of the Asset</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <article class="chapter">
-            <a name="//apple_ref/doc/uid/TP40014033-CH1"></a>
-            <a name="//apple_ref/doc/uid/TP40014033-CH1-SW2"></a>
-            <a name="//apple_ref/occ/cl/CKAsset"></a>
-            <a name="//apple_ref/swift/cl/CKAsset"></a>
-            <a name="//apple_ref/doc/c_ref/CKAsset"></a>
-            <div class="pixel-line"></div>
-
-            <menu id="bashful" type="toolbar">
-                <div class="shield"></div>
-                <menuitem id="language">
-                    <span>Language:</span> 
-                    <input id="swift" type="radio" name="li" value="Swift" />
-                    <label for="swift">Swift</label>
-                    <input id="obj_c" type="radio" name="li" value="Objective-C" />
-                    <label for="obj_c">Obj-C</label>
-                    <input id="both" type="radio" name="li" value="both" />
-                    <label for="both" class="selected">Both</label>
-                </menuitem>
-                <menuitem id="jump_to" class="menu-bar-item closed">
-                    <span>On This Page</span>
-                    <div class="chevron">
-                        <div class="chevy chevron-left"></div>
-                        <div class="chevy chevron-right"></div>
-                    </div>
-                    <menu type="list" class="details">
-                        <input class="filter" type="search" placeholder="Filter list of symbols" autocorrect="off" spellcheck="false" tabindex="1" />
-                        <span id="filter_matches" role="status" aria-live="polite"></span>
-                        <ul class="list-bullet Objective-C">
-                            <li class="item">
-                                <a class="otp-indent" href="#//apple_ref/occ/instp/CKAsset/fileURL">fileURL</a>
-                            </li>
-                            <li class="item">
-                                <a href="#//apple_ref/occ/instm/CKAsset/initWithFileURL:">- initWithFileURL:</a>
-                            </li>
-                        </ul>
-                        <ul class="list-bullet Swift">
-                            <li class="item">
-                                <a class="otp-indent" href="#//apple_ref/occ/instp/CKAsset/fileURL">fileURL</a>
-                            </li>
-                            <li class="item">
-                                <a class="otp-indent" href="#//apple_ref/occ/instm/CKAsset/initWithFileURL:">init(fileURL:)</a>
-                            </li>
-                        </ul>
-                    </menu>
-                </menuitem>
-                <menuitem id="options" class="menu-bar-item closed">
-                    <span>Options</span>
-                    <div class="chevron">
-                        <div class="chevy chevron-left"></div>
-                        <div class="chevy chevron-right"></div>
-                    </div>
-                    <menu type="list" class="details">
-                        <menuitem>
-                            <span>Deployment Target:</span> 
-
-                            <select id="deployment_target_ios" data-availability="8.0">
-                                <option value="999">Latest</option>
-                                <option value="8.0">iOS 8.0</option>
-                                <option value="7.1" disabled>iOS 7.1</option>
-                                <option value="7.0" disabled>iOS 7.0</option>
-                                <option value="6.1" disabled>iOS 6.1</option>
-                                <option value="6.0" disabled>iOS 6.0</option>
-                                <option value="5.1" disabled>iOS 5.1</option>
-                                <option value="5.0" disabled>iOS 5.0</option>
-                                <option value="4.3" disabled>iOS 4.3</option>
-                                <option value="4.2" disabled>iOS 4.2</option>
-                                <option value="4.1" disabled>iOS 4.1</option>
-                                <option value="4.0" disabled>iOS 4.0</option>
-                                <option value="3.2" disabled>iOS 3.2</option>
-                                <option value="3.1" disabled>iOS 3.1</option>
-                                <option value="3.0" disabled>iOS 3.0</option>
-                                <option value="2.2" disabled>iOS 2.2</option>
-                                <option value="2.1" disabled>iOS 2.1</option>
-                                <option value="2.0" disabled>iOS 2.0</option>
-                            </select>
-                        </menuitem>
-                        <br />
-                        <menuitem>
-                            <input id="deprecated" type="checkbox" name="deprecated" />
-                            <label for="deprecated">
-                                Hide deprecated symbols
-                                <span class="keyboard-shortcut" title="Keyboard shortcut: D">D</span>
-                            </label>
-                        </menuitem>
-                        <br />
-                        <menuitem>
-                            <input id="auto_expand" type="checkbox" name="auto_expand" />
-                            <label for="auto_expand">
-                                Auto-expand all symbols
-                                <span class="keyboard-shortcut" title="Keyboard shortcut: A">A</span>
-                            </label>
-                        </menuitem>
-                    </menu>
-                </menuitem>
+      <nav class='book-parts hideInXcode'>
+        <ul class="nav-parts">
+          <li class="part-name tasks">No Tasks</li>
+        </ul>
+      </nav>
+      <article class="chapter">
+        <div class="pixel-line"></div>
+        <menu id="bashful" type="toolbar">
+          <div class="shield"></div>
+          <menuitem id="language">
+            <span>Language:</span>
+            <input id="swift" type="radio" name="li" value="Swift" />
+            <label for="swift">Swift</label>
+            <input id="obj_c" type="radio" name="li" value="Objective-C" />
+            <label for="obj_c">Obj-C</label>
+            <input id="both" type="radio" name="li" value="both" />
+            <label for="both" class="selected">Both</label>
+          </menuitem>
+          <menuitem id="jump_to" class="menu-bar-item closed">
+            <menu type="list" class="details">
+              <input class="filter" type="search"/>
             </menu>
-            <div class="rubber-band-gap"></div>
-
-            <h1 class="chapter-name">{{name}}</h1>
-
-            <section id="reference_container">
-                <!--
-                <div class="important clear">
-
-                    <aside class="aside">
-                        <p class="aside-title">Important
-                        </p>
-                        <p class="para">This is a preliminary document for an API or technology in development. Apple is supplying this information to help you plan for the adoption of the technologies and programming interfaces described herein for use on Apple-branded products. This information is subject to change, and software implemented according to this document should be tested with final operating system software and final documentation. Newer versions of this document may be provided with future seeds of the API or technology.
-                        </p>
-
-                    </aside>
-                </div>
-                -->
-
-                <section class="z-class-description section">
-                    <a name="//apple_ref/doc/uid/TP40014033-CH1-DontLinkElementID_1"></a>
-                    {{> jazzy/partials/klass-overview }}
-                </section>
-
-
-                <section id="metadata_table">
-
-                    <div class="inheritance">
-                        <p class="para">Inheritance</p>
-                        <hr />
-                        <ul class="Swift">
-                            {{#inherits}}
-                            <li class="depth4">
-                                <code class="code-voice">
-                                    <a href="{{usr}}">{{name}}</a>
-                                </code>
-                            </li>
-                            {{/inherits}}
-
-                            <li class="depth5 subclass">
-                                <code class="code-voice">{{name}}</code>
-                            </li>
-                        </ul>
-                        <ul class="Objective-C">
-                            {{#inherits}}
-                            <li class="depth4">
-                                <code class="code-voice">
-                                    <a href="{{usr}}">{{name}}</a>
-                                </code>
-                            </li>
-                            {{/inherits}}
-                            <li class="depth5 subclass">
-                                <code class="code-voice">{{name}}</code>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="conforms-to">
-                        <p class="para">Conforms To</p>
-                        <hr />
-                        <ul>
-                            {{#conforms}}
-                            <li class="Swift">
-                                <code class="code-voice">
-                                    {{name}}
-                                </code>
-                            </li>
-                            {{/conforms}}
-                            <li class="Objective-C">
-                                <code class="code-voice">
-                                    <a href="../../../Cocoa/Reference/Foundation/Protocols/NSObject_Protocol/index.html#//apple_ref/occ/intf/NSObject" data-id="//apple_ref/occ/intf/NSObject">NSObject</a>
-                                </code>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="last-box">
-                        <div class="z-module-import half">
-                            <p class="para">Import Statement</p>
-                            <hr />
-                            <code class="code-voice Swift">import {{import}}</code>
-                            <code class="code-voice Objective-C">@import {{import}};</code>
-                        </div>
-
-                        <div class="z-reference-info-availability half">
-                            <p class="para">Availability</p>
-                            <hr />
-                            <span>Available in iOS 8.0 and later.</span>
-                            <br />
-                        </div>
-                    </div>
-
-                </section>
-
-
-                <section class="section task-group-section">
-                    <a name="//apple_ref/doc/uid/TP40014033-CH1-DontLinkElementID_2"></a>
-                    <div class="task-group">
-                        <div class="task-name-container">
-                            <a name="//apple_ref/doc/uid/TP40014033-CH1-SW3"></a>
-                            <a href="#//apple_ref/doc/uid/TP40014033-CH1-SW3">
-                                <h3 class="section-name">Getting the URL of the Asset</h3>
-                            </a>
-                        </div>
-                        <ul class="task-group-list">
-                            {{#methods}}
-                                {{> jazzy/partials/klass-method}}
-                            {{/methods}}
-                            {{#properties}}
-                                {{> jazzy/partials/klass-property}}
-                            {{/properties}}
-                            <li class="hiding-symbol-counts">
-                                <p><em class="hiding-swift"></em>
-                                </p>
-                                <p><em class="hiding-obj-c"></em>
-                                </p>
-                                <p><em class="hiding-dep"></em>
-                                </p>
-                                <p><em class="hiding-dt"></em>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-
-
-            </section>
-
-            
-            <section id="next_previous">
-                <p class="copyright">Copyright &#x00a9; 2014 Apple Inc. All rights reserved.
-                    <a class="link" href="http://www.apple.com/legal/terms/site.html" target="_blank" rel="external">Terms of Use</a> |
-                    <a class="link" href="http://www.apple.com/privacy/" target="_blank" rel="external">Privacy Policy</a> | Updated: 2014-05-22
-                </p>
-            </section>
-            
-        </article>
-
+          </menuitem>
+          <menuitem id="options" class="menu-bar-item closed">
+          </menuitem>
+        </menu>
+        <div class="rubber-band-gap"></div>
+        <h1 class="chapter-name">{{name}}</h1>
+        <section id="reference_container">
+          <section class="z-class-description section">
+            {{> jazzy/partials/klass-overview }}
+          </section>
+          <section id="metadata_table">
+            <div class="inheritance">
+              <p class="para">Inheritance</p>
+              <hr />
+              <ul class="Swift">
+                {{#inherits}}
+                <li class="depth4">
+                  <code class="code-voice">
+                    <a href="{{usr}}">{{name}}</a>
+                  </code>
+                </li>
+                {{/inherits}}
+                <li class="depth5 subclass">
+                  <code class="code-voice">{{name}}</code>
+                </li>
+              </ul>
+              <ul class="Objective-C">
+                {{#inherits}}
+                <li class="depth4">
+                  <code class="code-voice">
+                    <a href="{{usr}}">{{name}}</a>
+                  </code>
+                </li>
+                {{/inherits}}
+                <li class="depth5 subclass">
+                  <code class="code-voice">{{name}}</code>
+                </li>
+              </ul>
+            </div>
+            <div class="conforms-to">
+              <p class="para">Conforms To</p>
+              <hr />
+              <ul>
+                {{#conforms}}
+                <li class="Swift">
+                  <code class="code-voice">
+                  {{name}}
+                  </code>
+                </li>
+                {{/conforms}}
+                <li class="Objective-C">
+                  <code class="code-voice">
+                    <a href="#">NSObject</a>
+                  </code>
+                </li>
+              </ul>
+            </div>
+            <div class="last-box">
+              <div class="z-module-import half">
+                <p class="para">Import Statement</p>
+                <hr />
+                <code class="code-voice Swift">import {{import}}</code>
+                <code class="code-voice Objective-C">@import {{import}};</code>
+              </div>
+            </div>
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <h3 class="section-name">Methods</h3>
+              </div>
+              <ul class="task-group-list">
+                {{#methods}}
+                {{> jazzy/partials/klass-method}}
+                {{/methods}}
+                {{#properties}}
+                {{> jazzy/partials/klass-property}}
+                {{/properties}}
+                <li class="hiding-symbol-counts">
+                  <p><em class="hiding-swift"></em>
+                  </p>
+                  <p><em class="hiding-obj-c"></em>
+                  </p>
+                  <p><em class="hiding-dep"></em>
+                  </p>
+                  <p><em class="hiding-dt"></em>
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+      </article>
     </div>
-    <footer id="footer">
-        <div class="content-wrapper">
-            <div id="leave_feedback" class="button" role="button" tabindex="0">Feedback</div>
-        </div>
-        <script src="JavaScript/devpubs-1.1.15.js" type="text/javascript" charset="utf-8"></script>
-    </footer>
-
-
-</body>
+    <script src="JavaScript/devpubs-1.1.15.js" type="text/javascript" charset="utf-8"></script>
+  </body>
 </html>

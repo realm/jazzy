@@ -7,7 +7,7 @@ module_file='module.modulemap'
 echo "module $module_name { header \"$header_file\" }" > $module_file
 
 # Locations of sourcekitd-test and sdk
-sourcekitd_test='/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekitd-test'
+sourcekitd_test='/Applications/Xcode6-Beta2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekitd-test'
 sdk='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk'
 
 # Print generated Swift header (full)
