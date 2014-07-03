@@ -19,31 +19,6 @@ To install jazzy, run `[sudo] gem install jazzy` from your command line.
 
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional options.
 
-### Front-End TODO
-
-- Index generation
-- Instance/class method distinction
-- Class inheritance, conforms, import, availability
-- Syntax Highlighting
-- Cross-linking
-- Search in page
-- Handle availability options
-- Inline code examples
-- Unit tests
-- Lists (unordered/ordered)
-- Generate docsets for Dash & Xcode
-- Pass in arbitrary Mustache templates
-
-### Parsing TODO
-
-- Swift files
-- `@name`
-- `@warning`
-- `@see`
-- Unit tests
-- Enum's
-- Instance variables
-
 ### Design Goals
 
 jazzy's main design goals are:
@@ -59,4 +34,4 @@ jazzy's main design goals are:
 
 This project is under the MIT license.
 
-[ast]: http://clang.llvm.org/docs/IntroductionToTheClangAST.html  "Introduction To The Clang AST"
+[ast]: http://clang.llvm.org/docs/IntroductionToTheClangAST.html "Introduction To The Clang AST"
