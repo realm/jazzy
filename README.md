@@ -11,7 +11,8 @@ jazzy’s output matches the look & feel of Apple’s official reference documen
 
 ### Requirements
 
-Jazzy requires [Xcode 6 Beta](https://developer.apple.com/xcode/) to run.
+* [Xcode 6 (Beta 2)](https://developer.apple.com/xcode)
+* `xcode-select -p` should print Xcode 6's path. If it doesn't, run `sudo xcode-select -s /Applications/Xcode6-Beta2.app/Contents/Developer`
 
 ### Installing
 
