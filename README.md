@@ -7,6 +7,8 @@ Instead of parsing your source files, jazzy hooks into clang and uses the [AST][
 
 jazzy’s output matches the look & feel of Apple’s official reference documentation, post WWDC 2014.
 
+![Screenshot](screenshot.jpg)
+
 ### Requirements
 
 Jazzy requires [Xcode 6 Beta](https://developer.apple.com/xcode/) to run.
