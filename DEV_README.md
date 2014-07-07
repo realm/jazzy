@@ -21,3 +21,15 @@ Then, move the resulting ASTDump binary to `bin/ASTDump`. This will make it avai
 Run `bundle install` from the command line. This will install all the gems required to run jazzy.
 
 To run jazzy locally, use the following command: `ruby -Ilib bin/jazzy`. This instructs ruby to load the local `lib` directory, which will cause jazzy to find all its necessary file dependencies.
+
+To run jazzy on the sample input files located in `sample/`, run `ruby -Ilib bin/jazzy -i sample`. This will generate a `docs/` directory with the following structure:
+
+```
+docs/
+  CSS/
+  Images/
+  JAZMusician.html
+  JavaScript/
+```
+
+To run on any codebase, set the input argument (`-i`) to the directory containing your header files. i.e. `ruby -Ilib bin/jazzy -i /path/to/my/header/files`.
