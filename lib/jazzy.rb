@@ -15,7 +15,7 @@ class Jazzy
 
     klass = Jazzy::Klass.new
 
-    string = `#{bin_path}/SwiftHeader #{path}`
+    string = `#{bin_path}/generate_swift_header.sh #{path}`
     a = string.split(/^\[/); swift = a[0]; rawmap = "[\n"+a[-1]
 
     rawmap.gsub!(/(key.\w+):/,'"\1":')
