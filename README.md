@@ -1,5 +1,7 @@
 # SourceKitten
 
+***Work In Progress: Only use for research purposes for now.***
+
 An adorable little framework for interacting with [SourceKit][uncovering-sourcekit].
 
 ## Usage

@@ -8,24 +8,69 @@
 
 #import <Foundation/Foundation.h>
 
-int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        dispatch_queue_t q = dispatch_queue_create("com.dizzytechnology.XPCTest.gcd", 0);
-        xpc_connection_t conn = xpc_connection_create("com.apple.SourceKitService", q);
-        xpc_connection_set_event_handler(conn, ^(xpc_object_t object) { });
-        xpc_connection_resume(conn);
+// SourceKit function declarations
+void sourcekitd_initialize();
+uint64_t sourcekitd_uid_get_from_cstr(const char *);
+xpc_object_t sourcekitd_send_request_sync(xpc_object_t);
 
-        xpc_object_t dict = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_bool(dict, "ping", true);
-        xpc_connection_send_message_with_reply(conn, dict, dispatch_get_global_queue(0, 0), ^(xpc_object_t object) {
-            if (xpc_get_type(object) == XPC_TYPE_ERROR) {
-                const char *string = xpc_dictionary_get_string(object, XPC_ERROR_KEY_DESCRIPTION);
-                NSLog(@"error: %s", string);
-            } else {
-                NSLog(@"Hello from SourceKit! They were nice enough to send us an empty dictionary! %@ %@", conn, object);
-            }
-        });
-        sleep(10);
+int main(int argc, const char * argv[])
+{
+    NSString *executablePath = [[NSBundle mainBundle] bundlePath];
+    sourcekitd_initialize();
+
+    // Change to test different approaches
+    // 0: docinfo on Swift source file
+    // 1: docinfo on Foundation module
+    // 2: docinfo on Swift framework
+    // 3: docinfo on Objective-C modulemap (doesn't work. used to work with sourcekitd-test binary)
+    NSInteger approach = 3;
+
+    // Start with empty XPC request and compiler arguments array to send to sourcekitd
+    xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+    xpc_object_t compiler_args = xpc_array_create(NULL, 0);
+
+    if (approach == 0) {
+        // Approach 0: docinfo on Swift source file
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
+        xpc_dictionary_set_string(request, "key.sourcefile", [executablePath stringByAppendingPathComponent:@"Musician.swift"].UTF8String);
+    } else if (approach == 1) {
+        // Approach 1: docinfo on Foundation module
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
+        xpc_dictionary_set_string(request, "key.modulename", "Foundation");
+
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+    } else if (approach == 2) {
+        // Approach 2: docinfo on Swift framework
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
+        xpc_dictionary_set_string(request, "key.modulename", "SwifterMac");
+
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-I"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create([executablePath stringByAppendingPathComponent:@"SwifterMac.framework/Versions/A/Modules"].UTF8String));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+    } else if (approach == 3) {
+        // Approach 3: docinfo on Objective-C modulemap (doesn't work. used to work with sourcekitd-test binary)
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
+        xpc_dictionary_set_string(request, "key.modulename", "TempJazzyModule");
+
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-I"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(executablePath.UTF8String));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
     }
-    return 0;
+
+    // Set the compiler arguments
+    xpc_dictionary_set_value(request, "key.compilerargs", compiler_args);
+
+    // Send the request to sourcekit
+    xpc_object_t result = sourcekitd_send_request_sync(request);
+    if (xpc_get_type(result) == XPC_TYPE_ERROR) {
+        // Print error
+        const char *string = xpc_dictionary_get_string(result, XPC_ERROR_KEY_DESCRIPTION);
+        NSLog(@"error: %s", string);
+    } else {
+        // Print result
+        NSLog(@"%@", result);
+    }
 }

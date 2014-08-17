@@ -7,14 +7,41 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E8258DDB19A13FBD00C31D92 /* JAZMusician.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD419A13F7100C31D92 /* JAZMusician.h */; };
+		E8258DDC19A13FBD00C31D92 /* JAZMusician.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD519A13F7100C31D92 /* JAZMusician.m */; };
+		E8258DDD19A13FBD00C31D92 /* module.modulemap in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD619A13F7100C31D92 /* module.modulemap */; };
+		E8258DDE19A13FBD00C31D92 /* Musician.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD719A13F7100C31D92 /* Musician.swift */; };
+		E8258DE119A140D400C31D92 /* SwifterMac.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DDF19A140CF00C31D92 /* SwifterMac.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E84B8A0F19A11C1E002A05BE /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */; };
 		E86501C719708D1C005F11E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E86501C619708D1C005F11E4 /* main.m */; };
-		E86501CE19708D4D005F11E4 /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86501CD19708D4D005F11E4 /* sourcekitd.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E8EC5D5719709F97003C427C /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				E8258DE119A140D400C31D92 /* SwifterMac.framework in CopyFiles */,
+				E8258DDB19A13FBD00C31D92 /* JAZMusician.h in CopyFiles */,
+				E8258DDC19A13FBD00C31D92 /* JAZMusician.m in CopyFiles */,
+				E8258DDD19A13FBD00C31D92 /* module.modulemap in CopyFiles */,
+				E8258DDE19A13FBD00C31D92 /* Musician.swift in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E8258DD419A13F7100C31D92 /* JAZMusician.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAZMusician.h; sourceTree = "<group>"; };
+		E8258DD519A13F7100C31D92 /* JAZMusician.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAZMusician.m; sourceTree = "<group>"; };
+		E8258DD619A13F7100C31D92 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
+		E8258DD719A13F7100C31D92 /* Musician.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Musician.swift; sourceTree = "<group>"; };
+		E8258DDF19A140CF00C31D92 /* SwifterMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwifterMac.framework; sourceTree = "<group>"; };
+		E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../../../../Applications/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework"; sourceTree = "<group>"; };
 		E86501C319708D1C005F11E4 /* SourceKitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SourceKitten; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86501C619708D1C005F11E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E86501CD19708D4D005F11E4 /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -22,17 +49,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E86501CE19708D4D005F11E4 /* sourcekitd.framework in Frameworks */,
+				E84B8A0F19A11C1E002A05BE /* sourcekitd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E8258DE219A1418D00C31D92 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E8258DDF19A140CF00C31D92 /* SwifterMac.framework */,
+				E8258DD419A13F7100C31D92 /* JAZMusician.h */,
+				E8258DD519A13F7100C31D92 /* JAZMusician.m */,
+				E8258DD619A13F7100C31D92 /* module.modulemap */,
+				E8258DD719A13F7100C31D92 /* Musician.swift */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		E86501BA19708D1C005F11E4 = {
 			isa = PBXGroup;
 			children = (
-				E86501CD19708D4D005F11E4 /* sourcekitd.framework */,
+				E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */,
 				E86501C519708D1C005F11E4 /* SourceKitten */,
 				E86501C419708D1C005F11E4 /* Products */,
 			);
@@ -49,6 +88,7 @@
 		E86501C519708D1C005F11E4 /* SourceKitten */ = {
 			isa = PBXGroup;
 			children = (
+				E8258DE219A1418D00C31D92 /* Resources */,
 				E86501C619708D1C005F11E4 /* main.m */,
 			);
 			path = SourceKitten;
@@ -63,6 +103,7 @@
 			buildPhases = (
 				E86501BF19708D1C005F11E4 /* Sources */,
 				E86501C019708D1C005F11E4 /* Frameworks */,
+				E8EC5D5719709F97003C427C /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -193,21 +234,28 @@
 		E86501CB19708D1C005F11E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(PROJECT_DIR)/SourceKitten",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		E86501CC19708D1C005F11E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(PROJECT_DIR)/SourceKitten",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -233,6 +281,7 @@
 				E86501CC19708D1C005F11E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
