@@ -42,6 +42,7 @@
 		E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../../../../Applications/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework"; sourceTree = "<group>"; };
 		E86501C319708D1C005F11E4 /* SourceKitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SourceKitten; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86501C619708D1C005F11E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E8C16CC519A5404100B3ED59 /* __TempJazzyModule__.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = __TempJazzyModule__.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +60,7 @@
 		E8258DE219A1418D00C31D92 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E8C16CC519A5404100B3ED59 /* __TempJazzyModule__.framework */,
 				E8258DDF19A140CF00C31D92 /* SwifterMac.framework */,
 				E8258DD419A13F7100C31D92 /* JAZMusician.h */,
 				E8258DD519A13F7100C31D92 /* JAZMusician.m */,
