@@ -39,7 +39,7 @@ int main(int argc, const char * argv[])
         xpc_dictionary_set_string(request, "key.modulename", "Foundation");
 
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
     } else if (approach == 2) {
         // Approach 2: docinfo on Swift framework
         xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
@@ -48,7 +48,7 @@ int main(int argc, const char * argv[])
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-I"));
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create([executablePath stringByAppendingPathComponent:@"SwifterMac.framework/Versions/A/Modules"].UTF8String));
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
     } else if (approach == 3) {
         // Approach 3: docinfo on Objective-C modulemap (doesn't work. used to work with sourcekitd-test binary)
         xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
@@ -57,7 +57,7 @@ int main(int argc, const char * argv[])
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-I"));
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(executablePath.UTF8String));
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta5.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
     }
 
     // Set the compiler arguments

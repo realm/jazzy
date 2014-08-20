@@ -1,6 +1,6 @@
 # SourceKitten
 
-***Work In Progress: Only use for research purposes for now.***
+***Work In Progress: Only use for research purposes for now. Requires Xcode6-Beta6.***
 
 An adorable little framework for interacting with [SourceKit][uncovering-sourcekit].
 
