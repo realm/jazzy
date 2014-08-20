@@ -23,7 +23,8 @@ int main(int argc, const char * argv[])
     // 1: docinfo on Foundation module
     // 2: docinfo on Swift framework
     // 3: docinfo on Objective-C modulemap (doesn't work. used to work with sourcekitd-test binary)
-    NSInteger approach = 3;
+    // 4: generate Swift interface for Objective-C framework
+    NSInteger approach = 4;
 
     // Start with empty XPC request and compiler arguments array to send to sourcekitd
     xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
@@ -58,6 +59,20 @@ int main(int argc, const char * argv[])
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(executablePath.UTF8String));
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
         xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+    } else if (approach == 4) {
+        // Approach 4: generate Swift interface for Objective-C framework
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open.interface"));
+        xpc_dictionary_set_string(request, "key.modulename", "__TempJazzyModule__.JAZMusician");
+        xpc_dictionary_set_string(request, "key.name", "x-xcode-module://__TempJazzyModule__.JAZMusician");
+
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
+
+        #error Edit this to be the path of this Xcode project's source files
+        NSString *xcodeProjectPath = @"/path/to/SourceKitten/SourceKitten";
+
+        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(xcodeProjectPath.UTF8String));
     }
 
     // Set the compiler arguments

@@ -1,0 +1,1 @@
+framework module __TempJazzyModule__ { umbrella header "__TempJazzyModule__.h" module * { export * } }
