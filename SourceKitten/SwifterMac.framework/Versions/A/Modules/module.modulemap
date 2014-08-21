@@ -1,3 +1,0 @@
-framework module SwifterMac {
-    header "SwifterMac-Swift.h"
-}

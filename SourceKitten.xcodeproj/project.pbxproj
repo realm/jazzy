@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E8258DDB19A13FBD00C31D92 /* JAZMusician.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD419A13F7100C31D92 /* JAZMusician.h */; };
-		E8258DDC19A13FBD00C31D92 /* JAZMusician.m in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD519A13F7100C31D92 /* JAZMusician.m */; };
-		E8258DDD19A13FBD00C31D92 /* module.modulemap in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD619A13F7100C31D92 /* module.modulemap */; };
-		E8258DDE19A13FBD00C31D92 /* Musician.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DD719A13F7100C31D92 /* Musician.swift */; };
-		E8258DE119A140D400C31D92 /* SwifterMac.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8258DDF19A140CF00C31D92 /* SwifterMac.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E84B8A0F19A11C1E002A05BE /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */; };
 		E86501C719708D1C005F11E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E86501C619708D1C005F11E4 /* main.m */; };
+		E8B3C02319A59B24007A8998 /* JAZMusician.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8B3C02219A59B1D007A8998 /* JAZMusician.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,26 +19,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				E8258DE119A140D400C31D92 /* SwifterMac.framework in CopyFiles */,
-				E8258DDB19A13FBD00C31D92 /* JAZMusician.h in CopyFiles */,
-				E8258DDC19A13FBD00C31D92 /* JAZMusician.m in CopyFiles */,
-				E8258DDD19A13FBD00C31D92 /* module.modulemap in CopyFiles */,
-				E8258DDE19A13FBD00C31D92 /* Musician.swift in CopyFiles */,
+				E8B3C02319A59B24007A8998 /* JAZMusician.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E8258DD419A13F7100C31D92 /* JAZMusician.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAZMusician.h; sourceTree = "<group>"; };
-		E8258DD519A13F7100C31D92 /* JAZMusician.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAZMusician.m; sourceTree = "<group>"; };
-		E8258DD619A13F7100C31D92 /* module.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.modulemap; sourceTree = "<group>"; };
-		E8258DD719A13F7100C31D92 /* Musician.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Musician.swift; sourceTree = "<group>"; };
-		E8258DDF19A140CF00C31D92 /* SwifterMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwifterMac.framework; sourceTree = "<group>"; };
 		E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../../../../Applications/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework"; sourceTree = "<group>"; };
 		E86501C319708D1C005F11E4 /* SourceKitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SourceKitten; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86501C619708D1C005F11E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E8C16CC519A5404100B3ED59 /* __TempJazzyModule__.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = __TempJazzyModule__.framework; sourceTree = "<group>"; };
+		E8B3C02219A59B1D007A8998 /* JAZMusician.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JAZMusician.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,19 +44,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E8258DE219A1418D00C31D92 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				E8C16CC519A5404100B3ED59 /* __TempJazzyModule__.framework */,
-				E8258DDF19A140CF00C31D92 /* SwifterMac.framework */,
-				E8258DD419A13F7100C31D92 /* JAZMusician.h */,
-				E8258DD519A13F7100C31D92 /* JAZMusician.m */,
-				E8258DD619A13F7100C31D92 /* module.modulemap */,
-				E8258DD719A13F7100C31D92 /* Musician.swift */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		E86501BA19708D1C005F11E4 = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +64,7 @@
 		E86501C519708D1C005F11E4 /* SourceKitten */ = {
 			isa = PBXGroup;
 			children = (
-				E8258DE219A1418D00C31D92 /* Resources */,
+				E8B3C02219A59B1D007A8998 /* JAZMusician.h */,
 				E86501C619708D1C005F11E4 /* main.m */,
 			);
 			path = SourceKitten;

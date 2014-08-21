@@ -13,79 +13,98 @@ void sourcekitd_initialize();
 uint64_t sourcekitd_uid_get_from_cstr(const char *);
 xpc_object_t sourcekitd_send_request_sync(xpc_object_t);
 
-int main(int argc, const char * argv[])
-{
-    NSString *executablePath = [[NSBundle mainBundle] bundlePath];
+int main(int argc, const char * argv[]) {
+
+    ////////////////////////////////
+    //
+    // 1: Make framework-like structure
+    //
+    ////////////////////////////////
+
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSError *fmError = nil;
+
+    // 1.1: Module name & directory structure
+
+    NSString *parentModuleName = [NSString stringWithFormat:@"JazzyModule_%@", [[[NSUUID UUID] UUIDString] stringByReplacingOccurrencesOfString:@"-" withString:@""]];
+    NSString *tmpDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"io.realm.jazzy"];
+
+    NSString *frameworkDir = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.framework", parentModuleName]];
+    [fm createDirectoryAtPath:[frameworkDir stringByAppendingPathComponent:@"Headers"]
+  withIntermediateDirectories:YES
+                   attributes:nil
+                        error:&fmError];
+    if (fmError) {
+        NSLog(@"error creating Headers directory: %@", fmError.localizedDescription);
+        return 1;
+    }
+
+    [fm createDirectoryAtPath:[frameworkDir stringByAppendingPathComponent:@"Modules"]
+  withIntermediateDirectories:NO
+                   attributes:nil
+                        error:&fmError];
+    if (fmError) {
+        NSLog(@"error creating Modules directory: %@", fmError.localizedDescription);
+        return 1;
+    }
+
+    // 1.2: Copy Objective-C header file
+
+    NSString *objCHeaderFilePath = [[NSProcessInfo processInfo] arguments][1];
+    NSString *moduleName = [NSString stringWithFormat:@"%@.%@", parentModuleName, [[objCHeaderFilePath lastPathComponent] stringByDeletingPathExtension]];
+    [fm copyItemAtPath:objCHeaderFilePath
+                toPath:[frameworkDir stringByAppendingPathComponent:[NSString stringWithFormat:@"Headers/%@", [objCHeaderFilePath lastPathComponent]]]
+                 error:&fmError];
+    if (fmError) {
+        NSLog(@"error copying Objective-C header file: %@", fmError.localizedDescription);
+        return 1;
+    }
+
+    // 1.3: Write umbrella header file
+
+    [fm createFileAtPath:[frameworkDir stringByAppendingPathComponent:[NSString stringWithFormat:@"Headers/%@.h", parentModuleName]] contents:[[NSString stringWithFormat:@"#import <%@/%@>", parentModuleName, [objCHeaderFilePath lastPathComponent]] dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+
+    // 1.4: Write module map file
+
+    [fm createFileAtPath:[frameworkDir stringByAppendingPathComponent:@"Modules/module.modulemap"] contents:[[NSString stringWithFormat:@"framework module %@ { umbrella header \"%@.h\" module * { export * } }", parentModuleName, parentModuleName] dataUsingEncoding:NSUTF8StringEncoding] attributes:nil];
+
+    ////////////////////////////////
+    //
+    // 2: Generate Swift interface using SourceKit
+    //
+    ////////////////////////////////
+
     sourcekitd_initialize();
 
-    // Change to test different approaches
-    // 0: docinfo on Swift source file
-    // 1: docinfo on Foundation module
-    // 2: docinfo on Swift framework
-    // 3: docinfo on Objective-C modulemap (doesn't work. used to work with sourcekitd-test binary)
-    // 4: generate Swift interface for Objective-C framework
-    NSInteger approach = 4;
+    // 2.1: Build up XPC request to send to SourceKit
 
-    // Start with empty XPC request and compiler arguments array to send to sourcekitd
     xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open.interface"));
+    xpc_dictionary_set_string(request, "key.modulename", moduleName.UTF8String);
+    xpc_dictionary_set_string(request, "key.name", [NSString stringWithFormat:@"x-xcode-module://%@", moduleName].UTF8String);
+
     xpc_object_t compiler_args = xpc_array_create(NULL, 0);
-
-    if (approach == 0) {
-        // Approach 0: docinfo on Swift source file
-        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
-        xpc_dictionary_set_string(request, "key.sourcefile", [executablePath stringByAppendingPathComponent:@"Musician.swift"].UTF8String);
-    } else if (approach == 1) {
-        // Approach 1: docinfo on Foundation module
-        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
-        xpc_dictionary_set_string(request, "key.modulename", "Foundation");
-
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
-    } else if (approach == 2) {
-        // Approach 2: docinfo on Swift framework
-        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
-        xpc_dictionary_set_string(request, "key.modulename", "SwifterMac");
-
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-I"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create([executablePath stringByAppendingPathComponent:@"SwifterMac.framework/Versions/A/Modules"].UTF8String));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
-    } else if (approach == 3) {
-        // Approach 3: docinfo on Objective-C modulemap (doesn't work. used to work with sourcekitd-test binary)
-        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
-        xpc_dictionary_set_string(request, "key.modulename", "TempJazzyModule");
-
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-I"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(executablePath.UTF8String));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
-    } else if (approach == 4) {
-        // Approach 4: generate Swift interface for Objective-C framework
-        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open.interface"));
-        xpc_dictionary_set_string(request, "key.modulename", "__TempJazzyModule__.JAZMusician");
-        xpc_dictionary_set_string(request, "key.name", "x-xcode-module://__TempJazzyModule__.JAZMusician");
-
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
-
-        #error Edit this to be the path of this Xcode project's source files
-        NSString *xcodeProjectPath = @"/path/to/SourceKitten/SourceKitten";
-
-        xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(xcodeProjectPath.UTF8String));
-    }
-
-    // Set the compiler arguments
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(tmpDir.UTF8String));
     xpc_dictionary_set_value(request, "key.compilerargs", compiler_args);
 
-    // Send the request to sourcekit
+    // 2.2: Send the request to SourceKit
     xpc_object_t result = sourcekitd_send_request_sync(request);
-    if (xpc_get_type(result) == XPC_TYPE_ERROR) {
-        // Print error
-        const char *string = xpc_dictionary_get_string(result, XPC_ERROR_KEY_DESCRIPTION);
-        NSLog(@"error: %s", string);
-    } else {
-        // Print result
-        NSLog(@"%@", result);
+    if (xpc_get_type(result) != XPC_TYPE_DICTIONARY ||
+        xpc_dictionary_get_count(request) <= 1) {
+        NSLog(@"Error processing SourceKit result");
+        return 1;
     }
+
+    // 2.3: Print to stdout
+    const char *string = xpc_dictionary_get_string(result, "key.sourcetext");
+    [[NSString stringWithCString:string encoding:NSUTF8StringEncoding]
+     writeToFile:@"/dev/stdout"
+     atomically:NO
+     encoding:NSUTF8StringEncoding
+     error:nil];
+
+    return 0;
 }
