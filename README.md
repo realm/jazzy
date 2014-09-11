@@ -1,12 +1,14 @@
 # SourceKitten
 
-***Work In Progress: Only use for research purposes for now. Requires Xcode6-Beta6.***
+***Work In Progress: Only use for research purposes for now. Requires Xcode 6 GM.***
 
-An adorable little framework for interacting with [SourceKit][uncovering-sourcekit].
+An adorable little command line tool for interacting with [SourceKit][uncovering-sourcekit].
 
 ## Usage
 
-To use SourceKitten in your OSX project, drag `SourceKitten.framework` into your project, link it and add it to your target's Copy Files build phase.
+```
+Usage: SourceKitten [--swift_file swift_file_path] [--file objc_header_path] [--module module_name --framework_dir /absolute/path/to/framework] [--help]
+```
 
 ## How it works
 

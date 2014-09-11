@@ -14,7 +14,13 @@ uint64_t sourcekitd_uid_get_from_cstr(const char *);
 xpc_object_t sourcekitd_send_request_sync(xpc_object_t);
 
 void print_usage() {
-    printf("Usage: SourceKitten [--file objc_header_path] [--module module_name --framework_dir /absolute/path/to/framework] [--help]\n");
+    printf("Usage: SourceKitten [--swift_file swift_file_path] [--file objc_header_path] [--module module_name --framework_dir /absolute/path/to/framework] [--help]\n");
+}
+
+int error(const char *message) {
+    printf("Error: %s\n\n", message);
+    print_usage();
+    return 1;
 }
 
 int generate_swift_interface_for_module(NSString *moduleName, NSString *frameworkDir) {
@@ -30,21 +36,54 @@ int generate_swift_interface_for_module(NSString *moduleName, NSString *framewor
 
     xpc_object_t compiler_args = xpc_array_create(NULL, 0);
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(frameworkDir.UTF8String));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-target"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("armv7-apple-ios8.0"));
     xpc_dictionary_set_value(request, "key.compilerargs", compiler_args);
 
     // 2: Send the request to SourceKit
+
     xpc_object_t result = sourcekitd_send_request_sync(request);
     if (xpc_get_type(result) != XPC_TYPE_DICTIONARY ||
         xpc_dictionary_get_count(request) <= 1) {
-        NSLog(@"Error processing SourceKit result");
-        return 1;
+        NSLog(@"%@", result);
+        return error("couldn't process SourceKit results");
     }
 
     // 3: Print Swift interface
+
     printf("%s", xpc_dictionary_get_string(result, "key.sourcetext"));
+    return 0;
+}
+
+int docinfo_for_file() {
+
+    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+    if (arguments.count < 3) {
+        return error("not enough arguments");
+    }
+
+    sourcekitd_initialize();
+
+    // 1: Build up XPC request to send to SourceKit
+
+    xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.docinfo"));
+    xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:arguments[2] encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+    // 2: Send the request to SourceKit
+
+    xpc_object_t result = sourcekitd_send_request_sync(request);
+    if (xpc_get_type(result) != XPC_TYPE_DICTIONARY ||
+        xpc_dictionary_get_count(request) <= 1) {
+        return error("couldn't process SourceKit results");
+    }
+
+    // 3: Print result
+
+    printf("%s", result.description.UTF8String);
     return 0;
 }
 
@@ -52,9 +91,7 @@ int generate_swift_interface_for_file() {
 
     NSArray *arguments = [[NSProcessInfo processInfo] arguments];
     if (arguments.count < 3) {
-        printf("Error: not enough arguments\n\n");
-        print_usage();
-        return 1;
+        return error("not enough arguments");
     }
 
     ////////////////////////////////
@@ -77,8 +114,7 @@ int generate_swift_interface_for_file() {
                    attributes:nil
                         error:&fmError];
     if (fmError) {
-        NSLog(@"error creating Headers directory: %@", fmError.localizedDescription);
-        return 1;
+        return error("couldn't create Headers directory");
     }
 
     [fm createDirectoryAtPath:[frameworkDir stringByAppendingPathComponent:@"Modules"]
@@ -86,8 +122,7 @@ int generate_swift_interface_for_file() {
                    attributes:nil
                         error:&fmError];
     if (fmError) {
-        NSLog(@"error creating Modules directory: %@", fmError.localizedDescription);
-        return 1;
+        return error("couldn't create Modules directory");
     }
 
     // 2: Copy Objective-C header file
@@ -98,8 +133,7 @@ int generate_swift_interface_for_file() {
                 toPath:[frameworkDir stringByAppendingPathComponent:[NSString stringWithFormat:@"Headers/%@", [objCHeaderFilePath lastPathComponent]]]
                  error:&fmError];
     if (fmError) {
-        NSLog(@"error copying Objective-C header file: %@", fmError.localizedDescription);
-        return 1;
+        return error("couldn't copy Objective-C header file");
     }
 
     // 3: Write umbrella header file
@@ -119,12 +153,12 @@ int main(int argc, const char * argv[]) {
 
     NSArray *arguments = [[NSProcessInfo processInfo] arguments];
     if (arguments.count == 1) {
-        printf("Error: not enough arguments\n\n");
-        print_usage();
-        return 1;
+        return error("not enough arguments");
     } else if ([arguments[1] isEqualToString:@"--help"]) {
         print_usage();
         return 0;
+    } else if ([arguments[1] isEqualToString:@"--swift_file"]) {
+        return docinfo_for_file();
     } else if ([arguments[1] isEqualToString:@"--file"]) {
         return generate_swift_interface_for_file();
     } else if (arguments.count >= 5 &&
@@ -133,7 +167,5 @@ int main(int argc, const char * argv[]) {
         return generate_swift_interface_for_module(arguments[2], arguments[4]);
     }
 
-    printf("Error: unable to parse command\n\n");
-    print_usage();
-    return 1;
+    return error("unable to parse command");
 }

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E84B8A0F19A11C1E002A05BE /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */; };
+		E8509F4519C23E1100B47895 /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8509F4419C23E1100B47895 /* sourcekitd.framework */; };
+		E8509F4819C2434500B47895 /* Musician.swift in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8509F4619C2432F00B47895 /* Musician.swift */; };
 		E86501C719708D1C005F11E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E86501C619708D1C005F11E4 /* main.m */; };
 		E8B3C02319A59B24007A8998 /* JAZMusician.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = E8B3C02219A59B1D007A8998 /* JAZMusician.h */; };
 /* End PBXBuildFile section */
@@ -19,6 +20,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
+				E8509F4819C2434500B47895 /* Musician.swift in CopyFiles */,
 				E8B3C02319A59B24007A8998 /* JAZMusician.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -26,7 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = "../../../../Applications/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework"; sourceTree = "<group>"; };
+		E8509F4419C23E1100B47895 /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework; sourceTree = DEVELOPER_DIR; };
+		E8509F4619C2432F00B47895 /* Musician.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Musician.swift; sourceTree = "<group>"; };
 		E86501C319708D1C005F11E4 /* SourceKitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SourceKitten; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86501C619708D1C005F11E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E8B3C02219A59B1D007A8998 /* JAZMusician.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JAZMusician.h; sourceTree = "<group>"; };
@@ -37,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E84B8A0F19A11C1E002A05BE /* sourcekitd.framework in Frameworks */,
+				E8509F4519C23E1100B47895 /* sourcekitd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -47,7 +50,7 @@
 		E86501BA19708D1C005F11E4 = {
 			isa = PBXGroup;
 			children = (
-				E84B8A0E19A11C1E002A05BE /* sourcekitd.framework */,
+				E8509F4419C23E1100B47895 /* sourcekitd.framework */,
 				E86501C519708D1C005F11E4 /* SourceKitten */,
 				E86501C419708D1C005F11E4 /* Products */,
 			);
@@ -65,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				E8B3C02219A59B1D007A8998 /* JAZMusician.h */,
+				E8509F4619C2432F00B47895 /* Musician.swift */,
 				E86501C619708D1C005F11E4 /* main.m */,
 			);
 			path = SourceKitten;
@@ -214,10 +218,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
-					"$(SYSTEM_APPS_DIR)/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 					"$(PROJECT_DIR)/SourceKitten",
+					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -230,10 +236,12 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
-					"$(SYSTEM_APPS_DIR)/Xcode6-Beta5.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 					"$(PROJECT_DIR)/SourceKitten",
+					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
