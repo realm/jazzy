@@ -22,13 +22,10 @@ class Musician {
     Initialize a Musician.
     Don't forget to have a name and a birthyear.
 
-    @warning Jazz can be addicting.
-    Please be careful out there.
+    :param: name      The name of the musician.
+    :param: birthyear The year the musician was born.
 
-    @param name      The name of the musician.
-    @param birthyear The year the musician was born.
-
-    @return          An initialized Musician instance.
+    :returns:          An initialized Musician instance.
     */
     init(name: String, birthyear: UInt) {
         self.name = name

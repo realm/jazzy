@@ -218,9 +218,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
-					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 					"$(PROJECT_DIR)/SourceKitten",
-					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
@@ -236,9 +236,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
-					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 					"$(PROJECT_DIR)/SourceKitten",
-					"$(SYSTEM_APPS_DIR)/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+					"$(SYSTEM_APPS_DIR)/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
