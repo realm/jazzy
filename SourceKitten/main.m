@@ -8,23 +8,33 @@
 
 #import <Foundation/Foundation.h>
 #import <XPCKit/XPCKit.h>
+#import "JAZEntity.h"
 
 // SourceKit function declarations
 void sourcekitd_initialize();
 uint64_t sourcekitd_uid_get_from_cstr(const char *);
 xpc_object_t sourcekitd_send_request_sync(xpc_object_t);
+const char *sourcekitd_uid_get_string_ptr(uint64_t uid);
 
-NSArray *usrsInDict(NSDictionary *dict) {
-    NSMutableArray *offsets = [NSMutableArray array];
+NSArray *entitiesInDict(NSDictionary *dict) {
+    NSMutableArray *entities = [NSMutableArray array];
     for (NSDictionary *entityDict in dict[@"key.entities"]) {
         if ([entityDict.allKeys containsObject:@"key.usr"]) {
-            [offsets addObject:entityDict[@"key.usr"]];
-        }
-        if ([entityDict.allKeys containsObject:@"key.entities"]) {
-            [offsets addObjectsFromArray:usrsInDict(entityDict)];
+            JAZEntity *entity = [JAZEntity new];
+            entity.usr = [entityDict[@"key.usr"] stringByReplacingOccurrencesOfString:@"8__main__" withString:@"5Jazzy"];
+            entity.name = entityDict[@"key.name"];
+            entity.kind = JAZEntityKindFromCString(sourcekitd_uid_get_string_ptr([(NSNumber *)entityDict[@"key.kind"] integerValue]));
+            if ([entityDict.allKeys containsObject:@"key.entities"]) {
+                entity.entities = entitiesInDict(entityDict);
+            }
+            [entities addObject:entity];
+        } else {
+            if ([entityDict.allKeys containsObject:@"key.entities"]) {
+                [entities addObjectsFromArray:entitiesInDict(entityDict)];
+            }
         }
     }
-    return [offsets copy];
+    return [entities copy];
 }
 
 void print_usage() {
@@ -48,14 +58,14 @@ int generate_swift_interface_for_module(NSString *moduleName, NSString *framewor
     xpc_dictionary_set_string(request, "key.modulename", moduleName.UTF8String);
     xpc_dictionary_set_string(request, "key.name", [NSString stringWithFormat:@"x-xcode-module://%@", moduleName].UTF8String);
 
-    xpc_object_t compiler_args = xpc_array_create(NULL, 0);
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(frameworkDir.UTF8String));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-target"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("armv7-apple-ios8.0"));
-    xpc_dictionary_set_value(request, "key.compilerargs", compiler_args);
+    NSArray *compilerArgs = @[@"-sdk",
+                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk",
+                              @"-F",
+                              frameworkDir,
+                              @"-target",
+                              @"armv7-apple-ios8.0"];
+
+    xpc_dictionary_set_value(request, "key.compilerargs", [compilerArgs newXPCObject]);
 
     // 2: Send the request to SourceKit
 
@@ -72,25 +82,39 @@ int generate_swift_interface_for_module(NSString *moduleName, NSString *framewor
     return 0;
 }
 
-int printDocs(const char *sourcetext, NSArray *usrs) {
+BOOL setDocs(JAZEntity *entity, NSString *usr, NSString *docs) {
+    BOOL set = NO;
+    if ([entity.usr isEqualToString:usr] && !entity.docs) {
+        entity.docs = docs;
+        set = YES;
+    }
+    for (JAZEntity *subEntity in entity.entities) {
+        set = setDocs(subEntity, usr, docs);
+        if (set) {
+            break;
+        }
+    }
+    return set;
+}
+
+int printDocs(const char *sourcetext, NSArray *entities) {
     NSString *tmpDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"io.realm.jazzy"];
     NSString *playgroundPath = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.playground", [[NSUUID UUID] UUIDString]]];
-
-    xpc_object_t compiler_args = xpc_array_create(NULL, 0);
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-module-name"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("Playground"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-target"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("x86_64-apple-macosx10.10"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-Xfrontend"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-debugger-support"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-c"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(playgroundPath.UTF8String));
+    NSArray *compilerArgs = @[@"-module-name",
+                              @"Jazzy",
+                              @"-target",
+                              @"x86_64-apple-macosx10.10",
+                              @"-sdk",
+                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk",
+                              @"-F",
+                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+                              @"-F",
+                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
+                              @"-Xfrontend",
+                              @"-debugger-support",
+                              @"-c",
+                              playgroundPath];
+    xpc_object_t compiler_args = [compilerArgs newXPCObject];
 
     {
         // 1: Build up XPC request to send to SourceKit
@@ -110,8 +134,6 @@ int printDocs(const char *sourcetext, NSArray *usrs) {
             return error("couldn't process SourceKit results");
         }
     }
-
-    NSMutableDictionary *docs = [NSMutableDictionary dictionaryWithCapacity:usrs.count];
 
     for (NSUInteger cursor = 0; cursor < @(sourcetext).length; cursor++) {
         {
@@ -135,16 +157,18 @@ int printDocs(const char *sourcetext, NSArray *usrs) {
 
             // 3: Print result
 
-            const char *doc = xpc_dictionary_get_string(result, "key.doc.full_as_xml");
-            if (doc != nil) {
+            const char *docs = xpc_dictionary_get_string(result, "key.doc.full_as_xml");
+            if (docs != nil) {
                 NSString *usr = @(xpc_dictionary_get_string(result, "key.usr"));
-                if (![docs.allKeys containsObject:usr]) {
-                    docs[usr] = @(doc);
+                for (JAZEntity *entity in entities) {
+                    setDocs(entity, usr, @(docs));
                 }
             }
         }
     }
-    NSLog(@"docs: %@", docs);
+    for (JAZEntity *entity in entities) {
+        printf("%s", entity.xmlDocs.UTF8String);
+    }
     return 0;
 }
 
@@ -177,7 +201,7 @@ int cursorinfo_playground() {
         // 3: Print result
 
         NSDictionary *dict = [NSDictionary dictionaryWithContentsOfXPCObject:result];
-        return printDocs(sourcetext, usrsInDict(dict));
+        return printDocs(sourcetext, entitiesInDict(dict));
     }
     return 1;
 }
