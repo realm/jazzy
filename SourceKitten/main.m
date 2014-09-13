@@ -50,7 +50,7 @@ int generate_swift_interface_for_module(NSString *moduleName, NSString *framewor
 
     xpc_object_t compiler_args = xpc_array_create(NULL, 0);
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta7.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create(frameworkDir.UTF8String));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-target"));
@@ -82,11 +82,11 @@ int printDocs(const char *sourcetext, NSArray *usrs) {
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-target"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("x86_64-apple-macosx10.10"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-sdk"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-F"));
-    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6-Beta7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks"));
+    xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-Xfrontend"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-debugger-support"));
     xpc_array_set_value(compiler_args, XPC_ARRAY_APPEND, xpc_string_create("-c"));
@@ -177,7 +177,6 @@ int cursorinfo_playground() {
         // 3: Print result
 
         NSDictionary *dict = [NSDictionary dictionaryWithContentsOfXPCObject:result];
-        // NSLog(@"dict: %@", dict);
         return printDocs(sourcetext, usrsInDict(dict));
     }
     return 1;

@@ -8,14 +8,10 @@ Musician models jazz musicians.
 From Ellington to Marsalis, this class has you covered.
 */
 class Musician {
-    /**
-    The name of the musician. i.e. "John Coltrane"
-    */
+    /// The name of the musician. i.e. "John Coltrane"
     var name: String
 
-    /**
-    The year the musician was born. i.e. 1926
-    */
+    /// The year the musician was born. i.e. 1926
     var birthyear: UInt
 
     /**
