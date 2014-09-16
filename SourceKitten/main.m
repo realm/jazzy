@@ -47,8 +47,25 @@ int error(const char *message) {
     return 1;
 }
 
-int generate_swift_interface_for_module(NSString *moduleName, NSString *frameworkDir) {
+NSString *xcode_path() {
+    NSPipe *pipe = [NSPipe pipe];
+    NSFileHandle *file = pipe.fileHandleForReading;
 
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = @"/usr/bin/xcode-select";
+    task.arguments = @[ @"-p" ];
+    task.standardOutput = pipe;
+
+    [task launch];
+
+    NSData *data = [file readDataToEndOfFile];
+    [file closeFile];
+
+    NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return output;
+}
+
+int generate_swift_interface_for_module(NSString *moduleName, NSString *frameworkDir) {
     sourcekitd_initialize();
 
     // 1: Build up XPC request to send to SourceKit
@@ -58,12 +75,12 @@ int generate_swift_interface_for_module(NSString *moduleName, NSString *framewor
     xpc_dictionary_set_string(request, "key.modulename", moduleName.UTF8String);
     xpc_dictionary_set_string(request, "key.name", [NSString stringWithFormat:@"x-xcode-module://%@", moduleName].UTF8String);
 
-    NSArray *compilerArgs = @[@"-sdk",
-                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk",
-                              @"-F",
-                              frameworkDir,
-                              @"-target",
-                              @"armv7-apple-ios8.0"];
+    NSArray *compilerArgs = @[ @"-sdk",
+                               [xcode_path() stringByAppendingPathComponent:@"Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk"],
+                               @"-F",
+                               frameworkDir,
+                               @"-target",
+                               @"armv7-apple-ios8.0" ];
 
     xpc_dictionary_set_value(request, "key.compilerargs", [compilerArgs newXPCObject]);
 
@@ -100,20 +117,20 @@ BOOL setDocs(JAZEntity *entity, NSString *usr, NSString *docs) {
 int printDocs(const char *sourcetext, NSArray *entities) {
     NSString *tmpDir = [NSTemporaryDirectory() stringByAppendingPathComponent:@"io.realm.jazzy"];
     NSString *playgroundPath = [tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.playground", [[NSUUID UUID] UUIDString]]];
-    NSArray *compilerArgs = @[@"-module-name",
-                              @"Jazzy",
-                              @"-target",
-                              @"x86_64-apple-macosx10.10",
-                              @"-sdk",
-                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk",
-                              @"-F",
-                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
-                              @"-F",
-                              @"/Applications/Xcode6.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks",
-                              @"-Xfrontend",
-                              @"-debugger-support",
-                              @"-c",
-                              playgroundPath];
+    NSArray *compilerArgs = @[ @"-module-name",
+                               @"Jazzy",
+                               @"-target",
+                               @"x86_64-apple-macosx10.10",
+                               @"-sdk",
+                               [xcode_path() stringByAppendingPathComponent:@"Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"],
+                               @"-F",
+                               [xcode_path() stringByAppendingPathComponent:@"Platforms/MacOSX.platform/Developer/Library/Frameworks"],
+                               @"-F",
+                               [xcode_path() stringByAppendingPathComponent:@"Platforms/MacOSX.platform/Developer/Library/PrivateFrameworks"],
+                               @"-Xfrontend",
+                               @"-debugger-support",
+                               @"-c",
+                               playgroundPath ];
     xpc_object_t compiler_args = [compilerArgs newXPCObject];
 
     {
