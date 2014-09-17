@@ -62,7 +62,7 @@ NSString *xcode_path() {
     [file closeFile];
 
     NSString *output = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return output;
+    return [output substringToIndex:output.length-1]; // strip trailing newline
 }
 
 int generate_swift_interface_for_module(NSString *moduleName, NSString *frameworkDir) {
