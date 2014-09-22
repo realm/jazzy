@@ -280,33 +280,494 @@ int generate_swift_interface_for_file() {
     return generate_swift_interface_for_module(moduleName, tmpDir);
 }
 
-int print_cursor_info(const char *sourcefile, int64_t offset) {
+int querykit() {
     sourcekitd_initialize();
 
-    xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
-    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"));
-    xpc_dictionary_set_value(request, "key.compilerargs", [@[@(sourcefile), @"-Onone"] newXPCObject]);
-    xpc_dictionary_set_int64(request, "key.offset", offset);
-    xpc_dictionary_set_string(request, "key.sourcefile", sourcefile);
+    NSArray *compilerArgs = @[
+                              @"-target",
+                              @"x86_64-apple-macosx10.10",
+                              @"-module-name",
+                              @"QueryKit",
+                              @"-Onone",
+                              @"-sdk",
+                              @"/Applications/Xcode6-Beta7.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk",
+                              @"-g",
+                              @"-module-cache-path",
+                              @"/Users/jp/Library/Developer/Xcode/DerivedData/ModuleCache",
+                              @"-I",
+                              @"/Users/jp/Projects/QueryKit/build/Debug",
+                              @"-F",
+                              @"/Users/jp/Projects/QueryKit/build/Debug",
+                              @"-c",
+                              @"-j4",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/Attribute.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/Predicate.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/ObjectiveC/QKAttribute.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/QueryKit.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/ObjectiveC/QKQuerySet.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/Expression.swift",
+                              @"-emit-module",
+                              @"-emit-module-path",
+                              @"/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/Objects-normal/x86_64/QueryKit.swiftmodule",
+                              @"-Xcc",
+                              @"-I/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/swift-overrides.hmap",
+                              @"-Xcc",
+                              @"-iquote",
+                              @"-Xcc",
+                              @"/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/QueryKit-generated-files.hmap",
+                              @"-Xcc",
+                              @"-I/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/QueryKit-own-target-headers.hmap",
+                              @"-Xcc",
+                              @"-I/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/QueryKit-all-non-framework-target-headers.hmap",
+                              @"-Xcc",
+                              @"-ivfsoverlay",
+                              @"-Xcc",
+                              @"/Users/jp/Projects/QueryKit/build/QueryKit.build/all-product-headers.yaml",
+                              @"-Xcc",
+                              @"-iquote",
+                              @"-Xcc",
+                              @"/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/QueryKit-project-headers.hmap",
+                              @"-Xcc",
+                              @"-I/Users/jp/Projects/QueryKit/build/Debug/include",
+                              @"-Xcc",
+                              @"-I/Applications/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+                              @"-Xcc",
+                              @"-I/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/DerivedSources/x86_64",
+                              @"-Xcc",
+                              @"-I/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/DerivedSources",
+                              @"-Xcc",
+                              @"-DDEBUG=1",
+                              @"-emit-objc-header",
+                              @"-emit-objc-header-path",
+                              @"/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/Objects-normal/x86_64/QueryKit-Swift.h",
+                              @"-import-underlying-module",
+                              @"-Xcc",
+                              @"-ivfsoverlay",
+                              @"-Xcc",
+                              @"/Users/jp/Projects/QueryKit/build/QueryKit.build/Debug/QueryKit.build/unextended-module-overlay.yaml"
+                              ];
+    xpc_object_t compilerargs = [compilerArgs newXPCObject];
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
 
-    printf("%s\n", xpc_dictionary_get_string(sourcekitd_send_request_sync(request), "key.doc.full_as_xml"));
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.replacetext"));
+        xpc_dictionary_set_string(request, "key.name", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_int64(request, "key.offset", 0);
+        xpc_dictionary_set_int64(request, "key.length", 0);
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.buildsettings.register"));
+
+        xpc_object_t product = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.action", sourcekitd_uid_get_from_cstr("source.buildsettings.action.set"));
+        xpc_dictionary_set_string(request, "key.module", "QueryKit");
+        xpc_dictionary_set_string(request, "key.product", "/Users/jp/Projects/QueryKit/QueryKit-77A9B678195374490016654E");
+        xpc_dictionary_set_string(request, "key.workspace", "/Users/jp/Library/Developer/Xcode/DerivedData/QueryKit-aqwcwloqrgrvzqflfqtrdhbnechy/Index/Debug/macosx10.10-x86_64/QueryKit.xcindex/db.xcindexdb");
+
+        xpc_object_t products = xpc_array_create(NULL, 0);
+        xpc_array_set_value(products, XPC_ARRAY_APPEND, product);
+
+        xpc_dictionary_set_value(request, "key.products", products);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/Attribute.swift");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Applications/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/Swift.swiftmodule");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/ObjectiveC/QKQuerySet.swift");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/Predicate.swift");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Applications/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/Darwin.swiftmodule");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Applications/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/Foundation.swiftmodule");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/Expression.swift");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/QueryKit.swift");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Applications/Xcode6-Beta7.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx/CoreGraphics.swiftmodule");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.indexsource"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/ObjectiveC/QKAttribute.swift");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "IDEIBSwiftAnnotationProvider:/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.close"));
+        xpc_dictionary_set_string(request, "key.name", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"));
+        xpc_dictionary_set_string(request, "key.name", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_string(request, "key.sourcetext", [[NSString stringWithContentsOfFile:@"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift" encoding:NSUTF8StringEncoding error:nil] UTF8String]);
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.replacetext"));
+        xpc_dictionary_set_string(request, "key.name", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        xpc_dictionary_set_int64(request, "key.offset", 0);
+        xpc_dictionary_set_int64(request, "key.length", 0);
+        xpc_dictionary_set_string(request, "key.sourcetext", "");
+
+        sourcekitd_send_request_sync(request);
+    }
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_int64(request, "key.offset", 358);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+
+        printf("%s", xpc_dictionary_get_string(sourcekitd_send_request_sync(request), "key.doc.full_as_xml"));
+    }
     return 0;
 }
 
 int main(int argc, const char * argv[]) {
-//    print_cursor_info("/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift", 200);
-//    print_cursor_info("/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift", 358);
-//    print_cursor_info("/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift", 482);
-//    print_cursor_info("/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift", 569);
-//    print_cursor_info("/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift", 671);
-//    print_cursor_info("/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift", 1422);
-//    print_cursor_info("/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift", 1633);
-//    print_cursor_info("/Users/jp/Projects/SwiftFram/SwiftFram/AClass.swift", 175);
-    return print_cursor_info("/Users/jp/Projects/SwiftFram/SwiftFram/AClass.swift", 228);
-//    print_cursor_info("/Users/jp/Projects/SwiftFram/SwiftFram/BClass.swift", 169);
-//    print_cursor_info("/Users/jp/Projects/SwiftFram/SwiftFram/BClass.swift", 298);
-//    return print_cursor_info("/Users/jp/Projects/SwiftFram/SwiftFram/BClass.swift", 503);
-//    return querykit();
+    return querykit();
 //    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
 //    if (arguments.count == 1) {
 //        return error("not enough arguments");
