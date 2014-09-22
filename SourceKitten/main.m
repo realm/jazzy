@@ -280,23 +280,49 @@ int generate_swift_interface_for_file() {
     return generate_swift_interface_for_module(moduleName, tmpDir);
 }
 
-int main(int argc, const char * argv[]) {
+int querykit() {
+    sourcekitd_initialize();
 
-    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
-    if (arguments.count == 1) {
-        return error("not enough arguments");
-    } else if ([arguments[1] isEqualToString:@"--help"]) {
-        print_usage();
-        return 0;
-    } else if ([arguments[1] isEqualToString:@"--swift_file"]) {
-        return cursorinfo_playground();
-    } else if ([arguments[1] isEqualToString:@"--file"]) {
-        return generate_swift_interface_for_file();
-    } else if (arguments.count >= 5 &&
-               [arguments[1] isEqualToString:@"--module"] &&
-               [arguments[3] isEqualToString:@"--framework_dir"]) {
-        return generate_swift_interface_for_module(arguments[2], arguments[4]);
+    NSArray *compilerArgs = @[
+                              @"/Users/jp/Projects/QueryKit/QueryKit/Attribute.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/Predicate.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/ObjectiveC/QKAttribute.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/QueryKit.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/ObjectiveC/QKQuerySet.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift",
+                              @"/Users/jp/Projects/QueryKit/QueryKit/Expression.swift"
+                              ];
+    xpc_object_t compiler_args = [compilerArgs newXPCObject];
+    {
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compiler_args);
+        xpc_dictionary_set_int64(request, "key.offset", 786);
+        xpc_dictionary_set_string(request, "key.sourcefile", "/Users/jp/Projects/QueryKit/QueryKit/QuerySet.swift");
+        
+        printf("%s", xpc_dictionary_get_string(sourcekitd_send_request_sync(request), "key.doc.full_as_xml"));
     }
 
-    return error("unable to parse command");
+    return 0;
+}
+
+int main(int argc, const char * argv[]) {
+    return querykit();
+//    NSArray *arguments = [[NSProcessInfo processInfo] arguments];
+//    if (arguments.count == 1) {
+//        return error("not enough arguments");
+//    } else if ([arguments[1] isEqualToString:@"--help"]) {
+//        print_usage();
+//        return 0;
+//    } else if ([arguments[1] isEqualToString:@"--swift_file"]) {
+//        return cursorinfo_playground();
+//    } else if ([arguments[1] isEqualToString:@"--file"]) {
+//        return generate_swift_interface_for_file();
+//    } else if (arguments.count >= 5 &&
+//               [arguments[1] isEqualToString:@"--module"] &&
+//               [arguments[3] isEqualToString:@"--framework_dir"]) {
+//        return generate_swift_interface_for_module(arguments[2], arguments[4]);
+//    }
+//
+//    return error("unable to parse command");
 }
