@@ -39,6 +39,7 @@
 		E86501C319708D1C005F11E4 /* SourceKitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SourceKitten; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86501C619708D1C005F11E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E8B3C02219A59B1D007A8998 /* JAZMusician.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JAZMusician.h; sourceTree = "<group>"; };
+		E8EB9E5B19D06D7800C21947 /* sourcekitd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sourcekitd.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +87,7 @@
 			children = (
 				E8B3C02219A59B1D007A8998 /* JAZMusician.h */,
 				E8509F4619C2432F00B47895 /* Musician.swift */,
+				E8EB9E5B19D06D7800C21947 /* sourcekitd.h */,
 				E86501C619708D1C005F11E4 /* main.m */,
 				E824CC4619C4CC8E00CA8899 /* JAZEntity.h */,
 				E824CC4719C4CC8E00CA8899 /* JAZEntity.m */,

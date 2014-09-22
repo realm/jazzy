@@ -9,12 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <XPCKit/XPCKit.h>
 #import "JAZEntity.h"
-
-// SourceKit function declarations
-void sourcekitd_initialize();
-uint64_t sourcekitd_uid_get_from_cstr(const char *);
-xpc_object_t sourcekitd_send_request_sync(xpc_object_t);
-const char *sourcekitd_uid_get_string_ptr(uint64_t uid);
+#import "sourcekitd.h"
 
 NSArray *entitiesInDict(NSDictionary *dict) {
     NSMutableArray *entities = [NSMutableArray array];
