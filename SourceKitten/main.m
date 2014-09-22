@@ -288,15 +288,24 @@ int cursorinfo(const char *file, NSString *args, int64_t offset) {
     arguments = [arguments arrayByAddingObjectsFromArray:@[@"-module-cache-path",
                                                            @"/Users/jp/Library/Developer/Xcode/DerivedData/ModuleCache"]];
 
-    xpc_object_t compilerargs = [arguments newXPCObject];
-    xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
-    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"));
-    xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
-    xpc_dictionary_set_int64(request, "key.offset", offset);
-    xpc_dictionary_set_string(request, "key.sourcefile", file);
+    NSString *sourceText = [NSString stringWithContentsOfFile:@(file) encoding:NSUTF8StringEncoding error:nil];
 
-    const char *xml = xpc_dictionary_get_string(sourcekitd_send_request_sync(request), "key.doc.full_as_xml");
-    printf("%s\n", xml);
+    NSMutableSet *seenDocs = [[NSMutableSet alloc] init];
+
+    for (NSUInteger cursor = 0; cursor < sourceText.length; cursor++) {
+        xpc_object_t compilerargs = [arguments newXPCObject];
+        xpc_object_t request = xpc_dictionary_create(NULL, NULL, 0);
+        xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"));
+        xpc_dictionary_set_value(request, "key.compilerargs", compilerargs);
+        xpc_dictionary_set_int64(request, "key.offset", cursor);
+        xpc_dictionary_set_string(request, "key.sourcefile", file);
+
+        const char *xml = xpc_dictionary_get_string(sourcekitd_send_request_sync(request), "key.doc.full_as_xml");
+        if (xml != nil && ![seenDocs containsObject:@(xml)]) {
+            printf("%s\n", xml);
+            [seenDocs addObject:@(xml)];
+        }
+    }
     return 0;
 }
 
