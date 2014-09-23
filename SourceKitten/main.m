@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <XPCKit/XPCKit.h>
-#import "JAZEntity.h"
 #import "sourcekitd.h"
 
 NSArray *nameOffsetsAndLengthsInDictionary(NSDictionary *dictionary) {
@@ -16,7 +15,7 @@ NSArray *nameOffsetsAndLengthsInDictionary(NSDictionary *dictionary) {
     NSArray *keys = [dictionary allKeys];
     if ([keys containsObject:@"key.namelength"] && [keys containsObject:@"key.nameoffset"]) {
         [nameOffsetsAndLengths addObject:@{@"key.namelength": dictionary[@"key.namelength"],
-                                     @"key.nameoffset": dictionary[@"key.nameoffset"]}];
+                                           @"key.nameoffset": dictionary[@"key.nameoffset"]}];
     }
     if ([keys containsObject:@"key.substructure"]) {
         for (NSDictionary *substructure in dictionary[@"key.substructure"]) {
@@ -84,7 +83,6 @@ int main(int argc, const char * argv[]) {
 
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/bin/xcodebuild";
-    task.arguments = @[@"-dry-run"];
     task.standardOutput = pipe;
     task.standardError = [NSPipe pipe];
 
