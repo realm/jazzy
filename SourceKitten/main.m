@@ -77,10 +77,23 @@ int docs_for_swift_compiler_args(NSString *compilerArgsString) {
     return 1;
 }
 
+void clean_build() {
+    NSTask *task = [[NSTask alloc] init];
+    task.launchPath = @"/usr/bin/xcodebuild";
+    task.arguments = @[@"clean"];
+    task.standardOutput = [NSPipe pipe];
+    task.standardError = [NSPipe pipe];
+    
+    [task launch];
+    [task waitUntilExit];
+}
+
 int main(int argc, const char * argv[]) {
     NSPipe *pipe = [NSPipe pipe];
     NSFileHandle *file = pipe.fileHandleForReading;
 
+    clean_build();
+    
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/bin/xcodebuild";
     task.standardOutput = pipe;
@@ -96,6 +109,8 @@ int main(int argc, const char * argv[]) {
     NSTextCheckingResult *regexMatch = [regex firstMatchInString:output options:0 range:NSMakeRange(0, output.length)];
     if (regexMatch) {
         return docs_for_swift_compiler_args([output substringWithRange:regexMatch.range]);
+    } else {
+        printf("Path not found\n");
     }
     return 0;
 }
