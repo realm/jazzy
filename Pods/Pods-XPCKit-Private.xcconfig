@@ -1,5 +1,0 @@
-#include "Pods-XPCKit.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/BuildHeaders/XPCKit" "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/XPCKit"
-OTHER_LDFLAGS = -ObjC
-PODS_ROOT = ${SRCROOT}
