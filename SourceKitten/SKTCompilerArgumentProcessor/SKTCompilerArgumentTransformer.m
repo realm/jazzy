@@ -32,7 +32,7 @@
 
     NSMutableArray *toRemove = [@[] mutableCopy];
     for (NSUInteger i = 0; i < [argumentArray count]; i++) {
-        argumentArray[i] = [argumentArray[i] stringByReplacingOccurrencesOfString:@"\\\u00a0" withString:@"\\ "];
+        argumentArray[i] = [argumentArray[i] stringByReplacingOccurrencesOfString:@"\\\u00a0" withString:@" "];
         if ([argumentArray[i] isEqualToString:@"-parseable-output"]) {
             [toRemove addObject:argumentArray[i]];
         }
