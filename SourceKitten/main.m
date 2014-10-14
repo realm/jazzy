@@ -66,7 +66,7 @@ void initialize_value_transformer() {
 int main(int argc, const char * argv[]) {
     NSTask *task = [[NSTask alloc] init];
     task.launchPath = @"/usr/bin/xcodebuild";
-    NSMutableArray *xcodebuild_args = [NSMutableArray arrayWithCapacity:argc+3];
+    NSMutableArray *xcodebuild_args = [NSMutableArray arrayWithCapacity:argc+2];
     for (NSUInteger sourcekittenArgIndex = 1; sourcekittenArgIndex < argc; sourcekittenArgIndex++) {
         [xcodebuild_args addObject:@(argv[sourcekittenArgIndex])];
     }
