@@ -26,6 +26,8 @@ int error(NSString *message) {
  Print XML-formatted docs for the specified Xcode project
  */
 int docs_for_swift_compiler_args(NSArray *arguments) {
+    printf("<jazzy>\n"); // Opening tag
+
     sourcekitd_initialize();
 
     // Only create the XPC array of compiler arguments once, to be reused for each request
@@ -72,7 +74,7 @@ int docs_for_swift_compiler_args(NSArray *arguments) {
             }
         }
     }
-
+    printf("</jazzy>\n"); // Closing tag
     return 0;
 }
 
