@@ -8,7 +8,7 @@
 
 // SourceKit function declarations
 // Taken from dissassembling sourcekitd and SourceKitService
-// /Applications/Xcode6.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework
+// /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework
 
 /**
  Cancel request
