@@ -13,18 +13,6 @@
 		E86501C719708D1C005F11E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E86501C619708D1C005F11E4 /* main.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		E8EC5D5719709F97003C427C /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		14D5E71316CC4F1A8E467756 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4236885419E9504800F68605 /* SKTCompilerArgumentTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTCompilerArgumentTransformer.h; sourceTree = "<group>"; };
@@ -115,7 +103,6 @@
 				957B21C3507848B996A590D2 /* Check Pods Manifest.lock */,
 				E86501BF19708D1C005F11E4 /* Sources */,
 				E86501C019708D1C005F11E4 /* Frameworks */,
-				E8EC5D5719709F97003C427C /* CopyFiles */,
 				B95A9C75FF9D441BA175887B /* Copy Pods Resources */,
 			);
 			buildRules = (
