@@ -2,3 +2,4 @@ Pods
 SourceKitten.xcodeproj/xcuserdata
 SourceKitten.xcworkspace/xcuserdata
 *.xccheckout
+build
