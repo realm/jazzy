@@ -7,191 +7,200 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4236885619E9504800F68605 /* SKTCompilerArgumentTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4236885519E9504800F68605 /* SKTCompilerArgumentTransformer.m */; };
-		5606D71BE89D4E438C7846E7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14D5E71316CC4F1A8E467756 /* libPods.a */; };
-		E8509F4519C23E1100B47895 /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8509F4419C23E1100B47895 /* sourcekitd.framework */; };
-		E86501C719708D1C005F11E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E86501C619708D1C005F11E4 /* main.m */; };
+		E8BC421819EF5C1A001DBEF6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC421719EF5C1A001DBEF6 /* main.swift */; };
+		E8BC421F19EF5C67001DBEF6 /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */; };
+		E8FE8ADE19F0A873008E7E4F /* NSArray+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8AC619F0A873008E7E4F /* NSArray+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8ADF19F0A873008E7E4F /* NSData+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8AC819F0A873008E7E4F /* NSData+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE019F0A873008E7E4F /* NSDate+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8ACA19F0A873008E7E4F /* NSDate+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE119F0A873008E7E4F /* NSDictionary+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8ACC19F0A873008E7E4F /* NSDictionary+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE219F0A873008E7E4F /* NSFileHandle+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8ACE19F0A873008E7E4F /* NSFileHandle+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE319F0A873008E7E4F /* NSNumber+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8AD019F0A873008E7E4F /* NSNumber+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE419F0A873008E7E4F /* NSObject+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8AD219F0A873008E7E4F /* NSObject+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE519F0A873008E7E4F /* NSString+XPCParse.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8AD419F0A873008E7E4F /* NSString+XPCParse.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE619F0A873008E7E4F /* XPCConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8AD619F0A873008E7E4F /* XPCConnection.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE719F0A873008E7E4F /* XPCService.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8ADA19F0A873008E7E4F /* XPCService.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		E8FE8AE819F0A873008E7E4F /* XPCUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = E8FE8ADD19F0A873008E7E4F /* XPCUUID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14D5E71316CC4F1A8E467756 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4236885419E9504800F68605 /* SKTCompilerArgumentTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTCompilerArgumentTransformer.h; sourceTree = "<group>"; };
-		4236885519E9504800F68605 /* SKTCompilerArgumentTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTCompilerArgumentTransformer.m; sourceTree = "<group>"; };
-		43D9C0604513CE6A28F7F489 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		89A9C694B8BDDDCFFEC37BCE /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		E8509F4419C23E1100B47895 /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework; sourceTree = DEVELOPER_DIR; };
-		E86501C319708D1C005F11E4 /* SourceKitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SourceKitten; sourceTree = BUILT_PRODUCTS_DIR; };
-		E86501C619708D1C005F11E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E8EB9E5B19D06D7800C21947 /* sourcekitd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sourcekitd.h; sourceTree = "<group>"; };
+		E8BC421419EF5C1A001DBEF6 /* sourcekitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sourcekitten; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8BC421719EF5C1A001DBEF6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework; sourceTree = DEVELOPER_DIR; };
+		E8BC422019EF5E10001DBEF6 /* sourcekitd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourcekitd.h; sourceTree = "<group>"; };
+		E8BC422419EF6AB6001DBEF6 /* bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bridging-header.h"; sourceTree = "<group>"; };
+		E8FE8AC519F0A873008E7E4F /* NSArray+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8AC619F0A873008E7E4F /* NSArray+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8AC719F0A873008E7E4F /* NSData+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8AC819F0A873008E7E4F /* NSData+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8AC919F0A873008E7E4F /* NSDate+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8ACA19F0A873008E7E4F /* NSDate+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8ACB19F0A873008E7E4F /* NSDictionary+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8ACC19F0A873008E7E4F /* NSDictionary+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8ACD19F0A873008E7E4F /* NSFileHandle+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileHandle+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8ACE19F0A873008E7E4F /* NSFileHandle+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileHandle+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8ACF19F0A873008E7E4F /* NSNumber+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8AD019F0A873008E7E4F /* NSNumber+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8AD119F0A873008E7E4F /* NSObject+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8AD219F0A873008E7E4F /* NSObject+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8AD319F0A873008E7E4F /* NSString+XPCParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XPCParse.h"; sourceTree = "<group>"; };
+		E8FE8AD419F0A873008E7E4F /* NSString+XPCParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XPCParse.m"; sourceTree = "<group>"; };
+		E8FE8AD519F0A873008E7E4F /* XPCConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPCConnection.h; sourceTree = "<group>"; };
+		E8FE8AD619F0A873008E7E4F /* XPCConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPCConnection.m; sourceTree = "<group>"; };
+		E8FE8AD719F0A873008E7E4F /* XPCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPCExtensions.h; sourceTree = "<group>"; };
+		E8FE8AD819F0A873008E7E4F /* XPCKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPCKit.h; sourceTree = "<group>"; };
+		E8FE8AD919F0A873008E7E4F /* XPCService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPCService.h; sourceTree = "<group>"; };
+		E8FE8ADA19F0A873008E7E4F /* XPCService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPCService.m; sourceTree = "<group>"; };
+		E8FE8ADB19F0A873008E7E4F /* XPCTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPCTypes.h; sourceTree = "<group>"; };
+		E8FE8ADC19F0A873008E7E4F /* XPCUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPCUUID.h; sourceTree = "<group>"; };
+		E8FE8ADD19F0A873008E7E4F /* XPCUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPCUUID.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		E86501C019708D1C005F11E4 /* Frameworks */ = {
+		E8BC421119EF5C1A001DBEF6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8509F4519C23E1100B47895 /* sourcekitd.framework in Frameworks */,
-				5606D71BE89D4E438C7846E7 /* libPods.a in Frameworks */,
+				E8BC421F19EF5C67001DBEF6 /* sourcekitd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4236885319E9504800F68605 /* SKTCompilerArgumentProcessor */ = {
+		E8BC420B19EF5C1A001DBEF6 = {
 			isa = PBXGroup;
 			children = (
-				4236885419E9504800F68605 /* SKTCompilerArgumentTransformer.h */,
-				4236885519E9504800F68605 /* SKTCompilerArgumentTransformer.m */,
-			);
-			path = SKTCompilerArgumentProcessor;
-			sourceTree = "<group>";
-		};
-		6B36D4BA53F64AEC9A37AB80 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				14D5E71316CC4F1A8E467756 /* libPods.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		93D04A4A85493C76AC986D3F /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				43D9C0604513CE6A28F7F489 /* Pods.debug.xcconfig */,
-				89A9C694B8BDDDCFFEC37BCE /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		E86501BA19708D1C005F11E4 = {
-			isa = PBXGroup;
-			children = (
-				E8509F4419C23E1100B47895 /* sourcekitd.framework */,
-				E86501C519708D1C005F11E4 /* SourceKitten */,
-				E86501C419708D1C005F11E4 /* Products */,
-				6B36D4BA53F64AEC9A37AB80 /* Frameworks */,
-				93D04A4A85493C76AC986D3F /* Pods */,
+				E8FE8AC419F0A873008E7E4F /* XPCKit */,
+				E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */,
+				E8BC421619EF5C1A001DBEF6 /* sourcekitten */,
+				E8BC421519EF5C1A001DBEF6 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		E86501C419708D1C005F11E4 /* Products */ = {
+		E8BC421519EF5C1A001DBEF6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E86501C319708D1C005F11E4 /* SourceKitten */,
+				E8BC421419EF5C1A001DBEF6 /* sourcekitten */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E86501C519708D1C005F11E4 /* SourceKitten */ = {
+		E8BC421619EF5C1A001DBEF6 /* sourcekitten */ = {
 			isa = PBXGroup;
 			children = (
-				4236885319E9504800F68605 /* SKTCompilerArgumentProcessor */,
-				E8EB9E5B19D06D7800C21947 /* sourcekitd.h */,
-				E86501C619708D1C005F11E4 /* main.m */,
+				E8BC422419EF6AB6001DBEF6 /* bridging-header.h */,
+				E8BC422019EF5E10001DBEF6 /* sourcekitd.h */,
+				E8BC421719EF5C1A001DBEF6 /* main.swift */,
 			);
-			path = SourceKitten;
+			path = sourcekitten;
+			sourceTree = "<group>";
+		};
+		E8FE8AC419F0A873008E7E4F /* XPCKit */ = {
+			isa = PBXGroup;
+			children = (
+				E8FE8AC519F0A873008E7E4F /* NSArray+XPCParse.h */,
+				E8FE8AC619F0A873008E7E4F /* NSArray+XPCParse.m */,
+				E8FE8AC719F0A873008E7E4F /* NSData+XPCParse.h */,
+				E8FE8AC819F0A873008E7E4F /* NSData+XPCParse.m */,
+				E8FE8AC919F0A873008E7E4F /* NSDate+XPCParse.h */,
+				E8FE8ACA19F0A873008E7E4F /* NSDate+XPCParse.m */,
+				E8FE8ACB19F0A873008E7E4F /* NSDictionary+XPCParse.h */,
+				E8FE8ACC19F0A873008E7E4F /* NSDictionary+XPCParse.m */,
+				E8FE8ACD19F0A873008E7E4F /* NSFileHandle+XPCParse.h */,
+				E8FE8ACE19F0A873008E7E4F /* NSFileHandle+XPCParse.m */,
+				E8FE8ACF19F0A873008E7E4F /* NSNumber+XPCParse.h */,
+				E8FE8AD019F0A873008E7E4F /* NSNumber+XPCParse.m */,
+				E8FE8AD119F0A873008E7E4F /* NSObject+XPCParse.h */,
+				E8FE8AD219F0A873008E7E4F /* NSObject+XPCParse.m */,
+				E8FE8AD319F0A873008E7E4F /* NSString+XPCParse.h */,
+				E8FE8AD419F0A873008E7E4F /* NSString+XPCParse.m */,
+				E8FE8AD519F0A873008E7E4F /* XPCConnection.h */,
+				E8FE8AD619F0A873008E7E4F /* XPCConnection.m */,
+				E8FE8AD719F0A873008E7E4F /* XPCExtensions.h */,
+				E8FE8AD819F0A873008E7E4F /* XPCKit.h */,
+				E8FE8AD919F0A873008E7E4F /* XPCService.h */,
+				E8FE8ADA19F0A873008E7E4F /* XPCService.m */,
+				E8FE8ADB19F0A873008E7E4F /* XPCTypes.h */,
+				E8FE8ADC19F0A873008E7E4F /* XPCUUID.h */,
+				E8FE8ADD19F0A873008E7E4F /* XPCUUID.m */,
+			);
+			path = XPCKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E86501C219708D1C005F11E4 /* SourceKitten */ = {
+		E8BC421319EF5C1A001DBEF6 /* sourcekitten */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E86501CA19708D1C005F11E4 /* Build configuration list for PBXNativeTarget "SourceKitten" */;
+			buildConfigurationList = E8BC421B19EF5C1A001DBEF6 /* Build configuration list for PBXNativeTarget "sourcekitten" */;
 			buildPhases = (
-				957B21C3507848B996A590D2 /* Check Pods Manifest.lock */,
-				E86501BF19708D1C005F11E4 /* Sources */,
-				E86501C019708D1C005F11E4 /* Frameworks */,
-				B95A9C75FF9D441BA175887B /* Copy Pods Resources */,
+				E8BC421019EF5C1A001DBEF6 /* Sources */,
+				E8BC421119EF5C1A001DBEF6 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = SourceKitten;
-			productName = SourceKitten;
-			productReference = E86501C319708D1C005F11E4 /* SourceKitten */;
+			name = sourcekitten;
+			productName = sourcekitten;
+			productReference = E8BC421419EF5C1A001DBEF6 /* sourcekitten */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		E86501BB19708D1C005F11E4 /* Project object */ = {
+		E8BC420C19EF5C1A001DBEF6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = Realm;
 				TargetAttributes = {
-					E86501C219708D1C005F11E4 = {
-						CreatedOnToolsVersion = 6.0;
+					E8BC421319EF5C1A001DBEF6 = {
+						CreatedOnToolsVersion = 6.1;
 					};
 				};
 			};
-			buildConfigurationList = E86501BE19708D1C005F11E4 /* Build configuration list for PBXProject "SourceKitten" */;
+			buildConfigurationList = E8BC420F19EF5C1A001DBEF6 /* Build configuration list for PBXProject "sourcekitten" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = E86501BA19708D1C005F11E4;
-			productRefGroup = E86501C419708D1C005F11E4 /* Products */;
+			mainGroup = E8BC420B19EF5C1A001DBEF6;
+			productRefGroup = E8BC421519EF5C1A001DBEF6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E86501C219708D1C005F11E4 /* SourceKitten */,
+				E8BC421319EF5C1A001DBEF6 /* sourcekitten */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		957B21C3507848B996A590D2 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		B95A9C75FF9D441BA175887B /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		E86501BF19708D1C005F11E4 /* Sources */ = {
+		E8BC421019EF5C1A001DBEF6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4236885619E9504800F68605 /* SKTCompilerArgumentTransformer.m in Sources */,
-				E86501C719708D1C005F11E4 /* main.m in Sources */,
+				E8FE8AE019F0A873008E7E4F /* NSDate+XPCParse.m in Sources */,
+				E8FE8AE619F0A873008E7E4F /* XPCConnection.m in Sources */,
+				E8FE8ADE19F0A873008E7E4F /* NSArray+XPCParse.m in Sources */,
+				E8FE8AE319F0A873008E7E4F /* NSNumber+XPCParse.m in Sources */,
+				E8FE8AE219F0A873008E7E4F /* NSFileHandle+XPCParse.m in Sources */,
+				E8FE8AE519F0A873008E7E4F /* NSString+XPCParse.m in Sources */,
+				E8FE8ADF19F0A873008E7E4F /* NSData+XPCParse.m in Sources */,
+				E8FE8AE119F0A873008E7E4F /* NSDictionary+XPCParse.m in Sources */,
+				E8BC421819EF5C1A001DBEF6 /* main.swift in Sources */,
+				E8FE8AE419F0A873008E7E4F /* NSObject+XPCParse.m in Sources */,
+				E8FE8AE819F0A873008E7E4F /* XPCUUID.m in Sources */,
+				E8FE8AE719F0A873008E7E4F /* XPCService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		E86501C819708D1C005F11E4 /* Debug */ = {
+		E8BC421919EF5C1A001DBEF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -228,10 +237,11 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		E86501C919708D1C005F11E4 /* Release */ = {
+		E8BC421A19EF5C1A001DBEF6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -265,59 +275,54 @@
 			};
 			name = Release;
 		};
-		E86501CB19708D1C005F11E4 /* Debug */ = {
+		E8BC421C19EF5C1A001DBEF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43D9C0604513CE6A28F7F489 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_OBJC_BRIDGING_HEADER = "sourcekitten/bridging-header.h";
 			};
 			name = Debug;
 		};
-		E86501CC19708D1C005F11E4 /* Release */ = {
+		E8BC421D19EF5C1A001DBEF6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89A9C694B8BDDDCFFEC37BCE /* Pods.release.xcconfig */;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "sourcekitten/bridging-header.h";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E86501BE19708D1C005F11E4 /* Build configuration list for PBXProject "SourceKitten" */ = {
+		E8BC420F19EF5C1A001DBEF6 /* Build configuration list for PBXProject "sourcekitten" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E86501C819708D1C005F11E4 /* Debug */,
-				E86501C919708D1C005F11E4 /* Release */,
+				E8BC421919EF5C1A001DBEF6 /* Debug */,
+				E8BC421A19EF5C1A001DBEF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E86501CA19708D1C005F11E4 /* Build configuration list for PBXNativeTarget "SourceKitten" */ = {
+		E8BC421B19EF5C1A001DBEF6 /* Build configuration list for PBXNativeTarget "sourcekitten" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E86501CB19708D1C005F11E4 /* Debug */,
-				E86501CC19708D1C005F11E4 /* Release */,
+				E8BC421C19EF5C1A001DBEF6 /* Debug */,
+				E8BC421D19EF5C1A001DBEF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = E86501BB19708D1C005F11E4 /* Project object */;
+	rootObject = E8BC420C19EF5C1A001DBEF6 /* Project object */;
 }

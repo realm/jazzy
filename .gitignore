@@ -1,5 +1,3 @@
-Pods
-SourceKitten.xcodeproj/xcuserdata
-SourceKitten.xcworkspace/xcuserdata
+sourcekitten.xcodeproj/xcuserdata
 *.xccheckout
 build

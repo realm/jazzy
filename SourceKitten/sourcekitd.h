@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Realm. All rights reserved.
 //
 
+@import XPC;
+
 // SourceKit function declarations
 // Taken from dissassembling sourcekitd and SourceKitService
 // /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework
