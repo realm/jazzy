@@ -8,7 +8,7 @@ An adorable little command line tool for interacting with [SourceKit][uncovering
 
 Just call `sourcekitten` in the root of your Xcode project's directory. Some more complex projects may have to pass in `-project`, `-workspace`, `-scheme` or other `xcodebuild` arguments to help sourcekitten determine what to document.
 
-Install it by running `xcodebuild && cp build/Release/sourcekitten /usr/local/bin`, first making sure that Xcode6.1-GM2 is set in `xcode-select`.
+Install it by running `sh install.sh`, first making sure that Xcode6.1-GM2 is set in `xcode-select`.
 
 ## How it works
 
