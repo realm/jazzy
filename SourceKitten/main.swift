@@ -9,7 +9,21 @@
 import Foundation
 import XPC
 
-// MARK: Helper Functions
+// MARK: - Model
+
+struct Section {
+    let file: String
+    let name: String
+    let line: UInt
+    let hasSeparator: Bool
+    let characterIndex: UInt
+
+    func xmlValue() -> String {
+        return "<Section file=\"\(file)\" line=\"\(line)\" hasSeparator=\"\(hasSeparator)\">\(name)</Section>"
+    }
+}
+
+// MARK: - Helper Functions
 
 /**
 Print error message to STDERR
@@ -21,10 +35,38 @@ func error(message: String) {
 }
 
 /**
+Find all sections
+*/
+func sections(fileName: String, fileContents: NSString) -> [Section] {
+    var sections = [Section]()
+    var characterIndex = UInt(0)
+    for (lineNumber, sectionString) in enumerate(fileContents.componentsSeparatedByString("\n")) {
+        let sectionNSString = sectionString as NSString
+        characterIndex += sectionString.length
+        let sectionRange = sectionNSString.rangeOfString("// MARK: ")
+        if sectionRange.location == 0 {
+            let nameStartIndex = sectionRange.location + sectionRange.length
+            var nameRange = NSRange(location: nameStartIndex, length: sectionNSString.length - nameStartIndex)
+            var name = sectionNSString.substringWithRange(nameRange)
+            var hasSeparator = false
+            if name.rangeOfString("-")?.startIndex == name.startIndex {
+                hasSeparator = true
+                if nameRange.length > 2 {
+                    name = (name as NSString).substringWithRange(NSRange(location: 2, length: nameRange.length - 2))
+                } else {
+                    name = ""
+                }
+            }
+            sections.append(Section(file: fileName, name: name, line: UInt(lineNumber), hasSeparator: hasSeparator, characterIndex: characterIndex))
+        }
+    }
+    return sections
+}
+
+/**
 Find character ranges that are potential candidates for documented tokens
 */
-func possibleDocumentedTokenRanges(filename: String) -> [NSRange] {
-    let fileContents = NSString(contentsOfFile: filename, encoding: NSUTF8StringEncoding, error: nil)!
+func possibleDocumentedTokenRanges(fileContents: NSString) -> [NSRange] {
     let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: NSRegularExpressionOptions(0), error: nil)!
     let range = NSRange(location: 0, length: fileContents.length)
     let matches = regex.matchesInString(fileContents, options: NSMatchingOptions(0), range: range)
@@ -106,23 +148,23 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 /**
 Print XML-formatted docs for the specified Xcode project
 */
-func print_docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
-    println("<jazzy>") // Opening XML tag
-
+func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> String {
     sourcekitd_initialize()
 
-    // Only create the XPC array of compiler arguments once, to be reused for each request
-    let compilerArgs = (arguments as NSArray).newXPCObject()
+    // Create the XPC array of compiler arguments once, to be reused for each request
+    var xpcArguments = xpc_array_create(nil, 0)
+    for argument in arguments {
+        xpc_array_append_value(xpcArguments, xpc_string_create(argument))
+    }
+
+    var xmlDocs = [String]()
 
     // Print docs for each Swift file
     for file in swiftFiles {
-        // Keep track of XML documentation we've already printed
-        var seenDocs = Array<String>()
-
         // Construct a SourceKit request for getting the "full_as_xml" docs
         let cursorInfoRequest = xpc_dictionary_create(nil, nil, 0)
         xpc_dictionary_set_uint64(cursorInfoRequest, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"))
-        xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", compilerArgs)
+        xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
         xpc_dictionary_set_string(cursorInfoRequest, "key.sourcefile", file)
 
         // Send "cursorinfo" SourceKit request for each cursor position in the current file.
@@ -130,9 +172,18 @@ func print_docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String
         // This is the same request triggered by Option-clicking a token in Xcode,
         // so we are also generating documentation for code that is external to the current project,
         // which is why we filter out docs from outside this file.
-        let ranges = possibleDocumentedTokenRanges(file)
+        let fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
+        var fileSections = sections(file, fileContents)
+        let ranges = possibleDocumentedTokenRanges(fileContents)
         for range in ranges {
             for cursor in range.location..<(range.location + range.length) {
+                if let firstSection = fileSections.first {
+                    if UInt(cursor) > firstSection.characterIndex {
+                        xmlDocs.append(firstSection.xmlValue())
+                        fileSections.removeAtIndex(0)
+                    }
+                }
+
                 xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(cursor))
 
                 // Send request and wait for response
@@ -143,18 +194,25 @@ func print_docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String
                     if xml != nil {
                         // Print XML docs if we haven't already & only if it relates to the current file we're documenting
                         let xmlString = String(UTF8String: xml)!
-                        if !contains(seenDocs, xmlString) && xmlString.rangeOfString(" file=\"\(file)\"") != nil {
-                            println(xmlString)
-                            seenDocs.append(xmlString)
+                        if !contains(xmlDocs, xmlString) && xmlString.rangeOfString(" file=\"\(file)\"") != nil {
+                            xmlDocs.append(xmlString)
                             break
                         }
                     }
                 }
             }
         }
+        for section in fileSections {
+            xmlDocs.append(section.xmlValue())
+        }
     }
 
-    println("</jazzy>") // Closing XML tag
+    var docsString = "<jazzy>\n"
+    for xml in xmlDocs {
+        docsString += "\(xml)\n"
+    }
+    docsString += "</jazzy>"
+    return docsString
 }
 
 /**
@@ -166,7 +224,7 @@ func swiftFilesFromArray(array: [String]) -> [String] {
     }
 }
 
-// MARK: Main Program
+// MARK: - Main Program
 
 /**
 Print XML-formatted docs for the specified Xcode project,
@@ -179,7 +237,7 @@ func main() {
         sourcekitdArguments.removeAtIndex(0) // remove sourcekitten
         sourcekitdArguments.removeAtIndex(0) // remove --skip-xcodebuild
         let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
-        print_docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles)
+        println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             // Extract the Xcode project's Swift files
@@ -190,7 +248,7 @@ func main() {
             var sourcekitdArguments = Array<String>(swiftcArguments[0..<7])
             sourcekitdArguments.extend(swiftFiles)
 
-            print_docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles)
+            println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
         } else {
             error(xcodebuildOutput)
         }
