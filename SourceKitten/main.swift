@@ -50,12 +50,12 @@ func possibleDocumentedTokenRanges(filename: String) -> [NSRange] {
 Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
 Return STDERR and STDOUT as a combined string.
 */
-func run_xcodebuild() -> String? {
+func run_xcodebuild(processArguments: [String]) -> String? {
     let task = NSTask()
     task.launchPath = "/usr/bin/xcodebuild"
 
     // Forward arguments to xcodebuild
-    var arguments = Process.arguments
+    var arguments = processArguments
     arguments.removeAtIndex(0)
     arguments.extend(["clean", "build", "-dry-run"])
     task.arguments = arguments
@@ -172,12 +172,12 @@ or Xcode output if no Swift compiler arguments were found.
 func main() {
     let arguments = Process.arguments
     if arguments.count > 1 && arguments[1] == "--skip-xcodebuild" {
-        var sourcekitdArguments = Process.arguments
+        var sourcekitdArguments = arguments
         sourcekitdArguments.removeAtIndex(0) // remove sourcekitten
         sourcekitdArguments.removeAtIndex(0) // remove --skip-xcodebuild
         let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
         print_docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles)
-    } else if let xcodebuildOutput = run_xcodebuild() {
+    } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             // Extract the Xcode project's Swift files
             let swiftFiles = swiftFilesFromArray(swiftcArguments)
