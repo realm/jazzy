@@ -38,7 +38,7 @@ options[:excludes] = options[:excludes].map { |p| File.expand_path(File.join(opt
 
 paths = Jazzy.headers(options[:input]) - options[:excludes]
 
-FileUtils.rm_r options[:output] if File.directory?(options[:output]); Dir.mkdir options[:output]
+# FileUtils.rm_r options[:output] if File.directory?(options[:output]); Dir.mkdir options[:output]
 
 paths.each do |path|
   doc = Jazzy.document(path)
