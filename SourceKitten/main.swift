@@ -11,6 +11,9 @@ import XPC
 
 // MARK: - Model
 
+/**
+Structure to represent 'MARK:'-style section in source code
+*/
 struct Section {
     let file: String
     let name: String
@@ -27,6 +30,8 @@ struct Section {
 
 /**
 Print error message to STDERR
+
+:param: error message to print
 */
 func error(message: String) {
     let stderr = NSFileHandle.fileHandleWithStandardError()
@@ -36,6 +41,10 @@ func error(message: String) {
 
 /**
 Find all sections
+
+:param: fileName file name to include in XML tag
+:param: fileContents file contents to parse for sections
+:return: array of Section structs
 */
 func sections(fileName: String, fileContents: NSString) -> [Section] {
     var sections = [Section]()
@@ -65,6 +74,9 @@ func sections(fileName: String, fileContents: NSString) -> [Section] {
 
 /**
 Find character ranges that are potential candidates for documented tokens
+
+:param: fileContents to parse for possible token ranges
+:return: array of possible token ranges
 */
 func possibleDocumentedTokenRanges(fileContents: NSString) -> [NSRange] {
     let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: NSRegularExpressionOptions(0), error: nil)!
@@ -94,6 +106,9 @@ func possibleDocumentedTokenRanges(fileContents: NSString) -> [NSRange] {
 /**
 Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
 Return STDERR and STDOUT as a combined string.
+
+:param: processArguments array of arguments to pass to `xcodebuild`
+:return: xcodebuild STDERR+STDOUT output
 */
 func run_xcodebuild(processArguments: [String]) -> String? {
     let task = NSTask()
@@ -120,6 +135,9 @@ func run_xcodebuild(processArguments: [String]) -> String? {
 
 /**
 Parses the compiler arguments needed to compile the Swift aspects of an Xcode project
+
+:param: xcodebuildOutput output of `xcodebuild` to be parsed for swift compiler arguments
+:return: array of swift compiler arguments
 */
 func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
     let regex = NSRegularExpression(pattern: "/usr/bin/swiftc.*", options: NSRegularExpressionOptions(0), error: nil)!
@@ -147,6 +165,10 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 
 /**
 Print XML-formatted docs for the specified Xcode project
+
+:param: arguments compiler arguments to pass to SourceKit
+:param: swiftFiles array of Swift file names to document
+:return: XML-formatted string of documentation for the specified Xcode project
 */
 func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> String {
     sourcekitd_initialize()
@@ -217,6 +239,9 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
 
 /**
 Returns an array of swift file names in an array
+
+:param: array Array to be filtered
+:return: the array of swift files
 */
 func swiftFilesFromArray(array: [String]) -> [String] {
     return array.filter {
