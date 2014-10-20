@@ -32,13 +32,16 @@ func possibleDocumentedTokenRanges(filename: String) -> [NSRange] {
     var ranges = [NSRange]()
     for match in matches {
         let startIndex = match.range.location + match.range.length
-        let endIndex = fileContents.rangeOfString("\n", options: NSStringCompareOptions(0), range: NSRange(location: startIndex, length: range.length - startIndex)).location
+        let endIndex = fileContents.rangeOfString("\n", options: NSStringCompareOptions(0),
+            range: NSRange(location: startIndex, length: range.length - startIndex)).location
         var possibleTokenRange = NSRange(location: startIndex, length: endIndex - startIndex)
 
         // Exclude leading whitespace
-        let leadingWhitespaceLength = (fileContents.substringWithRange(possibleTokenRange) as NSString).rangeOfCharacterFromSet(NSCharacterSet.whitespaceCharacterSet().invertedSet, options: NSStringCompareOptions(0)).location
-        if leadingWhitespaceLength != NSNotFound && leadingWhitespaceLength > 0 {
-            possibleTokenRange = NSRange(location: possibleTokenRange.location + leadingWhitespaceLength, length: possibleTokenRange.length - leadingWhitespaceLength)
+        let leadingWhitespaceLength = (fileContents.substringWithRange(possibleTokenRange) as NSString)
+            .rangeOfCharacterFromSet(NSCharacterSet.whitespaceCharacterSet().invertedSet, options: NSStringCompareOptions(0)).location
+        if leadingWhitespaceLength != NSNotFound {
+            possibleTokenRange = NSRange(location: possibleTokenRange.location + leadingWhitespaceLength,
+                length: possibleTokenRange.length - leadingWhitespaceLength)
         }
 
         ranges.append(possibleTokenRange)
