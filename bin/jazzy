@@ -7,6 +7,7 @@ require 'optparse'
 options = {
   input: File.expand_path('.'),
   output: File.expand_path('docs'),
+  xcodebuild_arguments: [],
   excludes: []
 }
 
@@ -31,8 +32,18 @@ opt_parser = OptionParser.new do |opt|
     options[:xcodebuild_arguments] = args
   end
 
+  opt.on("-s", "--sourcekitten-sourcefile FILEPATH", "XML doc file generated from sourcekitten to parse") do |s|
+    options[:sourcekitten_sourcefile] = s
+  end
+
+  opt.on("-v", "--version", "Print version number") do
+    puts "jazzy version: " + Jazzy::VERSION
+    exit
+  end
+
   opt.on("-h", "--help", "help") do
     puts opt_parser
+    exit
   end
 end
 
@@ -43,12 +54,21 @@ def prepare_output_dir(output_dir, clean)
   FileUtils.mkdir_p output_dir
 end
 
-sourcekitten_output = `sourcekitten #{options[:xcodebuild_arguments].join(" ")}`
+if options[:sourcekitten_sourcefile]
+  file = File.open(options[:sourcekitten_sourcefile])
+  fileContents = file.read
+  file.close
+  prepare_output_dir(options[:output], options[:clean])
+  Jazzy::DocBuilder.buildDocsForSourceKittenOutput(fileContents, options[:output])
+  exit
+end
 
-# prepare_output_dir(options[:output], options[:clean])
-
-# path = File.join(options[:output], "List.html")
-# File.open(path, 'w') { |file| file.write(Jazzy::DocBuilder.document) }
-
-# # Copy assets into output directory
-# FileUtils.cp_r(File.expand_path(File.dirname(__FILE__) + '/../lib/jazzy/assets/') + '/.', options[:output])
+sourcekittenOutput = Jazzy::SourceKitten.runSourceKitten(options[:xcodebuild_arguments])
+sourcekittenExitCode = $?.exitstatus
+if sourcekittenExitCode == 0
+  prepare_output_dir(options[:output], options[:clean])
+  Jazzy::DocBuilder.buildDocsForSourceKittenOutput(sourcekittenOutput, options[:output])
+else
+  puts sourcekittenOutput
+  exit sourcekittenExitCode
+end
