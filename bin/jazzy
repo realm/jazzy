@@ -15,35 +15,40 @@ opt_parser = OptionParser.new do |opt|
   opt.separator  ""
   opt.separator  "Options"
 
-  opt.on("-i","--input FOLDER","Folder to recursively search for header files") do |input|
-    options[:input] = File.expand_path(input)
-  end
-
-  opt.on("-o","--output FOLDER","Folder to output the HTML docs to") do |output|
+  opt.on("-o", "--output FOLDER", "Folder to output the HTML docs to") do |output|
     options[:output] = File.expand_path(output)
   end
 
   opt.on("-e", "--exclude filepath1,filepath2,…filepathN", Array, "Exclude specific files") do |e|
-    options[:excludes] = e # path will be expanded after we’re sure the input has been stored
+    options[:excludes] = e
   end
 
-  opt.on("-h","--help","help") do
+  opt.on("-c", "--[no-]clean", "Delete contents of output directory before running") do |clean|
+    options[:clean] = clean
+  end
+
+  opt.on("-x", "--xcodebuild-arguments arg1,arg2,…argN", Array, "Arguments to forward to xcodebuild") do |args|
+    options[:xcodebuild_arguments] = args
+  end
+
+  opt.on("-h", "--help", "help") do
     puts opt_parser
   end
 end
 
 opt_parser.parse!
 
-options[:excludes] = options[:excludes].map { |p| File.expand_path(File.join(options[:input], p)) }
-
-paths = Jazzy.headers(options[:input]) - options[:excludes]
-
-# FileUtils.rm_r options[:output] if File.directory?(options[:output]); Dir.mkdir options[:output]
-
-paths.each do |path|
-  doc = Jazzy.document(path)
-  path = File.join(options[:output], path.scan(/\/(\w+)\.h$/)[0][0]+'.html')
-  File.open(path, 'w') { |file| file.write(doc) }                   
+def prepare_output_dir(output_dir, clean)
+  FileUtils.rm_r output_dir if (clean && File.directory?(output_dir))
+  FileUtils.mkdir_p output_dir
 end
 
-Jazzy.assets(options[:output])
+sourcekitten_output = `sourcekitten #{options[:xcodebuild_arguments].join(" ")}`
+
+# prepare_output_dir(options[:output], options[:clean])
+
+# path = File.join(options[:output], "List.html")
+# File.open(path, 'w') { |file| file.write(Jazzy::DocBuilder.document) }
+
+# # Copy assets into output directory
+# FileUtils.cp_r(File.expand_path(File.dirname(__FILE__) + '/../lib/jazzy/assets/') + '/.', options[:output])

@@ -1,8 +1,6 @@
 # coding: utf-8
 
-module Jazzy
-  VERSION = '0.0.4'
-end
+require File.expand_path('lib/jazzy/gem_version.rb', File.dirname(__FILE__))
 
 Gem::Specification.new do |spec|
   spec.name          = "jazzy"
