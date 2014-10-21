@@ -224,6 +224,8 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
                 }
             }
         }
+
+        // Add any remaining sections
         for section in fileSections {
             xmlDocs.append(section.xmlValue())
         }
