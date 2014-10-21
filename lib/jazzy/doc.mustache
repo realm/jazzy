@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{name}} {{kind}} Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+  </head>
+  <body id="reference" class="Swift">
+    <a name="//jazzy_ref/doc/uid/UID0" title="{{name}} {{kind}} Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p class="header-text"><a href="#">{{module_name}} Docs</a></p>
+        <p id="header-links"><a href="{{github_link}}"><img id="header-icon" src="img/gh.png" height="16px" width="16px" />View on GitHub</a></p>
+        <p id="header-links"><a href="{{dash_link}}"><img id="header-icon" src="img/dash.png" height="16px" width="16px" />Install in Dash</a></p>
+      </div>
+    </header>
+    <section id="valence">
+      <div class="content-wrapper">
+        <p id="hierarchial_navigation">
+        <a href="#" id="design_resources_link">{{module_name}} Framework Reference</a>
+        <img id="carat" src="img/carat.png" height="10px" width="6px" />
+        {{name}} {{kind}} Reference
+        </p>
+      </div>
+    </section>
+    <div class="content-wrapper">
+      {{> jazzy/partials/nav}}
+      <div class="pixel-line"></div>
+      <div class="rubber-band-gap"></div>
+      <article class="chapter">
+        <a name="//jazzy_ref/doc/uid/UID0-UID1"></a><a name="//jazzy_ref/doc/uid/UID1"></a><a name="//jazzy_ref/doc/uid/UID1-UID4"></a><a name="//jazzy_ref/occ/cl/{{name}}"></a><a name="//jazzy_ref/doc/c_ref/{{name}}"></a>
+        <h1 class="chapter-name">{{name}}</h1>
+        <section>
+          <section class="section">
+            <a name="//jazzy_ref/doc/uid/UID1-UID3"></a>
+            {{{overview}}}
+          </section>
+          {{> jazzy/partials/tasks}}
+        </section>
+        {{> jazzy/partials/footer}}
+      </article>
+    </div>
+  </body>
+</div>
+</html>

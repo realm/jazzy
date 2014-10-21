@@ -1,0 +1,16 @@
+<nav class="book-parts">
+  <ul class="nav-parts">
+    {{#tasks.length}}
+    <li class="part-name tasks">
+    Tasks
+      <ul class="nav-chapters">
+        {{#tasks}}
+        <li class="nav-chapter">
+          <a href="#//jazzy_ref/doc/uid/{{uid}}">{{name}}</a>
+        </li>
+        {{/tasks}}
+      </ul>
+    </li>
+    {{/tasks.length}}
+  </ul>
+</nav>
