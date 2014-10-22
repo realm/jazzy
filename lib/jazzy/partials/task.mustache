@@ -1,16 +1,17 @@
 <div class="task-group">
   <div class="task-name-container">
-    <a name="//jazzy_ref/doc/uid/{{uid}}"></a>
-    <a href="#//jazzy_ref/doc/uid/{{uid}}">
+    <a name="/{{uid}}"></a>
+    <a href="#/{{uid}}">
       <h3 class="section-name">{{name}}</h3>
     </a>
   </div>
   <ul class="task-group-list">
+    {{#items}}
     <li class="item symbol">
       <div class="task-group-term">
         <code>
-        <a name="//jazzy_ref/occ/instm/{{name}}/initWithString:"></a><a name="//jazzy_ref/doc/uid/UID1-initWithString_"></a><a name="//jazzy_ref/swift/instctr/{{name}}/string(String)"></a>
-        <a class="x-instance-method Swift" href="#//jazzy_ref/occ/instm/{{name}}/initWithString:" title="Returns an {{name}} object initialized with the characters of a given string and no attribute information.">init(string:)</a>
+        <a name="/{{usr}}">
+        <a class="x-instance-method Swift" href="#/{{usr}}">{{name}}</a>
         </code>
       </div>
       <div class="height-container">
@@ -42,12 +43,15 @@
             </table>
           </div>
           {{/parameters.length}}
+          {{#return}}
           <div class="result-description">
             <h4>Return Value</h4>
             {{{return}}}
           </div>
+          {{/return}}
         </section>
       </div>
     </li>
+    {{/items}}
   </ul>
 </div>
