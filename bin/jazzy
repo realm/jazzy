@@ -8,6 +8,11 @@ options = {
   input: File.expand_path('.'),
   output: File.expand_path('docs'),
   xcodebuild_arguments: [],
+  authorName: "",
+  moduleName: "",
+  githubURL: "",
+  authorURL: "",
+  dashURL: "",
   excludes: []
 }
 
@@ -24,12 +29,34 @@ opt_parser = OptionParser.new do |opt|
     options[:excludes] = e
   end
 
-  opt.on("-c", "--[no-]clean", "Delete contents of output directory before running") do |clean|
+  opt.on("-c", "--[no-]clean",
+    "Delete contents of output directory before running.",
+    "WARNING: If --output is set to ~/Desktop, this will delete the ~/Desktop directory.") do |clean|
     options[:clean] = clean
   end
 
   opt.on("-x", "--xcodebuild-arguments arg1,arg2,…argN", Array, "Arguments to forward to xcodebuild") do |args|
     options[:xcodebuild_arguments] = args
+  end
+
+  opt.on("-a", "--author AUTHOR_NAME", "Name of author to attribute in docs (i.e. Realm)") do |a|
+    options[:authorName] = a
+  end
+
+  opt.on("-u", "--author_url URL", "Author URL of this project (i.e. http://realm.io)") do |u|
+    options[:authorURL] = u
+  end
+
+  opt.on("-m", "--module MODULE_NAME", "Name of module being documented. (i.e. RealmSwift)") do |m|
+    options[:moduleName] = m
+  end
+
+  opt.on("-d", "--dash_url URL", "URL to install docs in Dash (i.e. dash-feed://http%3A%2F%2Fcocoadocs.org%2Fdocsets%2FRealm%2FRealm.xml") do |d|
+    options[:dashURL] = d
+  end
+
+  opt.on("-g", "--github_url URL", "GitHub URL of this project (i.e. https://github.com/realm/realm-cocoa)") do |g|
+    options[:githubURL] = g
   end
 
   opt.on("-s", "--sourcekitten-sourcefile FILEPATH", "XML doc file generated from sourcekitten to parse") do |s|
@@ -41,7 +68,7 @@ opt_parser = OptionParser.new do |opt|
     exit
   end
 
-  opt.on("-h", "--help", "help") do
+  opt.on("-h", "--help", "Print this help message") do
     puts opt_parser
     exit
   end
@@ -49,26 +76,19 @@ end
 
 opt_parser.parse!
 
-def prepare_output_dir(output_dir, clean)
-  FileUtils.rm_r output_dir if (clean && File.directory?(output_dir))
-  FileUtils.mkdir_p output_dir
-end
-
 if options[:sourcekitten_sourcefile]
   file = File.open(options[:sourcekitten_sourcefile])
   fileContents = file.read
   file.close
-  prepare_output_dir(options[:output], options[:clean])
-  Jazzy::DocBuilder.buildDocsForSourceKittenOutput(fileContents, options[:output])
-  exit
-end
-
-sourcekittenOutput = Jazzy::SourceKitten.runSourceKitten(options[:xcodebuild_arguments])
-sourcekittenExitCode = $?.exitstatus
-if sourcekittenExitCode == 0
-  prepare_output_dir(options[:output], options[:clean])
-  Jazzy::DocBuilder.buildDocsForSourceKittenOutput(sourcekittenOutput, options[:output])
+  Jazzy::DocBuilder.buildDocsForSourceKittenOutput(fileContents, options)
 else
-  puts sourcekittenOutput
-  exit sourcekittenExitCode
+  sourcekittenOutput = Jazzy::SourceKitten.runSourceKitten(options[:xcodebuild_arguments])
+  sourcekittenExitCode = $?.exitstatus
+  if sourcekittenExitCode == 0
+    Jazzy::DocBuilder.buildDocsForSourceKittenOutput(sourcekittenOutput, options)
+  else
+    warn sourcekittenOutput
+    warn "Please pass in xcodebuild arguments using -x"
+    exit sourcekittenExitCode
+  end
 end

@@ -21,7 +21,7 @@ end
 class Jazzy::SourceKitten
   def self.runSourceKitten(arguments)
     bin_path = File.expand_path(File.join(File.dirname(__FILE__), '../bin'))
-    `#{bin_path}/sourcekitten #{(arguments).join(" ")}`
+    `#{bin_path}/sourcekitten #{(arguments).join(" ")} 2>&1`
   end
 
   def self.parse(sourceKittenOutput)
@@ -54,22 +54,31 @@ class Jazzy::SourceKitten
   end
 end
 
+def prepare_output_dir(output_dir, clean)
+  FileUtils.rm_r output_dir if (clean && File.directory?(output_dir))
+  FileUtils.mkdir_p output_dir
+end
+
 class Jazzy::DocBuilder
-  def self.buildDocsForSourceKittenOutput(sourceKittenOutput, outputDir)
+  def self.buildDocsForSourceKittenOutput(sourceKittenOutput, options)
+    outputDir = options[:output]
+    prepare_output_dir(outputDir, options[:clean])
     docs = Jazzy::SourceKitten.parse(sourceKittenOutput)
     classes = docs.select { |doc| doc[:kind] == "Class" && doc[:declaration] =~ /class/ }
     classes.each do |theClass|
       classUSR = theClass[:usr]
       subItems = docs.select { |doc| doc[:usr] != classUSR && doc[:usr] =~ /#{classUSR[3..-1]}/ }
       path = File.join(outputDir, "#{theClass[:name]}.html")
-      File.open(path, 'w') { |file| file.write(Jazzy::DocBuilder.document("Alamofire", theClass, subItems)) }
+      File.open(path, 'w') { |file| file.write(Jazzy::DocBuilder.document(options, theClass, subItems)) }
     end
 
     # Copy assets into output directory
     FileUtils.cp_r(File.expand_path(File.dirname(__FILE__) + '/../lib/jazzy/assets/') + '/.', outputDir)
+
+    puts "Docs successfully built at " + outputDir
   end
 
-  def self.document(moduleName, theClass, subItems)
+  def self.document(options, theClass, subItems)
     doc = Jazzy::Doc.new
     doc[:name] = theClass[:name]
     doc[:kind] = theClass[:kind]
@@ -96,11 +105,11 @@ class Jazzy::DocBuilder
         :items => items
       }
     end
-    doc[:module_name] = moduleName
-    doc[:author_name] = moduleName
-    doc[:author_website] = "https://github.com/Alamofire/Alamofire"
-    doc[:github_link] = "https://github.com/Alamofire/Alamofire"
-    doc[:dash_link] = "http://kapeli.com/dash"
+    doc[:module_name] = options[:moduleName]
+    doc[:author_name] = options[:authorName]
+    doc[:author_website] = options[:authorURL]
+    doc[:github_link] = options[:githubURL]
+    doc[:dash_link] = options[:dashURL]
     doc.render
   end
 end
