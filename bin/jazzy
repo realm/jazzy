@@ -17,7 +17,7 @@ options = {
 }
 
 opt_parser = OptionParser.new do |opt|
-  opt.banner = "Usage: jazzy [-i input] [-o output]"
+  opt.banner = "Usage: jazzy"
   opt.separator  ""
   opt.separator  "Options"
 

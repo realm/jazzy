@@ -44,11 +44,13 @@ class Jazzy::SourceKitten
     xml = Nokogiri::XML(sourceKittenOutput)
     docs = []
     xml.root.element_children.each do |child|
+      next if child.name == "Section" # Skip sections
+
       doc = Hash.new
       doc[:kind] = child.name
       doc[:file] = xml_attribute(child, "file")
-      doc[:line] = xml_attribute(child, "line")
-      doc[:column] = xml_attribute(child, "column")
+      doc[:line] = xml_attribute(child, "line").to_i
+      doc[:column] = xml_attribute(child, "column").to_i
       doc[:hasSeparator] = xml_attribute(child, "hasSeparator")
       doc[:usr] = xml_xpath(child, "USR")
       doc[:name] = xml_xpath(child, "Name")
@@ -69,8 +71,7 @@ class Jazzy::SourceKitten
     end
 
     # docs are flat at this point. let's unflatten them
-    docs_with_usrs = docs.select { |doc| doc[:usr] != nil }
-    rootToChildSortedDocs = docs_with_usrs.sort { |doc1, doc2| doc1[:usr].length <=> doc2[:usr].length }
+    rootToChildSortedDocs = docs.sort { |doc1, doc2| doc1[:usr].length <=> doc2[:usr].length }
     
     docs = []
     rootToChildSortedDocs.each { |doc| make_doc_hierarchy(docs, doc) }
@@ -82,7 +83,7 @@ def sort_docs(docs)
   docs.each do |doc|
     doc[:children] = sort_docs(doc[:children])
   end
-  docs.sort { |doc1, doc2| doc1[:line].to_i <=> doc2[:line].to_i }
+  docs.sort { |doc1, doc2| doc1[:line] <=> doc2[:line] }
 end
 
 def prepare_output_dir(output_dir, clean)
@@ -97,7 +98,7 @@ class Jazzy::DocBuilder
     docs = Jazzy::SourceKitten.parse(sourceKittenOutput)
     docs.each do |doc|
       path = File.join(outputDir, "#{doc[:name]}.html")
-      File.open(path, "w") { |file| file.write(Jazzy::DocBuilder.document(options, doc, doc[:children])) }
+      File.open(path, "w") { |file| file.write(Jazzy::DocBuilder.document(options, doc)) }
     end
 
     # Copy assets into output directory
@@ -106,16 +107,16 @@ class Jazzy::DocBuilder
     puts "jam out ♪♫ to your fresh new docs at " + outputDir
   end
 
-  def self.document(options, theClass, subItems)
+  def self.document(options, docModel)
     doc = Jazzy::Doc.new
-    doc[:name] = theClass[:name]
-    doc[:kind] = theClass[:kind]
-    doc[:overview] = $markdown.render(theClass[:abstract])
+    doc[:name] = docModel[:name]
+    doc[:kind] = docModel[:kind]
+    doc[:overview] = $markdown.render(docModel[:abstract])
     doc[:tasks] = []
     tasknames = ["Children"]
     tasknames.each do |taskname|
       items = []
-      subItems.each do |subItem|
+      docModel[:children].each do |subItem|
         item = {
           :name => subItem[:name],
           :abstract => $markdown.render((subItem[:abstract] || "") + (subItem[:discussion] || "")),
