@@ -1,12 +1,12 @@
 #!/usr/bin/env ruby
-require 'jazzy'
-require 'find'
-require 'fileutils'
-require 'optparse'
+require "jazzy"
+require "find"
+require "fileutils"
+require "optparse"
 
 options = {
-  input: File.expand_path('.'),
-  output: File.expand_path('docs'),
+  input: File.expand_path("."),
+  output: File.expand_path("docs"),
   xcodebuild_arguments: [],
   authorName: "",
   moduleName: "",
