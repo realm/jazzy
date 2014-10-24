@@ -112,8 +112,7 @@ class Jazzy::SourceKitten
     kinds.keys.each do |kind|
       docs = group_docs(docs, kind)
     end
-    docs = make_doc_urls(docs, [])
-    docs
+    make_doc_urls(docs, [])
   end
 end
 
