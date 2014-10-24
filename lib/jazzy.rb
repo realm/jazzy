@@ -130,7 +130,7 @@ def make_doc_urls(docs, parents)
       doc[:url] = parents.join("/") + parentsSlash + doc[:name] + ".html"
       doc[:children] = make_doc_urls(doc[:children], parents + [doc[:name]])
     else
-      doc[:url] = parents.join("/") + ".html"
+      doc[:url] = parents.join("/") + ".html#/" + doc[:usr]
     end
   end
   docs
