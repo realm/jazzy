@@ -48,6 +48,7 @@ def kinds
     "source.lang.swift.decl.function.method.instance" => "Instance Method",
     "source.lang.swift.decl.var.instance" => "Instance Variable",
     "source.lang.swift.decl.protocol" => "Protocol",
+    "source.lang.swift.decl.struct" => "Struct",
     "source.lang.swift.decl.typealias" => "Typealias"
   }
 end
@@ -80,6 +81,9 @@ class Jazzy::SourceKitten
       doc = Hash.new
       doc[:kind] = xml_xpath(child, "Kind")
       doc[:kindName] = kinds[doc[:kind]]
+      if doc[:kindName] == nil
+        puts "Please file an issue on https://github.com/realm/jazzy/issues about adding support for " + doc[:kind]
+      end
       doc[:kindNamePlural] = kinds[doc[:kind]].pluralize
       doc[:file] = xml_attribute(child, "file")
       doc[:line] = xml_attribute(child, "line").to_i
