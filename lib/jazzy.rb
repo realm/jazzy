@@ -48,7 +48,9 @@ def kinds
     "source.lang.swift.decl.function.method.instance" => "Instance Method",
     "source.lang.swift.decl.var.instance" => "Instance Variable",
     "source.lang.swift.decl.protocol" => "Protocol",
+    "source.lang.swift.decl.var.static" => "Static Variable",
     "source.lang.swift.decl.struct" => "Struct",
+    "source.lang.swift.decl.function.subscript" => "Subscript",
     "source.lang.swift.decl.typealias" => "Typealias"
   }
 end
