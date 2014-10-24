@@ -217,7 +217,9 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
                         // Print XML docs if we haven't already & only if it relates to the current file we're documenting
                         let xmlString = String(UTF8String: xml)!
                         if !contains(xmlDocs, xmlString) && xmlString.rangeOfString(" file=\"\(file)\"") != nil {
-                            xmlDocs.append(xmlString)
+                            // Insert kind in XML
+                            let kind = String(UTF8String: sourcekitd_uid_get_string_ptr(xpc_dictionary_get_uint64(response, "key.kind")))!
+                            xmlDocs.append(xmlString.stringByReplacingOccurrencesOfString("</Name><USR>", withString: "</Name><Kind>\(kind)</Kind><USR>"))
                             break
                         }
                     }
