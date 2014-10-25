@@ -161,12 +161,14 @@ end
 class Jazzy::DocBuilder
   def self.buildDocs(outputDir, docs, options, level, doc_structure)
     docs.each do |doc|
-      next if doc[:children].count == 0
+      next if doc[:name] != "index" && doc[:children].count == 0
       prepare_output_dir(outputDir, false)
       path = File.join(outputDir, "#{doc[:name]}.html")
       path_to_root = ['../'].cycle(level).to_a.join("")
       File.open(path, "w") { |file| file.write(Jazzy::DocBuilder.document(options, doc, path_to_root, doc_structure)) }
-      Jazzy::DocBuilder.buildDocs(File.join(outputDir, doc[:name]), doc[:children], options, level + 1, doc_structure)
+      if doc[:name] != "index"
+        Jazzy::DocBuilder.buildDocs(File.join(outputDir, doc[:name]), doc[:children], options, level + 1, doc_structure)
+      end
     end
   end
 
@@ -175,6 +177,7 @@ class Jazzy::DocBuilder
     prepare_output_dir(outputDir, options[:clean])
     docs = Jazzy::SourceKitten.parse(sourceKittenOutput)
     doc_structure = doc_structure_for_docs(docs)
+    docs << {:name => "index"}
     Jazzy::DocBuilder.buildDocs(outputDir, docs, options, 0, doc_structure)
 
     # Copy assets into output directory
@@ -185,6 +188,18 @@ class Jazzy::DocBuilder
 
   def self.document(options, docModel, path_to_root, doc_structure)
     doc = Jazzy::Doc.new
+    if docModel[:name] == "index"
+      doc[:name] = options[:moduleName]
+      doc[:overview] = $markdown.render("This is the index page for #{options[:moduleName]} docs. Navigate using the links on the left.")
+      doc[:structure] = doc_structure
+      doc[:module_name] = options[:moduleName]
+      doc[:author_name] = options[:authorName]
+      doc[:author_website] = options[:authorURL]
+      doc[:github_link] = options[:githubURL]
+      doc[:dash_link] = options[:dashURL]
+      doc[:path_to_root] = path_to_root
+      return doc.render
+    end
     doc[:name] = docModel[:name]
     doc[:kind] = docModel[:kindName]
     doc[:overview] = $markdown.render(docModel[:abstract])
