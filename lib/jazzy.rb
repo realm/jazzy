@@ -82,6 +82,10 @@ class Jazzy::SourceKitten
 
       doc = Hash.new
       doc[:kind] = xml_xpath(child, "Kind")
+      
+      # Only handle declarations
+      next unless doc[:kind] =~ /^source\.lang\.swift\.decl\..*/
+
       doc[:kindName] = kinds[doc[:kind]]
       if doc[:kindName] == nil
         puts "Please file an issue on https://github.com/realm/jazzy/issues about adding support for " + doc[:kind]
