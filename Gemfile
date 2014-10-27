@@ -4,5 +4,5 @@ gemspec
 
 group :development do
   gem 'rubocop'
-	gem 'bacon'
+  gem 'bacon'
 end

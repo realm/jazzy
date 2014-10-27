@@ -203,8 +203,9 @@ def doc_structure_for_docs(docs)
   structure
 end
 
-# This module handles HTML generation, file writing, asset copying, and generally building docs given sourcekitten output
 module Jazzy
+  # This module handles HTML generation, file writing, asset copying, 
+  # and generally building docs given sourcekitten output
   module DocBuilder
     def self.build(options)
       if options.sourcekitten_sourcefile
