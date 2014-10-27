@@ -1,6 +1,5 @@
 require "mustache"
 require "redcarpet"
-require "nokogiri"
 require "json"
 require "date"
 require "uri"
@@ -10,18 +9,7 @@ require "jazzy/gem_version.rb"
 require "jazzy/doc.rb"
 require "jazzy/jazzy_markdown.rb"
 require 'jazzy/config'
-
-# XML Helpers
-
-# Gets value of XML attribute or nil (i.e. file in <Class file="Musician.swift"></Class>)
-def xml_attribute(node, name)
-  node.attributes[name].value if node.attributes[name]
-end
-
-# Gets text in XML node or nil (i.e. s:cMyUSR <USR>s:cMyUSR</USR>)
-def xml_xpath(node, xpath)
-  node.xpath(xpath).text if node.xpath(xpath).text.length > 0
-end
+require 'jazzy/xml_helper'
 
 # Return USR after first digit to get the part that is common to all child elements of this type
 # @example
@@ -86,64 +74,66 @@ def group_docs(docs, kind)
 end
 
 # This module interacts with the sourcekitten command-line executable
-module Jazzy::SourceKitten
-  # Run sourcekitten with given arguments and return combined STDOUT+STDERR output
-  def self.runSourceKitten(arguments)
-    bin_path = File.expand_path(File.join(File.dirname(__FILE__), "../bin"))
-    `#{bin_path}/sourcekitten #{(arguments).join(" ")} 2>&1`
-  end
-
-  # Parse sourcekitten STDOUT+STDERR output as XML
-  # @return [Hash] structured docs
-  def self.parse(sourceKittenOutput)
-    xml = Nokogiri::XML(sourceKittenOutput)
-    # Mutable array of docs
-    docs = []
-    xml.root.element_children.each do |child|
-      next if child.name == "Section" # Skip sections
-
-      doc = Hash.new
-      doc[:kind] = xml_xpath(child, "Kind")
-      
-      # Only handle declarations, since sourcekitten will also output references and other kinds
-      next unless doc[:kind] =~ /^source\.lang\.swift\.decl\..*/
-
-      doc[:kindName] = kinds[doc[:kind]]
-      if doc[:kindName] == nil
-        raise "Please file an issue on https://github.com/realm/jazzy/issues about adding support for " + doc[:kind]
-      end
-      doc[:kindNamePlural] = kinds[doc[:kind]].pluralize
-      doc[:file] = xml_attribute(child, "file")
-      doc[:line] = xml_attribute(child, "line").to_i
-      doc[:column] = xml_attribute(child, "column").to_i
-      doc[:usr] = xml_xpath(child, "USR")
-      doc[:name] = xml_xpath(child, "Name")
-      doc[:declaration] = xml_xpath(child, "Declaration")
-      doc[:abstract] = xml_xpath(child, "Abstract")
-      doc[:discussion] = xml_xpath(child, "Discussion")
-      doc[:return] = xml_xpath(child, "ResultDiscussion")
-      doc[:children] = []
-      parameters = []
-      child.xpath("Parameters/Parameter").each do |parameter_el|
-        parameters << {
-          :name => xml_xpath(parameter_el, "Name"),
-          :discussion => $markdown.render(xml_xpath(parameter_el, "Discussion"))
-        }
-      end
-      doc[:parameters] = parameters if parameters
-      docs << doc
+module Jazzy
+  module SourceKitten
+    # Run sourcekitten with given arguments and return combined STDOUT+STDERR output
+    def self.runSourceKitten(arguments)
+      bin_path = File.expand_path(File.join(File.dirname(__FILE__), "../bin"))
+      `#{bin_path}/sourcekitten #{(arguments).join(" ")} 2>&1`
     end
 
-    # docs are flat at this point. let's unflatten them
-    rootToChildSortedDocs = docs.sort_by { |doc| doc[:usr].length }
-    
-    docs = []
-    rootToChildSortedDocs.each { |doc| make_doc_hierarchy(docs, doc) }
-    docs = sort_docs_by_line(docs)
-    kinds.keys.each do |kind|
-      docs = group_docs(docs, kind)
+    # Parse sourcekitten STDOUT+STDERR output as XML
+    # @return [Hash] structured docs
+    def self.parse(sourceKittenOutput)
+      xml = Nokogiri::XML(sourceKittenOutput)
+      # Mutable array of docs
+      docs = []
+      xml.root.element_children.each do |child|
+        next if child.name == "Section" # Skip sections
+
+        doc = Hash.new
+        doc[:kind] = XMLHelper.xpath(child, "Kind")
+
+        # Only handle declarations, since sourcekitten will also output references and other kinds
+        next unless doc[:kind] =~ /^source\.lang\.swift\.decl\..*/
+
+        doc[:kindName] = kinds[doc[:kind]]
+        if doc[:kindName] == nil
+          raise "Please file an issue on https://github.com/realm/jazzy/issues about adding support for " + doc[:kind]
+        end
+        doc[:kindNamePlural] = kinds[doc[:kind]].pluralize
+        doc[:file] = XMLHelper.attribute(child, "file")
+        doc[:line] = XMLHelper.attribute(child, "line").to_i
+        doc[:column] = XMLHelper.attribute(child, "column").to_i
+        doc[:usr] = XMLHelper.xpath(child, "USR")
+        doc[:name] = XMLHelper.xpath(child, "Name")
+        doc[:declaration] = XMLHelper.xpath(child, "Declaration")
+        doc[:abstract] = XMLHelper.xpath(child, "Abstract")
+        doc[:discussion] = XMLHelper.xpath(child, "Discussion")
+        doc[:return] = XMLHelper.xpath(child, "ResultDiscussion")
+        doc[:children] = []
+        parameters = []
+        child.xpath("Parameters/Parameter").each do |parameter_el|
+          parameters << {
+            :name => XMLHelper.xpath(parameter_el, "Name"),
+            :discussion => $markdown.render(XMLHelper.xpath(parameter_el, "Discussion"))
+          }
+        end
+        doc[:parameters] = parameters if parameters
+        docs << doc
+      end
+
+      # docs are flat at this point. let's unflatten them
+      rootToChildSortedDocs = docs.sort_by { |doc| doc[:usr].length }
+
+      docs = []
+      rootToChildSortedDocs.each { |doc| make_doc_hierarchy(docs, doc) }
+      docs = sort_docs_by_line(docs)
+      kinds.keys.each do |kind|
+        docs = group_docs(docs, kind)
+      end
+      make_doc_urls(docs, [])
     end
-    make_doc_urls(docs, [])
   end
 end
 
@@ -192,7 +182,10 @@ def doc_structure_for_docs(docs)
   structure
 end
 
-class Jazzy::DocBuilder
+# This module handles HTML generation, file writing, asset copying, and generally building docs given sourcekitten output
+module Jazzy::DocBuilder
+  # Build documentation from the given options
+  # @param [Config] options
   def self.build(options)
     if options.sourcekitten_sourcefile
       file = File.open(options.sourcekitten_sourcefile)
@@ -212,8 +205,6 @@ class Jazzy::DocBuilder
     end
   end
 
-# This module handles HTML generation, file writing, asset copying, and generally building docs given sourcekitten output
-module Jazzy::DocBuilder
   # Build & write HTML docs to disk from structured docs array
   # @param [String] outputDir Root directory to write docs
   # @param [Array] docs Array of structured docs
