@@ -97,15 +97,15 @@ module Jazzy
   module SourceKitten
     # Run sourcekitten with given arguments and return combined
     # STDOUT+STDERR output
-    def self.run_source_kitten(arguments)
+    def self.run_sourcekitten(arguments)
       bin_path = File.expand_path(File.join(File.dirname(__FILE__), '../bin'))
       `#{bin_path}/sourcekitten #{(arguments).join(' ')} 2>&1  `
     end
 
     # Parse sourcekitten STDOUT+STDERR output as XML
     # @return [Hash] structured docs
-    def self.parse(source_kitten_output)
-      xml = Nokogiri::XML(source_kitten_output)
+    def self.parse(sourcekitten_output)
+      xml = Nokogiri::XML(sourcekitten_output)
       # Mutable array of docs
       docs = []
       xml.root.element_children.each do |child|
@@ -217,16 +217,16 @@ module Jazzy
         file = File.open(options.sourcekitten_sourcefile)
         file_contents = file.read
         file.close
-        build_docs_for_source_kitten_output(file_contents, options)
+        build_docs_for_sourcekitten_output(file_contents, options)
       else
-        source_kitten_output = Jazzy::SourceKitten.run_source_kitten(options.xcodebuild_arguments)
-        source_kitten_exit_code = $?.exitstatus
-        if source_kitten_exit_code == 0
-          build_docs_for_source_kitten_output(source_kitten_output, options)
+        sourcekitten_output = Jazzy::SourceKitten.run_sourcekitten(options.xcodebuild_arguments)
+        sourcekitten_exit_code = $?.exitstatus
+        if sourcekitten_exit_code == 0
+          build_docs_for_sourcekitten_output(sourcekitten_output, options)
         else
-          warn source_kitten_output
+          warn sourcekitten_output
           warn 'Please pass in xcodebuild arguments using -x'
-          exit source_kitten_exit_code
+          exit sourcekitten_exit_code
         end
       end
     end
@@ -252,12 +252,12 @@ module Jazzy
     end
 
     # Build docs given sourcekitten output
-    # @param [String] source_kitten_output Output of sourcekitten command
+    # @param [String] sourcekitten_output Output of sourcekitten command
     # @param [Config] options Build options
-    def self.build_docs_for_source_kitten_output(source_kitten_output, options)
+    def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       output_dir = options.output
       prepare_output_dir(output_dir, options.clean)
-      docs = Jazzy::SourceKitten.parse(source_kitten_output)
+      docs = Jazzy::SourceKitten.parse(sourcekitten_output)
       doc_structure = doc_structure_for_docs(docs)
       docs << { name: 'index' }
       Jazzy::DocBuilder.build_docs(output_dir, docs, options, 0, doc_structure)
