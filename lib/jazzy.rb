@@ -11,6 +11,7 @@ require 'jazzy/doc.rb'
 require 'jazzy/jazzy_markdown.rb'
 require 'jazzy/config'
 require 'jazzy/xml_helper'
+require 'jazzy/source_declaration'
 
 # XML Helpers
 
@@ -38,11 +39,11 @@ end
 # (after first digit)
 # @see sub_usr
 def make_doc_hierarchy(docs, doc)
-  sub_usr = sub_usr(doc[:usr])
+  sub_usr = sub_usr(doc.usr)
   docs.each do |hashdoc| # rubocop:disable Style/Next
-    hash_sub_usr = sub_usr(hashdoc[:usr])
+    hash_sub_usr = sub_usr(hashdoc.usr)
     if sub_usr =~ /#{hash_sub_usr}/
-      make_doc_hierarchy(hashdoc[:children], doc)
+      make_doc_hierarchy(hashdoc.children, doc)
       # Stop recursive hierarchy if a match is found
       return
     end
@@ -80,15 +81,14 @@ end
 # Group root-level docs by kind and add as children to a group doc element
 def group_docs(docs, kind)
   kind_name_plural = kinds[kind].pluralize
-  group = docs.select { |doc| doc[:kind] == kind }
-  docs = docs.select { |doc| doc[:kind] != kind }
-  docs << {
-    name: kind_name_plural,
-    kind: 'Overview',
-    abstract: "The following #{kind_name_plural.downcase} are available " \
-      'globally.',
-    children: group,
-  } if group.count > 0
+  group, docs = docs.partition { |doc| doc.kind == kind }
+  docs << Jazzy::SourceDeclaration.new.tap do |sd|
+    sd.name = kind_name_plural
+    sd.kind = 'Overview'
+    sd.abstract = "The following #{kind_name_plural.downcase} are available " \
+      'globally.'
+    sd.children = group
+  end if group.count > 0
   docs
 end
 
@@ -111,29 +111,29 @@ module Jazzy
       xml.root.element_children.each do |child|
         next if child.name == 'Section' # Skip sections
 
-        doc = Hash.new
-        doc[:kind] = xml_xpath(child, 'Kind')
+        declaration = SourceDeclaration.new
+        declaration.kind = xml_xpath(child, 'Kind')
 
         # Only handle declarations, since sourcekitten will also output
         # references and other kinds
-        next unless doc[:kind] =~ /^source\.lang\.swift\.decl\..*/
+        next unless declaration.kind =~ /^source\.lang\.swift\.decl\..*/
 
-        doc[:kindName] = kinds[doc[:kind]]
+        declaration.kindName = kinds[declaration.kind]
 
         raise 'Please file an issue on https://github.com/realm/jazzy/issues ' \
-          'about adding support for ' + doc[:kind] unless doc[:kindName]
+          "about adding support for `#{declaration.kind}`"  unless declaration.kindName
 
-        doc[:kindNamePlural] = kinds[doc[:kind]].pluralize
-        doc[:file] = xml_attribute(child, 'file')
-        doc[:line] = xml_attribute(child, 'line').to_i
-        doc[:column] = xml_attribute(child, 'column').to_i
-        doc[:usr] = xml_xpath(child, 'USR')
-        doc[:name] = xml_xpath(child, 'Name')
-        doc[:declaration] = xml_xpath(child, 'Declaration')
-        doc[:abstract] = xml_xpath(child, 'Abstract')
-        doc[:discussion] = xml_xpath(child, 'Discussion')
-        doc[:return] = xml_xpath(child, 'ResultDiscussion')
-        doc[:children] = []
+        declaration.kindNamePlural = kinds[declaration.kind].pluralize
+        declaration.file = xml_attribute(child, 'file')
+        declaration.line = xml_attribute(child, 'line').to_i
+        declaration.column = xml_attribute(child, 'column').to_i
+        declaration.usr = xml_xpath(child, 'USR')
+        declaration.name = xml_xpath(child, 'Name')
+        declaration.declaration = xml_xpath(child, 'Declaration')
+        declaration.abstract = xml_xpath(child, 'Abstract')
+        declaration.discussion = xml_xpath(child, 'Discussion')
+        declaration.return = xml_xpath(child, 'ResultDiscussion')
+        declaration.children = []
         parameters = []
         child.xpath('Parameters/Parameter').each do |parameter_el|
           parameters << {
@@ -143,12 +143,12 @@ module Jazzy
               ),
           }
         end
-        doc[:parameters] = parameters if parameters
-        docs << doc
+        declaration.parameters = parameters if parameters
+        docs << declaration
       end
 
       # docs are flat at this point. let's unflatten them
-      root_to_child_sorted_docs = docs.sort_by { |doc| doc[:usr].length }
+      root_to_child_sorted_docs = docs.sort_by { |doc| doc.usr.length }
 
       docs = []
       root_to_child_sorted_docs.each { |doc| make_doc_hierarchy(docs, doc) }
@@ -164,24 +164,24 @@ end
 # Function to recursively sort docs and its children by line number
 def sort_docs_by_line(docs)
   docs.each do |doc|
-    doc[:children] = sort_docs_by_line(doc[:children])
+    doc.children = sort_docs_by_line(doc.children)
   end
-  docs.sort_by { |doc| [doc[:file], doc[:line]] }
+  docs.sort_by { |doc| [doc.file, doc.line] }
 end
 
 # Generate doc URL by prepending its parents URLs
 # @return [Hash] input docs with URLs
 def make_doc_urls(docs, parents)
   docs.each do |doc|
-    if doc[:children].count > 0
+    if doc.children.count > 0
       # Create HTML page for this doc if it has children
       parents_slash = parents.count > 0 ? '/' : ''
-      doc[:url] = parents.join('/') + parents_slash + doc[:name] + '.html'
-      doc[:children] = make_doc_urls(doc[:children], parents + [doc[:name]])
+      doc.url = parents.join('/') + parents_slash + doc.name + '.html'
+      doc.children = make_doc_urls(doc.children, parents + [doc.name])
     else
       # Don't create HTML page for this doc if it doesn't have children
       # Instead, make its link a hash-link on its parent's page
-      doc[:url] = parents.join('/') + '.html#/' + doc[:usr]
+      doc.url = parents.join('/') + '.html#/' + doc.usr
     end
   end
   docs
@@ -199,8 +199,8 @@ def doc_structure_for_docs(docs)
   structure = []
   docs.each do |doc|
     structure << {
-      section: doc[:name],
-      children: doc[:children].map { |child| { name: child[:name], url: child[:url] } },
+      section: doc.name,
+      children: doc.children.map { |child| { name: child.name, url: child.url } },
     }
   end
   structure
@@ -240,13 +240,13 @@ module Jazzy
     # @param [Array] doc_structure @see #doc_structure_for_docs
     def self.build_docs(output_dir, docs, options, depth, doc_structure)
       docs.each do |doc|
-        next if doc[:name] != 'index' && doc[:children].count == 0
+        next if doc.name != 'index' && doc.children.count == 0
         prepare_output_dir(output_dir, false)
-        path = File.join(output_dir, "#{doc[:name]}.html")
+        path = File.join(output_dir, "#{doc.name}.html")
         path_to_root = ['../'].cycle(depth).to_a.join('')
         File.open(path, 'w') { |file| file.write(Jazzy::DocBuilder.document(options, doc, path_to_root, doc_structure)) }
-        if doc[:name] != 'index'
-          Jazzy::DocBuilder.build_docs(File.join(output_dir, doc[:name]), doc[:children], options, depth + 1, doc_structure)
+        if doc.name != 'index'
+          Jazzy::DocBuilder.build_docs(File.join(output_dir, doc.name), doc.children, options, depth + 1, doc_structure)
         end
       end
     end
@@ -259,7 +259,7 @@ module Jazzy
       prepare_output_dir(output_dir, options.clean)
       docs = Jazzy::SourceKitten.parse(sourcekitten_output)
       doc_structure = doc_structure_for_docs(docs)
-      docs << { name: 'index' }
+      docs << SourceDeclaration.new.tap { |sd| sd.name = 'index' }
       Jazzy::DocBuilder.build_docs(output_dir, docs, options, 0, doc_structure)
 
       # Copy assets into output directory
@@ -271,15 +271,15 @@ module Jazzy
 
     # Build Mustache document from single parsed doc
     # @param [Config] options Build options
-    # @param [Hash] docModel Parsed doc. @see Jazzy::SourceKitten.parse
+    # @param [Hash] doc_model Parsed doc. @see Jazzy::SourceKitten.parse
     # @param [String] path_to_root
     # @param [Array] doc_structure doc structure comprised of section names and
     #        child names and URLs. @see doc_structure_for_docs
-    def self.document(options, docModel, path_to_root, doc_structure)
+    def self.document(options, doc_model, path_to_root, doc_structure)
       doc = Jazzy::Doc.new # Mustache model instance
       # Do something special for index.
       # @todo render README here
-      if docModel[:name] == 'index'
+      if doc_model.name == 'index'
         doc[:name] = options.module_name
         doc[:overview] = Jazzy.markdown.render(
           "This is the index page for #{options.module_name} docs. " \
@@ -296,29 +296,29 @@ module Jazzy
       end
 
       ########################################################
-      # Map docModel values to mustache model values
+      # Map doc_model values to mustache model values
       ########################################################
 
-      doc[:name] = docModel[:name]
-      doc[:kind] = docModel[:kindName]
-      doc[:overview] = Jazzy.markdown.render(docModel[:abstract])
+      doc[:name] = doc_model.name
+      doc[:kind] = doc_model.kindName
+      doc[:overview] = Jazzy.markdown.render(doc_model.abstract)
       doc[:tasks] = []
       doc[:structure] = doc_structure
       # @todo parse mark-style comments and use as task names
       tasknames = ['Children']
       tasknames.each do |taskname|
         items = []
-        docModel[:children].each do |subItem|
+        doc_model.children.each do |subItem|
           # Combine abstract and discussion into abstract
-          abstract = (subItem[:abstract] || '') + (subItem[:discussion] || '')
+          abstract = (subItem.abstract || '') + (subItem.discussion || '')
           item = {
-            name: subItem[:name],
+            name: subItem.name,
             abstract: Jazzy.markdown.render(abstract),
-            declaration: subItem[:declaration],
-            usr: subItem[:usr],
+            declaration: subItem.declaration,
+            usr: subItem.usr,
           }
-          item[:return] = Jazzy.markdown.render(subItem[:return]) if subItem[:return]
-          parameters = subItem[:parameters]
+          item[:return] = Jazzy.markdown.render(subItem.return) if subItem.return
+          parameters = subItem.parameters
           item[:parameters] = parameters if parameters.length > 0
           items << item
         end
