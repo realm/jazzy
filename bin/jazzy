@@ -1,20 +1,49 @@
 #!/usr/bin/env ruby
-require "jazzy"
+
+if $PROGRAM_NAME == __FILE__ && !ENV['JAZZY_NO_BUNDLER']
+  ENV['BUNDLE_GEMFILE'] = File.expand_path('../../Gemfile', __FILE__)
+  require 'rubygems'
+  require 'bundler/setup'
+  $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+elsif ENV['JAZZY_NO_BUNDLER']
+  require 'rubygems'
+  gem 'jazzy'
+end
+
+require 'jazzy'
 require "find"
 require "fileutils"
 require "optparse"
 
-options = {
-  input: File.expand_path("."),
-  output: File.expand_path("docs"),
-  xcodebuild_arguments: [],
-  authorName: "",
-  moduleName: "",
-  githubURL: "",
-  authorURL: "",
-  dashURL: "",
-  excludes: []
-}
+class Jazzy::Config
+  attr_accessor :input
+  attr_accessor :output
+  attr_accessor :xcodebuild_arguments
+  attr_accessor :authorName
+  attr_accessor :moduleName
+  attr_accessor :githubURL
+  attr_accessor :authorURL
+  attr_accessor :dashURL
+  attr_accessor :excludes
+  attr_accessor :sourcekitten_sourcefile
+  attr_accessor :clean
+
+  def initialize
+    self.input = File.expand_path(".")
+    self.output = File.expand_path("docs")
+    self.xcodebuild_arguments = []
+    self.authorName = ""
+    self.moduleName = ""
+    self.githubURL = ""
+    self.authorURL = ""
+    self.dashURL = ""
+    self.excludes = []
+    self.sourcekitten_sourcefile = nil
+    self.clean = false
+  end
+end
+
+config = Jazzy::Config.new
 
 opt_parser = OptionParser.new do |opt|
   opt.banner = "Usage: jazzy"
@@ -22,45 +51,45 @@ opt_parser = OptionParser.new do |opt|
   opt.separator  "Options"
 
   opt.on("-o", "--output FOLDER", "Folder to output the HTML docs to") do |output|
-    options[:output] = File.expand_path(output)
+    config.output = File.expand_path(output)
   end
 
   opt.on("-e", "--exclude filepath1,filepath2,…filepathN", Array, "Exclude specific files") do |e|
-    options[:excludes] = e
+    config.excludes = e
   end
 
   opt.on("-c", "--[no-]clean",
     "Delete contents of output directory before running.",
     "WARNING: If --output is set to ~/Desktop, this will delete the ~/Desktop directory.") do |clean|
-    options[:clean] = clean
+    config.clean = clean
   end
 
   opt.on("-x", "--xcodebuild-arguments arg1,arg2,…argN", Array, "Arguments to forward to xcodebuild") do |args|
-    options[:xcodebuild_arguments] = args
+    config.xcodebuild_arguments = args
   end
 
   opt.on("-a", "--author AUTHOR_NAME", "Name of author to attribute in docs (i.e. Realm)") do |a|
-    options[:authorName] = a
+    config.authorName = a
   end
 
   opt.on("-u", "--author_url URL", "Author URL of this project (i.e. http://realm.io)") do |u|
-    options[:authorURL] = u
+    config.authorURL = u
   end
 
   opt.on("-m", "--module MODULE_NAME", "Name of module being documented. (i.e. RealmSwift)") do |m|
-    options[:moduleName] = m
+    config.moduleName = m
   end
 
   opt.on("-d", "--dash_url URL", "URL to install docs in Dash (i.e. dash-feed://http%3A%2F%2Fcocoadocs.org%2Fdocsets%2FRealm%2FRealm.xml") do |d|
-    options[:dashURL] = d
+    config.dashURL = d
   end
 
   opt.on("-g", "--github_url URL", "GitHub URL of this project (i.e. https://github.com/realm/realm-cocoa)") do |g|
-    options[:githubURL] = g
+    config.githubURL = g
   end
 
   opt.on("-s", "--sourcekitten-sourcefile FILEPATH", "XML doc file generated from sourcekitten to parse") do |s|
-    options[:sourcekitten_sourcefile] = s
+    config.sourcekitten_sourcefile = s
   end
 
   opt.on("-v", "--version", "Print version number") do
@@ -76,16 +105,16 @@ end
 
 opt_parser.parse!
 
-if options[:sourcekitten_sourcefile]
-  file = File.open(options[:sourcekitten_sourcefile])
+if config.sourcekitten_sourcefile
+  file = File.open(config.sourcekitten_sourcefile)
   fileContents = file.read
   file.close
-  Jazzy::DocBuilder.buildDocsForSourceKittenOutput(fileContents, options)
+  Jazzy::DocBuilder.buildDocsForSourceKittenOutput(fileContents, config)
 else
-  sourcekittenOutput = Jazzy::SourceKitten.runSourceKitten(options[:xcodebuild_arguments])
+  sourcekittenOutput = Jazzy::SourceKitten.runSourceKitten(config.xcodebuild_arguments)
   sourcekittenExitCode = $?.exitstatus
   if sourcekittenExitCode == 0
-    Jazzy::DocBuilder.buildDocsForSourceKittenOutput(sourcekittenOutput, options)
+    Jazzy::DocBuilder.buildDocsForSourceKittenOutput(sourcekittenOutput, config)
   else
     warn sourcekittenOutput
     warn "Please pass in xcodebuild arguments using -x"

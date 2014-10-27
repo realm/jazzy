@@ -82,7 +82,7 @@ class Jazzy::SourceKitten
 
       doc = Hash.new
       doc[:kind] = xml_xpath(child, "Kind")
-      
+
       # Only handle declarations
       next unless doc[:kind] =~ /^source\.lang\.swift\.decl\..*/
 
@@ -115,7 +115,7 @@ class Jazzy::SourceKitten
 
     # docs are flat at this point. let's unflatten them
     rootToChildSortedDocs = docs.sort { |doc1, doc2| doc1[:usr].length <=> doc2[:usr].length }
-    
+
     docs = []
     rootToChildSortedDocs.each { |doc| make_doc_hierarchy(docs, doc) }
     docs = sort_docs(docs)
@@ -177,8 +177,8 @@ class Jazzy::DocBuilder
   end
 
   def self.buildDocsForSourceKittenOutput(sourceKittenOutput, options)
-    outputDir = options[:output]
-    prepare_output_dir(outputDir, options[:clean])
+    outputDir = options.output
+    prepare_output_dir(outputDir, options.clean)
     docs = Jazzy::SourceKitten.parse(sourceKittenOutput)
     doc_structure = doc_structure_for_docs(docs)
     docs << {:name => "index"}
@@ -193,14 +193,14 @@ class Jazzy::DocBuilder
   def self.document(options, docModel, path_to_root, doc_structure)
     doc = Jazzy::Doc.new
     if docModel[:name] == "index"
-      doc[:name] = options[:moduleName]
-      doc[:overview] = $markdown.render("This is the index page for #{options[:moduleName]} docs. Navigate using the links on the left.")
+      doc[:name] = options.moduleName
+      doc[:overview] = $markdown.render("This is the index page for #{options.moduleName} docs. Navigate using the links on the left.")
       doc[:structure] = doc_structure
-      doc[:module_name] = options[:moduleName]
-      doc[:author_name] = options[:authorName]
-      doc[:author_website] = options[:authorURL]
-      doc[:github_link] = options[:githubURL]
-      doc[:dash_link] = options[:dashURL]
+      doc[:module_name] = options.moduleName
+      doc[:author_name] = options.authorName
+      doc[:author_website] = options.authorURL
+      doc[:github_link] = options.githubURL
+      doc[:dash_link] = options.dashURL
       doc[:path_to_root] = path_to_root
       return doc.render
     end
@@ -230,11 +230,11 @@ class Jazzy::DocBuilder
         :items => items
       }
     end
-    doc[:module_name] = options[:moduleName]
-    doc[:author_name] = options[:authorName]
-    doc[:author_website] = options[:authorURL]
-    doc[:github_link] = options[:githubURL]
-    doc[:dash_link] = options[:dashURL]
+    doc[:module_name] = options.moduleName
+    doc[:author_name] = options.authorName
+    doc[:author_website] = options.authorURL
+    doc[:github_link] = options.githubURL
+    doc[:dash_link] = options.dashURL
     doc[:path_to_root] = path_to_root
     doc.render
   end
