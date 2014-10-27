@@ -10,6 +10,7 @@ require 'jazzy/gem_version.rb'
 require 'jazzy/doc.rb'
 require 'jazzy/jazzy_markdown.rb'
 require 'jazzy/config'
+require 'jazzy/xml_helper'
 
 # XML Helpers
 
@@ -207,6 +208,8 @@ module Jazzy
   # This module handles HTML generation, file writing, asset copying, 
   # and generally building docs given sourcekitten output
   module DocBuilder
+    # Build documentation from the given options
+    # @param [Config] options
     def self.build(options)
       if options.sourcekitten_sourcefile
         file = File.open(options.sourcekitten_sourcefile)
