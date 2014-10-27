@@ -111,7 +111,6 @@ module Jazzy::SourceKitten
       doc[:file] = xml_attribute(child, "file")
       doc[:line] = xml_attribute(child, "line").to_i
       doc[:column] = xml_attribute(child, "column").to_i
-      doc[:hasSeparator] = xml_attribute(child, "hasSeparator")
       doc[:usr] = xml_xpath(child, "USR")
       doc[:name] = xml_xpath(child, "Name")
       doc[:declaration] = xml_xpath(child, "Declaration")
