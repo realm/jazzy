@@ -1,3 +1,12 @@
+PATH
+  remote: .
+  specs:
+    jazzy (0.0.5)
+      activesupport (~> 4.1)
+      mustache (~> 0.99)
+      nokogiri (~> 1.6)
+      redcarpet (~> 3.2)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -15,7 +24,7 @@ GEM
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     rake (10.3.2)
-    redcarpet (3.1.2)
+    redcarpet (3.2.0)
     thread_safe (0.3.4)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
@@ -24,9 +33,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 4.1.1)
-  bundler (~> 1.5)
-  mustache (~> 0.99.5)
-  nokogiri (~> 1.6.2.1)
-  rake
-  redcarpet (~> 3.1.2)
+  bundler (~> 1.7)
+  jazzy!
+  rake (~> 10.3)
