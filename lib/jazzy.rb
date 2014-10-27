@@ -5,9 +5,11 @@ require "json"
 require "date"
 require "uri"
 require "active_support/inflector"
+require "fileutils"
 require "jazzy/gem_version.rb"
 require "jazzy/doc.rb"
 require "jazzy/jazzy_markdown.rb"
+require 'jazzy/config'
 
 # XML Helpers
 
@@ -189,6 +191,26 @@ def doc_structure_for_docs(docs)
   end
   structure
 end
+
+class Jazzy::DocBuilder
+  def self.build(options)
+    if options.sourcekitten_sourcefile
+      file = File.open(options.sourcekitten_sourcefile)
+      fileContents = file.read
+      file.close
+      buildDocsForSourceKittenOutput(fileContents, options)
+    else
+      sourcekittenOutput = Jazzy::SourceKitten.runSourceKitten(options.xcodebuild_arguments)
+      sourcekittenExitCode = $?.exitstatus
+      if sourcekittenExitCode == 0
+        buildDocsForSourceKittenOutput(sourcekittenOutput, options)
+      else
+        warn sourcekittenOutput
+        warn "Please pass in xcodebuild arguments using -x"
+        exit sourcekittenExitCode
+      end
+    end
+  end
 
 # This module handles HTML generation, file writing, asset copying, and generally building docs given sourcekitten output
 module Jazzy::DocBuilder
