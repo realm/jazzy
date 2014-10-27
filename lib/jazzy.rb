@@ -59,12 +59,14 @@ def kinds
     'source.lang.swift.decl.class' => 'Class',
     'source.lang.swift.decl.var.global' => 'Constant',
     'source.lang.swift.decl.function.constructor' => 'Constructor',
+    'source.lang.swift.decl.function.destructor' => 'Destructor',
     'source.lang.swift.decl.enumelement' => 'Enum Element',
     'source.lang.swift.decl.enum' => 'Enum',
     'source.lang.swift.decl.extension' => 'Extension',
     'source.lang.swift.decl.function.free' => 'Function',
     'source.lang.swift.decl.function.method.instance' => 'Instance Method',
     'source.lang.swift.decl.var.instance' => 'Instance Variable',
+    'source.lang.swift.decl.var.local' => 'Local Variable',
     'source.lang.swift.decl.var.parameter' => 'Parameter',
     'source.lang.swift.decl.protocol' => 'Protocol',
     'source.lang.swift.decl.function.method.static' => 'Static Method',
@@ -205,7 +207,7 @@ def doc_structure_for_docs(docs)
 end
 
 module Jazzy
-  # This module handles HTML generation, file writing, asset copying, 
+  # This module handles HTML generation, file writing, asset copying,
   # and generally building docs given sourcekitten output
   module DocBuilder
     # Build documentation from the given options
