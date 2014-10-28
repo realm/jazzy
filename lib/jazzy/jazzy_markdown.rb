@@ -1,3 +1,5 @@
+require 'redcarpet'
+
 module Jazzy
   class JazzyHTML < Redcarpet::Render::HTML
     def paragraph(text)
