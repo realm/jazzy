@@ -13,19 +13,6 @@ require 'jazzy/config'
 require 'jazzy/xml_helper'
 require 'jazzy/source_declaration'
 
-# XML Helpers
-
-# Gets value of XML attribute or nil
-# (i.e. file in <Class file="Musician.swift"></Class>)
-def xml_attribute(node, name)
-  node.attributes[name].value if node.attributes[name]
-end
-
-# Gets text in XML node or nil (i.e. s:cMyUSR <USR>s:cMyUSR</USR>)
-def xml_xpath(node, xpath)
-  node.xpath(xpath).text if node.xpath(xpath).text.length > 0
-end
-
 # Return USR after first digit to get the part that is common to all child
 # elements of this type
 # @example
@@ -112,7 +99,7 @@ module Jazzy
         next if child.name == 'Section' # Skip sections
 
         declaration = SourceDeclaration.new
-        declaration.kind = xml_xpath(child, 'Kind')
+        declaration.kind = XMLHelper.xpath(child, 'Kind')
 
         # Only handle declarations, since sourcekitten will also output
         # references and other kinds
@@ -124,22 +111,22 @@ module Jazzy
           "about adding support for `#{declaration.kind}`"  unless declaration.kindName
 
         declaration.kindNamePlural = kinds[declaration.kind].pluralize
-        declaration.file = xml_attribute(child, 'file')
-        declaration.line = xml_attribute(child, 'line').to_i
-        declaration.column = xml_attribute(child, 'column').to_i
-        declaration.usr = xml_xpath(child, 'USR')
-        declaration.name = xml_xpath(child, 'Name')
-        declaration.declaration = xml_xpath(child, 'Declaration')
-        declaration.abstract = xml_xpath(child, 'Abstract')
-        declaration.discussion = xml_xpath(child, 'Discussion')
-        declaration.return = xml_xpath(child, 'ResultDiscussion')
+        declaration.file = XMLHelper.attribute(child, 'file')
+        declaration.line = XMLHelper.attribute(child, 'line').to_i
+        declaration.column = XMLHelper.attribute(child, 'column').to_i
+        declaration.usr = XMLHelper.xpath(child, 'USR')
+        declaration.name = XMLHelper.xpath(child, 'Name')
+        declaration.declaration = XMLHelper.xpath(child, 'Declaration')
+        declaration.abstract = XMLHelper.xpath(child, 'Abstract')
+        declaration.discussion = XMLHelper.xpath(child, 'Discussion')
+        declaration.return = XMLHelper.xpath(child, 'ResultDiscussion')
         declaration.children = []
         parameters = []
         child.xpath('Parameters/Parameter').each do |parameter_el|
           parameters << {
-            name: xml_xpath(parameter_el, 'Name'),
+            name: XMLHelper.xpath(parameter_el, 'Name'),
             discussion: Jazzy.markdown.render(
-                xml_xpath(parameter_el, 'Discussion'),
+                XMLHelper.xpath(parameter_el, 'Discussion'),
               ),
           }
         end
