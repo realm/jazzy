@@ -8,6 +8,7 @@ module Jazzy
     attr_accessor :author_name
     attr_accessor :module_name
     attr_accessor :github_url
+    attr_accessor :github_file_prefix
     attr_accessor :author_url
     attr_accessor :dash_url
     attr_accessor :excludes
@@ -21,6 +22,7 @@ module Jazzy
       self.author_name = ''
       self.module_name = ''
       self.github_url = ''
+      self.github_file_prefix = nil
       self.author_url = ''
       self.dash_url = ''
       self.excludes = []
@@ -71,6 +73,10 @@ module Jazzy
 
         opt.on('-g', '--github_url URL', 'GitHub URL of this project (i.e. https://github.com/realm/realm-cocoa)') do |g|
           config.github_url = g
+        end
+
+        opt.on('--github-file-prefix PREFIX', 'GitHub URL file prefix of this project (i.e. https://github.com/realm/realm-cocoa/tree/v0.87.1)') do |g|
+          config.github_file_prefix = g
         end
 
         opt.on('-s', '--sourcekitten-sourcefile FILEPATH', 'XML doc file generated from sourcekitten to parse') do |s|

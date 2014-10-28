@@ -308,17 +308,18 @@ module Jazzy
       tasknames = ['Children']
       tasknames.each do |taskname|
         items = []
-        doc_model.children.each do |subItem|
+        doc_model.children.each do |sub_item|
           # Combine abstract and discussion into abstract
-          abstract = (subItem.abstract || '') + (subItem.discussion || '')
+          abstract = (sub_item.abstract || '') + (sub_item.discussion || '')
           item = {
-            name: subItem.name,
+            name: sub_item.name,
             abstract: Jazzy.markdown.render(abstract),
-            declaration: subItem.declaration,
-            usr: subItem.usr,
+            declaration: sub_item.declaration,
+            usr: sub_item.usr,
           }
-          item[:return] = Jazzy.markdown.render(subItem.return) if subItem.return
-          parameters = subItem.parameters
+          item[:github_url] = options.github_file_prefix + sub_item.file.gsub(`pwd`.strip, '') + "#L#{sub_item.line}" if options.github_file_prefix && sub_item.file
+          item[:return] = Jazzy.markdown.render(sub_item.return) if sub_item.return
+          parameters = sub_item.parameters
           item[:parameters] = parameters if parameters.length > 0
           items << item
         end
