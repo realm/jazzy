@@ -9,23 +9,6 @@
 import Foundation
 import XPC
 
-// MARK: - Model
-
-/**
-Structure to represent 'MARK:'-style section in source code
-*/
-struct Section {
-    let file: String
-    let name: String
-    let line: UInt
-    let hasSeparator: Bool
-    let characterIndex: UInt
-
-    func xmlValue() -> String {
-        return "<Section file=\"\(file)\" line=\"\(line)\" hasSeparator=\"\(hasSeparator)\">\(name)</Section>"
-    }
-}
-
 // MARK: - Helper Functions
 
 /**
@@ -40,67 +23,46 @@ func error(message: String) {
 }
 
 /**
-Find all sections
+Replace all UIDs in a SourceKit response dictionary with their string values.
 
-:param: fileName file name to include in XML tag
-:param: fileContents file contents to parse for sections
-:returns: array of Section structs
+:param:   dictionary         `NSDictionary` to convert
+:param:   declarationOffsets inout `Array` of (`Int64`, `String`) tuples. First value is offset of declaration.
+                             Second value is declaration kind (i.e. `source.lang.swift.decl.function.free`).
+:returns:                    Input `NSDictionary` with UID's replaced with their string values.
 */
-func sections(fileName: String, fileContents: NSString) -> [Section] {
-    var sections = [Section]()
-    var characterIndex = UInt(0)
-    for (lineNumber, sectionString) in enumerate(fileContents.componentsSeparatedByString("\n")) {
-        let sectionNSString = sectionString as NSString
-        characterIndex += sectionString.length
-        let sectionRange = sectionNSString.rangeOfString("// MARK: ")
-        if sectionRange.location == 0 {
-            let nameStartIndex = sectionRange.location + sectionRange.length
-            var nameRange = NSRange(location: nameStartIndex, length: sectionNSString.length - nameStartIndex)
-            var name = sectionNSString.substringWithRange(nameRange)
-            var hasSeparator = false
-            if name.rangeOfString("-")?.startIndex == name.startIndex {
-                hasSeparator = true
-                if nameRange.length > 2 {
-                    name = (name as NSString).substringWithRange(NSRange(location: 2, length: nameRange.length - 2))
-                } else {
-                    name = ""
+func replaceUIDsWithStringsInDictionary(dictionary: NSDictionary,
+    inout #declarationOffsets: [(Int64, String)]) -> NSDictionary {
+    let keys = dictionary.allKeys as [String]
+    let newDictionary = NSMutableDictionary(dictionary: dictionary)
+    for key in keys {
+        if key == "key.substructure" || key == "key.attributes" {
+            let substructures = dictionary[key] as [NSDictionary]
+            let newSubstructures = NSMutableArray()
+            for structure in substructures {
+                newSubstructures.addObject(replaceUIDsWithStringsInDictionary(structure, declarationOffsets: &declarationOffsets))
+            }
+            newDictionary[key] = newSubstructures
+        } else if dictionary[key]?.isKindOfClass(NSNumber) == true {
+            let value = dictionary[key] as NSNumber
+            let uintValue = value.unsignedLongLongValue
+            if uintValue > 4_300_000_000 { // UID's are all higher than 4.3M
+                if let utf8String = sourcekitd_uid_get_string_ptr(uintValue) as UnsafePointer<Int8>? {
+                    let uidString = String(UTF8String: utf8String)!
+                    newDictionary[key] = uidString
                 }
             }
-            sections.append(Section(file: fileName, name: name, line: UInt(lineNumber), hasSeparator: hasSeparator, characterIndex: characterIndex))
+        }
+        if key == "key.kind" {
+            let kind = newDictionary[key] as String
+            if kind.rangeOfString("source.lang.swift.decl.") != nil {
+                let offset = (newDictionary["key.nameoffset"] as NSNumber).longLongValue
+                if offset > 0 {
+                    declarationOffsets.append(offset, kind)
+                }
+            }
         }
     }
-    return sections
-}
-
-/**
-Find character ranges that are potential candidates for documented tokens
-
-:param: fileContents to parse for possible token ranges
-:returns: array of possible token ranges
-*/
-func possibleDocumentedTokenRanges(fileContents: NSString) -> [NSRange] {
-    let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: NSRegularExpressionOptions(0), error: nil)!
-    let range = NSRange(location: 0, length: fileContents.length)
-    let matches = regex.matchesInString(fileContents, options: NSMatchingOptions(0), range: range)
-
-    var ranges = [NSRange]()
-    for match in matches {
-        let startIndex = match.range.location + match.range.length
-        let endIndex = fileContents.rangeOfString("\n", options: NSStringCompareOptions(0),
-            range: NSRange(location: startIndex, length: range.length - startIndex)).location
-        var possibleTokenRange = NSRange(location: startIndex, length: endIndex - startIndex)
-
-        // Exclude leading whitespace
-        let leadingWhitespaceLength = (fileContents.substringWithRange(possibleTokenRange) as NSString)
-            .rangeOfCharacterFromSet(NSCharacterSet.whitespaceCharacterSet().invertedSet, options: NSStringCompareOptions(0)).location
-        if leadingWhitespaceLength != NSNotFound {
-            possibleTokenRange = NSRange(location: possibleTokenRange.location + leadingWhitespaceLength,
-                length: possibleTokenRange.length - leadingWhitespaceLength)
-        }
-
-        ranges.append(possibleTokenRange)
-    }
-    return ranges
+    return newDictionary
 }
 
 /**
@@ -112,6 +74,7 @@ Return STDERR and STDOUT as a combined string.
 */
 func run_xcodebuild(processArguments: [String]) -> String? {
     let task = NSTask()
+    task.currentDirectoryPath = "/Users/jp/Projects/sourcekitten"
     task.launchPath = "/usr/bin/xcodebuild"
 
     // Forward arguments to xcodebuild
@@ -179,11 +142,23 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
         xpc_array_append_value(xpcArguments, xpc_string_create(argument))
     }
 
+    // Construct a SourceKit request for getting general info about a Swift file
+    let openRequest = xpc_dictionary_create(nil, nil, 0)
+    xpc_dictionary_set_uint64(openRequest, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
+    xpc_dictionary_set_string(openRequest, "key.name", "")
+
     var xmlDocs = [String]()
 
     // Print docs for each Swift file
     for file in swiftFiles {
-        // Construct a SourceKit request for getting the "full_as_xml" docs
+        xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
+
+        var declarationOffsets = [Int64, String]()
+
+        var openResponse = NSDictionary(contentsOfXPCObject: sourcekitd_send_request_sync(openRequest))
+        openResponse = replaceUIDsWithStringsInDictionary(openResponse, declarationOffsets: &declarationOffsets)
+
+        // Construct a SourceKit request for getting cursor info for current cursor position
         let cursorInfoRequest = xpc_dictionary_create(nil, nil, 0)
         xpc_dictionary_set_uint64(cursorInfoRequest, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"))
         xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
@@ -194,42 +169,23 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
         // This is the same request triggered by Option-clicking a token in Xcode,
         // so we are also generating documentation for code that is external to the current project,
         // which is why we filter out docs from outside this file.
-        let fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
-        var fileSections = sections(file, fileContents)
-        let ranges = possibleDocumentedTokenRanges(fileContents)
-        for range in ranges {
-            for cursor in range.location..<(range.location + range.length) {
-                if let firstSection = fileSections.first {
-                    if UInt(cursor) > firstSection.characterIndex {
-                        xmlDocs.append(firstSection.xmlValue())
-                        fileSections.removeAtIndex(0)
-                    }
-                }
+        for cursor in declarationOffsets {
+            xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", cursor.0)
 
-                xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(cursor))
-
-                // Send request and wait for response
-                let response = sourcekitd_send_request_sync(cursorInfoRequest)
-                if !sourcekitd_response_is_error(response) {
-                    // Grab XML from response
-                    let xml = xpc_dictionary_get_string(response, "key.doc.full_as_xml")
-                    if xml != nil {
-                        // Print XML docs if we haven't already & only if it relates to the current file we're documenting
-                        let xmlString = String(UTF8String: xml)!
-                        if !contains(xmlDocs, xmlString) && xmlString.rangeOfString(" file=\"\(file)\"") != nil {
-                            // Insert kind in XML
-                            let kind = String(UTF8String: sourcekitd_uid_get_string_ptr(xpc_dictionary_get_uint64(response, "key.kind")))!
-                            xmlDocs.append(xmlString.stringByReplacingOccurrencesOfString("</Name><USR>", withString: "</Name><Kind>\(kind)</Kind><USR>"))
-                            break
-                        }
-                    }
+            // Send request and wait for response
+            let response = sourcekitd_send_request_sync(cursorInfoRequest)
+            if !sourcekitd_response_is_error(response) && xpc_dictionary_get_count(response) > 0 {
+                let xml = xpc_dictionary_get_string(response, "key.doc.full_as_xml")
+                if xml != nil {
+                    let xmlString = String(UTF8String: xml)!
+                    xmlDocs.append(xmlString.stringByReplacingOccurrencesOfString("</Name><USR>", withString: "</Name><Kind>\(cursor.1)</Kind><USR>"))
+                } else {
+                    let usr = String(UTF8String: xpc_dictionary_get_string(response, "key.usr"))!
+                    let name = String(UTF8String: xpc_dictionary_get_string(response, "key.name"))!
+                    let decl = String(UTF8String: xpc_dictionary_get_string(response, "key.annotated_decl"))!
+                    xmlDocs.append("<Other file=\"\(file)\"><Name>\(name)</Name><Kind>\(cursor.1)</Kind><USR>\(usr)</USR>\(decl)</Other>")
                 }
             }
-        }
-
-        // Add any remaining sections
-        for section in fileSections {
-            xmlDocs.append(section.xmlValue())
         }
     }
 
