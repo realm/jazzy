@@ -47,12 +47,12 @@ Print syntax highlighting information as JSON to STDOUT
 
 :param: sourceText Swift source code to parse for syntax highlighting information
 */
-func printSyntaxHighlighting(#sourceText: String) {
+func printSyntaxHighlighting(#text: String) {
     // Construct a SourceKit request for getting general info about the Swift file passed as argument
     let request = xpc_dictionary_create(nil, nil, 0)
     xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
     xpc_dictionary_set_string(request, "key.name", "")
-    xpc_dictionary_set_string(request, "key.sourcetext", sourceText)
+    xpc_dictionary_set_string(request, "key.sourcetext", text)
 
     // Initialize SourceKit XPC service
     sourcekitd_initialize()
@@ -367,7 +367,7 @@ func main() {
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
         printSyntaxHighlighting(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
-        printSyntaxHighlighting(sourceText: arguments[2])
+        printSyntaxHighlighting(text: arguments[2])
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             // Extract the Xcode project's Swift files
