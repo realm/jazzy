@@ -9,6 +9,87 @@
 import Foundation
 import XPC
 
+// MARK: Syntax
+
+/**
+Extension on String to support subscripting with a Range<Int> to return a substring
+*/
+extension String {
+    subscript (r: Range<Int>) -> String {
+        let start = advance(startIndex, r.startIndex)
+        let end = advance(startIndex, r.endIndex)
+        return substringWithRange(Range(start: start, end: end))
+    }
+}
+
+/**
+Print syntax highlighting information as JSON to STDOUT
+
+:param: file Path to the file to parse for syntax highlighting information
+*/
+func printSyntaxHighlighting(file: String) {
+    // Construct a SourceKit request for getting general info about the Swift file passed as argument
+    let request = xpc_dictionary_create(nil, nil, 0)
+    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
+    xpc_dictionary_set_string(request, "key.name", "")
+    xpc_dictionary_set_string(request, "key.sourcefile", file)
+
+    // Initialize SourceKit XPC service
+    sourcekitd_initialize()
+
+    // Send SourceKit request and get syntaxmap XPC data
+    let xpcData = xpc_dictionary_get_value(sourcekitd_send_request_sync(request), "key.syntaxmap")
+
+    // Convert XPC data to NSData
+    let data = NSData(bytes: xpc_data_get_bytes_ptr(xpcData), length: Int(xpc_data_get_length(xpcData)))
+
+    // Convert NSData to hex string
+    var hexString = "\(data)"
+
+    // Remove first & last characters ('<' & '>')
+    hexString = hexString[hexString.startIndex.successor()..<hexString.endIndex.predecessor()]
+
+    /// Map hex type to its SourceKit string
+    func stringForHexSyntaxType(hexType: String) -> String {
+        let uidHex45 = NSString(format: "%02X", strtoull(hexType[0...1], nil, 16) - 0x22)
+        let uidHex = "100" + hexType[4...5] + hexType[2...3] + uidHex45
+        let uid = strtoull(uidHex, nil, 16) + 34
+        return String(UTF8String: sourcekitd_uid_get_string_ptr(UInt64(uid)))!
+    }
+
+    println("[")
+
+    let hexArray = hexString.componentsSeparatedByString(" ")
+    let syntaxTokenCount = (hexArray.count - 5)/4
+    var typeMap = [String:String]()
+
+    for index in 0..<syntaxTokenCount {
+        let typeIndex = index*4 + 4
+        let hexType = hexArray[typeIndex]
+
+        var type: String! = typeMap[hexType]
+        if type == nil {
+            type = stringForHexSyntaxType(hexType)
+            typeMap[hexType] = type
+        }
+        let offsetString = hexArray[typeIndex+2]
+        let offset = strtoull(offsetString[6...7] + offsetString[4...5] + offsetString[2...3] + offsetString[0...1], nil, 16)
+
+        let lengthString = hexArray[typeIndex+3]
+        let length = strtoull(lengthString[6...7] + lengthString[4...5] + lengthString[2...3] + lengthString[0...1], nil, 16)/2
+
+        print("  {\n    \"type\": \"\(type)\",\n    \"offset\": \(offset),\n    \"length\": \(length)\n  }")
+
+        if index != syntaxTokenCount-1 {
+            println(",")
+        } else {
+            println()
+        }
+    }
+    
+    println("]")
+}
+
 // MARK: - Model
 
 /**
@@ -267,6 +348,8 @@ func main() {
         sourcekitdArguments.removeAtIndex(0) // remove --skip-xcodebuild
         let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
         println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
+    } else if arguments.count == 3 && arguments[1] == "--syntax" {
+        printSyntaxHighlighting(arguments[2])
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             // Extract the Xcode project's Swift files
