@@ -1,6 +1,6 @@
 //
 //  sourcekitd.h
-//  SourceKitten
+//  sourcekitten
 //
 //  Created by JP Simard on 9/22/14.
 //  Copyright (c) 2014 Realm. All rights reserved.
