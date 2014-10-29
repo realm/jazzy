@@ -12,17 +12,6 @@ import XPC
 // MARK: Syntax
 
 /**
-Extension on String to support subscripting with a Range<Int> to return a substring
-*/
-extension String {
-    subscript (r: Range<Int>) -> String {
-        let start = advance(startIndex, r.startIndex)
-        let end = advance(startIndex, r.endIndex)
-        return substringWithRange(Range(start: start, end: end))
-    }
-}
-
-/**
 Print syntax highlighting information as JSON to STDOUT
 
 :param: file Path to the file to parse for syntax highlighting information
