@@ -68,58 +68,41 @@ Print syntax highlighting information as JSON to STDOUT
 :param: sourceKitResponse XPC object returned from SourceKit "editor.open" call
 */
 func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
-    // TODO: Parse syntaxmap bytes instead of hex string representation
-
     // Get syntaxmap XPC data
     let xpcData = xpc_dictionary_get_value(sourceKitResponse, "key.syntaxmap")
-
     // Convert XPC data to NSData
     let data = NSData(bytes: xpc_data_get_bytes_ptr(xpcData), length: Int(xpc_data_get_length(xpcData)))
 
-    // Convert NSData to hex string
-    var hexString = "\(data)"
-
-    // Remove first & last characters ('<' & '>')
-    hexString = hexString[hexString.startIndex.successor()..<hexString.endIndex.predecessor()]
-
-    /// Map hex type to its SourceKit string
-    func stringForHexSyntaxType(hexType: String) -> String {
-        let uidHex45 = NSString(format: "%02X", strtoull(hexType[0...1], nil, 16) - 0x22)
-        let uidHex = "100" + hexType[4...5] + hexType[2...3] + uidHex45
-        let uid = strtoull(uidHex, nil, 16) + 34
-        return String(UTF8String: sourcekitd_uid_get_string_ptr(uid))!
-    }
+    // Get number of syntax tokens
+    var tokens = 0
+    data.getBytes(&tokens, range: NSRange(location: 8, length: 8))
+    tokens = tokens >> 4
 
     println("[")
 
-    let hexArray = hexString.componentsSeparatedByString(" ")
-    let syntaxTokenCount = (hexArray.count - 5)/4
-    var typeMap = [String:String]()
+    for i in 0..<tokens {
+        let parserOffset = 16 * i
 
-    for index in 0..<syntaxTokenCount {
-        let typeIndex = index*4 + 4
-        let hexType = hexArray[typeIndex]
+        var uid = UInt64(0)
+        data.getBytes(&uid, range: NSRange(location: 16 + parserOffset, length: 8))
+        let type = String(UTF8String: sourcekitd_uid_get_string_ptr(uid))!
 
-        var type: String! = typeMap[hexType]
-        if type == nil {
-            type = stringForHexSyntaxType(hexType)
-            typeMap[hexType] = type
-        }
-        let offsetString = hexArray[typeIndex+2]
-        let offset = strtoull(offsetString[6...7] + offsetString[4...5] + offsetString[2...3] + offsetString[0...1], nil, 16)
+        var offset = 0
+        data.getBytes(&offset, range: NSRange(location: 24 + parserOffset, length: 4))
 
-        let lengthString = hexArray[typeIndex+3]
-        let length = strtoull(lengthString[6...7] + lengthString[4...5] + lengthString[2...3] + lengthString[0...1], nil, 16)/2
+        var length = 0
+        data.getBytes(&length, range: NSRange(location: 28 + parserOffset, length: 4))
+        length = length >> 1
 
         print("  {\n    \"type\": \"\(type)\",\n    \"offset\": \(offset),\n    \"length\": \(length)\n  }")
 
-        if index != syntaxTokenCount-1 {
+        if i != tokens-1 {
             println(",")
         } else {
             println()
         }
     }
-    
+
     println("]")
 }
 
