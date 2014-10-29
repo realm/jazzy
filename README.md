@@ -12,7 +12,31 @@ By default, sourcekitten will use the copy of `sourcekitd.framework` under `/App
 
 ## How it works
 
-sourcekitten links and communicates with `sourcekitd.framework` to generate parsable docs in an XML format for your Swift projects.
+sourcekitten links and communicates with `sourcekitd.framework` to generate parsable docs in an XML format for your Swift projects or print syntax highlighting information for a Swift file.
+
+## Syntax Highlighting
+
+Calling `sourcekitten --syntax /absolute/path/to/file.swift` will return a JSON array of syntax highlighting information:
+
+```json
+[
+  {
+    "type": "source.lang.swift.syntaxtype.comment",
+    "offset": 0,
+    "length": 14
+  },
+  {
+    "type": "source.lang.swift.syntaxtype.keyword",
+    "offset": 14,
+    "length": 6
+  },
+  {
+    "type": "source.lang.swift.syntaxtype.identifier",
+    "offset": 21,
+    "length": 10
+  }
+]
+```
 
 ## License
 

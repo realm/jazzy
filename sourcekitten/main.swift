@@ -9,6 +9,109 @@
 import Foundation
 import XPC
 
+// MARK: Syntax
+
+/**
+Print syntax highlighting information as JSON to STDOUT
+
+:param: file Path to the file to parse for syntax highlighting information
+*/
+func printSyntaxHighlighting(#file: String) {
+    // Construct a SourceKit request for getting general info about the Swift file passed as argument
+    let request = xpc_dictionary_create(nil, nil, 0)
+    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
+    xpc_dictionary_set_string(request, "key.name", "")
+    xpc_dictionary_set_string(request, "key.sourcefile", file)
+
+    // Initialize SourceKit XPC service
+    sourcekitd_initialize()
+
+    // Send SourceKit request
+    let response = sourcekitd_send_request_sync(request)
+    printSyntaxHighlighting(response)
+}
+
+/**
+Print syntax highlighting information as JSON to STDOUT
+
+:param: text Swift source code to parse for syntax highlighting information
+*/
+func printSyntaxHighlighting(#text: String) {
+    // Construct a SourceKit request for getting general info about the Swift source text passed as argument
+    let request = xpc_dictionary_create(nil, nil, 0)
+    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
+    xpc_dictionary_set_string(request, "key.name", "")
+    xpc_dictionary_set_string(request, "key.sourcetext", text)
+
+    // Initialize SourceKit XPC service
+    sourcekitd_initialize()
+
+    // Send SourceKit request
+    let response = sourcekitd_send_request_sync(request)
+    printSyntaxHighlighting(response)
+}
+
+/**
+Print syntax highlighting information as JSON to STDOUT
+
+:param: sourceKitResponse XPC object returned from SourceKit "editor.open" call
+*/
+func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
+    // Get syntaxmap XPC data
+    let xpcData = xpc_dictionary_get_value(sourceKitResponse, "key.syntaxmap")
+    // Convert XPC data to NSData
+    let data = NSData(bytes: xpc_data_get_bytes_ptr(xpcData), length: Int(xpc_data_get_length(xpcData)))
+
+    // Get number of syntax tokens
+    var tokens = 0
+    data.getBytes(&tokens, range: NSRange(location: 8, length: 8))
+    tokens = tokens >> 4
+
+    println("[")
+
+    for i in 0..<tokens {
+        let parserOffset = 16 * i
+
+        var uid = UInt64(0)
+        data.getBytes(&uid, range: NSRange(location: 16 + parserOffset, length: 8))
+        let type = String(UTF8String: sourcekitd_uid_get_string_ptr(uid))!
+
+        var offset = 0
+        data.getBytes(&offset, range: NSRange(location: 24 + parserOffset, length: 4))
+
+        var length = 0
+        data.getBytes(&length, range: NSRange(location: 28 + parserOffset, length: 4))
+        length = length >> 1
+
+        print("  {\n    \"type\": \"\(type)\",\n    \"offset\": \(offset),\n    \"length\": \(length)\n  }")
+
+        if i != tokens-1 {
+            println(",")
+        } else {
+            println()
+        }
+    }
+
+    println("]")
+}
+
+// MARK: - Model
+
+/**
+Structure to represent 'MARK:'-style section in source code
+*/
+struct Section {
+    let file: String
+    let name: String
+    let line: UInt
+    let hasSeparator: Bool
+    let characterIndex: UInt
+
+    func xmlValue() -> String {
+        return "<Section file=\"\(file)\" line=\"\(line)\" hasSeparator=\"\(hasSeparator)\">\(name)</Section>"
+    }
+}
+
 // MARK: - Helper Functions
 
 /**
@@ -223,6 +326,10 @@ func main() {
         sourcekitdArguments.removeAtIndex(0) // remove --skip-xcodebuild
         let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
         println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
+    } else if arguments.count == 3 && arguments[1] == "--syntax" {
+        printSyntaxHighlighting(file: arguments[2])
+    } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
+        printSyntaxHighlighting(text: arguments[2])
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             // Extract the Xcode project's Swift files
