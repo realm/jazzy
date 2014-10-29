@@ -1,0 +1,3 @@
+[submodule "spec/integration_specs/document_alamofire/before"]
+	path = spec/integration_specs/document_alamofire/before
+	url = https://github.com/Alamofire/Alamofire

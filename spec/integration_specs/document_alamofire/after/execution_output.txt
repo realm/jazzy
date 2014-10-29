@@ -1,0 +1,2 @@
+ jazzy -m Alamofire -x -project,Alamofire.xcodeproj -g https://github.com/Alamofire/Alamofire --github-file-prefix https://github.com/Alamofire/Alamofire/blob/1.1.0 2>&1
+jam out ♪♫ to your fresh new docs at ROOT/tmp/document_alamofire/docs
