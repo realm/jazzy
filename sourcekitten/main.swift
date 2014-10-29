@@ -45,7 +45,7 @@ func printSyntaxHighlighting(#file: String) {
 /**
 Print syntax highlighting information as JSON to STDOUT
 
-:param: sourceText Swift source code to parse for syntax highlighting information
+:param: text Swift source code to parse for syntax highlighting information
 */
 func printSyntaxHighlighting(#text: String) {
     // Construct a SourceKit request for getting general info about the Swift file passed as argument
