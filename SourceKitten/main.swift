@@ -28,6 +28,8 @@ Print syntax highlighting information as JSON to STDOUT
 :param: file Path to the file to parse for syntax highlighting information
 */
 func printSyntaxHighlighting(file: String) {
+    // TODO: Parse syntaxmap bytes instead of hex string representation
+
     // Construct a SourceKit request for getting general info about the Swift file passed as argument
     let request = xpc_dictionary_create(nil, nil, 0)
     xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
@@ -54,7 +56,7 @@ func printSyntaxHighlighting(file: String) {
         let uidHex45 = NSString(format: "%02X", strtoull(hexType[0...1], nil, 16) - 0x22)
         let uidHex = "100" + hexType[4...5] + hexType[2...3] + uidHex45
         let uid = strtoull(uidHex, nil, 16) + 34
-        return String(UTF8String: sourcekitd_uid_get_string_ptr(UInt64(uid)))!
+        return String(UTF8String: sourcekitd_uid_get_string_ptr(uid))!
     }
 
     println("[")
