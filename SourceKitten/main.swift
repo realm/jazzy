@@ -27,9 +27,7 @@ Print syntax highlighting information as JSON to STDOUT
 
 :param: file Path to the file to parse for syntax highlighting information
 */
-func printSyntaxHighlighting(file: String) {
-    // TODO: Parse syntaxmap bytes instead of hex string representation
-
+func printSyntaxHighlighting(#file: String) {
     // Construct a SourceKit request for getting general info about the Swift file passed as argument
     let request = xpc_dictionary_create(nil, nil, 0)
     xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
@@ -39,8 +37,41 @@ func printSyntaxHighlighting(file: String) {
     // Initialize SourceKit XPC service
     sourcekitd_initialize()
 
-    // Send SourceKit request and get syntaxmap XPC data
-    let xpcData = xpc_dictionary_get_value(sourcekitd_send_request_sync(request), "key.syntaxmap")
+    // Send SourceKit request
+    let response = sourcekitd_send_request_sync(request)
+    printSyntaxHighlighting(response)
+}
+
+/**
+Print syntax highlighting information as JSON to STDOUT
+
+:param: sourceText Swift source code to parse for syntax highlighting information
+*/
+func printSyntaxHighlighting(#sourceText: String) {
+    // Construct a SourceKit request for getting general info about the Swift file passed as argument
+    let request = xpc_dictionary_create(nil, nil, 0)
+    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
+    xpc_dictionary_set_string(request, "key.name", "")
+    xpc_dictionary_set_string(request, "key.sourcetext", sourceText)
+
+    // Initialize SourceKit XPC service
+    sourcekitd_initialize()
+
+    // Send SourceKit request
+    let response = sourcekitd_send_request_sync(request)
+    printSyntaxHighlighting(response)
+}
+
+/**
+Print syntax highlighting information as JSON to STDOUT
+
+:param: sourceKitResponse XPC object returned from SourceKit "editor.open" call
+*/
+func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
+    // TODO: Parse syntaxmap bytes instead of hex string representation
+
+    // Get syntaxmap XPC data
+    let xpcData = xpc_dictionary_get_value(sourceKitResponse, "key.syntaxmap")
 
     // Convert XPC data to NSData
     let data = NSData(bytes: xpc_data_get_bytes_ptr(xpcData), length: Int(xpc_data_get_length(xpcData)))
@@ -351,7 +382,9 @@ func main() {
         let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
         println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
-        printSyntaxHighlighting(arguments[2])
+        printSyntaxHighlighting(file: arguments[2])
+    } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
+        printSyntaxHighlighting(sourceText: arguments[2])
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             // Extract the Xcode project's Swift files
