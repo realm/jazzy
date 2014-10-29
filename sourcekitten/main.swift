@@ -95,23 +95,6 @@ func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
     println("]")
 }
 
-// MARK: - Model
-
-/**
-Structure to represent 'MARK:'-style section in source code
-*/
-struct Section {
-    let file: String
-    let name: String
-    let line: UInt
-    let hasSeparator: Bool
-    let characterIndex: UInt
-
-    func xmlValue() -> String {
-        return "<Section file=\"\(file)\" line=\"\(line)\" hasSeparator=\"\(hasSeparator)\">\(name)</Section>"
-    }
-}
-
 // MARK: - Helper Functions
 
 /**
