@@ -37,7 +37,7 @@ Print syntax highlighting information as JSON to STDOUT
 :param: text Swift source code to parse for syntax highlighting information
 */
 func printSyntaxHighlighting(#text: String) {
-    // Construct a SourceKit request for getting general info about the Swift file passed as argument
+    // Construct a SourceKit request for getting general info about the Swift source text passed as argument
     let request = xpc_dictionary_create(nil, nil, 0)
     xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
     xpc_dictionary_set_string(request, "key.name", "")
