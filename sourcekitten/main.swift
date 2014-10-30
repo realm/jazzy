@@ -57,10 +57,8 @@ Print syntax highlighting information as JSON to STDOUT
 :param: sourceKitResponse XPC object returned from SourceKit "editor.open" call
 */
 func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
-    // Get syntaxmap XPC data
-    let xpcData = xpc_dictionary_get_value(sourceKitResponse, "key.syntaxmap")
-    // Convert XPC data to NSData
-    let data = NSData(bytes: xpc_data_get_bytes_ptr(xpcData), length: Int(xpc_data_get_length(xpcData)))
+    // Get syntaxmap XPC data and convert to NSData
+    let data: NSData = fromXPC(xpc_dictionary_get_value(sourceKitResponse, "key.syntaxmap"))!
 
     // Get number of syntax tokens
     var tokens = 0
@@ -111,44 +109,34 @@ func error(message: String) {
 /**
 Replace all UIDs in a SourceKit response dictionary with their string values.
 
-:param:   dictionary         `NSDictionary` to convert
+:param:   dictionary         `XPCDictionary` to mutate.
 :param:   declarationOffsets inout `Array` of (`Int64`, `String`) tuples. First value is offset of declaration.
                              Second value is declaration kind (i.e. `source.lang.swift.decl.function.free`).
-:returns:                    Input `NSDictionary` with UID's replaced with their string values.
 */
-func replaceUIDsWithStringsInDictionary(dictionary: NSDictionary,
-    inout #declarationOffsets: [(Int64, String)]) -> NSDictionary {
-    let keys = dictionary.allKeys as [String]
-    let newDictionary = NSMutableDictionary(dictionary: dictionary)
-    for key in keys {
-        if key == "key.substructure" || key == "key.attributes" {
-            let substructures = dictionary[key] as [NSDictionary]
-            let newSubstructures = NSMutableArray()
-            for structure in substructures {
-                newSubstructures.addObject(replaceUIDsWithStringsInDictionary(structure, declarationOffsets: &declarationOffsets))
-            }
-            newDictionary[key] = newSubstructures
-        } else if dictionary[key]?.isKindOfClass(NSNumber) == true {
-            let value = dictionary[key] as NSNumber
-            let uintValue = value.unsignedLongLongValue
-            if uintValue > 4_300_000_000 { // UID's are all higher than 4.3M
-                if let utf8String = sourcekitd_uid_get_string_ptr(uintValue) as UnsafePointer<Int8>? {
-                    let uidString = String(UTF8String: utf8String)!
-                    newDictionary[key] = uidString
+func replaceUIDsWithStringsInDictionary(var dictionary: XPCDictionary,
+    inout #declarationOffsets: [(Int64, String)]) {
+        for key in dictionary.keys {
+            if let subArray = dictionary[key]! as? XPCArray {
+                for subDict in subArray {
+                    replaceUIDsWithStringsInDictionary(subDict as XPCDictionary,
+                        declarationOffsets: &declarationOffsets)
+                }
+            } else if let uid = dictionary[key] as? UInt64 {
+                if uid > 4_300_000_000 { // UID's are all higher than 4.3M
+                    if let utf8String = sourcekitd_uid_get_string_ptr(uid) as UnsafePointer<Int8>? {
+                        let uidString = String(UTF8String: utf8String)!
+                        dictionary[key] = uidString
+                        if key == "key.kind" &&
+                            uidString.rangeOfString("source.lang.swift.decl.") != nil {
+                            let offset = dictionary["key.nameoffset"] as Int64
+                            if offset > 0 {
+                                declarationOffsets.append(offset, uidString)
+                            }
+                        }
+                    }
                 }
             }
         }
-        if key == "key.kind" {
-            let kind = newDictionary[key] as String
-            if kind.rangeOfString("source.lang.swift.decl.") != nil {
-                let offset = (newDictionary["key.nameoffset"] as NSNumber).longLongValue
-                if offset > 0 {
-                    declarationOffsets.append(offset, kind)
-                }
-            }
-        }
-    }
-    return newDictionary
 }
 
 /**
@@ -223,7 +211,7 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
     sourcekitd_initialize()
 
     // Create the XPC array of compiler arguments once, to be reused for each request
-    var xpcArguments = xpc_array_create(nil, 0)
+    let xpcArguments = xpc_array_create(nil, 0)
     for argument in arguments {
         xpc_array_append_value(xpcArguments, xpc_string_create(argument))
     }
@@ -241,8 +229,8 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
 
         var declarationOffsets = [Int64, String]()
 
-        var openResponse = NSDictionary(contentsOfXPCObject: sourcekitd_send_request_sync(openRequest))
-        openResponse = replaceUIDsWithStringsInDictionary(openResponse, declarationOffsets: &declarationOffsets)
+        let openResponse: XPCDictionary = fromXPC(sourcekitd_send_request_sync(openRequest))
+        replaceUIDsWithStringsInDictionary(openResponse, declarationOffsets: &declarationOffsets)
 
         // Construct a SourceKit request for getting cursor info for current cursor position
         let cursorInfoRequest = xpc_dictionary_create(nil, nil, 0)
@@ -259,16 +247,13 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", cursor.0)
 
             // Send request and wait for response
-            let response = sourcekitd_send_request_sync(cursorInfoRequest)
-            if !sourcekitd_response_is_error(response) && xpc_dictionary_get_count(response) > 0 {
-                let xml = xpc_dictionary_get_string(response, "key.doc.full_as_xml")
-                if xml != nil {
-                    let xmlString = String(UTF8String: xml)!
-                    xmlDocs.append(xmlString.stringByReplacingOccurrencesOfString("</Name><USR>", withString: "</Name><Kind>\(cursor.1)</Kind><USR>"))
-                } else {
-                    let usr = String(UTF8String: xpc_dictionary_get_string(response, "key.usr"))!
-                    let name = String(UTF8String: xpc_dictionary_get_string(response, "key.name"))!
-                    let decl = String(UTF8String: xpc_dictionary_get_string(response, "key.annotated_decl"))!
+            if let response = fromXPC(sourcekitd_send_request_sync(cursorInfoRequest)) as XPCDictionary? {
+                if contains(response.keys, "key.doc.full_as_xml") {
+                    let xml = response["key.doc.full_as_xml"]! as String
+                    xmlDocs.append(xml.stringByReplacingOccurrencesOfString("</Name><USR>", withString: "</Name><Kind>\(cursor.1)</Kind><USR>"))
+                } else if let usr = response["key.usr"] {
+                    let name = response["key.name"]!
+                    let decl = response["key.annotated_decl"]!
                     xmlDocs.append("<Other file=\"\(file)\"><Name>\(name)</Name><Kind>\(cursor.1)</Kind><USR>\(usr)</USR>\(decl)</Other>")
                 }
             }
@@ -322,7 +307,7 @@ func main() {
             // Extract the minimum Swift compiler arguments needed for SourceKit
             var sourcekitdArguments = Array<String>(swiftcArguments[0..<7])
             sourcekitdArguments.extend(swiftFiles)
-
+            
             println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
         } else {
             error(xcodebuildOutput)
