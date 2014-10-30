@@ -8,27 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		E87420B91A02D0E1009F74E1 /* MiscJazzyFeatures.h in Headers */ = {isa = PBXBuildFile; fileRef = E87420B81A02D0E1009F74E1 /* MiscJazzyFeatures.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E87420BF1A02D0E1009F74E1 /* MiscJazzyFeatures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E87420B31A02D0E1009F74E1 /* MiscJazzyFeatures.framework */; };
-		E87420C61A02D0E1009F74E1 /* MiscJazzyFeaturesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87420C51A02D0E1009F74E1 /* MiscJazzyFeaturesTests.swift */; };
+		E87420D01A02D125009F74E1 /* Classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87420CF1A02D125009F74E1 /* Classes.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		E87420C01A02D0E1009F74E1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E87420AA1A02D0E1009F74E1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E87420B21A02D0E1009F74E1;
-			remoteInfo = MiscJazzyFeatures;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		E87420B31A02D0E1009F74E1 /* MiscJazzyFeatures.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MiscJazzyFeatures.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E87420B71A02D0E1009F74E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E87420B81A02D0E1009F74E1 /* MiscJazzyFeatures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MiscJazzyFeatures.h; sourceTree = "<group>"; };
-		E87420BE1A02D0E1009F74E1 /* MiscJazzyFeaturesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiscJazzyFeaturesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E87420C41A02D0E1009F74E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E87420C51A02D0E1009F74E1 /* MiscJazzyFeaturesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiscJazzyFeaturesTests.swift; sourceTree = "<group>"; };
+		E87420CF1A02D125009F74E1 /* Classes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Classes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,14 +26,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E87420BB1A02D0E1009F74E1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E87420BF1A02D0E1009F74E1 /* MiscJazzyFeatures.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -54,7 +33,6 @@
 			isa = PBXGroup;
 			children = (
 				E87420B51A02D0E1009F74E1 /* MiscJazzyFeatures */,
-				E87420C21A02D0E1009F74E1 /* MiscJazzyFeaturesTests */,
 				E87420B41A02D0E1009F74E1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,7 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				E87420B31A02D0E1009F74E1 /* MiscJazzyFeatures.framework */,
-				E87420BE1A02D0E1009F74E1 /* MiscJazzyFeaturesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +49,7 @@
 			isa = PBXGroup;
 			children = (
 				E87420B81A02D0E1009F74E1 /* MiscJazzyFeatures.h */,
+				E87420CF1A02D125009F74E1 /* Classes.swift */,
 				E87420B61A02D0E1009F74E1 /* Supporting Files */,
 			);
 			path = MiscJazzyFeatures;
@@ -81,23 +59,6 @@
 			isa = PBXGroup;
 			children = (
 				E87420B71A02D0E1009F74E1 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		E87420C21A02D0E1009F74E1 /* MiscJazzyFeaturesTests */ = {
-			isa = PBXGroup;
-			children = (
-				E87420C51A02D0E1009F74E1 /* MiscJazzyFeaturesTests.swift */,
-				E87420C31A02D0E1009F74E1 /* Supporting Files */,
-			);
-			path = MiscJazzyFeaturesTests;
-			sourceTree = "<group>";
-		};
-		E87420C31A02D0E1009F74E1 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				E87420C41A02D0E1009F74E1 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -134,24 +95,6 @@
 			productReference = E87420B31A02D0E1009F74E1 /* MiscJazzyFeatures.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		E87420BD1A02D0E1009F74E1 /* MiscJazzyFeaturesTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E87420CC1A02D0E1009F74E1 /* Build configuration list for PBXNativeTarget "MiscJazzyFeaturesTests" */;
-			buildPhases = (
-				E87420BA1A02D0E1009F74E1 /* Sources */,
-				E87420BB1A02D0E1009F74E1 /* Frameworks */,
-				E87420BC1A02D0E1009F74E1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E87420C11A02D0E1009F74E1 /* PBXTargetDependency */,
-			);
-			name = MiscJazzyFeaturesTests;
-			productName = MiscJazzyFeaturesTests;
-			productReference = E87420BE1A02D0E1009F74E1 /* MiscJazzyFeaturesTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -162,9 +105,6 @@
 				ORGANIZATIONNAME = Realm;
 				TargetAttributes = {
 					E87420B21A02D0E1009F74E1 = {
-						CreatedOnToolsVersion = 6.1;
-					};
-					E87420BD1A02D0E1009F74E1 = {
 						CreatedOnToolsVersion = 6.1;
 					};
 				};
@@ -182,20 +122,12 @@
 			projectRoot = "";
 			targets = (
 				E87420B21A02D0E1009F74E1 /* MiscJazzyFeatures */,
-				E87420BD1A02D0E1009F74E1 /* MiscJazzyFeaturesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E87420B11A02D0E1009F74E1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E87420BC1A02D0E1009F74E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -209,26 +141,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E87420BA1A02D0E1009F74E1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E87420C61A02D0E1009F74E1 /* MiscJazzyFeaturesTests.swift in Sources */,
+				E87420D01A02D125009F74E1 /* Classes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		E87420C11A02D0E1009F74E1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E87420B21A02D0E1009F74E1 /* MiscJazzyFeatures */;
-			targetProxy = E87420C01A02D0E1009F74E1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		E87420C71A02D0E1009F74E1 /* Debug */ = {
@@ -315,6 +232,7 @@
 		E87420CA1A02D0E1009F74E1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -326,12 +244,14 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		E87420CB1A02D0E1009F74E1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -343,38 +263,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		E87420CD1A02D0E1009F74E1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MiscJazzyFeaturesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		E87420CE1A02D0E1009F74E1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MiscJazzyFeaturesTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -397,14 +285,7 @@
 				E87420CB1A02D0E1009F74E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		E87420CC1A02D0E1009F74E1 /* Build configuration list for PBXNativeTarget "MiscJazzyFeaturesTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E87420CD1A02D0E1009F74E1 /* Debug */,
-				E87420CE1A02D0E1009F74E1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
