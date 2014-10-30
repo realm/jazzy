@@ -30,6 +30,34 @@ begin
     Rake::Task['rubocop'].invoke
   end
 
+  desc 'Rebuilds integration fixtures'
+  task :rebuild_integration_fixtures do
+    title 'Running Integration tests'
+    sh 'rm -rf spec/integration_specs/tmp'
+    puts `bundle exec bacon spec/integration_spec.rb`
+
+    title 'Storing fixtures'
+    # Copy the files to the files produced by the specs to the after folders
+    FileList['tmp/*'].each do |source|
+      destination = "spec/integration_specs/#{source.gsub('tmp/', '')}/after"
+      if File.exist?(destination)
+        sh "rm -rf #{destination}"
+        sh "mv #{source} #{destination}"
+      end
+    end
+
+    # Remove files not used for the comparison
+    # To keep the git diff clean
+    files_to_delete = FileList['spec/integration_specs/*/after/{*,.git,.gitignore}']
+      .exclude('spec/integration_specs/*/after/docs', 'spec/integration_specs/*/after/execution_output.txt')
+    files_to_delete.each do |file_to_delete|
+      sh "rm -rf '#{file_to_delete}'"
+    end
+
+    puts
+    puts 'Integration fixtures updated, see `spec/integration_specs`'
+  end
+
   #-- RuboCop ----------------------------------------------------------------#
 
   require 'rubocop/rake_task'
