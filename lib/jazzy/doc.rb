@@ -3,11 +3,13 @@ module Jazzy
     self.template_path = File.dirname(__FILE__) + '/..'
 
     def date
-      DateTime.now.strftime('%Y-%m-%d')
+      # Fake date is used to keep integration tests consistent
+      ENV['JAZZY_FAKE_DATE'] || DateTime.now.strftime('%Y-%m-%d')
     end
 
     def year
-      DateTime.now.strftime('%Y')
+      # Fake date is used to keep integration tests consistent
+      ENV['JAZZY_FAKE_DATE'][0..3] || DateTime.now.strftime('%Y')
     end
 
     def jazzy_version

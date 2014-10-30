@@ -64,16 +64,18 @@ describe_cli 'jazzy' do
 
   subject do |s|
     s.executable = "ruby #{ROOT + 'bin/jazzy'}"
-    s.environment_vars = {}
+    s.environment_vars = { 'JAZZY_FAKE_DATE' => '2014-01-01' }
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
   end
 
   describe 'jazzy' do
-    describe 'Creates docs with a module name, xcodebuild options, and ' \
-      'github info' do
+    describe 'Creates docs with a module name, author name, project URL, ' \
+      'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
-                            '-m Alamofire -x -project,Alamofire.xcodeproj ' \
+                            '-m Alamofire -a Alamofire ' \
+                            '-u https://nshipster.com/alamofire ' \
+                            '-x -project,Alamofire.xcodeproj ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/Alamofire/Alamofire/blob/1.1.0'
     end
