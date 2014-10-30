@@ -9,6 +9,31 @@
 import Foundation
 import XPC
 
+// MARK: Structure
+
+/**
+Print file structure information as JSON to STDOUT
+
+:param: file Path to the file to parse for structure information
+*/
+func printStructure(#file: String) {
+    // Construct a SourceKit request for getting general info about a Swift file
+    let request = xpc_dictionary_create(nil, nil, 0)
+    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
+    xpc_dictionary_set_string(request, "key.name", "")
+    xpc_dictionary_set_string(request, "key.sourcefile", file)
+
+    // Initialize SourceKit XPC service
+    sourcekitd_initialize()
+
+    // Send SourceKit request
+    var response: XPCDictionary = fromXPC(sourcekitd_send_request_sync(request))
+    response.removeValueForKey("key.syntaxmap")
+    var declarationOffsets = [Int64, String]()
+    replaceUIDsWithStringsInDictionary(response, declarationOffsets: &declarationOffsets)
+    println(toJSON(response))
+}
+
 // MARK: Syntax
 
 /**
@@ -93,7 +118,7 @@ func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
     println("]")
 }
 
-// MARK: - Helper Functions
+// MARK: Helper Functions
 
 /**
 Print error message to STDERR
@@ -113,30 +138,97 @@ Replace all UIDs in a SourceKit response dictionary with their string values.
 :param:   declarationOffsets inout `Array` of (`Int64`, `String`) tuples. First value is offset of declaration.
                              Second value is declaration kind (i.e. `source.lang.swift.decl.function.free`).
 */
-func replaceUIDsWithStringsInDictionary(var dictionary: XPCDictionary,
-    inout #declarationOffsets: [(Int64, String)]) {
-        for key in dictionary.keys {
-            if let subArray = dictionary[key]! as? XPCArray {
-                for subDict in subArray {
-                    replaceUIDsWithStringsInDictionary(subDict as XPCDictionary,
-                        declarationOffsets: &declarationOffsets)
-                }
-            } else if let uid = dictionary[key] as? UInt64 {
-                if uid > 4_300_000_000 { // UID's are all higher than 4.3M
-                    if let utf8String = sourcekitd_uid_get_string_ptr(uid) as UnsafePointer<Int8>? {
-                        let uidString = String(UTF8String: utf8String)!
-                        dictionary[key] = uidString
-                        if key == "key.kind" &&
-                            uidString.rangeOfString("source.lang.swift.decl.") != nil {
-                            let offset = dictionary["key.nameoffset"] as Int64
-                            if offset > 0 {
-                                declarationOffsets.append(offset, uidString)
-                            }
+func replaceUIDsWithStringsInDictionary(var dictionary: XPCDictionary, inout #declarationOffsets: [(Int64, String)]) {
+    for key in dictionary.keys {
+        if let subArray = dictionary[key]! as? XPCArray {
+            for subDict in subArray {
+                replaceUIDsWithStringsInDictionary(subDict as XPCDictionary,
+                    declarationOffsets: &declarationOffsets)
+            }
+        } else if let uid = dictionary[key] as? UInt64 {
+            if uid > 4_300_000_000 { // UID's are all higher than 4.3M
+                if let utf8String = sourcekitd_uid_get_string_ptr(uid) as UnsafePointer<Int8>? {
+                    let uidString = String(UTF8String: utf8String)!
+                    dictionary[key] = uidString
+                    if key == "key.kind" &&
+                        uidString.rangeOfString("source.lang.swift.decl.") != nil {
+                        let offset = dictionary["key.nameoffset"] as Int64
+                        if offset > 0 {
+                            declarationOffsets.append(offset, uidString)
                         }
                     }
                 }
             }
         }
+    }
+}
+
+/**
+Convert XPCDictionary to JSON
+
+:param: dictionary XPCDictionary to convert
+:returns: Converted JSON
+*/
+func toJSON(dictionary: XPCDictionary) -> String {
+    let json = toJSONPartial(dictionary)
+        .stringByReplacingOccurrencesOfString(",}", withString: "}")
+        .stringByReplacingOccurrencesOfString(",]", withString: "]")
+
+    let jsonData = json[json.startIndex..<json.endIndex.predecessor()].dataUsingEncoding(NSUTF8StringEncoding)!
+    let prettyJSONObject: AnyObject? = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: nil)
+    let prettyJSONData = NSJSONSerialization.dataWithJSONObject(prettyJSONObject!, options: .PrettyPrinted, error: nil)
+    return NSString(data: prettyJSONData!, encoding: NSUTF8StringEncoding)!
+}
+
+/**
+Partially convert XPCDictionary to JSON. Is not yet valid JSON. See toJSON(_:)
+
+:param: dictionary XPCDictionary to convert
+:returns: Converted JSON
+*/
+func toJSONPartial(dictionary: XPCDictionary) -> String {
+    var json = "{"
+    for (key, object) in dictionary {
+        switch object {
+        case let object as XPCArray:
+            json += "\"\(key)\": ["
+            for subDict in object {
+                json += toJSONPartial(subDict as XPCDictionary)
+            }
+            json += "],"
+        case let object as XPCDictionary:
+            json += "\"\(key)\": \(toJSONPartial(object)),"
+        case let object as String:
+            let escapedString = object.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+            json += "\"\(key)\": \"\(escapedString)\","
+        case let object as NSDate:
+            json += "\"\(key)\": \"\(object)\","
+        case let object as NSData:
+            json += "\"\(key)\": \"\(object)\","
+        case let object as UInt64:
+            if object > 4_300_000_000 { // UID's are all higher than 4.3M
+                if let utf8String = sourcekitd_uid_get_string_ptr(object) as UnsafePointer<Int8>? {
+                    let uidString = String(UTF8String: utf8String)!
+                    json += "\"\(key)\": \"\(uidString)\","
+                }
+            } else {
+                json += "\"\(key)\": \(object),"
+            }
+        case let object as Int64:
+            json += "\"\(key)\": \(object),"
+        case let object as Double:
+            json += "\"\(key)\": \(object),"
+        case let object as Bool:
+            json += "\"\(key)\": \(object),"
+        case let object as NSFileHandle:
+            json += "\"\(key)\": \(object.fileDescriptor),"
+        default:
+            // Should never happen because we've checked all XPCRepresentable types
+            abort()
+        }
+    }
+    json += "},"
+    return json
 }
 
 /**
@@ -148,6 +240,7 @@ Return STDERR and STDOUT as a combined string.
 */
 func run_xcodebuild(processArguments: [String]) -> String? {
     let task = NSTask()
+    task.currentDirectoryPath = "/Users/jp/Projects/sourcekitten"
     task.launchPath = "/usr/bin/xcodebuild"
 
     // Forward arguments to xcodebuild
@@ -230,6 +323,7 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) -> 
 
         let openResponse: XPCDictionary = fromXPC(sourcekitd_send_request_sync(openRequest))
         replaceUIDsWithStringsInDictionary(openResponse, declarationOffsets: &declarationOffsets)
+        println(toJSON(openResponse))
 
         // Construct a SourceKit request for getting cursor info for current cursor position
         let cursorInfoRequest = xpc_dictionary_create(nil, nil, 0)
@@ -279,7 +373,7 @@ func swiftFilesFromArray(array: [String]) -> [String] {
     }
 }
 
-// MARK: - Main Program
+// MARK: Main Program
 
 /**
 Print XML-formatted docs for the specified Xcode project,
@@ -293,6 +387,8 @@ func main() {
         sourcekitdArguments.removeAtIndex(0) // remove --skip-xcodebuild
         let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
         println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
+    } else if arguments.count == 3 && arguments[1] == "--structure" {
+        printStructure(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
         printSyntaxHighlighting(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
@@ -302,7 +398,8 @@ func main() {
             // Extract the Xcode project's Swift files
             let swiftFiles = swiftFilesFromArray(swiftcArguments)
 
-            // FIXME: The following makes things ~30% faster, at the expense of (possibly) not supporting complex project configurations
+            // FIXME: The following makes things ~30% faster, at the expense of (possibly)
+            // not supporting complex project configurations.
             // Extract the minimum Swift compiler arguments needed for SourceKit
             var sourcekitdArguments = Array<String>(swiftcArguments[0..<7])
             sourcekitdArguments.extend(swiftFiles)
