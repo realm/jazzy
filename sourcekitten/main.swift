@@ -148,7 +148,6 @@ Return STDERR and STDOUT as a combined string.
 */
 func run_xcodebuild(processArguments: [String]) -> String? {
     let task = NSTask()
-    task.currentDirectoryPath = "/Users/jp/Projects/sourcekitten"
     task.launchPath = "/usr/bin/xcodebuild"
 
     // Forward arguments to xcodebuild
