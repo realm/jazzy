@@ -382,9 +382,7 @@ or Xcode output if no Swift compiler arguments were found.
 func main() {
     let arguments = Process.arguments
     if arguments.count > 1 && arguments[1] == "--skip-xcodebuild" {
-        var sourcekitdArguments = arguments
-        sourcekitdArguments.removeAtIndex(0) // remove sourcekitten
-        sourcekitdArguments.removeAtIndex(0) // remove --skip-xcodebuild
+        var sourcekitdArguments = Array<String>(arguments[2...arguments.count])
         let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
         println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
     } else if arguments.count == 3 && arguments[1] == "--structure" {
