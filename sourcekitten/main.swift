@@ -97,6 +97,38 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
 }
 
 /**
+Find parent offsets for given documented offsets.
+
+:param: dictionary Parent document to search for ranges.
+:param: documentedTokenOffsets inout dictionary of documented token offsets mapping to their parent offsets.
+:param: file File where these offsets are located.
+*/
+func mapOffsets(dictionary: XPCDictionary, inout documentedTokenOffsets: [Int: Int], file: String) {
+    if let dictFile =  dictionary["key.filepath"] as? String {
+        if dictFile == file {
+            if let rangeStart = dictionary["key.offset"] as? Int64 {
+                if let rangeLength = dictionary["key.bodylength"] as? Int64 {
+                    let offsetsInRange = documentedTokenOffsets.keys.filter {
+                        let nameLength = dictionary["key.namelength"] as Int64
+                        return $0 >= Int(rangeStart) && $0 <= Int(rangeStart + nameLength + rangeLength)
+                    }
+                    for offset in offsetsInRange {
+                        documentedTokenOffsets[offset] = Int(dictionary["key.offset"] as Int64)
+                    }
+                }
+            }
+        }
+    }
+    for key in dictionary.keys {
+        if var subArray = dictionary[key]! as? XPCArray {
+            for i in 0..<subArray.count {
+                mapOffsets(subArray[i] as XPCDictionary, &documentedTokenOffsets, file)
+            }
+        }
+    }
+}
+
+/**
 Find integer offsets of documented tokens
 
 :param: file File to parse
@@ -210,7 +242,6 @@ Return STDERR and STDOUT as a combined string.
 */
 func run_xcodebuild(processArguments: [String]) -> String? {
     let task = NSTask()
-    task.currentDirectoryPath = "/Users/jp/Projects/sourcekitten"
     task.launchPath = "/usr/bin/xcodebuild"
 
     // Forward arguments to xcodebuild
@@ -273,8 +304,13 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
 
     // Construct SourceKit requests for getting general info about a Swift file and getting cursor info
     let openRequest = toXPC(["key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"), "key.name": ""])
-    let cursorInfoRequest = toXPC(["key.request": sourcekitd_uid_get_from_cstr("source.request.cursorinfo"),
-        "key.compilerargs": arguments])
+    let cursorInfoRequest = toXPC(["key.request": sourcekitd_uid_get_from_cstr("source.request.cursorinfo")])
+
+    let xpcArguments = xpc_array_create(nil, 0)
+    for argument in arguments {
+        xpc_array_append_value(xpcArguments, xpc_string_create(argument))
+    }
+    xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
 
     // Print docs for each Swift file
     for file in swiftFiles {
@@ -283,9 +319,89 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
 
         var openResponse: XPCDictionary = fromXPC(sourcekitd_send_request_sync(openRequest))
         openResponse.removeValueForKey("key.syntaxmap")
+
+        // Map documented token offsets to the start of their range
+        var offsetsMap = [Int: Int]()
+        for offset in documentedTokenOffsets(file) {
+            offsetsMap[offset] = 0
+        }
         replaceUIDsWithStringsInDictionary(&openResponse, cursorInfoRequest)
+        mapOffsets(openResponse, &offsetsMap, file)
+        var alreadyDocumentedOffsets = [Int]()
+        for (offset, rangeStart) in offsetsMap {
+            if offset == rangeStart {
+                alreadyDocumentedOffsets.append(offset)
+            }
+        }
+        for alreadyDocumentedOffset in alreadyDocumentedOffsets {
+            offsetsMap.removeValueForKey(alreadyDocumentedOffset)
+        }
+        for offset in offsetsMap.keys.reverse() {
+            xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(offset))
+            var response = fromXPC(sourcekitd_send_request_sync(cursorInfoRequest)) as XPCDictionary
+            replaceUIDsWithStringsInDictionary(&response)
+            if (response["key.kind"] as String).rangeOfString("source.lang.swift.decl.") != nil {
+                insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
+            }
+        }
         println(toJSON(openResponse))
     }
+}
+
+/**
+Insert a document in a parent at the given offset.
+
+:param: doc Document to insert
+:param: parent Document to insert into
+:param: offset Parent's offset
+:param: file File where parent and doc are located
+:returns: Whether or not the insertion succeeded
+*/
+func insertDoc(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64, file: String) -> Bool {
+    func insertDocDirectly(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64) {
+        var substructure = parent["key.substructure"] as XPCArray
+        var insertIndex = substructure.count
+        for (index, structure) in enumerate(substructure.reverse()) {
+            if ((structure as XPCDictionary)["key.offset"] as Int64) < offset {
+                break
+            }
+            insertIndex = substructure.count - index
+        }
+        substructure.insert(doc, atIndex: insertIndex)
+        parent["key.substructure"] = substructure
+    }
+    if offset == 0 {
+        insertDocDirectly(doc, &parent, offset)
+        return true
+    }
+    if let parentFile = parent["key.filepath"] as? String {
+        if parentFile == file {
+            if let rangeStart = parent["key.offset"] as? Int64 {
+                if rangeStart == offset {
+                    insertDocDirectly(doc, &parent, offset)
+                    return true
+                }
+            }
+        }
+    }
+    for key in parent.keys {
+        if var subArray = parent[key]! as? XPCArray {
+            var success = false
+            for i in 0..<subArray.count {
+                var subDict = subArray[i] as XPCDictionary
+                success = insertDoc(doc, &subDict, offset, file)
+                subArray[i] = subDict
+                if success {
+                    break
+                }
+            }
+            if success {
+                parent[key] = subArray
+                return true
+            }
+        }
+    }
+    return false
 }
 
 /**
