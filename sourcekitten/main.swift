@@ -186,7 +186,31 @@ Convert XPCDictionary to JSON
 :returns: Converted JSON
 */
 func toJSON(dictionary: XPCDictionary) -> String {
-    let prettyJSONData = NSJSONSerialization.dataWithJSONObject(toAnyObject(dictionary),
+    return toJSON(toAnyObject(dictionary))
+}
+
+/**
+Convert XPCArray of XPCDictionary's to JSON
+
+:param: array XPCArray of XPCDictionary's to convert
+:returns: Converted JSON
+*/
+func toJSON(array: XPCArray) -> String {
+    var anyArray = [AnyObject]()
+    for item in array {
+        anyArray.append(toAnyObject(item as XPCDictionary))
+    }
+    return toJSON(anyArray)
+}
+
+/**
+JSON Object to JSON String
+
+:param: object Object to convert to JSON.
+:returns: JSON string representation of the input object.
+*/
+func toJSON(object: AnyObject) -> String {
+    let prettyJSONData = NSJSONSerialization.dataWithJSONObject(object,
         options: .PrettyPrinted,
         error: nil)
     return NSString(data: prettyJSONData!, encoding: NSUTF8StringEncoding)!
@@ -313,6 +337,8 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
     }
     xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
 
+    var responses = XPCArray()
+
     // Print docs for each Swift file
     for file in swiftFiles {
         xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
@@ -345,8 +371,9 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
                 insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
             }
         }
-        println(toJSON(openResponse))
+        responses.append(openResponse)
     }
+    println(toJSON(responses))
 }
 
 /**
