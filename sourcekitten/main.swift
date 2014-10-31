@@ -88,7 +88,8 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
                         let offset = dictionary["key.offset"] as Int64
                         let length = dictionary["key.length"] as Int64
                         let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile"))!
-                        dictionary["key.name"] = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
+                        let fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
+                        dictionary["key.name"] = fileContents.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
                     }
                 }
             }
