@@ -49,6 +49,7 @@ func error(message: String) {
 
 /**
 Replace all UIDs in a SourceKit response dictionary with their string values.
+Also adds keys from cursorinfo requests for declarations.
 
 :param: dictionary        `XPCDictionary` to mutate.
 :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
@@ -152,59 +153,52 @@ Convert XPCDictionary to JSON
 :returns: Converted JSON
 */
 func toJSON(dictionary: XPCDictionary) -> String {
-    let json = toJSONPartial(dictionary)
-        .stringByReplacingOccurrencesOfString(",}", withString: "}")
-        .stringByReplacingOccurrencesOfString(",]", withString: "]")
-
-    let jsonData = json[json.startIndex..<json.endIndex.predecessor()].dataUsingEncoding(NSUTF8StringEncoding)!
-    let prettyJSONObject: AnyObject? = NSJSONSerialization.JSONObjectWithData(jsonData, options: nil, error: nil)
-    let prettyJSONData = NSJSONSerialization.dataWithJSONObject(prettyJSONObject!, options: .PrettyPrinted, error: nil)
+    let prettyJSONData = NSJSONSerialization.dataWithJSONObject(toAnyObject(dictionary),
+        options: .PrettyPrinted,
+        error: nil)
     return NSString(data: prettyJSONData!, encoding: NSUTF8StringEncoding)!
 }
 
 /**
-Partially convert XPCDictionary to JSON. Is not yet valid JSON. See toJSON(_:)
+Convert XPCDictionary to [String: AnyObject] for conversion using NSJSONSerialization. See toJSON(_:)
 
 :param: dictionary XPCDictionary to convert
-:returns: Converted JSON
+:returns: JSON-serializable Dictionary
 */
-func toJSONPartial(dictionary: XPCDictionary) -> String {
-    var json = "{"
+func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
+    var anyDictionary = [String: AnyObject]()
     for (key, object) in dictionary {
         switch object {
         case let object as XPCArray:
-            json += "\"\(key)\": ["
+            var anyArray = [AnyObject]()
             for subDict in object {
-                json += toJSONPartial(subDict as XPCDictionary)
+                anyArray.append(toAnyObject(subDict as XPCDictionary))
             }
-            json += "],"
+            anyDictionary[key] = anyArray
         case let object as XPCDictionary:
-            json += "\"\(key)\": \(toJSONPartial(object)),"
+            anyDictionary[key] = toAnyObject(object)
         case let object as String:
-            let data = NSJSONSerialization.dataWithJSONObject([key: object], options: nil, error: nil)
-            let objectJSON: String = NSString(data: data!, encoding: NSUTF8StringEncoding)!
-            json += objectJSON[objectJSON.startIndex.successor()..<objectJSON.endIndex.predecessor()] + ","
+            anyDictionary[key] = object
         case let object as NSDate:
-            json += "\"\(key)\": \"\(object)\","
+            anyDictionary[key] = object
         case let object as NSData:
-            json += "\"\(key)\": \"\(object)\","
+            anyDictionary[key] = object
         case let object as UInt64:
-            json += "\"\(key)\": \(object),"
+            anyDictionary[key] = NSNumber(unsignedLongLong: object)
         case let object as Int64:
-            json += "\"\(key)\": \(object),"
+            anyDictionary[key] = NSNumber(longLong: object)
         case let object as Double:
-            json += "\"\(key)\": \(object),"
+            anyDictionary[key] = NSNumber(double: object)
         case let object as Bool:
-            json += "\"\(key)\": \(object),"
+            anyDictionary[key] = NSNumber(bool: object)
         case let object as NSFileHandle:
-            json += "\"\(key)\": \(object.fileDescriptor),"
+            anyDictionary[key] = NSNumber(int: object.fileDescriptor)
         default:
             // Should never happen because we've checked all XPCRepresentable types
             abort()
         }
     }
-    json += "},"
-    return json
+    return anyDictionary
 }
 
 /**
