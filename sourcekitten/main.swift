@@ -131,8 +131,9 @@ func toJSONPartial(dictionary: XPCDictionary) -> String {
         case let object as XPCDictionary:
             json += "\"\(key)\": \(toJSONPartial(object)),"
         case let object as String:
-            let escapedString = object.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-            json += "\"\(key)\": \"\(escapedString)\","
+            let data = NSJSONSerialization.dataWithJSONObject([key: object], options: nil, error: nil)
+            let objectJSON: String = NSString(data: data!, encoding: NSUTF8StringEncoding)!
+            json += objectJSON[objectJSON.startIndex.successor()..<objectJSON.endIndex.predecessor()] + ","
         case let object as NSDate:
             json += "\"\(key)\": \"\(object)\","
         case let object as NSData:
