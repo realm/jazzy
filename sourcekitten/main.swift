@@ -22,7 +22,7 @@ Cache SourceKit requests for strings from UIDs
 */
 func stringForSourceKitUID(uid: UInt64) -> String? {
     if uid < 4_300_000_000 {
-        // UID's are all higher than 4.3M
+        // UID's are always higher than 4.3M
         return nil
     } else if let string = uidStringMap[uid] {
         return string
@@ -93,6 +93,56 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
             }
         }
     }
+}
+
+/**
+Find integer offsets of documented tokens
+
+:param: file File to parse
+:returns: Array of documented token offsets
+*/
+func documentedTokenOffsets(file: String) -> [Int] {
+    // Construct a SourceKit request for getting general info about the Swift file passed as argument
+    let request = toXPC([
+            "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
+            "key.name": "",
+            "key.sourcefile": file])
+    let response: XPCDictionary = fromXPC(sourcekitd_send_request_sync(request))
+    let data = response["key.syntaxmap"] as NSData!
+
+    // Get number of syntax tokens
+    var tokens = 0
+    data.getBytes(&tokens, range: NSRange(location: 8, length: 8))
+    tokens = tokens >> 4
+
+    var identifierOffsets = [Int]()
+
+    for i in 0..<tokens {
+        let parserOffset = 16 * i
+
+        var uid = UInt64(0)
+        data.getBytes(&uid, range: NSRange(location: 16 + parserOffset, length: 8))
+        let type = stringForSourceKitUID(uid)!
+
+        // Only append identifiers
+        if type != "source.lang.swift.syntaxtype.identifier" {
+            continue
+        }
+        var offset = 0
+        data.getBytes(&offset, range: NSRange(location: 24 + parserOffset, length: 4))
+        identifierOffsets.append(offset)
+    }
+
+    let fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
+    let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)!
+    let range = NSRange(location: 0, length: fileContents.length)
+    let matches = regex.matchesInString(fileContents, options: nil, range: range)
+
+    var offsets = [Int]()
+    for match in matches {
+        offsets.append(identifierOffsets.filter({ $0 >= match.range.location})[0])
+    }
+    return offsets
 }
 
 /**
@@ -195,9 +245,9 @@ Parses the compiler arguments needed to compile the Swift aspects of an Xcode pr
 :returns: array of swift compiler arguments
 */
 func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
-    let regex = NSRegularExpression(pattern: "/usr/bin/swiftc.*", options: NSRegularExpressionOptions(0), error: nil)!
+    let regex = NSRegularExpression(pattern: "/usr/bin/swiftc.*", options: nil, error: nil)!
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
-    let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: NSMatchingOptions(0), range: range)
+    let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range)
 
     if let regexMatch = regexMatch {
         let escapedSpacePlaceholder = "\u{0}"
@@ -227,21 +277,10 @@ Print XML-formatted docs for the specified Xcode project
 func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
     sourcekitd_initialize()
 
-    // Create the XPC array of compiler arguments once, to be reused for each request
-    let xpcArguments = xpc_array_create(nil, 0)
-    for argument in arguments {
-        xpc_array_append_value(xpcArguments, xpc_string_create(argument))
-    }
-
-    // Construct a SourceKit request for getting general info about a Swift file
-    let openRequest = xpc_dictionary_create(nil, nil, 0)
-    xpc_dictionary_set_uint64(openRequest, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
-    xpc_dictionary_set_string(openRequest, "key.name", "")
-
-    // Construct a SourceKit request for getting cursor info for current cursor position
-    let cursorInfoRequest = xpc_dictionary_create(nil, nil, 0)
-    xpc_dictionary_set_uint64(cursorInfoRequest, "key.request", sourcekitd_uid_get_from_cstr("source.request.cursorinfo"))
-    xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
+    // Construct SourceKit requests for getting general info about a Swift file and getting cursor info
+    let openRequest = toXPC(["key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"), "key.name": ""])
+    let cursorInfoRequest = toXPC(["key.request": sourcekitd_uid_get_from_cstr("source.request.cursorinfo"),
+        "key.compilerargs": arguments])
 
     // Print docs for each Swift file
     for file in swiftFiles {
@@ -276,10 +315,10 @@ Print file structure information as JSON to STDOUT
 */
 func printStructure(#file: String) {
     // Construct a SourceKit request for getting general info about a Swift file
-    let request = xpc_dictionary_create(nil, nil, 0)
-    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
-    xpc_dictionary_set_string(request, "key.name", "")
-    xpc_dictionary_set_string(request, "key.sourcefile", file)
+    let request = toXPC([
+        "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
+        "key.name": "",
+        "key.sourcefile": file])
 
     // Initialize SourceKit XPC service
     sourcekitd_initialize()
@@ -300,10 +339,10 @@ Print syntax highlighting information as JSON to STDOUT
 */
 func printSyntaxHighlighting(#file: String) {
     // Construct a SourceKit request for getting general info about the Swift file passed as argument
-    let request = xpc_dictionary_create(nil, nil, 0)
-    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
-    xpc_dictionary_set_string(request, "key.name", "")
-    xpc_dictionary_set_string(request, "key.sourcefile", file)
+    let request = toXPC([
+        "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
+        "key.name": "",
+        "key.sourcefile": file])
 
     // Initialize SourceKit XPC service
     sourcekitd_initialize()
@@ -320,10 +359,10 @@ Print syntax highlighting information as JSON to STDOUT
 */
 func printSyntaxHighlighting(#text: String) {
     // Construct a SourceKit request for getting general info about the Swift source text passed as argument
-    let request = xpc_dictionary_create(nil, nil, 0)
-    xpc_dictionary_set_uint64(request, "key.request", sourcekitd_uid_get_from_cstr("source.request.editor.open"))
-    xpc_dictionary_set_string(request, "key.name", "")
-    xpc_dictionary_set_string(request, "key.sourcetext", text)
+    let request = toXPC([
+        "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
+        "key.name": "",
+        "key.sourcetext": text])
 
     // Initialize SourceKit XPC service
     sourcekitd_initialize()
@@ -347,7 +386,7 @@ func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
     data.getBytes(&tokens, range: NSRange(location: 8, length: 8))
     tokens = tokens >> 4
 
-    println("[")
+    var syntaxArray = [[String: AnyObject]]()
 
     for i in 0..<tokens {
         let parserOffset = 16 * i
@@ -363,16 +402,14 @@ func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
         data.getBytes(&length, range: NSRange(location: 28 + parserOffset, length: 4))
         length = length >> 1
 
-        print("  {\n    \"type\": \"\(type)\",\n    \"offset\": \(offset),\n    \"length\": \(length)\n  }")
-
-        if i != tokens-1 {
-            println(",")
-        } else {
-            println()
-        }
+        syntaxArray.append(["type": type, "offset": offset, "length": length])
     }
-    
-    println("]")
+
+    let syntaxJSONData = NSJSONSerialization.dataWithJSONObject(syntaxArray,
+        options: .PrettyPrinted,
+        error: nil)
+    let syntaxJSON = NSString(data: syntaxJSONData!, encoding: NSUTF8StringEncoding)!
+    println(syntaxJSON)
 }
 
 // MARK: Main Program
