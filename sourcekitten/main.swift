@@ -333,51 +333,41 @@ func printStructure(#file: String) {
 // MARK: Syntax
 
 /**
-Print syntax highlighting information as JSON to STDOUT
+Print syntax information as JSON to STDOUT
 
 :param: file Path to the file to parse for syntax highlighting information
 */
-func printSyntaxHighlighting(#file: String) {
-    // Construct a SourceKit request for getting general info about the Swift file passed as argument
+func printSyntax(#file: String) {
+    sourcekitd_initialize()
+    // Construct editor.open SourceKit request
     let request = toXPC([
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
         "key.sourcefile": file])
-
-    // Initialize SourceKit XPC service
-    sourcekitd_initialize()
-
-    // Send SourceKit request
-    let response = sourcekitd_send_request_sync(request)
-    printSyntaxHighlighting(response)
+    printSyntax(sourcekitd_send_request_sync(request))
 }
 
 /**
-Print syntax highlighting information as JSON to STDOUT
+Print syntax information as JSON to STDOUT
 
 :param: text Swift source code to parse for syntax highlighting information
 */
-func printSyntaxHighlighting(#text: String) {
-    // Construct a SourceKit request for getting general info about the Swift source text passed as argument
+func printSyntax(#text: String) {
+    sourcekitd_initialize()
+    // Construct editor.open SourceKit request
     let request = toXPC([
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
         "key.sourcetext": text])
-
-    // Initialize SourceKit XPC service
-    sourcekitd_initialize()
-
-    // Send SourceKit request
-    let response = sourcekitd_send_request_sync(request)
-    printSyntaxHighlighting(response)
+    printSyntax(sourcekitd_send_request_sync(request))
 }
 
 /**
-Print syntax highlighting information as JSON to STDOUT
+Print syntax information as JSON to STDOUT
 
 :param: sourceKitResponse XPC object returned from SourceKit "editor.open" call
 */
-func printSyntaxHighlighting(sourceKitResponse: xpc_object_t) {
+func printSyntax(sourceKitResponse: xpc_object_t) {
     // Get syntaxmap XPC data and convert to NSData
     let data: NSData = fromXPC(xpc_dictionary_get_value(sourceKitResponse, "key.syntaxmap"))!
 
@@ -427,9 +417,9 @@ func main() {
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
-        printSyntaxHighlighting(file: arguments[2])
+        printSyntax(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
-        printSyntaxHighlighting(text: arguments[2])
+        printSyntax(text: arguments[2])
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             // Extract the Xcode project's Swift files
