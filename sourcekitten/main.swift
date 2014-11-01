@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.3"
+let version = "0.1.4"
 
 /// File Contents Map
 var files = [String: NSString]()
