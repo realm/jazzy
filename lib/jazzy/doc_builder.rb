@@ -43,6 +43,7 @@ module Jazzy
         stdout = SourceKitten.run_sourcekitten(options.xcodebuild_arguments)
         exitstatus = $?.exitstatus
         if exitstatus == 0
+          warn 'building site'
           build_docs_for_sourcekitten_output(stdout, options)
         else
           warn 'Please pass in xcodebuild arguments using -x'
