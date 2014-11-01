@@ -18,10 +18,10 @@ module Jazzy
       self.xcodebuild_arguments = []
       self.author_name = ''
       self.module_name = ''
-      self.github_url = ''
+      self.github_url = nil
       self.github_file_prefix = nil
       self.author_url = ''
-      self.dash_url = ''
+      self.dash_url = nil
       self.sourcekitten_sourcefile = nil
       self.clean = false
     end

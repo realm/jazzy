@@ -109,8 +109,8 @@ module Jazzy
         doc[:module_name] = options.module_name
         doc[:author_name] = options.author_name
         doc[:author_website] = options.author_url
-        doc[:github_link] = options.github_url
-        doc[:dash_link] = options.dash_url
+        doc[:github_url] = options.github_url
+        doc[:dash_url] = options.dash_url
         doc[:path_to_root] = path_to_root
         return doc.render
       end
@@ -141,7 +141,7 @@ module Jazzy
             gh_prefix = options.github_file_prefix
             relative_file_path = sub_item.file.gsub(`pwd`.strip, '')
             gh_line = "#L#{sub_item.line}"
-            item[:github_url] = gh_prefix + relative_file_path + gh_line
+            item[:github_token_url] = gh_prefix + relative_file_path + gh_line
           end
           item[:return] = Jazzy.markdown.render(sub_item.return) if sub_item.return
           parameters = sub_item.parameters
@@ -157,8 +157,8 @@ module Jazzy
       doc[:module_name] = options.module_name
       doc[:author_name] = options.author_name
       doc[:author_website] = options.author_url
-      doc[:github_link] = options.github_url
-      doc[:dash_link] = options.dash_url
+      doc[:github_url] = options.github_url
+      doc[:dash_url] = options.dash_url
       doc[:path_to_root] = path_to_root
       doc.render
     end

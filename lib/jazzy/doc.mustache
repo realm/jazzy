@@ -12,8 +12,12 @@
     <header>
       <div class="content-wrapper">
         <p class="header-text"><a href="#">{{module_name}} Docs</a></p>
-        <p id="header-links"><a href="{{github_link}}"><img id="header-icon" src="{{path_to_root}}img/gh.png" height="16px" width="16px" />View on GitHub</a></p>
-        <p id="header-links"><a href="{{dash_link}}"><img id="header-icon" src="{{path_to_root}}img/dash.png" height="16px" width="16px" />Install in Dash</a></p>
+        {{#github_url}}
+        <p id="header-links"><a href="{{github_url}}"><img id="header-icon" src="{{path_to_root}}img/gh.png" height="16px" width="16px" />View on GitHub</a></p>
+        {{/github_url}}
+        {{#dash_url}}
+        <p id="header-links"><a href="{{dash_url}}"><img id="header-icon" src="{{path_to_root}}img/dash.png" height="16px" width="16px" />Install in Dash</a></p>
+        {{/dash_url}}
       </div>
     </header>
     <section id="valence">
