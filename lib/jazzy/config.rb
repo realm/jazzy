@@ -81,7 +81,7 @@ module Jazzy
         end
 
         opt.on('-h', '--help', 'Print this help message') do
-          puts opt_parser
+          puts opt
           exit
         end
       end.parse!
