@@ -1,0 +1,67 @@
+inherit_from:
+ - .rubocop_todo.yml
+
+AllCops:
+  Include:
+    - ./Rakefile
+    - ./Gemfile
+    - ./*.gemspec
+
+# At the moment not ready to be used
+# https://github.com/bbatsov/rubocop/issues/947
+Documentation:
+  Enabled: false
+
+#- Jazzy -----------------------------------------------------------------#
+
+# We adopted raise instead of fail.
+SignalException:
+  EnforcedStyle: only_raise
+
+# They are idiomatic
+AssignmentInCondition:
+  Enabled: false
+
+# Allow backticks
+AsciiComments:
+  Enabled: false
+
+# Indentation clarifies logic branches in implementations
+IfUnlessModifier:
+  Enabled: false
+
+# No enforced convention here.
+SingleLineBlockParams:
+  Enabled: false
+
+# We only add the comment when needed.
+Encoding:
+  Enabled: false
+
+# Having these make it easier to *not* forget to add one when adding a new
+# value and you can simply copy the previous line.
+TrailingComma:
+  EnforcedStyleForMultiline: comma
+
+Style/SpecialGlobalVars:
+  Enabled: false
+
+#- Jazzy specs -----------------------------------------------------------#
+
+# Allow for `should.match /regexp/`.
+AmbiguousRegexpLiteral:
+  Exclude:
+    - spec/**/*
+
+# Allow `object.should == object` syntax.
+Void:
+  Exclude:
+    - spec/**/*
+
+ClassAndModuleChildren:
+  Exclude:
+    - spec/**/*
+
+UselessComparison:
+  Exclude:
+    - spec/**/*

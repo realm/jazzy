@@ -1,0 +1,16 @@
+<nav class="book-parts">
+  <ul class="nav-parts">
+    {{#structure}}
+    <li class="part-name tasks">
+    <a href="{{path_to_root}}{{section}}.html">{{section}}</a>
+      <ul class="nav-chapters">
+        {{#children}}
+        <li class="nav-chapter">
+          <a href="{{path_to_root}}{{url}}">{{name}}</a>
+        </li>
+        {{/children}}
+      </ul>
+    </li>
+    {{/structure}}
+  </ul>
+</nav>

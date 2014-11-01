@@ -1,11 +1,19 @@
-source "http://rubygems.org"
+source 'http://rubygems.org'
+
+gemspec
 
 group :development do
-	gem "mustache", "~> 0.99.5"
-	gem "activesupport", "~> 4.1.1"
-	gem "redcarpet", "~> 3.1.2"
-	gem "nokogiri", "~> 1.6.2.1"
+  # Code style
+  gem 'rubocop'
 
-	gem "bundler", "~> 1.5"
-	gem "rake"
+  # Tests
+  gem 'bacon'
+  gem 'mocha'
+  gem 'mocha-on-bacon'
+  gem 'prettybacon'
+  gem 'webmock'
+
+  # Integration tests
+  gem 'diffy'
+  gem 'clintegracon'
 end
