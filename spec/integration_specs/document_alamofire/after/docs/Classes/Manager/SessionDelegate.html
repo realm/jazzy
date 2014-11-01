@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SessionDelegate Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+  </head>
+  <body id="reference" class="Swift">
+    <a title="SessionDelegate Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p class="header-text"><a href="#">Alamofire Docs</a></p>
+        <p id="header-links"><a href="https://github.com/Alamofire/Alamofire"><img id="header-icon" src="../../img/gh.png" height="16px" width="16px" />View on GitHub</a></p>
+        <p id="header-links"><a href=""><img id="header-icon" src="../../img/dash.png" height="16px" width="16px" />Install in Dash</a></p>
+      </div>
+    </header>
+    <section id="valence">
+      <div class="content-wrapper">
+        <p id="hierarchial_navigation">
+        <a href="#" id="design_resources_link">Alamofire Reference</a>
+        <img id="carat" src="../../img/carat.png" height="10px" width="6px" />
+        SessionDelegate Class Reference
+        </p>
+      </div>
+    </section>
+    <div class="content-wrapper">
+      <nav class="book-parts">
+        <ul class="nav-parts">
+          <li class="part-name tasks">
+          <a href="../../Classes.html">Classes</a>
+            <ul class="nav-chapters">
+              <li class="nav-chapter">
+                <a href="../../Classes/Manager.html">Manager</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Classes/Request.html">Request</a>
+              </li>
+            </ul>
+          </li>
+          <li class="part-name tasks">
+          <a href="../../Global Variables.html">Global Variables</a>
+            <ul class="nav-chapters">
+              <li class="nav-chapter">
+                <a href="../../Global Variables.html#/s:v9Alamofire20AlamofireErrorDomainSS">AlamofireErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="part-name tasks">
+          <a href="../../Enums.html">Enums</a>
+            <ul class="nav-chapters">
+              <li class="nav-chapter">
+                <a href="../../Enums.html#/s:O9Alamofire6Method">Method</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Enums/ParameterEncoding.html">ParameterEncoding</a>
+              </li>
+            </ul>
+          </li>
+          <li class="part-name tasks">
+          <a href="../../Extensions.html">Extensions</a>
+            <ul class="nav-chapters">
+              <li class="nav-chapter">
+                <a href="../../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/NSURL.html">NSURL</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/NSURLComponents.html">NSURLComponents</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/NSURLRequest.html">NSURLRequest</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/NSURLRequest.html">NSURLRequest</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Manager.html">Manager</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Manager.html">Manager</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Extensions/Request.html">Request</a>
+              </li>
+            </ul>
+          </li>
+          <li class="part-name tasks">
+          <a href="../../Functions.html">Functions</a>
+            <ul class="nav-chapters">
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9AlamofireP33_A313450CFC1FC3D0CBEF4411412DB9E810URLRequestFTOS_6MethodPS_20URLStringConvertible__CSo12NSURLRequest">URLRequest(_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire7requestFTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding_CS_7Request">request(_:_:parameters:encoding:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire7requestFPS_21URLRequestConvertible_CS_7Request">request(_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_CSo5NSURL_CS_7Request">upload(_:_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_CSo5NSURL_CS_7Request">upload(_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_CSo6NSData_CS_7Request">upload(_:_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_CSo6NSData_CS_7Request">upload(_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_CSo13NSInputStream_CS_7Request">upload(_:_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_CSo13NSInputStream_CS_7Request">upload(_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire8downloadFTOS_6MethodPS_20URLStringConvertible_FTCSo5NSURLCSo17NSHTTPURLResponse_S2__CS_7Request">download(_:_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire8downloadFTPS_21URLRequestConvertible_FTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(_:_:)</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Functions.html#/s:F9Alamofire8downloadFT10resumeDataCSo6NSDataFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(resumeData:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="part-name tasks">
+          <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-chapters">
+              <li class="nav-chapter">
+                <a href="../../Protocols/URLStringConvertible.html">URLStringConvertible</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Protocols/URLRequestConvertible.html">URLRequestConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="part-name tasks">
+          <a href="../../Typealiases.html">Typealiases</a>
+            <ul class="nav-chapters">
+              <li class="nav-chapter">
+                <a href="../../Typealiases.html#/s:C9Alamofire7Request10Validation">Validation</a>
+              </li>
+              <li class="nav-chapter">
+                <a href="../../Typealiases.html#/s:C9Alamofire7Request23DownloadFileDestination">DownloadFileDestination</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <div class="pixel-line"></div>
+      <div class="rubber-band-gap"></div>
+      <article class="chapter">
+      <a name="/"></a>
+        <h1 class="chapter-name">SessionDelegate</h1>
+        <section>
+          <section class="section">
+            <p class="para">Undocumented</p>
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Children"></a>
+                <a href="#/Children">
+                  <h3 class="section-name"></h3>
+                </a>
+              </div>
+              <ul class="task-group-list">
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegateP33_A313450CFC1FC3D0CBEF4411412DB9E812subdelegatesGVSs10DictionarySiCCS_7Request12TaskDelegate_">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegateP33_A313450CFC1FC3D0CBEF4411412DB9E812subdelegatesGVSs10DictionarySiCCS_7Request12TaskDelegate_">subdelegates</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegateP33_A313450CFC1FC3D0CBEF4411412DB9E816subdelegateQueueGSQCSo8NSObject_">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegateP33_A313450CFC1FC3D0CBEF4411412DB9E816subdelegateQueueGSQCSo8NSObject_">subdelegateQueue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate32sessionDidBecomeInvalidWithErrorGSqFTGSQCSo12NSURLSession_GSQCSo7NSError__T__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate32sessionDidBecomeInvalidWithErrorGSqFTGSQCSo12NSURLSession_GSQCSo7NSError__T__">sessionDidBecomeInvalidWithError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate45sessionDidFinishEventsForBackgroundURLSessionGSqFGSQCSo12NSURLSession_T__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate45sessionDidFinishEventsForBackgroundURLSessionGSqFGSQCSo12NSURLSession_T__">sessionDidFinishEventsForBackgroundURLSession</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate26sessionDidReceiveChallengeGSqFTGSQCSo12NSURLSession_CSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential___">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate26sessionDidReceiveChallengeGSqFTGSQCSo12NSURLSession_CSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential___">sessionDidReceiveChallenge</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate30taskWillPerformHTTPRedirectionGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask_GSQCSo17NSHTTPURLResponse_GSQCSo12NSURLRequest__GSQS5___">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate30taskWillPerformHTTPRedirectionGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask_GSQCSo17NSHTTPURLResponse_GSQCSo12NSURLRequest__GSQS5___">taskWillPerformHTTPRedirection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate23taskDidReceiveChallengeGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask_CSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSqCSo15NSURLCredential___">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate23taskDidReceiveChallengeGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask_CSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSqCSo15NSURLCredential___">taskDidReceiveChallenge</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate19taskDidSendBodyDataGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask_VSs5Int64S4_S4__T__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate19taskDidSendBodyDataGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask_VSs5Int64S4_S4__T__">taskDidSendBodyData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate21taskNeedNewBodyStreamGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask__GSQCSo13NSInputStream__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate21taskNeedNewBodyStreamGSqFTGSQCSo12NSURLSession_GSQCSo16NSURLSessionTask__GSQCSo13NSInputStream__">taskNeedNewBodyStream</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate26dataTaskDidReceiveResponseGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask_GSQCSo13NSURLResponse__OSC31NSURLSessionResponseDisposition_">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate26dataTaskDidReceiveResponseGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask_GSQCSo13NSURLResponse__OSC31NSURLSessionResponseDisposition_">dataTaskDidReceiveResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate29dataTaskDidBecomeDownloadTaskGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask__T__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate29dataTaskDidBecomeDownloadTaskGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask__T__">dataTaskDidBecomeDownloadTask</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate22dataTaskDidReceiveDataGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask_GSQCSo6NSData__T__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate22dataTaskDidReceiveDataGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask_GSQCSo6NSData__T__">dataTaskDidReceiveData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate25dataTaskWillCacheResponseGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask_GSQCSo19NSCachedURLResponse__S4__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate25dataTaskWillCacheResponseGSqFTGSQCSo12NSURLSession_GSQCSo20NSURLSessionDataTask_GSQCSo19NSCachedURLResponse__S4__">dataTaskWillCacheResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate37downloadTaskDidFinishDownloadingToURLGSqFTGSQCSo12NSURLSession_GSQCSo24NSURLSessionDownloadTask_CSo5NSURL_S4__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate37downloadTaskDidFinishDownloadingToURLGSqFTGSQCSo12NSURLSession_GSQCSo24NSURLSessionDownloadTask_CSo5NSURL_S4__">downloadTaskDidFinishDownloadingToURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate24downloadTaskDidWriteDataGSqFTGSQCSo12NSURLSession_GSQCSo24NSURLSessionDownloadTask_VSs5Int64S4_S4__T__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate24downloadTaskDidWriteDataGSqFTGSQCSo12NSURLSession_GSQCSo24NSURLSessionDownloadTask_VSs5Int64S4_S4__T__">downloadTaskDidWriteData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate29downloadTaskDidResumeAtOffsetGSqFTGSQCSo12NSURLSession_GSQCSo24NSURLSessionDownloadTask_VSs5Int64S4__T__">
+                    <a class="x-instance-method Swift" href="#/s:vCC9Alamofire7Manager15SessionDelegate29downloadTaskDidResumeAtOffsetGSqFTGSQCSo12NSURLSession_GSQCSo24NSURLSessionDownloadTask_VSs5Int64S4__T__">downloadTaskDidResumeAtOffset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegatecFMS1_FT_S1_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegatecFMS1_FT_S1_">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_25didBecomeInvalidWithErrorGSQCSo7NSError__T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_25didBecomeInvalidWithErrorGSQCSo7NSError__T_">URLSession(_:didBecomeInvalidWithError:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_19didReceiveChallengeGSQCSo28NSURLAuthenticationChallenge_17completionHandlerGSQFTOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential__T___T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_19didReceiveChallengeGSQCSo28NSURLAuthenticationChallenge_17completionHandlerGSQFTOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential__T___T_">URLSession(_:didReceiveChallenge:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate48URLSessionDidFinishEventsForBackgroundURLSessionFS1_FGSQCSo12NSURLSession_T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate48URLSessionDidFinishEventsForBackgroundURLSessionFS1_FGSQCSo12NSURLSession_T_">URLSessionDidFinishEventsForBackgroundURLSession(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_26willPerformHTTPRedirectionGSQCSo17NSHTTPURLResponse_10newRequestGSQCSo12NSURLRequest_17completionHandlerGSQFGSQS5__T___T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_26willPerformHTTPRedirectionGSQCSo17NSHTTPURLResponse_10newRequestGSQCSo12NSURLRequest_17completionHandlerGSQFGSQS5__T___T_">URLSession(_:task:willPerformHTTPRedirection:newRequest:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_19didReceiveChallengeGSQCSo28NSURLAuthenticationChallenge_17completionHandlerGSQFTOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential__T___T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_19didReceiveChallengeGSQCSo28NSURLAuthenticationChallenge_17completionHandlerGSQFTOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential__T___T_">URLSession(_:task:didReceiveChallenge:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_17needNewBodyStreamGSQFGSQCSo13NSInputStream_T___T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_17needNewBodyStreamGSQFGSQCSo13NSInputStream_T___T_">URLSession(_:task:needNewBodyStream:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_15didSendBodyDataVSs5Int6414totalBytesSentS4_24totalBytesExpectedToSendS4__T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_15didSendBodyDataVSs5Int6414totalBytesSentS4_24totalBytesExpectedToSendS4__T_">URLSession(_:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_20didCompleteWithErrorGSQCSo7NSError__T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_4taskGSQCSo16NSURLSessionTask_20didCompleteWithErrorGSQCSo7NSError__T_">URLSession(_:task:didCompleteWithError:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_18didReceiveResponseGSQCSo13NSURLResponse_17completionHandlerGSQFOSC31NSURLSessionResponseDispositionT___T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_18didReceiveResponseGSQCSo13NSURLResponse_17completionHandlerGSQFOSC31NSURLSessionResponseDispositionT___T_">URLSession(_:dataTask:didReceiveResponse:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_21didBecomeDownloadTaskGSQCSo24NSURLSessionDownloadTask__T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_21didBecomeDownloadTaskGSQCSo24NSURLSessionDownloadTask__T_">URLSession(_:dataTask:didBecomeDownloadTask:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_14didReceiveDataGSQCSo6NSData__T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_14didReceiveDataGSQCSo6NSData__T_">URLSession(_:dataTask:didReceiveData:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_17willCacheResponseGSQCSo19NSCachedURLResponse_17completionHandlerGSQFGSQS4__T___T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTGSQCSo12NSURLSession_8dataTaskGSQCSo20NSURLSessionDataTask_17willCacheResponseGSQCSo19NSCachedURLResponse_17completionHandlerGSQFGSQS4__T___T_">URLSession(_:dataTask:willCacheResponse:completionHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTCSo12NSURLSession12downloadTaskCSo24NSURLSessionDownloadTask25didFinishDownloadingToURLCSo5NSURL_T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTCSo12NSURLSession12downloadTaskCSo24NSURLSessionDownloadTask25didFinishDownloadingToURLCSo5NSURL_T_">URLSession(_:downloadTask:didFinishDownloadingToURL:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTCSo12NSURLSession12downloadTaskCSo24NSURLSessionDownloadTask12didWriteDataVSs5Int6417totalBytesWrittenS4_25totalBytesExpectedToWriteS4__T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTCSo12NSURLSession12downloadTaskCSo24NSURLSessionDownloadTask12didWriteDataVSs5Int6417totalBytesWrittenS4_25totalBytesExpectedToWriteS4__T_">URLSession(_:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTCSo12NSURLSession12downloadTaskCSo24NSURLSessionDownloadTask17didResumeAtOffsetVSs5Int6418expectedTotalBytesS4__T_">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate10URLSessionFS1_FTCSo12NSURLSession12downloadTaskCSo24NSURLSessionDownloadTask17didResumeAtOffsetVSs5Int6418expectedTotalBytesS4__T_">URLSession(_:downloadTask:didResumeAtOffset:expectedTotalBytes:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item symbol">
+                  <div class="task-group-term">
+                    <code>
+                    <a name="/s:FCC9Alamofire7Manager15SessionDelegate18respondsToSelectorFS1_FV10ObjectiveC8SelectorSb">
+                    <a class="x-instance-method Swift" href="#/s:FCC9Alamofire7Manager15SessionDelegate18respondsToSelectorFS1_FV10ObjectiveC8SelectorSb">respondsToSelector(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointy-thing-container"></div>
+                    <section class="section instance-method">
+                      <div class="pointy-thing"></div>
+                      <div class="abstract">
+                        <p class="para">Undocumented</p>
+                      </div>
+                      <div class="result-description view-on-github">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L0">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p class="copyright">&copy; 2014 <a class="link" href="https://nshipster.com/alamofire" target="_blank" rel="external">Alamofire</a>. All rights reserved. (Last updated: 2014-01-01)</p>
+          <p class="copyright">Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.0.5</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
