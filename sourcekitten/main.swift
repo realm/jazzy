@@ -363,7 +363,9 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
         for alreadyDocumentedOffset in alreadyDocumentedOffsets {
             offsetsMap.removeValueForKey(alreadyDocumentedOffset)
         }
-        for offset in offsetsMap.keys.reverse() {
+        var offsets = offsetsMap.keys
+        offsets.reverse()
+        for offset in offsets {
             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(offset))
             var response = fromXPC(sourcekitd_send_request_sync(cursorInfoRequest)) as XPCDictionary
             replaceUIDsWithStringsInDictionary(&response)
