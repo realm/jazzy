@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jazzy (0.0.6)
+    jazzy (0.0.7)
       activesupport (~> 4.1)
       mustache (~> 0.99)
       nokogiri (~> 1.6)
