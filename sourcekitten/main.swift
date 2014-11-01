@@ -73,7 +73,8 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
                         if offset > 0 {
                             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", offset)
                             // Send request and wait for response
-                            if let response = fromXPC(sourcekitd_send_request_sync(cursorInfoRequest)) as XPCDictionary? {
+                            let response = sourcekitd_send_request_sync(cursorInfoRequest)
+                            if let response = fromXPC(response) as XPCDictionary? {
                                 for (key, value) in response {
                                     if key == "key.kind" {
                                         // Skip kinds, since values from editor.open are more
@@ -562,16 +563,7 @@ func main() {
         printSyntax(text: arguments[2])
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
-            // Extract the Xcode project's Swift files
-            let swiftFiles = swiftFilesFromArray(swiftcArguments)
-
-            // FIXME: The following makes things ~30% faster, at the expense of (possibly)
-            // not supporting complex project configurations.
-            // Extract the minimum Swift compiler arguments needed for SourceKit
-            var sourcekitdArguments = Array<String>(swiftcArguments[0..<7])
-            sourcekitdArguments.extend(swiftFiles)
-            
-            println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
+            println(docs_for_swift_compiler_args(swiftcArguments, swiftFilesFromArray(swiftcArguments)))
         } else {
             error(xcodebuildOutput)
         }
