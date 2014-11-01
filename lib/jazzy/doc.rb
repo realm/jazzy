@@ -1,3 +1,5 @@
+require 'date'
+
 module Jazzy
   class Doc < Mustache
     self.template_path = File.dirname(__FILE__) + '/..'
