@@ -124,7 +124,7 @@ module Jazzy
 
       doc[:name] = doc_model.name
       doc[:kind] = doc_model.kindName
-      doc[:overview] = Jazzy.markdown.render(doc_model.abstract)
+      doc[:overview] = Jazzy.markdown.render(doc_model.abstract || '')
       doc[:tasks] = []
       doc[:structure] = doc_structure
       # @todo parse mark-style comments and use as task names
