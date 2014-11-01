@@ -79,7 +79,8 @@ module Jazzy
       declarations = []
       docs.each do |doc|
         if doc.key?('key.diagnostic_stage')
-          return make_source_declarations(doc['key.substructure'])
+          declarations += make_source_declarations(doc['key.substructure'])
+          next
         end
         declaration = SourceDeclaration.new
         declaration.kind = doc['key.kind']
@@ -116,7 +117,7 @@ module Jazzy
           end
           declaration.parameters = parameters
         else
-          # TODO: Fix these
+          # @todo: Fix these
           declaration.line = 0
           declaration.column = 0
           declaration.abstract = 'Undocumented'
