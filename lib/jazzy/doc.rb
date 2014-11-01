@@ -21,7 +21,8 @@ module Jazzy
     end
 
     def jazzy_version
-      Jazzy::VERSION
+      # Fake version is used to keep integration tests consistent
+      ENV['JAZZY_FAKE_VERSION'] || Jazzy::VERSION
     end
   end
 end

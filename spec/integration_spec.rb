@@ -64,7 +64,10 @@ describe_cli 'jazzy' do
 
   subject do |s|
     s.executable = "ruby #{ROOT + 'bin/jazzy'}"
-    s.environment_vars = { 'JAZZY_FAKE_DATE' => '2014-01-01' }
+    s.environment_vars = {
+      'JAZZY_FAKE_DATE'    => 'YYYY-MM-DD',
+      'JAZZY_FAKE_VERSION' => 'X.X.X',
+    }
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
   end

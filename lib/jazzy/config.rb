@@ -2,7 +2,6 @@ require 'optparse'
 
 module Jazzy
   class Config
-    attr_accessor :input
     attr_accessor :output
     attr_accessor :xcodebuild_arguments
     attr_accessor :author_name
@@ -11,12 +10,10 @@ module Jazzy
     attr_accessor :github_file_prefix
     attr_accessor :author_url
     attr_accessor :dash_url
-    attr_accessor :excludes
     attr_accessor :sourcekitten_sourcefile
     attr_accessor :clean
 
     def initialize
-      self.input = File.expand_path('.')
       self.output = File.expand_path('docs')
       self.xcodebuild_arguments = []
       self.author_name = ''
@@ -25,7 +22,6 @@ module Jazzy
       self.github_file_prefix = nil
       self.author_url = ''
       self.dash_url = ''
-      self.excludes = []
       self.sourcekitten_sourcefile = nil
       self.clean = false
     end
@@ -39,10 +35,6 @@ module Jazzy
 
         opt.on('-o', '--output FOLDER', 'Folder to output the HTML docs to') do |output|
           config.output = File.expand_path(output)
-        end
-
-        opt.on('-e', '--exclude filepath1,filepath2,…filepathN', Array, 'Exclude specific files') do |e|
-          config.excludes = e
         end
 
         opt.on('-c', '--[no-]clean',
