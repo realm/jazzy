@@ -39,14 +39,13 @@ module Jazzy
         file.close
         build_docs_for_sourcekitten_output(file_contents, options)
       else
-        sourcekitten_output = SourceKitten.run_sourcekitten(options.xcodebuild_arguments)
-        sourcekitten_exit_code = $?.exitstatus
-        if sourcekitten_exit_code == 0
-          build_docs_for_sourcekitten_output(sourcekitten_output, options)
+        stdout, stderr, status = SourceKitten.run_sourcekitten(options.xcodebuild_arguments)
+        if status.exitstatus == 0 || status.exitstatus == nil
+          build_docs_for_sourcekitten_output(stdout, options)
         else
-          warn sourcekitten_output
+          warn stderr
           warn 'Please pass in xcodebuild arguments using -x'
-          exit sourcekitten_exit_code
+          exit status.exitstatus
         end
       end
     end

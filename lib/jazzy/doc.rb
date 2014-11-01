@@ -9,7 +9,11 @@ module Jazzy
 
     def year
       # Fake date is used to keep integration tests consistent
-      ENV['JAZZY_FAKE_DATE'][0..3] || DateTime.now.strftime('%Y')
+      if ENV['JAZZY_FAKE_DATE']
+        ENV['JAZZY_FAKE_DATE'][0..3]
+      else
+        DateTime.now.strftime('%Y')
+      end
     end
 
     def jazzy_version

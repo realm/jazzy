@@ -8,6 +8,14 @@
 
 import Foundation
 
+// MARK: Globals
+
+/// SUPPORTED: documented global
+let documentedGlobal = true
+
+// UNSUPPORTED: undocumented global
+let undocumentedGlobal = false
+
 // MARK: Classes
 
 /// SUPPORTED: implicitly internal top-level class
@@ -34,5 +42,19 @@ class TopLevelObjCSubclass: NSObject {}
 /// SUPPORTED: top-level Swift subclasses
 class TopLevelSwiftSubclass: ImplicitlyInternalTopLevelClass {}
 
-// UNSUPPORTED: undocumented top-level class
+// SUPPORTED: undocumented top-level class
 class UndocumentedTopLevelClass {}
+
+// MARK: Enums
+
+/// SUPPORTED: documented enum
+enum DocumentedEnum {
+    /// SUPPORTED: documented enum element
+    case DocumentedValue
+}
+
+// SUPPORTED: undocumented enum
+enum UndocumentedEnum {
+    // UNSUPPORTED: undocumented enum element
+    case UndocumentedValue
+}

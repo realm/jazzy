@@ -1,4 +1,6 @@
 require 'active_support/inflector'
+require 'json'
+require 'open3'
 
 require 'jazzy/config'
 require 'jazzy/source_declaration'
@@ -7,31 +9,6 @@ require 'jazzy/xml_helper'
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
-    # Return USR after first digit to get the part that is common to all child
-    # elements of this type
-    # @example
-    #   s:O9Alamofire17ParameterEncoding -> s:FO9Alamofire17ParameterEncoding4JSONFMS0_S0_
-    def self.sub_usr(usr)
-      usr.slice((usr.index(/\d/))..-1)
-    end
-
-    # Recursive function to generate doc hierarchy from flat docs
-    # Uses the fact the USR from children is always prefixed by its parent's
-    # (after first digit)
-    # @see sub_usr
-    def self.make_doc_hierarchy(docs, doc)
-      sub_usr = sub_usr(doc.usr)
-      docs.each do |hashdoc| # rubocop:disable Style/Next
-        hash_sub_usr = sub_usr(hashdoc.usr)
-        if sub_usr =~ /#{hash_sub_usr}/
-          make_doc_hierarchy(hashdoc.children, doc)
-          # Stop recursive hierarchy if a match is found
-          return
-        end
-      end
-      docs << doc
-    end
-
     # SourceKit-provided token kinds along with their human-readable descriptions
     # @todo Make sure this list is exhaustive for source.lang.swift.decl.*
     def self.kinds
@@ -39,9 +16,9 @@ module Jazzy
         'source.lang.swift.decl.function.method.class' => 'Class Method',
         'source.lang.swift.decl.var.class' => 'Class Variable',
         'source.lang.swift.decl.class' => 'Class',
-        'source.lang.swift.decl.var.global' => 'Constant',
         'source.lang.swift.decl.function.constructor' => 'Constructor',
         'source.lang.swift.decl.function.destructor' => 'Destructor',
+        'source.lang.swift.decl.var.global' => 'Global Variable',
         'source.lang.swift.decl.enumelement' => 'Enum Element',
         'source.lang.swift.decl.enum' => 'Enum',
         'source.lang.swift.decl.extension' => 'Extension',
@@ -73,14 +50,6 @@ module Jazzy
       docs
     end
 
-    # Function to recursively sort docs and its children by line number
-    def self.sort_docs_by_line(docs)
-      docs.each do |doc|
-        doc.children = sort_docs_by_line(doc.children)
-      end
-      docs.sort_by { |doc| [doc.file, doc.line] }
-    end
-
     # Generate doc URL by prepending its parents URLs
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs, parents)
@@ -103,60 +72,71 @@ module Jazzy
     # STDOUT+STDERR output
     def self.run_sourcekitten(arguments)
       bin_path = File.expand_path(File.join(File.dirname(__FILE__), '../../bin'))
-      `#{bin_path}/sourcekitten #{(arguments).join(' ')} 2>&1  `
+      Open3.capture3("#{bin_path}/sourcekitten #{(arguments).join(' ')}")
     end
 
-    # Parse sourcekitten STDOUT+STDERR output as XML
-    # @return [Hash] structured docs
-    def self.parse(sourcekitten_output)
-      xml = Nokogiri::XML(sourcekitten_output)
-      # Mutable array of docs
-      docs = []
-      xml.root.element_children.each do |child|
-        next if child.name == 'Section' # Skip sections
-
+    def self.make_source_declarations(docs)
+      declarations = []
+      docs.each do |doc|
+        if doc.has_key?('key.diagnostic_stage')
+          return make_source_declarations(doc['key.substructure'])
+        end
         declaration = SourceDeclaration.new
-        declaration.kind = XMLHelper.xpath(child, 'Kind')
-
-        # Only handle declarations, since sourcekitten will also output
-        # references and other kinds
+        declaration.kind = doc['key.kind']
         next unless declaration.kind =~ /^source\.lang\.swift\.decl\..*/
+        next if declaration.kind == "source.lang.swift.decl.var.parameter"
 
         declaration.kindName = kinds[declaration.kind]
 
         raise 'Please file an issue on https://github.com/realm/jazzy/issues ' \
-          "about adding support for `#{declaration.kind}`"  unless declaration.kindName
+          "about adding support for `#{declaration.kind}`" unless declaration.kindName
 
-        declaration.kindNamePlural = kinds[declaration.kind].pluralize
-        declaration.file = XMLHelper.attribute(child, 'file')
-        declaration.line = XMLHelper.attribute(child, 'line').to_i
-        declaration.column = XMLHelper.attribute(child, 'column').to_i
-        declaration.usr = XMLHelper.xpath(child, 'USR')
-        declaration.name = XMLHelper.xpath(child, 'Name')
-        declaration.declaration = XMLHelper.xpath(child, 'Declaration')
-        declaration.abstract = XMLHelper.xpath(child, 'Abstract')
-        declaration.discussion = XMLHelper.xpath(child, 'Discussion')
-        declaration.return = XMLHelper.xpath(child, 'ResultDiscussion')
-        declaration.children = []
-        parameters = []
-        child.xpath('Parameters/Parameter').each do |parameter_el|
-          parameters << {
-            name: XMLHelper.xpath(parameter_el, 'Name'),
-            discussion: Jazzy.markdown.render(
-                XMLHelper.xpath(parameter_el, 'Discussion'),
-              ),
-          }
+        declaration.kindNamePlural = declaration.kindName.pluralize
+        declaration.file = doc['key.filepath']
+        declaration.usr = doc['key.usr']
+        declaration.name = doc['key.name']
+
+        if doc['key.doc.full_as_xml']
+          xml = Nokogiri::XML(doc['key.doc.full_as_xml']).root
+          declaration.line = XMLHelper.attribute(xml, 'line').to_i
+          declaration.column = XMLHelper.attribute(xml, 'column').to_i
+          declaration.declaration = XMLHelper.xpath(xml, 'Declaration')
+          declaration.abstract = XMLHelper.xpath(xml, 'Abstract')
+          declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
+          declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
+
+          parameters = []
+          xml.xpath('Parameters/Parameter').each do |parameter_el|
+            parameters << {
+              name: XMLHelper.xpath(parameter_el, 'Name'),
+              discussion: Jazzy.markdown.render(
+                  XMLHelper.xpath(parameter_el, 'Discussion'),
+                ),
+            }
+          end
+          declaration.parameters = parameters
+        else
+          # TODO: Fix these
+          declaration.line = 0
+          declaration.column = 0
+          declaration.abstract = "Undocumented"
+          declaration.parameters = []
         end
-        declaration.parameters = parameters if parameters
-        docs << declaration
+
+        if doc['key.substructure']
+          declaration.children = make_source_declarations(doc['key.substructure'])
+        else
+          declaration.children = []
+        end
+        declarations << declaration
       end
+      declarations
+    end
 
-      # docs are flat at this point. let's unflatten them
-      root_to_child_sorted_docs = docs.sort_by { |doc| doc.usr.length }
-
-      docs = []
-      root_to_child_sorted_docs.each { |doc| make_doc_hierarchy(docs, doc) }
-      docs = sort_docs_by_line(docs)
+    # Parse sourcekitten STDOUT+STDERR output as JSON
+    # @return [Hash] structured docs
+    def self.parse(sourcekitten_output)
+      docs = make_source_declarations(JSON.parse(sourcekitten_output))
       kinds.keys.each do |kind|
         docs = group_docs(docs, kind)
       end
