@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E84316591A021C7F005D1FE7 /* SwiftXPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E843164B1A021C32005D1FE7 /* SwiftXPC.swift */; };
-		E843165A1A021C7F005D1FE7 /* XPCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E843164C1A021C32005D1FE7 /* XPCType.swift */; };
+		E84D2DAC1A04E10C00CC170B /* SwiftXPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84D2DAA1A04E10C00CC170B /* SwiftXPC.swift */; };
+		E84D2DAD1A04E10C00CC170B /* XPCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84D2DAB1A04E10C00CC170B /* XPCType.swift */; };
 		E8BC421819EF5C1A001DBEF6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC421719EF5C1A001DBEF6 /* main.swift */; };
 		E8BC421F19EF5C67001DBEF6 /* sourcekitd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E843164B1A021C32005D1FE7 /* SwiftXPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftXPC.swift; sourceTree = "<group>"; };
-		E843164C1A021C32005D1FE7 /* XPCType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPCType.swift; sourceTree = "<group>"; };
+		E84D2DAA1A04E10C00CC170B /* SwiftXPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftXPC.swift; sourceTree = "<group>"; };
+		E84D2DAB1A04E10C00CC170B /* XPCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XPCType.swift; sourceTree = "<group>"; };
 		E8BC421419EF5C1A001DBEF6 /* sourcekitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sourcekitten; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8BC421719EF5C1A001DBEF6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework; sourceTree = DEVELOPER_DIR; };
@@ -42,27 +42,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E84316451A021C32005D1FE7 /* Vendor */ = {
+		E84D2DA81A04E10C00CC170B /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				E84316461A021C32005D1FE7 /* SwiftXPC */,
+				E84D2DA91A04E10C00CC170B /* SwiftXPC */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
 		};
-		E84316461A021C32005D1FE7 /* SwiftXPC */ = {
+		E84D2DA91A04E10C00CC170B /* SwiftXPC */ = {
 			isa = PBXGroup;
 			children = (
-				E84316481A021C32005D1FE7 /* SwiftXPC */,
-			);
-			path = SwiftXPC;
-			sourceTree = "<group>";
-		};
-		E84316481A021C32005D1FE7 /* SwiftXPC */ = {
-			isa = PBXGroup;
-			children = (
-				E843164B1A021C32005D1FE7 /* SwiftXPC.swift */,
-				E843164C1A021C32005D1FE7 /* XPCType.swift */,
+				E84D2DAA1A04E10C00CC170B /* SwiftXPC.swift */,
+				E84D2DAB1A04E10C00CC170B /* XPCType.swift */,
 			);
 			path = SwiftXPC;
 			sourceTree = "<group>";
@@ -70,7 +62,7 @@
 		E8BC420B19EF5C1A001DBEF6 = {
 			isa = PBXGroup;
 			children = (
-				E84316451A021C32005D1FE7 /* Vendor */,
+				E84D2DA81A04E10C00CC170B /* Vendor */,
 				E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */,
 				E8BC421619EF5C1A001DBEF6 /* sourcekitten */,
 				E8BC421519EF5C1A001DBEF6 /* Products */,
@@ -152,8 +144,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8BC421819EF5C1A001DBEF6 /* main.swift in Sources */,
-				E843165A1A021C7F005D1FE7 /* XPCType.swift in Sources */,
-				E84316591A021C7F005D1FE7 /* SwiftXPC.swift in Sources */,
+				E84D2DAD1A04E10C00CC170B /* XPCType.swift in Sources */,
+				E84D2DAC1A04E10C00CC170B /* SwiftXPC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,23 @@ import XPC
 /// Version number
 let version = "0.1.2"
 
+/// File Contents Map
+var files = [String: NSString]()
+
 // MARK: Helper Functions
+
+/**
+Sends a request to SourceKit returns the response as an XPCDictionary.
+
+:param: request Request to send synchronously to SourceKit
+:returns: SourceKit output
+*/
+func sendSourceKitRequest(request: xpc_object_t?) -> XPCDictionary {
+    let response = sourcekitd_send_request_sync(request)
+    let responseDict: XPCDictionary = fromXPC(response)
+    xpc_release(response)
+    return responseDict
+}
 
 /// SourceKit UID to String map
 var uidStringMap = [UInt64: String]()
@@ -68,45 +84,51 @@ Also adds keys from cursorinfo requests for declarations.
 */
 func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
     _ cursorInfoRequest: xpc_object_t? = nil) {
-    for key in dictionary.keys {
-        if var subArray = dictionary[key]! as? XPCArray {
-            for i in 0..<subArray.count {
-                var subDict = subArray[i] as XPCDictionary
-                replaceUIDsWithStringsInDictionary(&subDict, cursorInfoRequest)
-                subArray[i] = subDict
-            }
-            dictionary[key] = subArray
-        } else if let uid = dictionary[key] as? UInt64 {
-            if let uidString = stringForSourceKitUID(uid) {
-                dictionary[key] = uidString
-                if cursorInfoRequest != nil && key == "key.kind" {
-                    if uidString.rangeOfString("source.lang.swift.decl.") != nil {
-                        let offset = dictionary["key.nameoffset"] as Int64
-                        if offset > 0 {
-                            xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", offset)
-                            // Send request and wait for response
-                            let response = sourcekitd_send_request_sync(cursorInfoRequest)
-                            if let response = fromXPC(response) as XPCDictionary? {
-                                for (key, value) in response {
-                                    if key == "key.kind" {
-                                        // Skip kinds, since values from editor.open are more
-                                        // accurate than cursorinfo
-                                        continue
-                                    }
-                                    dictionary[key] = value
-                                }
-                            }
-                        }
-                    } else if uidString == "source.lang.swift.syntaxtype.comment.mark" {
-                        let offset = dictionary["key.offset"] as Int64
-                        let length = dictionary["key.length"] as Int64
-                        let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile"))!
-                        let fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
-                        dictionary["key.name"] = fileContents.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
-                    }
+    if dictionary["key.substructure"] == nil {
+        return
+    }
+
+    if let substructure = dictionary["key.substructure"]! as? XPCArray {
+        var newSubstructure = XPCArray()
+        for i in 0..<substructure.count {
+            var subDict = substructure[i] as XPCDictionary
+            if let kind = subDict["key.kind"] as? String {
+                if (kind.rangeOfString("source.lang.swift.decl.") != nil ||
+                    kind == "source.lang.swift.syntaxtype.comment.mark") &&
+                    kind != "source.lang.swift.decl.var.parameter" {
+                        replaceUIDsWithStringsInDictionary(&subDict, cursorInfoRequest)
+                        newSubstructure.append(subDict)
                 }
             }
         }
+        dictionary["key.substructure"] = newSubstructure
+    }
+
+    if cursorInfoRequest == nil || dictionary["key.kind"] == nil {
+        return
+    }
+    let kind = dictionary["key.kind"] as String
+    if kind.rangeOfString("source.lang.swift.decl.") != nil &&
+        kind != "source.lang.swift.decl.var.parameter" {
+        let offset = dictionary["key.nameoffset"] as Int64
+        if offset > 0 {
+            xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", offset)
+            // Send request and wait for response
+            let response = sendSourceKitRequest(cursorInfoRequest)
+            for (key, value) in response {
+                if key == "key.kind" {
+                    // Skip kinds, since values from editor.open are more
+                    // accurate than cursorinfo
+                    continue
+                }
+                dictionary[key] = value
+            }
+        }
+    } else if kind == "source.lang.swift.syntaxtype.comment.mark" {
+        let offset = dictionary["key.offset"] as Int64
+        let length = dictionary["key.length"] as Int64
+        let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile"))!
+        dictionary["key.name"] = files[file]!.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
     }
 }
 
@@ -154,8 +176,7 @@ func documentedTokenOffsets(file: String) -> [Int] {
             "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
             "key.name": "",
             "key.sourcefile": file])
-    let response: XPCDictionary = fromXPC(sourcekitd_send_request_sync(request))
-    let data = response["key.syntaxmap"] as NSData!
+    let data = sendSourceKitRequest(request)["key.syntaxmap"] as NSData!
 
     // Get number of syntax tokens
     var tokens = 0
@@ -180,7 +201,7 @@ func documentedTokenOffsets(file: String) -> [Int] {
         identifierOffsets.append(offset)
     }
 
-    let fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
+    let fileContents = files[file]!
     let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)!
     let range = NSRange(location: 0, length: fileContents.length)
     let matches = regex.matchesInString(fileContents, options: nil, range: range)
@@ -355,13 +376,15 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
     var responses = XPCArray()
 
     // Print docs for each Swift file
-    for (index, file) in enumerate(swiftFiles) {
+    // For some strange reason, SourceKit fails on some projects without reversing this array
+    for (index, file) in enumerate(swiftFiles.reverse()) {
+        files[file] = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
         printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
 
         xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
         xpc_dictionary_set_string(cursorInfoRequest, "key.sourcefile", file)
 
-        var openResponse: XPCDictionary = fromXPC(sourcekitd_send_request_sync(openRequest))
+        var openResponse = sendSourceKitRequest(openRequest)
         openResponse.removeValueForKey("key.syntaxmap")
 
         // Map documented token offsets to the start of their range
@@ -384,7 +407,7 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
         offsets.reverse()
         for offset in offsets {
             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(offset))
-            var response = fromXPC(sourcekitd_send_request_sync(cursorInfoRequest)) as XPCDictionary
+            var response = sendSourceKitRequest(cursorInfoRequest)
             replaceUIDsWithStringsInDictionary(&response)
             if (response["key.kind"] as String).rangeOfString("source.lang.swift.decl.") != nil {
                 insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
@@ -481,7 +504,7 @@ func printStructure(#file: String) {
     sourcekitd_initialize()
 
     // Send SourceKit request
-    var response: XPCDictionary = fromXPC(sourcekitd_send_request_sync(request))
+    var response = sendSourceKitRequest(request)
     response.removeValueForKey("key.syntaxmap")
     replaceUIDsWithStringsInDictionary(&response)
     println(toJSON(response))
@@ -501,7 +524,7 @@ func printSyntax(#file: String) {
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
         "key.sourcefile": file])
-    printSyntax(sourcekitd_send_request_sync(request))
+    printSyntax(sendSourceKitRequest(request))
 }
 
 /**
@@ -516,7 +539,7 @@ func printSyntax(#text: String) {
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
         "key.sourcetext": text])
-    printSyntax(sourcekitd_send_request_sync(request))
+    printSyntax(sendSourceKitRequest(request))
 }
 
 /**
@@ -524,9 +547,9 @@ Print syntax information as JSON to STDOUT
 
 :param: sourceKitResponse XPC object returned from SourceKit "editor.open" call
 */
-func printSyntax(sourceKitResponse: xpc_object_t) {
+func printSyntax(sourceKitResponse: XPCDictionary) {
     // Get syntaxmap XPC data and convert to NSData
-    let data: NSData = fromXPC(xpc_dictionary_get_value(sourceKitResponse, "key.syntaxmap"))!
+    let data = sourceKitResponse["key.syntaxmap"] as NSData
 
     // Get number of syntax tokens
     var tokens = 0

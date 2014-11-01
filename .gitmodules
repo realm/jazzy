@@ -1,3 +1,0 @@
-[submodule "Vendor/SwiftXPC"]
-	path = Vendor/SwiftXPC
-	url = git@github.com:jpsim/SwiftXPC.git
