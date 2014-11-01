@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.0"
+let version = "0.1.1"
 
 // MARK: Helper Functions
 
@@ -312,7 +312,7 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 
         args.removeAtIndex(0) // Remove swiftc
 
-        args.map {
+        args = args.map {
             $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
         }
 
