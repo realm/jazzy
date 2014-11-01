@@ -47,8 +47,8 @@ module Jazzy
           build_docs_for_sourcekitten_output(stdout, options)
         else
           warn 'Please pass in xcodebuild arguments using -x'
-          warn 'If build arguments are correct, please file an issue to report \
-          this failure at https://github.com/realm/jazzy/issues'
+          warn 'If build arguments are correct, please file an issue on ' \
+          'https://github.com/realm/jazzy/issues'
           exit exitstatus || 1
         end
       end

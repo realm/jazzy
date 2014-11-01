@@ -8,6 +8,6 @@ module Jazzy
   end
 
   def self.markdown
-    @markdown ||= Redcarpet::Markdown.new(JazzyHTML)
+    @markdown ||= Redcarpet::Markdown.new(JazzyHTML, autolink: true)
   end
 end
