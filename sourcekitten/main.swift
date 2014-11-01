@@ -9,6 +9,9 @@
 import Foundation
 import XPC
 
+/// Version number
+let version = "0.1.0"
+
 // MARK: Helper Functions
 
 /// SourceKit UID to String map
@@ -543,11 +546,17 @@ func printSyntax(sourceKitResponse: xpc_object_t) {
     println(syntaxJSON)
 }
 
+/**
+Prints help message in console
+*/
+func printHelp() {
+    println("Usage: sourcekitten [-h] [--skip-xcodebuild COMPILER_ARGUMENTS] [--structure /absolute/path/to/file.swift] [--syntax /absolute/path/to/file.swift] [--syntax-text SWIFT_SOURCE_TEXT] [Xcode build arguments...]\n\nVersion: \(version)")
+}
+
 // MARK: Main Program
 
 /**
-Print XML-formatted docs for the specified Xcode project,
-or Xcode output if no Swift compiler arguments were found.
+Parse command-line arguments & call the appropriate function.
 */
 func main() {
     let arguments = Process.arguments
@@ -561,6 +570,8 @@ func main() {
         printSyntax(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
         printSyntax(text: arguments[2])
+    } else if arguments.count == 2 && arguments[1] == "-h" {
+        printHelp()
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
             println(docs_for_swift_compiler_args(swiftcArguments, swiftFilesFromArray(swiftcArguments)))
