@@ -40,7 +40,7 @@ module Jazzy
         build_docs_for_sourcekitten_output(file_contents, options)
       else
         stdout, stderr, status = SourceKitten.run_sourcekitten(options.xcodebuild_arguments)
-        if status.exitstatus == 0 || status.exitstatus == nil
+        if status.exitstatus == 0 || status.exitstatus.nil?
           build_docs_for_sourcekitten_output(stdout, options)
         else
           warn stderr

@@ -68,8 +68,8 @@ module Jazzy
       docs
     end
 
-    # Run sourcekitten with given arguments and return combined
-    # STDOUT+STDERR output
+    # Run sourcekitten with given arguments and return
+    # STDOUT, STDERR and exit status
     def self.run_sourcekitten(arguments)
       bin_path = File.expand_path(File.join(File.dirname(__FILE__), '../../bin'))
       Open3.capture3("#{bin_path}/sourcekitten #{(arguments).join(' ')}")
@@ -78,13 +78,13 @@ module Jazzy
     def self.make_source_declarations(docs)
       declarations = []
       docs.each do |doc|
-        if doc.has_key?('key.diagnostic_stage')
+        if doc.key?('key.diagnostic_stage')
           return make_source_declarations(doc['key.substructure'])
         end
         declaration = SourceDeclaration.new
         declaration.kind = doc['key.kind']
         next unless declaration.kind =~ /^source\.lang\.swift\.decl\..*/
-        next if declaration.kind == "source.lang.swift.decl.var.parameter"
+        next if declaration.kind == 'source.lang.swift.decl.var.parameter'
 
         declaration.kindName = kinds[declaration.kind]
 
@@ -119,7 +119,7 @@ module Jazzy
           # TODO: Fix these
           declaration.line = 0
           declaration.column = 0
-          declaration.abstract = "Undocumented"
+          declaration.abstract = 'Undocumented'
           declaration.parameters = []
         end
 
