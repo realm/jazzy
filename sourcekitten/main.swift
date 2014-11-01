@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.2"
+let version = "0.1.3"
 
 /// File Contents Map
 var files = [String: NSString]()
@@ -81,11 +81,13 @@ Also adds keys from cursorinfo requests for declarations.
 
 :param: dictionary        `XPCDictionary` to mutate.
 :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
+:returns: Whether or not the dictionary should be kept.
 */
 func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
-    _ cursorInfoRequest: xpc_object_t? = nil) {
+    _ cursorInfoRequest: xpc_object_t? = nil) -> Bool {
+    var shouldKeep = false
     if dictionary["key.substructure"] == nil {
-        return
+        return shouldKeep
     }
 
     if let substructure = dictionary["key.substructure"]! as? XPCArray {
@@ -96,8 +98,10 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
                 if (kind.rangeOfString("source.lang.swift.decl.") != nil ||
                     kind == "source.lang.swift.syntaxtype.comment.mark") &&
                     kind != "source.lang.swift.decl.var.parameter" {
-                        replaceUIDsWithStringsInDictionary(&subDict, cursorInfoRequest)
-                        newSubstructure.append(subDict)
+                        let keep = replaceUIDsWithStringsInDictionary(&subDict, cursorInfoRequest)
+                        if keep {
+                            newSubstructure.append(subDict)
+                        }
                 }
             }
         }
@@ -105,7 +109,7 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
     }
 
     if cursorInfoRequest == nil || dictionary["key.kind"] == nil {
-        return
+        return shouldKeep
     }
     let kind = dictionary["key.kind"] as String
     if kind.rangeOfString("source.lang.swift.decl.") != nil &&
@@ -115,6 +119,9 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", offset)
             // Send request and wait for response
             let response = sendSourceKitRequest(cursorInfoRequest)
+            if response["key.doc.full_as_xml"] != nil {
+                shouldKeep = true
+            }
             for (key, value) in response {
                 if key == "key.kind" {
                     // Skip kinds, since values from editor.open are more
@@ -129,7 +136,9 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
         let length = dictionary["key.length"] as Int64
         let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile"))!
         dictionary["key.name"] = files[file]!.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
+        shouldKeep = true
     }
+    return shouldKeep
 }
 
 /**
@@ -173,9 +182,9 @@ Find integer offsets of documented tokens
 func documentedTokenOffsets(file: String) -> [Int] {
     // Construct a SourceKit request for getting general info about the Swift file passed as argument
     let request = toXPC([
-            "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
-            "key.name": "",
-            "key.sourcefile": file])
+        "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
+        "key.name": "",
+        "key.sourcefile": file])
     let data = sendSourceKitRequest(request)["key.syntaxmap"] as NSData!
 
     // Get number of syntax tokens
