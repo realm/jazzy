@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.4"
+let version = "0.1.5"
 
 /// File Contents Map
 var files = [String: NSString]()
@@ -409,7 +409,11 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
         for alreadyDocumentedOffset in alreadyDocumentedOffsets {
             offsetsMap.removeValueForKey(alreadyDocumentedOffset)
         }
-        for offset in offsetsMap.keys.reverse().array {
+        var reversedOffsets = [Int]()
+        for offset in offsetsMap.keys {
+            reversedOffsets.insert(offset, atIndex: 0)
+        }
+        for offset in reversedOffsets {
             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(offset))
             var response = sendSourceKitRequest(cursorInfoRequest)
             replaceUIDsWithStringsInDictionary(&response)
