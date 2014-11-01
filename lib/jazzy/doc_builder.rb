@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'mustache'
+require 'uri'
 
 require 'jazzy/config'
 require 'jazzy/doc'
