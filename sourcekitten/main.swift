@@ -151,25 +151,22 @@ Find parent offsets for given documented offsets.
 func mapOffsets(dictionary: XPCDictionary, inout documentedTokenOffsets: [Int: Int], file: String) {
     if let dictFile =  dictionary["key.filepath"] as? String {
         if dictFile == file {
-            if let rangeStart = dictionary["key.offset"] as? Int64 {
-                if let rangeLength = dictionary["key.bodylength"] as? Int64 {
+            if let rangeStart = dictionary["key.nameoffset"] as? Int64 {
+                if let rangeLength = dictionary["key.namelength"] as? Int64 {
+                    let bodyLength = dictionary["key.bodylength"] as? Int64
                     let offsetsInRange = documentedTokenOffsets.keys.filter {
-                        let nameLength = dictionary["key.namelength"] as Int64
-                        return $0 >= Int(rangeStart) && $0 <= Int(rangeStart + nameLength + rangeLength)
+                        return $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
                     }
                     for offset in offsetsInRange {
-                        documentedTokenOffsets[offset] = Int(dictionary["key.offset"] as Int64)
+                        documentedTokenOffsets[offset] = Int(rangeStart)
                     }
                 }
             }
         }
     }
-    for key in dictionary.keys {
-        if var subArray = dictionary[key]! as? XPCArray {
-            for i in 0..<subArray.count {
-                mapOffsets(subArray[i] as XPCDictionary, &documentedTokenOffsets, file)
-            }
-        }
+    let substructure = dictionary["key.substructure"] as XPCArray
+    for subDict in substructure {
+        mapOffsets(subDict as XPCDictionary, &documentedTokenOffsets, file)
     }
 }
 
@@ -412,9 +409,7 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
         for alreadyDocumentedOffset in alreadyDocumentedOffsets {
             offsetsMap.removeValueForKey(alreadyDocumentedOffset)
         }
-        var offsets = offsetsMap.keys
-        offsets.reverse()
-        for offset in offsets {
+        for offset in offsetsMap.keys.reverse().array {
             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(offset))
             var response = sendSourceKitRequest(cursorInfoRequest)
             replaceUIDsWithStringsInDictionary(&response)
