@@ -1,6 +1,5 @@
 require 'active_support/inflector'
 require 'json'
-require 'open3'
 
 require 'jazzy/config'
 require 'jazzy/source_declaration'
@@ -68,11 +67,10 @@ module Jazzy
       docs
     end
 
-    # Run sourcekitten with given arguments and return
-    # STDOUT, STDERR and exit status
+    # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
       bin_path = File.expand_path(File.join(File.dirname(__FILE__), '../../bin'))
-      Open3.capture3("#{bin_path}/sourcekitten #{(arguments).join(' ')}")
+      `#{bin_path}/sourcekitten #{(arguments).join(' ')}`
     end
 
     def self.make_source_declarations(docs)
