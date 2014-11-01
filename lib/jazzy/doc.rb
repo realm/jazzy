@@ -1,5 +1,7 @@
 require 'date'
 
+require 'jazzy/gem_version'
+
 module Jazzy
   class Doc < Mustache
     self.template_path = File.dirname(__FILE__) + '/..'
