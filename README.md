@@ -32,6 +32,18 @@ To install jazzy, run `[sudo] gem install jazzy` from your command line.
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional
 options.
 
+### Development
+
+jazzy is composed of two parts: the parser ([sourcekitten][sourcekitten],
+written in Swift) and the site generator (written in ruby).
+
+To build and run jazzy from source, you'll first need [bundler][bundler]. Once
+bundler is installed, run `bundle install` from the root of this repo. At this
+point, run jazzy from source by running `bin/jazzy`.
+
+Instructions to build sourcekitten from source can be found at
+[sourcekitten's GitHub repository][sourcekitten].
+
 ### Design Goals
 
 jazzy's main design goals are:
@@ -51,4 +63,5 @@ This project is under the MIT license.
 [sourcekit]: http://www.jpsim.com/uncovering-sourcekit "Uncovering SourceKit"
 [ast]: http://clang.llvm.org/docs/IntroductionToTheClangAST.html "Introduction To The Clang AST"
 [xcode]: https://developer.apple.com/xcode "Xcode"
+[bundler]: http://rubygems.org/gems/bundler
 [mustache]: http://mustache.github.io "Mustache"
