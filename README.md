@@ -63,5 +63,6 @@ This project is under the MIT license.
 [sourcekit]: http://www.jpsim.com/uncovering-sourcekit "Uncovering SourceKit"
 [ast]: http://clang.llvm.org/docs/IntroductionToTheClangAST.html "Introduction To The Clang AST"
 [xcode]: https://developer.apple.com/xcode "Xcode"
+[sourcekitten]: https://github.com/jpsim/sourcekitten "sourcekitten"
 [bundler]: http://rubygems.org/gems/bundler
 [mustache]: http://mustache.github.io "Mustache"
