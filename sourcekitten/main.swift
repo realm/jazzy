@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.1"
+let version = "0.1.2"
 
 // MARK: Helper Functions
 
@@ -40,14 +40,23 @@ func stringForSourceKitUID(uid: UInt64) -> String? {
 }
 
 /**
-Print error message to STDERR
+Print message to STDERR and exit(1)
 
-:param: error message to print
+:param: message message to print
 */
 func error(message: String) {
-    let stderr = NSFileHandle.fileHandleWithStandardError()
-    stderr.writeData(message.dataUsingEncoding(NSUTF8StringEncoding)!)
+    printSTDERR(message)
     exit(1)
+}
+
+/**
+Print message to STDERR. Useful for UI messages without affecting STDOUT data.
+
+:param: message message to print
+*/
+func printSTDERR(message: String) {
+    let stderr = NSFileHandle.fileHandleWithStandardError()
+    stderr.writeData((message + "\n").dataUsingEncoding(NSUTF8StringEncoding)!)
 }
 
 /**
@@ -270,6 +279,8 @@ Return STDERR and STDOUT as a combined string.
 :returns: xcodebuild STDERR+STDOUT output
 */
 func run_xcodebuild(processArguments: [String]) -> String? {
+    printSTDERR("Running xcodebuild -dry-run")
+
     let task = NSTask()
     task.launchPath = "/usr/bin/xcodebuild"
 
@@ -344,7 +355,9 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
     var responses = XPCArray()
 
     // Print docs for each Swift file
-    for file in swiftFiles {
+    for (index, file) in enumerate(swiftFiles) {
+        printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
+
         xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
         xpc_dictionary_set_string(cursorInfoRequest, "key.sourcefile", file)
 
