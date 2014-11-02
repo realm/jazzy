@@ -10,10 +10,10 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.5"
+let version = "0.1.6"
 
-/// File Contents Map
-var files = [String: NSString]()
+/// File Contents
+var fileContents = NSString()
 
 // MARK: Helper Functions
 
@@ -76,14 +76,14 @@ func printSTDERR(message: String) {
 }
 
 /**
-Replace all UIDs in a SourceKit response dictionary with their string values.
-Also adds keys from cursorinfo requests for declarations.
+Process a SourceKit editor.open response dictionary by removing undocumented tokens with no
+documented children. Add cursor.info information for declarations. Add name to mark comments.
 
 :param: dictionary        `XPCDictionary` to mutate.
 :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
 :returns: Whether or not the dictionary should be kept.
 */
-func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
+func processDictionary(inout dictionary: XPCDictionary,
     _ cursorInfoRequest: xpc_object_t? = nil) -> Bool {
     var shouldKeep = false
     if dictionary["key.substructure"] == nil {
@@ -98,10 +98,9 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
                 if (kind.rangeOfString("source.lang.swift.decl.") != nil ||
                     kind == "source.lang.swift.syntaxtype.comment.mark") &&
                     kind != "source.lang.swift.decl.var.parameter" {
-                        let keep = replaceUIDsWithStringsInDictionary(&subDict, cursorInfoRequest)
-                        if keep {
-                            newSubstructure.append(subDict)
-                        }
+                    if processDictionary(&subDict, cursorInfoRequest) {
+                        newSubstructure.append(subDict)
+                    }
                 }
             }
         }
@@ -112,11 +111,12 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
         return shouldKeep
     }
     let kind = dictionary["key.kind"] as String
-    if kind.rangeOfString("source.lang.swift.decl.") != nil &&
-        kind != "source.lang.swift.decl.var.parameter" {
+    if kind != "source.lang.swift.decl.var.parameter" &&
+        kind.rangeOfString("source.lang.swift.decl.") != nil {
         let offset = dictionary["key.nameoffset"] as Int64
         if offset > 0 {
             xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", offset)
+
             // Send request and wait for response
             let response = sendSourceKitRequest(cursorInfoRequest)
             if response["key.doc.full_as_xml"] != nil {
@@ -135,7 +135,7 @@ func replaceUIDsWithStringsInDictionary(inout dictionary: XPCDictionary,
         let offset = dictionary["key.offset"] as Int64
         let length = dictionary["key.length"] as Int64
         let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile"))!
-        dictionary["key.name"] = files[file]!.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
+        dictionary["key.name"] = fileContents.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
         shouldKeep = true
     }
     return shouldKeep
@@ -173,20 +173,14 @@ func mapOffsets(dictionary: XPCDictionary, inout documentedTokenOffsets: [Int: I
 /**
 Find integer offsets of documented tokens
 
+:param: syntaxMap Syntax Map returned from SourceKit editor.open request
 :param: file File to parse
 :returns: Array of documented token offsets
 */
-func documentedTokenOffsets(file: String) -> [Int] {
-    // Construct a SourceKit request for getting general info about the Swift file passed as argument
-    let request = toXPC([
-        "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
-        "key.name": "",
-        "key.sourcefile": file])
-    let data = sendSourceKitRequest(request)["key.syntaxmap"] as NSData!
-
+func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
     // Get number of syntax tokens
     var tokens = 0
-    data.getBytes(&tokens, range: NSRange(location: 8, length: 8))
+    syntaxMap.getBytes(&tokens, range: NSRange(location: 8, length: 8))
     tokens = tokens >> 4
 
     var identifierOffsets = [Int]()
@@ -195,7 +189,7 @@ func documentedTokenOffsets(file: String) -> [Int] {
         let parserOffset = 16 * i
 
         var uid = UInt64(0)
-        data.getBytes(&uid, range: NSRange(location: 16 + parserOffset, length: 8))
+        syntaxMap.getBytes(&uid, range: NSRange(location: 16 + parserOffset, length: 8))
         let type = stringForSourceKitUID(uid)!
 
         // Only append identifiers
@@ -203,11 +197,10 @@ func documentedTokenOffsets(file: String) -> [Int] {
             continue
         }
         var offset = 0
-        data.getBytes(&offset, range: NSRange(location: 24 + parserOffset, length: 4))
+        syntaxMap.getBytes(&offset, range: NSRange(location: 24 + parserOffset, length: 4))
         identifierOffsets.append(offset)
     }
 
-    let fileContents = files[file]!
     let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)!
     let range = NSRange(location: 0, length: fileContents.length)
     let matches = regex.matchesInString(fileContents, options: nil, range: range)
@@ -217,6 +210,21 @@ func documentedTokenOffsets(file: String) -> [Int] {
         offsets.append(identifierOffsets.filter({ $0 >= match.range.location})[0])
     }
     return offsets
+}
+
+/**
+Find integer offsets of documented tokens
+
+:param: file File to parse
+:returns: Array of documented token offsets
+*/
+func documentedTokenOffsets(file: String) -> [Int] {
+    // Construct a SourceKit request for getting general info about the Swift file passed as argument
+    let request = toXPC([
+        "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
+        "key.name": "",
+        "key.sourcefile": file])
+    return documentedTokenOffsets(sendSourceKitRequest(request)["key.syntaxmap"] as NSData!, file)
 }
 
 /**
@@ -331,6 +339,29 @@ func run_xcodebuild(processArguments: [String]) -> String? {
 }
 
 /**
+Run sourcekitten as a new process.
+
+:param: processArguments arguments to pass to new sourcekitten process
+:returns: sourcekitten STDOUT output
+*/
+func run_self(processArguments: [String]) -> String {
+    let task = NSTask()
+    task.launchPath = NSBundle.mainBundle().executablePath!
+    task.arguments = processArguments
+
+    let pipe = NSPipe()
+    task.standardOutput = pipe
+
+    task.launch()
+
+    let file = pipe.fileHandleForReading
+    let output = NSString(data: file.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
+    file.closeFile()
+
+    return output!
+}
+
+/**
 Parses the compiler arguments needed to compile the Swift aspects of an Xcode project
 
 :param: xcodebuildOutput output of `xcodebuild` to be parsed for swift compiler arguments
@@ -361,12 +392,12 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 }
 
 /**
-Print XML-formatted docs for the specified Xcode project
+Print JSON and XML-formatted docs for the specified Swift file.
 
 :param: arguments compiler arguments to pass to SourceKit
-:param: swiftFiles array of Swift file names to document
+:param: file Path to Swift file to document
 */
-func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
+func docs_for_swift_compiler_args(arguments: [String], file: String) {
     sourcekitd_initialize()
 
     // Construct SourceKit requests for getting general info about a Swift file and getting cursor info
@@ -379,51 +410,45 @@ func docs_for_swift_compiler_args(arguments: [String], swiftFiles: [String]) {
     }
     xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
 
-    var responses = XPCArray()
+    fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
 
-    // Print docs for each Swift file
-    // For some strange reason, SourceKit fails on some projects without reversing this array
-    for (index, file) in enumerate(swiftFiles.reverse()) {
-        files[file] = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
-        printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
+    xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
+    xpc_dictionary_set_string(cursorInfoRequest, "key.sourcefile", file)
 
-        xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
-        xpc_dictionary_set_string(cursorInfoRequest, "key.sourcefile", file)
+    var openResponse = sendSourceKitRequest(openRequest)
+    let syntaxMap = openResponse["key.syntaxmap"] as NSData
+    openResponse.removeValueForKey("key.syntaxmap")
 
-        var openResponse = sendSourceKitRequest(openRequest)
-        openResponse.removeValueForKey("key.syntaxmap")
-
-        // Map documented token offsets to the start of their range
-        var offsetsMap = [Int: Int]()
-        for offset in documentedTokenOffsets(file) {
-            offsetsMap[offset] = 0
-        }
-        replaceUIDsWithStringsInDictionary(&openResponse, cursorInfoRequest)
-        mapOffsets(openResponse, &offsetsMap, file)
-        var alreadyDocumentedOffsets = [Int]()
-        for (offset, rangeStart) in offsetsMap {
-            if offset == rangeStart {
-                alreadyDocumentedOffsets.append(offset)
-            }
-        }
-        for alreadyDocumentedOffset in alreadyDocumentedOffsets {
-            offsetsMap.removeValueForKey(alreadyDocumentedOffset)
-        }
-        var reversedOffsets = [Int]()
-        for offset in offsetsMap.keys {
-            reversedOffsets.insert(offset, atIndex: 0)
-        }
-        for offset in reversedOffsets {
-            xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(offset))
-            var response = sendSourceKitRequest(cursorInfoRequest)
-            replaceUIDsWithStringsInDictionary(&response)
-            if (response["key.kind"] as String).rangeOfString("source.lang.swift.decl.") != nil {
-                insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
-            }
-        }
-        responses.append(openResponse)
+    // Map documented token offsets to the start of their range
+    var offsetsMap = [Int: Int]()
+    for offset in documentedTokenOffsets(syntaxMap, file) {
+        offsetsMap[offset] = 0
     }
-    println(toJSON(responses))
+    processDictionary(&openResponse, cursorInfoRequest)
+    mapOffsets(openResponse, &offsetsMap, file)
+    var alreadyDocumentedOffsets = [Int]()
+    for (offset, rangeStart) in offsetsMap {
+        if offset == rangeStart {
+            alreadyDocumentedOffsets.append(offset)
+        }
+    }
+    for alreadyDocumentedOffset in alreadyDocumentedOffsets {
+        offsetsMap.removeValueForKey(alreadyDocumentedOffset)
+    }
+    var reversedOffsets = [Int]()
+    for offset in offsetsMap.keys {
+        reversedOffsets.insert(offset, atIndex: 0)
+    }
+    for offset in reversedOffsets {
+        xpc_dictionary_set_int64(cursorInfoRequest, "key.offset", Int64(offset))
+        var response = sendSourceKitRequest(cursorInfoRequest)
+        processDictionary(&response)
+        if response["key.kind"] != nil &&
+            (response["key.kind"] as String).rangeOfString("source.lang.swift.decl.") != nil {
+                insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
+        }
+    }
+    println(toJSON(openResponse))
 }
 
 /**
@@ -514,7 +539,7 @@ func printStructure(#file: String) {
     // Send SourceKit request
     var response = sendSourceKitRequest(request)
     response.removeValueForKey("key.syntaxmap")
-    replaceUIDsWithStringsInDictionary(&response)
+    processDictionary(&response)
     println(toJSON(response))
 }
 
@@ -604,10 +629,9 @@ Parse command-line arguments & call the appropriate function.
 */
 func main() {
     let arguments = Process.arguments
-    if arguments.count > 1 && arguments[1] == "--skip-xcodebuild" {
-        var sourcekitdArguments = Array<String>(arguments[2...arguments.count])
-        let swiftFiles = swiftFilesFromArray(sourcekitdArguments)
-        println(docs_for_swift_compiler_args(sourcekitdArguments, swiftFiles))
+    if arguments.count > 1 && arguments[1] == "--single-file" {
+        var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
+        docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
@@ -618,7 +642,19 @@ func main() {
         printHelp()
     } else if let xcodebuildOutput = run_xcodebuild(arguments) {
         if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
-            println(docs_for_swift_compiler_args(swiftcArguments, swiftFilesFromArray(swiftcArguments)))
+            // Spawn new processes for each Swift file because SourceKit crashes otherwise
+            let swiftFiles = swiftFilesFromArray(swiftcArguments)
+            println("[")
+            for (index, file) in enumerate(swiftFiles) {
+                printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
+                var self_arguments = ["--single-file", file]
+                self_arguments.extend(swiftcArguments)
+                println(run_self(self_arguments))
+                if index < swiftFiles.count-1 {
+                    println(",")
+                }
+            }
+            println("]")
         } else {
             error(xcodebuildOutput)
         }
