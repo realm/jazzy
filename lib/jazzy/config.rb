@@ -43,7 +43,7 @@ module Jazzy
           config.clean = clean
         end
 
-        opt.on('-x', '--xcodebuild-arguments arg1,arg2,…argN', Array, 'Arguments to forward to xcodebuild') do |args|
+        opt.on('-x', '--xcodebuild-arguments arg1,arg2,...argN', Array, 'Arguments to forward to xcodebuild') do |args|
           config.xcodebuild_arguments = args
         end
 
