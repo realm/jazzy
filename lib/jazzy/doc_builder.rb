@@ -89,7 +89,7 @@ module Jazzy
       assets_dir = File.expand_path(File.dirname(__FILE__) + '/../../lib/jazzy/assets/') + '/.'
       FileUtils.cp_r(assets_dir, output_dir)
 
-      puts 'jam out ♪♫ to your fresh new docs at ' + output_dir
+      puts "jam out \u{266A}\u{266C} to your fresh new docs at " + output_dir
     end
 
     # Build Mustache document from single parsed doc
