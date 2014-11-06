@@ -4,3 +4,6 @@ language: ruby
 cache: bundler
 rvm:
   - system
+
+before_install:
+  - sudo gem install bundler
