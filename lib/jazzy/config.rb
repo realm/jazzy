@@ -13,6 +13,7 @@ module Jazzy
     attr_accessor :dash_url
     attr_accessor :sourcekitten_sourcefile
     attr_accessor :clean
+    attr_accessor :readme_path
 
     def initialize
       self.output = Pathname('docs')
@@ -25,6 +26,7 @@ module Jazzy
       self.dash_url = nil
       self.sourcekitten_sourcefile = nil
       self.clean = false
+      self.readme_path = nil
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -87,6 +89,10 @@ module Jazzy
         opt.on('-s', '--sourcekitten-sourcefile FILEPATH',
                'XML doc file generated from sourcekitten to parse') do |s|
           config.sourcekitten_sourcefile = Pathname(s)
+        end
+
+        opt.on('-r', '--readme-path FILEPATH', 'Path to a markdown README') do |r|
+          config.readme_path = r
         end
 
         opt.on('-v', '--version', 'Print version number') do

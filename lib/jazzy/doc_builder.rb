@@ -7,6 +7,7 @@ require 'sass'
 require 'jazzy/config'
 require 'jazzy/doc'
 require 'jazzy/jazzy_markdown'
+require 'jazzy/readme_generator'
 require 'jazzy/source_declaration'
 require 'jazzy/source_module'
 require 'jazzy/sourcekitten'
@@ -142,6 +143,7 @@ module Jazzy
 
     # Construct Github token URL
     # @param [Hash] item Parsed doc child item
+        doc[:overview] = ReadmeGenerator.generate(options)
     # @param [Config] options Build options
     def self.gh_token_url(item, source_module)
       if source_module.github_file_prefix && item.file

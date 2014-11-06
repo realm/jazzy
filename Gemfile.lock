@@ -4,6 +4,7 @@ PATH
     jazzy (0.0.14)
       activesupport (~> 4.1)
       mustache (~> 0.99)
+      nap (~> 0.8.0)
       nokogiri (~> 1.6)
       redcarpet (~> 3.2)
       sass (~> 3.4)
