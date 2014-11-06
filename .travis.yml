@@ -1,9 +1,12 @@
-os:
-  - osx
-language: ruby
+language: objective-c
+osx_image: xcode61
 cache: bundler
 rvm:
   - system
 
 before_install:
   - sudo gem install bundler
+
+script:
+  - bundle exec rake spec
+
