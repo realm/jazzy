@@ -2,6 +2,8 @@
 
 An adorable little command line tool for interacting with [SourceKit][uncovering-sourcekit]. Written in Swift.
 
+![Test Status](https://travis-ci.org/jpsim/sourcekitten.svg?branch=master)
+
 ## Usage
 
 Just call `sourcekitten` in the root of your Xcode project's directory. Some more complex projects may have to pass in `-project`, `-workspace`, `-scheme` or other `xcodebuild` arguments to help sourcekitten determine what to document.
