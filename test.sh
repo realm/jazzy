@@ -32,8 +32,8 @@ rm syntax.txt
 # Test Structure
 
 echo 'class MyClass { var variable = 0 }' > structure.txt
-structure_result="$(sourcekitten --structure ${CURRENT_PATH}/structure.txt | json)"
-structure_expected="$(cat tests/structure.txt | json)"
+structure_result="$(sourcekitten --structure ${CURRENT_PATH}/structure.txt | jsonlint -s)"
+structure_expected="$(cat tests/structure.txt | jsonlint -s)"
 if [ "$structure_result" == "$structure_expected" ]; then
     echo "structure passed"
 else

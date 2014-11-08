@@ -1,4 +1,4 @@
 language: objective-c
 osx_image: xcode61
-before_install: npm install -g json
+before_install: npm install -g jsonlint
 script: sh test.sh
