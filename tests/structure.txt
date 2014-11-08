@@ -1,0 +1,32 @@
+{
+  "key.substructure" : [
+    {
+      "key.kind" : "source.lang.swift.decl.class",
+      "key.offset" : 0,
+      "key.nameoffset" : 6,
+      "key.namelength" : 7,
+      "key.bodyoffset" : 15,
+      "key.bodylength" : 18,
+      "key.runtime_name" : "_TtC8__main__7MyClass",
+      "key.substructure" : [
+        {
+          "key.kind" : "source.lang.swift.decl.var.instance",
+          "key.offset" : 16,
+          "key.nameoffset" : 20,
+          "key.namelength" : 8,
+          "key.length" : 16,
+          "key.substructure" : [
+
+          ],
+          "key.typename" : "variable",
+          "key.name" : "variable"
+        }
+      ],
+      "key.name" : "MyClass",
+      "key.length" : 34
+    }
+  ],
+  "key.offset" : 0,
+  "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
+  "key.length" : 35
+}

@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.6"
+let version = "0.1.7"
 
 /// File Contents
 var fileContents = NSString()
@@ -107,7 +107,11 @@ func processDictionary(inout dictionary: XPCDictionary,
         dictionary["key.substructure"] = newSubstructure
     }
 
-    if cursorInfoRequest == nil || dictionary["key.kind"] == nil {
+    if cursorInfoRequest == nil {
+        return true
+    }
+
+    if dictionary["key.kind"] == nil {
         return shouldKeep
     }
     let kind = dictionary["key.kind"] as String

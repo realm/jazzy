@@ -1,0 +1,17 @@
+[
+  {
+    "offset" : 0,
+    "length" : 6,
+    "type" : "source.lang.swift.syntaxtype.keyword"
+  },
+  {
+    "offset" : 7,
+    "length" : 10,
+    "type" : "source.lang.swift.syntaxtype.identifier"
+  },
+  {
+    "offset" : 18,
+    "length" : 15,
+    "type" : "source.lang.swift.syntaxtype.comment"
+  }
+]

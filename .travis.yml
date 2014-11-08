@@ -1,0 +1,5 @@
+language: objective-c
+osx_image: xcode61
+
+script:
+  - sh test.sh
