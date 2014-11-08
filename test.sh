@@ -12,6 +12,7 @@ if [ "$syntax_text_result" == "$syntax_text_expected" ]; then
     echo "syntax_text passed"
 else
     echo "syntax_text failed"
+    echo "$syntax_text_result"
     exit 1
 fi
 
@@ -23,6 +24,7 @@ if [ "$syntax_result" == "$syntax_text_expected" ]; then
     echo "syntax passed"
 else
     echo "syntax failed"
+    echo "$syntax_result"
     exit 1
 fi
 rm syntax.txt
@@ -36,6 +38,7 @@ if [ "$structure_result" == "$structure_expected" ]; then
     echo "structure passed"
 else
     echo "structure failed"
+    echo "$structure_result"
     exit 1
 fi
 rm structure.txt
