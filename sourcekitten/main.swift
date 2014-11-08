@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.7"
+let version = "0.1.8"
 
 /// File Contents
 var fileContents = NSString()
@@ -326,7 +326,7 @@ func run_xcodebuild(processArguments: [String]) -> String? {
     // Forward arguments to xcodebuild
     var arguments = processArguments
     arguments.removeAtIndex(0)
-    arguments.extend(["clean", "build", "-dry-run"])
+    arguments.extend(["clean", "build", "-dry-run", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_REQUIRED=NO"])
     task.arguments = arguments
 
     let pipe = NSPipe()
