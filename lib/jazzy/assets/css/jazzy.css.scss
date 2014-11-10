@@ -8,48 +8,43 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
   vertical-align: baseline;
 }
 
-#reference .x-instance-method.Swift {
-  margin-left: 15px;
-}
-
-#reference .chapter {
-  overflow-x: hidden;
-  border-top: 0;
-  border-left: 1px solid rgba(233, 233, 233, 1);
-  border-right: 1px solid rgba(233, 233, 233, 1);
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
-}
-
-#reference .nav-chapters {
-  height: 100%;
-}
-
-#reference .part-name {
-  color: #000;
-  cursor: default;
-  padding: 15px 15px 15px 20px;
-  min-height: 61px;
-}
-
-#reference .part-name.tasks {
-  background: #fff;
-  overflow: auto;
-}
-
-#reference .book-parts a {
-  display: initial;
-  margin-left: 0;
-}
-
-#reference .nav-chapters li {
-  color: rgba(128, 128, 128, 1);
-  margin-left: 12px;
-  padding-left: 10px;
-  text-indent: -10px;
-}
-
-#reference .chapter-name {
-  margin-top: 21px;
+#reference {
+  .x-instance-method.Swift {
+    margin-left: 15px;
+  }
+  .chapter {
+    overflow-x: hidden;
+    border-top: 0;
+    border-left: 1px solid rgba(233, 233, 233, 1);
+    border-right: 1px solid rgba(233, 233, 233, 1);
+    border-bottom: 1px solid rgba(233, 233, 233, 1);
+  }
+  .nav-chapters {
+    height: 100%;
+  }
+  .part-name {
+    color: #000;
+    cursor: default;
+    padding: 15px 15px 15px 20px;
+    min-height: 61px;
+    &.tasks {
+      background: #fff;
+      overflow: auto;
+    }
+  }
+  .book-parts a {
+    display: initial;
+    margin-left: 0;
+  }
+  .nav-chapters li {
+    color: rgba(128, 128, 128, 1);
+    margin-left: 12px;
+    padding-left: 10px;
+    text-indent: -10px;
+  }
+  .chapter-name {
+    margin-top: 21px;
+  }
 }
 
 .rubber-band-gap {
@@ -62,168 +57,145 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
   margin: 0 0 0 247px;
 }
 
-#reference .task-name-container {
-  background: #fff;
-  left: -25px;
-  margin-bottom: 0;
-  padding: 35px 25px 0;
-  position: relative;
-  width: 100%;
-}
-
-#reference .section-name {
-  cursor: pointer;
-  display: inline-block;
-}
-
-#reference .section .section {
-  margin-top: 0;
-}
-
-#reference .task-group-section {
-  padding: 1px 25px 0;
-}
-
-#reference .symbol {
-  background: #fff;
-  left: -25px;
-  list-style-type: none;
-  padding: 13px 25px 0;
-  position: relative;
-  width: 100%;
-}
-
-#reference .task-group-term {
-  font-size: 1.4em;
-  word-break: break-all;
-}
-
-#reference .task-group-term>code {
-  display: inline-block;
-}
-
-#reference .pointy-thing-container {
-  background: #fff;
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
-  left: -25px;
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-bottom: 13px;
-  position: relative;
-  width: 100%;
-}
-
-#reference .pointy-thing {
-  background: rgba(249, 249, 249, 1);
-  border-left: 1px solid rgba(233, 233, 233, 1);
-  border-top: 1px solid rgba(233, 233, 233, 1);
-  height: 12px;
-  left: 21px;
-  top: -7px;
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  transform: rotate(45deg);
-  position: absolute;
-  width: 12px;
-}
-
-#reference .height-container {
-  display: none;
-  left: -25px;
-  padding: 0 25px;
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-
-#reference .height-container .section {
-  background: rgba(249, 249, 249, 1);
-  border-bottom: 1px solid rgba(233, 233, 233, 1);
-  left: -25px;
-  margin: 0;
-  padding: 13px 25px 0;
-  position: relative;
-  width: 100%;
-}
-
-#reference .height-container .section h4 {
-  font-size: 13px;
-  line-height: 1.5;
-  margin-top: 21px;
-}
-
-#reference .section .declaration {
-  margin-top: 21px;
-}
-
-#reference .section .declaration code {
-  color: rgba(128, 128, 128, 1);
-  margin-bottom: 15px;
-  padding-bottom: 6px;
-}
-
-#reference .declaration div .para {
-  margin-bottom: 0;
-}
-
-#reference .task-group .item .graybox {
-  margin: 5px 0 26px;
-}
-
-#reference .symbol .graybox .para:last-of-type {
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-#reference .parameters .graybox tr td:first-of-type {
-  text-align: right;
-  padding: 7px;
-  vertical-align: top;
-  word-break: normal;
-  width: 40px;
-}
-
-#reference em.term,
-#reference em.parameter-name {
-  color: rgba(65, 65, 65, 1);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-#reference .height-container .section>div:last-of-type {
-  margin-bottom: 15px;
-}
-
-#reference #footer {
-  width: 614px;
-  z-index: 1;
-}
-
-#reference .item .para {
-  padding-bottom: 0;
-  margin: 0 0 15px;
-}
-
-#reference a[name] {
-  padding-top: 112px;
-  margin: -112px 0 0;
-}
-
-#reference .height-container td {
-  max-width: inherit;
-}
-
-#reference .declaration .n a {
-  color: inherit;
-}
-
-#reference .declaration .n a:hover {
-  border-bottom: 1px solid;
-}
-
-#reference .copyright {
-  margin: 10px 0;
+#reference {
+  .task-name-container {
+    background: #fff;
+    left: -25px;
+    margin-bottom: 0;
+    padding: 35px 25px 0;
+    position: relative;
+    width: 100%;
+  }
+  .section-name {
+    cursor: pointer;
+    display: inline-block;
+  }
+  .section .section {
+    margin-top: 0;
+  }
+  .task-group-section {
+    padding: 1px 25px 0;
+  }
+  .symbol {
+    background: #fff;
+    left: -25px;
+    list-style-type: none;
+    padding: 13px 25px 0;
+    position: relative;
+    width: 100%;
+  }
+  .task-group-term {
+    font-size: 1.4em;
+    word-break: break-all;
+    > code {
+      display: inline-block;
+    }
+  }
+  .pointy-thing-container {
+    background: #fff;
+    border-bottom: 1px solid rgba(233, 233, 233, 1);
+    left: -25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 13px;
+    position: relative;
+    width: 100%;
+  }
+  .pointy-thing {
+    background: rgba(249, 249, 249, 1);
+    border-left: 1px solid rgba(233, 233, 233, 1);
+    border-top: 1px solid rgba(233, 233, 233, 1);
+    height: 12px;
+    left: 21px;
+    top: -7px;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    width: 12px;
+  }
+  .height-container {
+    display: none;
+    left: -25px;
+    padding: 0 25px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    .section {
+      background: rgba(249, 249, 249, 1);
+      border-bottom: 1px solid rgba(233, 233, 233, 1);
+      left: -25px;
+      margin: 0;
+      padding: 13px 25px 0;
+      position: relative;
+      width: 100%;
+      h4 {
+        font-size: 13px;
+        line-height: 1.5;
+        margin-top: 21px;
+      }
+    }
+  }
+  .section .declaration {
+    margin-top: 21px;
+    code {
+      color: rgba(128, 128, 128, 1);
+      margin-bottom: 15px;
+      padding-bottom: 6px;
+    }
+  }
+  .declaration div .para {
+    margin-bottom: 0;
+  }
+  .task-group .item .graybox {
+    margin: 5px 0 26px;
+  }
+  .symbol .graybox .para:last-of-type {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .parameters .graybox tr td:first-of-type {
+    text-align: right;
+    padding: 7px;
+    vertical-align: top;
+    word-break: normal;
+    width: 40px;
+  }
+  em {
+    &.term, &.parameter-name {
+      color: rgba(65, 65, 65, 1);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  }
+  .height-container .section > div:last-of-type {
+    margin-bottom: 15px;
+  }
+  #footer {
+    width: 614px;
+    z-index: 1;
+  }
+  .item .para {
+    padding-bottom: 0;
+    margin: 0 0 15px;
+  }
+  a[name] {
+    padding-top: 112px;
+    margin: -112px 0 0;
+  }
+  .height-container td {
+    max-width: inherit;
+  }
+  .declaration .n a {
+    color: inherit;
+    &:hover {
+      border-bottom: 1px solid;
+    }
+  }
+  .copyright {
+    margin: 10px 0;
+  }
 }
 
 .nav-chapters {
@@ -277,7 +249,7 @@ a[name] {
   background-color: #fff;
   border: 1px solid rgba(233, 233, 233, 1);
   border-top: 0;
-  box-shadow: 0 0 1px rgba(0, 0, 0, .07);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.07);
   display: block;
   margin-left: 246px;
   min-height: calc(100% - 173px);
@@ -301,16 +273,15 @@ a[name] {
 
 .section {
   padding: 15px 25px 0px;
-}
-
-.section .section {
-  margin: 30px 0 0;
-  padding: 0;
+  .section {
+    margin: 30px 0 0;
+    padding: 0;
+  }
 }
 
 header {
   background-color: rgba(65, 65, 65, 1);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, .07);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
   color: #fff;
   height: 25px;
   letter-spacing: .05em;
@@ -326,11 +297,10 @@ header {
   padding-top: 6px;
   vertical-align: middle;
   float: left;
-}
-
-.header-text a {
-  color: #fff;
-  text-decoration: none;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
 }
 
 #header-icon {
@@ -433,7 +403,7 @@ h3.section-name:before {
   border-left: 1px solid rgba(233, 233, 233, 1);
   border-right: 1px solid rgba(233, 233, 233, 1);
   bottom: 0;
-  box-shadow: 0 0 1px rgba(0, 0, 0, .07);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.07);
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: fixed;
@@ -508,15 +478,11 @@ h3.section-name:before {
 div.Swift {
   padding: 4px 0 2px 10px;
   margin: 10px 0 21px;
-}
-
-div.Swift {
   border-left: 5px solid rgba(205, 233, 244, 1);
-}
-
-div.Swift .aside-title {
-  color: rgba(75, 138, 251, 1);
-  -webkit-user-select: none;
+  .aside-title {
+    color: rgba(75, 138, 251, 1);
+    -webkit-user-select: none;
+  }
 }
 
 #footer {
@@ -536,12 +502,11 @@ div.Swift .aside-title {
   margin: 20px 0 36px;
   text-align: left;
   width: 100%;
-}
-
-.graybox p {
-  margin: 0;
-  word-break: break-word;
-  min-width: 50px;
+  p {
+    margin: 0;
+    word-break: break-word;
+    min-width: 50px;
+  }
 }
 
 td {

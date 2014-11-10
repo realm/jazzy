@@ -1,6 +1,8 @@
 require 'fileutils'
 require 'mustache'
 require 'uri'
+require 'pathname'
+require 'sass'
 
 require 'jazzy/config'
 require 'jazzy/doc'
@@ -14,7 +16,7 @@ module Jazzy
   module DocBuilder
     # mkdir -p output directory and clean if option is set
     def self.prepare_output_dir(output_dir, clean)
-      FileUtils.rm_r output_dir if clean && File.directory?(output_dir)
+      FileUtils.rm_r output_dir if clean && output_dir.directory?
       FileUtils.mkdir_p output_dir
     end
 
@@ -35,9 +37,7 @@ module Jazzy
     # @param [Config] options
     def self.build(options)
       if options.sourcekitten_sourcefile
-        file = File.open(options.sourcekitten_sourcefile)
-        file_contents = file.read
-        file.close
+        file_contents = options.sourcekitten_sourcefile.read
         build_docs_for_sourcekitten_output(file_contents, options)
       else
         stdout = SourceKitten.run_sourcekitten(options.xcodebuild_arguments)
@@ -65,11 +65,11 @@ module Jazzy
       docs.each do |doc|
         next if doc.name != 'index' && doc.children.count == 0
         prepare_output_dir(output_dir, false)
-        path = File.join(output_dir, "#{doc.name}.html")
+        path = output_dir + "#{doc.name}.html"
         path_to_root = ['../'].cycle(depth).to_a.join('')
-        File.open(path, 'w') { |file| file.write(DocBuilder.document(options, doc, path_to_root, doc_structure)) }
+        path.open('w') { |file| file.write(DocBuilder.document(options, doc, path_to_root, doc_structure)) }
         if doc.name != 'index'
-          DocBuilder.build_docs(File.join(output_dir, doc.name), doc.children, options, depth + 1, doc_structure)
+          DocBuilder.build_docs(output_dir + doc.name, doc.children, options, depth + 1, doc_structure)
         end
       end
     end
@@ -86,10 +86,21 @@ module Jazzy
       DocBuilder.build_docs(output_dir, docs, options, 0, doc_structure)
 
       # Copy assets into output directory
-      assets_dir = File.expand_path(File.dirname(__FILE__) + '/../../lib/jazzy/assets/') + '/.'
-      FileUtils.cp_r(assets_dir, output_dir)
+      assets_dir = Pathname(__FILE__).parent + '../../lib/jazzy/assets/.'
+      copy_assets(assets_dir, output_dir)
 
-      puts 'jam out ♪♫ to your fresh new docs at ' + output_dir
+      puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
+    end
+
+    def self.copy_assets(origin, destination)
+      FileUtils.cp_r(origin, destination)
+      Pathname.glob(destination + 'css/**/*.scss').each do |scss|
+        contents = scss.read
+        css = Sass::Engine.new(contents, syntax: :scss).render
+        css_filename = scss.sub(/\.scss$/, '')
+        css_filename.open('w') { |f| f.write(css) }
+        FileUtils.rm scss
+      end
     end
 
     # Build Mustache document from single parsed doc
