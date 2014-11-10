@@ -1,5 +1,6 @@
 require 'active_support/inflector'
 require 'json'
+require 'pathname'
 
 require 'jazzy/config'
 require 'jazzy/source_declaration'
@@ -69,7 +70,7 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      bin_path = File.expand_path(File.join(File.dirname(__FILE__), '../../bin'))
+      bin_path = Pathname(__FILE__).parent + '../../bin'
       `#{bin_path}/sourcekitten #{(arguments).join(' ')}`
     end
 

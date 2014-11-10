@@ -1,10 +1,11 @@
 require 'date'
+require 'pathname'
 
 require 'jazzy/gem_version'
 
 module Jazzy
   class Doc < Mustache
-    self.template_path = File.dirname(__FILE__) + '/..'
+    self.template_path = Pathname(__FILE__).parent.parent
 
     def date
       # Fake date is used to keep integration tests consistent
