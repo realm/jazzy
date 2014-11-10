@@ -48,8 +48,10 @@ begin
 
     # Remove files not used for the comparison
     # To keep the git diff clean
-    files_to_delete = FileList['spec/integration_specs/*/after/{*,.git,.gitignore}']
-      .exclude('spec/integration_specs/*/after/docs', 'spec/integration_specs/*/after/execution_output.txt')
+    files_glob = 'spec/integration_specs/*/after/{*,.git,.gitignore}'
+    files_to_delete = FileList[files_glob]
+      .exclude('spec/integration_specs/*/after/docs',
+               'spec/integration_specs/*/after/execution_output.txt')
     files_to_delete.each do |file_to_delete|
       sh "rm -rf '#{file_to_delete}'"
     end

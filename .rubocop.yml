@@ -1,6 +1,3 @@
-inherit_from:
- - .rubocop_todo.yml
-
 AllCops:
   Include:
     - ./Rakefile
@@ -13,6 +10,10 @@ Documentation:
   Enabled: false
 
 #- Jazzy -----------------------------------------------------------------#
+
+# 20 lines is more reasonable than rubocop's default of 10
+Metrics/MethodLength:
+  Max: 20
 
 # We adopted raise instead of fail.
 SignalException:
