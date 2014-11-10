@@ -2,7 +2,8 @@ require 'nokogiri'
 
 module Jazzy
   module XMLHelper
-    # Gets value of XML attribute or nil (i.e. file in <Class file="Musician.swift"></Class>)
+    # Gets value of XML attribute or nil
+    # (i.e. file in <Class file="Musician.swift"></Class>)
     def self.attribute(node, name)
       node.attributes[name].value if node.attributes[name]
     end
