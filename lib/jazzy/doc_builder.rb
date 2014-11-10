@@ -89,7 +89,7 @@ module Jazzy
       assets_dir = Pathname(__FILE__).parent + '../../lib/jazzy/assets/.'
       copy_assets(assets_dir, output_dir)
 
-      puts "jam out ♪♫ to your fresh new docs at `#{output_dir}`"
+      puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
     end
 
     def self.copy_assets(origin, destination)
