@@ -2,6 +2,7 @@ require 'fileutils'
 require 'mustache'
 require 'uri'
 require 'pathname'
+require 'sass'
 
 require 'jazzy/config'
 require 'jazzy/doc'
@@ -85,10 +86,21 @@ module Jazzy
       DocBuilder.build_docs(output_dir, docs, options, 0, doc_structure)
 
       # Copy assets into output directory
-      FileUtils.cp_r(assets_dir, output_dir)
       assets_dir = Pathname(__FILE__).parent + '../../lib/jazzy/assets/.'
+      copy_assets(assets_dir, output_dir)
 
-      puts 'jam out ♪♫ to your fresh new docs at ' + output_dir
+      puts "jam out ♪♫ to your fresh new docs at `#{output_dir}`"
+    end
+
+    def self.copy_assets(origin, destination)
+      FileUtils.cp_r(origin, destination)
+      Pathname.glob(destination + 'css/**/*.scss').each do |scss|
+        contents = scss.read
+        css = Sass::Engine.new(contents, syntax: :scss).render
+        css_filename = scss.sub(/\.scss$/, '')
+        css_filename.open('w') { |f| f.write(css) }
+        FileUtils.rm scss
+      end
     end
 
     # Build Mustache document from single parsed doc
