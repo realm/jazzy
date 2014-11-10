@@ -32,7 +32,7 @@ module Jazzy
       'source.lang.swift.decl.struct' => 'Struct',
       'source.lang.swift.decl.function.subscript' => 'Subscript',
       'source.lang.swift.decl.typealias' => 'Typealias',
-    }
+    }.freeze
 
     # Group root-level docs by kind and add as children to a group doc element
     def self.group_docs(docs, kind)
