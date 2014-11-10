@@ -37,7 +37,7 @@ module Jazzy
 
         opt.on('-o', '--output FOLDER',
                'Folder to output the HTML docs to') do |output|
-          config.output = File.expand_path(output)
+          config.output = Pathname(output)
         end
 
         opt.on('-c', '--[no-]clean',
@@ -86,7 +86,7 @@ module Jazzy
 
         opt.on('-s', '--sourcekitten-sourcefile FILEPATH',
                'XML doc file generated from sourcekitten to parse') do |s|
-          config.sourcekitten_sourcefile = s
+          config.sourcekitten_sourcefile = Pathname(s)
         end
 
         opt.on('-v', '--version', 'Print version number') do
