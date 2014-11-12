@@ -15,6 +15,12 @@ let version = "0.1.8"
 /// File Contents
 var fileContents = NSString()
 
+/// Documented Count
+var documentedCount = 0
+
+/// Undocumented Count
+var undocumentedCount = 0
+
 // MARK: Helper Functions
 
 /**
@@ -125,6 +131,9 @@ func processDictionary(inout dictionary: XPCDictionary,
             let response = sendSourceKitRequest(cursorInfoRequest)
             if response["key.doc.full_as_xml"] != nil {
                 shouldKeep = true
+                documentedCount++
+            } else {
+                undocumentedCount++
             }
             for (key, value) in response {
                 if key == "key.kind" {
@@ -636,6 +645,8 @@ func main() {
     if arguments.count > 1 && arguments[1] == "--single-file" {
         var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
         docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
+        let docCoverage = Int(Float(100*documentedCount)/Float(documentedCount + undocumentedCount))
+        printSTDERR("\(arguments[2].lastPathComponent) is \(docCoverage)% documented")
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
