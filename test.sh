@@ -46,8 +46,9 @@ rm structure.swift
 # Test Documentation Generation
 BICYCLE_FILE="${CURRENT_PATH}/tests/Bicycle.swift"
 BICYCLE_COMMAND="sourcekitten --single-file ${BICYCLE_FILE} -j4 ${BICYCLE_FILE}"
+ESCAPED_CURRENT_PATH=$(echo ${CURRENT_PATH} | sed 's/\//\\\\\\\//g')
 
-doc_result="$(${BICYCLE_COMMAND} 2> /dev/null | jsonlint -s)"
+doc_result="$(${BICYCLE_COMMAND} 2> /dev/null | sed s/${ESCAPED_CURRENT_PATH}/sourcekit_path/g | jsonlint -s)"
 doc_expected="$(cat tests/Bicycle.json | jsonlint -s)"
 if [ "$doc_result" == "$doc_expected" ]; then
     echo "documentation generation passed"
