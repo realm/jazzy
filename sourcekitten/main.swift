@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.8"
+let version = "0.1.9"
 
 /// File Contents
 var fileContents = NSString()
