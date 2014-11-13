@@ -57,15 +57,3 @@ else
     echo "$doc_result"
     exit 1
 fi
-
-# Test Documentation Coverage
-
-doc_coverage_result="$(${BICYCLE_COMMAND} 2>&1 > /dev/null)"
-doc_coverage_expected="Bicycle.swift is 100% documented"
-if [ "$doc_coverage_result" == "$doc_coverage_expected" ]; then
-    echo "documentation coverage passed"
-else
-    echo "documentation coverage failed"
-    echo "$doc_coverage_result"
-    exit 1
-fi

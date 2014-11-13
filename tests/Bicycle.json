@@ -293,5 +293,6 @@
   ],
   "key.offset" : 0,
   "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-  "key.length" : 2371
+  "key.length" : 2371,
+  "key.doc.coverage": 100
 }

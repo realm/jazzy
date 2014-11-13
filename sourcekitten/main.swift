@@ -461,6 +461,7 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
                 insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
         }
     }
+    openResponse["key.doc.coverage"] = Int64(Float(100*documentedCount)/Float(documentedCount + undocumentedCount))
     println(toJSON(openResponse))
 }
 
