@@ -24,6 +24,16 @@ var undocumentedCount = 0
 // MARK: Helper Functions
 
 /**
+Calculates documentation coverage
+*/
+func docCoverage() -> Int {
+    if documentedCount > 0 || undocumentedCount > 0 {
+        return Int(Float(100*documentedCount)/Float(documentedCount + undocumentedCount))
+    }
+    return 0
+}
+
+/**
 Sends a request to SourceKit returns the response as an XPCDictionary.
 
 :param: request Request to send synchronously to SourceKit
@@ -461,7 +471,9 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
                 insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
         }
     }
-    openResponse["key.doc.coverage"] = Int64(Float(100*documentedCount)/Float(documentedCount + undocumentedCount))
+    openResponse["key.doc.coverage"] = Int64(docCoverage())
+    openResponse["key.doc.documented"] = Int64(documentedCount)
+    openResponse["key.doc.undocumented"] = Int64(undocumentedCount)
     println(toJSON(openResponse))
 }
 
@@ -646,8 +658,7 @@ func main() {
     if arguments.count > 1 && arguments[1] == "--single-file" {
         var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
         docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
-        let docCoverage = Int(Float(100*documentedCount)/Float(documentedCount + undocumentedCount))
-        printSTDERR("\(arguments[2].lastPathComponent) is \(docCoverage)% documented")
+        printSTDERR("\(arguments[2].lastPathComponent) is \(docCoverage())% documented")
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
