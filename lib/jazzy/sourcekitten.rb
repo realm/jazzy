@@ -145,14 +145,26 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
 
-    # Parse sourcekitten STDOUT+STDERR output as JSON
+    def self.doc_coverage(sourcekitten_json)
+      documented = sourcekitten_json
+                    .map { |el| el['key.doc.documented'] }
+                    .inject(:+)
+      undocumented = sourcekitten_json
+                      .map { |el| el['key.doc.undocumented'] }
+                      .inject(:+)
+      return 0 if documented == 0 && undocumented == 0
+      (100 * documented) / (undocumented + documented)
+    end
+
+    # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output)
-      docs = make_source_declarations(JSON.parse(sourcekitten_output))
+      sourcekitten_json = JSON.parse(sourcekitten_output)
+      docs = make_source_declarations(sourcekitten_json)
       @kinds.keys.each do |kind|
         docs = group_docs(docs, kind)
       end
-      make_doc_urls(docs, [])
+      [make_doc_urls(docs, []), doc_coverage(sourcekitten_json)]
     end
   end
 end

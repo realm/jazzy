@@ -243,7 +243,8 @@ header {
   margin: 0 auto;
   padding-top: 6px;
   vertical-align: middle;
-  float: left; }
+  float: left;
+  color: #999; }
   .header-text a {
     color: #fff;
     text-decoration: none; }
