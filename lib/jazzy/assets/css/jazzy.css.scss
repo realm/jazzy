@@ -1,3 +1,5 @@
+$doc_coverage_color: #999;
+
 html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr, td {
   background: transparent;
   border: 0;
@@ -297,6 +299,7 @@ header {
   padding-top: 6px;
   vertical-align: middle;
   float: left;
+  color: $doc_coverage_color;
   a {
     color: #fff;
     text-decoration: none;

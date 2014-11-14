@@ -11,7 +11,7 @@
     <a title="{{name}} {{kind}} Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p class="header-text"><a href="#">{{module_name}} Docs</a></p>
+        <p class="header-text"><a href="{{path_to_root}}index.html">{{module_name}} Docs</a> ({{doc_coverage}}% documented)</p>
         {{#github_url}}
         <p id="header-links"><a href="{{github_url}}"><img id="header-icon" src="{{path_to_root}}img/gh.png" height="16px" width="16px" />View on GitHub</a></p>
         {{/github_url}}
@@ -23,7 +23,7 @@
     <section id="valence">
       <div class="content-wrapper">
         <p id="hierarchial_navigation">
-        <a href="#" id="design_resources_link">{{module_name}} Reference</a>
+        <a href="{{path_to_root}}index.html" id="design_resources_link">{{module_name}} Reference</a>
         <img id="carat" src="{{path_to_root}}img/carat.png" height="10px" width="6px" />
         {{name}} {{kind}} Reference
         </p>
