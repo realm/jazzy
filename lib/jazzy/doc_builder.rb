@@ -165,10 +165,11 @@ module Jazzy
         usr: item.usr,
       }
       gh_token_url = gh_token_url(item, source_module)
-      item_render[:github_token_url] = gh_token_url if gh_token_url
+      item_render[:github_token_url] = gh_token_url
       item_render[:return] = Jazzy.markdown.render(item.return) if item.return
       item_render[:parameters] = item.parameters if item.parameters.length > 0
-      item_render
+      item_render[:url] = item.url if item.children.count > 0
+      item_render.reject { |_, v| v.nil? } # remove nil values
     end
 
     # Render tasks for Mustache document
