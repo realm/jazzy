@@ -1,5 +1,5 @@
-## jazzy <sup>♪♫</sup>
-**a soulful way to generate docs for Swift & Objective-C**
+![jazzy](logo.jpg)
+
 ![analytics](https://ga-beacon.appspot.com/UA-50247013-2/jazzy/README?pixel)
 
 ![Test Status](https://travis-ci.org/realm/jazzy.svg?branch=master)
