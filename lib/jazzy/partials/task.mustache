@@ -1,9 +1,13 @@
 <div class="task-group">
   <div class="task-name-container">
+    {{#pre_separator}}<hr/>{{/pre_separator}}
     <a name="/{{uid}}"></a>
+    {{#name}}
     <a href="#/{{uid}}">
       <h3 class="section-name">{{name}}</h3>
     </a>
+    {{/name}}
+    {{#post_separator}}<hr/>{{/post_separator}}
   </div>
   <ul class="task-group-list">
     {{#items}}

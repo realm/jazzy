@@ -4,6 +4,7 @@ require 'pathname'
 
 require 'jazzy/config'
 require 'jazzy/source_declaration'
+require 'jazzy/source_mark'
 require 'jazzy/xml_helper'
 
 module Jazzy
@@ -117,6 +118,7 @@ module Jazzy
     # rubocop:disable Metrics/MethodLength
     def self.make_source_declarations(docs)
       declarations = []
+      current_mark = SourceMark.new
       docs.each do |doc|
         if doc.key?('key.diagnostic_stage')
           declarations += make_source_declarations(doc['key.substructure'])
@@ -124,6 +126,10 @@ module Jazzy
         end
         declaration = SourceDeclaration.new
         declaration.kind = doc['key.kind']
+        if declaration.kind == 'source.lang.swift.syntaxtype.comment.mark' &&
+          doc['key.name'].start_with?('MARK: ')
+          current_mark = SourceMark.new(doc['key.name'])
+        end
         next unless declaration.kind =~ /^source\.lang\.swift\.decl\..*/
 
         unless declaration.kindName = @kinds[declaration.kind]
@@ -136,6 +142,7 @@ module Jazzy
         declaration.file = doc['key.filepath']
         declaration.usr = doc['key.usr']
         declaration.name = doc['key.name']
+        declaration.mark = current_mark
 
         make_doc_info(doc, declaration)
         make_substructure(doc, declaration)

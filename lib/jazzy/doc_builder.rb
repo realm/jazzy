@@ -172,25 +172,34 @@ module Jazzy
       item_render.reject { |_, v| v.nil? }
     end
 
+    def self.make_task(mark, uid, items)
+      {
+        name: mark.name,
+        uid: URI.encode(uid),
+        items: items,
+        pre_separator: mark.has_start_dash,
+        post_separator: mark.has_end_dash,
+      }
+    end
+
     # Render tasks for Mustache document
     # @param [Config] options Build options
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
-    def self.render_tasks(source_module, doc_model)
-      tasks = []
-      # @todo parse mark-style comments and use as task names
-      tasknames = ['Children']
-      tasknames.each do |taskname|
-        items = []
-        doc_model.children.each do |item|
-          items << render_item(item, source_module)
+    def self.render_tasks(source_module, children)
+      marks = children.map(&:mark).uniq
+      mark_names_counts = {}
+      marks.map do |mark|
+        mark_children = children.select { |child| child.mark == mark }
+        items = mark_children.map { |child| render_item(child, source_module) }
+        uid = "#{mark.name || 'Unnamed'}"
+        if mark_names_counts.key?(uid)
+          mark_names_counts[uid] += 1
+          uid += "#{mark_names_counts[uid]}"
+        else
+          mark_names_counts[uid] = 1
         end
-        tasks << {
-          name: '',
-          uid: URI.encode(taskname),
-          items: items,
-        }
+        make_task(mark, uid, items)
       end
-      tasks
     end
 
     # Build Mustache document from single parsed doc
@@ -211,7 +220,7 @@ module Jazzy
       doc[:kind] = doc_model.kindName
       doc[:overview] = Jazzy.markdown.render(doc_model.abstract || '')
       doc[:structure] = source_module.doc_structure
-      doc[:tasks] = render_tasks(source_module, doc_model)
+      doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:author_website] = source_module.author_url
