@@ -12,10 +12,15 @@ module Jazzy
     end
 
     def header(text, header_level)
-      text_slug = text.gsub(/[^a-zA-Z0-9]+/, '_').downcase.sub(/^_/, '').sub(/_$/, '')
+      text_slug = text.gsub(/[^a-zA-Z0-9]+/, '_')
+        .downcase
+        .sub(/^_/, '')
+        .sub(/_$/, '')
 
-      "<a href='##{text_slug}' class='anchor' aria-hidden=true><span class='header-anchor'></span></a>" \
-      "<h#{header_level} id='#{text_slug}'>#{text}</h#{header_level}>"
+      "<a href='##{text_slug}' class='anchor' aria-hidden=true>" \
+        '<span class="header-anchor"></span>' \
+      '</a>' \
+      "<h#{header_level} id='#{text_slug}'>#{text}</h#{header_level}>\n"
     end
 
     OPTIONS = {

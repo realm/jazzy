@@ -14,7 +14,7 @@ module Jazzy
     end
 
     def self.readme_path
-      ['README.md', 'README.markdown', 'README.mdown', 'README'].each do |potential_name|
+      %w(README.md README.markdown README.mdown README).each do |potential_name|
         if File.exist? potential_name
           return potential_name
         end
