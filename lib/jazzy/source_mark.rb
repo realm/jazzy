@@ -8,7 +8,7 @@ module Jazzy
       return unless mark_string
 
       # Format: 'MARK: - NAME -' with dashes optional
-      mark_string = mark_string[6..-1] # Remove 'MARK: '
+      mark_string.sub!(/^MARK: /, '')
 
       if mark_string.length == 0
         # Empty
