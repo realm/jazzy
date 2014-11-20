@@ -1,26 +1,16 @@
-require 'rest'
 require 'jazzy/jazzy_markdown'
 
 module Jazzy
   module ReadmeGenerator
-    def self.generate(config)
-      readme = config.readme_path || readme_path
+    def self.generate(source_module)
+      readme = readme_path
 
       unless readme && File.exist?(readme) && readme = File.read(readme)
-        readme = generated_readme(config)
+        readme = generated_readme(source_module)
       end
 
-      rendered_readme = github_readme(readme) || Jazzy.markdown(readme)
+      rendered_readme = Jazzy.markdown.render(readme)
       "<div class='readme'>#{rendered_readme}</div>"
-    end
-
-    def self.github_readme(readme)
-      response = REST.post(
-        'https://api.github.com/markdown/raw',
-        readme,
-        'Content-Type' => 'text/x-markdown',
-      )
-      response.body.force_encoding('utf-8') if response.success?
     end
 
     def self.readme_path
@@ -32,13 +22,13 @@ module Jazzy
       nil
     end
 
-    def self.generated_readme(config)
+    def self.generated_readme(source_module)
       %(
-# #{ config.module_name }
+# #{ source_module.name }
 
 ### Authors
 
-#{ config.author_name }
+#{ source_module.author_name }
       )
     end
   end

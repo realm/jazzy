@@ -442,3 +442,253 @@ td {
   position: fixed;
   width: 734px;
   z-index: -1; }
+
+.readme {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  color: #414141;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word; }
+  .readme a {
+    background: transparent; }
+    .readme a:active, .readme a:hover {
+      outline: 0; }
+  .readme strong {
+    font-weight: bold; }
+  .readme h1 {
+    font-size: 2em;
+    margin: 0.67em 0; }
+  .readme img {
+    border: 0; }
+  .readme hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0; }
+  .readme pre {
+    overflow: auto; }
+  .readme code,
+  .readme kbd,
+  .readme pre {
+    font-family: monospace, monospace;
+    font-size: 1em; }
+  .readme table {
+    border-collapse: collapse;
+    border-spacing: 0; }
+  .readme td,
+  .readme th {
+    padding: 0; }
+  .readme * {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  .readme a {
+    color: #4183c4;
+    text-decoration: none; }
+    .readme a:hover, .readme a:focus, .readme a:active {
+      text-decoration: underline; }
+  .readme hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #ddd; }
+    .readme hr:before {
+      display: table;
+      content: ""; }
+    .readme hr:after {
+      display: table;
+      clear: both;
+      content: ""; }
+  .readme h1,
+  .readme h2,
+  .readme h3,
+  .readme h4,
+  .readme h5,
+  .readme h6 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 1.1; }
+  .readme h1 {
+    font-size: 30px; }
+  .readme h2 {
+    font-size: 21px; }
+  .readme h3 {
+    font-size: 16px; }
+  .readme h4 {
+    font-size: 14px; }
+  .readme h5 {
+    font-size: 12px; }
+  .readme h6 {
+    font-size: 11px; }
+  .readme blockquote {
+    margin: 0; }
+  .readme ul,
+  .readme ol {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0; }
+  .readme ol ol,
+  .readme ul ol {
+    list-style-type: lower-roman; }
+  .readme ul ul ol,
+  .readme ul ol ol,
+  .readme ol ul ol,
+  .readme ol ol ol {
+    list-style-type: lower-alpha; }
+  .readme dd {
+    margin-left: 0; }
+  .readme code {
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+  .readme pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+  .readme > *:first-child {
+    margin-top: 0 !important; }
+  .readme > *:last-child {
+    margin-bottom: 0 !important; }
+  .readme h1,
+  .readme h2,
+  .readme h3,
+  .readme h4,
+  .readme h5,
+  .readme h6 {
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 16px;
+    font-weight: bold;
+    line-height: 1.4; }
+  .readme h1 {
+    padding-bottom: 0.3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee; }
+  .readme h2 {
+    padding-bottom: 0.3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee; }
+  .readme h3 {
+    font-size: 1.5em;
+    line-height: 1.43; }
+  .readme h4 {
+    font-size: 1.25em; }
+  .readme h5 {
+    font-size: 1em; }
+  .readme h6 {
+    font-size: 1em;
+    color: #777; }
+  .readme p,
+  .readme blockquote,
+  .readme ul,
+  .readme ol,
+  .readme dl,
+  .readme table,
+  .readme pre {
+    margin-top: 0;
+    margin-bottom: 16px; }
+  .readme hr {
+    height: 4px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none; }
+  .readme ul,
+  .readme ol {
+    padding-left: 2em; }
+  .readme ul ul,
+  .readme ul ol,
+  .readme ol ol,
+  .readme ol ul {
+    margin-top: 0;
+    margin-bottom: 0; }
+  .readme li > p {
+    margin-top: 16px; }
+  .readme dl {
+    padding: 0; }
+    .readme dl dt {
+      padding: 0;
+      margin-top: 16px;
+      font-size: 1em;
+      font-style: italic;
+      font-weight: bold; }
+    .readme dl dd {
+      padding: 0 16px;
+      margin-bottom: 16px; }
+  .readme blockquote {
+    padding: 0 15px;
+    color: #777;
+    border-left: 4px solid #ddd; }
+    .readme blockquote > :first-child {
+      margin-top: 0; }
+    .readme blockquote > :last-child {
+      margin-bottom: 0; }
+  .readme table {
+    display: block;
+    width: 100%;
+    overflow: auto;
+    word-break: normal;
+    word-break: keep-all; }
+    .readme table th {
+      font-weight: bold; }
+    .readme table th, .readme table td {
+      padding: 6px 13px;
+      border: 1px solid #ddd; }
+    .readme table tr {
+      background-color: #fff;
+      border-top: 1px solid #ccc; }
+      .readme table tr:nth-child(2n) {
+        background-color: #f8f8f8; }
+  .readme img {
+    max-width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  .readme code {
+    padding: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 3px; }
+    .readme code:after, .readme code:before {
+      letter-spacing: -0.2em;
+      content: "\00a0"; }
+  .readme pre > code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0; }
+  .readme .highlight {
+    margin-bottom: 16px; }
+  .readme .highlight pre,
+  .readme pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border-radius: 3px; }
+  .readme .highlight pre {
+    margin-bottom: 0;
+    word-break: normal; }
+  .readme pre {
+    word-wrap: normal; }
+    .readme pre code {
+      display: inline;
+      max-width: initial;
+      padding: 0;
+      margin: 0;
+      overflow: initial;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0; }
+      .readme pre code:before, .readme pre code:after {
+        content: normal; }

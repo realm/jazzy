@@ -126,10 +126,7 @@ module Jazzy
     def self.document_index(source_module, path_to_root)
       doc = Doc.new # Mustache model instance
       doc[:name] = source_module.name
-      doc[:overview] = Jazzy.markdown.render(
-        "This is the index page for #{source_module.name} docs. " \
-        'Navigate using the links on the left.',
-      )
+      doc[:overview] = ReadmeGenerator.generate(source_module)
       doc[:doc_coverage] = source_module.doc_coverage
       doc[:structure] = source_module.doc_structure
       doc[:module_name] = source_module.name
@@ -143,7 +140,6 @@ module Jazzy
 
     # Construct Github token URL
     # @param [Hash] item Parsed doc child item
-        doc[:overview] = ReadmeGenerator.generate(options)
     # @param [Config] options Build options
     def self.gh_token_url(item, source_module)
       if source_module.github_file_prefix && item.file
