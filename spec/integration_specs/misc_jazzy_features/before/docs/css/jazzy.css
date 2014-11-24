@@ -559,3 +559,51 @@ td {
   width: 734px;
   z-index: -1;
 }
+
+.readme {
+  font-size: 12pt;
+  font-family: Helvetica;
+  color: rgba(65, 65, 65, 1);
+  line-height: 145%;
+}
+
+.readme blockquote {
+  color: rgba(165, 165, 165, 1);
+  border-left: 4px solid #ddd;
+  padding: 0 1em;
+  margin-left: 0;
+}
+
+.readme ol, ul {
+  padding-left: 1.5em;
+}
+
+.readme p {
+  margin-bottom: 15px;
+}
+
+.readme h1 {
+  font-size: 175%;
+  margin-bottom: 2em;
+}
+
+.readme h3 {
+  font-size: 125%;
+  margin-bottom: 1em;
+}
+
+.readme pre {
+  overflow: scroll;
+  padding: 1.125em;
+}
+
+.readme pre, code {
+  background-color: #ebebeb;
+}
+
+.readme hr {
+  background-color: #ccc;
+  border: 0;
+  height: 4px;
+  padding: 0;
+}

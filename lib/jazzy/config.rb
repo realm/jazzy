@@ -13,6 +13,7 @@ module Jazzy
     attr_accessor :dash_url
     attr_accessor :sourcekitten_sourcefile
     attr_accessor :clean
+    attr_accessor :readme_path
 
     def initialize
       self.output = Pathname('docs')
