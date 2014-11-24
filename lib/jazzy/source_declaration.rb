@@ -15,5 +15,6 @@ module Jazzy
     attr_accessor :children
     attr_accessor :parameters
     attr_accessor :url
+    attr_accessor :mark
   end
 end
