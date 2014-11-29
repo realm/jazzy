@@ -1,0 +1,16 @@
+id,name,type,path
+1,DocumentedValue,Element,Enums/DocumentedEnum.html#/s:FO17MiscJazzyFeatures14DocumentedEnum15DocumentedValueFMS0_S0_
+2,DocumentedEnum,Enum,Enums/DocumentedEnum.html
+3,documentedGlobal,Global,"Global Variables.html#/s:v17MiscJazzyFeatures16documentedGlobalSb"
+4,NestedClass,Class,Classes/ImplicitlyInternalTopLevelClass.html#/s:CC17MiscJazzyFeatures31ImplicitlyInternalTopLevelClass11NestedClass
+5,ImplicitlyInternalTopLevelClass,Class,Classes/ImplicitlyInternalTopLevelClass.html
+6,ExplicitlyInternalTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures31ExplicitlyInternalTopLevelClass
+7,PrivateTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeaturesP33_72F27992F5E059C6D84AD5FC86B1B76B20PrivateTopLevelClass
+8,PublicTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures19PublicTopLevelClass
+9,ObjCTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures17ObjCTopLevelClass
+10,TopLevelObjCSubclass,Class,Classes.html#/s:C17MiscJazzyFeatures20TopLevelObjCSubclass
+11,TopLevelSwiftSubclass,Class,Classes.html#/s:C17MiscJazzyFeatures21TopLevelSwiftSubclass
+12,Classes,,Classes.html
+13,"Global Variables",,"Global Variables.html"
+14,Enums,,Enums.html
+15,index,,

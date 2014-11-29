@@ -57,6 +57,13 @@ CLIntegracon.configure do |c|
   c.ignores '.git'
   c.ignores /^(?!(docs\/|execution_output.txt))/
 
+  # Transform produced databases to csv
+  c.transform_produced '**/*.dsidx' do |path|
+    File.open("#{path}.csv", 'w') do |file|
+      file.write `sqlite3 -header -csv #{path} "select * from searchIndex;"`
+    end
+  end
+
   c.hook_into :bacon
 end
 
