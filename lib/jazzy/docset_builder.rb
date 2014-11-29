@@ -2,6 +2,7 @@ require 'sqlite3'
 
 module Jazzy
   module DocBuilder
+    # Follows the instructions found at http://kapeli.com/docsets#dashDocset.
     class DocsetBuilder
       attr_reader :output_dir
       attr_reader :source_module
