@@ -25,6 +25,7 @@ module Jazzy
 
       private
 
+      # rubocop:disable Metrics/MethodLength, Metrics/LineLength
       def write_plist
         info_plist_path = docset_dir + 'Contents/Info.plist'
         info_plist_path.open('w') do |plist|
@@ -52,6 +53,7 @@ module Jazzy
           INFO_PLIST
         end
       end
+      # rubocop:enable Metrics/MethodLength, Metrics/LineLength
 
       def copy_docs
         files_to_copy = Dir.glob(output_dir + '**/*')
@@ -63,10 +65,13 @@ module Jazzy
       def create_index
         search_index_path = docset_dir + 'Contents/Resources/docSet.dsidx'
         SQLite3::Database.new(search_index_path.to_s) do |db|
-          db.execute('CREATE TABLE searchIndex(id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT);')
-          db.execute('CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);')
+          db.execute('CREATE TABLE searchIndex(' \
+            'id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT);')
+          db.execute('CREATE UNIQUE INDEX anchor ON ' \
+            'searchIndex (name, type, path);')
           source_module.all_declarations.each do |doc|
-            db.execute("INSERT OR IGNORE INTO searchIndex(name, type, path) VALUES (?, ?, ?);", [doc.name, doc.dash_type, doc.url])
+            db.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) ' \
+              'VALUES (?, ?, ?);', [doc.name, doc.dash_type, doc.url])
           end
         end
       end
