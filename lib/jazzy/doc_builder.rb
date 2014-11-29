@@ -63,24 +63,28 @@ module Jazzy
     # @param [String] output_dir Root directory to write docs
     # @param [Array] docs Array of structured docs
     # @param [Config] options Build options
-    # @param [Integer] depth Number of parents. Used to calculate path_to_root
-    #        for web.
     # @param [Array] doc_structure @see #doc_structure_for_docs
-    def self.build_docs(output_dir, docs, source_module, depth)
-      docs.each do |doc|
-        next if doc.name != 'index' && doc.children.count == 0
-        prepare_output_dir(output_dir, false)
-        path = output_dir + "#{doc.name}.html"
+    def self.build_docs(output_dir, docs, source_module)
+      each_doc(output_dir, docs) do |doc, path, depth|
+        prepare_output_dir(path.parent, false)
         path_to_root = ['../'].cycle(depth).to_a.join('')
         path.open('w') do |file|
           file.write(document(source_module, doc, path_to_root))
         end
+      end
+    end
+
+    def self.each_doc(output_dir, docs, depth = 0, &block)
+      docs.each do |doc|
+        next if doc.name != 'index' && doc.children.count == 0
+        path = output_dir + "#{doc.name}.html"
+        block.call(doc, path, depth)
         next if doc.name == 'index'
-        build_docs(
+        each_doc(
           output_dir + doc.name,
           doc.children,
-          source_module,
           depth + 1,
+          &block
         )
       end
     end
@@ -102,7 +106,7 @@ module Jazzy
       end
 
       source_module = SourceModule.new(options, docs, structure, coverage)
-      build_docs(output_dir, source_module.docs, source_module, 0)
+      build_docs(output_dir, source_module.docs, source_module)
 
       copy_assets(output_dir)
 
