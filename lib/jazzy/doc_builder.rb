@@ -96,7 +96,10 @@ module Jazzy
 
       structure = doc_structure_for_docs(docs)
 
-      docs << SourceDeclaration.new.tap { |sd| sd.name = 'index' }
+      docs << SourceDeclaration.new.tap do |sd|
+        sd.name = 'index'
+        sd.children = []
+      end
 
       source_module = SourceModule.new(options, docs, structure, coverage)
       build_docs(output_dir, source_module.docs, source_module, 0)
