@@ -6,6 +6,7 @@ require 'sass'
 
 require 'jazzy/config'
 require 'jazzy/doc'
+require 'jazzy/docset_builder'
 require 'jazzy/jazzy_markdown'
 require 'jazzy/readme_generator'
 require 'jazzy/source_declaration'
@@ -109,6 +110,8 @@ module Jazzy
       build_docs(output_dir, source_module.docs, source_module)
 
       copy_assets(output_dir)
+
+      DocsetBuilder.new(output_dir, source_module).build!
 
       puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
     end
