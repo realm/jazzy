@@ -171,6 +171,7 @@ module Jazzy
         abstract: Jazzy.markdown.render(abstract),
         declaration: item.declaration,
         usr: item.usr,
+        dash_type: item.dash_type,
       }
       gh_token_url = gh_token_url(item, source_module)
       item_render[:github_token_url] = gh_token_url
@@ -226,6 +227,7 @@ module Jazzy
       doc[:doc_coverage] = source_module.doc_coverage
       doc[:name] = doc_model.name
       doc[:kind] = doc_model.kindName
+      doc[:dash_type] = doc_model.dash_type
       doc[:overview] = Jazzy.markdown.render(doc_model.abstract || '')
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)

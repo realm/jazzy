@@ -16,5 +16,32 @@ module Jazzy
     attr_accessor :parameters
     attr_accessor :url
     attr_accessor :mark
+
+    DASH_TYPES = {
+      'Class Method' => 'Method',
+      'Class Variable' => 'Variable',
+      'Class' => 'Class',
+      'Constructor' => 'Constructor',
+      'Destructor' => 'Method',
+      'Global Variable' => 'Global',
+      'Enum Element' => 'Element',
+      'Enum' => 'Enum',
+      'Extension' => 'Extension',
+      'Function' => 'Function',
+      'Instance Method' => 'Method',
+      'Instance Variable' => 'Property',
+      'Local Variable' => 'Variable',
+      'Parameter' => 'Parameter',
+      'Protocol' => 'Protocol',
+      'Static Method' => 'Method',
+      'Static Variable' => 'Variable',
+      'Struct' => 'Struct',
+      'Subscript' => 'Operator',
+      'Typealias' => 'Type',
+    }.freeze
+
+    def dash_type
+      DASH_TYPES[kindName] || kindName
+    end
   end
 end
