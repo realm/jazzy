@@ -80,6 +80,7 @@ module Jazzy
       declaration.column = 0
       declaration.abstract = 'Undocumented'
       declaration.parameters = []
+      declaration.children = []
     end
 
     def self.make_doc_info(doc, declaration)
