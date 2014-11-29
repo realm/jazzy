@@ -26,7 +26,8 @@ module Jazzy
 
       def write_plist
         info_plist_path = docset_dir + 'Contents/Info.plist'
-        info_plist_path.write <<-INFO_PLIST
+        info_plist_path.open('w') do |plist|
+          plist << <<-INFO_PLIST
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -47,7 +48,8 @@ module Jazzy
       <string>dashtoc</string>
   </dict>
 </plist>
-        INFO_PLIST
+          INFO_PLIST
+        end
       end
 
       def copy_docs
