@@ -63,6 +63,8 @@ CLIntegracon.configure do |c|
       file.write `sqlite3 -header -csv #{path} "select * from searchIndex;"`
     end
   end
+  # Now that we're comparing the CSV, we don't care about the binary
+  c.ignores '**/*.dsidx'
 
   c.hook_into :bacon
 end
