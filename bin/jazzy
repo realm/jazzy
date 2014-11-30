@@ -12,4 +12,4 @@ end
 
 require 'jazzy'
 
-Jazzy::DocBuilder.build(Jazzy::Config.parse!)
+Jazzy::DocBuilder.build(Jazzy::Config.instance = Jazzy::Config.parse!)

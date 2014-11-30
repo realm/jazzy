@@ -103,5 +103,35 @@ module Jazzy
 
       config
     end
+
+    #-------------------------------------------------------------------------#
+
+    # @!group Singleton
+
+    # @return [Config] the current config instance creating one if needed.
+    #
+    def self.instance
+      @instance ||= new
+    end
+
+    # Sets the current config instance. If set to nil the config will be
+    # recreated when needed.
+    #
+    # @param  [Config, Nil] the instance.
+    #
+    # @return [void]
+    #
+    class << self
+      attr_writer :instance
+    end
+
+    # Provides support for accessing the configuration instance in other
+    # scopes.
+    #
+    module Mixin
+      def config
+        Config.instance
+      end
+    end
   end
 end
