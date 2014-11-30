@@ -695,3 +695,14 @@ td {
       border: 0; }
       .readme pre code:before, .readme pre code:after {
         content: normal; }
+
+html.dash .book-parts {
+  display: none;
+  width: 0; }
+html.dash .chapter {
+  width: 980px;
+  margin-left: 0; }
+html.dash #reference .height-container {
+  display: block; }
+html.dash #reference .x-instance-method {
+  margin-left: 0; }
