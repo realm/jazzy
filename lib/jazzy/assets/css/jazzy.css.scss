@@ -1,4 +1,5 @@
 $doc_coverage_color: #999;
+$content_wrapper_width: 980px;
 
 html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr, td {
   background: transparent;
@@ -239,7 +240,7 @@ a[name] {
 .content-wrapper {
   background-color: rgba(242, 242, 242, 1);
   margin: 0 auto;
-  width: 980px;
+  width: $content_wrapper_width;
 }
 
 .pixel-line {
@@ -851,6 +852,25 @@ td {
       &:after {
         content: normal;
       }
+    }
+  }
+}
+
+html.dash {
+  .book-parts {
+    display: none;
+    width: 0;
+  }
+  .chapter {
+    width: $content_wrapper_width;
+    margin-left: 0;
+  }
+  #reference {
+    .height-container {
+      display: block;
+    }
+    .x-instance-method {
+      margin-left: 0;
     }
   }
 }
