@@ -3,7 +3,7 @@
   <head>
     <title>Request Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
-    <link rel="stylesheet" type="text/css" href="../css/github_syntax_highlighting.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
@@ -190,7 +190,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public var task: NSURLSessionTask { get }</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">var </span><span class="ow">task:</span> <span class="kt">NSURLSessionTask </span>{ <span class="ow">get </span>}</code>
                           </p>
                         </div>
                       </div>
@@ -220,7 +220,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public typealias Serializer = (NSURLRequest, NSHTTPURLResponse?, NSData?) -&gt; (AnyObject?, NSError?)</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">typealias </span><span class="ow">Serializer </span>= (<span class="kt">NSURLRequest,</span> <span class="kt">NSHTTPURLResponse?</span>, <span class="kt">NSData?</span>) -> (<span class="kt">AnyObject?</span>, <span class="kt">NSError?</span>)</code>
                           </p>
                         </div>
                       </div>
@@ -250,7 +250,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public let session: NSURLSession</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">let </span><span class="ow">session:</span> <span class="kt">NSURLSession</span></code>
                           </p>
                         </div>
                       </div>
@@ -280,7 +280,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public var request: NSURLRequest { get }</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">var </span><span class="ow">request:</span> <span class="kt">NSURLRequest </span>{ <span class="ow">get </span>}</code>
                           </p>
                         </div>
                       </div>
@@ -310,7 +310,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public var response: NSHTTPURLResponse? { get }</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">var </span><span class="ow">response:</span> <span class="kt">NSHTTPURLResponse?</span> { <span class="ow">get </span>}</code>
                           </p>
                         </div>
                       </div>
@@ -340,7 +340,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public var progress: NSProgress? { get }</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">var </span><span class="ow">progress:</span> <span class="kt">NSProgress?</span> { <span class="ow">get </span>}</code>
                           </p>
                         </div>
                       </div>
@@ -382,7 +382,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func authenticate(#user: String, password: String) -&gt; Self</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">authenticate(</span>#<span class="ow">user:</span> <span class="kt">String,</span> <span class="ow">password:</span> <span class="kt">String)</span> -> <span class="kt">Self</span></code>
                           </p>
                         </div>
                       </div>
@@ -447,7 +447,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func authenticate(usingCredential credential: NSURLCredential) -&gt; Self</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">authenticate(</span><span class="ow">usingCredential </span><span class="ow">credential:</span> <span class="kt">NSURLCredential)</span> -> <span class="kt">Self</span></code>
                           </p>
                         </div>
                       </div>
@@ -512,7 +512,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func progress(closure: ((Int64, Int64, Int64) -&gt; Void)? = default) -&gt; Self</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">progress(</span><span class="ow">closure:</span> ((<span class="kt"><span class="kt">Int64,</span></span> Int64, <span class="kt">Int64)</span> -> <span class="kt">Void)</span>? = <span class="k">default)</span> -> <span class="kt">Self</span></code>
                           </p>
                         </div>
                       </div>
@@ -577,7 +577,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public class func responseDataSerializer() -&gt; Serializer</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">class </span><span class="k">func </span><span class="ow">responseData<span class="kt">Serializer</span>(</span>) -> Serializer</code>
                           </p>
                         </div>
                       </div>
@@ -611,7 +611,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func response(completionHandler: (NSURLRequest, NSHTTPURLResponse?, AnyObject?, NSError?) -&gt; Void) -&gt; Self</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">response(</span><span class="ow">completionHandler:</span> (<span class="kt">NSURLRequest,</span> <span class="kt">NSHTTPURLResponse?</span>, <span class="kt">AnyObject?</span>, <span class="kt">NSError?</span>) -> <span class="kt">Void)</span> -> <span class="kt">Self</span></code>
                           </p>
                         </div>
                       </div>
@@ -664,7 +664,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func response(queue: dispatch_queue_t? = default, serializer: Serializer, completionHandler: (NSURLRequest, NSHTTPURLResponse?, AnyObject?, NSError?) -&gt; Void) -&gt; Self</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">response(</span><span class="ow">queue:</span> <span class="kt">dispatch_queue_t?</span> = <span class="k">default,</span> <span class="ow">serializer:</span> <span class="kt">Serializer,</span> <span class="ow">completionHandler:</span> (<span class="kt">NSURLRequest,</span> <span class="kt">NSHTTPURLResponse?</span>, <span class="kt">AnyObject?</span>, <span class="kt">NSError?</span>) -> <span class="kt">Void)</span> -> <span class="kt">Self</span></code>
                           </p>
                         </div>
                       </div>
@@ -741,7 +741,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func suspend()</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">suspend(</span>)</code>
                           </p>
                         </div>
                       </div>
@@ -771,7 +771,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func resume()</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">resume(</span>)</code>
                           </p>
                         </div>
                       </div>
@@ -801,7 +801,7 @@
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
                           <p class="para">
-                          <code>public func cancel()</code>
+                          <code class="highlight swift"><span class="nb">public </span><span class="k">func </span><span class="ow">cancel(</span>)</code>
                           </p>
                         </div>
                       </div>

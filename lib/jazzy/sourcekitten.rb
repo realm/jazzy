@@ -6,6 +6,7 @@ require 'jazzy/config'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/xml_helper'
+require 'jazzy/swift_highlighting'
 
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
@@ -82,26 +83,26 @@ module Jazzy
     end
 
     def self.make_doc_info(doc, declaration)
-      if doc['key.doc.full_as_xml']
-        xml = Nokogiri::XML(doc['key.doc.full_as_xml']).root
-        declaration.line = XMLHelper.attribute(xml, 'line').to_i
-        declaration.column = XMLHelper.attribute(xml, 'column').to_i
-        declaration.declaration = XMLHelper.xpath(xml, 'Declaration')
-        declaration.abstract = XMLHelper.xpath(xml, 'Abstract')
-        declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
-        declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
+      xml_key = 'key.doc.full_as_xml'
+      return make_default_doc_info(declaration) unless doc[xml_key]
 
-        declaration.parameters = []
-        xml.xpath('Parameters/Parameter').each do |parameter_el|
-          declaration.parameters << {
-            name: XMLHelper.xpath(parameter_el, 'Name'),
-            discussion: Jazzy.markdown.render(
-                XMLHelper.xpath(parameter_el, 'Discussion'),
-              ),
-          }
-        end
-      else
-        make_default_doc_info(declaration)
+      xml = Nokogiri::XML(doc[xml_key]).root
+      declaration.line = XMLHelper.attribute(xml, 'line').to_i
+      declaration.column = XMLHelper.attribute(xml, 'column').to_i
+      decl = XMLHelper.xpath(xml, 'Declaration')
+      declaration.declaration = SwiftHighlighting.highlight(decl)
+      declaration.abstract = XMLHelper.xpath(xml, 'Abstract')
+      declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
+      declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
+
+      declaration.parameters = []
+      xml.xpath('Parameters/Parameter').each do |parameter_el|
+        declaration.parameters << {
+          name: XMLHelper.xpath(parameter_el, 'Name'),
+          discussion: Jazzy.markdown.render(
+              XMLHelper.xpath(parameter_el, 'Discussion'),
+            ),
+        }
       end
     end
 
