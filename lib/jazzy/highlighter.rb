@@ -1,8 +1,8 @@
 require 'jazzy/sourcekitten'
 
 module Jazzy
-  # This module helps highlight Swift code
-  module SwiftHighlighting
+  # This module helps highlight code
+  module Highlighter
     # Syntax type mapping between SourceKit and highlight.css
     @types = {
       'comment' => 'c',            # Comment
@@ -17,7 +17,7 @@ module Jazzy
     }.freeze
 
     # Returns Swift string with proper HTML spans for code highlighting
-    def self.highlight(swift_string)
+    def self.highlight_swift(swift_string)
       syntax_json = SourceKitten.run_sourcekitten(
         ['--syntax-text', "\"#{swift_string}\""],
       )

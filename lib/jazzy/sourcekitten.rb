@@ -6,7 +6,7 @@ require 'jazzy/config'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/xml_helper'
-require 'jazzy/swift_highlighting'
+require 'jazzy/highlighter'
 
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
@@ -90,7 +90,7 @@ module Jazzy
       declaration.line = XMLHelper.attribute(xml, 'line').to_i
       declaration.column = XMLHelper.attribute(xml, 'column').to_i
       decl = XMLHelper.xpath(xml, 'Declaration')
-      declaration.declaration = SwiftHighlighting.highlight(decl)
+      declaration.declaration = Highlighter.highlight_swift(decl)
       declaration.abstract = XMLHelper.xpath(xml, 'Abstract')
       declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
       declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
