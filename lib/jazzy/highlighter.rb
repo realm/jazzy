@@ -29,10 +29,10 @@ module Jazzy
         type = syntax_info['type']
                 .sub(/^source\.lang\.swift\.syntaxtype\./, '')
         css_type = @types[type]
-        substring = swift_string[offset..(offset + length)]
+        substring = swift_string[offset, length]
         replacement_string = "<span class=\"#{css_type}\">#{substring}</span>"
         total_offset += replacement_string.length - substring.length
-        swift_string.sub!(substring, replacement_string)
+        swift_string[offset, length] = replacement_string
       end
       swift_string
     end
