@@ -7,6 +7,9 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
   padding: 0;
   vertical-align: baseline; }
 
+#reference .declaration .Swift pre {
+  white-space: pre-wrap;
+  font-size: 140%; }
 #reference .x-instance-method.Swift {
   margin-left: 15px; }
 #reference .chapter {

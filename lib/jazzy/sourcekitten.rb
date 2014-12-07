@@ -90,7 +90,7 @@ module Jazzy
       declaration.line = XMLHelper.attribute(xml, 'line').to_i
       declaration.column = XMLHelper.attribute(xml, 'column').to_i
       decl = XMLHelper.xpath(xml, 'Declaration')
-      declaration.declaration = Highlighter.highlight_swift(decl)
+      declaration.declaration = Highlighter.highlight(decl, 'swift')
       declaration.abstract = XMLHelper.xpath(xml, 'Abstract')
       declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
       declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')

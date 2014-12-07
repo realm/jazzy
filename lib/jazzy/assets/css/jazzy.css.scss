@@ -11,6 +11,12 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
 }
 
 #reference {
+  .declaration .Swift pre {
+    // Ensure that declarations wrap, as they're a single line
+    white-space: pre-wrap;
+    font-size: 140%;
+  }
+
   .x-instance-method.Swift {
     margin-left: 15px;
   }
