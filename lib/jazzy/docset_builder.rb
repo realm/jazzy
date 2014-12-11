@@ -23,6 +23,7 @@ module Jazzy
         copy_docs
         write_plist
         create_index
+        create_archive
       end
 
       private
@@ -39,6 +40,16 @@ module Jazzy
             platform_family: config.docset_platform,
           )
         end
+      end
+
+      def create_archive
+        target  = "#{source_module.name}.tgz"
+        source  = docset_dir.basename.to_s
+        options = {
+          chdir: output_dir.to_s,
+          [1, 2] => '/dev/null', # silence all output from `tar`
+        }
+        system('tar', "--exclude='.DS_Store'", '-cvzf', target, source, options)
       end
 
       def copy_docs
