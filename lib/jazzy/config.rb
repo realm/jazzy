@@ -14,6 +14,7 @@ module Jazzy
     attr_accessor :sourcekitten_sourcefile
     attr_accessor :clean
     attr_accessor :readme_path
+    attr_accessor :docset_platform
 
     def initialize
       self.output = Pathname('docs')
@@ -26,6 +27,7 @@ module Jazzy
       self.dash_url = nil
       self.sourcekitten_sourcefile = nil
       self.clean = false
+      self.docset_platform = 'jazzy'
     end
 
     # rubocop:disable Metrics/MethodLength

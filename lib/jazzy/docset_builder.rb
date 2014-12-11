@@ -4,6 +4,8 @@ module Jazzy
   module DocBuilder
     # Follows the instructions found at http://kapeli.com/docsets#dashDocset.
     class DocsetBuilder
+      include Config::Mixin
+
       attr_reader :output_dir
       attr_reader :source_module
       attr_reader :docset_dir
@@ -25,35 +27,18 @@ module Jazzy
 
       private
 
-      # rubocop:disable Metrics/MethodLength, Metrics/LineLength
       def write_plist
+        require 'mustache'
         info_plist_path = docset_dir + 'Contents/Info.plist'
         info_plist_path.open('w') do |plist|
-          plist << <<-INFO_PLIST
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-  <dict>
-    <key>CFBundleIdentifier</key>
-      <string>con.jazzy.#{source_module.name.downcase}</string>
-    <key>CFBundleName</key>
-      <string>#{source_module.name}</string>
-    <key>DocSetPlatformFamily</key>
-      <string>jazzy</string>
-    <key>isDashDocset</key>
-      <true/>
-    <key>dashIndexFilePath</key>
-      <string>index.html</string>
-    <key>isJavaScriptEnabled</key>
-      <true/>
-    <key>DashDocSetFamily</key>
-      <string>dashtoc</string>
-  </dict>
-</plist>
-          INFO_PLIST
+          template = Pathname(__FILE__) + '../docset_builder/info_plist.mustache'
+          plist << Mustache.render(template.read,
+            bundle_identifier: source_module.name.downcase,
+            name: source_module.name,
+            platform_family: config.docset_platform
+          )
         end
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/LineLength
 
       def copy_docs
         files_to_copy = Dir.glob(output_dir + '**/*')

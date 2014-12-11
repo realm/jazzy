@@ -3,7 +3,7 @@
 <plist version="1.0">
   <dict>
     <key>CFBundleIdentifier</key>
-      <string>con.jazzy.miscjazzyfeatures</string>
+      <string>com.jazzy.miscjazzyfeatures</string>
     <key>CFBundleName</key>
       <string>MiscJazzyFeatures</string>
     <key>DocSetPlatformFamily</key>
