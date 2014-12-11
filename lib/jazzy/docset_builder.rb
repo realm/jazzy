@@ -31,11 +31,12 @@ module Jazzy
         require 'mustache'
         info_plist_path = docset_dir + 'Contents/Info.plist'
         info_plist_path.open('w') do |plist|
-          template = Pathname(__FILE__) + '../docset_builder/info_plist.mustache'
-          plist << Mustache.render(template.read,
+          template = Pathname(__dir__) + 'docset_builder/info_plist.mustache'
+          plist << Mustache.render(
+            template.read,
             bundle_identifier: source_module.name.downcase,
             name: source_module.name,
-            platform_family: config.docset_platform
+            platform_family: config.docset_platform,
           )
         end
       end
