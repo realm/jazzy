@@ -1,4 +1,3 @@
-require 'active_support/inflector'
 require 'json'
 require 'pathname'
 
@@ -11,39 +10,13 @@ require 'jazzy/highlighter'
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
-    # SourceKit-provided token kinds along with their names
-    # @todo Make sure this list is exhaustive for source.lang.swift.decl.*
-    @kinds = {
-      'source.lang.swift.decl.function.method.class' => 'Class Method',
-      'source.lang.swift.decl.var.class' => 'Class Variable',
-      'source.lang.swift.decl.class' => 'Class',
-      'source.lang.swift.decl.function.constructor' => 'Constructor',
-      'source.lang.swift.decl.function.destructor' => 'Destructor',
-      'source.lang.swift.decl.var.global' => 'Global Variable',
-      'source.lang.swift.decl.enumelement' => 'Enum Element',
-      'source.lang.swift.decl.enum' => 'Enum',
-      'source.lang.swift.decl.extension' => 'Extension',
-      'source.lang.swift.decl.function.free' => 'Function',
-      'source.lang.swift.decl.function.method.instance' => 'Instance Method',
-      'source.lang.swift.decl.var.instance' => 'Instance Variable',
-      'source.lang.swift.decl.var.local' => 'Local Variable',
-      'source.lang.swift.decl.var.parameter' => 'Parameter',
-      'source.lang.swift.decl.protocol' => 'Protocol',
-      'source.lang.swift.decl.function.method.static' => 'Static Method',
-      'source.lang.swift.decl.var.static' => 'Static Variable',
-      'source.lang.swift.decl.struct' => 'Struct',
-      'source.lang.swift.decl.function.subscript' => 'Subscript',
-      'source.lang.swift.decl.typealias' => 'Typealias',
-    }.freeze
-
-    # Group root-level docs by kind and add as children to a group doc element
-    def self.group_docs(docs, kind)
-      kind_name_plural = @kinds[kind].pluralize
-      group, docs = docs.partition { |doc| doc.kind == kind }
+    # Group root-level docs by type and add as children to a group doc element
+    def self.group_docs(docs, type)
+      group, docs = docs.partition { |doc| doc.type == type }
       docs << SourceDeclaration.new.tap do |sd|
-        sd.name = kind_name_plural
-        sd.kind = 'Overview'
-        sd.abstract = "The following #{kind_name_plural.downcase} are " \
+        sd.type     = SourceDeclaration::Type.overview
+        sd.name     = type.plural_name
+        sd.abstract = "The following #{type.plural_name.downcase} are " \
                       'available globally.'
         sd.children = group
       end if group.count > 0
@@ -127,22 +100,20 @@ module Jazzy
           next
         end
         declaration = SourceDeclaration.new
-        declaration.kind = doc['key.kind']
-        if declaration.kind == 'source.lang.swift.syntaxtype.comment.mark' &&
-          doc['key.name'].start_with?('MARK: ')
+        declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
+        if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
           current_mark = SourceMark.new(doc['key.name'])
         end
-        next unless declaration.kind =~ /^source\.lang\.swift\.decl\..*/
+        next unless declaration.type.declaration?
 
-        unless declaration.kindName = @kinds[declaration.kind]
+        unless declaration.type.name
           raise 'Please file an issue on ' \
           'https://github.com/realm/jazzy/issues about adding support for ' \
-          "`#{declaration.kind}`"
+          "`#{declaration.type.kind}`."
         end
 
-        declaration.kindNamePlural = declaration.kindName.pluralize
         declaration.file = doc['key.filepath']
-        declaration.usr = doc['key.usr']
+        declaration.usr  = doc['key.usr']
         declaration.name = doc['key.name']
         declaration.mark = current_mark
 
@@ -170,8 +141,8 @@ module Jazzy
     def self.parse(sourcekitten_output)
       sourcekitten_json = JSON.parse(sourcekitten_output)
       docs = make_source_declarations(sourcekitten_json)
-      @kinds.keys.each do |kind|
-        docs = group_docs(docs, kind)
+      SourceDeclaration::Type.all.each do |type|
+        docs = group_docs(docs, type)
       end
       [make_doc_urls(docs, []), doc_coverage(sourcekitten_json)]
     end
