@@ -1,6 +1,5 @@
 // On doc load, toggle the URL hash discussion if present
 $(document).ready(function() {
-  console.log(window.jazzy)
   if (!window.jazzy.docset) {
     var linkToHash = $('a[href="' + window.location.hash +'"]');
     linkToHash.trigger("click");
