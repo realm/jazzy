@@ -1,3 +1,4 @@
+require 'mustache'
 require 'sqlite3'
 
 module Jazzy
@@ -29,7 +30,6 @@ module Jazzy
       private
 
       def write_plist
-        require 'mustache'
         info_plist_path = docset_dir + 'Contents/Info.plist'
         info_plist_path.open('w') do |plist|
           template = Pathname(__dir__) + 'docset_builder/info_plist.mustache'
