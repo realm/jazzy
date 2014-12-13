@@ -1,8 +1,8 @@
+require 'jazzy/source_declaration/type'
+
 module Jazzy
   class SourceDeclaration
-    attr_accessor :kindNamePlural
-    attr_accessor :kind
-    attr_accessor :kindName
+    attr_accessor :type
     attr_accessor :file
     attr_accessor :line
     attr_accessor :column

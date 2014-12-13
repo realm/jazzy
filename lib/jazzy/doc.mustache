@@ -5,10 +5,24 @@
     <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/highlight.css" />
     <meta charset='utf-8'>
+    <script type="text/javascript">
+    window.jazzy = {'docset': false}
+    if (typeof window.dash != 'undefined') {
+      document.documentElement.className += ' dash'
+      window.jazzy.docset = true
+    }
+    if (navigator.userAgent.match(/xcode/i)) {
+      document.documentElement.className += ' xcode'
+      window.jazzy.docset = true
+    }
+    </script>
     <script src="{{path_to_root}}js/jquery.min.js" defer></script>
     <script src="{{path_to_root}}js/jazzy.js" defer></script>
   </head>
   <body id="reference" class="Swift">
+    {{#dash_type}}
+    <a name="//apple_ref/swift/{{dash_type}}/{{name}}" class="dashAnchor"></a>
+    {{/dash_type}}
     <a title="{{name}} {{kind}} Reference"></a>
     <header>
       <div class="content-wrapper">

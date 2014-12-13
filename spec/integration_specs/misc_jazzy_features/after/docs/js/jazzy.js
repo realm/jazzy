@@ -1,10 +1,16 @@
 // On doc load, toggle the URL hash discussion if present
 $(document).ready(function() {
-  var linkToHash = $('a[href="' + window.location.hash +'"]');
-  linkToHash.trigger("click");
+  if (!window.jazzy.docset) {
+    var linkToHash = $('a[href="' + window.location.hash +'"]');
+    linkToHash.trigger("click");
+  }
 });
+
 // On x-instance-method click, toggle its discussion and animate token.marginLeft
 $(".x-instance-method").click(function() {
+  if (window.jazzy.docset) {
+    return;
+  }
   var link = $(this);
   var animationDuration = 300;
   var tokenOffset = "15px";

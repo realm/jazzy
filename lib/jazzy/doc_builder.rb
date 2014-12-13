@@ -6,6 +6,7 @@ require 'sass'
 
 require 'jazzy/config'
 require 'jazzy/doc'
+require 'jazzy/docset_builder'
 require 'jazzy/jazzy_markdown'
 require 'jazzy/readme_generator'
 require 'jazzy/source_declaration'
@@ -63,24 +64,28 @@ module Jazzy
     # @param [String] output_dir Root directory to write docs
     # @param [Array] docs Array of structured docs
     # @param [Config] options Build options
-    # @param [Integer] depth Number of parents. Used to calculate path_to_root
-    #        for web.
     # @param [Array] doc_structure @see #doc_structure_for_docs
-    def self.build_docs(output_dir, docs, source_module, depth)
-      docs.each do |doc|
-        next if doc.name != 'index' && doc.children.count == 0
-        prepare_output_dir(output_dir, false)
-        path = output_dir + "#{doc.name}.html"
+    def self.build_docs(output_dir, docs, source_module)
+      each_doc(output_dir, docs) do |doc, path, depth|
+        prepare_output_dir(path.parent, false)
         path_to_root = ['../'].cycle(depth).to_a.join('')
         path.open('w') do |file|
           file.write(document(source_module, doc, path_to_root))
         end
+      end
+    end
+
+    def self.each_doc(output_dir, docs, depth = 0, &block)
+      docs.each do |doc|
+        next if doc.name != 'index' && doc.children.count == 0
+        path = output_dir + "#{doc.name}.html"
+        block.call(doc, path, depth)
         next if doc.name == 'index'
-        build_docs(
+        each_doc(
           output_dir + doc.name,
           doc.children,
-          source_module,
           depth + 1,
+          &block
         )
       end
     end
@@ -96,12 +101,17 @@ module Jazzy
 
       structure = doc_structure_for_docs(docs)
 
-      docs << SourceDeclaration.new.tap { |sd| sd.name = 'index' }
+      docs << SourceDeclaration.new.tap do |sd|
+        sd.name = 'index'
+        sd.children = []
+      end
 
       source_module = SourceModule.new(options, docs, structure, coverage)
-      build_docs(output_dir, source_module.docs, source_module, 0)
+      build_docs(output_dir, source_module.docs, source_module)
 
       copy_assets(output_dir)
+
+      DocsetBuilder.new(output_dir, source_module).build!
 
       puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
     end
@@ -161,6 +171,7 @@ module Jazzy
         abstract: Jazzy.markdown.render(abstract),
         declaration: item.declaration,
         usr: item.usr,
+        dash_type: item.type.dash_type,
       }
       gh_token_url = gh_token_url(item, source_module)
       item_render[:github_token_url] = gh_token_url
@@ -215,7 +226,8 @@ module Jazzy
       doc = Doc.new # Mustache model instance
       doc[:doc_coverage] = source_module.doc_coverage
       doc[:name] = doc_model.name
-      doc[:kind] = doc_model.kindName
+      doc[:kind] = doc_model.type.name
+      doc[:dash_type] = doc_model.type.dash_type
       doc[:overview] = Jazzy.markdown.render(doc_model.abstract || '')
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)

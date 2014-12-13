@@ -56,6 +56,16 @@ CLIntegracon.configure do |c|
   c.ignores '.DS_Store'
   c.ignores '.git'
   c.ignores /^(?!(docs\/|execution_output.txt))/
+  c.ignores '*.tgz'
+
+  # Transform produced databases to csv
+  c.transform_produced '**/*.dsidx' do |path|
+    File.open("#{path}.csv", 'w') do |file|
+      file.write `sqlite3 -header -csv #{path} "select * from searchIndex;"`
+    end
+  end
+  # Now that we're comparing the CSV, we don't care about the binary
+  c.ignores '**/*.dsidx'
 
   c.hook_into :bacon
 end

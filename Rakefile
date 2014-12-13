@@ -52,6 +52,8 @@ begin
     files_to_delete = FileList[files_glob]
       .exclude('spec/integration_specs/*/after/docs',
                'spec/integration_specs/*/after/execution_output.txt')
+      .include('**/*.dsidx')
+      .include('**/*.tgz')
     files_to_delete.each do |file_to_delete|
       sh "rm -rf '#{file_to_delete}'"
     end

@@ -24,5 +24,15 @@ module Jazzy
       self.author_url = options.author_url
       self.dash_url = options.dash_url
     end
+
+    def all_declarations
+      all_declarations = []
+      visitor = lambda do |d|
+        all_declarations.unshift(*d)
+        d.map(&:children).each { |c| visitor[c] }
+      end
+      visitor[docs]
+      all_declarations
+    end
   end
 end
