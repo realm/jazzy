@@ -2,6 +2,7 @@ require 'active_support/inflector'
 
 module Jazzy
   class SourceDeclaration
+    # rubocop:disable Metrics/ClassLength
     class Type
       def self.all
         TYPES.keys.map { |k| new(k) }
@@ -130,5 +131,6 @@ module Jazzy
         }.freeze,
       }.freeze
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end
