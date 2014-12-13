@@ -15,6 +15,9 @@ Documentation:
 Metrics/MethodLength:
   Max: 20
 
+Metrics/ClassLength:
+  Max: 115
+
 # We adopted raise instead of fail.
 SignalException:
   EnforcedStyle: only_raise

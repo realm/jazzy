@@ -50,7 +50,7 @@ id,name,type,path
 49,ParameterEncoding,Enum,Enums/ParameterEncoding.html
 50,AlamofireErrorDomain,Global,"Global Variables.html#/s:v9Alamofire20AlamofireErrorDomainSS"
 51,task,Property,Classes/Request.html#/s:vC9Alamofire7Request4taskCSo16NSURLSessionTask
-52,Serializer,Type,Classes/Request.html#/s:C9Alamofire7Request10Serializer
+52,Serializer,Alias,Classes/Request.html#/s:C9Alamofire7Request10Serializer
 53,session,Property,Classes/Request.html#/s:vC9Alamofire7Request7sessionCSo12NSURLSession
 54,request,Property,Classes/Request.html#/s:vC9Alamofire7Request7requestCSo12NSURLRequest
 55,response,Property,Classes/Request.html#/s:vC9Alamofire7Request8responseGSqCSo17NSHTTPURLResponse_
