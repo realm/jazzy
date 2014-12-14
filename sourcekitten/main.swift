@@ -391,7 +391,13 @@ Parses the compiler arguments needed to compile the Swift aspects of an Xcode pr
 :returns: array of swift compiler arguments
 */
 func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
-    let regex = NSRegularExpression(pattern: "/usr/bin/swiftc.*", options: nil, error: nil)!
+    var pattern = "/usr/bin/swiftc.*"
+    let arguments = Process.arguments
+    if let schemeIndex = find(arguments, "-scheme") {
+        let moduleName = arguments[schemeIndex+1]
+        pattern = "/usr/bin/swiftc.*-module-name \(moduleName) .*"
+    }
+    let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)!
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
     let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range)
 
