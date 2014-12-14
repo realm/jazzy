@@ -3,31 +3,20 @@ require 'pathname'
 
 module Jazzy
   class Config
-    attr_accessor :output
-    attr_accessor :xcodebuild_arguments
-    attr_accessor :author_name
-    attr_accessor :module_name
-    attr_accessor :github_url
-    attr_accessor :github_file_prefix
-    attr_accessor :author_url
-    attr_accessor :dash_url
-    attr_accessor :sourcekitten_sourcefile
-    attr_accessor :clean
-    attr_accessor :readme_path
-    attr_accessor :docset_platform
+    attr_accessor :output, :xcodebuild_arguments, :author_name, :module_name
+    attr_accessor :github_url, :github_file_prefix, :author_url, :dash_url
+    attr_accessor :sourcekitten_sourcefile, :clean, :readme_path
+    attr_accessor :docset_platform, :root_url, :version
 
     def initialize
       self.output = Pathname('docs')
       self.xcodebuild_arguments = []
       self.author_name = ''
       self.module_name = ''
-      self.github_url = nil
-      self.github_file_prefix = nil
       self.author_url = ''
-      self.dash_url = nil
-      self.sourcekitten_sourcefile = nil
       self.clean = false
       self.docset_platform = 'jazzy'
+      self.version = '1.0'
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -90,6 +79,19 @@ module Jazzy
         opt.on('-s', '--sourcekitten-sourcefile FILEPATH',
                'XML doc file generated from sourcekitten to parse') do |s|
           config.sourcekitten_sourcefile = Pathname(s)
+        end
+
+        opt.on('-r', '--root-url URL',
+               'Absolute URL root where these docs will be stored') do |r|
+          config.root_url = r
+          if !config.dash_url && config.root_url
+            config.dash_url = "#{r}/docsets/#{config.module_name}.xml"
+          end
+        end
+
+        opt.on('--module-version VERSION',
+               'XML doc file generated from sourcekitten to parse') do |mv|
+          config.version = mv
         end
 
         opt.on('-v', '--version', 'Print version number') do

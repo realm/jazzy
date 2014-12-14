@@ -9,13 +9,15 @@ module Jazzy
 
       attr_reader :output_dir
       attr_reader :source_module
+      attr_reader :docset_root_dir
       attr_reader :docset_dir
       attr_reader :documents_dir
 
       def initialize(output_dir, source_module)
         @output_dir = output_dir
         @source_module = source_module
-        @docset_dir = output_dir + "#{source_module.name}.docset"
+        @docset_root_dir = output_dir + 'docsets'
+        @docset_dir = docset_root_dir + "#{source_module.name}.docset"
         @documents_dir = docset_dir + 'Contents/Resources/Documents/'
       end
 
@@ -25,6 +27,7 @@ module Jazzy
         write_plist
         create_index
         create_archive
+        create_xml
       end
 
       private
@@ -46,7 +49,7 @@ module Jazzy
         target  = "#{source_module.name}.tgz"
         source  = docset_dir.basename.to_s
         options = {
-          chdir: output_dir.to_s,
+          chdir: docset_root_dir.to_s,
           [1, 2] => '/dev/null', # silence all output from `tar`
         }
         system('tar', "--exclude='.DS_Store'", '-cvzf', target, source, options)
@@ -70,6 +73,14 @@ module Jazzy
             db.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) ' \
               'VALUES (?, ?, ?);', [doc.name, doc.type.dash_type, doc.url])
           end
+        end
+      end
+
+      def create_xml
+        (docset_root_dir + "#{source_module.name}.xml").open('w') do |xml|
+          xml << "<entry><version>#{config.version}</version><url>" \
+                 "#{config.root_url}docsets/#{source_module.name}.tgz" \
+                 '</url></entry>'
         end
       end
     end
