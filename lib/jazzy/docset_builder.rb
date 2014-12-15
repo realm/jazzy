@@ -9,15 +9,13 @@ module Jazzy
 
       attr_reader :output_dir
       attr_reader :source_module
-      attr_reader :docset_root_dir
       attr_reader :docset_dir
       attr_reader :documents_dir
 
       def initialize(output_dir, source_module)
-        @output_dir = output_dir
+        @output_dir = output_dir + 'docsets'
         @source_module = source_module
-        @docset_root_dir = output_dir + 'docsets'
-        @docset_dir = docset_root_dir + "#{source_module.name}.docset"
+        @docset_dir = @output_dir + "#{source_module.name}.docset"
         @documents_dir = docset_dir + 'Contents/Resources/Documents/'
       end
 
@@ -27,7 +25,7 @@ module Jazzy
         write_plist
         create_index
         create_archive
-        create_xml
+        create_xml if config.version && config.root_url
       end
 
       private
@@ -49,14 +47,14 @@ module Jazzy
         target  = "#{source_module.name}.tgz"
         source  = docset_dir.basename.to_s
         options = {
-          chdir: docset_root_dir.to_s,
+          chdir: output_dir.to_s,
           [1, 2] => '/dev/null', # silence all output from `tar`
         }
         system('tar', "--exclude='.DS_Store'", '-cvzf', target, source, options)
       end
 
       def copy_docs
-        files_to_copy = Dir.glob(output_dir + '**/*')
+        files_to_copy = Dir.glob(output_dir + '../**/*')
 
         FileUtils.mkdir_p documents_dir
         FileUtils.cp_r files_to_copy, documents_dir
@@ -77,10 +75,10 @@ module Jazzy
       end
 
       def create_xml
-        (docset_root_dir + "#{source_module.name}.xml").open('w') do |xml|
+        (output_dir + "#{source_module.name}.xml").open('w') do |xml|
           xml << "<entry><version>#{config.version}</version><url>" \
                  "#{config.root_url}docsets/#{source_module.name}.tgz" \
-                 '</url></entry>'
+                 '</url></entry>\n'
         end
       end
     end

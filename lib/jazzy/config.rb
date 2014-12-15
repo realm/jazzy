@@ -90,7 +90,7 @@ module Jazzy
         end
 
         opt.on('--module-version VERSION',
-               'XML doc file generated from sourcekitten to parse') do |mv|
+               'module version. will be used when generating docset') do |mv|
           config.version = mv
         end
 
