@@ -391,17 +391,17 @@ Parses the compiler arguments needed to compile the Swift aspects of an Xcode pr
 :returns: array of swift compiler arguments
 */
 func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
-    var pattern = "/usr/bin/swiftc.*"
-    let arguments = Process.arguments
-    if let schemeIndex = find(arguments, "-scheme") {
-        let moduleName = arguments[schemeIndex+1]
-        pattern = "/usr/bin/swiftc.*-module-name \(moduleName) .*"
-    }
+    let pattern: String = {
+        let arguments = Process.arguments
+        if let schemeIndex = find(arguments, "-scheme") {
+            return "/usr/bin/swiftc.*-module-name \(arguments[schemeIndex+1]) .*"
+        }
+        return "/usr/bin/swiftc.*"
+    }()
     let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)!
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
-    let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range)
 
-    if let regexMatch = regexMatch {
+    if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
         let escapedSpacePlaceholder = "\u{0}"
         var args = xcodebuildOutput
             .substringWithRange(regexMatch.range)
@@ -410,11 +410,9 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 
         args.removeAtIndex(0) // Remove swiftc
 
-        args = args.map {
+        return args.filter({ $0 != "-parseable-output" }).map {
             $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
         }
-
-        return args.filter { $0 != "-parseable-output" }
     }
 
     return nil
