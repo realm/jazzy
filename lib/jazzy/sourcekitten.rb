@@ -38,7 +38,6 @@ module Jazzy
           doc.url = parents.join('/') + '.html#/' + doc.usr
         end
       end
-      docs
     end
 
     # Run sourcekitten with given arguments and return STDOUT
