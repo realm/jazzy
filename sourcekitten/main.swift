@@ -40,10 +40,7 @@ Sends a request to SourceKit returns the response as an XPCDictionary.
 :returns: SourceKit output
 */
 func sendSourceKitRequest(request: xpc_object_t?) -> XPCDictionary {
-    let response = sourcekitd_send_request_sync(request)
-    let responseDict: XPCDictionary = fromXPC(response)
-    xpc_release(response)
-    return responseDict
+    return fromXPC(sourcekitd_send_request_sync(request!)!)
 }
 
 /// SourceKit UID to String map
@@ -62,8 +59,7 @@ func stringForSourceKitUID(uid: UInt64) -> String? {
     } else if let string = uidStringMap[uid] {
         return string
     } else {
-        if let uidCString = sourcekitd_uid_get_string_ptr(uid) as UnsafePointer<Int8>? {
-            let uidString = String(UTF8String: uidCString)!
+        if let uidString = String(UTF8String: sourcekitd_uid_get_string_ptr(uid)) {
             uidStringMap[uid] = uidString
             return uidString
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E84294761A3E7DD90045E150 /* sourcekitd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84294751A3E7DD90045E150 /* sourcekitd.swift */; };
 		E84D2DAC1A04E10C00CC170B /* SwiftXPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84D2DAA1A04E10C00CC170B /* SwiftXPC.swift */; };
 		E84D2DAD1A04E10C00CC170B /* XPCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84D2DAB1A04E10C00CC170B /* XPCType.swift */; };
 		E8BC421819EF5C1A001DBEF6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC421719EF5C1A001DBEF6 /* main.swift */; };
@@ -14,13 +15,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E84294751A3E7DD90045E150 /* sourcekitd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sourcekitd.swift; sourceTree = "<group>"; };
 		E84D2DAA1A04E10C00CC170B /* SwiftXPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftXPC.swift; sourceTree = "<group>"; };
 		E84D2DAB1A04E10C00CC170B /* XPCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XPCType.swift; sourceTree = "<group>"; };
 		E8BC421419EF5C1A001DBEF6 /* sourcekitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sourcekitten; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8BC421719EF5C1A001DBEF6 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework; sourceTree = DEVELOPER_DIR; };
-		E8BC422019EF5E10001DBEF6 /* sourcekitd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourcekitd.h; sourceTree = "<group>"; };
-		E8BC422419EF6AB6001DBEF6 /* bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "bridging-header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,9 +81,8 @@
 		E8BC421619EF5C1A001DBEF6 /* sourcekitten */ = {
 			isa = PBXGroup;
 			children = (
-				E8BC422419EF6AB6001DBEF6 /* bridging-header.h */,
-				E8BC422019EF5E10001DBEF6 /* sourcekitd.h */,
 				E8BC421719EF5C1A001DBEF6 /* main.swift */,
+				E84294751A3E7DD90045E150 /* sourcekitd.swift */,
 			);
 			path = sourcekitten;
 			sourceTree = "<group>";
@@ -145,6 +144,7 @@
 			files = (
 				E8BC421819EF5C1A001DBEF6 /* main.swift in Sources */,
 				E84D2DAD1A04E10C00CC170B /* XPCType.swift in Sources */,
+				E84294761A3E7DD90045E150 /* sourcekitd.swift in Sources */,
 				E84D2DAC1A04E10C00CC170B /* SwiftXPC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,7 +236,7 @@
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "sourcekitten/bridging-header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Debug;
 		};
@@ -249,7 +249,7 @@
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "sourcekitten/bridging-header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 			};
 			name = Release;
 		};
