@@ -13,9 +13,9 @@ module Jazzy
       attr_reader :documents_dir
 
       def initialize(output_dir, source_module)
-        @output_dir = output_dir
+        @output_dir = output_dir + 'docsets'
         @source_module = source_module
-        @docset_dir = output_dir + "#{source_module.name}.docset"
+        @docset_dir = @output_dir + "#{source_module.name}.docset"
         @documents_dir = docset_dir + 'Contents/Resources/Documents/'
       end
 
@@ -25,6 +25,7 @@ module Jazzy
         write_plist
         create_index
         create_archive
+        create_xml if config.version && config.root_url
       end
 
       private
@@ -53,7 +54,7 @@ module Jazzy
       end
 
       def copy_docs
-        files_to_copy = Dir.glob(output_dir + '**/*')
+        files_to_copy = Dir.glob(output_dir + '../**/*')
 
         FileUtils.mkdir_p documents_dir
         FileUtils.cp_r files_to_copy, documents_dir
@@ -70,6 +71,14 @@ module Jazzy
             db.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) ' \
               'VALUES (?, ?, ?);', [doc.name, doc.type.dash_type, doc.url])
           end
+        end
+      end
+
+      def create_xml
+        (output_dir + "#{source_module.name}.xml").open('w') do |xml|
+          xml << "<entry><version>#{config.version}</version><url>" \
+                 "#{config.root_url}docsets/#{source_module.name}.tgz" \
+                 '</url></entry>\n'
         end
       end
     end

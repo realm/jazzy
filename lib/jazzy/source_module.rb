@@ -1,3 +1,5 @@
+require 'uri'
+
 require 'jazzy/config'
 require 'jazzy/source_declaration'
 
@@ -22,7 +24,8 @@ module Jazzy
       self.github_url = options.github_url
       self.github_file_prefix = options.github_file_prefix
       self.author_url = options.author_url
-      self.dash_url = options.dash_url
+      return unless options.dash_url
+      self.dash_url = "dash-feed://#{URI.encode(options.dash_url, /\W/)}"
     end
 
     def all_declarations
