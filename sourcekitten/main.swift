@@ -59,7 +59,8 @@ func stringForSourceKitUID(uid: UInt64) -> String? {
     } else if let string = uidStringMap[uid] {
         return string
     } else {
-        if let uidString = String(UTF8String: sourcekitd_uid_get_string_ptr(uid)) {
+        if let uidCString = sourcekitd_uid_get_string_ptr(uid) as UnsafePointer<CChar>? {
+            let uidString = String(UTF8String: uidCString)!
             uidStringMap[uid] = uidString
             return uidString
         }
