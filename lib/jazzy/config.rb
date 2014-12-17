@@ -2,12 +2,15 @@ require 'optparse'
 require 'pathname'
 require 'uri'
 
+require 'jazzy/source_declaration/access_control_level'
+
 module Jazzy
+  # rubocop:disable Metrics/ClassLength
   class Config
     attr_accessor :output, :xcodebuild_arguments, :author_name, :module_name
     attr_accessor :github_url, :github_file_prefix, :author_url, :dash_url
     attr_accessor :sourcekitten_sourcefile, :clean, :readme_path
-    attr_accessor :docset_platform, :root_url, :version
+    attr_accessor :docset_platform, :root_url, :version, :min_acl
 
     def initialize
       self.output = Pathname('docs')
@@ -18,6 +21,7 @@ module Jazzy
       self.clean = false
       self.docset_platform = 'jazzy'
       self.version = '1.0'
+      self.min_acl = SourceDeclaration::AccessControlLevel.internal
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -96,6 +100,16 @@ module Jazzy
           config.version = mv
         end
 
+        opt.on('--min-acl [private | internal | public]',
+               'minimum access control level to document \
+               (default is internal)') do |acl|
+          if acl == 'private'
+            config.min_acl = SourceDeclaration::AccessControlLevel.private
+          elsif acl == 'public'
+            config.min_acl = SourceDeclaration::AccessControlLevel.public
+          end
+        end
+
         opt.on('-v', '--version', 'Print version number') do
           puts 'jazzy version: ' + Jazzy::VERSION
           exit
@@ -140,4 +154,5 @@ module Jazzy
       end
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end
