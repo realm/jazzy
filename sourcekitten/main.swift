@@ -10,12 +10,34 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.2.0"
+let version = "0.2.1"
 
 /// File Contents
 var fileContents = NSString()
 
+var fileContentsLineBreaks = [Int]()
+
 // MARK: Helper Functions
+
+/**
+Returns offsets of all the line breaks in the fileContents global
+:returns: line breaks
+*/
+func lineBreaks() -> [Int] {
+    var lineBreaks = [Int]()
+    var searchRange = NSRange(location: 0, length: fileContents.length)
+    while (searchRange.length > 0) {
+        searchRange.length = fileContents.length - searchRange.location
+        let foundRange = fileContents.rangeOfString("\n", options: nil, range: searchRange)
+        if foundRange.location != NSNotFound {
+            lineBreaks.append(foundRange.location)
+            searchRange.location = foundRange.location + foundRange.length
+        } else {
+            break
+        }
+    }
+    return lineBreaks
+}
 
 /**
 Sends a request to SourceKit returns the response as an XPCDictionary.
@@ -64,11 +86,59 @@ func error(message: String) {
 /**
 Print message to STDERR. Useful for UI messages without affecting STDOUT data.
 
-:param: message message to print
+:param: message message to print.
 */
 func printSTDERR(message: String) {
     let stderr = NSFileHandle.fileHandleWithStandardError()
     stderr.writeData((message + "\n").dataUsingEncoding(NSUTF8StringEncoding)!)
+}
+
+/**
+Parse declaration from XPC dictionary.
+
+:param: dictionary XPC dictionary to extract declaration from.
+:returns: String declaration if successfully parsed.
+*/
+func parseDeclaration(dictionary: XPCDictionary) -> String? {
+    if dictionary["key.typename"] == nil ||
+        dictionary["key.annotated_decl"] == nil ||
+        dictionary["key.kind"] as String == "source.lang.swift.decl.extension" {
+        return nil
+    }
+    let offset = dictionary["key.offset"] as Int64
+    let previousLineBreakOffset: Int = {
+        for (index, lineBreakOffset) in enumerate(fileContentsLineBreaks) {
+            if lineBreakOffset > Int(offset) {
+                return fileContentsLineBreaks[index - 1]
+            }
+        }
+        return fileContentsLineBreaks.first!
+    }() + 1
+    /**
+    Filter fileContents from previousLineBreak
+    to end while trimming unwanted characters.
+    
+    :param: end Ending offset to filter
+    :returns: Filtered string.
+    */
+    func filteredSubstringTo(end: Int) -> String {
+        let range = NSRange(location: previousLineBreakOffset, length: end - previousLineBreakOffset - 1)
+        let unwantedSet = NSCharacterSet.whitespaceAndNewlineCharacterSet().mutableCopy() as NSMutableCharacterSet
+        unwantedSet.addCharactersInString("{")
+        return fileContents.substringWithRange(range).stringByTrimmingCharactersInSet(unwantedSet)
+    }
+    if let bodyOffset = dictionary["key.bodyoffset"] as Int64? {
+        return filteredSubstringTo(Int(bodyOffset))
+    }
+    let nextLineBreakOffset: Int = {
+        for (index, lineBreakOffset) in enumerate(fileContentsLineBreaks.reverse()) {
+            if lineBreakOffset < Int(offset) {
+                return fileContentsLineBreaks[fileContentsLineBreaks.count - index]
+            }
+        }
+        return fileContentsLineBreaks.last!
+    }() + 1
+    return filteredSubstringTo(nextLineBreakOffset)
 }
 
 /**
@@ -81,11 +151,7 @@ documented children. Add cursor.info information for declarations. Add name to m
 */
 func processDictionary(inout dictionary: XPCDictionary,
     _ cursorInfoRequest: xpc_object_t? = nil) -> Bool {
-    if dictionary["key.substructure"] == nil {
-        return false
-    }
-
-    if let substructure = dictionary["key.substructure"]! as? XPCArray {
+    if let substructure = dictionary["key.substructure"] as XPCArray? {
         var newSubstructure = XPCArray()
         for i in 0..<substructure.count {
             var subDict = substructure[i] as XPCDictionary
@@ -103,6 +169,9 @@ func processDictionary(inout dictionary: XPCDictionary,
     }
 
     if cursorInfoRequest == nil {
+        if let parsedDeclaration = parseDeclaration(dictionary) {
+            dictionary["key.parsed_declaration"] = parsedDeclaration
+        }
         return true
     } else if dictionary["key.kind"] == nil {
         return false
@@ -125,6 +194,9 @@ func processDictionary(inout dictionary: XPCDictionary,
                 }
                 dictionary[key] = value
             }
+        }
+        if let parsedDeclaration = parseDeclaration(dictionary) {
+            dictionary["key.parsed_declaration"] = parsedDeclaration
         }
         return true
     } else if kind == "source.lang.swift.syntaxtype.comment.mark" {
@@ -411,6 +483,7 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
     xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
 
     fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
+    fileContentsLineBreaks = lineBreaks()
 
     xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
     xpc_dictionary_set_string(cursorInfoRequest, "key.sourcefile", file)
