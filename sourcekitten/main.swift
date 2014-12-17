@@ -697,6 +697,47 @@ func printHelp() {
     println("Usage: sourcekitten [-h] [--skip-xcodebuild COMPILER_ARGUMENTS] [--structure /absolute/path/to/file.swift] [--syntax /absolute/path/to/file.swift] [--syntax-text SWIFT_SOURCE_TEXT] [Xcode build arguments...]\n\nVersion: \(version)")
 }
 
+/**
+Iterates over Clang translation unit to find all its XML comments. Prints to STDOUT.
+
+:param: tu Clang translation unit created from Clang index, file path and compiler arguments.
+*/
+func printXMLFromTU(tu: CXTranslationUnit) -> Void {
+    println("<?xml version=\"1.0\"?>\n<jazz>")
+    clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(tu)) { cursor, parent in
+        let comment = clang_Cursor_getParsedComment(cursor)
+        let commentKind = clang_Comment_getKind(comment)
+
+        if let commentXML = String.fromCString(clang_getCString(clang_FullComment_getAsXML(comment))) {
+            println(commentXML)
+        }
+        return CXChildVisit_Recurse
+    }
+    println("</jazz>")
+}
+
+/**
+Build Clang translation unit from Objective-C header file path and prints its XML comments to STDOUT.
+
+:param: headerFilePath Absolute path to Objective-C header file.
+*/
+func objc(headerFilePath: String) {
+    var args = [
+        "-x",
+        "objective-c",
+        "-isysroot",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"
+    ]
+    let index = clang_createIndex(0, 1)
+    let tu = clang_createTranslationUnitFromSourceFile(index,
+        headerFilePath,
+        Int32(args.count),
+        args.map { ($0 as NSString).UTF8String },
+        0,
+        nil)
+    printXMLFromTU(tu)
+}
+
 // MARK: Main Program
 
 /**
@@ -707,6 +748,8 @@ func main() {
     if arguments.count > 1 && arguments[1] == "--single-file" {
         var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
         docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
+    } else if arguments.count > 2 && arguments[1] == "--objc" {
+        objc(arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
