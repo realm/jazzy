@@ -10,6 +10,9 @@ require 'jazzy/highlighter'
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
+    @documented = 0
+    @undocumented = 0
+
     # Group root-level docs by type and add as children to a group doc element
     def self.group_docs(docs, type)
       group, docs = docs.partition { |doc| doc.type == type }
@@ -55,9 +58,44 @@ module Jazzy
       declaration.children = []
     end
 
+    def self.documented_child?(doc)
+      return false unless doc['key.substructure']
+      doc['key.substructure'].each do |child|
+        return true if documented_child?(child)
+      end
+      false
+    end
+
+    def self.should_document?(doc)
+      # Always document extensions, since we can't tell what ACL they are
+      return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
+
+      SourceDeclaration::AccessControlLevel.new(doc['key.annotated_decl']) >=
+      SourceDeclaration::AccessControlLevel.internal # minimum ACL to document
+    end
+
+    def self.process_undocumented_token(doc, declaration)
+      @undocumented += 1
+      return nil unless documented_child?(doc)
+      make_default_doc_info(declaration)
+    end
+
+    def self.parameters_from_xml(xml)
+      xml.xpath('Parameters/Parameter').map do |parameter_el|
+        {
+          name: XMLHelper.xpath(parameter_el, 'Name'),
+          discussion: Jazzy.markdown.render(
+              XMLHelper.xpath(parameter_el, 'Discussion'),
+            ),
+        }
+      end
+    end
+
     def self.make_doc_info(doc, declaration)
+      return nil unless should_document?(doc)
       xml_key = 'key.doc.full_as_xml'
-      return make_default_doc_info(declaration) unless doc[xml_key]
+      return process_undocumented_token(doc, declaration) unless doc[xml_key]
+      @documented += 1
 
       xml = Nokogiri::XML(doc[xml_key]).root
       declaration.line = XMLHelper.attribute(xml, 'line').to_i
@@ -68,15 +106,7 @@ module Jazzy
       declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
       declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
 
-      declaration.parameters = []
-      xml.xpath('Parameters/Parameter').each do |parameter_el|
-        declaration.parameters << {
-          name: XMLHelper.xpath(parameter_el, 'Name'),
-          discussion: Jazzy.markdown.render(
-              XMLHelper.xpath(parameter_el, 'Discussion'),
-            ),
-        }
-      end
+      declaration.parameters = parameters_from_xml(xml)
     end
 
     def self.make_substructure(doc, declaration)
@@ -90,6 +120,7 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity
     def self.make_source_declarations(docs)
       declarations = []
       current_mark = SourceMark.new
@@ -115,24 +146,23 @@ module Jazzy
         declaration.usr  = doc['key.usr']
         declaration.name = doc['key.name']
         declaration.mark = current_mark
+        acl = SourceDeclaration::AccessControlLevel.new(
+          doc['key.annotated_decl'],
+        )
+        declaration.access_control_level = acl
 
-        make_doc_info(doc, declaration)
+        next unless make_doc_info(doc, declaration)
         make_substructure(doc, declaration)
         declarations << declaration
       end
       declarations
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength
 
-    def self.doc_coverage(sourcekitten_json)
-      documented = sourcekitten_json
-                    .map { |el| el['key.doc.documented'] }
-                    .inject(:+)
-      undocumented = sourcekitten_json
-                      .map { |el| el['key.doc.undocumented'] }
-                      .inject(:+)
-      return 0 if documented == 0 && undocumented == 0
-      (100 * documented) / (undocumented + documented)
+    def self.doc_coverage
+      return 0 if @documented == 0 && @undocumented == 0
+      (100 * @documented) / (@undocumented + @documented)
     end
 
     # Parse sourcekitten STDOUT output as JSON
@@ -143,7 +173,7 @@ module Jazzy
       SourceDeclaration::Type.all.each do |type|
         docs = group_docs(docs, type)
       end
-      [make_doc_urls(docs, []), doc_coverage(sourcekitten_json)]
+      [make_doc_urls(docs, []), doc_coverage]
     end
   end
 end

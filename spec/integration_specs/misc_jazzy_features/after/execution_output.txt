@@ -1,6 +1,5 @@
 JAZZY_FAKE_DATE=YYYY-MM-DD JAZZY_FAKE_VERSION=X.X.X jazzy -m MiscJazzyFeatures -a Realm -u https://github.com/realm/jazzy -g https://github.com/realm/jazzy  2>&1
 Running xcodebuild -dry-run
 parsing Classes.swift (1/1)
-Classes.swift is 81% documented
 building site
 jam out ♪♫ to your fresh new docs in `docs`

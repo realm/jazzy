@@ -49,8 +49,8 @@ id,name,type,path
 48,Method,Enum,Enums.html#/s:O9Alamofire6Method
 49,ParameterEncoding,Enum,Enums/ParameterEncoding.html
 50,AlamofireErrorDomain,Global,"Global Variables.html#/s:v9Alamofire20AlamofireErrorDomainSS"
-51,task,Property,Classes/Request.html#/s:vC9Alamofire7Request4taskCSo16NSURLSessionTask
-52,Serializer,Alias,Classes/Request.html#/s:C9Alamofire7Request10Serializer
+51,Serializer,Alias,Classes/Request.html#/s:C9Alamofire7Request10Serializer
+52,task,Property,Classes/Request.html#/s:vC9Alamofire7Request4taskCSo16NSURLSessionTask
 53,session,Property,Classes/Request.html#/s:vC9Alamofire7Request7sessionCSo12NSURLSession
 54,request,Property,Classes/Request.html#/s:vC9Alamofire7Request7requestCSo12NSURLRequest
 55,response,Property,Classes/Request.html#/s:vC9Alamofire7Request8responseGSqCSo17NSHTTPURLResponse_
@@ -64,18 +64,17 @@ id,name,type,path
 63,suspend(),Method,Classes/Request.html#/s:FC9Alamofire7Request7suspendFS0_FT_T_
 64,resume(),Method,Classes/Request.html#/s:FC9Alamofire7Request6resumeFS0_FT_T_
 65,cancel(),Method,Classes/Request.html#/s:FC9Alamofire7Request6cancelFS0_FT_T_
-66,configuration,Variable,Classes/Manager/init(configuration:).html#/s:vFC9Alamofire7ManagercFMS0_FT13configurationGSqCSo25NSURLSessionConfiguration__S0_L_13configurationGSqS1__
-67,sharedInstance,Property,Classes/Manager.html#/s:vC9Alamofire7Manager14sharedInstanceS0_
-68,session,Property,Classes/Manager.html#/s:vC9Alamofire7Manager7sessionCSo12NSURLSession
-69,startRequestsImmediately,Property,Classes/Manager.html#/s:vC9Alamofire7Manager24startRequestsImmediatelySb
-70,init(configuration:),Method,Classes/Manager/init(configuration:).html
-71,request(_:_:parameters:encoding:),Method,Classes/Manager.html#/s:FC9Alamofire7Manager7requestFS0_FTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding_CS_7Request
-72,request(_:),Method,Classes/Manager.html#/s:FC9Alamofire7Manager7requestFS0_FPS_21URLRequestConvertible_CS_7Request
-73,Manager,Class,Classes/Manager.html
-74,Request,Class,Classes/Request.html
-75,Classes,,Classes.html
-76,"Global Variables",,"Global Variables.html"
-77,Enums,,Enums.html
-78,Extensions,,Extensions.html
-79,Functions,,Functions.html
-80,Protocols,,Protocols.html
+66,sharedInstance,Property,Classes/Manager.html#/s:vC9Alamofire7Manager14sharedInstanceS0_
+67,session,Property,Classes/Manager.html#/s:vC9Alamofire7Manager7sessionCSo12NSURLSession
+68,startRequestsImmediately,Property,Classes/Manager.html#/s:vC9Alamofire7Manager24startRequestsImmediatelySb
+69,init(configuration:),Method,Classes/Manager.html#/s:FC9Alamofire7ManagercFMS0_FT13configurationGSqCSo25NSURLSessionConfiguration__S0_
+70,request(_:_:parameters:encoding:),Method,Classes/Manager.html#/s:FC9Alamofire7Manager7requestFS0_FTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding_CS_7Request
+71,request(_:),Method,Classes/Manager.html#/s:FC9Alamofire7Manager7requestFS0_FPS_21URLRequestConvertible_CS_7Request
+72,Manager,Class,Classes/Manager.html
+73,Request,Class,Classes/Request.html
+74,Classes,,Classes.html
+75,"Global Variables",,"Global Variables.html"
+76,Enums,,Enums.html
+77,Extensions,,Extensions.html
+78,Functions,,Functions.html
+79,Protocols,,Protocols.html
