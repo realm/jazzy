@@ -99,7 +99,8 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'misc_jazzy_features',
                             '-m MiscJazzyFeatures -a Realm ' \
                             '-u https://github.com/realm/jazzy ' \
-                            '-g https://github.com/realm/jazzy '
+                            '-g https://github.com/realm/jazzy ' \
+                            '--min-acl private'
     end
   end
 end

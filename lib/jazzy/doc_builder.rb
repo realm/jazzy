@@ -97,7 +97,10 @@ module Jazzy
       output_dir = options.output
       prepare_output_dir(output_dir, options.clean)
 
-      (docs, coverage) = SourceKitten.parse(sourcekitten_output)
+      (docs, coverage) = SourceKitten.parse(
+        sourcekitten_output,
+        options.min_acl,
+      )
 
       structure = doc_structure_for_docs(docs)
 
@@ -218,7 +221,6 @@ module Jazzy
     # @param [Array] doc_structure doc structure comprised of section names and
     #        child names and URLs. @see doc_structure_for_docs
     def self.document(source_module, doc_model, path_to_root)
-      # @todo render README here
       if doc_model.name == 'index'
         return document_index(source_module, path_to_root)
       end

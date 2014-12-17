@@ -71,7 +71,7 @@ module Jazzy
       return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
 
       SourceDeclaration::AccessControlLevel.new(doc['key.annotated_decl']) >=
-      SourceDeclaration::AccessControlLevel.internal # minimum ACL to document
+      @min_acl
     end
 
     def self.process_undocumented_token(doc, declaration)
@@ -167,7 +167,8 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    def self.parse(sourcekitten_output)
+    def self.parse(sourcekitten_output, min_acl)
+      @min_acl = min_acl
       sourcekitten_json = JSON.parse(sourcekitten_output)
       docs = make_source_declarations(sourcekitten_json)
       SourceDeclaration::Type.all.each do |type|
