@@ -87,7 +87,7 @@ module Jazzy
                'Absolute URL root where these docs will be stored') do |r|
           config.root_url = URI(r)
           if !config.dash_url && config.root_url
-            config.dash_url = URI::join(r, "docsets/#{config.module_name}.xml")
+            config.dash_url = URI.join(r, "docsets/#{config.module_name}.xml")
           end
         end
 

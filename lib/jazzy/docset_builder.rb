@@ -76,7 +76,7 @@ module Jazzy
 
       def create_xml
         (output_dir + "#{source_module.name}.xml").open('w') do |xml|
-          url = URI::join(config.root_url, "docsets/#{source_module.name}.tgz")
+          url = URI.join(config.root_url, "docsets/#{source_module.name}.tgz")
           xml << "<entry><version>#{config.version}</version><url>#{url}" \
                  "</url></entry>\n"
         end
