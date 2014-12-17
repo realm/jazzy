@@ -85,7 +85,7 @@ module Jazzy
         {
           name: XMLHelper.xpath(parameter_el, 'Name'),
           discussion: Jazzy.markdown.render(
-              XMLHelper.xpath(parameter_el, 'Discussion'),
+              XMLHelper.xpath(parameter_el, 'Discussion') || '',
             ),
         }
       end
