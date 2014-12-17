@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.2.1"
+let version = "0.2.2"
 
 /// File Contents
 var fileContents = NSString()
@@ -275,7 +275,9 @@ func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
 
     var offsets = [Int]()
     for match in matches {
-        offsets.append(identifierOffsets.filter({ $0 >= match.range.location})[0])
+        if let first = identifierOffsets.filter({ $0 >= match.range.location}).first {
+            offsets.append(first)
+        }
     }
     return offsets
 }
