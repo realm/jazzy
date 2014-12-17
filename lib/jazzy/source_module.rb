@@ -25,7 +25,7 @@ module Jazzy
       self.github_file_prefix = options.github_file_prefix
       self.author_url = options.author_url
       return unless options.dash_url
-      self.dash_url = "dash-feed://#{URI.encode(options.dash_url, /\W/)}"
+      self.dash_url = "dash-feed://#{URI.encode(options.dash_url.to_s, /\W/)}"
     end
 
     def all_declarations

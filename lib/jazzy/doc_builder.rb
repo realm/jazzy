@@ -141,8 +141,8 @@ module Jazzy
       doc[:structure] = source_module.doc_structure
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
-      doc[:author_website] = source_module.author_url
-      doc[:github_url] = source_module.github_url
+      doc[:author_website] = source_module.author_url.to_s
+      doc[:github_url] = source_module.github_url.to_s
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc.render
@@ -233,8 +233,8 @@ module Jazzy
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
-      doc[:author_website] = source_module.author_url
-      doc[:github_url] = source_module.github_url
+      doc[:author_website] = source_module.author_url.to_s
+      doc[:github_url] = source_module.github_url.to_s
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc.render
