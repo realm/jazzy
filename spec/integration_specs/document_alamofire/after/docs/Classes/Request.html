@@ -233,7 +233,7 @@
             
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">task</span><span class="p">:</span> <span class="kt">NSURLSessionTask</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">task</span><span class="p">:</span> <span class="kt">NSURLSessionTask</span></code></pre>
 
                         </div>
                       </div>
@@ -293,7 +293,7 @@
             
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">NSURLRequest</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">request</span><span class="p">:</span> <span class="kt">NSURLRequest</span></code></pre>
 
                         </div>
                       </div>
@@ -323,7 +323,7 @@
             
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">NSHTTPURLResponse</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">response</span><span class="p">:</span> <span class="kt">NSHTTPURLResponse</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -353,7 +353,7 @@
             
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">progress</span><span class="p">:</span> <span class="kt">NSProgress</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">progress</span><span class="p">:</span> <span class="kt">NSProgress</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
@@ -527,7 +527,7 @@
             
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">progress</span><span class="p">(</span><span class="nv">closure</span><span class="p">:</span> <span class="p">((</span><span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="k">default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">progress</span><span class="p">(</span><span class="nv">closure</span><span class="p">:</span> <span class="p">((</span><span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
@@ -680,7 +680,7 @@
             
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">response</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="n">dispatch_queue_t</span><span class="p">?</span> <span class="o">=</span> <span class="k">default</span><span class="p">,</span> <span class="nv">serializer</span><span class="p">:</span> <span class="kt">Serializer</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSURLRequest</span><span class="p">,</span> <span class="kt">NSHTTPURLResponse</span><span class="p">?,</span> <span class="kt">AnyObject</span><span class="p">?,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">response</span><span class="p">(</span><span class="nv">queue</span><span class="p">:</span> <span class="n">dispatch_queue_t</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">serializer</span><span class="p">:</span> <span class="kt">Serializer</span><span class="p">,</span> <span class="nv">completionHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSURLRequest</span><span class="p">,</span> <span class="kt">NSHTTPURLResponse</span><span class="p">?,</span> <span class="kt">AnyObject</span><span class="p">?,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
 
                         </div>
                       </div>
