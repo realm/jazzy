@@ -203,7 +203,7 @@
             
                         <div class="Swift">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">NSURLRequest</span><span class="p">,</span> <span class="kt">NSError</span><span class="p">?)</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">(</span><span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">NSURLRequest</span><span class="p">,</span> <span class="kt">NSError</span><span class="p">?)</span></code></pre>
 
                         </div>
                       </div>
@@ -263,6 +263,15 @@
                       <div class="abstract">
                         <p class="para">Uses the associated closure value to construct a new request given an existing request and parameters.</p>
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+            
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Custom</span><span class="p">((</span><span class="kt">URLRequestConvertible</span><span class="p">,</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">NSURLRequest</span><span class="p">,</span> <span class="kt">NSError</span><span class="p">?))</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="result-description view-on-github">
                         <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L67">Show on GitHub</a>
                       </div>
@@ -283,6 +292,15 @@
                       <div class="pointy-thing"></div>
                       <div class="abstract">
                         <p class="para">A query string to be set as or appended to any existing URL query for <code>GET</code>, <code>HEAD</code>, and <code>DELETE</code> requests, or set as the body for requests with any other HTTP method. The <code>Content-Type</code> HTTP header field of an encoded request with HTTP body is set to <code>application/x-www-form-urlencoded</code>. Since there is no published specification for how to encode collection types, the convention of appending <code>[]</code> to the key for array values (<code>foo[]=1&amp;foo[]=2</code>), and appending the key surrounded by square brackets for nested dictionary values (<code>foo[bar]=baz</code>).</p>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+            
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">URL</span></code></pre>
+
+                        </div>
                       </div>
                       <div class="result-description view-on-github">
                         <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L52">Show on GitHub</a>
@@ -305,6 +323,15 @@
                       <div class="abstract">
                         <p class="para">Uses <code>NSJSONSerialization</code> to create a JSON representation of the parameters object, which is set as the body of the request. The <code>Content-Type</code> HTTP header field of an encoded request is set to <code>application/json</code>.</p>
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+            
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">JSON</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="result-description view-on-github">
                         <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L57">Show on GitHub</a>
                       </div>
@@ -325,6 +352,15 @@
                       <div class="pointy-thing"></div>
                       <div class="abstract">
                         <p class="para">Uses <code>NSPropertyListSerialization</code> to create a plist representation of the parameters object, according to the associated format and write options values, which is set as the body of the request. The <code>Content-Type</code> HTTP header field of an encoded request is set to <code>application/x-plist</code>.</p>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+            
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">PropertyList</span><span class="p">(</span><span class="kt">NSPropertyListFormat</span><span class="p">,</span> <span class="kt">NSPropertyListWriteOptions</span><span class="p">)</span></code></pre>
+
+                        </div>
                       </div>
                       <div class="result-description view-on-github">
                         <a href="https://github.com/Alamofire/Alamofire/blob/1.1.0/Source/Alamofire.swift#L62">Show on GitHub</a>

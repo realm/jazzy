@@ -100,8 +100,10 @@ module Jazzy
       xml = Nokogiri::XML(doc[xml_key]).root
       declaration.line = XMLHelper.attribute(xml, 'line').to_i
       declaration.column = XMLHelper.attribute(xml, 'column').to_i
-      decl = XMLHelper.xpath(xml, 'Declaration')
-      declaration.declaration = Highlighter.highlight(decl, 'swift')
+      declaration.declaration = Highlighter.highlight(
+        doc['key.parsed_declaration'] || XMLHelper.xpath(xml, 'Declaration'),
+        'swift',
+      )
       declaration.abstract = XMLHelper.xpath(xml, 'Abstract')
       declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
       declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
