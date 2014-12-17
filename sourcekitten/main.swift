@@ -10,28 +10,12 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.1.9"
+let version = "0.2.0"
 
 /// File Contents
 var fileContents = NSString()
 
-/// Documented Count
-var documentedCount = 0
-
-/// Undocumented Count
-var undocumentedCount = 0
-
 // MARK: Helper Functions
-
-/**
-Calculates documentation coverage
-*/
-func docCoverage() -> Int {
-    if documentedCount > 0 || undocumentedCount > 0 {
-        return Int(Float(100*documentedCount)/Float(documentedCount + undocumentedCount))
-    }
-    return 0
-}
 
 /**
 Sends a request to SourceKit returns the response as an XPCDictionary.
@@ -59,8 +43,7 @@ func stringForSourceKitUID(uid: UInt64) -> String? {
     } else if let string = uidStringMap[uid] {
         return string
     } else {
-        if let uidCString = sourcekitd_uid_get_string_ptr(uid) as UnsafePointer<CChar>? {
-            let uidString = String(UTF8String: uidCString)!
+        if let uidString = String(UTF8String: sourcekitd_uid_get_string_ptr(uid)) {
             uidStringMap[uid] = uidString
             return uidString
         }
@@ -98,9 +81,8 @@ documented children. Add cursor.info information for declarations. Add name to m
 */
 func processDictionary(inout dictionary: XPCDictionary,
     _ cursorInfoRequest: xpc_object_t? = nil) -> Bool {
-    var shouldKeep = false
     if dictionary["key.substructure"] == nil {
-        return shouldKeep
+        return false
     }
 
     if let substructure = dictionary["key.substructure"]! as? XPCArray {
@@ -122,11 +104,10 @@ func processDictionary(inout dictionary: XPCDictionary,
 
     if cursorInfoRequest == nil {
         return true
+    } else if dictionary["key.kind"] == nil {
+        return false
     }
 
-    if dictionary["key.kind"] == nil {
-        return shouldKeep
-    }
     let kind = dictionary["key.kind"] as String
     if kind != "source.lang.swift.decl.var.parameter" &&
         kind.rangeOfString("source.lang.swift.decl.") != nil {
@@ -136,12 +117,6 @@ func processDictionary(inout dictionary: XPCDictionary,
 
             // Send request and wait for response
             let response = sendSourceKitRequest(cursorInfoRequest)
-            if response["key.doc.full_as_xml"] != nil {
-                shouldKeep = true
-                documentedCount++
-            } else {
-                undocumentedCount++
-            }
             for (key, value) in response {
                 if key == "key.kind" {
                     // Skip kinds, since values from editor.open are more
@@ -151,14 +126,15 @@ func processDictionary(inout dictionary: XPCDictionary,
                 dictionary[key] = value
             }
         }
+        return true
     } else if kind == "source.lang.swift.syntaxtype.comment.mark" {
         let offset = dictionary["key.offset"] as Int64
         let length = dictionary["key.length"] as Int64
         let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile"))!
         dictionary["key.name"] = fileContents.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
-        shouldKeep = true
+        return true
     }
-    return shouldKeep
+    return false
 }
 
 /**
@@ -472,9 +448,6 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
                 insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
         }
     }
-    openResponse["key.doc.coverage"] = Int64(docCoverage())
-    openResponse["key.doc.documented"] = Int64(documentedCount)
-    openResponse["key.doc.undocumented"] = Int64(undocumentedCount)
     println(toJSON(openResponse))
 }
 
@@ -659,7 +632,6 @@ func main() {
     if arguments.count > 1 && arguments[1] == "--single-file" {
         var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
         docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
-        printSTDERR("\(arguments[2].lastPathComponent) is \(docCoverage())% documented")
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: arguments[2])
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
