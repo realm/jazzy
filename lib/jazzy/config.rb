@@ -1,5 +1,6 @@
 require 'optparse'
 require 'pathname'
+require 'uri'
 
 module Jazzy
   class Config
@@ -13,7 +14,7 @@ module Jazzy
       self.xcodebuild_arguments = []
       self.author_name = ''
       self.module_name = ''
-      self.author_url = ''
+      self.author_url = URI('')
       self.clean = false
       self.docset_platform = 'jazzy'
       self.version = '1.0'
@@ -51,7 +52,7 @@ module Jazzy
 
         opt.on('-u', '--author_url URL',
                'Author URL of this project (i.e. http://realm.io)') do |u|
-          config.author_url = u
+          config.author_url = URI(u)
         end
 
         opt.on('-m', '--module MODULE_NAME',
@@ -60,14 +61,15 @@ module Jazzy
         end
 
         opt.on('-d', '--dash_url URL',
-               'URL to install docs in Dash (i.e. dash-feed://...') do |d|
-          config.dash_url = d
+               'Location of the dash XML feed \
+               (i.e. http://realm.io/docsets/realm.xml') do |d|
+          config.dash_url = URI(d)
         end
 
         opt.on('-g', '--github_url URL',
                'GitHub URL of this project (i.e. \
                 https://github.com/realm/realm-cocoa)') do |g|
-          config.github_url = g
+          config.github_url = URI(g)
         end
 
         opt.on('--github-file-prefix PREFIX',
@@ -83,9 +85,9 @@ module Jazzy
 
         opt.on('-r', '--root-url URL',
                'Absolute URL root where these docs will be stored') do |r|
-          config.root_url = r
+          config.root_url = URI(r)
           if !config.dash_url && config.root_url
-            config.dash_url = "#{r}/docsets/#{config.module_name}.xml"
+            config.dash_url = URI.join(r, "docsets/#{config.module_name}.xml")
           end
         end
 
