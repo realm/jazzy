@@ -1,3 +1,4 @@
+require 'jazzy/source_declaration/access_control_level'
 require 'jazzy/source_declaration/type'
 
 module Jazzy
@@ -16,5 +17,6 @@ module Jazzy
     attr_accessor :parameters
     attr_accessor :url
     attr_accessor :mark
+    attr_accessor :access_control_level
   end
 end

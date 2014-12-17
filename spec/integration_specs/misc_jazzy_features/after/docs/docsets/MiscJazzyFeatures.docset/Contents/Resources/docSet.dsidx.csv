@@ -5,11 +5,10 @@ id,name,type,path
 4,NestedClass,Class,Classes/ImplicitlyInternalTopLevelClass.html#/s:CC17MiscJazzyFeatures31ImplicitlyInternalTopLevelClass11NestedClass
 5,ImplicitlyInternalTopLevelClass,Class,Classes/ImplicitlyInternalTopLevelClass.html
 6,ExplicitlyInternalTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures31ExplicitlyInternalTopLevelClass
-7,PrivateTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeaturesP33_72F27992F5E059C6D84AD5FC86B1B76B20PrivateTopLevelClass
-8,PublicTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures19PublicTopLevelClass
-9,ObjCTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures17ObjCTopLevelClass
-10,TopLevelObjCSubclass,Class,Classes.html#/s:C17MiscJazzyFeatures20TopLevelObjCSubclass
-11,TopLevelSwiftSubclass,Class,Classes.html#/s:C17MiscJazzyFeatures21TopLevelSwiftSubclass
-12,Classes,,Classes.html
-13,"Global Variables",,"Global Variables.html"
-14,Enums,,Enums.html
+7,PublicTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures19PublicTopLevelClass
+8,ObjCTopLevelClass,Class,Classes.html#/s:C17MiscJazzyFeatures17ObjCTopLevelClass
+9,TopLevelObjCSubclass,Class,Classes.html#/s:C17MiscJazzyFeatures20TopLevelObjCSubclass
+10,TopLevelSwiftSubclass,Class,Classes.html#/s:C17MiscJazzyFeatures21TopLevelSwiftSubclass
+11,Classes,,Classes.html
+12,"Global Variables",,"Global Variables.html"
+13,Enums,,Enums.html
