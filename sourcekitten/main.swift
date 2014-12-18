@@ -26,8 +26,8 @@ Converts any path into an absolute path
 
 :returns: path represented as an absolute path
 */
-func absolutePath(path: String) -> String {
-    if (path as NSString).absolutePath {
+func absolutePath(path: NSString) -> String {
+    if path.absolutePath {
         return path
     }
     else {
