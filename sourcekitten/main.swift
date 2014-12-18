@@ -622,7 +622,7 @@ func printStructure(#file: String) {
     let request = toXPC([
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
-        "key.sourcefile": file])
+        "key.sourcefile": absolutePath(file)])
 
     // Initialize SourceKit XPC service
     sourcekitd_initialize()
@@ -647,7 +647,7 @@ func printSyntax(#file: String) {
     let request = toXPC([
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
-        "key.sourcefile": file])
+        "key.sourcefile": absolutePath(file)])
     printSyntax(sendSourceKitRequest(request))
 }
 
