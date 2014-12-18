@@ -19,6 +19,22 @@ var fileContentsLineBreaks = [Int]()
 
 // MARK: Helper Functions
 
+ /**
+Converts any path into an absolute path
+
+:param: path An arbitrary path
+
+:returns: path represented as an absolute path
+*/
+func absolutePath(path: String) -> String {
+    if (path as NSString).absolutePath {
+        return path
+    }
+    else {
+        return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, path]).stringByStandardizingPath
+    }
+}
+
 /**
 Returns offsets of all the line breaks in the fileContents global
 :returns: line breaks
@@ -484,7 +500,7 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
     }
     xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
 
-    fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
+    fileContents = NSString(contentsOfFile: absolutePath(file), encoding: NSUTF8StringEncoding, error: nil)!
     fileContentsLineBreaks = lineBreaks()
 
     xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
