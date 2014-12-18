@@ -19,6 +19,22 @@ var fileContentsLineBreaks = [Int]()
 
 // MARK: Helper Functions
 
+ /**
+Converts any path into an absolute path
+
+:param: path An arbitrary path
+
+:returns: path represented as an absolute path
+*/
+func absolutePath(path: String) -> String {
+    if (path as NSString).absolutePath {
+        return path
+    }
+    else {
+        return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, path]).stringByStandardizingPath
+    }
+}
+
 /**
 Returns offsets of all the line breaks in the fileContents global
 :returns: line breaks
@@ -706,11 +722,11 @@ func main() {
     let arguments = Process.arguments
     if arguments.count > 1 && arguments[1] == "--single-file" {
         var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
-        docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
+        docs_for_swift_compiler_args(sourcekitdArguments, absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--structure" {
-        printStructure(file: arguments[2])
+        printStructure(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
-        printSyntax(file: arguments[2])
+        printSyntax(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
         printSyntax(text: arguments[2])
     } else if arguments.count == 2 && arguments[1] == "-h" {
