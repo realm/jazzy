@@ -7,10 +7,21 @@ require 'jazzy/source_declaration/access_control_level'
 module Jazzy
   # rubocop:disable Metrics/ClassLength
   class Config
-    attr_accessor :output, :xcodebuild_arguments, :author_name, :module_name
-    attr_accessor :github_url, :github_file_prefix, :author_url, :dash_url
-    attr_accessor :sourcekitten_sourcefile, :clean, :readme_path
-    attr_accessor :docset_platform, :root_url, :version, :min_acl
+    attr_accessor :output
+    attr_accessor :xcodebuild_arguments
+    attr_accessor :author_name
+    attr_accessor :module_name
+    attr_accessor :github_url
+    attr_accessor :github_file_prefix
+    attr_accessor :author_url
+    attr_accessor :dash_url
+    attr_accessor :sourcekitten_sourcefile
+    attr_accessor :clean
+    attr_accessor :readme_path
+    attr_accessor :docset_platform
+    attr_accessor :root_url
+    attr_accessor :version
+    attr_accessor :min_acl
 
     def initialize
       self.output = Pathname('docs')
