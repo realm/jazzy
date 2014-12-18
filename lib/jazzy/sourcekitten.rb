@@ -71,7 +71,7 @@ module Jazzy
       return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
 
       SourceDeclaration::AccessControlLevel.new(doc['key.annotated_decl']) >=
-      @min_acl
+        @min_acl
     end
 
     def self.process_undocumented_token(doc, declaration)
