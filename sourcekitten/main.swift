@@ -500,7 +500,7 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
     }
     xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
 
-    fileContents = NSString(contentsOfFile: absolutePath(file), encoding: NSUTF8StringEncoding, error: nil)!
+    fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
     fileContentsLineBreaks = lineBreaks()
 
     xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
@@ -622,7 +622,7 @@ func printStructure(#file: String) {
     let request = toXPC([
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
-        "key.sourcefile": absolutePath(file)])
+        "key.sourcefile": file])
 
     // Initialize SourceKit XPC service
     sourcekitd_initialize()
@@ -647,7 +647,7 @@ func printSyntax(#file: String) {
     let request = toXPC([
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
-        "key.sourcefile": absolutePath(file)])
+        "key.sourcefile": file])
     printSyntax(sendSourceKitRequest(request))
 }
 
@@ -722,11 +722,11 @@ func main() {
     let arguments = Process.arguments
     if arguments.count > 1 && arguments[1] == "--single-file" {
         var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
-        docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
+        docs_for_swift_compiler_args(sourcekitdArguments, absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--structure" {
-        printStructure(file: arguments[2])
+        printStructure(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
-        printSyntax(file: arguments[2])
+        printSyntax(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
         printSyntax(text: arguments[2])
     } else if arguments.count == 2 && arguments[1] == "-h" {
