@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jazzy (0.0.16)
+    jazzy (0.0.17)
       activesupport (~> 4.1)
       mustache (~> 0.99)
       nokogiri (~> 1.6)
@@ -35,12 +35,12 @@ GEM
     json (1.8.1)
     metaclass (0.0.4)
     mini_portile (0.6.1)
-    minitest (5.4.3)
+    minitest (5.5.0)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     mocha-on-bacon (0.2.2)
       mocha (>= 0.13.0)
-    mustache (0.99.7)
+    mustache (0.99.8)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     parser (2.2.0.pre.5)
@@ -51,7 +51,7 @@ GEM
       bacon (~> 1.2)
     rainbow (2.0.0)
     rake (10.3.2)
-    redcarpet (3.2.1)
+    redcarpet (3.2.2)
     rouge (1.7.4)
     rubocop (0.26.1)
       astrolabe (~> 1.3)
