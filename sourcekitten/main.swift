@@ -20,7 +20,7 @@ var fileContentsLineBreaks = [Int]()
 
 // MARK: Helper Functions
 
- /**
+/**
 Converts any path into an absolute path
 
 :param: path An arbitrary path
@@ -38,6 +38,7 @@ func absolutePath(path: NSString) -> String {
 
 /**
 Returns offsets of all the line breaks in the fileContents global
+
 :returns: line breaks
 */
 func lineBreaks() -> [Int] {
@@ -60,6 +61,7 @@ func lineBreaks() -> [Int] {
 Sends a request to SourceKit returns the response as an XPCDictionary.
 
 :param: request Request to send synchronously to SourceKit
+
 :returns: SourceKit output
 */
 func sendSourceKitRequest(request: xpc_object_t?) -> XPCDictionary {
@@ -73,6 +75,7 @@ var uidStringMap = [UInt64: String]()
 Cache SourceKit requests for strings from UIDs
 
 :param: uid UID received from sourcekitd* responses
+
 :returns: Cached UID string if available, other
 */
 func stringForSourceKitUID(uid: UInt64) -> String? {
@@ -114,6 +117,7 @@ func printSTDERR(message: String) {
 Parse declaration from XPC dictionary.
 
 :param: dictionary XPC dictionary to extract declaration from.
+
 :returns: String declaration if successfully parsed.
 */
 func parseDeclaration(dictionary: XPCDictionary) -> String? {
@@ -164,6 +168,7 @@ documented children. Add cursor.info information for declarations. Add name to m
 
 :param: dictionary        `XPCDictionary` to mutate.
 :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
+
 :returns: Whether or not the dictionary should be kept.
 */
 func processDictionary(inout dictionary: XPCDictionary,
@@ -260,6 +265,7 @@ Find integer offsets of documented tokens
 
 :param: syntaxMap Syntax Map returned from SourceKit editor.open request
 :param: file File to parse
+
 :returns: Array of documented token offsets
 */
 func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
@@ -303,6 +309,7 @@ func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
 Find integer offsets of documented tokens
 
 :param: file File to parse
+
 :returns: Array of documented token offsets
 */
 func documentedTokenOffsets(file: String) -> [Int] {
@@ -318,6 +325,7 @@ func documentedTokenOffsets(file: String) -> [Int] {
 Convert XPCDictionary to JSON
 
 :param: dictionary XPCDictionary to convert
+
 :returns: Converted JSON
 */
 func toJSON(dictionary: XPCDictionary) -> String {
@@ -328,6 +336,7 @@ func toJSON(dictionary: XPCDictionary) -> String {
 Convert XPCArray of XPCDictionary's to JSON
 
 :param: array XPCArray of XPCDictionary's to convert
+
 :returns: Converted JSON
 */
 func toJSON(array: XPCArray) -> String {
@@ -342,6 +351,7 @@ func toJSON(array: XPCArray) -> String {
 JSON Object to JSON String
 
 :param: object Object to convert to JSON.
+
 :returns: JSON string representation of the input object.
 */
 func toJSON(object: AnyObject) -> String {
@@ -355,6 +365,7 @@ func toJSON(object: AnyObject) -> String {
 Convert XPCDictionary to [String: AnyObject] for conversion using NSJSONSerialization. See toJSON(_:)
 
 :param: dictionary XPCDictionary to convert
+
 :returns: JSON-serializable Dictionary
 */
 func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
@@ -398,6 +409,7 @@ Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
 Return STDERR and STDOUT as a combined string.
 
 :param: processArguments array of arguments to pass to `xcodebuild`
+
 :returns: xcodebuild STDERR+STDOUT output
 */
 func run_xcodebuild(processArguments: [String]) -> String? {
@@ -429,6 +441,7 @@ func run_xcodebuild(processArguments: [String]) -> String? {
 Run sourcekitten as a new process.
 
 :param: processArguments arguments to pass to new sourcekitten process
+
 :returns: sourcekitten STDOUT output
 */
 func run_self(processArguments: [String]) -> String {
@@ -452,6 +465,7 @@ func run_self(processArguments: [String]) -> String {
 Parses the compiler arguments needed to compile the Swift aspects of an Xcode project
 
 :param: xcodebuildOutput output of `xcodebuild` to be parsed for swift compiler arguments
+
 :returns: array of swift compiler arguments
 */
 func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
@@ -550,6 +564,7 @@ Insert a document in a parent at the given offset.
 :param: parent Document to insert into
 :param: offset Parent's offset
 :param: file File where parent and doc are located
+
 :returns: Whether or not the insertion succeeded
 */
 func insertDoc(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64, file: String) -> Bool {
@@ -603,6 +618,7 @@ func insertDoc(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64, f
 Returns an array of swift file names in an array
 
 :param: array Array to be filtered
+
 :returns: the array of swift files
 */
 func swiftFilesFromArray(array: [String]) -> [String] {
