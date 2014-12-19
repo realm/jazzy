@@ -124,7 +124,11 @@ module Jazzy
     def self.write_undocumented_file(undocumented, output_dir)
       (output_dir + 'undocumented.txt').open('w') do |f|
         tokens_by_file = undocumented.group_by do |d|
-          Pathname.new(d['key.filepath']).basename.to_s
+          if d['key.filepath']
+            Pathname.new(d['key.filepath']).basename.to_s
+          else
+            d['key.modulename'] || ''
+          end
         end
         tokens_by_file.each_key do |file|
           f.write(file + "\n")
