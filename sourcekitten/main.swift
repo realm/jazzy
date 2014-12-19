@@ -497,6 +497,34 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 }
 
 /**
+Parses the compiler arguments needed to compile the Objective-C aspects of an Xcode project
+
+:param: xcodebuildOutput output of `xcodebuild` to be parsed for clang compiler arguments
+
+:returns: array of clang compiler arguments
+*/
+func clang_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
+    let regex = NSRegularExpression(pattern: "/usr/bin/clang.*", options: nil, error: nil)!
+    let range = NSRange(location: 0, length: xcodebuildOutput.length)
+
+    if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
+        let escapedSpacePlaceholder = "\u{0}"
+        var args = xcodebuildOutput
+            .substringWithRange(regexMatch.range)
+            .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
+            .componentsSeparatedByString(" ")
+
+        args.removeAtIndex(0) // Remove clang
+
+        return args.filter({ $0 != "-parseable-output" }).map {
+            $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
+        }
+    }
+    
+    return nil
+}
+
+/**
 Print JSON and XML-formatted docs for the specified Swift file.
 
 :param: arguments compiler arguments to pass to SourceKit
@@ -736,7 +764,6 @@ Iterates over Clang translation unit to find all its XML comments. Prints to STD
 :param: translationUnit Clang translation unit created from Clang index, file path and compiler arguments.
 */
 func printXML(translationUnit: CXTranslationUnit) -> Void {
-    println("<?xml version=\"1.0\"?>\n<sourcekitten>")
     clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(translationUnit)) { cursor, parent in
         let comment = clang_Cursor_getParsedComment(cursor)
         let commentKind = clang_Comment_getKind(comment)
@@ -746,7 +773,6 @@ func printXML(translationUnit: CXTranslationUnit) -> Void {
         }
         return CXChildVisit_Recurse
     }
-    println("</sourcekitten>")
 }
 
 /**
@@ -754,20 +780,38 @@ Build Clang translation unit from Objective-C header file path and prints its XM
 
 :param: headerFilePath Absolute path to Objective-C header file.
 */
-func objc(headerFilePath: String) {
-    let args = [
-        "-x",
-        "objective-c",
-        "-isysroot",
-        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"
-    ].map { ($0 as NSString).UTF8String }
-    let translationUnit = clang_createTranslationUnitFromSourceFile(clang_createIndex(0, 1),
-        headerFilePath,
-        Int32(args.count),
-        args,
-        0,
-        nil)
-    printXML(translationUnit)
+func objc(headerFiles: [String], var compilerArgs: [String]) {
+    func filterClangArguments(var args: [String]) -> ([String], Bool) {
+        var didRemove = false
+        let flagsToRemove = [
+            "--serialize-diagnostics",
+            "-c",
+            "-o"
+        ]
+        for flag in flagsToRemove {
+            if let index = find(args, flag) {
+                didRemove = true
+                args.removeAtIndex(index.successor())
+                args.removeAtIndex(index)
+            }
+        }
+        return (args, didRemove)
+    }
+    var bool = true
+    while (bool) {
+        (compilerArgs, bool) = filterClangArguments(compilerArgs)
+    }
+    println("<?xml version=\"1.0\"?>\n<sourcekitten>")
+    for file in headerFiles {
+        let translationUnit = clang_createTranslationUnitFromSourceFile(clang_createIndex(0, 1),
+            file,
+            Int32(compilerArgs.count),
+            compilerArgs.map { ($0 as NSString).UTF8String },
+            0,
+            nil)
+        printXML(translationUnit)
+    }
+    println("</sourcekitten>")
 }
 
 // MARK: Main Program
@@ -778,10 +822,27 @@ Parse command-line arguments & call the appropriate function.
 func main() {
     let arguments = Process.arguments
     if arguments.count > 1 && arguments[1] == "--single-file" {
-        var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
+        let sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
         docs_for_swift_compiler_args(sourcekitdArguments, absolutePath(arguments[2]))
+    } else if arguments.count > 1 && arguments[1] == "--single-file-objc" {
+        objc([absolutePath(arguments[2])], Array<String>(arguments[3..<arguments.count]))
     } else if arguments.count > 2 && arguments[1] == "--objc" {
-        objc(absolutePath(arguments[2]))
+        var xcodebuildArguments = Array<String>(arguments[2..<arguments.count])
+        var headerFiles = [String]()
+        while xcodebuildArguments.first?.rangeOfString(".h") != nil {
+            headerFiles.append(absolutePath(xcodebuildArguments.first!))
+            xcodebuildArguments.removeAtIndex(0)
+        }
+        xcodebuildArguments.insert("", atIndex: 0)
+        if let xcodebuildOutput = run_xcodebuild(xcodebuildArguments) {
+            if let clangArguments = clang_arguments_from_xcodebuild_output(xcodebuildOutput) {
+                objc(headerFiles, clangArguments)
+            } else {
+                error(xcodebuildOutput)
+            }
+        } else {
+            error("Xcode build output could not be read")
+        }
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax" {

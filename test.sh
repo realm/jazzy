@@ -58,7 +58,7 @@ fi
 
 # Test Objective-C Documentation Generation
 
-MUSICIAN_COMMAND="sourcekitten --objc tests/JAZMusician.h"
+MUSICIAN_COMMAND="sourcekitten --single-file-objc tests/JAZMusician.h -x objective-c -isysroot $(xcrun --show-sdk-path)"
 ESCAPED_CURRENT_PATH=$(echo $(pwd) | sed 's/\//\\\//g')
 
 doc_result="$(${MUSICIAN_COMMAND} 2> /dev/null | sed s/${ESCAPED_CURRENT_PATH}/sourcekit_path/g)"
