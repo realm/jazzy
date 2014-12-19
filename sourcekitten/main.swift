@@ -596,6 +596,7 @@ Insert a document in a parent at the given offset.
 :returns: Whether or not the insertion succeeded
 */
 func insertDoc(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64, file: String) -> Bool {
+    /// Insert doc without performing any validation
     func insertDocDirectly(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64) {
         var substructure = parent["key.substructure"] as XPCArray
         var insertIndex = substructure.count
@@ -781,6 +782,7 @@ Build Clang translation unit from Objective-C header file path and prints its XM
 :param: headerFilePath Absolute path to Objective-C header file.
 */
 func objc(headerFiles: [String], var compilerArgs: [String]) {
+    /// Filters clang arguments from xcodebuild to something that libClang will accept
     func filterClangArguments(var args: [String]) -> ([String], Bool) {
         var didRemove = false
         let flagsToRemove = [
