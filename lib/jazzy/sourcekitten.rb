@@ -10,8 +10,8 @@ require 'jazzy/highlighter'
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
-    @documented = 0
-    @undocumented = 0
+    @documented_count = 0
+    @undocumented_tokens = []
 
     # Group root-level docs by type and add as children to a group doc element
     def self.group_docs(docs, type)
@@ -75,7 +75,7 @@ module Jazzy
     end
 
     def self.process_undocumented_token(doc, declaration)
-      @undocumented += 1
+      @undocumented_tokens << doc
       return nil unless documented_child?(doc)
       make_default_doc_info(declaration)
     end
@@ -95,7 +95,7 @@ module Jazzy
       return nil unless should_document?(doc)
       xml_key = 'key.doc.full_as_xml'
       return process_undocumented_token(doc, declaration) unless doc[xml_key]
-      @documented += 1
+      @documented_count += 1
 
       xml = Nokogiri::XML(doc[xml_key]).root
       declaration.line = XMLHelper.attribute(xml, 'line').to_i
@@ -163,8 +163,9 @@ module Jazzy
     # rubocop:enable Metrics/MethodLength
 
     def self.doc_coverage
-      return 0 if @documented == 0 && @undocumented == 0
-      (100 * @documented) / (@undocumented + @documented)
+      return 0 if @documented_count == 0 && @undocumented_tokens.count == 0
+      (100 * @documented_count) /
+        (@undocumented_tokens.count + @documented_count)
     end
 
     # Parse sourcekitten STDOUT output as JSON
@@ -176,7 +177,7 @@ module Jazzy
       SourceDeclaration::Type.all.each do |type|
         docs = group_docs(docs, type)
       end
-      [make_doc_urls(docs, []), doc_coverage]
+      [make_doc_urls(docs, []), doc_coverage, @undocumented_tokens]
     end
   end
 end

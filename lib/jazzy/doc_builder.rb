@@ -97,7 +97,7 @@ module Jazzy
       output_dir = options.output
       prepare_output_dir(output_dir, options.clean)
 
-      (docs, coverage) = SourceKitten.parse(
+      (docs, coverage, undocumented) = SourceKitten.parse(
         sourcekitten_output,
         options.min_acl,
       )
@@ -112,11 +112,29 @@ module Jazzy
       source_module = SourceModule.new(options, docs, structure, coverage)
       build_docs(output_dir, source_module.docs, source_module)
 
+      write_undocumented_file(undocumented, output_dir)
+
       copy_assets(output_dir)
 
       DocsetBuilder.new(output_dir, source_module).build!
 
       puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
+    end
+
+    def self.write_undocumented_file(undocumented, output_dir)
+      (output_dir + 'undocumented.txt').open('w') do |f|
+        tokens_by_file = undocumented.group_by do |d|
+          Pathname.new(d['key.filepath']).basename.to_s
+        end
+        tokens_by_file.each_key do |file|
+          f.write(file + "\n")
+          tokens_by_file[file].each do |token|
+            decl = token['key.parsed_declaration'] ||
+              token['key.annotated_decl'].gsub(/<[^>]+>/, '')
+            f.write("\t" + decl + "\n")
+          end
+        end
+      end
     end
 
     def self.copy_assets(destination)
