@@ -15,9 +15,26 @@ let version = "0.2.2"
 /// File Contents
 var fileContents = NSString()
 
+/// File Contents Line Breaks
 var fileContentsLineBreaks = [Int]()
 
 // MARK: Helper Functions
+
+ /**
+Converts any path into an absolute path
+
+:param: path An arbitrary path
+
+:returns: path represented as an absolute path
+*/
+func absolutePath(path: NSString) -> String {
+    if path.absolutePath {
+        return path
+    }
+    else {
+        return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, path]).stringByStandardizingPath
+    }
+}
 
 /**
 Returns offsets of all the line breaks in the fileContents global
@@ -700,10 +717,10 @@ func printHelp() {
 /**
 Iterates over Clang translation unit to find all its XML comments. Prints to STDOUT.
 
-:param: tu Clang translation unit created from Clang index, file path and compiler arguments.
+:param: translationUnit Clang translation unit created from Clang index, file path and compiler arguments.
 */
-func printXMLFromTU(tu: CXTranslationUnit) -> Void {
-    println("<?xml version=\"1.0\"?>\n<jazz>")
+func printXML(translationUnit: CXTranslationUnit) -> Void {
+    println("<?xml version=\"1.0\"?>\n<sourcekitten>")
     clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(tu)) { cursor, parent in
         let comment = clang_Cursor_getParsedComment(cursor)
         let commentKind = clang_Comment_getKind(comment)
@@ -713,7 +730,7 @@ func printXMLFromTU(tu: CXTranslationUnit) -> Void {
         }
         return CXChildVisit_Recurse
     }
-    println("</jazz>")
+    println("</sourcekitten>")
 }
 
 /**
@@ -722,20 +739,19 @@ Build Clang translation unit from Objective-C header file path and prints its XM
 :param: headerFilePath Absolute path to Objective-C header file.
 */
 func objc(headerFilePath: String) {
-    var args = [
+    let args = [
         "-x",
         "objective-c",
         "-isysroot",
         "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk"
-    ]
-    let index = clang_createIndex(0, 1)
-    let tu = clang_createTranslationUnitFromSourceFile(index,
+    ].map { ($0 as NSString).UTF8String }
+    let translationUnit = clang_createTranslationUnitFromSourceFile(clang_createIndex(0, 1),
         headerFilePath,
         Int32(args.count),
-        args.map { ($0 as NSString).UTF8String },
+        args,
         0,
         nil)
-    printXMLFromTU(tu)
+    printXML(translationUnit)
 }
 
 // MARK: Main Program
@@ -747,13 +763,13 @@ func main() {
     let arguments = Process.arguments
     if arguments.count > 1 && arguments[1] == "--single-file" {
         var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
-        docs_for_swift_compiler_args(sourcekitdArguments, arguments[2])
+        docs_for_swift_compiler_args(sourcekitdArguments, absolutePath(arguments[2]))
     } else if arguments.count > 2 && arguments[1] == "--objc" {
-        objc(arguments[2])
+        objc(absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--structure" {
-        printStructure(file: arguments[2])
+        printStructure(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
-        printSyntax(file: arguments[2])
+        printSyntax(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax-text" {
         printSyntax(text: arguments[2])
     } else if arguments.count == 2 && arguments[1] == "-h" {
