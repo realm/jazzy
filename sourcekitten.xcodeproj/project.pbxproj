@@ -264,7 +264,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SRCROOT)/**",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
@@ -286,7 +286,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/include",
 					"$(SRCROOT)/**",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
