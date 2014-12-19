@@ -721,7 +721,7 @@ Iterates over Clang translation unit to find all its XML comments. Prints to STD
 */
 func printXML(translationUnit: CXTranslationUnit) -> Void {
     println("<?xml version=\"1.0\"?>\n<sourcekitten>")
-    clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(tu)) { cursor, parent in
+    clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(translationUnit)) { cursor, parent in
         let comment = clang_Cursor_getParsedComment(cursor)
         let commentKind = clang_Comment_getKind(comment)
 
