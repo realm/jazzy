@@ -12,6 +12,14 @@ import XPC
 /// Version number
 let version = "0.2.2"
 
+/// Language Enum
+enum Language {
+    /// Represents Swift
+    case Swift
+    /// Represents Objective-C
+    case ObjC
+}
+
 /// File Contents
 var fileContents = NSString()
 
@@ -31,9 +39,7 @@ func absolutePath(path: NSString) -> String {
     if path.absolutePath {
         return path
     }
-    else {
-        return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, path]).stringByStandardizingPath
-    }
+    return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, path]).stringByStandardizingPath
 }
 
 /**
@@ -340,11 +346,7 @@ Convert XPCArray of XPCDictionary's to JSON
 :returns: Converted JSON
 */
 func toJSON(array: XPCArray) -> String {
-    var anyArray = [AnyObject]()
-    for item in array {
-        anyArray.append(toAnyObject(item as XPCDictionary))
-    }
-    return toJSON(anyArray)
+    return toJSON(array.map { toAnyObject($0 as XPCDictionary) })
 }
 
 /**
@@ -373,11 +375,7 @@ func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
     for (key, object) in dictionary {
         switch object {
         case let object as XPCArray:
-            var anyArray = [AnyObject]()
-            for subDict in object {
-                anyArray.append(toAnyObject(subDict as XPCDictionary))
-            }
-            anyDictionary[key] = anyArray
+            anyDictionary[key] = object.map { toAnyObject($0 as XPCDictionary) }
         case let object as XPCDictionary:
             anyDictionary[key] = toAnyObject(object)
         case let object as String:
@@ -408,21 +406,18 @@ func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
 Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
 Return STDERR and STDOUT as a combined string.
 
-:param: processArguments array of arguments to pass to `xcodebuild`
+:param: arguments array of arguments to pass to `xcodebuild`
 
 :returns: xcodebuild STDERR+STDOUT output
 */
-func run_xcodebuild(processArguments: [String]) -> String? {
+func run_xcodebuild(arguments: [String]) -> String? {
     printSTDERR("Running xcodebuild -dry-run")
 
     let task = NSTask()
     task.launchPath = "/usr/bin/xcodebuild"
 
     // Forward arguments to xcodebuild
-    var arguments = processArguments
-    arguments.removeAtIndex(0)
-    arguments.extend(["clean", "build", "-dry-run", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_REQUIRED=NO"])
-    task.arguments = arguments
+    task.arguments = arguments + ["clean", "build", "-dry-run", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_REQUIRED=NO"]
 
     let pipe = NSPipe()
     task.standardOutput = pipe
@@ -462,14 +457,17 @@ func run_self(processArguments: [String]) -> String? {
 }
 
 /**
-Parses the compiler arguments needed to compile the Swift aspects of an Xcode project
+Parses the compiler arguments needed to compile the `language` aspects of an Xcode project
 
-:param: xcodebuildOutput output of `xcodebuild` to be parsed for swift compiler arguments
+:param: xcodebuildOutput output of `xcodebuild` to be parsed for compiler arguments
 
-:returns: array of swift compiler arguments
+:returns: array of compiler arguments
 */
-func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
+func compiler_arguments_from_xcodebuild_output(xcodebuildOutput: NSString, #language: Language) -> [String]? {
     let pattern: String = {
+        if language == .ObjC {
+            return "/usr/bin/clang.*"
+        }
         let arguments = Process.arguments
         if let schemeIndex = find(arguments, "-scheme") {
             return "/usr/bin/swiftc.*-module-name \(arguments[schemeIndex+1]) .*"
@@ -481,46 +479,17 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 
     if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
         let escapedSpacePlaceholder = "\u{0}"
-        var args = xcodebuildOutput
+        let args = xcodebuildOutput
             .substringWithRange(regexMatch.range)
             .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
             .componentsSeparatedByString(" ")
 
-        args.removeAtIndex(0) // Remove swiftc
-
-        return args.filter({ $0 != "-parseable-output" }).map {
+        // Remove swiftc/clang, -parseable-output and re-add spaces in arguments
+        return Array<String>(args[1..<args.count]).filter({ $0 != "-parseable-output" }).map {
             $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
         }
     }
 
-    return nil
-}
-
-/**
-Parses the compiler arguments needed to compile the Objective-C aspects of an Xcode project
-
-:param: xcodebuildOutput output of `xcodebuild` to be parsed for clang compiler arguments
-
-:returns: array of clang compiler arguments
-*/
-func clang_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
-    let regex = NSRegularExpression(pattern: "/usr/bin/clang.*", options: nil, error: nil)!
-    let range = NSRange(location: 0, length: xcodebuildOutput.length)
-
-    if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
-        let escapedSpacePlaceholder = "\u{0}"
-        var args = xcodebuildOutput
-            .substringWithRange(regexMatch.range)
-            .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
-            .componentsSeparatedByString(" ")
-
-        args.removeAtIndex(0) // Remove clang
-
-        return args.filter({ $0 != "-parseable-output" }).map {
-            $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
-        }
-    }
-    
     return nil
 }
 
@@ -835,9 +804,8 @@ func main() {
             headerFiles.append(absolutePath(xcodebuildArguments.first!))
             xcodebuildArguments.removeAtIndex(0)
         }
-        xcodebuildArguments.insert("", atIndex: 0)
         if let xcodebuildOutput = run_xcodebuild(xcodebuildArguments) {
-            if let clangArguments = clang_arguments_from_xcodebuild_output(xcodebuildOutput) {
+            if let clangArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .ObjC) {
                 objc(headerFiles, clangArguments)
             } else {
                 error(xcodebuildOutput)
@@ -853,19 +821,18 @@ func main() {
         printSyntax(text: arguments[2])
     } else if arguments.count == 2 && arguments[1] == "-h" {
         printHelp()
-    } else if let xcodebuildOutput = run_xcodebuild(arguments) {
-        if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
+    } else if let xcodebuildOutput = run_xcodebuild(Array<String>(arguments[1..<arguments.count])) {
+        if let swiftcArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .Swift) {
             // Spawn new processes for each Swift file because SourceKit crashes otherwise
             let swiftFiles = swiftFilesFromArray(swiftcArguments)
             println("[")
             for (index, file) in enumerate(swiftFiles) {
                 printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
-                var self_arguments = ["--single-file", file]
-                self_arguments.extend(swiftcArguments)
-                let selfOutput = run_self(self_arguments)
-                println(selfOutput)
-                if selfOutput != nil && index < swiftFiles.count-1 {
-                    println(",")
+                if let selfOutput = run_self(["--single-file", file] + swiftcArguments) {
+                    println(selfOutput)
+                    if index < swiftFiles.count-1 {
+                        println(",")
+                    }
                 }
             }
             println("]")
