@@ -430,7 +430,7 @@ Run sourcekitten as a new process.
 :param: processArguments arguments to pass to new sourcekitten process
 :returns: sourcekitten STDOUT output
 */
-func run_self(processArguments: [String]) -> String {
+func run_self(processArguments: [String]) -> String? {
     let task = NSTask()
     task.launchPath = NSBundle.mainBundle().executablePath!
     task.arguments = processArguments
@@ -444,7 +444,7 @@ func run_self(processArguments: [String]) -> String {
     let output = NSString(data: file.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
     file.closeFile()
 
-    return output!
+    return output
 }
 
 /**
@@ -740,8 +740,9 @@ func main() {
                 printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
                 var self_arguments = ["--single-file", file]
                 self_arguments.extend(swiftcArguments)
-                println(run_self(self_arguments))
-                if index < swiftFiles.count-1 {
+                let selfOutput = run_self(self_arguments)
+                println(selfOutput)
+                if selfOutput != nil && index < swiftFiles.count-1 {
                     println(",")
                 }
             }
