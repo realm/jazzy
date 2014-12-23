@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.2.3"
+let version = "0.2.4"
 
 /// Language Enum
 enum Language {
@@ -837,6 +837,8 @@ func main() {
                     if index < swiftFiles.count-1 {
                         println(",")
                     }
+                } else {
+                    printSTDERR("\(file.lastPathComponent) could not be parsed. Please open an issue at https://github.com/jpsim/sourcekitten/issues with the file contents.")
                 }
             }
             println("]")
