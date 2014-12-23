@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E84294761A3E7DD90045E150 /* sourcekitd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84294751A3E7DD90045E150 /* sourcekitd.swift */; };
+		E845C91B1A41A453007F7D46 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E845C91A1A41A453007F7D46 /* libclang.dylib */; };
 		E84D2DAC1A04E10C00CC170B /* SwiftXPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84D2DAA1A04E10C00CC170B /* SwiftXPC.swift */; };
 		E84D2DAD1A04E10C00CC170B /* XPCType.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84D2DAB1A04E10C00CC170B /* XPCType.swift */; };
 		E8BC421819EF5C1A001DBEF6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8BC421719EF5C1A001DBEF6 /* main.swift */; };
@@ -16,6 +17,15 @@
 
 /* Begin PBXFileReference section */
 		E84294751A3E7DD90045E150 /* sourcekitd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sourcekitd.swift; sourceTree = "<group>"; };
+		E845C91A1A41A453007F7D46 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib; sourceTree = DEVELOPER_DIR; };
+		E845C91E1A41A48E007F7D46 /* BuildSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuildSystem.h; sourceTree = "<group>"; };
+		E845C91F1A41A48E007F7D46 /* CXCompilationDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXCompilationDatabase.h; sourceTree = "<group>"; };
+		E845C9201A41A48E007F7D46 /* CXErrorCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXErrorCode.h; sourceTree = "<group>"; };
+		E845C9211A41A48E007F7D46 /* CXString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXString.h; sourceTree = "<group>"; };
+		E845C9221A41A48E007F7D46 /* Documentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Documentation.h; sourceTree = "<group>"; };
+		E845C9231A41A48E007F7D46 /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
+		E845C9241A41A48E007F7D46 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
+		E845C9251A41A4BF007F7D46 /* sourcekitten_Bridging_Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sourcekitten_Bridging_Header.h; sourceTree = "<group>"; };
 		E84D2DAA1A04E10C00CC170B /* SwiftXPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftXPC.swift; sourceTree = "<group>"; };
 		E84D2DAB1A04E10C00CC170B /* XPCType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XPCType.swift; sourceTree = "<group>"; };
 		E8BC421419EF5C1A001DBEF6 /* sourcekitten */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sourcekitten; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E845C91B1A41A453007F7D46 /* libclang.dylib in Frameworks */,
 				E8BC421F19EF5C67001DBEF6 /* sourcekitd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,8 +49,25 @@
 		D00139E287AB8D914B366965 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E845C91D1A41A48E007F7D46 /* clang-c */,
+				E845C91A1A41A453007F7D46 /* libclang.dylib */,
+				E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E845C91D1A41A48E007F7D46 /* clang-c */ = {
+			isa = PBXGroup;
+			children = (
+				E845C91E1A41A48E007F7D46 /* BuildSystem.h */,
+				E845C91F1A41A48E007F7D46 /* CXCompilationDatabase.h */,
+				E845C9201A41A48E007F7D46 /* CXErrorCode.h */,
+				E845C9211A41A48E007F7D46 /* CXString.h */,
+				E845C9221A41A48E007F7D46 /* Documentation.h */,
+				E845C9231A41A48E007F7D46 /* Index.h */,
+				E845C9241A41A48E007F7D46 /* Platform.h */,
+			);
+			path = "clang-c";
 			sourceTree = "<group>";
 		};
 		E84D2DA81A04E10C00CC170B /* Vendor */ = {
@@ -63,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				E84D2DA81A04E10C00CC170B /* Vendor */,
-				E8BC421E19EF5C67001DBEF6 /* sourcekitd.framework */,
 				E8BC421619EF5C1A001DBEF6 /* sourcekitten */,
 				E8BC421519EF5C1A001DBEF6 /* Products */,
 				D00139E287AB8D914B366965 /* Frameworks */,
@@ -83,6 +110,7 @@
 			children = (
 				E8BC421719EF5C1A001DBEF6 /* main.swift */,
 				E84294751A3E7DD90045E150 /* sourcekitd.swift */,
+				E845C9251A41A4BF007F7D46 /* sourcekitten_Bridging_Header.h */,
 			);
 			path = sourcekitten;
 			sourceTree = "<group>";
@@ -234,9 +262,17 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/**",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = sourcekitten/sourcekitten_Bridging_Header.h;
 			};
 			name = Debug;
 		};
@@ -247,9 +283,17 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/**",
+				);
 				LD_RUNPATH_SEARCH_PATHS = "$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = sourcekitten/sourcekitten_Bridging_Header.h;
 			};
 			name = Release;
 		};

@@ -10,16 +10,25 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.2.2"
+let version = "0.2.3"
+
+/// Language Enum
+enum Language {
+    /// Represents Swift
+    case Swift
+    /// Represents Objective-C
+    case ObjC
+}
 
 /// File Contents
 var fileContents = NSString()
 
+/// File Contents Line Breaks
 var fileContentsLineBreaks = [Int]()
 
 // MARK: Helper Functions
 
- /**
+/**
 Converts any path into an absolute path
 
 :param: path An arbitrary path
@@ -30,13 +39,12 @@ func absolutePath(path: NSString) -> String {
     if path.absolutePath {
         return path
     }
-    else {
-        return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, path]).stringByStandardizingPath
-    }
+    return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, path]).stringByStandardizingPath
 }
 
 /**
 Returns offsets of all the line breaks in the fileContents global
+
 :returns: line breaks
 */
 func lineBreaks() -> [Int] {
@@ -59,6 +67,7 @@ func lineBreaks() -> [Int] {
 Sends a request to SourceKit returns the response as an XPCDictionary.
 
 :param: request Request to send synchronously to SourceKit
+
 :returns: SourceKit output
 */
 func sendSourceKitRequest(request: xpc_object_t?) -> XPCDictionary {
@@ -72,6 +81,7 @@ var uidStringMap = [UInt64: String]()
 Cache SourceKit requests for strings from UIDs
 
 :param: uid UID received from sourcekitd* responses
+
 :returns: Cached UID string if available, other
 */
 func stringForSourceKitUID(uid: UInt64) -> String? {
@@ -113,6 +123,7 @@ func printSTDERR(message: String) {
 Parse declaration from XPC dictionary.
 
 :param: dictionary XPC dictionary to extract declaration from.
+
 :returns: String declaration if successfully parsed.
 */
 func parseDeclaration(dictionary: XPCDictionary) -> String? {
@@ -163,6 +174,7 @@ documented children. Add cursor.info information for declarations. Add name to m
 
 :param: dictionary        `XPCDictionary` to mutate.
 :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
+
 :returns: Whether or not the dictionary should be kept.
 */
 func processDictionary(inout dictionary: XPCDictionary,
@@ -259,6 +271,7 @@ Find integer offsets of documented tokens
 
 :param: syntaxMap Syntax Map returned from SourceKit editor.open request
 :param: file File to parse
+
 :returns: Array of documented token offsets
 */
 func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
@@ -302,6 +315,7 @@ func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
 Find integer offsets of documented tokens
 
 :param: file File to parse
+
 :returns: Array of documented token offsets
 */
 func documentedTokenOffsets(file: String) -> [Int] {
@@ -317,6 +331,7 @@ func documentedTokenOffsets(file: String) -> [Int] {
 Convert XPCDictionary to JSON
 
 :param: dictionary XPCDictionary to convert
+
 :returns: Converted JSON
 */
 func toJSON(dictionary: XPCDictionary) -> String {
@@ -327,20 +342,18 @@ func toJSON(dictionary: XPCDictionary) -> String {
 Convert XPCArray of XPCDictionary's to JSON
 
 :param: array XPCArray of XPCDictionary's to convert
+
 :returns: Converted JSON
 */
 func toJSON(array: XPCArray) -> String {
-    var anyArray = [AnyObject]()
-    for item in array {
-        anyArray.append(toAnyObject(item as XPCDictionary))
-    }
-    return toJSON(anyArray)
+    return toJSON(array.map { toAnyObject($0 as XPCDictionary) })
 }
 
 /**
 JSON Object to JSON String
 
 :param: object Object to convert to JSON.
+
 :returns: JSON string representation of the input object.
 */
 func toJSON(object: AnyObject) -> String {
@@ -354,6 +367,7 @@ func toJSON(object: AnyObject) -> String {
 Convert XPCDictionary to [String: AnyObject] for conversion using NSJSONSerialization. See toJSON(_:)
 
 :param: dictionary XPCDictionary to convert
+
 :returns: JSON-serializable Dictionary
 */
 func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
@@ -361,11 +375,7 @@ func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
     for (key, object) in dictionary {
         switch object {
         case let object as XPCArray:
-            var anyArray = [AnyObject]()
-            for subDict in object {
-                anyArray.append(toAnyObject(subDict as XPCDictionary))
-            }
-            anyDictionary[key] = anyArray
+            anyDictionary[key] = object.map { toAnyObject($0 as XPCDictionary) }
         case let object as XPCDictionary:
             anyDictionary[key] = toAnyObject(object)
         case let object as String:
@@ -396,20 +406,18 @@ func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
 Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
 Return STDERR and STDOUT as a combined string.
 
-:param: processArguments array of arguments to pass to `xcodebuild`
+:param: arguments array of arguments to pass to `xcodebuild`
+
 :returns: xcodebuild STDERR+STDOUT output
 */
-func run_xcodebuild(processArguments: [String]) -> String? {
+func run_xcodebuild(arguments: [String]) -> String? {
     printSTDERR("Running xcodebuild -dry-run")
 
     let task = NSTask()
     task.launchPath = "/usr/bin/xcodebuild"
 
     // Forward arguments to xcodebuild
-    var arguments = processArguments
-    arguments.removeAtIndex(0)
-    arguments.extend(["clean", "build", "-dry-run", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_REQUIRED=NO"])
-    task.arguments = arguments
+    task.arguments = arguments + ["clean", "build", "-dry-run", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_REQUIRED=NO"]
 
     let pipe = NSPipe()
     task.standardOutput = pipe
@@ -428,6 +436,7 @@ func run_xcodebuild(processArguments: [String]) -> String? {
 Run sourcekitten as a new process.
 
 :param: processArguments arguments to pass to new sourcekitten process
+
 :returns: sourcekitten STDOUT output
 */
 func run_self(processArguments: [String]) -> String? {
@@ -448,13 +457,17 @@ func run_self(processArguments: [String]) -> String? {
 }
 
 /**
-Parses the compiler arguments needed to compile the Swift aspects of an Xcode project
+Parses the compiler arguments needed to compile the `language` aspects of an Xcode project
 
-:param: xcodebuildOutput output of `xcodebuild` to be parsed for swift compiler arguments
-:returns: array of swift compiler arguments
+:param: xcodebuildOutput output of `xcodebuild` to be parsed for compiler arguments
+
+:returns: array of compiler arguments
 */
-func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [String]? {
+func compiler_arguments_from_xcodebuild_output(xcodebuildOutput: NSString, #language: Language) -> [String]? {
     let pattern: String = {
+        if language == .ObjC {
+            return "/usr/bin/clang.*"
+        }
         let arguments = Process.arguments
         if let schemeIndex = find(arguments, "-scheme") {
             return "/usr/bin/swiftc.*-module-name \(arguments[schemeIndex+1]) .*"
@@ -466,14 +479,38 @@ func swiftc_arguments_from_xcodebuild_output(xcodebuildOutput: NSString) -> [Str
 
     if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
         let escapedSpacePlaceholder = "\u{0}"
-        var args = xcodebuildOutput
+        /// Filters compiler arguments from xcodebuild to something that libClang/sourcekit will accept
+        func filterArguments(var args: [String]) -> [String] {
+            /// Partially filters compiler arguments from xcodebuild to something that libClang/sourcekit will accept
+            func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
+                var didRemove = false
+                let flagsToRemove = [
+                    "--serialize-diagnostics",
+                    "-c",
+                    "-o"
+                ]
+                for flag in flagsToRemove {
+                    if let index = find(args, flag) {
+                        didRemove = true
+                        args.removeAtIndex(index.successor())
+                        args.removeAtIndex(index)
+                    }
+                }
+                return (args, didRemove)
+            }
+            var shouldContinueToFilterArguments = true
+            while (shouldContinueToFilterArguments) {
+                (args, shouldContinueToFilterArguments) = partiallyFilterArguments(args)
+            }
+            return args.filter { $0 != "-parseable-output" }
+        }
+        let args = filterArguments(xcodebuildOutput
             .substringWithRange(regexMatch.range)
             .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
-            .componentsSeparatedByString(" ")
+            .componentsSeparatedByString(" "))
 
-        args.removeAtIndex(0) // Remove swiftc
-
-        return args.filter({ $0 != "-parseable-output" }).map {
+        // Remove swiftc/clang, -parseable-output and re-add spaces in arguments
+        return Array<String>(args[1..<args.count]).map {
             $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
         }
     }
@@ -549,9 +586,11 @@ Insert a document in a parent at the given offset.
 :param: parent Document to insert into
 :param: offset Parent's offset
 :param: file File where parent and doc are located
+
 :returns: Whether or not the insertion succeeded
 */
 func insertDoc(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64, file: String) -> Bool {
+    /// Insert doc without performing any validation
     func insertDocDirectly(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64) {
         var substructure = parent["key.substructure"] as XPCArray
         var insertIndex = substructure.count
@@ -602,6 +641,7 @@ func insertDoc(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64, f
 Returns an array of swift file names in an array
 
 :param: array Array to be filtered
+
 :returns: the array of swift files
 */
 func swiftFilesFromArray(array: [String]) -> [String] {
@@ -713,6 +753,42 @@ func printHelp() {
     println("Usage: sourcekitten [-h] [--skip-xcodebuild COMPILER_ARGUMENTS] [--structure /absolute/path/to/file.swift] [--syntax /absolute/path/to/file.swift] [--syntax-text SWIFT_SOURCE_TEXT] [Xcode build arguments...]\n\nVersion: \(version)")
 }
 
+/**
+Iterates over Clang translation unit to find all its XML comments. Prints to STDOUT.
+
+:param: translationUnit Clang translation unit created from Clang index, file path and compiler arguments.
+*/
+func printXML(translationUnit: CXTranslationUnit) -> Void {
+    clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(translationUnit)) { cursor, parent in
+        let comment = clang_Cursor_getParsedComment(cursor)
+        let commentKind = clang_Comment_getKind(comment)
+
+        if let commentXML = String.fromCString(clang_getCString(clang_FullComment_getAsXML(comment))) {
+            println(commentXML)
+        }
+        return CXChildVisit_Recurse
+    }
+}
+
+/**
+Build Clang translation unit from Objective-C header file path and prints its XML comments to STDOUT.
+
+:param: headerFilePath Absolute path to Objective-C header file.
+*/
+func objc(headerFiles: [String], args: [String]) {
+    println("<?xml version=\"1.0\"?>\n<sourcekitten>")
+    for file in headerFiles {
+        let translationUnit = clang_createTranslationUnitFromSourceFile(clang_createIndex(0, 1),
+            file,
+            Int32(args.count),
+            args.map { ($0 as NSString).UTF8String },
+            0,
+            nil)
+        printXML(translationUnit)
+    }
+    println("</sourcekitten>")
+}
+
 // MARK: Main Program
 
 /**
@@ -721,8 +797,26 @@ Parse command-line arguments & call the appropriate function.
 func main() {
     let arguments = Process.arguments
     if arguments.count > 1 && arguments[1] == "--single-file" {
-        var sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
+        let sourcekitdArguments = Array<String>(arguments[3..<arguments.count])
         docs_for_swift_compiler_args(sourcekitdArguments, absolutePath(arguments[2]))
+    } else if arguments.count > 1 && arguments[1] == "--single-file-objc" {
+        objc([absolutePath(arguments[2])], Array<String>(arguments[3..<arguments.count]))
+    } else if arguments.count > 2 && arguments[1] == "--objc" {
+        var xcodebuildArguments = Array<String>(arguments[2..<arguments.count])
+        var headerFiles = [String]()
+        while xcodebuildArguments.first?.rangeOfString(".h") != nil {
+            headerFiles.append(absolutePath(xcodebuildArguments.first!))
+            xcodebuildArguments.removeAtIndex(0)
+        }
+        if let xcodebuildOutput = run_xcodebuild(xcodebuildArguments) {
+            if let clangArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .ObjC) {
+                objc(headerFiles, clangArguments)
+            } else {
+                error(xcodebuildOutput)
+            }
+        } else {
+            error("Xcode build output could not be read")
+        }
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
@@ -731,19 +825,18 @@ func main() {
         printSyntax(text: arguments[2])
     } else if arguments.count == 2 && arguments[1] == "-h" {
         printHelp()
-    } else if let xcodebuildOutput = run_xcodebuild(arguments) {
-        if let swiftcArguments = swiftc_arguments_from_xcodebuild_output(xcodebuildOutput) {
+    } else if let xcodebuildOutput = run_xcodebuild(Array<String>(arguments[1..<arguments.count])) {
+        if let swiftcArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .Swift) {
             // Spawn new processes for each Swift file because SourceKit crashes otherwise
             let swiftFiles = swiftFilesFromArray(swiftcArguments)
             println("[")
             for (index, file) in enumerate(swiftFiles) {
                 printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
-                var self_arguments = ["--single-file", file]
-                self_arguments.extend(swiftcArguments)
-                let selfOutput = run_self(self_arguments)
-                println(selfOutput)
-                if selfOutput != nil && index < swiftFiles.count-1 {
-                    println(",")
+                if let selfOutput = run_self(["--single-file", file] + swiftcArguments) {
+                    println(selfOutput)
+                    if index < swiftFiles.count-1 {
+                        println(",")
+                    }
                 }
             }
             println("]")

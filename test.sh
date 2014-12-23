@@ -41,7 +41,7 @@ else
 fi
 rm structure.swift
 
-# Test Documentation Generation
+# Test Swift Documentation Generation
 BICYCLE_FILE="tests/Bicycle.swift"
 BICYCLE_COMMAND="sourcekitten --single-file ${BICYCLE_FILE} -j4 $(pwd)/${BICYCLE_FILE}"
 ESCAPED_CURRENT_PATH=$(echo $(pwd) | sed 's/\//\\\\\\\//g')
@@ -49,9 +49,24 @@ ESCAPED_CURRENT_PATH=$(echo $(pwd) | sed 's/\//\\\\\\\//g')
 doc_result="$(${BICYCLE_COMMAND} 2> /dev/null | sed s/${ESCAPED_CURRENT_PATH}/sourcekit_path/g | jsonlint -s)"
 doc_expected="$(cat tests/Bicycle.json | jsonlint -s)"
 if [ "$doc_result" == "$doc_expected" ]; then
-    echo "documentation generation passed"
+    echo "swift documentation generation passed"
 else
-    echo "documentation generation failed"
+    echo "swift documentation generation failed"
+    echo "$doc_result"
+    exit 1
+fi
+
+# Test Objective-C Documentation Generation
+
+MUSICIAN_COMMAND="sourcekitten --single-file-objc tests/JAZMusician.h -x objective-c -isysroot $(xcrun --show-sdk-path)"
+ESCAPED_CURRENT_PATH=$(echo $(pwd) | sed 's/\//\\\//g')
+
+doc_result="$(${MUSICIAN_COMMAND} 2> /dev/null | sed s/${ESCAPED_CURRENT_PATH}/sourcekit_path/g)"
+doc_expected="$(cat tests/Musician.xml)"
+if [ "$doc_result" == "$doc_expected" ]; then
+    echo "objc documentation generation passed"
+else
+    echo "objc documentation generation failed"
     echo "$doc_result"
     exit 1
 fi
