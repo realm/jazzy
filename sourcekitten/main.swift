@@ -479,13 +479,38 @@ func compiler_arguments_from_xcodebuild_output(xcodebuildOutput: NSString, #lang
 
     if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
         let escapedSpacePlaceholder = "\u{0}"
-        let args = xcodebuildOutput
+        /// Filters compiler arguments from xcodebuild to something that libClang/sourcekit will accept
+        func filterArguments(var args: [String]) -> [String] {
+            /// Partially filters compiler arguments from xcodebuild to something that libClang/sourcekit will accept
+            func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
+                var didRemove = false
+                let flagsToRemove = [
+                    "--serialize-diagnostics",
+                    "-c",
+                    "-o"
+                ]
+                for flag in flagsToRemove {
+                    if let index = find(args, flag) {
+                        didRemove = true
+                        args.removeAtIndex(index.successor())
+                        args.removeAtIndex(index)
+                    }
+                }
+                return (args, didRemove)
+            }
+            var shouldContinueToFilterArguments = true
+            while (shouldContinueToFilterArguments) {
+                (args, shouldContinueToFilterArguments) = partiallyFilterArguments(args)
+            }
+            return args.filter { $0 != "-parseable-output" }
+        }
+        let args = filterArguments(xcodebuildOutput
             .substringWithRange(regexMatch.range)
             .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
-            .componentsSeparatedByString(" ")
+            .componentsSeparatedByString(" "))
 
         // Remove swiftc/clang, -parseable-output and re-add spaces in arguments
-        return Array<String>(args[1..<args.count]).filter({ $0 != "-parseable-output" }).map {
+        return Array<String>(args[1..<args.count]).map {
             $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
         }
     }
@@ -750,34 +775,13 @@ Build Clang translation unit from Objective-C header file path and prints its XM
 
 :param: headerFilePath Absolute path to Objective-C header file.
 */
-func objc(headerFiles: [String], var compilerArgs: [String]) {
-    /// Filters clang arguments from xcodebuild to something that libClang will accept
-    func filterClangArguments(var args: [String]) -> ([String], Bool) {
-        var didRemove = false
-        let flagsToRemove = [
-            "--serialize-diagnostics",
-            "-c",
-            "-o"
-        ]
-        for flag in flagsToRemove {
-            if let index = find(args, flag) {
-                didRemove = true
-                args.removeAtIndex(index.successor())
-                args.removeAtIndex(index)
-            }
-        }
-        return (args, didRemove)
-    }
-    var bool = true
-    while (bool) {
-        (compilerArgs, bool) = filterClangArguments(compilerArgs)
-    }
+func objc(headerFiles: [String], args: [String]) {
     println("<?xml version=\"1.0\"?>\n<sourcekitten>")
     for file in headerFiles {
         let translationUnit = clang_createTranslationUnitFromSourceFile(clang_createIndex(0, 1),
             file,
-            Int32(compilerArgs.count),
-            compilerArgs.map { ($0 as NSString).UTF8String },
+            Int32(args.count),
+            args.map { ($0 as NSString).UTF8String },
             0,
             nil)
         printXML(translationUnit)
