@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.2.2"
+let version = "0.2.3"
 
 /// Language Enum
 enum Language {
