@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jazzy (0.0.17)
+    jazzy (0.0.18)
       activesupport (~> 4.1)
       mustache (~> 0.99)
       nokogiri (~> 1.6)
@@ -13,11 +13,11 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    activesupport (4.1.8)
-      i18n (~> 0.6, >= 0.6.9)
+    activesupport (4.2.0)
+      i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
-      thread_safe (~> 0.1)
+      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.3.6)
     ast (2.0.0)
@@ -31,7 +31,7 @@ GEM
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diffy (3.0.7)
-    i18n (0.6.11)
+    i18n (0.7.0)
     json (1.8.1)
     metaclass (0.0.4)
     mini_portile (0.6.1)
