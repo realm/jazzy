@@ -34,8 +34,8 @@ Print message to STDERR. Useful for UI messages without affecting STDOUT data.
 :param: message message to print.
 */
 func printSTDERR(message: String) {
-    let stderr = NSFileHandle.fileHandleWithStandardError()
     if let data = (message + "\n").dataUsingEncoding(NSUTF8StringEncoding) {
+        let stderr = NSFileHandle.fileHandleWithStandardError()
         stderr.writeData(data)
     }
 }
