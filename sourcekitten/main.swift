@@ -29,6 +29,28 @@ var fileContentsLineBreaks = [Int]()
 // MARK: Helper Functions
 
 /**
+Print message to STDERR. Useful for UI messages without affecting STDOUT data.
+
+:param: message message to print.
+*/
+func printSTDERR(message: String) {
+    if let data = (message + "\n").dataUsingEncoding(NSUTF8StringEncoding) {
+        let stderr = NSFileHandle.fileHandleWithStandardError()
+        stderr.writeData(data)
+    }
+}
+
+/**
+Print message to STDERR and exit(1)
+
+:param: message message to print
+*/
+func error(message: String) {
+    printSTDERR(message)
+    exit(1)
+}
+
+/**
 Converts any path into an absolute path
 
 :param: path An arbitrary path
@@ -71,7 +93,15 @@ Sends a request to SourceKit returns the response as an XPCDictionary.
 :returns: SourceKit output
 */
 func sendSourceKitRequest(request: xpc_object_t?) -> XPCDictionary {
-    return fromXPC(sourcekitd_send_request_sync(request!)!)
+    if let request = request {
+        if let response = sourcekitd_send_request_sync(request) {
+            return fromXPC(response)
+        } else {
+            error("SourceKit response nil for request \(request)")
+        }
+    }
+    error("SourceKit request can't be nil")
+    return XPCDictionary()
 }
 
 /// SourceKit UID to String map
@@ -100,26 +130,6 @@ func stringForSourceKitUID(uid: UInt64) -> String? {
 }
 
 /**
-Print message to STDERR and exit(1)
-
-:param: message message to print
-*/
-func error(message: String) {
-    printSTDERR(message)
-    exit(1)
-}
-
-/**
-Print message to STDERR. Useful for UI messages without affecting STDOUT data.
-
-:param: message message to print.
-*/
-func printSTDERR(message: String) {
-    let stderr = NSFileHandle.fileHandleWithStandardError()
-    stderr.writeData((message + "\n").dataUsingEncoding(NSUTF8StringEncoding)!)
-}
-
-/**
 Parse declaration from XPC dictionary.
 
 :param: dictionary XPC dictionary to extract declaration from.
@@ -139,7 +149,7 @@ func parseDeclaration(dictionary: XPCDictionary) -> String? {
                 return fileContentsLineBreaks[index - 1]
             }
         }
-        return fileContentsLineBreaks.first!
+        return fileContentsLineBreaks.first ?? 0
     }() + 1
     /**
     Filter fileContents from previousLineBreak
@@ -163,7 +173,7 @@ func parseDeclaration(dictionary: XPCDictionary) -> String? {
                 return fileContentsLineBreaks[fileContentsLineBreaks.count - index]
             }
         }
-        return fileContentsLineBreaks.last!
+        return fileContentsLineBreaks.last ?? 0
     }() + 1
     return filteredSubstringTo(nextLineBreakOffset)
 }
@@ -228,10 +238,11 @@ func processDictionary(inout dictionary: XPCDictionary,
         }
         return true
     } else if kind == "source.lang.swift.syntaxtype.comment.mark" {
-        let offset = dictionary["key.offset"] as Int64
-        let length = dictionary["key.length"] as Int64
-        let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile"))!
-        dictionary["key.name"] = fileContents.substringWithRange(NSRange(location: Int(offset), length: Int(length)))
+        let offset = Int(dictionary["key.offset"] as Int64)
+        let length = Int(dictionary["key.length"] as Int64)
+        if let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile")) {
+            dictionary["key.name"] = fileContents.substringWithRange(NSRange(location: offset, length: length))
+        }
         return true
     }
     return false
@@ -287,7 +298,7 @@ func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
 
         var uid = UInt64(0)
         syntaxMap.getBytes(&uid, range: NSRange(location: 16 + parserOffset, length: 8))
-        let type = stringForSourceKitUID(uid)!
+        let type = stringForSourceKitUID(uid) ?? "unknown"
 
         // Only append identifiers
         if type != "source.lang.swift.syntaxtype.identifier" {
@@ -298,7 +309,7 @@ func documentedTokenOffsets(syntaxMap: NSData, file: String) -> [Int] {
         identifierOffsets.append(offset)
     }
 
-    let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)!
+    let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)! // Safe to force unwrap
     let range = NSRange(location: 0, length: fileContents.length)
     let matches = regex.matchesInString(fileContents, options: nil, range: range)
 
@@ -324,7 +335,11 @@ func documentedTokenOffsets(file: String) -> [Int] {
         "key.request": sourcekitd_uid_get_from_cstr("source.request.editor.open"),
         "key.name": "",
         "key.sourcefile": file])
-    return documentedTokenOffsets(sendSourceKitRequest(request)["key.syntaxmap"] as NSData!, file)
+    if let syntaxMap = sendSourceKitRequest(request)["key.syntaxmap"] as NSData? {
+        return documentedTokenOffsets(syntaxMap, file)
+    }
+    error("SourceKit could not generate syntax map.")
+    return []
 }
 
 /**
@@ -357,10 +372,12 @@ JSON Object to JSON String
 :returns: JSON string representation of the input object.
 */
 func toJSON(object: AnyObject) -> String {
-    let prettyJSONData = NSJSONSerialization.dataWithJSONObject(object,
+    if let prettyJSONData = NSJSONSerialization.dataWithJSONObject(object,
         options: .PrettyPrinted,
-        error: nil)
-    return NSString(data: prettyJSONData!, encoding: NSUTF8StringEncoding)!
+        error: nil) {
+        return NSString(data: prettyJSONData, encoding: NSUTF8StringEncoding)! // Safe to force unwrap
+    }
+    return ""
 }
 
 /**
@@ -441,7 +458,7 @@ Run sourcekitten as a new process.
 */
 func run_self(processArguments: [String]) -> String? {
     let task = NSTask()
-    task.launchPath = NSBundle.mainBundle().executablePath!
+    task.launchPath = NSBundle.mainBundle().executablePath! // Safe to force unwrap
     task.arguments = processArguments
 
     let pipe = NSPipe()
@@ -474,7 +491,7 @@ func compiler_arguments_from_xcodebuild_output(xcodebuildOutput: NSString, #lang
         }
         return "/usr/bin/swiftc.*"
     }()
-    let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)!
+    let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)! // Safe to force unwrap
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
 
     if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
@@ -537,7 +554,11 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
     }
     xpc_dictionary_set_value(cursorInfoRequest, "key.compilerargs", xpcArguments)
 
-    fileContents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil)!
+    if let contents = NSString(contentsOfFile: file, encoding: NSUTF8StringEncoding, error: nil) {
+        fileContents = contents
+    } else {
+        error("\(file.lastPathComponent) could not be read.")
+    }
     fileContentsLineBreaks = lineBreaks()
 
     xpc_dictionary_set_string(openRequest, "key.sourcefile", file)
@@ -573,7 +594,11 @@ func docs_for_swift_compiler_args(arguments: [String], file: String) {
         processDictionary(&response)
         if response["key.kind"] != nil &&
             (response["key.kind"] as String).rangeOfString("source.lang.swift.decl.") != nil {
-                insertDoc(response, &openResponse, Int64(offsetsMap[offset]!), file)
+            if let mappedOffset = offsetsMap[offset] {
+                insertDoc(response, &openResponse, Int64(mappedOffset), file)
+            } else {
+                printSTDERR("No mapped offset for \(offset) in \(file.lastPathComponent)")
+            }
         }
     }
     println(toJSON(openResponse))
@@ -618,19 +643,14 @@ func insertDoc(doc: XPCDictionary, inout parent: XPCDictionary, offset: Int64, f
         }
     }
     for key in parent.keys {
-        if var subArray = parent[key]! as? XPCArray {
-            var success = false
+        if var subArray = parent[key]! as? XPCArray { // Safe to force unwrap
             for i in 0..<subArray.count {
                 var subDict = subArray[i] as XPCDictionary
-                success = insertDoc(doc, &subDict, offset, file)
-                subArray[i] = subDict
-                if success {
-                    break
+                if insertDoc(doc, &subDict, offset, file) {
+                    subArray[i] = subDict
+                    parent[key] = subArray
+                    return true
                 }
-            }
-            if success {
-                parent[key] = subArray
-                return true
             }
         }
     }
@@ -727,7 +747,7 @@ func printSyntax(sourceKitResponse: XPCDictionary) {
 
         var uid = UInt64(0)
         data.getBytes(&uid, range: NSRange(location: 16 + parserOffset, length: 8))
-        let type = stringForSourceKitUID(uid)!
+        let type = stringForSourceKitUID(uid) ?? "unknown"
 
         var offset = 0
         data.getBytes(&offset, range: NSRange(location: 24 + parserOffset, length: 4))
@@ -739,11 +759,11 @@ func printSyntax(sourceKitResponse: XPCDictionary) {
         syntaxArray.append(["type": type, "offset": offset, "length": length])
     }
 
-    let syntaxJSONData = NSJSONSerialization.dataWithJSONObject(syntaxArray,
+    if let syntaxJSONData = NSJSONSerialization.dataWithJSONObject(syntaxArray,
         options: .PrettyPrinted,
-        error: nil)
-    let syntaxJSON = NSString(data: syntaxJSONData!, encoding: NSUTF8StringEncoding)!
-    println(syntaxJSON)
+        error: nil) {
+        println(NSString(data: syntaxJSONData, encoding: NSUTF8StringEncoding)!) // Safe to force unwrap
+    }
 }
 
 /**
@@ -805,7 +825,7 @@ func main() {
         var xcodebuildArguments = Array<String>(arguments[2..<arguments.count])
         var headerFiles = [String]()
         while xcodebuildArguments.first?.rangeOfString(".h") != nil {
-            headerFiles.append(absolutePath(xcodebuildArguments.first!))
+            headerFiles.append(absolutePath(xcodebuildArguments.first!)) // Safe to force unwrap
             xcodebuildArguments.removeAtIndex(0)
         }
         if let xcodebuildOutput = run_xcodebuild(xcodebuildArguments) {
