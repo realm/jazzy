@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = Jazzy::VERSION
   spec.authors       = ['JP Simard', 'Tim Anglade', 'Samuel Giddins']
   spec.email         = ['jp@realm.io']
-  spec.summary       = 'A soulful way to generate docs for Swift.'
-  spec.description   = 'A soulful way to generate docs for Swift. ' \
+  spec.summary       = 'Soulful docs for Swift & Objective-C.'
+  spec.description   = 'Soulful docs for Swift & Objective-C. ' \
                        "Run in your Xcode project's root directory for " \
                        'instant HTML docs.'
   spec.homepage      = 'http://github.com/realm/jazzy'
