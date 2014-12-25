@@ -121,6 +121,18 @@ module Jazzy
       puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
     end
 
+    def self.decl_for_token(token)
+      if token['key.parsed_declaration']
+        token['key.parsed_declaration']
+      elsif token['key.annotated_decl']
+        token['key.annotated_decl'].gsub(/<[^>]+>/, '')
+      elsif token['key.name']
+        token['key.name']
+      else
+        'unknown declaration'
+      end
+    end
+
     def self.write_undocumented_file(undocumented, output_dir)
       (output_dir + 'undocumented.txt').open('w') do |f|
         tokens_by_file = undocumented.group_by do |d|
@@ -133,9 +145,7 @@ module Jazzy
         tokens_by_file.each_key do |file|
           f.write(file + "\n")
           tokens_by_file[file].each do |token|
-            decl = token['key.parsed_declaration'] ||
-              token['key.annotated_decl'].gsub(/<[^>]+>/, '')
-            f.write("\t" + decl + "\n")
+            f.write("\t" + decl_for_token(token) + "\n")
           end
         end
       end
