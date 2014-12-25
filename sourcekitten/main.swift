@@ -146,6 +146,9 @@ func parseDeclaration(dictionary: XPCDictionary) -> String? {
     let previousLineBreakOffset: Int = {
         for (index, lineBreakOffset) in enumerate(fileContentsLineBreaks) {
             if lineBreakOffset > Int(offset) {
+                if index == 0 {
+                    return 0
+                }
                 return fileContentsLineBreaks[index - 1]
             }
         }
