@@ -1,3 +1,21 @@
+## Master
+
+[sourcekitten](https://github.com/jpsim/sourcekitten/compare/0.2.6...master)
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* Don't show 'Show in Github' link for types declared in system frameworks.  
+  [JP Simard](https://github.com/jpsim)
+  [#110](https://github.com/realm/jazzy/issues/110)
+
 ## 0.0.19
 
 [sourcekitten](https://github.com/jpsim/sourcekitten/compare/0.2.3...0.2.6)

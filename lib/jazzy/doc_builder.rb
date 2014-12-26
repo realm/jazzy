@@ -17,6 +17,8 @@ module Jazzy
   # This module handles HTML generation, file writing, asset copying,
   # and generally building docs given sourcekitten output
   module DocBuilder
+    DEVELOPER_DIR = `xcode-select -p`.chomp
+
     # mkdir -p output directory and clean if option is set
     def self.prepare_output_dir(output_dir, clean)
       FileUtils.rm_r output_dir if clean && output_dir.directory?
@@ -183,15 +185,18 @@ module Jazzy
       doc.render
     end
 
+    def self.should_link_to_github(file)
+      !file.start_with?(DEVELOPER_DIR) if file
+    end
+
     # Construct Github token URL
     # @param [Hash] item Parsed doc child item
     # @param [Config] options Build options
     def self.gh_token_url(item, source_module)
-      if source_module.github_file_prefix && item.file
-        gh_prefix = source_module.github_file_prefix
+      if source_module.github_file_prefix && should_link_to_github(item.file)
         relative_file_path = item.file.gsub(`pwd`.strip, '')
         gh_line = "#L#{item.line}"
-        gh_prefix + relative_file_path + gh_line
+        source_module.github_file_prefix + relative_file_path + gh_line
       end
     end
 
