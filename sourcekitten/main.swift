@@ -812,6 +812,79 @@ func objc(headerFiles: [String], args: [String]) {
     println("</sourcekitten>")
 }
 
+/**
+Prints Swift docs from the output of `run_xcodebuild()`
+
+:param: xcodebuildOutput Output of `run_xcodebuild()`
+*/
+func printSwiftDocs(xcodebuildOutput: String) {
+    if let swiftcArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .Swift) {
+        // Spawn new processes for each Swift file because SourceKit crashes otherwise
+        let swiftFiles = swiftFilesFromArray(swiftcArguments)
+        var results = [NSDictionary]()
+        for (index, file) in enumerate(swiftFiles) {
+            printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
+            if let selfOutput = run_self(["--single-file", file] + swiftcArguments) {
+                if countElements(selfOutput) > 0 {
+                    if let outputData = selfOutput.dataUsingEncoding(NSUTF8StringEncoding) {
+                        let error = NSErrorPointer()
+                        let jsonObject = NSJSONSerialization.JSONObjectWithData(outputData, options: nil, error: error) as NSDictionary?
+                        if error.memory == nil {
+                            if let jsonObject = jsonObject {
+                                results.append(jsonObject)
+                                continue
+                            }
+                        }
+                    }
+                }
+            }
+            printSTDERR("\(file.lastPathComponent) could not be parsed. Please open an issue at https://github.com/jpsim/sourcekitten/issues with the file contents.")
+        }
+        if let jsonData = NSJSONSerialization.dataWithJSONObject(results, options: .PrettyPrinted, error: nil) {
+            if let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) {
+                println(jsonString)
+            }
+        }
+    } else {
+        error(xcodebuildOutput)
+    }
+}
+
+/**
+Extracts xcodebuild arguments and Objective-C header files from sourcekitten arguments.
+
+:param: sourcekittenArguments Arguments passed to sourcekitten after --objc
+
+:returns: Tuple of xcodebuild arguments in .0 and header files in .1
+*/
+func xcodebuildArgumentsAndHeaderFiles(sourcekittenArguments: [String]) -> ([String], [String]) {
+    var xcodebuildArguments = sourcekittenArguments
+    var headerFiles = [String]()
+    while xcodebuildArguments.first?.rangeOfString(".h") != nil {
+        headerFiles.append(absolutePath(xcodebuildArguments.first!)) // Safe to force unwrap
+        xcodebuildArguments.removeAtIndex(0)
+    }
+    return (xcodebuildArguments, headerFiles)
+}
+
+/**
+Prints Objective-C docs from process arguments.
+
+:param: arguments sourcekitten arguments.
+*/
+func printObjCDocs(arguments: [String]) {
+    let (xcodebuildArguments, headerFiles) = xcodebuildArgumentsAndHeaderFiles(Array<String>(arguments[2..<arguments.count]))
+    if let xcodebuildOutput = run_xcodebuild(xcodebuildArguments) {
+        if let clangArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .ObjC) {
+            objc(headerFiles, clangArguments)
+        } else {
+            error(xcodebuildOutput)
+        }
+    } else {
+        error("Xcode build output could not be read")
+    }
+}
+
 // MARK: Main Program
 
 /**
@@ -825,21 +898,7 @@ func main() {
     } else if arguments.count > 1 && arguments[1] == "--single-file-objc" {
         objc([absolutePath(arguments[2])], Array<String>(arguments[3..<arguments.count]))
     } else if arguments.count > 2 && arguments[1] == "--objc" {
-        var xcodebuildArguments = Array<String>(arguments[2..<arguments.count])
-        var headerFiles = [String]()
-        while xcodebuildArguments.first?.rangeOfString(".h") != nil {
-            headerFiles.append(absolutePath(xcodebuildArguments.first!)) // Safe to force unwrap
-            xcodebuildArguments.removeAtIndex(0)
-        }
-        if let xcodebuildOutput = run_xcodebuild(xcodebuildArguments) {
-            if let clangArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .ObjC) {
-                objc(headerFiles, clangArguments)
-            } else {
-                error(xcodebuildOutput)
-            }
-        } else {
-            error("Xcode build output could not be read")
-        }
+        printObjCDocs(arguments)
     } else if arguments.count == 3 && arguments[1] == "--structure" {
         printStructure(file: absolutePath(arguments[2]))
     } else if arguments.count == 3 && arguments[1] == "--syntax" {
@@ -849,27 +908,7 @@ func main() {
     } else if arguments.count == 2 && arguments[1] == "-h" {
         printHelp()
     } else if let xcodebuildOutput = run_xcodebuild(Array<String>(arguments[1..<arguments.count])) {
-        if let swiftcArguments = compiler_arguments_from_xcodebuild_output(xcodebuildOutput, language: .Swift) {
-            // Spawn new processes for each Swift file because SourceKit crashes otherwise
-            let swiftFiles = swiftFilesFromArray(swiftcArguments)
-            println("[")
-            for (index, file) in enumerate(swiftFiles) {
-                printSTDERR("parsing \(file.lastPathComponent) (\(index + 1)/\(swiftFiles.count))")
-                if let selfOutput = run_self(["--single-file", file] + swiftcArguments) {
-                    if countElements(selfOutput) > 0 {
-                        println(selfOutput)
-                        if index < swiftFiles.count-1 {
-                            println(",")
-                        }
-                        continue
-                    }
-                }
-                printSTDERR("\(file.lastPathComponent) could not be parsed. Please open an issue at https://github.com/jpsim/sourcekitten/issues with the file contents.")
-            }
-            println("]")
-        } else {
-            error(xcodebuildOutput)
-        }
+        printSwiftDocs(xcodebuildOutput)
     } else {
         error("Xcode build output could not be read")
     }
