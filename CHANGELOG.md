@@ -12,7 +12,7 @@ None.
 
 ##### Bug Fixes
 
-* Fixed crash when files contained a declaration on the first line.
+* Fixed crash when files contained a declaration on the first line.  
   [JP Simard](https://github.com/jpsim)
   [#14](https://github.com/jpsim/sourcekitten/issues/14)
 
