@@ -18,7 +18,7 @@ sourcekitten links and communicates with `sourcekitd.framework` to generate pars
 
 ## Structure Information
 
-Calling `sourcekitten --structure /absolute/path/to/file.swift` will return a JSON array of structure information:
+Calling `sourcekitten --structure path/to/file.swift` will return a JSON array of structure information:
 
 ```json
 {
@@ -55,7 +55,7 @@ Calling `sourcekitten --structure /absolute/path/to/file.swift` will return a JS
 
 ## Syntax Information
 
-Calling `sourcekitten --syntax /absolute/path/to/file.swift` will return a JSON array of syntax highlighting information:
+Calling `sourcekitten --syntax path/to/file.swift` will return a JSON array of syntax highlighting information:
 
 ```json
 [
