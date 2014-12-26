@@ -8,7 +8,9 @@ None.
 
 ##### Enhancements
 
-None.
+* Combine abstract and discussion in page overview.  
+  [JP Simard](https://github.com/jpsim)
+  [#115](https://github.com/realm/jazzy/issues/115)
 
 ##### Bug Fixes
 
