@@ -840,6 +840,7 @@ func printSwiftDocs(xcodebuildOutput: String) {
                 }
             }
             printSTDERR("\(file.lastPathComponent) could not be parsed. Please open an issue at https://github.com/jpsim/sourcekitten/issues with the file contents.")
+            results.append(["sourcekitten_error": "\(file.lastPathComponent) could not be parsed"])
         }
         if let jsonData = NSJSONSerialization.dataWithJSONObject(results, options: .PrettyPrinted, error: nil) {
             if let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) {

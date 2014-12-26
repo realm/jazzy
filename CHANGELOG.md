@@ -10,6 +10,10 @@ None.
   [JP Simard](https://github.com/jpsim)
   [realm/jazzy#125](https://github.com/realm/jazzy/issues/125)
 
+* Include parse errors in the JSON output.  
+  [JP Simard](https://github.com/jpsim)
+  [#16](https://github.com/jpsim/sourcekitten/issues/16)
+
 ##### Bug Fixes
 
 * Fixed crash when files contained a declaration on the first line.  
