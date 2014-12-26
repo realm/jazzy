@@ -18,3 +18,7 @@ None.
 
 * Fixed invalid JSON issue when last file in an Xcode project failed to parse.  
   [JP Simard](https://github.com/jpsim)
+
+* Fixed crash when attempting to parse the declaration of `extension Array`.  
+  [JP Simard](https://github.com/jpsim)
+  [realm/jazzy#126](https://github.com/realm/jazzy/issues/126)

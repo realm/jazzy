@@ -139,6 +139,7 @@ Parse declaration from XPC dictionary.
 func parseDeclaration(dictionary: XPCDictionary) -> String? {
     if dictionary["key.typename"] == nil ||
         dictionary["key.annotated_decl"] == nil ||
+        dictionary["key.offset"] == nil ||
         dictionary["key.kind"] as String == "source.lang.swift.decl.extension" {
         return nil
     }
