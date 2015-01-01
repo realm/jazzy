@@ -76,7 +76,7 @@ module Jazzy
 
     def self.process_undocumented_token(doc, declaration)
       @undocumented_tokens << doc
-      return nil unless documented_child?(doc)
+      return nil if !documented_child?(doc) && !@document_all
       make_default_doc_info(declaration)
     end
 
@@ -170,8 +170,9 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    def self.parse(sourcekitten_output, min_acl)
+    def self.parse(sourcekitten_output, min_acl, document_all)
       @min_acl = min_acl
+      @document_all = document_all
       sourcekitten_json = JSON.parse(sourcekitten_output)
       docs = make_source_declarations(sourcekitten_json)
       SourceDeclaration::Type.all.each do |type|
