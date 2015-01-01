@@ -1,3 +1,19 @@
+## 0.2.7
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* Fixed improper UTF8 parsing of MARK comments.  
+  [JP Simard](https://github.com/jpsim)
+  [realm/jazzy#131](https://github.com/realm/jazzy/issues/131)
+
 ## 0.2.6
 
 ##### Breaking

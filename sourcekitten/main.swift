@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.2.6"
+let version = "0.2.7"
 
 /// Language Enum
 enum Language {
@@ -245,7 +245,12 @@ func processDictionary(inout dictionary: XPCDictionary,
         let offset = Int(dictionary["key.offset"] as Int64)
         let length = Int(dictionary["key.length"] as Int64)
         if let file = String(UTF8String: xpc_dictionary_get_string(cursorInfoRequest, "key.sourcefile")) {
-            dictionary["key.name"] = fileContents.substringWithRange(NSRange(location: offset, length: length))
+            if let fileContentsData = fileContents.dataUsingEncoding(NSUTF8StringEncoding) {
+                let subdata = fileContentsData.subdataWithRange(NSRange(location: offset, length: length))
+                if let substring = NSString(data: subdata, encoding: NSUTF8StringEncoding) as String? {
+                    dictionary["key.name"] = substring
+                }
+            }
         }
         return true
     }
