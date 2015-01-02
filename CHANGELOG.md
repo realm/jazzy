@@ -4,17 +4,16 @@
 
 ##### Breaking
 
-None.
+* Don't skip declarations with no documentation comments by default.
+  Allow skipping using `--skip-undocumented`.  
+  [JP Simard](https://github.com/jpsim)
+  [#129](https://github.com/realm/jazzy/issues/129)
 
 ##### Enhancements
 
 * Combine abstract and discussion in page overview.  
   [JP Simard](https://github.com/jpsim)
   [#115](https://github.com/realm/jazzy/issues/115)
-* Optionally generate docs for all declarations, not just ones with
-  documentation comments.  
-  [JP Simard](https://github.com/jpsim)
-  [#129](https://github.com/realm/jazzy/issues/129)
 
 ##### Bug Fixes
 
