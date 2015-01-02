@@ -22,7 +22,7 @@ module Jazzy
     attr_accessor :root_url
     attr_accessor :version
     attr_accessor :min_acl
-    attr_accessor :document_all
+    attr_accessor :skip_undocumented
 
     def initialize
       self.output = Pathname('docs')
@@ -34,7 +34,7 @@ module Jazzy
       self.docset_platform = 'jazzy'
       self.version = '1.0'
       self.min_acl = SourceDeclaration::AccessControlLevel.internal
-      self.document_all = false
+      self.skip_undocumented = false
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -123,10 +123,11 @@ module Jazzy
           end
         end
 
-        opt.on('--[no-]document-all',
-               'Generate documentation for all declarations, not just ones \
-                with documentation comments.') do |document_all|
-          config.document_all = document_all
+        opt.on('--[no-]skip-undocumented',
+               "Don't document declarations that have no documentation \
+               comments.",
+               ) do |skip_undocumented|
+          config.skip_undocumented = skip_undocumented
         end
 
         opt.on('-v', '--version', 'Print version number') do
