@@ -93,7 +93,8 @@ describe_cli 'jazzy' do
                             '--github-file-prefix https://github.com/' \
                             'Alamofire/Alamofire/blob/1.1.0 ' \
                             '--module-version 1.1.0 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/'
+                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
+                            '--skip-undocumented'
     end
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',

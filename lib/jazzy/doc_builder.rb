@@ -102,6 +102,7 @@ module Jazzy
       (docs, coverage, undocumented) = SourceKitten.parse(
         sourcekitten_output,
         options.min_acl,
+        options.skip_undocumented,
       )
 
       structure = doc_structure_for_docs(docs)
