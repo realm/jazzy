@@ -1,3 +1,19 @@
+## 0.2.8
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* Fixed issue where certain Swift files wouldn't be parsed.  
+  [JP Simard](https://github.com/jpsim)
+  [#18](https://github.com/jpsim/sourcekitten/issues/18)
+
 ## 0.2.7
 
 ##### Breaking

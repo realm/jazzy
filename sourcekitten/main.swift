@@ -10,7 +10,7 @@ import Foundation
 import XPC
 
 /// Version number
-let version = "0.2.7"
+let version = "0.2.8"
 
 /// Language Enum
 enum Language {
@@ -144,12 +144,9 @@ func parseDeclaration(dictionary: XPCDictionary) -> String? {
         return nil
     }
     let offset = dictionary["key.offset"] as Int64
-    let previousLineBreakOffset: Int = {
+    let previousLineBreakOffset = {
         for (index, lineBreakOffset) in enumerate(fileContentsLineBreaks) {
-            if lineBreakOffset > Int(offset) {
-                if index == 0 {
-                    return 0
-                }
+            if lineBreakOffset > Int(offset) && index != 0 {
                 return fileContentsLineBreaks[index - 1]
             }
         }
@@ -171,9 +168,9 @@ func parseDeclaration(dictionary: XPCDictionary) -> String? {
     if let bodyOffset = dictionary["key.bodyoffset"] as Int64? {
         return filteredSubstringTo(Int(bodyOffset))
     }
-    let nextLineBreakOffset: Int = {
+    let nextLineBreakOffset = {
         for (index, lineBreakOffset) in enumerate(fileContentsLineBreaks.reverse()) {
-            if lineBreakOffset < Int(offset) {
+            if lineBreakOffset < Int(offset) && index != 0  {
                 return fileContentsLineBreaks[fileContentsLineBreaks.count - index]
             }
         }
