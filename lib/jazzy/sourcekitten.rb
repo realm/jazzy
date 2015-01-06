@@ -168,6 +168,14 @@ module Jazzy
         (@undocumented_tokens.count + @documented_count)
     end
 
+    def self.deduplicate_declarations(declarations)
+      declarations.group_by { |d| [d.usr, d.type.kind] }.values.map do |decls|
+        decls.first.tap do |d|
+          d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+        end
+      end
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, min_acl, skip_undocumented)
@@ -175,6 +183,7 @@ module Jazzy
       @skip_undocumented = skip_undocumented
       sourcekitten_json = JSON.parse(sourcekitten_output)
       docs = make_source_declarations(sourcekitten_json)
+      docs = deduplicate_declarations(docs)
       SourceDeclaration::Type.all.each do |type|
         docs = group_docs(docs, type)
       end
