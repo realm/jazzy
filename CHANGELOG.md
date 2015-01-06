@@ -12,7 +12,10 @@
 
 ##### Bug Fixes
 
-* None.
+* De-duplicate the sidebar list of extensions and show all children for an
+  extension, regardless of how many extensions on a type there are.  
+  [Samuel Giddins](https://github.com/segiddins)
+
 
 ## 0.0.20
 
