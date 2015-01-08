@@ -24,7 +24,7 @@ public struct Module {
         }
     }
 
-    public init?(xcodeBuildArguments: [String], var moduleName: String? = nil, inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
+    public init?(xcodeBuildArguments: [String], moduleName: String? = nil, inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
         let xcodeBuildOutput = runXcodeBuildDryRun(xcodeBuildArguments, inPath: path)
         if let moduleName = moduleName ?? schemeNameFromArguments(xcodeBuildArguments) {
             if let arguments = parseCompilerArguments(xcodeBuildOutput, language: .Swift, moduleName: moduleName) {

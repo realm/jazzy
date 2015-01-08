@@ -18,7 +18,7 @@ extension File {
             offsetMap[offset] = 0
         }
         offsetMap = mapOffsets(dictionary, documentedTokenOffsets: offsetMap)
-        let alreadyDocumentedOffsets = offsetMap.keys.array.filter { $0 == offsetMap[$0] }
+        let alreadyDocumentedOffsets = offsetMap.keys.filter { $0 == offsetMap[$0] }
         for alreadyDocumentedOffset in alreadyDocumentedOffsets {
             offsetMap.removeValueForKey(alreadyDocumentedOffset)
         }
@@ -38,7 +38,7 @@ extension File {
                 if let rangeLength = SwiftDocKey.getNameLength(dictionary) {
                     let bodyLength = SwiftDocKey.getBodyLength(dictionary)
                     let offsetsInRange = documentedTokenOffsets.keys.filter {
-                        return $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
+                        $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
                     }
                     for offset in offsetsInRange {
                         documentedTokenOffsets[offset] = Int(rangeStart)

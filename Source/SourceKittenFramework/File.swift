@@ -80,9 +80,7 @@ public struct File {
 
         if let cursorInfoRequest = cursorInfoRequest {
             if let updateDict = updateDict(dictionary, cursorInfoRequest: cursorInfoRequest) {
-                for (key, value) in updateDict {
-                    dictionary[key] = value
-                }
+                dictionary = merge(dictionary, updateDict)
             }
         }
 
@@ -93,17 +91,11 @@ public struct File {
     }
 
     public func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t) -> XPCDictionary {
-        let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
-        for offset in offsetMap.keys.array.reverse() {
+        for (offset, mappedOffset) in generateOffsetMap(documentedTokenOffsets, dictionary: dictionary) {
             let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!)
             if isSwiftDeclarationKind(SwiftDocKey.getKind(response)) {
-                if let mappedOffset = offsetMap[offset] {
-                    for (key, value) in insertDoc(response, parent: dictionary, offset: Int64(mappedOffset)) {
-                        dictionary[key] = value
-                    }
-                } else {
-                    let filename = path?.lastPathComponent ?? "[no file name]"
-                    fatalError("No mapped offset for \(offset) in \(filename)")
+                if let inserted = insertDoc(response, parent: dictionary, offset: Int64(mappedOffset)) {
+                    dictionary = inserted
                 }
             }
         }
@@ -192,36 +184,26 @@ public struct File {
         return substructure
     }
 
-    public func recursivelyInsertDoc(doc: XPCDictionary, parent: XPCDictionary, offset: Int64) -> [String: XPCArray] {
-        var subArraysToReplace = [String: XPCArray]()
+    public func recursivelyInsertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
         for key in parent.keys {
-            if var subArray = parent[key]! as? XPCArray { // Safe to force unwrap
+            if var subArray = parent[key] as? XPCArray {
                 for i in 0..<subArray.count {
                     var subDict = subArray[i] as XPCDictionary
-                    for (innerKey, value) in insertDoc(doc, parent: subDict, offset: offset) {
-                        subDict[innerKey] = value
+                    if let subDict = insertDoc(doc, parent: subDict, offset: offset) {
                         subArray[i] = subDict
-                        subArraysToReplace[key] = subArray
+                        parent[key] = subArray
+                        return parent
                     }
                 }
             }
         }
-        return subArraysToReplace
+        return nil
     }
 
-    /**
-    Insert a document in a parent at the given offset.
-
-    :param: doc Document to insert
-    :param: parent Document to insert into
-    :param: offset Parent's offset
-    :param: filePath File path where parent and doc are located
-
-    :returns: Whether or not the insertion succeeded
-    */
-    public func insertDoc(doc: XPCDictionary, parent: XPCDictionary, offset: Int64) -> [String: XPCArray] {
+    public func insertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
         if shouldInsert(parent, offset: offset) {
-            return [SwiftDocKey.Substructure.rawValue: insertDocDirectly(doc, parent: parent, offset: offset)]
+            parent[SwiftDocKey.Substructure.rawValue] = insertDocDirectly(doc, parent: parent, offset: offset)
+            return parent
         }
         return recursivelyInsertDoc(doc, parent: parent, offset: offset)
     }

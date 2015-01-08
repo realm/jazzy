@@ -19,6 +19,8 @@ Cancel request
 
 /**
 Initialize the SourceKit XPC service. This should only be done once per session (as Xcode does).
+
+:returns: ??? maybe 0 for success and 1 for failure?
 */
 @asmname("sourcekitd_initialize") func sourcekitd_initialize() -> Int
 
@@ -181,7 +183,7 @@ Send a synchronous request to SourceKit. Response is returned as an xpc_object_t
 /**
 ?? Called if the XPC connection to SourceKit is lost ??
 */
-// sourcekitd_set_interrupted_connection_handler
+@asmname("sourcekitd_set_interrupted_connection_handler") func sourcekitd_set_interrupted_connection_handler(_: UnsafePointer<() -> ()>) -> Void
 
 /**
 ?? Set the notification callback to be called when asynchronous requests return ??
@@ -191,7 +193,7 @@ Send a synchronous request to SourceKit. Response is returned as an xpc_object_t
 /**
 Gracefully shut down the XPC connection to SourceKit (presumably)
 */
-// sourcekitd_shutdown
+@asmname("sourcekitd_shutdown") func sourcekitd_shutdown() -> Int
 
 /**
 Get uid from its c string representation.
