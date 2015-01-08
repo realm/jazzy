@@ -1,3 +1,20 @@
+## 0.3.0
+
+##### Breaking
+
+* Everything. No, seriously lots has changed in this release and you should
+  consider SourceKitten entirely rewritten. SourceKitten now uses dynamic
+  frameworks for the bulk of its functionality, which means that everything is
+  now much more modular and testable.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+None.
+
 ## 0.2.8
 
 ##### Breaking

@@ -1,10 +1,11 @@
 #!/bin/sh
 
-jazzy -m sourcekitten \
+jazzy -m SourceKitten \
 -a "JP Simard" \
--u https://github.com/jpsim/sourcekitten \
--g https://github.com/jpsim/sourcekitten \
---github-file-prefix https://github.com/jpsim/sourcekitten/blob/0.2.8 \
---module-version 0.2.8 \
--r http://www.jpsim.com/sourcekitten/ \
+-u https://github.com/jpsim/SourceKitten \
+-g https://github.com/jpsim/SourceKitten \
+--github-file-prefix https://github.com/jpsim/SourceKitten/blob/0.3.0 \
+--module-version 0.3.0 \
+-r http://www.jpsim.com/SourceKitten/ \
+-x -workspace,SourceKitten.xcworkspace,-scheme,SourceKittenFramework \
 -c
