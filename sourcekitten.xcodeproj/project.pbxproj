@@ -604,7 +604,6 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/SourceKitten-belatmaldpudatblejaxicmqtenq/Build/Products/Debug",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				FRAMEWORK_VERSION = A;
@@ -626,7 +625,6 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/SourceKitten-belatmaldpudatblejaxicmqtenq/Build/Products/Debug",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				FRAMEWORK_VERSION = A;
@@ -683,7 +681,6 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/SourceKitten-belatmaldpudatblejaxicmqtenq/Build/Products/Debug",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				FRAMEWORK_VERSION = A;
@@ -727,7 +724,6 @@
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/SourceKitten-belatmaldpudatblejaxicmqtenq/Build/Products/Debug",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
 				FRAMEWORK_VERSION = A;

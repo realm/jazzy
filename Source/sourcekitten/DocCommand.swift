@@ -31,7 +31,9 @@ public struct DocCommand: CommandType {
                 return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 1, userInfo: [NSLocalizedDescriptionKey: "file could not be read"]))
             }
             let moduleName: String? = countElements(options.moduleName) > 0 ? options.moduleName : nil
-            if let docs = Module(xcodeBuildArguments: Array<String>(args[2..<args.count]), moduleName: moduleName)?.docs {
+            let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
+            let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
+            if let docs = Module(xcodeBuildArguments: xcodeBuildArguments, moduleName: moduleName)?.docs {
                 println(docs)
                 return success(())
             }
