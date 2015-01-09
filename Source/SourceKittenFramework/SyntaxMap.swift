@@ -25,7 +25,7 @@ public struct SyntaxMap {
 
         tokens = [SyntaxToken]()
 
-        for parserOffset in stride(from: 16, through: numberOfTokens*16, by: 16) {
+        for parserOffset in stride(from: 16, through: numberOfTokens * 16, by: 16) {
             var uid = UInt64(0), offset = 0, length = 0
             data.getBytes(&uid, range: NSRange(location: parserOffset, length: 8))
             data.getBytes(&offset, range: NSRange(location: 8 + parserOffset, length: 4))
