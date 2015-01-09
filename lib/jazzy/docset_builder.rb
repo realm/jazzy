@@ -56,6 +56,7 @@ module Jazzy
       def copy_docs
         files_to_copy = Dir.glob(output_dir + '../**/*')
 
+        documents_dir.rmtree rescue nil
         FileUtils.mkdir_p documents_dir
         FileUtils.cp_r files_to_copy, documents_dir
       end

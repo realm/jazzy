@@ -46,7 +46,11 @@ module Jazzy
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
       bin_path = Pathname(__FILE__).parent + '../../bin'
-      `#{bin_path}/sourcekitten #{(arguments).join(' ')}`
+      command = "/Users/segiddins/Library/Developer/Xcode/DerivedData/SourceKitten-eemmsfucgdsusofkzifdzylyabyo/Build/Products/Debug/sourcekitten #{(arguments).join(' ')}"
+      p command
+      output = `#{command}`
+      raise 'Running sourcekitten failed: ' + output unless $?.success?
+      output
     end
 
     def self.make_default_doc_info(declaration)

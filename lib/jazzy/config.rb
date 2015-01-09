@@ -23,6 +23,7 @@ module Jazzy
     attr_accessor :version
     attr_accessor :min_acl
     attr_accessor :skip_undocumented
+    attr_accessor :podspec
 
     def initialize
       self.output = Pathname('docs')
@@ -35,6 +36,48 @@ module Jazzy
       self.version = '1.0'
       self.min_acl = SourceDeclaration::AccessControlLevel.internal
       self.skip_undocumented = false
+      self.podspec = nil
+    end
+
+    def podspec=(podspec)
+      p podspec
+      case podspec
+      when Pathname
+        require 'cocoapods'
+        podspec = Pod::Specification.from_file(podspec)
+      end
+
+      if @podspec = podspec
+        self.author_name =
+          if podspec.authors.respond_to? :to_hash
+            podspec.authors.keys.join(' ') || ''
+          else
+            if podspec.authors.respond_to? :to_ary
+              podspec.authors.join(' ')
+            else
+              podspec.authors
+            end
+          end || ''
+
+        self.module_name = podspec.module_name
+        self.author_url = podspec.homepage || ''
+
+        self.version = podspec.version.to_s
+
+        self.xcodebuild_arguments = %W(-alltargets)
+
+        # self.source_files = podspec.available_platforms.map { |p| podspec.consumer(p) }.
+        #   map { |c| Pod::Sandbox::FileAccessor.new(Pathname.pwd, c) }.tap { |fa| p fa.map(&:source_files) }.
+        #   map { |fa| [fa.source_files.select { |f| f.extname == '.swift' }, args_for_consumer(fa.spec_consumer)] }
+
+        # exit 1
+      end
+    end
+
+    def args_for_consumer(consumer)
+      [
+        *consumer.frameworks.dup.push(consumer.platform_name == :ios ? 'UIKit' : 'Cocoa').map { |f| "-framework #{f}"},
+      ]
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -128,6 +171,10 @@ module Jazzy
                comments.",
                ) do |skip_undocumented|
           config.skip_undocumented = skip_undocumented
+        end
+
+        opt.on('--podspec FILEPATH') do |podspec|
+          config.podspec = Pathname(podspec)
         end
 
         opt.on('-v', '--version', 'Print version number') do

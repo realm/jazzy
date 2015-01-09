@@ -83,25 +83,32 @@ describe_cli 'jazzy' do
   end
 
   describe 'jazzy' do
-    describe 'Creates docs with a module name, author name, project URL, ' \
-      'xcodebuild options, and github info' do
-      behaves_like cli_spec 'document_alamofire',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/1.1.0 ' \
-                            '--module-version 1.1.0 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented'
+    # describe 'Creates docs with a module name, author name, project URL, ' \
+    #   'xcodebuild options, and github info' do
+    #   behaves_like cli_spec 'document_alamofire',
+    #                         '-m Alamofire -a Alamofire ' \
+    #                         '-u https://nshipster.com/alamofire ' \
+    #                         '-x -project,Alamofire.xcodeproj ' \
+    #                         '-g https://github.com/Alamofire/Alamofire ' \
+    #                         '--github-file-prefix https://github.com/' \
+    #                         'Alamofire/Alamofire/blob/1.1.0 ' \
+    #                         '--module-version 1.1.0 ' \
+    #                         '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
+    #                         '--skip-undocumented'
+    # end
+
+    describe 'Creates docs from a podspec' do
+      behaves_like cli_spec 'document_alamofire_podspec',
+        '--podspec Alamofire.podspec ' \
+        '--skip-undocumented'
     end
-    describe 'Creates docs for Swift project with a variety of contents' do
-      behaves_like cli_spec 'misc_jazzy_features',
-                            '-m MiscJazzyFeatures -a Realm ' \
-                            '-u https://github.com/realm/jazzy ' \
-                            '-g https://github.com/realm/jazzy ' \
-                            '--min-acl private'
-    end
+
+    # describe 'Creates docs for Swift project with a variety of contents' do
+    #   behaves_like cli_spec 'misc_jazzy_features',
+    #                         '-m MiscJazzyFeatures -a Realm ' \
+    #                         '-u https://github.com/realm/jazzy ' \
+    #                         '-g https://github.com/realm/jazzy ' \
+    #                         '--min-acl private'
+    # end
   end
 end
