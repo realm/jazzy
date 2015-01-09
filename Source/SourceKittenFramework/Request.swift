@@ -37,12 +37,12 @@ internal func stringForSourceKitUID(uid: UInt64) -> String? {
     return nil
 }
 
-internal enum Request: Printable {
+public enum Request: Printable {
     case EditorOpen(File)
     case CursorInfo(file: String, offset: Int64, arguments: [String])
     case CustomRequest(xpc_object_t)
 
-    var description: String { return xpcValue().description }
+    public var description: String { return xpcValue().description }
 
     private func xpcValue() -> xpc_object_t {
         switch self {
@@ -94,7 +94,7 @@ internal enum Request: Printable {
 
     :returns: SourceKit output as an XPC dictionary
     */
-    func send() -> XPCDictionary {
+    public func send() -> XPCDictionary {
         dispatch_once(&sourceKitInitializationToken) {
             sourcekitd_initialize(); return
         }
