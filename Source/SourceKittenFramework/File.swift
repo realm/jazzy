@@ -41,7 +41,7 @@ public struct File {
             return nil
         }
         let offset = Int(SwiftDocKey.getOffset(dictionary)!)
-        let lineBreakIndexBeforeOffset = indexBeforeValue(offset, inArray: lineBreaks)
+        let lineBreakIndexBeforeOffset = indexBefore(offset, inSequence: lineBreaks)
         let previousLineBreakOffset = lineBreaks[lineBreakIndexBeforeOffset] + 1
         if let bodyOffset = SwiftDocKey.getBodyOffset(dictionary) {
             return contents.filteredSubstring(previousLineBreakOffset, end: Int(bodyOffset))
