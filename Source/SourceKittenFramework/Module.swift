@@ -38,7 +38,7 @@ public struct Module {
     public init(name: String, compilerArguments: [String]) {
         self.name = name
         self.compilerArguments = compilerArguments
-        sourceFiles = swiftFilesFromArray(compilerArguments)
+        sourceFiles = filterSwiftFiles(compilerArguments)
     }
 }
 

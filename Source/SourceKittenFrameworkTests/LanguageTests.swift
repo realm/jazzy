@@ -10,7 +10,7 @@ import SourceKittenFramework
 import XCTest
 
 class LanguageTests: XCTestCase {
-    func testParseSwiftFilesInArray() {
+    func testFilterSwiftFiles() {
         let good = ["good.swift"]
         let bad = [
             "bad.swift.",
@@ -18,6 +18,6 @@ class LanguageTests: XCTestCase {
             "badswift",
             "bad.Swift"
         ]
-        XCTAssertEqual(swiftFilesFromArray(good + bad), good, "should parse Swift files in an Array")
+        XCTAssertEqual(filterSwiftFiles(good + bad), good, "should parse Swift files in an Array")
     }
 }

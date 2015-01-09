@@ -15,14 +15,14 @@ public enum Language {
 }
 
 /**
-Returns an array of swift file names in an array
+Returns an array of swift file names in a sequence.
 
-:param: array Array to be filtered
+:param: sequence Sequence to be filtered.
 
-:returns: the array of swift files
+:returns: The array of swift files.
 */
-public func swiftFilesFromArray(array: [String]) -> [String] {
-    return array.filter {
+public func filterSwiftFiles<S: SequenceType where S.Generator.Element == String>(sequence: S) -> [String] {
+    return filter(sequence) {
         $0.rangeOfString(".swift", options: (.BackwardsSearch | .AnchoredSearch)) != nil
     }
 }
