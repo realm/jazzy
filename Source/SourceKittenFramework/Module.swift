@@ -26,8 +26,8 @@ public struct Module {
 
     public init?(xcodeBuildArguments: [String], moduleName: String? = nil, inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
         let xcodeBuildOutput = runXcodeBuildDryRun(xcodeBuildArguments, inPath: path)
-        if let moduleName = moduleName ?? schemeNameFromArguments(xcodeBuildArguments) {
-            if let arguments = parseCompilerArguments(xcodeBuildOutput, language: .Swift, moduleName: moduleName) {
+        if let arguments = parseCompilerArguments(xcodeBuildOutput, language: .Swift, moduleName: moduleName ?? moduleNameFromArguments(xcodeBuildArguments)) {
+            if let moduleName = moduleNameFromArguments(arguments) {
                 self.init(name: moduleName, compilerArguments: arguments)
                 return
             }
@@ -86,13 +86,16 @@ Parses the compiler arguments needed to compile the `language` aspects of an Xco
 
 :returns: array of compiler arguments
 */
-private func parseCompilerArguments(xcodebuildOutput: NSString, #language: Language, #moduleName: String) -> [String]? {
+private func parseCompilerArguments(xcodebuildOutput: NSString, #language: Language, #moduleName: String?) -> [String]? {
     let pattern: String = {
         if language == .ObjC {
             return "/usr/bin/clang.*"
         }
-        return "/usr/bin/swiftc.*-module-name \(moduleName) .*"
-        }()
+        if let moduleName = moduleName {
+            return "/usr/bin/swiftc.*-module-name \(moduleName) .*"
+        }
+        return "/usr/bin/swiftc.*"
+    }()
     let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)! // Safe to force unwrap
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
 
@@ -137,10 +140,13 @@ private func parseCompilerArguments(xcodebuildOutput: NSString, #language: Langu
     return nil
 }
 
-private func schemeNameFromArguments(arguments: [String]) -> String? {
-    if let schemeIndex = find(arguments, "-scheme") {
-        if schemeIndex + 1 < arguments.count {
-            return arguments[schemeIndex + 1]
+private func moduleNameFromArguments(arguments: [String]) -> String? {
+    let flags = ["-module-name", "-target", "-scheme"]
+    for flag in flags {
+        if let flagIndex = find(arguments, flag) {
+            if flagIndex + 1 < arguments.count {
+                return arguments[flagIndex + 1]
+            }
         }
     }
     return nil

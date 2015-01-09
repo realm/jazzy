@@ -11,15 +11,14 @@ import SourceKittenFramework
 import XCTest
 
 class ModuleTests: XCTestCase {
-    func testCreateSwiftModuleFromXcodeBuiltArguments() {
-        let modelFromNoArguments = Module(xcodeBuildArguments: [])
-        XCTAssert(modelFromNoArguments == nil, "model initialization without any xcodebuild arguments should fail")
+    func testModuleNilInPathWithNoXcodeProject() {
+        let pathWithNoXcodeProject = NSFileManager.defaultManager().currentDirectoryPath.stringByAppendingPathComponent("Source")
+        let model = Module(xcodeBuildArguments: [], moduleName: nil, inPath: pathWithNoXcodeProject)
+        XCTAssert(model == nil, "model initialization without any Xcode project should fail")
     }
 
     func testSourceKittenFrameworkDocsAreValidJSON() {
-        let xcodeProjectRoot = __FILE__.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent.stringByDeletingLastPathComponent
-        let xcodeBuildArguments = ["-workspace", "SourceKitten.xcworkspace", "-scheme", "SourceKittenFramework"]
-        let sourceKittenModule = Module(xcodeBuildArguments: xcodeBuildArguments, moduleName: nil, inPath: xcodeProjectRoot)!
+        let sourceKittenModule = Module(xcodeBuildArguments: ["-workspace", "SourceKitten.xcworkspace", "-scheme", "SourceKittenFramework"])!
         let docsJSON = sourceKittenModule.docs.description
         var error: NSError? = nil
         let jsonArray = NSJSONSerialization.JSONObjectWithData(docsJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: &error) as NSArray?
