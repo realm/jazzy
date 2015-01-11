@@ -27,13 +27,36 @@ module Jazzy
     end
 
     def self.generated_readme(source_module)
-      %(
-# #{ source_module.name }
+      if config.podspec
+        ### License
 
-### Authors
+        # <a href="#{license[:url]}">#{license[:license]}</a>
+        %(
+        # #{ podspec.name }
 
-#{ source_module.author_name }
-      )
+        ### #{podspec.summary }
+
+        #{ podspec.description }
+
+        ### Installation
+
+        ```ruby
+        pod '#{ podspec.name }'
+        ```
+
+        ### Authors
+
+        #{ source_module.author_name }
+        )
+      else
+        %(
+        # #{ source_module.name }
+
+        ### Authors
+
+        #{ source_module.author_name }
+        )
+      end
     end
   end
 end

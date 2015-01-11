@@ -55,10 +55,10 @@ module Jazzy
 
       config.author_name =
         if podspec.authors.respond_to? :to_hash
-          podspec.authors.keys.join(' ') || ''
+          podspec.authors.keys.to_sentence || ''
         else
           if podspec.authors.respond_to? :to_ary
-            podspec.authors.join(' ')
+            podspec.authors.to_sentence
           else
             podspec.authors
           end
