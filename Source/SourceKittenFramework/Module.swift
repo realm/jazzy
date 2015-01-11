@@ -30,7 +30,7 @@ public struct Module {
     }
 
     /**
-    Fallable initializer to create a Module by the arguments necessary pass in to `xcodebuild` to build it.
+    Failable initializer to create a Module by the arguments necessary pass in to `xcodebuild` to build it.
     Optionally pass in a `moduleName` and `path`.
 
     :param: xcodeBuildArguments The arguments necessary pass in to `xcodebuild` to build this Module.
