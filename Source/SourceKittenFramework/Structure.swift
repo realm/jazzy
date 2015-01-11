@@ -22,6 +22,7 @@ public struct Structure {
 // MARK: Printable
 
 extension Structure: Printable {
+    /// A textual JSON representation of `Structure`.
     public var description: String { return toJSON(dictionary) }
 }
 

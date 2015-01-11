@@ -53,6 +53,7 @@ public struct SyntaxMap {
 // MARK: Printable
 
 extension SyntaxMap: Printable {
+    /// A textual JSON representation of `SyntaxMap`.
     public var description: String {
         if let jsonData = NSJSONSerialization.dataWithJSONObject(tokens.map { $0.dictionaryValue },
             options: .PrettyPrinted,

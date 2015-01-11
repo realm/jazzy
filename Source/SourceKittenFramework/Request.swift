@@ -37,12 +37,10 @@ internal func stringForSourceKitUID(uid: UInt64) -> String? {
     return nil
 }
 
-public enum Request: Printable {
+public enum Request {
     case EditorOpen(File)
     case CursorInfo(file: String, offset: Int64, arguments: [String])
     case CustomRequest(xpc_object_t)
-
-    public var description: String { return xpcValue().description }
 
     private func xpcValue() -> xpc_object_t {
         switch self {
@@ -92,7 +90,7 @@ public enum Request: Printable {
     /**
     Sends the request to SourceKit and return the response as an XPCDictionary.
 
-    :returns: SourceKit output as an XPC dictionary
+    :returns: SourceKit output as an XPC dictionary.
     */
     public func send() -> XPCDictionary {
         dispatch_once(&sourceKitInitializationToken) {
@@ -104,4 +102,11 @@ public enum Request: Printable {
         fatalError("SourceKit response nil for request \(self)")
         return XPCDictionary() // Keep the compiler happy 😄
     }
+}
+
+// MARK: Printable
+
+extension Request: Printable {
+    /// A textual representation of `Request`.
+    public var description: String { return xpcValue().description }
 }

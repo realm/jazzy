@@ -8,20 +8,20 @@
 
 /**
 Returns the index immediately preceding the first value in the sequence exceeding the given value.
-Returns 0 if there were no matches. This is mostly useful when the sequence contains strictly
+Returns nil if there were no matches. This is mostly useful when the sequence contains strictly
 increasing values.
 
 :param: value Value to search for.
 :param: sequence Sequence to search in.
 
 :returns: Returns the index immediately preceding the first value in the sequence exceeding the given value.
-          Returns 0 if there were no matches.
+          Returns nil if there were no matches.
 */
-func indexBefore<T: Comparable, S: SequenceType where S.Generator.Element == T>(value: T, inSequence sequence: S) -> Int {
+func indexBefore<T: Comparable, S: SequenceType where S.Generator.Element == T>(value: T, inSequence sequence: S) -> Int? {
     for (index, sequenceValue) in enumerate(sequence) {
         if sequenceValue >= value && index != 0 {
             return index - 1
         }
     }
-    return 0
+    return nil
 }

@@ -33,7 +33,7 @@ public struct DocCommand: CommandType {
             let moduleName: String? = countElements(options.moduleName) > 0 ? options.moduleName : nil
             let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
             let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
-            if let docs = Module(xcodeBuildArguments: xcodeBuildArguments, moduleName: moduleName)?.docs {
+            if let docs = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)?.docs {
                 println(docs)
                 return success(())
             }

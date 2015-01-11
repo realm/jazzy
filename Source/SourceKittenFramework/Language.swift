@@ -19,7 +19,7 @@ Returns an array of swift file names in a sequence.
 
 :param: sequence Sequence to be filtered.
 
-:returns: The array of swift files.
+:returns: The array of swift file names.
 */
 public func filterSwiftFiles<S: SequenceType where S.Generator.Element == String>(sequence: S) -> [String] {
     return filter(sequence) {

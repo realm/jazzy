@@ -53,20 +53,22 @@ extension NSString {
     :returns: Array of documented token offsets
     */
     public func documentedTokenOffsets(syntaxMap: SyntaxMap) -> [Int] {
-        let identifierOffsets = syntaxMap.tokens.filter(
-            { $0.type == SyntaxKind.Identifier.rawValue }
-        ).map { $0.offset }
+        let identifierOffsets = syntaxMap.tokens.filter({
+            $0.type == SyntaxKind.Identifier.rawValue
+        }).map {
+            $0.offset
+        }
 
         let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)! // Safe to force unwrap
         let range = NSRange(location: 0, length: length)
-        let matches = regex.matchesInString(self, options: nil, range: range)
+        let matches = regex.matchesInString(self, options: nil, range: range) as [NSTextCheckingResult]
 
-        var offsets = [Int]()
-        for match in matches {
-            if let first = identifierOffsets.filter({ $0 >= match.range.location}).first {
-                offsets.append(first)
-            }
+        return matches.map({ match in
+            identifierOffsets.filter({ $0 >= match.range.location }).first
+        }).filter({
+            $0 != nil
+        }).map {
+            $0!
         }
-        return offsets
     }
 }

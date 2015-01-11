@@ -13,7 +13,7 @@ import XCTest
 class ModuleTests: XCTestCase {
     func testModuleNilInPathWithNoXcodeProject() {
         let pathWithNoXcodeProject = NSFileManager.defaultManager().currentDirectoryPath.stringByAppendingPathComponent("Source")
-        let model = Module(xcodeBuildArguments: [], moduleName: nil, inPath: pathWithNoXcodeProject)
+        let model = Module(xcodeBuildArguments: [], name: nil, inPath: pathWithNoXcodeProject)
         XCTAssert(model == nil, "model initialization without any Xcode project should fail")
     }
 

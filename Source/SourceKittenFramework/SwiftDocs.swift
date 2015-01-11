@@ -51,5 +51,6 @@ public struct SwiftDocs {
 // MARK: Printable
 
 extension SwiftDocs: Printable {
+    /// A textual JSON representation of `SwiftDocs`.
     public var description: String { return toJSON(docsDictionary) }
 }

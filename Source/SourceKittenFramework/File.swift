@@ -9,11 +9,20 @@
 import Foundation
 import SwiftXPC
 
+/// Represents a source file.
 public struct File {
+    /// File path. Nil if initialized directly with File(contents:).
     public let path: String?
+    /// File contents.
     public let contents: NSString
+    /// Array of newline offsets in contents.
     public let lineBreaks: [Int]
 
+    /**
+    Failable initializer by path. Fails if file contents could not be read as a UTF8 string.
+
+    :param: path File path.
+    */
     public init?(path: String) {
         self.path = path
         if let contents = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil) {
@@ -24,24 +33,29 @@ public struct File {
         }
     }
 
+    /**
+    Initializer by file contents. File path is nil.
+
+    :param: contents File contents.
+    */
     public init(contents: NSString) {
         self.contents = contents
         lineBreaks = contents.lineBreaks()
     }
 
 	/**
-	Parse declaration from XPC dictionary.
+	Parse source declaration string from XPC dictionary.
 
 	:param: dictionary XPC dictionary to extract declaration from.
 
-	:returns: String declaration if successfully parsed.
+	:returns: Source declaration if successfully parsed.
 	*/
     public func parseDeclaration(dictionary: XPCDictionary) -> String? {
         if !shouldParseDeclaration(dictionary) {
             return nil
         }
         let offset = Int(SwiftDocKey.getOffset(dictionary)!)
-        let lineBreakIndexBeforeOffset = indexBefore(offset, inSequence: lineBreaks)
+        let lineBreakIndexBeforeOffset = indexBefore(offset, inSequence: lineBreaks) ?? 0
         let previousLineBreakOffset = lineBreaks[lineBreakIndexBeforeOffset] + 1
         if let bodyOffset = SwiftDocKey.getBodyOffset(dictionary) {
             return contents.filteredSubstring(previousLineBreakOffset, end: Int(bodyOffset))
@@ -50,6 +64,13 @@ public struct File {
         return contents.filteredSubstring(previousLineBreakOffset, end: nextLineBreakOffset + 1)
     }
 
+    /**
+    Extract mark-style comment string from doc dictionary. e.g. '// MARK: - The Name'
+
+    :param: dictionary Doc dictionary to parse.
+
+    :returns: Mark name if successfully parsed.
+    */
     public func markNameFromDictionary(dictionary: XPCDictionary) -> String? {
         precondition(SwiftDocKey.getKind(dictionary)! == SyntaxKind.CommentMark.rawValue)
         let offset = Int(SwiftDocKey.getOffset(dictionary)!)
@@ -64,38 +85,47 @@ public struct File {
     }
 
     /**
-    Process a SourceKit editor.open response dictionary by removing undocumented tokens with no
-    documented children. Add cursor.info information for declarations. Add name to mark comments.
+    <#Description#>
 
-    :param: dictionary        `XPCDictionary` to mutate.
-    :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
+    :param: dictionary        <#dictionary description#>
+    :param: cursorInfoRequest <#cursorInfoRequest description#>
 
-    :returns: Whether or not the dictionary should be kept.
+    :returns: <#return value description#>
     */
     public func processDictionary(var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t? = nil) -> XPCDictionary {
-        // Update substructure
-        if let substructure = newSubstructure(dictionary, cursorInfoRequest: cursorInfoRequest) {
-            dictionary[SwiftDocKey.Substructure.rawValue] = substructure
-        }
-
         if let cursorInfoRequest = cursorInfoRequest {
             if let updateDict = updateDict(dictionary, cursorInfoRequest: cursorInfoRequest) {
                 dictionary = merge(dictionary, updateDict)
             }
         }
 
+        // Parse declaration and add to dictionary.
         if let parsedDeclaration = parseDeclaration(dictionary) {
             dictionary[SwiftDocKey.ParsedDeclaration.rawValue] = parsedDeclaration
+        }
+
+        // Update substructure
+        if let substructure = newSubstructure(dictionary, cursorInfoRequest: cursorInfoRequest) {
+            dictionary[SwiftDocKey.Substructure.rawValue] = substructure
         }
         return dictionary
     }
 
+    /**
+    <#Description#>
+
+    :param: dictionary             <#dictionary description#>
+    :param: documentedTokenOffsets <#documentedTokenOffsets description#>
+    :param: cursorInfoRequest      <#cursorInfoRequest description#>
+
+    :returns: <#return value description#>
+    */
     public func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t) -> XPCDictionary {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
         for offset in offsetMap.keys.array.reverse() { // Do this in reverse to insert the doc at the correct offset
             let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!)
             if isSwiftDeclarationKind(SwiftDocKey.getKind(response)) {
-                if let inserted = insertDoc(response, parent: dictionary, offset: Int64(offsetMap[offset]!)) {
+                if let inserted = insertDoc(response, parent: dictionary, offset: Int64(offsetMap[offset]!)) { // Safe to force unwrap
                     dictionary = inserted
                 }
             }
@@ -103,27 +133,30 @@ public struct File {
         return dictionary
     }
 
+    /**
+    <#Description#>
+
+    :param: dictionary        <#dictionary description#>
+    :param: cursorInfoRequest <#cursorInfoRequest description#>
+
+    :returns: <#return value description#>
+    */
     public func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) -> XPCArray? {
-        if let substructure = SwiftDocKey.getSubstructure(dictionary) {
-            var newSubstructure = XPCArray()
-            for subItem in substructure {
-                let subDict = subItem as XPCDictionary
-                if let kind = SwiftDocKey.getKind(subDict) {
-                    if kind != SwiftDeclarationKind.Parameter.rawValue &&
-                        (kind == SyntaxKind.CommentMark.rawValue || isSwiftDeclarationKind(kind)) {
-                        newSubstructure.append(processDictionary(subDict, cursorInfoRequest: cursorInfoRequest))
-                    }
-                }
-            }
-            return newSubstructure
+        return SwiftDocKey.getSubstructure(dictionary)?
+        .filter({
+            return isDeclarationOrCommentMark($0 as XPCDictionary)
+        }).map {
+            return self.processDictionary($0 as XPCDictionary, cursorInfoRequest: cursorInfoRequest)
         }
-        return nil
     }
 
     /**
-    :param: dictionary        `XPCDictionary` to mutate.
-    :param: file              File to parse the declaration out of.
-    :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
+    <#Description#>
+
+    :param: dictionary        <#dictionary description#>
+    :param: cursorInfoRequest <#cursorInfoRequest description#>
+
+    :returns: <#return value description#>
     */
     public func updateDict(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t) -> XPCDictionary? {
         // Remove dictionaries without a 'kind' key
@@ -157,6 +190,14 @@ public struct File {
         return nil
     }
 
+    /**
+    <#Description#>
+
+    :param: parent <#parent description#>
+    :param: offset <#offset description#>
+
+    :returns: <#return value description#>
+    */
     public func shouldInsert(parent: XPCDictionary, offset: Int64) -> Bool {
         if offset == 0 {
             return true
@@ -171,26 +212,33 @@ public struct File {
         return false
     }
 
-    /// Insert doc without performing any validation
-    public func insertDocDirectly(doc: XPCDictionary, parent: XPCDictionary, offset: Int64) -> XPCArray {
-        var substructure = SwiftDocKey.getSubstructure(parent)!
-        var insertIndex = substructure.count
-        for (index, structure) in enumerate(substructure.reverse()) {
-            if SwiftDocKey.getOffset(structure as XPCDictionary)! < offset {
-                break
-            }
-            insertIndex = substructure.count - index
-        }
-        substructure.insert(doc, atIndex: insertIndex)
-        return substructure
-    }
+    /**
+    <#Description#>
 
-    public func recursivelyInsertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
+    :param: doc    <#doc description#>
+    :param: parent <#parent description#>
+    :param: offset <#offset description#>
+
+    :returns: <#return value description#>
+    */
+    public func insertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
+        if shouldInsert(parent, offset: offset) {
+            var substructure = SwiftDocKey.getSubstructure(parent)!
+            var insertIndex = substructure.count
+            for (index, structure) in enumerate(substructure.reverse()) {
+                if SwiftDocKey.getOffset(structure as XPCDictionary)! < offset {
+                    break
+                }
+                insertIndex = substructure.count - index
+            }
+            substructure.insert(doc, atIndex: insertIndex)
+            parent[SwiftDocKey.Substructure.rawValue] = substructure
+            return parent
+        }
         for key in parent.keys {
             if var subArray = parent[key] as? XPCArray {
                 for i in 0..<subArray.count {
-                    var subDict = subArray[i] as XPCDictionary
-                    if let subDict = insertDoc(doc, parent: subDict, offset: offset) {
+                    if let subDict = insertDoc(doc, parent: subArray[i] as XPCDictionary, offset: offset) {
                         subArray[i] = subDict
                         parent[key] = subArray
                         return parent
@@ -201,14 +249,13 @@ public struct File {
         return nil
     }
 
-    public func insertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
-        if shouldInsert(parent, offset: offset) {
-            parent[SwiftDocKey.Substructure.rawValue] = insertDocDirectly(doc, parent: parent, offset: offset)
-            return parent
-        }
-        return recursivelyInsertDoc(doc, parent: parent, offset: offset)
-    }
+    /**
+    <#Description#>
 
+    :param: dictionary <#dictionary description#>
+
+    :returns: <#return value description#>
+    */
     public func shouldTreatAsSameFile(dictionary: XPCDictionary) -> Bool {
         if let path = path {
             if let dictFilePath = SwiftDocKey.getFilePath(dictionary) {
@@ -219,6 +266,13 @@ public struct File {
     }
 }
 
+/**
+Returns true if the input dictionary contains a parseable declaration.
+
+:param: dictionary Dictionary to parse.
+
+:returns: True if the input dictionary contains a parseable declaration.
+*/
 public func shouldParseDeclaration(dictionary: XPCDictionary) -> Bool {
     let hasTypeName = SwiftDocKey.getTypeName(dictionary) != nil
     let hasAnnotatedDeclaration = SwiftDocKey.getAnnotatedDeclaration(dictionary) != nil
@@ -227,6 +281,13 @@ public func shouldParseDeclaration(dictionary: XPCDictionary) -> Bool {
     return hasTypeName && hasAnnotatedDeclaration && hasOffset && isntExtension
 }
 
+/**
+Traverse the dictionary replacing SourceKit UIDs with their string value.
+
+:param: dictionary Dictionary to replace UIDs.
+
+:returns: Dictionary with UIDs replaced by strings.
+*/
 public func replaceUIDsWithSourceKitStrings(var dictionary: XPCDictionary) -> XPCDictionary {
     for key in dictionary.keys {
         if let uid = dictionary[key] as? UInt64 {
@@ -243,4 +304,19 @@ public func replaceUIDsWithSourceKitStrings(var dictionary: XPCDictionary) -> XP
         }
     }
     return dictionary
+}
+
+/**
+Returns true if the dictionary represents a source declaration or a mark-style comment.
+
+:param: dictionary Dictionary to parse.
+
+:returns: True if the dictionary represents a source declaration or a mark-style comment.
+*/
+func isDeclarationOrCommentMark(dictionary: XPCDictionary) -> Bool {
+    if let kind = SwiftDocKey.getKind(dictionary) {
+        return kind != SwiftDeclarationKind.Parameter.rawValue &&
+            (kind == SyntaxKind.CommentMark.rawValue || isSwiftDeclarationKind(kind))
+    }
+    return false
 }
