@@ -25,6 +25,9 @@ module Jazzy
     attr_accessor :min_acl
     attr_accessor :skip_undocumented
     attr_accessor :podspec
+    attr_accessor :docset_icon
+    attr_accessor :docset_path
+    attr_accessor :source_directory
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{.json,}'].first)
@@ -39,6 +42,7 @@ module Jazzy
       self.min_acl = SourceDeclaration::AccessControlLevel.internal
       self.skip_undocumented = false
       self.podspec = nil
+      self.source_directory = Pathname.pwd
     end
 
     def podspec=(podspec)

@@ -14,7 +14,7 @@ module Jazzy
       pod_config.installation_root = Pathname(Dir.mktmpdir) # Pathname.pwd + 'jazzy'
       pod_config.installation_root.rmtree if pod_config.installation_root.exist?
       pod_config.integrate_targets = false
-      pod_path = podspec.defined_in_file.parent rescue Pathname.pwd
+      pod_path = podspec.defined_in_file.parent rescue config.source_directory
       pod_targets = []
       podspec = @podspec
       podfile = Pod::Podfile.new do

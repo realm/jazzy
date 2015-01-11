@@ -13,15 +13,16 @@ module Jazzy
       attr_reader :documents_dir
 
       def initialize(output_dir, source_module)
-        @output_dir = output_dir + 'docsets'
         @source_module = source_module
-        @docset_dir = @output_dir + "#{source_module.name}.docset"
+        @docset_dir = output_dir + (config.docset_path || "docsets/#{source_module.name}.docset")
+        @output_dir = docset_dir.parent
         @documents_dir = docset_dir + 'Contents/Resources/Documents/'
       end
 
       def build!
         docset_dir.rmtree if docset_dir.exist?
         copy_docs
+        copy_icon if config.docset_icon
         write_plist
         create_index
         create_archive
@@ -54,11 +55,16 @@ module Jazzy
       end
 
       def copy_docs
-        files_to_copy = Dir.glob(output_dir + '../**/*')
-
         documents_dir.rmtree rescue nil
+
+        files_to_copy = Pathname.glob(output_dir + '../**/*') - [docset_dir, output_dir]
+
         FileUtils.mkdir_p documents_dir
         FileUtils.cp_r files_to_copy, documents_dir
+      end
+
+      def copy_icon
+        FileUtils.cp config.docset_icon, @docset_dir + 'icon.png'
       end
 
       def create_index
