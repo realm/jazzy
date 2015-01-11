@@ -85,12 +85,14 @@ public struct File {
     }
 
     /**
-    <#Description#>
+    Returns a copy of the input dictionary with comment mark names, cursor.info information and
+    parsed declarations for the top-level of the input dictionary and its substructures.
 
-    :param: dictionary        <#dictionary description#>
+    :param: dictionary        Dictionary to process.
     :param: cursorInfoRequest Cursor.Info request to get declaration information.
 
-    :returns: <#return value description#>
+    :returns: A copy of the input dictionary with comment mark names, cursor.info information and
+              parsed declarations for the top-level of the input dictionary and its substructures.
     */
     public func processDictionary(var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t? = nil) -> XPCDictionary {
         if let cursorInfoRequest = cursorInfoRequest {
@@ -100,7 +102,7 @@ public struct File {
             )
         }
 
-        // Parse declaration and add to dictionary.
+        // Parse declaration and add to dictionary
         if let parsedDeclaration = parseDeclaration(dictionary) {
             dictionary[SwiftDocKey.ParsedDeclaration.rawValue] = parsedDeclaration
         }
@@ -113,13 +115,15 @@ public struct File {
     }
 
     /**
-    <#Description#>
+    Returns a copy of the input dictionary with additional cursorinfo information at the given
+    `documentationTokenOffsets` that haven't yet been documented.
 
-    :param: dictionary             <#dictionary description#>
-    :param: documentedTokenOffsets <#documentedTokenOffsets description#>
+    :param: dictionary             Dictionary to insert new docs into.
+    :param: documentedTokenOffsets Offsets that are likely documented.
     :param: cursorInfoRequest      Cursor.Info request to get declaration information.
 
-    :returns: <#return value description#>
+    :returns: A copy of the input dictionary with additional cursorinfo information at the given
+              `documentationTokenOffsets` that haven't yet been documented.
     */
     public func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t) -> XPCDictionary {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
