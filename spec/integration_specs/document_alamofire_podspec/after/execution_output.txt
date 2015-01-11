@@ -1,0 +1,5 @@
+JAZZY_FAKE_DATE=YYYY-MM-DD JAZZY_FAKE_VERSION=X.X.X jazzy -m Alamofire -a Alamofire -u https://nshipster.com/alamofire -x -project,Alamofire.xcodeproj -g https://github.com/Alamofire/Alamofire --github-file-prefix https://github.com/Alamofire/Alamofire/blob/1.1.0 --module-version 1.1.0 -r http://static.realm.io/jazzy_demo/Alamofire/ --skip-undocumented 2>&1
+Running xcodebuild -dry-run
+parsing Alamofire.swift (1/1)
+building site
+jam out ♪♫ to your fresh new docs in `docs`

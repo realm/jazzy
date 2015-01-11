@@ -1,0 +1,18 @@
+Alamofire.swift
+	func queryComponents(key: String, _ value: AnyObject) -> [(String, String)]
+	func escape(string: String) -> String
+	public var URLString: String
+	public var URLString: String
+	public var URLRequest: NSURLRequest
+	struct Singleton
+	required public init(configuration: NSURLSessionConfiguration? = nil)
+	deinit
+	class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate
+	class TaskDelegate: NSObject, NSURLSessionTaskDelegate
+	class DataTaskDelegate: TaskDelegate, NSURLSessionDataDelegate
+	class UploadTaskDelegate: DataTaskDelegate
+	class DownloadTaskDelegate: TaskDelegate, NSURLSessionDownloadDelegate
+	func cURLRepresentation() -> String
+NSURL.h
+	class NSURL : NSObject, NSSecureCoding, NSCoding, NSCopying
+	class NSURLComponents : NSObject, NSCopying
