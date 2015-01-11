@@ -47,7 +47,6 @@ module Jazzy
     def self.run_sourcekitten(arguments)
       bin_path = Pathname(__FILE__).parent + 'sourcekitten/sourcekitten'
       command = "#{bin_path} #{(arguments).join(' ')}"
-      p command
       output = `#{command}`
       raise 'Running sourcekitten failed: ' + output unless $?.success?
       output
