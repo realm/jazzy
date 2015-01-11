@@ -8,6 +8,7 @@ require 'jazzy/config'
 require 'jazzy/doc'
 require 'jazzy/docset_builder'
 require 'jazzy/jazzy_markdown'
+require 'jazzy/podspec_documenter'
 require 'jazzy/readme_generator'
 require 'jazzy/source_declaration'
 require 'jazzy/source_module'
@@ -43,39 +44,14 @@ module Jazzy
 
     # Build documentation from the given options
     # @param [Config] options
+    # @return [SourceModule] the documented source module
     def self.build(options)
       if options.sourcekitten_sourcefile
         file_contents = options.sourcekitten_sourcefile.read
         build_docs_for_sourcekitten_output(file_contents, options)
       else
         if podspec = options.podspec
-          require 'tmpdir'
-          pod_config = Pod::Config.instance
-          pod_config.installation_root = Pathname.pwd + 'jazzy'
-          pod_config.installation_root.rmtree if pod_config.installation_root.exist?
-          pod_config.integrate_targets = false
-          pod_path = podspec.defined_in_file.parent
-          pod_targets = []
-          podfile = Pod::Podfile.new do
-            platform :ios, '8.0'
-            [podspec, *podspec.recursive_subspecs].each do |ss|
-              ss.available_platforms.each do |p|
-                t = "Jazzy-#{ss.name.gsub(/\//, '__')}-#{p.name}"
-                pod_targets << "Pods-#{t}-#{ss.root.name}"
-                target t do
-                  use_frameworks!
-                  platform p.name, p.deployment_target
-                  pod ss.name, path: pod_path.realpath.to_s
-                end
-              end
-            end
-          end
-          sandbox = Pod::Sandbox.new(pod_config.sandbox_root)
-          installer = Pod::Installer.new(sandbox, podfile)
-          installer.install!
-          stdout = Dir.chdir(sandbox.root) { pod_targets.map { |t| SourceKitten.run_sourcekitten(%W(doc --module-name #{podspec.module_name} -target #{t})) } }
-          require 'json'
-          stdout = stdout.reduce([]) { |a, s| a + JSON.load(s) }.to_json
+          stdout = PodspecDocumenter.new(podspec).sourcekitten_output
         else
           stdout = SourceKitten.run_sourcekitten(['doc'] + options.xcodebuild_arguments)
         end
@@ -125,6 +101,7 @@ module Jazzy
     # Build docs given sourcekitten output
     # @param [String] sourcekitten_output Output of sourcekitten command
     # @param [Config] options Build options
+    # @return [SourceModule] the documented source module
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       output_dir = options.output
       prepare_output_dir(output_dir, options.clean)
@@ -152,6 +129,8 @@ module Jazzy
       DocsetBuilder.new(output_dir, source_module).build!
 
       puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
+
+      source_module
     end
 
     def self.decl_for_token(token)

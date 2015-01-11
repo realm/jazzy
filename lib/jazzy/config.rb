@@ -2,6 +2,7 @@ require 'optparse'
 require 'pathname'
 require 'uri'
 
+require 'jazzy/podspec_documenter'
 require 'jazzy/source_declaration/access_control_level'
 
 module Jazzy
@@ -26,6 +27,7 @@ module Jazzy
     attr_accessor :podspec
 
     def initialize
+      PodspecDocumenter.configure(self, Dir['*.podspec{.json,}'].first)
       self.output = Pathname('docs')
       self.xcodebuild_arguments = []
       self.author_name = ''
@@ -40,44 +42,7 @@ module Jazzy
     end
 
     def podspec=(podspec)
-      p podspec
-      case podspec
-      when Pathname
-        require 'cocoapods'
-        podspec = Pod::Specification.from_file(podspec)
-      end
-
-      if @podspec = podspec
-        self.author_name =
-          if podspec.authors.respond_to? :to_hash
-            podspec.authors.keys.join(' ') || ''
-          else
-            if podspec.authors.respond_to? :to_ary
-              podspec.authors.join(' ')
-            else
-              podspec.authors
-            end
-          end || ''
-
-        self.module_name = podspec.module_name
-        self.author_url = podspec.homepage || ''
-
-        self.version = podspec.version.to_s
-
-        self.xcodebuild_arguments = %W(-alltargets)
-
-        # self.source_files = podspec.available_platforms.map { |p| podspec.consumer(p) }.
-        #   map { |c| Pod::Sandbox::FileAccessor.new(Pathname.pwd, c) }.tap { |fa| p fa.map(&:source_files) }.
-        #   map { |fa| [fa.source_files.select { |f| f.extname == '.swift' }, args_for_consumer(fa.spec_consumer)] }
-
-        # exit 1
-      end
-    end
-
-    def args_for_consumer(consumer)
-      [
-        *consumer.frameworks.dup.push(consumer.platform_name == :ios ? 'UIKit' : 'Cocoa').map { |f| "-framework #{f}"},
-      ]
+      @podspec = PodspecDocumenter.configure(self, podspec)
     end
 
     # rubocop:disable Metrics/MethodLength
