@@ -88,15 +88,16 @@ public struct File {
     <#Description#>
 
     :param: dictionary        <#dictionary description#>
-    :param: cursorInfoRequest <#cursorInfoRequest description#>
+    :param: cursorInfoRequest Cursor.Info request to get declaration information.
 
     :returns: <#return value description#>
     */
     public func processDictionary(var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t? = nil) -> XPCDictionary {
         if let cursorInfoRequest = cursorInfoRequest {
-            if let updateDict = updateDict(dictionary, cursorInfoRequest: cursorInfoRequest) {
-                dictionary = merge(dictionary, updateDict)
-            }
+            dictionary = merge(
+                dictionary,
+                dictWithCommentMarkNamesCursorInfo(dictionary, cursorInfoRequest: cursorInfoRequest)
+            )
         }
 
         // Parse declaration and add to dictionary.
@@ -116,7 +117,7 @@ public struct File {
 
     :param: dictionary             <#dictionary description#>
     :param: documentedTokenOffsets <#documentedTokenOffsets description#>
-    :param: cursorInfoRequest      <#cursorInfoRequest description#>
+    :param: cursorInfoRequest      Cursor.Info request to get declaration information.
 
     :returns: <#return value description#>
     */
@@ -134,12 +135,15 @@ public struct File {
     }
 
     /**
-    <#Description#>
+    Update input dictionary's substructure by running `processDictionary(_:cursorInfoRequest:)` on
+    its elements, only keeping comment marks and declarations.
 
-    :param: dictionary        <#dictionary description#>
-    :param: cursorInfoRequest <#cursorInfoRequest description#>
+    :param: dictionary        Input dictionary to process its substructure.
+    :param: cursorInfoRequest Cursor.Info request to get declaration information.
 
-    :returns: <#return value description#>
+    :returns: A copy of the input dictionary's substructure processed by running
+              `processDictionary(_:cursorInfoRequest:)` on its elements, only keeping comment marks
+              and declarations.
     */
     public func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) -> XPCArray? {
         return SwiftDocKey.getSubstructure(dictionary)?
@@ -151,40 +155,29 @@ public struct File {
     }
 
     /**
-    <#Description#>
+    Returns an updated copy of the input dictionary with comment mark names and cursor.info information.
 
-    :param: dictionary        <#dictionary description#>
-    :param: cursorInfoRequest <#cursorInfoRequest description#>
+    :param: dictionary        Dictionary to update.
+    :param: cursorInfoRequest Cursor.Info request to get declaration information.
 
-    :returns: <#return value description#>
+    :returns: An updated copy of the input dictionary with comment mark names and cursor.info information.
     */
-    public func updateDict(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t) -> XPCDictionary? {
-        // Remove dictionaries without a 'kind' key
-        let kind = SwiftDocKey.getKind(dictionary)
-        if kind == nil {
-            return nil
-        }
-        if kind != SwiftDeclarationKind.Parameter.rawValue && isSwiftDeclarationKind(kind) {
-            var updateDict = XPCDictionary()
-            let update = Request.sendCursorInfoRequest(cursorInfoRequest,
-                atOffset: SwiftDocKey.getNameOffset(dictionary)!)
-            if let update = update {
-                for (key, value) in update {
-                    if key == SwiftDocKey.Kind.rawValue {
-                        // Skip kinds, since values from editor.open are more
-                        // accurate than cursorinfo
-                        continue
-                    }
-                    updateDict[key] = value
+    public func dictWithCommentMarkNamesCursorInfo(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t) -> XPCDictionary? {
+        if let kind = SwiftDocKey.getKind(dictionary) {
+            // Only update dictionaries with a 'kind' key
+            if kind == SyntaxKind.CommentMark.rawValue {
+                // Update comment marks
+                if let markName = markNameFromDictionary(dictionary) {
+                    return [SwiftDocKey.Name.rawValue: markName]
                 }
-            }
-            if let parsedDeclaration = parseDeclaration(dictionary) {
-                updateDict[SwiftDocKey.ParsedDeclaration.rawValue] = parsedDeclaration
-            }
-            return updateDict
-        } else if kind == SyntaxKind.CommentMark.rawValue {
-            if let markName = markNameFromDictionary(dictionary) {
-                return [SwiftDocKey.Name.rawValue: markName]
+            } else if kind != SwiftDeclarationKind.Parameter.rawValue && isSwiftDeclarationKind(kind) {
+                // Update if kind is a declaration (but not a parameter)
+                var updateDict = Request.sendCursorInfoRequest(cursorInfoRequest,
+                    atOffset: SwiftDocKey.getNameOffset(dictionary)!) ?? XPCDictionary()
+
+                // Skip kinds, since values from editor.open are more accurate than cursorinfo
+                updateDict.removeValueForKey(SwiftDocKey.Kind.rawValue)
+                return updateDict
             }
         }
         return nil
@@ -213,13 +206,15 @@ public struct File {
     }
 
     /**
-    <#Description#>
+    Inserts a document dictionary at the specified offset.
+    Parent will be traversed until the offset is found.
+    Returns nil if offset could not be found.
 
-    :param: doc    <#doc description#>
-    :param: parent <#parent description#>
-    :param: offset <#offset description#>
+    :param: doc    Document dictionary to insert.
+    :param: parent Parent to traverse to find insertion point.
+    :param: offset Offset to insert document dictionary.
 
-    :returns: <#return value description#>
+    :returns: Parent with doc inserted if successful.
     */
     public func insertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
         if shouldInsert(parent, offset: offset) {
