@@ -46,7 +46,7 @@
 		E8C9EA0A1A5C9A2900A6D4D1 /* OffsetMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C9EA091A5C9A2900A6D4D1 /* OffsetMapTests.swift */; };
 		E8CC8A2D1A587FD300D1FEC7 /* SyntaxMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CC8A2C1A587FD300D1FEC7 /* SyntaxMap.swift */; };
 		E8CE24B51A5DFEEB00DCB8A0 /* LlamaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E854CAA61A5DF71100211501 /* LlamaKit.framework */; };
-		E8DEEB141A6313070001BBD1 /* Array+Compaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DEEB131A6313070001BBD1 /* Array+Compaction.swift */; };
+		E8DEEB141A6313070001BBD1 /* Array+Compact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DEEB131A6313070001BBD1 /* Array+Compact.swift */; };
 		E8EBAA5E1A5D374B002F1B8E /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */; };
 		E8EBAA5F1A5D374B002F1B8E /* Commandant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -156,7 +156,7 @@
 		E8C9EA071A5C99C400A6D4D1 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
 		E8C9EA091A5C9A2900A6D4D1 /* OffsetMapTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffsetMapTests.swift; sourceTree = "<group>"; };
 		E8CC8A2C1A587FD300D1FEC7 /* SyntaxMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxMap.swift; sourceTree = "<group>"; usesTabs = 0; };
-		E8DEEB131A6313070001BBD1 /* Array+Compaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Compaction.swift"; sourceTree = "<group>"; };
+		E8DEEB131A6313070001BBD1 /* Array+Compact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Compact.swift"; sourceTree = "<group>"; };
 		E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -314,7 +314,7 @@
 				E84763691A5A0651000EAE22 /* File.swift */,
 				E8A18A3A1A58971D000362B7 /* Language.swift */,
 				E8241CA41A5E01A10047687E /* Module.swift */,
-				E8DEEB131A6313070001BBD1 /* Array+Compaction.swift */,
+				E8DEEB131A6313070001BBD1 /* Array+Compact.swift */,
 				E8AE53C61A5B5FCA0092D24A /* NSString+SourceKitten.swift */,
 				E83748C21A5BCD7900862B1B /* OffsetMap.swift */,
 				E86847391A587B4D0043DC65 /* Request.swift */,
@@ -523,7 +523,7 @@
 				E8CC8A2D1A587FD300D1FEC7 /* SyntaxMap.swift in Sources */,
 				E89291A91A5B800300D91568 /* SwiftDeclarationKind.swift in Sources */,
 				E83748C31A5BCD7900862B1B /* OffsetMap.swift in Sources */,
-				E8DEEB141A6313070001BBD1 /* Array+Compaction.swift in Sources */,
+				E8DEEB141A6313070001BBD1 /* Array+Compact.swift in Sources */,
 				E8AE53C71A5B5FCA0092D24A /* NSString+SourceKitten.swift in Sources */,
 				E852418F1A5F4FB3007099FB /* Dictionary+Merge.swift in Sources */,
 				E80F23691A5CB01A00FD2352 /* SyntaxKind.swift in Sources */,
