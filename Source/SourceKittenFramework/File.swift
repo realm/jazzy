@@ -43,13 +43,13 @@ public struct File {
         lineBreaks = contents.lineBreaks()
     }
 
-	/**
-	Parse source declaration string from XPC dictionary.
+    /**
+    Parse source declaration string from XPC dictionary.
 
-	:param: dictionary XPC dictionary to extract declaration from.
+    :param: dictionary XPC dictionary to extract declaration from.
 
-	:returns: Source declaration if successfully parsed.
-	*/
+    :returns: Source declaration if successfully parsed.
+    */
     public func parseDeclaration(dictionary: XPCDictionary) -> String? {
         if !shouldParseDeclaration(dictionary) {
             return nil
