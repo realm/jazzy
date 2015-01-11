@@ -63,12 +63,8 @@ extension NSString {
         let range = NSRange(location: 0, length: length)
         let matches = regex.matchesInString(self, options: nil, range: range) as [NSTextCheckingResult]
 
-        return matches.map({ match in
+        return compact(matches.map({ match in
             identifierOffsets.filter({ $0 >= match.range.location }).first
-        }).filter({
-            $0 != nil
-        }).map {
-            $0!
-        }
+        }))
     }
 }

@@ -19,18 +19,14 @@ public struct Module {
     public var docs: [SwiftDocs] {
         var fileIndex = 1
         let sourceFilesCount = sourceFiles.count
-        return sourceFiles.map({
+        return compact(sourceFiles.map({
             if let file = File(path: $0) {
                 fputs("Parsing \($0.lastPathComponent) (\(fileIndex++)/\(sourceFilesCount))\n", stderr)
                 return SwiftDocs(file: file, arguments: self.compilerArguments)
             }
             fputs("Could not parse `\($0.lastPathComponent)`. Please open an issue at https://github.com/jpsim/SourceKitten/issues with the file contents.\n", stderr)
             return nil
-        }).filter({
-            $0 != nil
-        }).map {
-            $0! // Safe to force unwrap
-        }
+        }))
     }
 
     /**
