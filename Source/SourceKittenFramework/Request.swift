@@ -37,11 +37,20 @@ internal func stringForSourceKitUID(uid: UInt64) -> String? {
     return nil
 }
 
+/// Represents a SourceKit request.
 public enum Request {
+    /// An `editor.open` request for the given File.
     case EditorOpen(File)
+    /// A `cursor.info` request for an offset in the given file, using the `arguments` given.
     case CursorInfo(file: String, offset: Int64, arguments: [String])
+    /// A custom request by passing in the xpc_object_t directly.
     case CustomRequest(xpc_object_t)
 
+    /**
+    Creates an xpc_object_t version of the Request to be sent to SourceKit.
+
+    :returns: xpc_object_t reprensentation of the Request.
+    */
     private func xpcValue() -> xpc_object_t {
         switch self {
         case .EditorOpen(let file):
@@ -72,6 +81,14 @@ public enum Request {
         }
     }
 
+    /**
+    Create a Request.CursorInfo.xpcValue() from a file path and compiler arguments.
+
+    :param: filePath  Path of the file to create request.
+    :param: arguments Compiler arguments.
+
+    :returns: xpc_object_t representation of the Request, if successful.
+    */
     static func cursorInfoRequestForFilePath(filePath: String?, arguments: [String]) -> xpc_object_t? {
         if let path = filePath {
             return Request.CursorInfo(file: path, offset: 0, arguments: arguments).xpcValue()
@@ -79,6 +96,14 @@ public enum Request {
         return nil
     }
 
+    /**
+    Send a Request.CursorInfo by updating its offset. Returns SourceKit response if successful.
+
+    :param: request xpc_object_t representation of Request.CursorInfo
+    :param: offset  Offset to update request.
+
+    :returns: SourceKit response if successful.
+    */
     static func sendCursorInfoRequest(request: xpc_object_t, atOffset offset: Int64) -> XPCDictionary? {
         if offset == 0 {
             return nil

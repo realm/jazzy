@@ -9,11 +9,13 @@
 import Foundation
 import SwiftXPC
 
+/// Represents docs for a Swift file.
 public struct SwiftDocs {
+    /// Docs information as an XPCDictionary.
     public let docsDictionary: XPCDictionary
 
     /**
-    Create docs for the specified Swift file.
+    Create docs for the specified Swift file and compiler arguments.
 
     :param: file Swift file to document
     :param: arguments compiler arguments to pass to SourceKit
@@ -27,7 +29,7 @@ public struct SwiftDocs {
     }
 
     /**
-    Create docs for the specified Swift file.
+    Create docs for the specified Swift file, editor.open SourceKit response and cursor info request.
 
     :param: file Swift file to document
     :param: dictionary editor.open response from SourceKit

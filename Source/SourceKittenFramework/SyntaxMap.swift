@@ -9,15 +9,25 @@
 import Foundation
 import SwiftXPC
 
-// MARK: SyntaxMap
-
+/// Represents a Swift file's syntax information.
 public struct SyntaxMap {
+    /// Array of SyntaxToken's.
     public let tokens: [SyntaxToken]
 
+    /**
+    Create a SyntaxMap by passing in tokens directly.
+
+    :param: tokens Array of SyntaxToken's.
+    */
     public init(tokens: [SyntaxToken]) {
         self.tokens = tokens
     }
 
+    /**
+    Create a SyntaxMap by passing in NSData from a SourceKit `editor.open` response to be parsed.
+
+    :param: data NSData from a SourceKit `editor.open` response
+    */
     public init(data: NSData) {
         var numberOfTokens = 0
         data.getBytes(&numberOfTokens, range: NSRange(location: 8, length: 8))
@@ -41,10 +51,20 @@ public struct SyntaxMap {
         }
     }
 
+    /**
+    Create a SyntaxMap from a SourceKit `editor.open` response.
+
+    :param: sourceKitResponse SourceKit `editor.open` response.
+    */
     public init(sourceKitResponse: XPCDictionary) {
         self.init(data: SwiftDocKey.getSyntaxMap(sourceKitResponse)!)
     }
 
+    /**
+    Create a SyntaxMap from a File to be parsed.
+
+    :param: file File to be parsed.
+    */
     public init(file: File) {
         self.init(sourceKitResponse: Request.EditorOpen(file).send())
     }
@@ -70,6 +90,14 @@ extension SyntaxMap: Printable {
 
 extension SyntaxMap: Equatable {}
 
+/**
+Returns true if `lhs` SyntaxMap is equal to `rhs` SyntaxMap.
+
+:param: lhs SyntaxMap to compare to `rhs`.
+:param: rhs SyntaxMap to compare to `lhs`.
+
+:returns: True if `lhs` SyntaxMap is equal to `rhs` SyntaxMap.
+*/
 public func ==(lhs: SyntaxMap, rhs: SyntaxMap) -> Bool {
     for (index, value) in enumerate(lhs.tokens) {
         if rhs.tokens[index] != value {

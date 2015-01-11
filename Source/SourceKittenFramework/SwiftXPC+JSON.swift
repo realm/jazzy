@@ -10,29 +10,29 @@ import Foundation
 import SwiftXPC
 
 /**
-Convert XPCDictionary to JSON
+Convert XPCDictionary to JSON.
 
-:param: dictionary XPCDictionary to convert
+:param: dictionary XPCDictionary to convert.
 
-:returns: Converted JSON
+:returns: Converted JSON.
 */
 public func toJSON(dictionary: XPCDictionary) -> String {
     return toJSON(toAnyObject(dictionary))
 }
 
 /**
-Convert XPCArray of XPCDictionary's to JSON
+Convert XPCArray of XPCDictionary's to JSON.
 
-:param: array XPCArray of XPCDictionary's to convert
+:param: array XPCArray of XPCDictionary's to convert.
 
-:returns: Converted JSON
+:returns: Converted JSON.
 */
 public func toJSON(array: XPCArray) -> String {
     return toJSON(array.map { toAnyObject($0 as XPCDictionary) })
 }
 
 /**
-JSON Object to JSON String
+JSON Object to JSON String.
 
 :param: object Object to convert to JSON.
 
@@ -48,11 +48,11 @@ public func toJSON(object: AnyObject) -> String {
 }
 
 /**
-Convert XPCDictionary to [String: AnyObject] for conversion using NSJSONSerialization. See toJSON(_:)
+Convert XPCDictionary to `[String: AnyObject]` for conversion using NSJSONSerialization. See toJSON(_:)
 
-:param: dictionary XPCDictionary to convert
+:param: dictionary XPCDictionary to convert.
 
-:returns: JSON-serializable Dictionary
+:returns: JSON-serializable Dictionary.
 */
 public func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
     var anyDictionary = [String: AnyObject]()

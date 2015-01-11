@@ -191,12 +191,12 @@ public struct File {
     }
 
     /**
-    <#Description#>
+    Returns whether or not a doc should be inserted into a parent at the provided offset.
 
-    :param: parent <#parent description#>
-    :param: offset <#offset description#>
+    :param: parent Parent dictionary to evaluate.
+    :param: offset Offset to search for in parent dictionary.
 
-    :returns: <#return value description#>
+    :returns: True if a doc should be inserted in the parent at the provided offset.
     */
     public func shouldInsert(parent: XPCDictionary, offset: Int64) -> Bool {
         if offset == 0 {
@@ -250,11 +250,11 @@ public struct File {
     }
 
     /**
-    <#Description#>
+    Returns true if path is nil or if path is equal to `key.filepath` in the input dictionary.
 
-    :param: dictionary <#dictionary description#>
+    :param: dictionary Dictionary to parse.
 
-    :returns: <#return value description#>
+    :returns: True if path is nil or if path is equal to `key.filepath` in the input dictionary.
     */
     public func shouldTreatAsSameFile(dictionary: XPCDictionary) -> Bool {
         if let path = path {
