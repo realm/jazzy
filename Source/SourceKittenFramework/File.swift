@@ -29,6 +29,7 @@ public struct File {
             self.contents = contents
             lineBreaks = contents.lineBreaks()
         } else {
+            fputs("Could not read contents of `\(path)`\n", stderr)
             return nil
         }
     }

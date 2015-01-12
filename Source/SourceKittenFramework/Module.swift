@@ -44,7 +44,11 @@ public struct Module {
                 self.init(name: moduleName, compilerArguments: arguments)
                 return
             }
+            fputs("Could not parse module name from compiler arguments.\n", stderr)
+            return nil
         }
+        fputs("Could not parse compiler arguments from `xcodebuild` output.\n", stderr)
+        fputs("\(xcodeBuildOutput)\n", stderr)
         return nil
     }
 
