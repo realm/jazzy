@@ -857,6 +857,12 @@ td {
 }
 
 html.dash {
+  body {
+    font-size: 65%;
+  }
+  a.Swift {
+    font-size: 110%;
+  }
   .book-parts {
     display: none;
     width: 0;
@@ -872,5 +878,25 @@ html.dash {
     .x-instance-method {
       margin-left: 0;
     }
+  }
+  header, section#valence, .pixel-line, .rubber-band-gap {
+    display: none;
+  }
+  .content-wrapper {
+    width: auto;
+  }
+  .chapter {
+    border: none;
+    width: auto; 
+    position: static; 
+    padding-bottom: 50px; 
+    box-shadow: none;
+  }
+  #reference .chapter {
+    border:none;
+    box-shadow: none;
+  }
+  #footer {
+    position: static;
   }
 }
