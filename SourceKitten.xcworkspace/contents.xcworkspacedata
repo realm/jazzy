@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:SourceKitten.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/SwiftXPC/SwiftXPC.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Commandant/Commandant.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/Commandant/Carthage/Checkouts/LlamaKit/LlamaKit.xcodeproj">
+   </FileRef>
+</Workspace>

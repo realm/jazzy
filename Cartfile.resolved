@@ -1,0 +1,6 @@
+github "Carthage/LlamaKit" "carthage-0.1.1"
+github "Quick/Nimble" "v0.2.0"
+github "Quick/Quick" "v0.2.0"
+github "jpsim/SwiftXPC" "f3b532f78c8e05587b48d6bd7180ecf30647ebf5"
+github "jspahrsummers/xcconfigs" "0.7"
+github "Carthage/Commandant" "2c0384bfa4d0c66ab0ebf5bc48739f9236ea2e0c"

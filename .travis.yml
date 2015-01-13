@@ -1,4 +1,11 @@
 language: objective-c
-osx_image: xcode61
-before_install: npm install -g jsonlint
-script: sh test.sh
+xcode_workspace: SourceKitten.xcworkspace
+xcode_scheme: sourcekitten
+osx_image: xcode611
+before_install: true
+install: true
+git:
+  submodules: false
+script: BUILD_TOOL=xctool script/cibuild
+notifications:
+  email: false

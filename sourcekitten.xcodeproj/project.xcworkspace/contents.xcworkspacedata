@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:sourcekitten.xcodeproj">
+      location = "self:SourceKitten.xcodeproj">
    </FileRef>
 </Workspace>
