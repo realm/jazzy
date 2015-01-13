@@ -15,3 +15,6 @@ FOUNDATION_EXPORT double SourceKittenFrameworkVersionNumber;
 FOUNDATION_EXPORT const unsigned char SourceKittenFrameworkVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <SourceKittenFramework/PublicHeader.h>
+
+// Ideally this would be in a bridging header, but due to rdar://17633863, we can't have nice things.
+#import <SourceKittenFramework/Index.h>
