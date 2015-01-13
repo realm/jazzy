@@ -61,7 +61,7 @@ public struct Module {
     public init(name: String, compilerArguments: [String]) {
         self.name = name
         self.compilerArguments = compilerArguments
-        sourceFiles = filterSwiftFiles(compilerArguments)
+        sourceFiles = compilerArguments.filter { $0.isSwiftFile() }
     }
 }
 
@@ -82,7 +82,7 @@ Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
 
 :returns: `xcodebuild`'s STDERR+STDOUT output combined.
 */
-private func runXcodeBuildDryRun(arguments: [String], inPath path: String) -> String? {
+public func runXcodeBuildDryRun(arguments: [String], inPath path: String) -> String? {
     fputs("Running xcodebuild -dry-run\n", stderr)
 
     let task = NSTask()
@@ -101,69 +101,6 @@ private func runXcodeBuildDryRun(arguments: [String], inPath path: String) -> St
     file.closeFile()
 
     return xcodebuildOutput
-}
-
-/**
-Parses the compiler arguments needed to compile the `language` aspects of a Module.
-
-:param: xcodebuildOutput Output of `xcodebuild` to be parsed for compiler arguments.
-:param: language         Language to parse for.
-:param: moduleName       Name of the Module for which to extract compiler arguments.
-
-:returns: Compiler arguments, filtered for suitable use by SourceKit.
-*/
-private func parseCompilerArguments(xcodebuildOutput: NSString, #language: Language, #moduleName: String?) -> [String]? {
-    let pattern: String = {
-        if language == .ObjC {
-            return "/usr/bin/clang.*"
-        }
-        if let moduleName = moduleName {
-            return "/usr/bin/swiftc.*-module-name \(moduleName) .*"
-        }
-        return "/usr/bin/swiftc.*"
-    }()
-    let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)! // Safe to force unwrap
-    let range = NSRange(location: 0, length: xcodebuildOutput.length)
-
-    if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
-        let escapedSpacePlaceholder = "\u{0}"
-        /// Filters compiler arguments from xcodebuild to something that libClang/sourcekit will accept
-        func filterArguments(var args: [String]) -> [String] {
-            /// Partially filters compiler arguments from xcodebuild to something that libClang/sourcekit will accept
-            func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
-                var didRemove = false
-                let flagsToRemove = [
-                    "--serialize-diagnostics",
-                    "-c",
-                    "-o"
-                ]
-                for flag in flagsToRemove {
-                    if let index = find(args, flag) {
-                        didRemove = true
-                        args.removeAtIndex(index.successor())
-                        args.removeAtIndex(index)
-                    }
-                }
-                return (args, didRemove)
-            }
-            var shouldContinueToFilterArguments = true
-            while (shouldContinueToFilterArguments) {
-                (args, shouldContinueToFilterArguments) = partiallyFilterArguments(args)
-            }
-            return args.filter { $0 != "-parseable-output" }
-        }
-        let args = filterArguments(xcodebuildOutput
-            .substringWithRange(regexMatch.range)
-            .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
-            .componentsSeparatedByString(" "))
-
-        // Remove swiftc/clang, -parseable-output and re-add spaces in arguments
-        return Array<String>(args[1..<args.count]).map {
-            $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
-        }
-    }
-
-    return nil
 }
 
 /**

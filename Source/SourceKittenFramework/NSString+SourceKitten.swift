@@ -10,6 +10,36 @@ import Foundation
 
 extension NSString {
     /**
+    Returns true if self is an Objective-C header file.
+
+    :returns: True if self is an Objective-C header file.
+    */
+    public func isObjectiveCHeaderFile() -> Bool {
+        return contains(["h", "hpp", "hh"], pathExtension)
+    }
+
+    /**
+    Returns true if self is a Swift file.
+
+    :returns: True if self is a Swift file.
+    */
+    public func isSwiftFile() -> Bool {
+        return pathExtension == "swift"
+    }
+
+    /**
+    Returns self represented as an absolute path.
+
+    :returns: self represented as an absolute path.
+    */
+    public func absolutePathRepresentation() -> String {
+        if absolutePath {
+            return self
+        }
+        return NSString.pathWithComponents([NSFileManager.defaultManager().currentDirectoryPath, self]).stringByStandardizingPath
+    }
+
+    /**
     Returns offsets of all the line breaks in the current string.
 
     :returns: line breaks

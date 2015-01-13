@@ -27,6 +27,21 @@ func sdkPath() -> String {
 }
 
 class ClangTranslationUnitTests: XCTestCase {
+    func testParsesObjectiveCHeaderFilesAndXcodebuildArguments() {
+        let headerFiles = [
+            "a.h",
+            "b.hpp",
+            "c.hh"
+        ]
+        let xcodebuildArguments = [
+            "arg1",
+            "arg2"
+        ]
+        let (parsedHeaderFiles, parsedXcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(headerFiles + xcodebuildArguments)
+        XCTAssertEqual(parsedHeaderFiles, headerFiles.map({$0.absolutePathRepresentation()}), "Objective-C header files should be parsed")
+        XCTAssertEqual(parsedXcodebuildArguments, xcodebuildArguments, "xcodebuild arguments should be parsed")
+    }
+
     func testBasicObjectiveCDocs() {
         let fixturesDirectory = NSFileManager.defaultManager().currentDirectoryPath + "/Source/SourceKittenFrameworkTests/Fixtures/"
         let headerFiles = [fixturesDirectory + "Musician.h"]

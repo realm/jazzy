@@ -38,6 +38,37 @@ public struct ClangTranslationUnit {
                 nil)
         }
     }
+
+    /**
+    Failable initializer to create a ClangTranslationUnit by passing an array of Objective-C header
+    files followed by `xcodebuild` arguments. Optionally pass in a `path`.
+
+    :param: headerFilesAndXcodeBuildArguments Array of Objective-C header files followed by `xcodebuild` arguments.
+    :param: path                              Path to run `xcodebuild` from. Uses current path by default.
+    */
+    public init?(headerFilesAndXcodeBuildArguments: [String], inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
+        let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(headerFilesAndXcodeBuildArguments)
+        self.init(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments, inPath: path)
+    }
+
+    /**
+    Failable initializer to create a ClangTranslationUnit by passing Objective-C header files and
+    `xcodebuild` arguments. Optionally pass in a `path`.
+
+    :param: headerFiles         Objective-C header files to document.
+    :param: xcodeBuildArguments The arguments necessary pass in to `xcodebuild` to link these header files.
+    :param: path                Path to run `xcodebuild` from. Uses current path by default.
+    */
+    public init?(headerFiles: [String], xcodeBuildArguments: [String], inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
+        let xcodeBuildOutput = runXcodeBuildDryRun(xcodeBuildArguments, inPath: path) ?? ""
+        if let clangArguments = parseCompilerArguments(xcodeBuildOutput, language: .ObjC, moduleName: nil) {
+            self.init(headerFiles: headerFiles, compilerArguments: clangArguments)
+            return
+        }
+        fputs("could not parse compiler arguments\n", stderr)
+        fputs("\(xcodeBuildOutput)\n", stderr)
+        return nil
+    }
 }
 
 // MARK: Printable
@@ -68,4 +99,21 @@ public func commentXML(translationUnit: CXTranslationUnit) -> [String] {
         return CXChildVisit_Recurse
     }
     return commentXMLs
+}
+
+/**
+Extracts Objective-C header files and `xcodebuild` arguments from an array of header files followed by `xcodebuild` arguments.
+
+:param: sourcekittenArguments Array of Objective-C header files followed by `xcodebuild` arguments.
+
+:returns: Tuple of header files in `.0` and xcodebuild arguments in `.1`.
+*/
+public func parseHeaderFilesAndXcodebuildArguments(sourcekittenArguments: [String]) -> ([String], [String]) {
+    var xcodebuildArguments = sourcekittenArguments
+    var headerFiles = [String]()
+    while xcodebuildArguments.first?.isObjectiveCHeaderFile() ?? false {
+        headerFiles.append(xcodebuildArguments.first!.absolutePathRepresentation()) // Safe to force unwrap
+        xcodebuildArguments.removeAtIndex(0)
+    }
+    return (headerFiles, xcodebuildArguments)
 }

@@ -17,14 +17,14 @@ class ModuleTests: XCTestCase {
         XCTAssert(model == nil, "model initialization without any Xcode project should fail")
     }
 
-    func testSourceKittenFrameworkDocsAreValidJSON() {
-        let sourceKittenModule = Module(xcodeBuildArguments: ["-workspace", "SourceKitten.xcworkspace", "-scheme", "SourceKittenFramework"])!
-        let docsJSON = sourceKittenModule.docs.description
-        var error: NSError? = nil
-        let jsonArray = NSJSONSerialization.JSONObjectWithData(docsJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: &error) as NSArray?
-        XCTAssertNil(error, "JSON should be propery parsed")
-        XCTAssertNotNil(jsonArray, "JSON should be propery parsed")
-    }
+//    func testSourceKittenFrameworkDocsAreValidJSON() {
+//        let sourceKittenModule = Module(xcodeBuildArguments: ["-workspace", "SourceKitten.xcworkspace", "-scheme", "SourceKittenFramework"])!
+//        let docsJSON = sourceKittenModule.docs.description
+//        var error: NSError? = nil
+//        let jsonArray = NSJSONSerialization.JSONObjectWithData(docsJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: &error) as NSArray?
+//        XCTAssertNil(error, "JSON should be propery parsed")
+//        XCTAssertNotNil(jsonArray, "JSON should be propery parsed")
+//    }
 
     // This test usually fails around i=2 because SourceKitService becomes inconsistent after a while.
     // I'd love to find a work-around for this, but so far nothing has worked.
