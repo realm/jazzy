@@ -16,7 +16,6 @@ func sdkPath() -> String {
 
     let pipe = NSPipe()
     task.standardOutput = pipe
-    task.standardError = pipe
 
     task.launch()
 

@@ -32,16 +32,24 @@ public struct DocCommand: CommandType {
     public static func runSwiftModule(moduleName: String?, args: [String]) -> Result<()> {
         let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
         let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
-        if let docs = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)?.docs {
-            println(docs)
+        let module = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)
+
+        // FIXME: Don't spawn new processes once this SourceKit bug is fixed:
+        // https://github.com/jpsim/sourcekitten/pull/19#issuecomment-69715853
+        if let docs = module?.docsBySpawningNewProcesses {
+            println(toJSON(docs))
             return success(())
         }
+//        if let docs = module?.docs {
+//            println(docs)
+//            return success(())
+//        }
         return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 2, userInfo: [NSLocalizedDescriptionKey: "could not generate docs"]))
     }
 
     public static func runSwiftSingleFile(args: [String]) -> Result<()> {
         if args.count < 5 {
-            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "must have at least 5 arguments to call `doc --single-file`"]))
+            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "Insufficient arguments"]))
         }
         let sourcekitdArguments = Array<String>(args[4..<args.count])
         if let file = File(path: args[3]) {
@@ -53,8 +61,14 @@ public struct DocCommand: CommandType {
     }
 
     public static func runObjC(options: DocOptions, args: [String]) -> Result<()> {
+        if args.count < 5 {
+            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "Insufficient arguments"]))
+        }
         let startIndex = options.singleFile ? 4 : 3
         let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(Array<String>(args[startIndex..<args.count]))
+        if headerFiles.count == 0 {
+            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 6, userInfo: [NSLocalizedDescriptionKey: "must pass in at least one Objective-C header file"]))
+        }
         if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
             println(translationUnit)
             return success(())
@@ -75,7 +89,7 @@ public struct DocOptions: OptionsType {
     public static func evaluate(m: CommandMode) -> Result<DocOptions> {
         return create
             <*> m <| Option(key: "single-file", defaultValue: false, usage: "only document one file")
-            <*> m <| Option(key: "module-name", defaultValue: "", usage: "name of module to document (can't be used with `--single-file` or `--objc`)")
-            <*> m <| Option(key: "objc", defaultValue: false, usage: "document Objective-C headers")
+            <*> m <| Option(key: "module-name", defaultValue: "",    usage: "name of module to document (can't be used with `--single-file` or `--objc`)")
+            <*> m <| Option(key: "objc",        defaultValue: false, usage: "document Objective-C headers")
     }
 }
