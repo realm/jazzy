@@ -8,7 +8,10 @@
 
 ##### Enhancements
 
-* None.
+* Add the ability to document a Pod from just a podspec, which allows jazzy to
+  run on cocoadocs.org.  
+  [Samuel Giddins](https://github.com/segiddins)
+  [#58](https://github.com/realm/jazzy/issues/58)
 
 ##### Bug Fixes
 
