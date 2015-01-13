@@ -19,35 +19,47 @@ public struct DocCommand: CommandType {
         return DocOptions.evaluate(mode).flatMap { options in
             let args = Process.arguments
             if options.objc {
-                let startIndex = options.singleFile ? 4 : 3
-                let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(Array<String>(args[startIndex..<args.count]))
-                if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
-                    println(translationUnit)
-                    return success(())
-                }
-                return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 4, userInfo: [NSLocalizedDescriptionKey: "could not generate docs"]))
+                return DocCommand.runObjC(options, args: args)
             }
             if options.singleFile {
-                if args.count < 5 {
-                    return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "must have at least 5 arguments to call `doc --single-file`"]))
-                }
-                let sourcekitdArguments = Array<String>(args[4..<args.count])
-                if let file = File(path: args[3]) {
-                    let docs = SwiftDocs(file: file, arguments: sourcekitdArguments)
-                    println(docs)
-                    return success(())
-                }
-                return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 1, userInfo: [NSLocalizedDescriptionKey: "file could not be read"]))
+                return DocCommand.runSwiftSingleFile(args)
             }
             let moduleName: String? = countElements(options.moduleName) > 0 ? options.moduleName : nil
-            let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
-            let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
-            if let docs = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)?.docs {
-                println(docs)
-                return success(())
-            }
-            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 2, userInfo: [NSLocalizedDescriptionKey: "could not generate docs"]))
+            return DocCommand.runSwiftModule(moduleName, args: args)
         }
+    }
+
+    public static func runSwiftModule(moduleName: String?, args: [String]) -> Result<()> {
+        let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
+        let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
+        if let docs = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)?.docs {
+            println(docs)
+            return success(())
+        }
+        return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 2, userInfo: [NSLocalizedDescriptionKey: "could not generate docs"]))
+    }
+
+    public static func runSwiftSingleFile(args: [String]) -> Result<()> {
+        if args.count < 5 {
+            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "must have at least 5 arguments to call `doc --single-file`"]))
+        }
+        let sourcekitdArguments = Array<String>(args[4..<args.count])
+        if let file = File(path: args[3]) {
+            let docs = SwiftDocs(file: file, arguments: sourcekitdArguments)
+            println(docs)
+            return success(())
+        }
+        return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 1, userInfo: [NSLocalizedDescriptionKey: "file could not be read"]))
+    }
+
+    public static func runObjC(options: DocOptions, args: [String]) -> Result<()> {
+        let startIndex = options.singleFile ? 4 : 3
+        let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(Array<String>(args[startIndex..<args.count]))
+        if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
+            println(translationUnit)
+            return success(())
+        }
+        return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 4, userInfo: [NSLocalizedDescriptionKey: "could not generate docs"]))
     }
 }
 
