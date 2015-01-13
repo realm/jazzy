@@ -1,61 +1,82 @@
-# sourcekitten
+# SourceKitten
 
-An adorable little command line tool for interacting with [SourceKit][uncovering-sourcekit]. Written in Swift.
+An adorable little framework and command line tool for interacting with [SourceKit][uncovering-sourcekit].
 
-![Test Status](https://travis-ci.org/jpsim/sourcekitten.svg?branch=master)
+SourceKitten links and communicates with `sourcekitd.framework` to parse the Swift AST, extract comment docs for Swift or Objective-C projects, get syntax data for a Swift file and lots more!
 
-## Usage
+![Test Status](https://travis-ci.org/jpsim/SourceKitten.svg?branch=master)
 
-Just call `sourcekitten` in the root of your Xcode project's directory. Some more complex projects may have to pass in `-project`, `-workspace`, `-scheme` or other `xcodebuild` arguments to help sourcekitten determine what to document.
+## Command Line Usage
 
-Install it by running `sh install.sh`, first making sure that Xcode 6.1 is set in `xcode-select`.
+Install the `sourcekitten` command line tool by running `make install`, first making sure that Xcode 6.1 is set in `xcode-select`.
 
-By default, sourcekitten will use the copy of `sourcekitd.framework` under `/Applications/Xcode.app` (preferrably Xcode 6.1 or later).
+By default, SourceKitten will use the copy of `sourcekitd.framework` under `/Applications/Xcode.app` (preferrably Xcode 6.1 or later).
 
-## How it works
+```
+$ sourcekitten help
+Available commands:
 
-sourcekitten links and communicates with `sourcekitd.framework` to generate parsable docs in an XML format for your Swift projects or print syntax highlighting information for a Swift file.
+   doc         Print Swift docs as JSON or Objective-C docs as XML
+   help        Display general or command-specific help
+   structure   Print Swift structure information as JSON
+   syntax      Print Swift syntax information as JSON
+   version     Display the current version of SourceKitten
+```
 
-## Structure Information
+## Doc
 
-Calling `sourcekitten --structure path/to/file.swift` will return a JSON array of structure information:
+Calling `sourcekitten doc` will pass all arguments after what is parsed to `xcodebuild` (or directly to the compiler, SourceKit/clang, if the `--single-file` mode).
+
+### Example usage
+
+1. `sourcekitten doc -workspace SourceKitten.xcworkspace -scheme SourceKittenFramework`
+2. `sourcekitten doc --single-file file.swift -j4 file.swift`
+3. `sourcekitten doc --module-name Alamofire -project Alamofire.xcodeproj`
+4. `sourcekitten doc -workspace Haneke.xcworkspace -scheme Haneke`
+5. `sourcekitten doc --objc Realm/*.h*`
+
+## Structure
+
+Running `sourcekitten structure --file file.swift` or `sourcekitten structure --text "struct A { func b() {} }"` will return a JSON array of structure information:
 
 ```json
 {
   "key.substructure" : [
     {
+      "key.kind" : "source.lang.swift.decl.struct",
+      "key.offset" : 0,
+      "key.nameoffset" : 7,
+      "key.namelength" : 1,
+      "key.bodyoffset" : 10,
+      "key.bodylength" : 13,
+      "key.length" : 24,
       "key.substructure" : [
+        {
+          "key.kind" : "source.lang.swift.decl.function.method.instance",
+          "key.offset" : 11,
+          "key.nameoffset" : 16,
+          "key.namelength" : 3,
+          "key.bodyoffset" : 21,
+          "key.bodylength" : 0,
+          "key.length" : 11,
+          "key.substructure" : [
 
+          ],
+          "key.name" : "b()"
+        }
       ],
-      "key.nameoffset" : 0,
-      "key.offset" : 164,
-      "key.namelength" : 0,
-      "key.length" : 12,
-      "key.kind" : "source.lang.swift.syntaxtype.comment.mark"
-    },
-    {
-      "key.namelength" : 4,
-      "key.bodylength" : 0,
-      "key.substructure" : [
-
-      ],
-      "key.kind" : "source.lang.swift.expr.call",
-      "key.nameoffset" : 15546,
-      "key.bodyoffset" : 15551,
-      "key.name" : "main",
-      "key.length" : 6,
-      "key.offset" : 15546
+      "key.name" : "A"
     }
   ],
   "key.offset" : 0,
   "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-  "key.length" : 15553
+  "key.length" : 24
 }
 ```
 
-## Syntax Information
+## Syntax
 
-Calling `sourcekitten --syntax path/to/file.swift` will return a JSON array of syntax highlighting information:
+Running `sourcekitten syntax --file file.swift` or `sourcekitten syntax --text "import Foundation"` will return a JSON array of syntax highlighting information:
 
 ```json
 [
