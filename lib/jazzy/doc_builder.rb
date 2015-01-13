@@ -47,25 +47,24 @@ module Jazzy
     # @return [SourceModule] the documented source module
     def self.build(options)
       if options.sourcekitten_sourcefile
-        file_contents = options.sourcekitten_sourcefile.read
-        build_docs_for_sourcekitten_output(file_contents, options)
+        stdout = options.sourcekitten_sourcefile.read
       else
         if podspec = options.podspec
           stdout = PodspecDocumenter.new(podspec).sourcekitten_output
         else
-          stdout = SourceKitten.run_sourcekitten(['doc'] + options.xcodebuild_arguments)
+          stdout = SourceKitten.run_sourcekitten(
+            ['doc'] + options.xcodebuild_arguments,
+          )
         end
-        exitstatus = $?.exitstatus
-        if exitstatus == 0
-          warn 'building site'
-          build_docs_for_sourcekitten_output(stdout, options)
-        else
+        unless $?.success?
           warn 'Please pass in xcodebuild arguments using -x'
           warn 'If build arguments are correct, please file an issue on ' \
-          'https://github.com/realm/jazzy/issues'
-          exit exitstatus || 1
+            'https://github.com/realm/jazzy/issues'
+          exit $?.exitstatus || 1
         end
       end
+      warn 'building site'
+      build_docs_for_sourcekitten_output(stdout, options)
     end
 
     # Build & write HTML docs to disk from structured docs array
