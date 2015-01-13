@@ -696,6 +696,10 @@ td {
       .readme pre code:before, .readme pre code:after {
         content: normal; }
 
+html.dash body {
+  font-size: 65%; }
+html.dash a.Swift {
+  font-size: 110%; }
 html.dash .book-parts {
   display: none;
   width: 0; }
@@ -706,3 +710,18 @@ html.dash #reference .height-container {
   display: block; }
 html.dash #reference .x-instance-method {
   margin-left: 0; }
+html.dash header, html.dash section#valence, html.dash .pixel-line, html.dash .rubber-band-gap {
+  display: none; }
+html.dash .content-wrapper {
+  width: auto; }
+html.dash .chapter {
+  border: none;
+  width: auto;
+  position: static;
+  padding-bottom: 50px;
+  box-shadow: none; }
+html.dash #reference .chapter {
+  border: none;
+  box-shadow: none; }
+html.dash #footer {
+  position: static; }
