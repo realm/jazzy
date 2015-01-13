@@ -8,6 +8,7 @@ module Jazzy
       include Config::Mixin
 
       attr_reader :output_dir
+      attr_reader :source_dir
       attr_reader :source_module
       attr_reader :docset_dir
       attr_reader :documents_dir
@@ -15,6 +16,7 @@ module Jazzy
       def initialize(output_dir, source_module)
         @source_module = source_module
         @docset_dir = output_dir + (config.docset_path || "docsets/#{source_module.name}.docset")
+        @source_dir = output_dir
         @output_dir = docset_dir.parent
         @documents_dir = docset_dir + 'Contents/Resources/Documents/'
       end
@@ -57,7 +59,7 @@ module Jazzy
       def copy_docs
         documents_dir.rmtree rescue nil
 
-        files_to_copy = Pathname.glob(output_dir + '../**/*') - [docset_dir, output_dir]
+        files_to_copy = Pathname.glob(source_dir + '**/*') - [docset_dir, output_dir]
 
         FileUtils.mkdir_p documents_dir
         FileUtils.cp_r files_to_copy, documents_dir
