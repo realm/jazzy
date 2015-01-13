@@ -31,31 +31,31 @@ module Jazzy
         ### License
 
         # <a href="#{license[:url]}">#{license[:license]}</a>
-        %(
-        # #{ podspec.name }
+%(
+# #{ podspec.name }
 
-        ### #{podspec.summary }
+### #{podspec.summary }
 
-        #{ podspec.description }
+#{ podspec.description }
 
-        ### Installation
+### Installation
 
-        ```ruby
-        pod '#{ podspec.name }'
-        ```
+```ruby
+pod '#{ podspec.name }'
+```
 
-        ### Authors
+### Authors
 
-        #{ source_module.author_name }
-        )
+#{ source_module.author_name }
+)
       else
-        %(
-        # #{ source_module.name }
+%(
+# #{ source_module.name }
 
-        ### Authors
+### Authors
 
-        #{ source_module.author_name }
-        )
+#{ source_module.author_name }
+)
       end
     end
   end
