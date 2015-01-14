@@ -30,6 +30,7 @@ module Jazzy
       quote: true,
       strikethrough: true,
       space_after_headers: false,
+      tables: true,
     }.freeze
   end
 
