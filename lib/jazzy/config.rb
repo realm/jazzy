@@ -41,7 +41,6 @@ module Jazzy
       self.version = '1.0'
       self.min_acl = SourceDeclaration::AccessControlLevel.internal
       self.skip_undocumented = false
-      self.podspec = nil
       self.source_directory = Pathname.pwd
     end
 
