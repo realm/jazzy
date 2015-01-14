@@ -1,5 +1,6 @@
 require 'json'
 require 'pathname'
+require 'shellwords'
 
 require 'jazzy/config'
 require 'jazzy/source_declaration'
@@ -45,7 +46,10 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      bin_path = Pathname(__FILE__).parent + '../../bin'
+      bin_path = Shellwords.shellescape Pathname(__FILE__).parent + '../../bin'
+      arguments = arguments.map do |object|
+        Shellwords.shellescape object
+      end
       `#{bin_path}/sourcekitten #{(arguments).join(' ')}`
     end
 
