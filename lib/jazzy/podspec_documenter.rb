@@ -34,7 +34,7 @@ module Jazzy
 
       config.author_name = author_name(podspec)
       config.module_name = podspec.module_name
-      config.author_url = podspec.homepage || ''
+      config.author_url = podspec.homepage || github_file_prefix(podspec)
       config.version = podspec.version.to_s
       config.github_file_prefix = github_file_prefix(podspec)
 
