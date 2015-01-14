@@ -13,7 +13,9 @@ import XCTest
 
 class SwiftDocsTests: XCTestCase {
     func testSingleSwiftFileDocs() {
-        let docs = SwiftDocs(file: File(path: __FILE__)!, arguments: ["-j4", __FILE__])
-        XCTAssertEqual(docs.docsDictionary.count, 4, "should generate docs for a single Swift file") // substructure, offset, diagnostic_stage, length
+        let docs = SwiftDocs(file: File(path: fixturesDirectory + "Bicycle.swift")!, arguments: ["-j4", fixturesDirectory + "Bicycle.swift"])
+        let escapedFixturesDirectory = fixturesDirectory.stringByReplacingOccurrencesOfString("/", withString: "\\/")
+        let comparisonString = (docs.description + "\n").stringByReplacingOccurrencesOfString(escapedFixturesDirectory, withString: "")
+        XCTAssertEqual(comparisonString, File(path: fixturesDirectory + "Bicycle.json")?.contents as String, "should generate expected docs for Swift file")
     }
 }

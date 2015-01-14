@@ -9,6 +9,8 @@
 import SourceKittenFramework
 import XCTest
 
+let fixturesDirectory = NSFileManager.defaultManager().currentDirectoryPath + "/Source/SourceKittenFrameworkTests/Fixtures/"
+
 func sdkPath() -> String {
     let task = NSTask()
     task.launchPath = "/usr/bin/xcrun"
@@ -42,7 +44,6 @@ class ClangTranslationUnitTests: XCTestCase {
     }
 
     func testBasicObjectiveCDocs() {
-        let fixturesDirectory = NSFileManager.defaultManager().currentDirectoryPath + "/Source/SourceKittenFrameworkTests/Fixtures/"
         let headerFiles = [fixturesDirectory + "Musician.h"]
         let compilerArguments = ["-x", "objective-c", "-isysroot", sdkPath()]
         let tu = ClangTranslationUnit(headerFiles: headerFiles, compilerArguments: compilerArguments)
