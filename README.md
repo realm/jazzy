@@ -76,24 +76,24 @@ Running `sourcekitten structure --file file.swift` or `sourcekitten structure --
 
 ## Syntax
 
-Running `sourcekitten syntax --file file.swift` or `sourcekitten syntax --text "import Foundation"` will return a JSON array of syntax highlighting information:
+Running `sourcekitten syntax --file file.swift` or `sourcekitten syntax --text "import Foundation // Hello World"` will return a JSON array of syntax highlighting information:
 
 ```json
 [
   {
-    "type": "source.lang.swift.syntaxtype.comment",
-    "offset": 0,
-    "length": 14
+    "offset" : 0,
+    "length" : 6,
+    "type" : "source.lang.swift.syntaxtype.keyword"
   },
   {
-    "type": "source.lang.swift.syntaxtype.keyword",
-    "offset": 14,
-    "length": 6
+    "offset" : 7,
+    "length" : 10,
+    "type" : "source.lang.swift.syntaxtype.identifier"
   },
   {
-    "type": "source.lang.swift.syntaxtype.identifier",
-    "offset": 21,
-    "length": 10
+    "offset" : 18,
+    "length" : 14,
+    "type" : "source.lang.swift.syntaxtype.comment"
   }
 ]
 ```
