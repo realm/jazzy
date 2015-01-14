@@ -145,6 +145,20 @@ module Jazzy
           config.podspec = Pathname(podspec)
         end
 
+        opt.on('--docset-icon FILEPATH') do |docset_icon|
+          config.docset_icon = Pathname(docset_icon)
+        end
+
+        opt.on('--docset-path DIRPATH', 'The relative path for the generated ' \
+               'docset') do |docset_path|
+          config.docset_path = docset_path
+        end
+
+        opt.on('--source-directory DIRPATH', 'The directory that contains ' \
+               'the source to be documented') do |source_directory|
+          config.source_directory = Pathname(source_directory)
+        end
+
         opt.on('-v', '--version', 'Print version number') do
           puts 'jazzy version: ' + Jazzy::VERSION
           exit
