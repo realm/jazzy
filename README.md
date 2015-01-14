@@ -25,7 +25,7 @@ Available commands:
 
 ## Doc
 
-Calling `sourcekitten doc` will pass all arguments after what is parsed to `xcodebuild` (or directly to the compiler, SourceKit/clang, if the `--single-file` mode).
+Calling `sourcekitten doc` will pass all arguments after what is parsed to `xcodebuild` (or directly to the compiler, SourceKit/clang, in the `--single-file` mode).
 
 ### Example usage
 
