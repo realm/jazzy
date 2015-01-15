@@ -172,7 +172,8 @@ module Jazzy
     end
 
     def self.deduplicate_declarations(declarations)
-      declarations.group_by { |d| [d.usr, d.type.kind] }.values.map do |decls|
+      duplicates = declarations.group_by { |d| [d.usr, d.type.kind] }.values
+      duplicates.map do |decls|
         decls.first.tap do |d|
           d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
         end
