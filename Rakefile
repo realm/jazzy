@@ -16,6 +16,7 @@ end
 
 begin
   require 'bundler/gem_tasks'
+  require 'fileutils'
 
   task default: :spec
 
@@ -67,6 +68,20 @@ begin
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new(:rubocop) do |task|
     task.patterns = %w(lib spec Rakefile Gemfile jazzy.gemspec)
+  end
+
+  #-- SourceKitten -----------------------------------------------------------#
+
+  desc 'Vendors SourceKitten'
+  task :sourcekitten do
+    Dir.chdir('SourceKitten') do
+      `make installables`
+    end
+
+    FileUtils.rm_rf 'lib/jazzy/sourcekitten'
+    FileUtils.mkdir_p 'lib/jazzy/sourcekitten'
+    FileUtils.cp_r Dir.glob('/tmp/SourceKitten.dst/Library/Frameworks/*'), 'lib/jazzy/sourcekitten'
+    FileUtils.cp '/tmp/SourceKitten.dst/usr/local/bin/sourcekitten', 'lib/jazzy/sourcekitten'
   end
 
 rescue LoadError, NameError

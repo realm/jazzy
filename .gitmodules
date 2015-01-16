@@ -4,3 +4,6 @@
 [submodule "spec/integration_specs/document_moya_podspec/before"]
 	path = spec/integration_specs/document_moya_podspec/before
 	url = https://github.com/ashfurrow/Moya.git
+[submodule "SourceKitten"]
+	path = SourceKitten
+	url = https://github.com/jpsim/SourceKitten.git
