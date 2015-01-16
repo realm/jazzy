@@ -1,9 +1,6 @@
-[submodule "spec/integration_specs/document_alamofire/before"]
-	path = spec/integration_specs/document_alamofire/before
-	url = https://github.com/Alamofire/Alamofire
-[submodule "spec/integration_specs/document_moya_podspec/before"]
-	path = spec/integration_specs/document_moya_podspec/before
-	url = https://github.com/ashfurrow/Moya.git
 [submodule "SourceKitten"]
 	path = SourceKitten
 	url = https://github.com/jpsim/SourceKitten.git
+[submodule "spec/integration_specs"]
+	path = spec/integration_specs
+	url = https://github.com/Realm/jazzy-integration-specs.git

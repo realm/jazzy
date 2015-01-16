@@ -1,3 +1,0 @@
-Classes.swift
-	class UndocumentedTopLevelClass
-	enum UndocumentedEnum

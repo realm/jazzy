@@ -5,6 +5,9 @@ task :bootstrap do
   if system('which bundle')
     title 'Installing gems'
     sh 'bundle install'
+
+    title 'Updating submodules'
+    sh 'git submodule update --init --recursive'
   else
     $stderr.puts "\033[0;31m" \
       "[!] Please install the bundler gem manually:\n" \
