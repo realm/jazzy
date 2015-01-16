@@ -78,10 +78,13 @@ begin
       `make installables`
     end
 
-    FileUtils.rm_rf 'lib/jazzy/sourcekitten'
-    FileUtils.mkdir_p 'lib/jazzy/sourcekitten'
-    FileUtils.cp_r Dir.glob('/tmp/SourceKitten.dst/Library/Frameworks/*'), 'lib/jazzy/sourcekitten'
-    FileUtils.cp '/tmp/SourceKitten.dst/usr/local/bin/sourcekitten', 'lib/jazzy/sourcekitten'
+    destination = 'lib/jazzy/sourcekitten'
+    frameworks = Dir.glob('/tmp/SourceKitten.dst/Library/Frameworks/*')
+    binary = '/tmp/SourceKitten.dst/usr/local/bin/sourcekitten'
+    FileUtils.rm_rf destination
+    FileUtils.mkdir_p destination
+    FileUtils.cp_r frameworks, destination
+    FileUtils.cp binary, destination
   end
 
 rescue LoadError, NameError
