@@ -6,7 +6,7 @@ rvm:
 
 before_install:
   - sudo gem install bundler
+  - git submodule update --init --recursive
 
 script:
   - bundle exec rake spec
-
