@@ -21,7 +21,7 @@ public struct SyntaxCommand: CommandType {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
                     println(SyntaxMap(file: file))
                 } else {
-                    return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "file could not be read"]))
+                    return failure(SourceKittenError.ReadFailed(path: options.file).error)
                 }
                 return success(())
             }
@@ -29,7 +29,7 @@ public struct SyntaxCommand: CommandType {
                 println(SyntaxMap(file: File(contents: options.text)))
                 return success(())
             }
-            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 1, userInfo: [NSLocalizedDescriptionKey: "either file or text must be set when calling syntax"]))
+            return failure(SourceKittenError.InvalidArgument(description: "either file or text must be set when calling syntax").error)
         }
     }
 }

@@ -55,6 +55,7 @@
 		E8D474381A648ED10011A49C /* Index.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D474311A648ED10011A49C /* Index.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8D474391A648ED10011A49C /* Platform.h in Headers */ = {isa = PBXBuildFile; fileRef = E8D474321A648ED10011A49C /* Platform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E8D4743B1A648F290011A49C /* ClangTranslationUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */; };
+		E8D86D851A688EF20063E8E9 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8D86D841A688EF20063E8E9 /* Errors.swift */; };
 		E8DEEB141A6313070001BBD1 /* Array+Compact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DEEB131A6313070001BBD1 /* Array+Compact.swift */; };
 		E8EBAA5E1A5D374B002F1B8E /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */; };
 		E8EBAA5F1A5D374B002F1B8E /* Commandant.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -174,6 +175,7 @@
 		E8D474311A648ED10011A49C /* Index.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Index.h; sourceTree = "<group>"; };
 		E8D474321A648ED10011A49C /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClangTranslationUnit.swift; sourceTree = "<group>"; };
+		E8D86D841A688EF20063E8E9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		E8DEEB131A6313070001BBD1 /* Array+Compact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Compact.swift"; sourceTree = "<group>"; };
 		E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -247,10 +249,11 @@
 			isa = PBXGroup;
 			children = (
 				D0D1211B19E87861005E4BAA /* main.swift */,
-				E83A0B341A5D382B0041A60A /* Version.swift */,
-				E83A0B361A5D399A0041A60A /* Syntax.swift */,
-				E80604B21A5D452C0016D959 /* Structure.swift */,
 				E80604B41A5D474B0016D959 /* Doc.swift */,
+				E80604B21A5D452C0016D959 /* Structure.swift */,
+				E83A0B361A5D399A0041A60A /* Syntax.swift */,
+				E83A0B341A5D382B0041A60A /* Version.swift */,
+				E8D86D841A688EF20063E8E9 /* Errors.swift */,
 				E854CE981A65CC350035C34D /* Module+MultiProcess.swift */,
 				5499CA981A2394BD00783309 /* Supporting Files */,
 			);
@@ -604,6 +607,7 @@
 				E83A0B371A5D399A0041A60A /* Syntax.swift in Sources */,
 				E80604B31A5D452C0016D959 /* Structure.swift in Sources */,
 				D0E7B65619E9C76900EDBA4D /* main.swift in Sources */,
+				E8D86D851A688EF20063E8E9 /* Errors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

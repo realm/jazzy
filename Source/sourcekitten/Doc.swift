@@ -44,12 +44,12 @@ public struct DocCommand: CommandType {
 //            println(docs)
 //            return success(())
 //        }
-        return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 2, userInfo: [NSLocalizedDescriptionKey: "could not generate docs"]))
+        return failure(SourceKittenError.DocFailed.error)
     }
 
     public static func runSwiftSingleFile(args: [String]) -> Result<()> {
         if args.count < 5 {
-            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "Insufficient arguments"]))
+            return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--single-file`").error)
         }
         let sourcekitdArguments = Array<String>(args[4..<args.count])
         if let file = File(path: args[3]) {
@@ -57,23 +57,23 @@ public struct DocCommand: CommandType {
             println(docs)
             return success(())
         }
-        return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 1, userInfo: [NSLocalizedDescriptionKey: "file could not be read"]))
+        return failure(SourceKittenError.ReadFailed(path: args[3]).error)
     }
 
     public static func runObjC(options: DocOptions, args: [String]) -> Result<()> {
         if args.count < 5 {
-            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 0, userInfo: [NSLocalizedDescriptionKey: "Insufficient arguments"]))
+            return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--objc`").error)
         }
         let startIndex = options.singleFile ? 4 : 3
         let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(Array<String>(args[startIndex..<args.count]))
         if headerFiles.count == 0 {
-            return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 6, userInfo: [NSLocalizedDescriptionKey: "must pass in at least one Objective-C header file"]))
+            return failure(SourceKittenError.InvalidArgument(description: "must pass in at least one Objective-C header file").error)
         }
         if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
             println(translationUnit)
             return success(())
         }
-        return failure(NSError(domain: "com.sourcekitten.SourceKitten", code: 4, userInfo: [NSLocalizedDescriptionKey: "could not generate docs"]))
+        return failure(SourceKittenError.DocFailed.error)
     }
 }
 

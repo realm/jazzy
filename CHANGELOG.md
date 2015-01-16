@@ -11,7 +11,9 @@
 
 ##### Enhancements
 
-None.
+* Consolidated error generation.  
+  [JP Simard](https://github.com/jpsim)
+  [#24](https://github.com/jpsim/SourceKitten/issues/24)
 
 ##### Bug Fixes
 
