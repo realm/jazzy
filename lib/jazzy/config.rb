@@ -2,6 +2,7 @@ require 'optparse'
 require 'pathname'
 require 'uri'
 
+require 'jazzy/podspec_documenter'
 require 'jazzy/source_declaration/access_control_level'
 
 module Jazzy
@@ -23,8 +24,13 @@ module Jazzy
     attr_accessor :version
     attr_accessor :min_acl
     attr_accessor :skip_undocumented
+    attr_accessor :podspec
+    attr_accessor :docset_icon
+    attr_accessor :docset_path
+    attr_accessor :source_directory
 
     def initialize
+      PodspecDocumenter.configure(self, Dir['*.podspec{.json,}'].first)
       self.output = Pathname('docs')
       self.xcodebuild_arguments = []
       self.author_name = ''
@@ -35,6 +41,11 @@ module Jazzy
       self.version = '1.0'
       self.min_acl = SourceDeclaration::AccessControlLevel.internal
       self.skip_undocumented = false
+      self.source_directory = Pathname.pwd
+    end
+
+    def podspec=(podspec)
+      @podspec = PodspecDocumenter.configure(self, podspec)
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -128,6 +139,24 @@ module Jazzy
                comments.",
                ) do |skip_undocumented|
           config.skip_undocumented = skip_undocumented
+        end
+
+        opt.on('--podspec FILEPATH') do |podspec|
+          config.podspec = Pathname(podspec)
+        end
+
+        opt.on('--docset-icon FILEPATH') do |docset_icon|
+          config.docset_icon = Pathname(docset_icon)
+        end
+
+        opt.on('--docset-path DIRPATH', 'The relative path for the generated ' \
+               'docset') do |docset_path|
+          config.docset_path = docset_path
+        end
+
+        opt.on('--source-directory DIRPATH', 'The directory that contains ' \
+               'the source to be documented') do |source_directory|
+          config.source_directory = Pathname(source_directory)
         end
 
         opt.on('-v', '--version', 'Print version number') do

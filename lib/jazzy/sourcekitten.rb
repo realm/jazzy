@@ -45,8 +45,11 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      bin_path = Pathname(__FILE__).parent + '../../bin'
-      `#{bin_path}/sourcekitten #{(arguments).join(' ')}`
+      bin_path = Pathname(__FILE__).parent + 'sourcekitten/sourcekitten'
+      command = "#{bin_path} #{(arguments).join(' ')}"
+      output = `#{command}`
+      raise "Running `#{command}` failed: " + output unless $?.success?
+      output
     end
 
     def self.make_default_doc_info(declaration)
@@ -168,6 +171,15 @@ module Jazzy
         (@undocumented_tokens.count + @documented_count)
     end
 
+    def self.deduplicate_declarations(declarations)
+      duplicates = declarations.group_by { |d| [d.usr, d.type.kind] }.values
+      duplicates.map do |decls|
+        decls.first.tap do |d|
+          d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+        end
+      end
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, min_acl, skip_undocumented)
@@ -175,6 +187,7 @@ module Jazzy
       @skip_undocumented = skip_undocumented
       sourcekitten_json = JSON.parse(sourcekitten_output)
       docs = make_source_declarations(sourcekitten_json)
+      docs = deduplicate_declarations(docs)
       SourceDeclaration::Type.all.each do |type|
         docs = group_docs(docs, type)
       end

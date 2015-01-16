@@ -1,0 +1,10 @@
+framework module Commandant {
+  umbrella header "Commandant.h"
+
+  export *
+  module * { export * }
+}
+
+module Commandant.Swift {
+    header "Commandant-Swift.h"
+}

@@ -1,0 +1,10 @@
+framework module SwiftXPC {
+  umbrella header "SwiftXPC.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftXPC.Swift {
+    header "SwiftXPC-Swift.h"
+}

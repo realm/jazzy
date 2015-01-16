@@ -8,6 +8,7 @@ require 'jazzy/config'
 require 'jazzy/doc'
 require 'jazzy/docset_builder'
 require 'jazzy/jazzy_markdown'
+require 'jazzy/podspec_documenter'
 require 'jazzy/readme_generator'
 require 'jazzy/source_declaration'
 require 'jazzy/source_module'
@@ -43,23 +44,27 @@ module Jazzy
 
     # Build documentation from the given options
     # @param [Config] options
+    # @return [SourceModule] the documented source module
     def self.build(options)
       if options.sourcekitten_sourcefile
-        file_contents = options.sourcekitten_sourcefile.read
-        build_docs_for_sourcekitten_output(file_contents, options)
+        stdout = options.sourcekitten_sourcefile.read
       else
-        stdout = SourceKitten.run_sourcekitten(options.xcodebuild_arguments)
-        exitstatus = $?.exitstatus
-        if exitstatus == 0
-          warn 'building site'
-          build_docs_for_sourcekitten_output(stdout, options)
+        if podspec = options.podspec
+          stdout = PodspecDocumenter.new(podspec).sourcekitten_output
         else
+          stdout = SourceKitten.run_sourcekitten(
+            ['doc'] + options.xcodebuild_arguments,
+          )
+        end
+        unless $?.success?
           warn 'Please pass in xcodebuild arguments using -x'
           warn 'If build arguments are correct, please file an issue on ' \
-          'https://github.com/realm/jazzy/issues'
-          exit exitstatus || 1
+            'https://github.com/realm/jazzy/issues'
+          exit $?.exitstatus || 1
         end
       end
+      warn 'building site'
+      build_docs_for_sourcekitten_output(stdout, options)
     end
 
     # Build & write HTML docs to disk from structured docs array
@@ -95,6 +100,7 @@ module Jazzy
     # Build docs given sourcekitten output
     # @param [String] sourcekitten_output Output of sourcekitten command
     # @param [Config] options Build options
+    # @return [SourceModule] the documented source module
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       output_dir = options.output
       prepare_output_dir(output_dir, options.clean)
@@ -122,6 +128,8 @@ module Jazzy
       DocsetBuilder.new(output_dir, source_module).build!
 
       puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
+
+      source_module
     end
 
     def self.decl_for_token(token)

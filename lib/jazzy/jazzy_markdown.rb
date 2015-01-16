@@ -29,7 +29,8 @@ module Jazzy
       no_intra_emphasis: true,
       quote: true,
       strikethrough: true,
-      space_after_headers: true,
+      space_after_headers: false,
+      tables: true,
     }.freeze
   end
 
