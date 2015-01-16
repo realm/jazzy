@@ -59,7 +59,6 @@ prefix_install: installables
 	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/Commandant.framework" "$(PREFIX)/Frameworks/"
 	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/LlamaKit.framework" "$(PREFIX)/Frameworks/"
 	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/sourcekitten" "$(PREFIX)/bin/"
-	install_name_tool -add_rpath "@executable_path/../Frameworks" "$(PREFIX)/bin/sourcekitten"
 	install_name_tool -add_rpath "@executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks/"  "$(PREFIX)/bin/sourcekitten"
 
 package: installables
