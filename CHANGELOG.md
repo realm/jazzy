@@ -1,6 +1,22 @@
 ## Master
 
-[sourcekitten](https://github.com/jpsim/sourcekitten/compare/0.2.7...master)
+[sourcekitten](https://github.com/jpsim/sourcekitten/compare/0.2.7...0.3.1)
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* None.
+
+## 0.1.0
+
+[sourcekitten](https://github.com/jpsim/sourcekitten/compare/0.2.7...0.3.1)
 
 ##### Breaking
 
