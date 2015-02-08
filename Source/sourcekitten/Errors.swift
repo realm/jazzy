@@ -9,10 +9,10 @@
 import Foundation
 
 /// The domain for all errors originating within SourceKitten.
-public let SourceKittenErrorDomain: NSString = "com.sourcekitten.SourceKitten"
+let SourceKittenErrorDomain: NSString = "com.sourcekitten.SourceKitten"
 
 /// Possible error codes with `SourceKittenErrorDomain`.
-public enum SourceKittenErrorCode: Int {
+enum SourceKittenErrorCode: Int {
     case InvalidArgument
     case ReadFailed
     case DocFailed
@@ -23,7 +23,7 @@ public enum SourceKittenErrorCode: Int {
 }
 
 /// Possible errors within `SourceKittenErrorDomain`.
-public enum SourceKittenError {
+enum SourceKittenError {
     /// One or more arguments was invalid.
     case InvalidArgument(description: String)
 
@@ -34,7 +34,7 @@ public enum SourceKittenError {
     case DocFailed
 
     /// An `NSError` object corresponding to this error code.
-    public var error: NSError {
+    var error: NSError {
         switch self {
         case let .InvalidArgument(description):
             return SourceKittenErrorCode.InvalidArgument.error([

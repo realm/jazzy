@@ -11,11 +11,11 @@ import Foundation
 import LlamaKit
 import SourceKittenFramework
 
-public struct DocCommand: CommandType {
-    public let verb = "doc"
-    public let function = "Print Swift docs as JSON or Objective-C docs as XML"
+struct DocCommand: CommandType {
+    let verb = "doc"
+    let function = "Print Swift docs as JSON or Objective-C docs as XML"
 
-    public func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<()> {
         return DocOptions.evaluate(mode).flatMap { options in
             let args = Process.arguments
             if options.objc {
@@ -29,7 +29,7 @@ public struct DocCommand: CommandType {
         }
     }
 
-    public static func runSwiftModule(moduleName: String?, args: [String]) -> Result<()> {
+    static func runSwiftModule(moduleName: String?, args: [String]) -> Result<()> {
         let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
         let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
         let module = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)
@@ -47,7 +47,7 @@ public struct DocCommand: CommandType {
         return failure(SourceKittenError.DocFailed.error)
     }
 
-    public static func runSwiftSingleFile(args: [String]) -> Result<()> {
+    static func runSwiftSingleFile(args: [String]) -> Result<()> {
         if args.count < 5 {
             return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--single-file`").error)
         }
@@ -60,7 +60,7 @@ public struct DocCommand: CommandType {
         return failure(SourceKittenError.ReadFailed(path: args[3]).error)
     }
 
-    public static func runObjC(options: DocOptions, args: [String]) -> Result<()> {
+    static func runObjC(options: DocOptions, args: [String]) -> Result<()> {
         if args.count < 5 {
             return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--objc`").error)
         }
@@ -77,16 +77,16 @@ public struct DocCommand: CommandType {
     }
 }
 
-public struct DocOptions: OptionsType {
-    public let singleFile: Bool
-    public let moduleName: String
-    public let objc: Bool
+struct DocOptions: OptionsType {
+    let singleFile: Bool
+    let moduleName: String
+    let objc: Bool
 
-    public static func create(singleFile: Bool)(moduleName: String)(objc: Bool) -> DocOptions {
+    static func create(singleFile: Bool)(moduleName: String)(objc: Bool) -> DocOptions {
         return self(singleFile: singleFile, moduleName: moduleName, objc: objc)
     }
 
-    public static func evaluate(m: CommandMode) -> Result<DocOptions> {
+    static func evaluate(m: CommandMode) -> Result<DocOptions> {
         return create
             <*> m <| Option(key: "single-file", defaultValue: false, usage: "only document one file")
             <*> m <| Option(key: "module-name", defaultValue: "",    usage: "name of module to document (can't be used with `--single-file` or `--objc`)")

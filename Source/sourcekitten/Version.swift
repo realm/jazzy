@@ -11,7 +11,7 @@ import LlamaKit
 
 private let version = "0.3.0"
 
-internal struct VersionCommand: CommandType {
+struct VersionCommand: CommandType {
     let verb = "version"
     let function = "Display the current version of SourceKitten"
 

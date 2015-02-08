@@ -11,11 +11,11 @@ import Foundation
 import LlamaKit
 import SourceKittenFramework
 
-public struct SyntaxCommand: CommandType {
-    public let verb = "syntax"
-    public let function = "Print Swift syntax information as JSON"
+struct SyntaxCommand: CommandType {
+    let verb = "syntax"
+    let function = "Print Swift syntax information as JSON"
 
-    public func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<()> {
         return SyntaxOptions.evaluate(mode).flatMap { options in
             if countElements(options.file) > 0 {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
@@ -34,15 +34,15 @@ public struct SyntaxCommand: CommandType {
     }
 }
 
-public struct SyntaxOptions: OptionsType {
-    public let file: String
-    public let text: String
+struct SyntaxOptions: OptionsType {
+    let file: String
+    let text: String
 
-    public static func create(file: String)(text: String) -> SyntaxOptions {
+    static func create(file: String)(text: String) -> SyntaxOptions {
         return self(file: file, text: text)
     }
 
-    public static func evaluate(m: CommandMode) -> Result<SyntaxOptions> {
+    static func evaluate(m: CommandMode) -> Result<SyntaxOptions> {
         return create
             <*> m <| Option(key: "file", defaultValue: "", usage: "relative or absolute path of Swift file to parse")
             <*> m <| Option(key: "text", defaultValue: "", usage: "Swift code text to parse")

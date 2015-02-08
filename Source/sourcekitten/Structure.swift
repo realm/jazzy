@@ -11,11 +11,11 @@ import Foundation
 import LlamaKit
 import SourceKittenFramework
 
-public struct StructureCommand: CommandType {
-    public let verb = "structure"
-    public let function = "Print Swift structure information as JSON"
+struct StructureCommand: CommandType {
+    let verb = "structure"
+    let function = "Print Swift structure information as JSON"
 
-    public func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<()> {
         return StructureOptions.evaluate(mode).flatMap { options in
             if countElements(options.file) > 0 {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
@@ -34,15 +34,15 @@ public struct StructureCommand: CommandType {
     }
 }
 
-public struct StructureOptions: OptionsType {
-    public let file: String
-    public let text: String
+struct StructureOptions: OptionsType {
+    let file: String
+    let text: String
 
-    public static func create(file: String)(text: String) -> StructureOptions {
+    static func create(file: String)(text: String) -> StructureOptions {
         return self(file: file, text: text)
     }
 
-    public static func evaluate(m: CommandMode) -> Result<StructureOptions> {
+    static func evaluate(m: CommandMode) -> Result<StructureOptions> {
         return create
             <*> m <| Option(key: "file", defaultValue: "", usage: "relative or absolute path of Swift file to parse")
             <*> m <| Option(key: "text", defaultValue: "", usage: "Swift code text to parse")

@@ -13,7 +13,7 @@ import SourceKittenFramework
 
 extension Module {
     /// Documentation for this Module, computed by spawning new sourcekitten processes.
-    public var docsBySpawningNewProcesses: [NSDictionary] {
+    var docsBySpawningNewProcesses: [NSDictionary] {
         var fileIndex = 1
         let sourceFilesCount = sourceFiles.count
         let args = compilerArguments
@@ -45,7 +45,7 @@ Run sourcekitten as a new process.
 
 :returns: sourcekitten STDOUT output.
 */
-public func runSelf(processArguments: [String]) -> String? {
+func runSelf(processArguments: [String]) -> String? {
     let task = NSTask()
     task.launchPath = NSBundle.mainBundle().executablePath! // Safe to force unwrap
     task.arguments = processArguments
