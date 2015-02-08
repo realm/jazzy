@@ -22,7 +22,7 @@ Initialize the SourceKit XPC service. This should only be done once per session 
 
 :returns: ??? maybe 0 for success and 1 for failure?
 */
-@asmname("sourcekitd_initialize") func sourcekitd_initialize() -> Int
+@asmname("sourcekitd_initialize") internal func sourcekitd_initialize() -> Int
 
 /**
 Create XPC array
@@ -69,7 +69,7 @@ Interesting...
 /**
 Print string description of XPC request to STDOUT
 */
-@asmname("sourcekitd_request_description_dump") func sourcekitd_request_description_dump(_: xpc_object_t?) -> Void
+@asmname("sourcekitd_request_description_dump") internal func sourcekitd_request_description_dump(_: xpc_object_t?) -> Void
 
 /**
 Create XPC dictionary
@@ -135,13 +135,13 @@ Interesting...
 /**
 Print string description of XPC response to STDOUT
 */
-@asmname("sourcekitd_response_description_dump") func sourcekitd_response_description_dump(_: xpc_object_t?) -> Void
+@asmname("sourcekitd_response_description_dump") internal func sourcekitd_response_description_dump(_: xpc_object_t?) -> Void
 
 /**
 Print string description of XPC response and its file description to STDOUT
 NOTE: This does not work, instead simply causing a fatal I/O error
 */
-@asmname("sourcekitd_response_description_dump_filedesc") func sourcekitd_response_description_dump_filedesc(_: xpc_object_t?) -> Void
+@asmname("sourcekitd_response_description_dump_filedesc") internal func sourcekitd_response_description_dump_filedesc(_: xpc_object_t?) -> Void
 
 /**
 ?? Perhaps forcibly deallocates the response ??
@@ -168,7 +168,7 @@ Returns xpc_object_t value of the response at the given key in the underlying XP
 Returns whether or not XPC response is an error
 NOTE: I've never seen this return true, despite SourceKit requests failing with an error message
 */
-@asmname("sourcekitd_response_is_error") func sourcekitd_response_is_error(_: xpc_object_t?) -> Bool
+@asmname("sourcekitd_response_is_error") internal func sourcekitd_response_is_error(_: xpc_object_t?) -> Bool
 
 /**
 Send an asynchronous request to SourceKit. Must set a response callback.
@@ -178,12 +178,12 @@ Send an asynchronous request to SourceKit. Must set a response callback.
 /**
 Send a synchronous request to SourceKit. Response is returned as an xpc_object_t. Typically an XPC dictionary.
 */
-@asmname("sourcekitd_send_request_sync") func sourcekitd_send_request_sync(_: xpc_object_t?) -> xpc_object_t?
+@asmname("sourcekitd_send_request_sync") internal func sourcekitd_send_request_sync(_: xpc_object_t?) -> xpc_object_t?
 
 /**
 ?? Called if the XPC connection to SourceKit is lost ??
 */
-@asmname("sourcekitd_set_interrupted_connection_handler") func sourcekitd_set_interrupted_connection_handler(_: UnsafePointer<() -> ()>) -> Void
+@asmname("sourcekitd_set_interrupted_connection_handler") internal func sourcekitd_set_interrupted_connection_handler(_: UnsafePointer<() -> ()>) -> Void
 
 /**
 ?? Set the notification callback to be called when asynchronous requests return ??
@@ -193,12 +193,12 @@ Send a synchronous request to SourceKit. Response is returned as an xpc_object_t
 /**
 Gracefully shut down the XPC connection to SourceKit (presumably)
 */
-@asmname("sourcekitd_shutdown") func sourcekitd_shutdown() -> Int
+@asmname("sourcekitd_shutdown") internal func sourcekitd_shutdown() -> Int
 
 /**
 Get uid from its c string representation.
 */
-@asmname("sourcekitd_uid_get_from_cstr") func sourcekitd_uid_get_from_cstr(_: UnsafePointer<CChar>) -> UInt64
+@asmname("sourcekitd_uid_get_from_cstr") internal func sourcekitd_uid_get_from_cstr(_: UnsafePointer<CChar>) -> UInt64
 
 /**
 ?? Get uid from a buffer somewhere, somehow ??
@@ -213,7 +213,7 @@ Get uid from its c string representation.
 /**
 Get c string representation of a uid
 */
-@asmname("sourcekitd_uid_get_string_ptr") func sourcekitd_uid_get_string_ptr(_: UInt64) -> UnsafePointer<CChar>
+@asmname("sourcekitd_uid_get_string_ptr") internal func sourcekitd_uid_get_string_ptr(_: UInt64) -> UnsafePointer<CChar>
 
 /**
 ?? WTF is a sourcekitd variant ??

@@ -17,7 +17,7 @@ increasing values.
 :returns: Returns the index immediately preceding the first value in the sequence exceeding the given value.
           Returns nil if there were no matches.
 */
-func indexBefore<T: Comparable, S: SequenceType where S.Generator.Element == T>(value: T, inSequence sequence: S) -> Int? {
+internal func indexBefore<T: Comparable, S: SequenceType where S.Generator.Element == T>(value: T, inSequence sequence: S) -> Int? {
     for (index, sequenceValue) in enumerate(sequence) {
         if sequenceValue >= value && index != 0 {
             return index - 1

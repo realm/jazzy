@@ -46,12 +46,8 @@ public enum Request {
     /// A custom request by passing in the xpc_object_t directly.
     case CustomRequest(xpc_object_t)
 
-    /**
-    Creates an xpc_object_t version of the Request to be sent to SourceKit.
-
-    :returns: xpc_object_t reprensentation of the Request.
-    */
-    private func xpcValue() -> xpc_object_t {
+    /// xpc_object_t version of the Request to be sent to SourceKit.
+    private var xpcValue: xpc_object_t {
         switch self {
         case .EditorOpen(let file):
             let openRequestUID = sourcekitd_uid_get_from_cstr("source.request.editor.open")
@@ -89,9 +85,9 @@ public enum Request {
 
     :returns: xpc_object_t representation of the Request, if successful.
     */
-    static func cursorInfoRequestForFilePath(filePath: String?, arguments: [String]) -> xpc_object_t? {
+    internal static func cursorInfoRequestForFilePath(filePath: String?, arguments: [String]) -> xpc_object_t? {
         if let path = filePath {
-            return Request.CursorInfo(file: path, offset: 0, arguments: arguments).xpcValue()
+	    return Request.CursorInfo(file: path, offset: 0, arguments: arguments).xpcValue
         }
         return nil
     }
@@ -104,7 +100,7 @@ public enum Request {
 
     :returns: SourceKit response if successful.
     */
-    static func sendCursorInfoRequest(request: xpc_object_t, atOffset offset: Int64) -> XPCDictionary? {
+    internal static func sendCursorInfoRequest(request: xpc_object_t, atOffset offset: Int64) -> XPCDictionary? {
         if offset == 0 {
             return nil
         }
@@ -121,7 +117,7 @@ public enum Request {
         dispatch_once(&sourceKitInitializationToken) {
             sourcekitd_initialize(); return
         }
-        if let response = sourcekitd_send_request_sync(xpcValue()) {
+	if let response = sourcekitd_send_request_sync(xpcValue) {
             return replaceUIDsWithSourceKitStrings(fromXPC(response))
         }
         fatalError("SourceKit response nil for request \(self)")
@@ -133,5 +129,5 @@ public enum Request {
 
 extension Request: Printable {
     /// A textual representation of `Request`.
-    public var description: String { return xpcValue().description }
+    public var description: String { return xpcValue.description }
 }

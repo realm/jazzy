@@ -63,7 +63,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Kind string if successful.
     */
-    static func getKind(dictionary: XPCDictionary) -> String? {
+    internal static func getKind(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.Kind, dictionary)
     }
 
@@ -74,7 +74,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Syntax map data if successful.
     */
-    static func getSyntaxMap(dictionary: XPCDictionary) -> NSData? {
+    internal static func getSyntaxMap(dictionary: XPCDictionary) -> NSData? {
         return SwiftDocKey.get(.SyntaxMap, dictionary)
     }
 
@@ -85,7 +85,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Offset int if successful.
     */
-    static func getOffset(dictionary: XPCDictionary) -> Int64? {
+    internal static func getOffset(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.Offset, dictionary)
     }
 
@@ -96,7 +96,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Length int if successful.
     */
-    static func getLength(dictionary: XPCDictionary) -> Int64? {
+    internal static func getLength(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.Length, dictionary)
     }
 
@@ -107,7 +107,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Type name string if successful.
     */
-    static func getTypeName(dictionary: XPCDictionary) -> String? {
+    internal static func getTypeName(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.TypeName, dictionary)
     }
 
@@ -118,7 +118,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Annotated declaration string if successful.
     */
-    static func getAnnotatedDeclaration(dictionary: XPCDictionary) -> String? {
+    internal static func getAnnotatedDeclaration(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.AnnotatedDeclaration, dictionary)
     }
 
@@ -129,7 +129,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Substructure array if successful.
     */
-    static func getSubstructure(dictionary: XPCDictionary) -> XPCArray? {
+    internal static func getSubstructure(dictionary: XPCDictionary) -> XPCArray? {
         return SwiftDocKey.get(.Substructure, dictionary)
     }
 
@@ -140,7 +140,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Parsed declaration string if successful.
     */
-    static func getParsedDeclaration(dictionary: XPCDictionary) -> String? {
+    internal static func getParsedDeclaration(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.ParsedDeclaration, dictionary)
     }
 
@@ -151,7 +151,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Name offset int if successful.
     */
-    static func getNameOffset(dictionary: XPCDictionary) -> Int64? {
+    internal static func getNameOffset(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.NameOffset, dictionary)
     }
 
@@ -162,7 +162,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Length int if successful.
     */
-    static func getNameLength(dictionary: XPCDictionary) -> Int64? {
+    internal static func getNameLength(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.NameLength, dictionary)
     }
 
@@ -173,7 +173,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Body offset int if successful.
     */
-    static func getBodyOffset(dictionary: XPCDictionary) -> Int64? {
+    internal static func getBodyOffset(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.BodyOffset, dictionary)
     }
 
@@ -184,7 +184,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Body length int if successful.
     */
-    static func getBodyLength(dictionary: XPCDictionary) -> Int64? {
+    internal static func getBodyLength(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.BodyLength, dictionary)
     }
 
@@ -195,7 +195,7 @@ internal enum SwiftDocKey: String {
 
     :returns: File path string if successful.
     */
-    static func getFilePath(dictionary: XPCDictionary) -> String? {
+    internal static func getFilePath(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.FilePath, dictionary)
     }
 
@@ -206,7 +206,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Name string if successful.
     */
-    static func getName(dictionary: XPCDictionary) -> String? {
+    internal static func getName(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.Name, dictionary)
     }
 
@@ -217,7 +217,7 @@ internal enum SwiftDocKey: String {
 
     :returns: Diagnostic stage string if successful.
     */
-    static func getDiagnosticStage(dictionary: XPCDictionary) -> String? {
+    internal static func getDiagnosticStage(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.DiagnosticStage, dictionary)
     }
 }

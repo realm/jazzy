@@ -22,7 +22,7 @@ Partially filters compiler arguments from `xcodebuild` to something that SourceK
 :returns: A tuple of partially filtered compiler arguments in `.0`, and whether or not there are
           more flags to remove in `.1`.
 */
-func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
+private func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
     var didRemove = false
     let flagsToRemove = [
         "--serialize-diagnostics",
@@ -46,7 +46,7 @@ Filters compiler arguments from `xcodebuild` to something that SourceKit/Clang w
 
 :returns: Filtered compiler arguments.
 */
-func filterArguments(var args: [String]) -> [String] {
+private func filterArguments(var args: [String]) -> [String] {
     var shouldContinueToFilterArguments = true
     while shouldContinueToFilterArguments {
         (args, shouldContinueToFilterArguments) = partiallyFilterArguments(args)
@@ -63,7 +63,7 @@ Parses the compiler arguments needed to compile the `language` files.
 
 :returns: Compiler arguments, filtered for suitable use by SourceKit if `.Swift` or Clang if `.ObjC`.
 */
-public func parseCompilerArguments(xcodebuildOutput: NSString, #language: Language, #moduleName: String?) -> [String]? {
+internal func parseCompilerArguments(xcodebuildOutput: NSString, #language: Language, #moduleName: String?) -> [String]? {
     let pattern: String = {
         if language == .ObjC {
             return "/usr/bin/clang.*"

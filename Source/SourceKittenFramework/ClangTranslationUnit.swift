@@ -9,16 +9,7 @@
 /// Represents a group of CXTranslationUnits.
 public struct ClangTranslationUnit {
     /// Array of CXTranslationUnits.
-    public let clangTranslationUnits: [CXTranslationUnit]
-
-    /**
-    Create a ClangTranslationUnit by passing in the CXTranslationUnits directly.
-
-    :param: clangTranslationUnits Array of CXTranslationUnits.
-    */
-    public init(clangTranslationUnits: [CXTranslationUnit]) {
-        self.clangTranslationUnits = clangTranslationUnits
-    }
+    private let clangTranslationUnits: [CXTranslationUnit]
 
     /**
     Create a ClangTranslationUnit by passing Objective-C header files and clang compiler arguments.
@@ -106,9 +97,9 @@ Extracts Objective-C header files and `xcodebuild` arguments from an array of he
 
 :param: sourcekittenArguments Array of Objective-C header files followed by `xcodebuild` arguments.
 
-:returns: Tuple of header files in `.0` and xcodebuild arguments in `.1`.
+:returns: Tuple of header files and xcodebuild arguments.
 */
-public func parseHeaderFilesAndXcodebuildArguments(sourcekittenArguments: [String]) -> ([String], [String]) {
+public func parseHeaderFilesAndXcodebuildArguments(sourcekittenArguments: [String]) -> (headerFiles: [String], xcodebuildArguments: [String]) {
     var xcodebuildArguments = sourcekittenArguments
     var headerFiles = [String]()
     while xcodebuildArguments.first?.isObjectiveCHeaderFile() ?? false {

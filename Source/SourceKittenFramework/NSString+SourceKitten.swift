@@ -42,12 +42,12 @@ extension NSString {
     /**
     Returns offsets of all the line breaks in the current string.
 
-    :returns: line breaks
+    :returns: Line breaks.
     */
     public func lineBreaks() -> [Int] {
         var lineBreaks = [Int]()
         var searchRange = NSRange(location: 0, length: length)
-        while (searchRange.length > 0) {
+	while searchRange.length > 0 {
             searchRange.length = length - searchRange.location
             let foundRange = rangeOfString("\n", options: nil, range: searchRange)
             if foundRange.location != NSNotFound {
@@ -63,8 +63,8 @@ extension NSString {
     /**
     Filter self from start to end while trimming unwanted characters (whitespace & '{').
 
-    :param: start Starting offset to filter
-    :param: end Ending offset to filter
+    :param: start Starting offset to filter.
+    :param: end Ending offset to filter.
 
     :returns: Filtered string.
     */
@@ -78,9 +78,9 @@ extension NSString {
     /**
     Find integer offsets of documented Swift tokens in self.
 
-    :param: syntaxMap Syntax Map returned from SourceKit editor.open request
+    :param: syntaxMap Syntax Map returned from SourceKit editor.open request.
 
-    :returns: Array of documented token offsets
+    :returns: Array of documented token offsets.
     */
     public func documentedTokenOffsets(syntaxMap: SyntaxMap) -> [Int] {
         let identifierOffsets = syntaxMap.tokens.filter({

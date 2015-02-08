@@ -82,7 +82,7 @@ Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
 
 :returns: `xcodebuild`'s STDERR+STDOUT output combined.
 */
-public func runXcodeBuildDryRun(arguments: [String], inPath path: String) -> String? {
+internal func runXcodeBuildDryRun(arguments: [String], inPath path: String) -> String? {
     fputs("Running xcodebuild -dry-run\n", stderr)
 
     let task = NSTask()

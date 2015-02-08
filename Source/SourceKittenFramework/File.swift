@@ -11,7 +11,7 @@ import SwiftXPC
 
 /// Represents a source file.
 public struct File {
-    /// File path. Nil if initialized directly with File(contents:).
+    /// File path. Nil if initialized directly with `File(contents:)`.
     public let path: String?
     /// File contents.
     public let contents: NSString
@@ -51,7 +51,7 @@ public struct File {
 
     :returns: Source declaration if successfully parsed.
     */
-    public func parseDeclaration(dictionary: XPCDictionary) -> String? {
+    private func parseDeclaration(dictionary: XPCDictionary) -> String? {
         if !shouldParseDeclaration(dictionary) {
             return nil
         }
@@ -72,7 +72,7 @@ public struct File {
 
     :returns: Mark name if successfully parsed.
     */
-    public func markNameFromDictionary(dictionary: XPCDictionary) -> String? {
+    private func markNameFromDictionary(dictionary: XPCDictionary) -> String? {
         precondition(SwiftDocKey.getKind(dictionary)! == SyntaxKind.CommentMark.rawValue)
         let offset = Int(SwiftDocKey.getOffset(dictionary)!)
         let length = Int(SwiftDocKey.getLength(dictionary)!)
@@ -126,7 +126,7 @@ public struct File {
     :returns: A copy of the input dictionary with additional cursorinfo information at the given
               `documentationTokenOffsets` that haven't yet been documented.
     */
-    public func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t) -> XPCDictionary {
+    internal func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t) -> XPCDictionary {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
         for offset in offsetMap.keys.array.reverse() { // Do this in reverse to insert the doc at the correct offset
             let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!)
@@ -150,7 +150,7 @@ public struct File {
               `processDictionary(_:cursorInfoRequest:)` on its elements, only keeping comment marks
               and declarations.
     */
-    public func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) -> XPCArray? {
+    private func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) -> XPCArray? {
         return SwiftDocKey.getSubstructure(dictionary)?
         .filter({
             return isDeclarationOrCommentMark($0 as XPCDictionary)
@@ -167,7 +167,7 @@ public struct File {
 
     :returns: An updated copy of the input dictionary with comment mark names and cursor.info information.
     */
-    public func dictWithCommentMarkNamesCursorInfo(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t) -> XPCDictionary? {
+    private func dictWithCommentMarkNamesCursorInfo(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t) -> XPCDictionary? {
         if let kind = SwiftDocKey.getKind(dictionary) {
             // Only update dictionaries with a 'kind' key
             if kind == SyntaxKind.CommentMark.rawValue {
@@ -196,7 +196,7 @@ public struct File {
 
     :returns: True if a doc should be inserted in the parent at the provided offset.
     */
-    public func shouldInsert(parent: XPCDictionary, offset: Int64) -> Bool {
+    private func shouldInsert(parent: XPCDictionary, offset: Int64) -> Bool {
         if offset == 0 {
             return true
         }
@@ -221,7 +221,7 @@ public struct File {
 
     :returns: Parent with doc inserted if successful.
     */
-    public func insertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
+    private func insertDoc(doc: XPCDictionary, var parent: XPCDictionary, offset: Int64) -> XPCDictionary? {
         if shouldInsert(parent, offset: offset) {
             var substructure = SwiftDocKey.getSubstructure(parent)!
             var insertIndex = substructure.count
@@ -256,13 +256,8 @@ public struct File {
 
     :returns: True if path is nil or if path is equal to `key.filepath` in the input dictionary.
     */
-    public func shouldTreatAsSameFile(dictionary: XPCDictionary) -> Bool {
-        if let path = path {
-            if let dictFilePath = SwiftDocKey.getFilePath(dictionary) {
-                return dictFilePath == path
-            }
-        }
-        return true
+    internal func shouldTreatAsSameFile(dictionary: XPCDictionary) -> Bool {
+	return path == SwiftDocKey.getFilePath(dictionary)
     }
 }
 
@@ -273,7 +268,7 @@ Returns true if the input dictionary contains a parseable declaration.
 
 :returns: True if the input dictionary contains a parseable declaration.
 */
-public func shouldParseDeclaration(dictionary: XPCDictionary) -> Bool {
+private func shouldParseDeclaration(dictionary: XPCDictionary) -> Bool {
     let hasTypeName = SwiftDocKey.getTypeName(dictionary) != nil
     let hasAnnotatedDeclaration = SwiftDocKey.getAnnotatedDeclaration(dictionary) != nil
     let hasOffset = SwiftDocKey.getOffset(dictionary) != nil
@@ -288,7 +283,7 @@ Traverse the dictionary replacing SourceKit UIDs with their string value.
 
 :returns: Dictionary with UIDs replaced by strings.
 */
-public func replaceUIDsWithSourceKitStrings(var dictionary: XPCDictionary) -> XPCDictionary {
+internal func replaceUIDsWithSourceKitStrings(var dictionary: XPCDictionary) -> XPCDictionary {
     for key in dictionary.keys {
         if let uid = dictionary[key] as? UInt64 {
             if let uidString = stringForSourceKitUID(uid) {
@@ -313,7 +308,7 @@ Returns true if the dictionary represents a source declaration or a mark-style c
 
 :returns: True if the dictionary represents a source declaration or a mark-style comment.
 */
-func isDeclarationOrCommentMark(dictionary: XPCDictionary) -> Bool {
+private func isDeclarationOrCommentMark(dictionary: XPCDictionary) -> Bool {
     if let kind = SwiftDocKey.getKind(dictionary) {
         return kind != SwiftDeclarationKind.Parameter.rawValue &&
             (kind == SyntaxKind.CommentMark.rawValue || isSwiftDeclarationKind(kind))
