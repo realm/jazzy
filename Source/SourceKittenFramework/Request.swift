@@ -87,7 +87,7 @@ public enum Request {
     */
     internal static func cursorInfoRequestForFilePath(filePath: String?, arguments: [String]) -> xpc_object_t? {
         if let path = filePath {
-	    return Request.CursorInfo(file: path, offset: 0, arguments: arguments).xpcValue
+            return Request.CursorInfo(file: path, offset: 0, arguments: arguments).xpcValue
         }
         return nil
     }
@@ -117,7 +117,7 @@ public enum Request {
         dispatch_once(&sourceKitInitializationToken) {
             sourcekitd_initialize(); return
         }
-	if let response = sourcekitd_send_request_sync(xpcValue) {
+        if let response = sourcekitd_send_request_sync(xpcValue) {
             return replaceUIDsWithSourceKitStrings(fromXPC(response))
         }
         fatalError("SourceKit response nil for request \(self)")
