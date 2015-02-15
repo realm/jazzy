@@ -1,1 +1,2 @@
+github "Carthage/Commandant" "master"
 github "jspahrsummers/xcconfigs" >= 0.6
