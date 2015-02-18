@@ -12,7 +12,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Fixes installation as a RubyGem.  
+  [Samuel Giddins](https://github.com/segiddins)
+  [#159](https://github.com/realm/jazzy/issues/159)
+
 
 ## 0.1.0
 
