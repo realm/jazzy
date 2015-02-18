@@ -17,6 +17,8 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files`.split($/)
   spec.executables   << 'jazzy'
 
+  spec.extensions    = ['lib/jazzy/SourceKitten/Rakefile']
+
   spec.add_runtime_dependency 'mustache', '~> 0.99'
   spec.add_runtime_dependency 'activesupport', '~> 4.1'
   spec.add_runtime_dependency 'redcarpet', '~> 3.2'
