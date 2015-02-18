@@ -30,7 +30,7 @@ module Jazzy
     attr_accessor :source_directory
 
     def initialize
-      PodspecDocumenter.configure(self, Dir['*.podspec{.json,}'].first)
+      PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
       self.output = Pathname('docs')
       self.xcodebuild_arguments = []
       self.author_name = ''
