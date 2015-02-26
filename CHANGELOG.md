@@ -12,7 +12,10 @@
 
 ##### Bug Fixes
 
-* None
+* (Really) fixes installation as a RubyGem.  
+  [beltex](https://github.com/beltex)
+  [#159](https://github.com/realm/jazzy/issues/159)
+
 
 ## 0.1.1
 
