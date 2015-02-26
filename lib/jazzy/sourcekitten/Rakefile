@@ -5,13 +5,13 @@ task :prepare do
   Dir.glob('*.framework').each do |fw|
     p fw
     Dir.chdir(fw) do
-      basename = File.basename(fw, '*.framework')
-      version = Dir.glob('Versions/*').sort.last
+      basename = File.basename(fw, '.framework')
+      FileUtils.rm(basename)
 
-      File.symlink(version,                        'Versions/Current')
+      File.symlink('A',                            'Versions/Current')
       File.symlink("Versions/Current/#{basename}", "#{basename}")
-      File.symlink("Versions/Current/Resources",   "Resources")
-      File.symlink("Versions/Current/Modules",     "Modules")
+      File.symlink('Versions/Current/Resources',   'Resources')
+      File.symlink('Versions/Current/Modules',     'Modules')
     end
   end
 end
