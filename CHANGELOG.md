@@ -8,7 +8,9 @@
 
 ##### Enhancements
 
-* None.
+* Use Menlo for code everywhere.  
+  [beltex](https://github.com/beltex)
+  [#137](https://github.com/realm/jazzy/issues/137)
 
 ##### Bug Fixes
 
