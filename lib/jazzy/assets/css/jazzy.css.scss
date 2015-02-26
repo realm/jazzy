@@ -1,5 +1,6 @@
 $doc_coverage_color: #999;
 $content_wrapper_width: 980px;
+$code-font: 12px Menlo, monospace;
 
 html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr, td {
   background: transparent;
@@ -97,6 +98,7 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
     font-size: 1.4em;
     word-break: break-all;
     > code {
+      font: $code-font;
       display: inline-block;
     }
   }
@@ -149,6 +151,7 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
   .section .declaration {
     margin-top: 21px;
     code {
+      font: $code-font;
       color: rgba(128, 128, 128, 1);
       margin-bottom: 15px;
       padding-bottom: 6px;
