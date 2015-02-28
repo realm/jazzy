@@ -8,6 +8,20 @@
 
 ##### Enhancements
 
+* None.
+
+##### Bug Fixes
+
+* None.
+
+## 0.1.2
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
 * Use Menlo for code everywhere.  
   [beltex](https://github.com/beltex)
   [#137](https://github.com/realm/jazzy/issues/137)
