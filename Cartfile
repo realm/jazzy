@@ -1,1 +1,1 @@
-github "jpsim/SwiftXPC" "master"
+github "jpsim/SwiftXPC" >= 0.0.2
