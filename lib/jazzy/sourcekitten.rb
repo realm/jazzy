@@ -98,7 +98,6 @@ module Jazzy
       return nil unless should_document?(doc)
       xml_key = 'key.doc.full_as_xml'
       return process_undocumented_token(doc, declaration) unless doc[xml_key]
-      @documented_count += 1
 
       xml = Nokogiri::XML(doc[xml_key]).root
       declaration.line = XMLHelper.attribute(xml, 'line').to_i
@@ -111,7 +110,12 @@ module Jazzy
       declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
       declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
 
+      nodoc = ->(string) { string.to_s.include? '<dt>nodoc</dt>' }
+      return if nodoc[declaration.abstract] || nodoc[declaration.discussion]
+
       declaration.parameters = parameters_from_xml(xml)
+
+      @documented_count += 1
     end
 
     def self.make_substructure(doc, declaration)
