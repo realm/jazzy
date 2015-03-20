@@ -276,9 +276,7 @@ module Jazzy
       doc[:name] = doc_model.name
       doc[:kind] = doc_model.type.name
       doc[:dash_type] = doc_model.type.dash_type
-      doc[:overview] = Jazzy.markdown.render(
-        (doc_model.abstract || '') + (doc_model.discussion || ''),
-      )
+      doc[:overview] = Jazzy.markdown.render(doc_model.overview)
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
