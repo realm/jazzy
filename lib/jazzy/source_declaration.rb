@@ -18,5 +18,9 @@ module Jazzy
     attr_accessor :url
     attr_accessor :mark
     attr_accessor :access_control_level
+
+    def overview
+      "#{abstract}\n\n#{discussion}".strip
+    end
   end
 end
