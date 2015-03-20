@@ -8,7 +8,8 @@
 
 ##### Enhancements
 
-* None.
+* Improve the styling of `dl` elements (parsed key-value pairs).  
+  [segiddins](https://github.com/segiddins)
 
 ##### Bug Fixes
 

@@ -1,6 +1,7 @@
 $doc_coverage_color: #999;
 $content_wrapper_width: 980px;
 $code-font: 12px Menlo, monospace;
+$graybox-border: 1px solid rgba(233, 233, 233, 1);
 
 html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr, td {
   background: transparent;
@@ -100,6 +101,26 @@ html, body, div, span, h1, h3, h4, p, a, code, em, img, ul, li, table, tbody, tr
     > code {
       font: $code-font;
       display: inline-block;
+    }
+  }
+  dl {
+    border: $graybox-border;
+    @extend .para;
+    dt {
+      float: left;
+      width: 50px;
+      @extend em.term;
+      font-style: italic;
+      text-align: right;
+      padding: 7px;
+      vertical-align: top;
+    }
+    dd {
+      word-break: break-word;
+      margin-left: 64px;
+      padding: 7px;
+      min-width: 70px;
+      border-left: $graybox-border;
     }
   }
   .pointy-thing-container {
@@ -508,7 +529,7 @@ div.Swift {
 }
 
 .graybox {
-  border: 1px solid rgba(233, 233, 233, 1);
+  border: $graybox-border;
   border-collapse: collapse;
   border-spacing: 0;
   empty-cells: hide;
@@ -890,9 +911,9 @@ html.dash {
   }
   .chapter {
     border: none;
-    width: auto; 
-    position: static; 
-    padding-bottom: 50px; 
+    width: auto;
+    position: static;
+    padding-bottom: 50px;
     box-shadow: none;
   }
   #reference .chapter {
