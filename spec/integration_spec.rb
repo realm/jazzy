@@ -88,22 +88,22 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'document_alamofire',
                             '-m Alamofire -a Alamofire ' \
                             '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj ' \
+                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/1.1.0 ' \
-                            '--module-version 1.1.0 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented'
+                            'Alamofire/Alamofire/tree/xcode-6.3 ' \
+                            '--module-version xcode-6.3 ' \
+                            '-r http://static.realm.io/jazzy_demo/Alamofire/'
     end
 
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec'
-    end
+    # describe 'Creates docs for a podspec with dependencies and subspecs' do
+    #   behaves_like cli_spec 'document_moya_podspec',
+    #                         '--podspec=Moya.podspec'
+    # end
 
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',
+                            '-x -dry-run ' \
                             '-m MiscJazzyFeatures -a Realm ' \
                             '-u https://github.com/realm/jazzy ' \
                             '-g https://github.com/realm/jazzy ' \

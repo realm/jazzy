@@ -103,11 +103,7 @@ module Jazzy
     end
 
     def self.should_document?(doc)
-      # Always document extensions, since we can't tell what ACL they are
-      return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
-
-      SourceDeclaration::AccessControlLevel.new(doc['key.annotated_decl']) >=
-        @min_acl
+      SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
     end
 
     def self.process_undocumented_token(doc, declaration)
@@ -193,7 +189,7 @@ module Jazzy
         declaration.name = doc['key.name']
         declaration.mark = current_mark
         acl = SourceDeclaration::AccessControlLevel.new(
-          doc['key.annotated_decl'],
+          doc['key.accessibility'],
         )
         declaration.access_control_level = acl
 
