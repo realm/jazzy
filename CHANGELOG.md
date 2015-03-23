@@ -13,7 +13,9 @@
 
 ##### Bug Fixes
 
-* None.
+* No longer count initializers with parameters as undocumented.  
+  [JP Simard](https://github.com/jpsim)
+  [#183](https://github.com/realm/jazzy/issues/183)
 
 ## 0.1.2
 
