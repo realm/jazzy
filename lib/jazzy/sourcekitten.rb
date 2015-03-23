@@ -143,7 +143,7 @@ module Jazzy
         if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
           current_mark = SourceMark.new(doc['key.name'])
         end
-        next unless declaration.type.declaration?
+        next unless declaration.type.should_document?
 
         unless declaration.type.name
           raise 'Please file an issue on ' \

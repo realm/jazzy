@@ -31,8 +31,17 @@ module Jazzy
         kind == 'source.lang.swift.syntaxtype.comment.mark'
       end
 
+      def should_document?
+        declaration? && !param?
+      end
+
       def declaration?
         kind =~ /^source\.lang\.swift\.decl\..*/
+      end
+
+      def param?
+        kind == 'source.lang.swift.decl.var.parameter' ||
+          kind == 'source.lang.swift.decl.var.local'
       end
 
       def self.overview
