@@ -25,6 +25,14 @@
   [James Barrow](https://github.com/Baza207)
   [#152](https://github.com/realm/jazzy/issues/152)
 
+* No longer count undocumented externally declared tokens as undocumented.
+  [JP Simard](https://github.com/jpsim)
+  [#188](https://github.com/realm/jazzy/issues/188)
+
+* Fixed `--source-directory` CLI option.
+  [JP Simard](https://github.com/jpsim)
+  [#177](https://github.com/realm/jazzy/issues/177)
+
 
 ## 0.1.2
 
