@@ -11,6 +11,9 @@
 * Improve the styling of `dl` elements (parsed key-value pairs).  
   [segiddins](https://github.com/segiddins)
 
+* Raise exceptions if Xcode requirements aren't met.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * No longer count initializers with parameters as undocumented.  
