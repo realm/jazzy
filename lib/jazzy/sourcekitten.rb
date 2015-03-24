@@ -54,6 +54,10 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
+      unless Pathname('/Applications/Xcode.app').exist?
+        raise 'Xcode must be installed (or symlinked) at ' \
+        '/Applications/Xcode.app for jazzy to be able to work.'
+      end
       bin_path = Pathname(__FILE__).parent + 'sourcekitten/sourcekitten'
       command = "#{bin_path} #{(arguments).join(' ')}"
       output = `#{command}`
