@@ -38,7 +38,16 @@ module Jazzy
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
-          doc.url = parents.join('/') + '.html#/' + doc.usr
+          id = doc.usr
+          unless id
+            id = doc.name || 'unknown'
+            warn "`#{id}` has no USR. First make sure all modules used in " \
+              'your project have been imported. If all used modules are ' \
+              'imported, please report this by filing an issue at ' \
+              'https://github.com/realm/jazzy/issues along with your Xcode ' \
+              'project.'
+          end
+          doc.url = parents.join('/') + '.html#/' + id
         end
       end
     end
@@ -146,7 +155,7 @@ module Jazzy
         next unless declaration.type.should_document?
 
         unless declaration.type.name
-          raise 'Please file an issue on ' \
+          raise 'Please file an issue at ' \
           'https://github.com/realm/jazzy/issues about adding support for ' \
           "`#{declaration.type.kind}`."
         end
