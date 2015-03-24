@@ -1,3 +1,20 @@
+## 0.1.4
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* No longer count undocumented externally declared tokens as undocumented.  
+  [JP Simard](https://github.com/jpsim)
+  [#188](https://github.com/realm/jazzy/issues/188)
+
+
 ## 0.1.3
 
 ##### Breaking
