@@ -16,9 +16,11 @@
 * No longer count initializers with parameters as undocumented.  
   [JP Simard](https://github.com/jpsim)
   [#183](https://github.com/realm/jazzy/issues/183)
+
 * No longer crash when a token is missing a USR.  
   [JP Simard](https://github.com/jpsim)
   [#171](https://github.com/realm/jazzy/issues/171)
+
 
 ## 0.1.2
 
