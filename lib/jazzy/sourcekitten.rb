@@ -90,7 +90,7 @@ module Jazzy
       source_directory = Config.instance.source_directory.to_s
       filepath = doc['key.filepath']
       if !filepath || filepath.start_with?(source_directory)
-	@undocumented_tokens << doc
+        @undocumented_tokens << doc
       end
       return nil if !documented_child?(doc) && @skip_undocumented
       make_default_doc_info(declaration)

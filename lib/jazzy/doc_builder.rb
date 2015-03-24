@@ -52,10 +52,10 @@ module Jazzy
         if podspec = options.podspec
           stdout = PodspecDocumenter.new(podspec).sourcekitten_output
         else
-	  stdout = Dir.chdir(Config.instance.source_directory) do
-	    arguments = ['doc'] + options.xcodebuild_arguments
-	    SourceKitten.run_sourcekitten(arguments)
-	  end
+          stdout = Dir.chdir(Config.instance.source_directory) do
+            arguments = ['doc'] + options.xcodebuild_arguments
+            SourceKitten.run_sourcekitten(arguments)
+          end
         end
         unless $?.success?
           warn 'Please pass in xcodebuild arguments using -x'
