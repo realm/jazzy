@@ -5,13 +5,15 @@ module Bacon
     old_run_requirement = instance_method(:run_requirement)
 
     define_method(:run_requirement) do |description, spec|
+      temporary_directory = SpecHelper.temporary_directory
+
       ::Jazzy::Config.instance = nil
       ::Jazzy::Config.instance.tap do |c|
-        c.source_directory  =  SpecHelper.temporary_directory
+        c.source_directory = temporary_directory
       end
 
-      SpecHelper.temporary_directory.rmtree if SpecHelper.temporary_directory.exist?
-      SpecHelper.temporary_directory.mkpath
+      temporary_directory.rmtree if temporary_directory.exist?
+      temporary_directory.mkpath
 
       old_run_requirement.bind(self).call(description, spec)
     end
