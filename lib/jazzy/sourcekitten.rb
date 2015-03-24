@@ -55,7 +55,7 @@ module Jazzy
     def self.assert_xcode_location
       expected_xcode_select_path =
         Pathname('/Applications/Xcode.app/Contents/Developer')
-      actual_xcode_select_path = Pathname(`xcode-select -p`.chomp).realpath
+      actual_xcode_select_path = Pathname(`xcode-select -p`.chomp).realpath rescue nil
       return if actual_xcode_select_path == expected_xcode_select_path
       raise 'Please install Xcode 6.1 or 6.2 in ' \
             "#{expected_xcode_select_path} and set as active developer " \
