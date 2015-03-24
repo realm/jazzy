@@ -114,7 +114,7 @@ module Jazzy
     def self.process_undocumented_token(doc, declaration)
       source_directory = Config.instance.source_directory.to_s
       filepath = doc['key.filepath']
-      if !filepath || filepath.start_with?(source_directory)
+      if filepath && filepath.start_with?(source_directory)
         @undocumented_tokens << doc
       end
       return nil if !documented_child?(doc) && @skip_undocumented
