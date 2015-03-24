@@ -52,8 +52,33 @@ module Jazzy
       end
     end
 
+    def self.assert_xcode_location
+      expected_xcode_select_path =
+        Pathname('/Applications/Xcode.app/Contents/Developer')
+      return if xcode_developer_directory == expected_xcode_select_path
+      raise 'Please install Xcode 6.1 or 6.2 in ' \
+            "#{expected_xcode_select_path} and set as active developer " \
+            'directory by running `sudo xcode-select -s ' \
+            "#{expected_xcode_select_path}`"
+    end
+
+    def self.xcode_developer_directory
+      dir = Pathname(`xcode-select -p`.chomp)
+      dir.directory? ? dir.realpath : nil
+    end
+
+    def self.assert_swift_version
+      swift_version = `xcrun swift --version` =~ /Swift version ([\d\.]+)/ &&
+        Regexp.last_match[1]
+      expected_swift_version = '1.1'
+      return if swift_version == expected_swift_version
+      raise "Jazzy only works with Swift #{expected_swift_version}."
+    end
+
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
+      assert_xcode_location
+      assert_swift_version
       bin_path = Pathname(__FILE__).parent + 'sourcekitten/sourcekitten'
       command = "#{bin_path} #{(arguments).join(' ')}"
       output = `#{command}`
@@ -160,8 +185,8 @@ module Jazzy
 
         unless declaration.type.name
           raise 'Please file an issue at ' \
-          'https://github.com/realm/jazzy/issues about adding support for ' \
-          "`#{declaration.type.kind}`."
+                'https://github.com/realm/jazzy/issues about adding support ' \
+                "for `#{declaration.type.kind}`."
         end
 
         declaration.file = doc['key.filepath']
