@@ -21,6 +21,10 @@
   [JP Simard](https://github.com/jpsim)
   [#171](https://github.com/realm/jazzy/issues/171)
 
+* Fixed encoding issues in some environments.  
+  [James Barrow](https://github.com/Baza207)
+  [#152](https://github.com/realm/jazzy/issues/152)
+
 
 ## 0.1.2
 
