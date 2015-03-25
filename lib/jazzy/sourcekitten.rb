@@ -56,7 +56,7 @@ module Jazzy
       expected_xcode_select_path =
         Pathname('/Applications/Xcode.app/Contents/Developer')
       return if xcode_developer_directory == expected_xcode_select_path
-      raise 'Please install Xcode 6.1 or 6.2 in ' \
+      raise 'Please install or symlink Xcode 6.1 or 6.2 in ' \
             "#{expected_xcode_select_path} and set as active developer " \
             'directory by running `sudo xcode-select -s ' \
             "#{expected_xcode_select_path}`"
