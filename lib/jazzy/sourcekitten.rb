@@ -2,10 +2,11 @@ require 'json'
 require 'pathname'
 
 require 'jazzy/config'
+require 'jazzy/executable'
+require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/xml_helper'
-require 'jazzy/highlighter'
 
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
@@ -80,9 +81,7 @@ module Jazzy
       assert_xcode_location
       assert_swift_version
       bin_path = Pathname(__FILE__).parent + 'sourcekitten/sourcekitten'
-      command = "#{bin_path} #{(arguments).join(' ')}"
-      output = `#{command}`
-      raise "Running `#{command}` failed: " + output unless $?.success?
+      output, _ = Executable.execute_command(bin_path, arguments, true)
       output
     end
 

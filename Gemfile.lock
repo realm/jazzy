@@ -6,6 +6,7 @@ PATH
       cocoapods (~> 0.36.0.rc.1)
       mustache (~> 0.99)
       nokogiri (~> 1.6)
+      open4
       redcarpet (~> 3.2)
       rouge (~> 1.5)
       sass (~> 3.4)
