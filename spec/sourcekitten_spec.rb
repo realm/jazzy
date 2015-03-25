@@ -10,7 +10,7 @@ module Jazzy
       SourceKitten.stubs(:`)
         .returns '/Applications/Xcode-Beta.app/Contents/Developer'
       should.raise { SourceKitten.assert_xcode_location }.message.should
-        .match %r{Please install Xcode.*/Applications/Xcode.app}
+        .match %r{Please install or symlink Xcode.*/Applications/Xcode.app}
     end
 
     it 'validates the current xcode version' do
