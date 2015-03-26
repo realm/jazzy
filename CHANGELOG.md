@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Added `--readme` command line option.  
+  [segiddins](https://github.com/segiddins)
+  [#196](https://github.com/realm/jazzy/issues/196)
+
+##### Bug Fixes
+
+* None.
+
+
 ## 0.1.4
 
 ##### Breaking
