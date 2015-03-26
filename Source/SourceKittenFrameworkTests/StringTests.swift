@@ -43,7 +43,7 @@ class StringTests: XCTestCase {
     }
 
     func testParseLineBreaks() {
-        XCTAssertEqual("a\nbc\nd\n".lineBreaks(), [1, 4, 6], "should parse line breaks")
+        XCTAssertEqual("a\nbc\nd\n".lineBreaks(), [-1, 1, 4, 6], "should parse line breaks")
     }
 
     func testFilteredSubstring() {

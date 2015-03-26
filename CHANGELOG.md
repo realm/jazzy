@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* Fixed out-of-bounds exception when parsing the declaration in files starting
+  with a declaration.  
+  [JP Simard](https://github.com/jpsim)
+  [#30](https://github.com/jpsim/SourceKitten/issues/30)
+
 ## 0.3.0
 
 ##### Breaking

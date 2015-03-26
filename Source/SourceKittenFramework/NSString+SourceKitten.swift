@@ -45,9 +45,9 @@ extension NSString {
     :returns: Line breaks.
     */
     public func lineBreaks() -> [Int] {
-        var lineBreaks = [Int]()
+        var lineBreaks = [-1] // Count start of file
         var searchRange = NSRange(location: 0, length: length)
-	while searchRange.length > 0 {
+        while searchRange.length > 0 {
             searchRange.length = length - searchRange.location
             let foundRange = rangeOfString("\n", options: nil, range: searchRange)
             if foundRange.location != NSNotFound {
@@ -69,6 +69,7 @@ extension NSString {
     :returns: Filtered string.
     */
     public func filteredSubstring(start: Int, end: Int) -> String {
+        precondition(end > start, "Range should be positive")
         let range = NSRange(location: start, length: end - start - 1)
         let unwantedSet = NSCharacterSet.whitespaceAndNewlineCharacterSet().mutableCopy() as NSMutableCharacterSet
         unwantedSet.addCharactersInString("{")
