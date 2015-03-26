@@ -159,6 +159,11 @@ module Jazzy
           config.source_directory = Pathname(source_directory)
         end
 
+        opt.on('--readme FILEPATH',
+               'The path to a markdown README file') do |readme|
+          config.readme_path = Pathname(readme)
+        end
+
         opt.on('-v', '--version', 'Print version number') do
           puts 'jazzy version: ' + Jazzy::VERSION
           exit
