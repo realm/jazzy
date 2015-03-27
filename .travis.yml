@@ -9,3 +9,7 @@ git:
 script: BUILD_TOOL=xctool script/cibuild
 notifications:
   email: false
+  slack: realmio:vPdpsG9NLDo2DNlbqtcMAQuE
+branches:
+  except:
+    - swift1p2
