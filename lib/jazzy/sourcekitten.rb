@@ -55,9 +55,9 @@ module Jazzy
 
     def self.assert_xcode_location
       expected_xcode_select_path =
-        Pathname('/Applications/Xcode.app/Contents/Developer')
+        Pathname('/Applications/Xcode-6p3-Beta4.app/Contents/Developer')
       return if xcode_developer_directory == expected_xcode_select_path
-      raise 'Please install or symlink Xcode 6.1 or 6.2 in ' \
+      raise 'Please install or symlink Xcode 6.3 in ' \
             "#{expected_xcode_select_path} and set as active developer " \
             'directory by running `sudo xcode-select -s ' \
             "#{expected_xcode_select_path}`"
@@ -71,7 +71,7 @@ module Jazzy
     def self.assert_swift_version
       swift_version = `xcrun swift --version` =~ /Swift version ([\d\.]+)/ &&
         Regexp.last_match[1]
-      expected_swift_version = '1.1'
+      expected_swift_version = '1.2'
       return if swift_version == expected_swift_version
       raise "Jazzy only works with Swift #{expected_swift_version}."
     end
@@ -103,11 +103,7 @@ module Jazzy
     end
 
     def self.should_document?(doc)
-      # Always document extensions, since we can't tell what ACL they are
-      return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
-
-      SourceDeclaration::AccessControlLevel.new(doc['key.annotated_decl']) >=
-        @min_acl
+      SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
     end
 
     def self.process_undocumented_token(doc, declaration)
@@ -193,9 +189,11 @@ module Jazzy
         declaration.name = doc['key.name']
         declaration.mark = current_mark
         acl = SourceDeclaration::AccessControlLevel.new(
-          doc['key.annotated_decl'],
+          doc['key.accessibility'],
         )
         declaration.access_control_level = acl
+        declaration.start_line = doc['key.parsed_scope.start']
+        declaration.end_line = doc['key.parsed_scope.end']
 
         next unless make_doc_info(doc, declaration)
         make_substructure(doc, declaration)

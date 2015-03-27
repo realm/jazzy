@@ -18,6 +18,8 @@ module Jazzy
     attr_accessor :url
     attr_accessor :mark
     attr_accessor :access_control_level
+    attr_accessor :start_line
+    attr_accessor :end_line
 
     def overview
       "#{abstract}\n\n#{discussion}".strip

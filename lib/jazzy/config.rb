@@ -39,7 +39,7 @@ module Jazzy
       self.clean = false
       self.docset_platform = 'jazzy'
       self.version = '1.0'
-      self.min_acl = SourceDeclaration::AccessControlLevel.internal
+      self.min_acl = SourceDeclaration::AccessControlLevel.public
       self.skip_undocumented = false
       self.source_directory = Pathname.pwd
     end
@@ -126,11 +126,11 @@ module Jazzy
 
         opt.on('--min-acl [private | internal | public]',
                'minimum access control level to document \
-               (default is internal)') do |acl|
+               (default is public)') do |acl|
           if acl == 'private'
             config.min_acl = SourceDeclaration::AccessControlLevel.private
-          elsif acl == 'public'
-            config.min_acl = SourceDeclaration::AccessControlLevel.public
+          elsif acl == 'internal'
+            config.min_acl = SourceDeclaration::AccessControlLevel.internal
           end
         end
 
