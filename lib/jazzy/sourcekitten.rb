@@ -192,6 +192,8 @@ module Jazzy
           doc['key.accessibility'],
         )
         declaration.access_control_level = acl
+        declaration.start_line = doc['key.parsed_scope.start']
+        declaration.end_line = doc['key.parsed_scope.end']
 
         next unless make_doc_info(doc, declaration)
         make_substructure(doc, declaration)

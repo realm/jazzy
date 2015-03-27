@@ -10,6 +10,10 @@
   [segiddins](https://github.com/segiddins)
   [#196](https://github.com/realm/jazzy/issues/196)
 
+* "Show on GitHub" links now link to line-ranges for multi-line definitions.  
+  [JP Simard](https://github.com/jpsim)
+  [#198](https://github.com/realm/jazzy/issues/198)
+
 ##### Bug Fixes
 
 * None.
