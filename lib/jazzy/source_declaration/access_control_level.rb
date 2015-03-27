@@ -5,12 +5,16 @@ module Jazzy
 
       attr_reader :level
 
+      ACCESSIBILITY_PRIVATE  = 'source.lang.swift.accessibility.private'
+      ACCESSIBILITY_INTERNAL = 'source.lang.swift.accessibility.internal'
+      ACCESSIBILITY_PUBLIC   = 'source.lang.swift.accessibility.public'
+
       def initialize(accessibility)
-        if accessibility == 'source.lang.swift.accessibility.private'
+        if accessibility == ACCESSIBILITY_PRIVATE
           @level = :private
-        elsif accessibility == 'source.lang.swift.accessibility.internal'
+        elsif accessibility == ACCESSIBILITY_INTERNAL
           @level = :internal
-        elsif accessibility == 'source.lang.swift.accessibility.public'
+        elsif accessibility == ACCESSIBILITY_PUBLIC
           @level = :public
         end
       end
@@ -24,10 +28,7 @@ module Jazzy
           end
         end
         acl = from_explicit_declaration(doc['key.parsed_declaration'])
-        if acl
-          return acl
-        end
-        AccessControlLevel.public # We don't know what ACL this declaration is
+        acl || AccessControlLevel.public # fallback on public ACL
       end
 
       def self.from_explicit_declaration(declaration_string)
@@ -41,15 +42,15 @@ module Jazzy
       end
 
       def self.private
-        AccessControlLevel.new('source.lang.swift.accessibility.private')
+        new(ACCESSIBILITY_PRIVATE)
       end
 
       def self.internal
-        AccessControlLevel.new('source.lang.swift.accessibility.internal')
+        new(ACCESSIBILITY_INTERNAL)
       end
 
       def self.public
-        AccessControlLevel.new('source.lang.swift.accessibility.public')
+        new(ACCESSIBILITY_PUBLIC)
       end
 
       LEVELS = {
