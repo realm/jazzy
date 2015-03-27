@@ -5,7 +5,6 @@ rvm:
   - system
 before_install:
   - sudo gem install bundler
-  - sudo gem install cocoapods
   - git submodule update --init --recursive
 script:
   - bundle exec rake spec
