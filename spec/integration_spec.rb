@@ -46,7 +46,7 @@ require 'rubygems'
 require 'bundler/setup'
 require 'pretty_bacon'
 require 'colored'
-require 'clintegracon'
+require 'CLIntegracon'
 
 CLIntegracon.configure do |c|
   c.spec_path = ROOT + 'spec/integration_specs'
