@@ -58,7 +58,7 @@ module Jazzy
       end
 
       def copy_docs
-        files_to_copy = Pathname.glob(generated_docs_dir + '**/*') -
+        files_to_copy = Pathname.glob(generated_docs_dir + '*') -
           [docset_dir, output_dir]
 
         FileUtils.mkdir_p documents_dir

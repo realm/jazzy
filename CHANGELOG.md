@@ -12,7 +12,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fixed issue where docset would contain duplicate files.  
+  [JP Simard](https://github.com/jpsim)
+  [#204](https://github.com/realm/jazzy/issues/204)
 
 
 ## 0.1.4
