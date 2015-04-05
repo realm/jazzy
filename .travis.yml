@@ -4,6 +4,7 @@ cache: bundler
 rvm:
   - system
 before_install:
+  - "mkdir -p ~/.cocoapods && echo -e \"---\\nnew_version_message: false\" > ~/.cocoapods/config.yaml"
   - sudo gem install bundler
   - git submodule update --init --recursive
 script:
