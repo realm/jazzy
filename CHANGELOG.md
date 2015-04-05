@@ -16,6 +16,9 @@
   [JP Simard](https://github.com/jpsim)
   [#204](https://github.com/realm/jazzy/issues/204)
 
+* Fixed installation issues on case-sensitive file systems.  
+  [kishikawakatsumi](https://github.com/kishikawakatsumi)
+
 
 ## 0.1.4
 
