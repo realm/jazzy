@@ -80,7 +80,7 @@ module Jazzy
     def self.run_sourcekitten(arguments)
       assert_xcode_location
       assert_swift_version
-      bin_path = Pathname(__FILE__).parent + 'sourcekitten/sourcekitten'
+      bin_path = Pathname(__FILE__).parent + 'SourceKitten/sourcekitten'
       output, _ = Executable.execute_command(bin_path, arguments, true)
       output
     end
