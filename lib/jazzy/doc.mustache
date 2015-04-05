@@ -5,54 +5,28 @@
     <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/highlight.css" />
     <meta charset='utf-8'>
-    <script type="text/javascript">
-    window.jazzy = {'docset': false}
-    if (typeof window.dash != 'undefined') {
-      document.documentElement.className += ' dash'
-      window.jazzy.docset = true
-    }
-    if (navigator.userAgent.match(/xcode/i)) {
-      document.documentElement.className += ' xcode'
-      window.jazzy.docset = true
-    }
-    </script>
     <script src="{{path_to_root}}js/jquery.min.js" defer></script>
     <script src="{{path_to_root}}js/jazzy.js" defer></script>
   </head>
-  <body id="reference" class="Swift">
+  <body>
     {{#dash_type}}
     <a name="//apple_ref/swift/{{dash_type}}/{{name}}" class="dashAnchor"></a>
     {{/dash_type}}
     <a title="{{name}} {{kind}} Reference"></a>
-    <header>
-      <div class="content-wrapper">
-        <p class="header-text"><a href="{{path_to_root}}index.html">{{module_name}} Docs</a> ({{doc_coverage}}% documented)</p>
-        {{#github_url}}
-        <p id="header-links"><a href="{{github_url}}"><img id="header-icon" src="{{path_to_root}}img/gh.png" height="16px" width="16px" />View on GitHub</a></p>
-        {{/github_url}}
-        {{#dash_url}}
-        <p id="header-links"><a href="{{dash_url}}"><img id="header-icon" src="{{path_to_root}}img/dash.png" height="16px" width="16px" />Install in Dash</a></p>
-        {{/dash_url}}
-      </div>
-    </header>
-    <section id="valence">
-      <div class="content-wrapper">
-        <p id="hierarchial_navigation">
+    {{> jazzy/partials/header}}
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
         <a href="{{path_to_root}}index.html" id="design_resources_link">{{module_name}} Reference</a>
-        <img id="carat" src="{{path_to_root}}img/carat.png" height="10px" width="6px" />
+        <img id="carat" src="{{path_to_root}}img/carat.png" />
         {{name}} {{kind}} Reference
-        </p>
-      </div>
-    </section>
+      </p>
+    </div>
     <div class="content-wrapper">
       {{> jazzy/partials/nav}}
-      <div class="pixel-line"></div>
-      <div class="rubber-band-gap"></div>
-      <article class="chapter">
-      <a name="/{{usr}}"></a>
-        <h1 class="chapter-name">{{name}}</h1>
+      <article class="main-content">
         <section>
           <section class="section">
+            {{^hide_name}}<h1>{{name}}</h1>{{/hide_name}}
             {{{overview}}}
           </section>
           {{> jazzy/partials/tasks}}
