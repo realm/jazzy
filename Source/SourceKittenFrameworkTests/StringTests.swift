@@ -43,6 +43,19 @@ class StringTests: XCTestCase {
         XCTAssertEqual(__FILE__.absolutePathRepresentation(), __FILE__, "absolutePathRepresentation() should return the caller if it's already an absolute path")
     }
 
+    func testIsTokenDocumentable() {
+        let source = "struct A { subscript(key: String) -> Void { return () } }"
+        let actual = SyntaxMap(file: File(contents: source)).tokens.filter {
+            source.isTokenDocumentable($0)
+        }
+        let expected = [
+            SyntaxToken(type: SyntaxKind.Identifier.rawValue, offset: 7, length: 1), // `A`
+            SyntaxToken(type: SyntaxKind.Keyword.rawValue, offset: 11, length: 9),   // `subscript`
+            SyntaxToken(type: SyntaxKind.Identifier.rawValue, offset: 21, length: 3) // `key`
+        ]
+        XCTAssertEqual(actual, expected, "should detect documentable tokens")
+    }
+
     func testParseDeclaration() {
         let dict = [
             "key.kind": "source.lang.swift.decl.class",
@@ -73,4 +86,38 @@ class StringTests: XCTestCase {
         let syntaxMap = SyntaxMap(file: File(contents: fileContents))
         XCTAssertEqual(fileContents.documentedTokenOffsets(syntaxMap).count, 0, "shouldn't detect any documented token offsets when there are none")
     }
+
+    func testSubstringWithByteRange() {
+        let string = "😄123"
+        XCTAssertEqual(string.substringWithByteRange(start: 0, length: 4)!, "😄")
+        XCTAssertEqual(string.substringWithByteRange(start: 4, length: 1)!, "1")
+    }
+
+    func testByteRangeToStringRange() {
+        let string = "😄123"
+        XCTAssertEqual(string.byteRangeToStringRange(start: 0, end: 4)!, string.startIndex..<advance(string.startIndex, 1))
+        XCTAssertEqual(string.byteRangeToStringRange(start: 4, end: 5)!, advance(string.startIndex, 1)..<advance(string.startIndex, 2))
+    }
+
+    func testSubstringLinesWithByteRange() {
+        let string = "😄\n123"
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 0)!, "😄\n")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 5)!, "😄\n")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 6)!, string)
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 6, end: 6)!, "123")
+    }
+
+    func testLineRangeWithByteRange() {
+        let string = "😄\n123"
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 0)! == (1, 1))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 5)! == (1, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 6)! == (1, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 6, end: 6)! == (2, 2))
+    }
+}
+
+typealias LineRangeType = (start: Int, end: Int)
+
+func ==(lhs: LineRangeType, rhs: LineRangeType) -> Bool {
+    return lhs.start == rhs.start && lhs.end == rhs.end
 }

@@ -51,15 +51,33 @@ public struct File {
         if !shouldParseDeclaration(dictionary) {
             return nil
         }
-        if let start = SwiftDocKey.getOffset(dictionary) {
-            var end: Int? = nil
-            if let bodyOffset = SwiftDocKey.getBodyOffset(dictionary) {
-                end = Int(bodyOffset)
-            }
-            return contents.substringLinesWithByteRange(Int(start), end: end)?
+        return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
+            let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { Int($0) }
+            return self.contents.substringLinesWithByteRange(start: Int(start), end: end)?
                 .stringByTrimmingWhitespaceAndOpeningCurlyBrace()
         }
-        return nil
+    }
+
+    /**
+    Parse line numbers containing the declaration's implementation from XPC dictionary.
+    
+    :param: dictionary XPC dictionary to extract declaration from.
+    
+    :returns: Line numbers containing the declaration's implementation.
+    */
+    public func parseScopeRange(dictionary: XPCDictionary) -> (start: Int, end: Int)? {
+        if !shouldParseDeclaration(dictionary) {
+            return nil
+        }
+        return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
+            let start = Int(start)
+            let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { bodyOffset in
+                return flatMap(SwiftDocKey.getBodyLength(dictionary)) { bodyLength in
+                    return Int(bodyOffset + bodyLength)
+                }
+            } ?? start
+            return self.contents.lineRangeWithByteRange(start: start, end: end)
+        }
     }
 
     /**
@@ -100,6 +118,12 @@ public struct File {
         // Parse declaration and add to dictionary
         if let parsedDeclaration = parseDeclaration(dictionary) {
             dictionary[SwiftDocKey.ParsedDeclaration.rawValue] = parsedDeclaration
+        }
+
+        // Parse scope range and add to dictionary
+        if let parsedScopeRange = parseScopeRange(dictionary) {
+            dictionary[SwiftDocKey.ParsedScopeStart.rawValue] = Int64(parsedScopeRange.start)
+            dictionary[SwiftDocKey.ParsedScopeEnd.rawValue] = Int64(parsedScopeRange.end)
         }
 
         // Update substructure

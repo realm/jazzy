@@ -10,6 +10,7 @@
       "key.length" : 10,
       "key.name" : "VoidStruct",
       "key.typename" : "VoidStruct.Type",
+      "key.parsed_scope.end" : 7,
       "key.usr" : "s:V9Subscript10VoidStruct",
       "key.nameoffset" : 7,
       "key.annotated_decl" : "<Declaration>struct VoidStruct<\/Declaration>",
@@ -23,10 +24,13 @@
           "key.length" : 9,
           "key.typename" : "(String) -> ()",
           "key.name" : "subscript(_:)",
+          "key.parsed_scope.start" : 3,
+          "key.parsed_scope.end" : 3,
           "key.usr" : "s:sV9Subscript10VoidStruct9subscriptFSST_",
           "key.filepath" : "Subscript.swift"
         }
       ],
+      "key.parsed_scope.start" : 1,
       "key.filepath" : "Subscript.swift"
     }
   ],
