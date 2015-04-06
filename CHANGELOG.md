@@ -6,7 +6,9 @@ None.
 
 ##### Enhancements
 
-None.
+* Added definition line ranges to declarations.  
+  [JP Simard](https://github.com/jpsim)
+  [#198](https://github.com/realm/jazzy/issues/198)
 
 ##### Bug Fixes
 

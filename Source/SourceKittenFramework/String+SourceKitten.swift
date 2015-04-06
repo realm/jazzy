@@ -48,10 +48,9 @@ extension String {
     public func isTokenDocumentable(token: SyntaxToken) -> Bool {
         if token.type == SyntaxKind.Keyword.rawValue {
             let keywordFunctions = ["subscript", "init", "deinit"]
-            if let tokenString = substringWithByteRange(token.offset, end: token.offset + token.length) {
-                return contains(keywordFunctions, tokenString)
-            }
-            return false
+            return flatMap(substringWithByteRange(token.offset, end: token.offset + token.length)) {
+                contains(keywordFunctions, $0)
+            } ?? false
         }
         return token.type == SyntaxKind.Identifier.rawValue
     }
@@ -97,6 +96,35 @@ extension String {
     }
 
     /**
+    Converts a range of byte offsets to a `Range<String.Index>`.
+    
+    :param: start Starting byte offset.
+    :param: end   Ending byte offset.
+    
+    :returns: Converted `Range<String.Index>` if successful.
+    */
+    private func byteRangeToStringRange(start: Int, end: Int) -> Range<Index>? {
+        var bytesSoFar = 0
+        var startStringIndex: Index? = nil
+        var endStringIndex: Index? = nil
+        for stringIndex in startIndex..<endIndex {
+            if startStringIndex == nil && bytesSoFar >= start {
+                startStringIndex = stringIndex
+            }
+            if endStringIndex == nil && bytesSoFar >= end {
+                endStringIndex = stringIndex
+                break
+            }
+            bytesSoFar += countElements(String(self[stringIndex]).utf8)
+        }
+        return flatMap(startStringIndex) { startStringIndex in
+            return flatMap(endStringIndex) { endStringIndex in
+                return startStringIndex..<endStringIndex
+            }
+        }
+    }
+
+    /**
     Returns a substring starting at the beginning of `start`'s line and ending at the end of `end`'s
     line. Returns `start`'s entire line if `end` is nil.
 
@@ -104,28 +132,37 @@ extension String {
     :param: end   Ending byte offset.
     */
     internal func substringLinesWithByteRange(start: Int, end: Int? = nil) -> String? {
-        var bytesSoFar = 0
-        var startStringIndex: String.Index? = nil
-        var endStringIndex: String.Index? = nil
-        for stringIndex in startIndex..<endIndex {
-            if startStringIndex == nil && bytesSoFar >= start {
-                startStringIndex = stringIndex
-            }
-            if endStringIndex == nil && bytesSoFar >= (end ?? start) {
-                endStringIndex = stringIndex
-                break
-            }
-            bytesSoFar += countElements(String(self[stringIndex]).utf8)
+        return flatMap(byteRangeToStringRange(start, end: end ?? start)) { stringRange in
+            var lineStart = self.startIndex
+            var lineEnd = self.endIndex
+            self.getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: stringRange)
+            return self[lineStart..<lineEnd]
         }
-        if let startStringIndex = startStringIndex {
-            if let endStringIndex = endStringIndex {
-                var lineStart = startIndex
-                var lineEnd = endIndex
-                getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: startStringIndex..<endStringIndex)
-                return self[lineStart..<lineEnd]
+    }
+
+    /**
+    Returns line numbers containing starting and ending byte offsets.
+
+    :param: start Starting byte offset.
+    :param: end   Ending byte offset.
+    */
+    internal func lineRangeWithByteRange(start: Int, end: Int? = nil) -> (start: Int, end: Int)? {
+        return flatMap(byteRangeToStringRange(start, end: end ?? start)) { range in
+            var numberOfLines = 0
+            var index = self.startIndex
+            var lineRangeStart = 0
+            while index < self.endIndex {
+                numberOfLines++
+                index = self.lineRangeForRange(index...index).endIndex
+                if index < range.startIndex {
+                    lineRangeStart = numberOfLines + 1
+                }
+                if index > range.endIndex {
+                    return (lineRangeStart, numberOfLines)
+                }
             }
+            return nil
         }
-        return nil
     }
 
     /**
@@ -134,6 +171,6 @@ extension String {
     internal func stringByTrimmingWhitespaceAndOpeningCurlyBrace() -> String? {
         let unwantedSet = NSCharacterSet.whitespaceAndNewlineCharacterSet().mutableCopy() as NSMutableCharacterSet
         unwantedSet.addCharactersInString("{")
-        return self.stringByTrimmingCharactersInSet(unwantedSet)
+        return stringByTrimmingCharactersInSet(unwantedSet)
     }
 }

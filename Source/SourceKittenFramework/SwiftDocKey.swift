@@ -27,6 +27,10 @@ internal enum SwiftDocKey: String {
     case Substructure         = "key.substructure"
     /// Represents a parsed declaration (String).
     case ParsedDeclaration    = "key.parsed_declaration"
+    /// Represents a parsed scope start (Int64).
+    case ParsedScopeStart     = "key.parsed_scope.start"
+    /// Represents a parsed scope start end (Int64).
+    case ParsedScopeEnd       = "key.parsed_scope.end"
     /// Represents a name offset (Int64).
     case NameOffset           = "key.nameoffset"
     /// Represents a name length (Int64).
