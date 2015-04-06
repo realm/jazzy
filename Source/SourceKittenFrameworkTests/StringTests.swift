@@ -12,6 +12,59 @@ import SwiftXPC
 import XCTest
 
 class StringTests: XCTestCase {
+    func testStringByRemovingCommonLeadingWhitespaceFromLines() {
+        autoreleasepool {
+            let input = "a\n b\n  c"
+            XCTAssertEqual(input.stringByRemovingCommonLeadingWhitespaceFromLines(), input)
+        }
+
+        autoreleasepool {
+            let input = " a\n  b\n   c"
+            XCTAssertEqual(input.stringByRemovingCommonLeadingWhitespaceFromLines(), "a\n b\n  c")
+        }
+    }
+
+    func testStringByTrimmingTrailingCharactersInSet() {
+        XCTAssertEqual(" a ".stringByTrimmingTrailingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()), " a")
+    }
+
+    func testCommentBody() {
+        autoreleasepool {
+            let commentString = "/// Single line comment.\n\n"
+            XCTAssertEqual(commentString.commentBody()!, "Single line comment.")
+        }
+
+        autoreleasepool {
+            let commentString = "/// Multiple\n/// single line comments.\n\n"
+            XCTAssertEqual(commentString.commentBody()!, "Multiple\nsingle line comments.")
+        }
+
+        autoreleasepool {
+            let commentString = "/**\nMultiple\nline\ncomments.\n*/"
+            XCTAssertEqual(commentString.commentBody()!, "Multiple\nline\ncomments.")
+        }
+
+        autoreleasepool {
+            let commentString = "/*\nNot a documentation comment.\n*/"
+            XCTAssertNil(commentString.commentBody())
+        }
+
+        autoreleasepool {
+            let commentString = "// Not a documentation comment."
+            XCTAssertNil(commentString.commentBody())
+        }
+
+        autoreleasepool {
+            let commentString = "😄\n    /// Multiple\n        /// single line comments.\n\n"
+            XCTAssertEqual(commentString.commentBody()!, "Multiple\n    single line comments.")
+        }
+
+        autoreleasepool {
+            let commentString = "😄\n    /**\n    Multiple\n        line\n    comments.\n    */"
+            XCTAssertEqual(commentString.commentBody()!, "Multiple\n    line\ncomments.")
+        }
+    }
+
     func testIsSwiftFile() {
         let good = ["good.swift"]
         let bad = [
@@ -95,24 +148,26 @@ class StringTests: XCTestCase {
 
     func testByteRangeToStringRange() {
         let string = "😄123"
-        XCTAssertEqual(string.byteRangeToStringRange(start: 0, end: 4)!, string.startIndex..<advance(string.startIndex, 1))
-        XCTAssertEqual(string.byteRangeToStringRange(start: 4, end: 5)!, advance(string.startIndex, 1)..<advance(string.startIndex, 2))
+        XCTAssertEqual(string.byteRangeToStringRange(start: 0, length: 4)!, string.startIndex..<advance(string.startIndex, 1))
+        XCTAssertEqual(string.byteRangeToStringRange(start: 4, length: 1)!, advance(string.startIndex, 1)..<advance(string.startIndex, 2))
     }
 
     func testSubstringLinesWithByteRange() {
         let string = "😄\n123"
-        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 0)!, "😄\n")
-        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 5)!, "😄\n")
-        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 6)!, string)
-        XCTAssertEqual(string.substringLinesWithByteRange(start: 6, end: 6)!, "123")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, length: 0)!, "😄\n")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, length: 4)!, "😄\n")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, length: 5)!, "😄\n")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, length: 6)!, string)
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 6, length: 0)!, "123")
     }
 
     func testLineRangeWithByteRange() {
         let string = "😄\n123"
-        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 0)! == (1, 1))
-        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 5)! == (1, 2))
-        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 6)! == (1, 2))
-        XCTAssert(string.lineRangeWithByteRange(start: 6, end: 6)! == (2, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, length: 0)! == (1, 1))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, length: 4)! == (1, 1))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, length: 5)! == (1, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, length: 6)! == (1, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 6, length: 0)! == (2, 2))
     }
 }
 

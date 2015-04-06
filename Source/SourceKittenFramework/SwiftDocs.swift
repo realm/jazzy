@@ -37,13 +37,15 @@ public struct SwiftDocs {
     */
     public init(file: File, var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) {
         let syntaxMapData = dictionary.removeValueForKey(SwiftDocKey.SyntaxMap.rawValue) as NSData
-        dictionary = file.processDictionary(dictionary, cursorInfoRequest: cursorInfoRequest)
+        let syntaxMap = SyntaxMap(data: syntaxMapData)
+        dictionary = file.processDictionary(dictionary, cursorInfoRequest: cursorInfoRequest, syntaxMap: syntaxMap)
         if let cursorInfoRequest = cursorInfoRequest {
-            let documentedTokenOffsets = file.contents.documentedTokenOffsets(SyntaxMap(data: syntaxMapData))
+            let documentedTokenOffsets = file.contents.documentedTokenOffsets(syntaxMap)
             dictionary = file.furtherProcessDictionary(
                 dictionary,
                 documentedTokenOffsets: documentedTokenOffsets,
-                cursorInfoRequest: cursorInfoRequest
+                cursorInfoRequest: cursorInfoRequest,
+                syntaxMap: syntaxMap
             )
         }
         docsDictionary = dictionary

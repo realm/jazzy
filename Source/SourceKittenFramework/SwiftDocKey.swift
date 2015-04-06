@@ -48,6 +48,8 @@ internal enum SwiftDocKey: String {
 
     /// Column where the token's declaration begins (Int64).
     case DocColumn            = "key.doc.column"
+    /// Documentation comment (String).
+    case DocumentationComment = "key.doc.comment"
     /// Declaration of documented token (String).
     case DocDeclaration       = "key.doc.declaration"
     /// Discussion documentation of documented token (XPCArray).

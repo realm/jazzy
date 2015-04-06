@@ -14,6 +14,9 @@ None.
   [JP Simard](https://github.com/jpsim)
   [#37](https://github.com/jpsim/SourceKitten/issues/37)
 
+* Parse documentation comments.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * Fixed out-of-bounds exception when parsing the declaration in files starting

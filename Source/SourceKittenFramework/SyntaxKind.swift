@@ -39,4 +39,13 @@ public enum SyntaxKind: String {
     case StringInterpolationAnchor = "source.lang.swift.syntaxtype.string_interpolation_anchor"
     /// `typeidentifier`.
     case Typeidentifier = "source.lang.swift.syntaxtype.typeidentifier"
+
+    /**
+    Returns true if the input is a comment-like syntax kind string.
+
+    :param: string Input string.
+    */
+    internal static func isCommentLike(string: Swift.String) -> Bool {
+        return contains([Comment.rawValue, CommentMark.rawValue, CommentURL.rawValue], string)
+    }
 }
