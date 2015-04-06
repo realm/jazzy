@@ -88,7 +88,36 @@ class StringTests: XCTestCase {
     }
 
     func testSubstringWithByteRange() {
-        XCTAssertEqual(("😄123" as String).substringWithByteRange(start: 0, length: 4)!, "😄" as String)
-        XCTAssertEqual(("😄123" as String).substringWithByteRange(start: 4, length: 1)!, "1" as String)
+        let string = "😄123"
+        XCTAssertEqual(string.substringWithByteRange(start: 0, length: 4)!, "😄")
+        XCTAssertEqual(string.substringWithByteRange(start: 4, length: 1)!, "1")
     }
+
+    func testByteRangeToStringRange() {
+        let string = "😄123"
+        XCTAssertEqual(string.byteRangeToStringRange(start: 0, end: 4)!, string.startIndex..<advance(string.startIndex, 1))
+        XCTAssertEqual(string.byteRangeToStringRange(start: 4, end: 5)!, advance(string.startIndex, 1)..<advance(string.startIndex, 2))
+    }
+
+    func testSubstringLinesWithByteRange() {
+        let string = "😄\n123"
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 0)!, "😄\n")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 5)!, "😄\n")
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 0, end: 6)!, string)
+        XCTAssertEqual(string.substringLinesWithByteRange(start: 6, end: 6)!, "123")
+    }
+
+    func testLineRangeWithByteRange() {
+        let string = "😄\n123"
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 0)! == (0, 1))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 5)! == (0, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 6)! == (0, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 6, end: 6)! == (2, 2))
+    }
+}
+
+typealias LineRangeType = (start: Int, end: Int)
+
+func ==(lhs: LineRangeType, rhs: LineRangeType) -> Bool {
+    return lhs.start == rhs.start && lhs.end == rhs.end
 }

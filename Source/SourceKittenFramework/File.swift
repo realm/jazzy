@@ -53,7 +53,7 @@ public struct File {
         }
         return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
             let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { Int($0) }
-            return self.contents.substringLinesWithByteRange(Int(start), end: end)?
+            return self.contents.substringLinesWithByteRange(start: Int(start), end: end)?
                 .stringByTrimmingWhitespaceAndOpeningCurlyBrace()
         }
     }
@@ -76,7 +76,7 @@ public struct File {
                     return Int(bodyOffset + bodyLength)
                 }
             } ?? start
-            return self.contents.lineRangeWithByteRange(start, end: end)
+            return self.contents.lineRangeWithByteRange(start: start, end: end)
         }
     }
 

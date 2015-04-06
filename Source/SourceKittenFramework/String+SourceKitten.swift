@@ -103,7 +103,7 @@ extension String {
     
     :returns: Converted `Range<String.Index>` if successful.
     */
-    private func byteRangeToStringRange(start: Int, end: Int) -> Range<Index>? {
+    public func byteRangeToStringRange(# start: Int, end: Int) -> Range<Index>? {
         var bytesSoFar = 0
         var startStringIndex: Index? = nil
         var endStringIndex: Index? = nil
@@ -131,8 +131,8 @@ extension String {
     :param: start Starting byte offset.
     :param: end   Ending byte offset.
     */
-    internal func substringLinesWithByteRange(start: Int, end: Int? = nil) -> String? {
-        return flatMap(byteRangeToStringRange(start, end: end ?? start)) { stringRange in
+    public func substringLinesWithByteRange(# start: Int, end: Int? = nil) -> String? {
+        return flatMap(byteRangeToStringRange(start: start, end: end ?? start)) { stringRange in
             var lineStart = self.startIndex
             var lineEnd = self.endIndex
             self.getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: stringRange)
@@ -146,8 +146,8 @@ extension String {
     :param: start Starting byte offset.
     :param: end   Ending byte offset.
     */
-    internal func lineRangeWithByteRange(start: Int, end: Int? = nil) -> (start: Int, end: Int)? {
-        return flatMap(byteRangeToStringRange(start, end: end ?? start)) { range in
+    public func lineRangeWithByteRange(# start: Int, end: Int? = nil) -> (start: Int, end: Int)? {
+        return flatMap(byteRangeToStringRange(start: start, end: end ?? start)) { range in
             var numberOfLines = 0
             var index = self.startIndex
             var lineRangeStart = 0
