@@ -8,6 +8,7 @@
 
 import Foundation
 import SourceKittenFramework
+import SwiftXPC
 import XCTest
 
 class StringTests: XCTestCase {
@@ -42,15 +43,17 @@ class StringTests: XCTestCase {
         XCTAssertEqual(__FILE__.absolutePathRepresentation(), __FILE__, "absolutePathRepresentation() should return the caller if it's already an absolute path")
     }
 
-    func testParseLineBreaks() {
-        XCTAssertEqual("a\nbc\nd\n".lineBreaks(), [-1, 1, 4, 6], "should parse line breaks")
-    }
-
-    func testFilteredSubstring() {
-        let expected = "public func myFunc()"
-        let end = countElements(expected) + 4 // 4 == 2 spaces before + 2 characters after (until newline)
-        let actual = ("  \(expected) {\n}" as NSString).filteredSubstring(0, end: end)
-        XCTAssertEqual(expected, actual, "should extract function declaration from source text")
+    func testParseDeclaration() {
+        let dict = [
+            "key.kind": "source.lang.swift.decl.class",
+            "key.offset": Int64(24),
+            "key.bodyoffset": Int64(32),
+            "key.annotated_decl": "",
+            "key.typename": "ClassA.Type"
+        ] as XPCDictionary
+        // This string is a regression test for https://github.com/jpsim/SourceKitten/issues/35 .
+        let file = File(contents: "/**\n　ほげ\n*/\nclass ClassA {\n}\n")
+        XCTAssertEqual("class ClassA", file.parseDeclaration(dict)!, "should extract declaration from source text")
     }
 
     func testGenerateDocumentedTokenOffsets() {
@@ -59,41 +62,15 @@ class StringTests: XCTestCase {
         XCTAssertEqual(fileContents.documentedTokenOffsets(syntaxMap), [16], "should generate documented token offsets")
     }
 
+    func testDocumentedTokenOffsetsWithSubscript() {
+        let file = File(path: fixturesDirectory + "Subscript.swift")!
+        let syntaxMap = SyntaxMap(file: file)
+        XCTAssertEqual(file.contents.documentedTokenOffsets(syntaxMap), [54], "should generate documented token offsets")
+    }
+
     func testGenerateDocumentedTokenOffsetsEmpty() {
         let fileContents = "// Comment\nlet global = 0"
         let syntaxMap = SyntaxMap(file: File(contents: fileContents))
         XCTAssertEqual(fileContents.documentedTokenOffsets(syntaxMap).count, 0, "shouldn't detect any documented token offsets when there are none")
-    }
-
-    func testIsSwiftDeclarationKind() {
-        let positives = ([
-            .ClassMethod,
-            .ClassVariable,
-            .Class,
-            .Constructor,
-            .Destructor,
-            .Global,
-            .EnumElement,
-            .Enum,
-            .Extension,
-            .FreeFunction,
-            .Method,
-            .InstanceVariable,
-            .LocalVariable,
-            .Parameter,
-            .Protocol,
-            .StaticMethod,
-            .StaticVariable,
-            .Struct,
-            .Subscript,
-            .TypeAlias
-        ] as [SwiftDeclarationKind]).map { $0.rawValue }
-        for positive in positives {
-            XCTAssertTrue(isSwiftDeclarationKind(positive), "\(positive) should be considered a declaration kind")
-        }
-        let negatives: [String?] = [nil, "", ".source.lang.swift.decl."]
-        for negative in negatives {
-            XCTAssertFalse(isSwiftDeclarationKind(negative), "\(negative) shouldn't be considered a declaration kind")
-        }
     }
 }

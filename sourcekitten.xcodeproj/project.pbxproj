@@ -40,7 +40,7 @@
 		E8A18A3F1A592246000362B7 /* SwiftDocs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A18A3E1A592246000362B7 /* SwiftDocs.swift */; };
 		E8AB1A2E1A649F2100452012 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8AB1A2D1A649F2100452012 /* libclang.dylib */; };
 		E8AB1A301A64A21400452012 /* ClangTranslationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AB1A2F1A64A21400452012 /* ClangTranslationUnitTests.swift */; };
-		E8AE53C71A5B5FCA0092D24A /* NSString+SourceKitten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AE53C61A5B5FCA0092D24A /* NSString+SourceKitten.swift */; };
+		E8AE53C71A5B5FCA0092D24A /* String+SourceKitten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */; };
 		E8AE53C91A5B600D0092D24A /* SequenceType+IndexBefore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AE53C81A5B600D0092D24A /* SequenceType+IndexBefore.swift */; };
 		E8C9EA041A5C986A00A6D4D1 /* StructureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C9EA031A5C986A00A6D4D1 /* StructureTests.swift */; };
 		E8C9EA081A5C99C400A6D4D1 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8C9EA071A5C99C400A6D4D1 /* StringTests.swift */; };
@@ -161,7 +161,7 @@
 		E8A18A3E1A592246000362B7 /* SwiftDocs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDocs.swift; sourceTree = "<group>"; usesTabs = 0; };
 		E8AB1A2D1A649F2100452012 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib; sourceTree = DEVELOPER_DIR; };
 		E8AB1A2F1A64A21400452012 /* ClangTranslationUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClangTranslationUnitTests.swift; sourceTree = "<group>"; };
-		E8AE53C61A5B5FCA0092D24A /* NSString+SourceKitten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+SourceKitten.swift"; sourceTree = "<group>"; };
+		E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SourceKitten.swift"; sourceTree = "<group>"; };
 		E8AE53C81A5B600D0092D24A /* SequenceType+IndexBefore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SequenceType+IndexBefore.swift"; sourceTree = "<group>"; };
 		E8C9EA031A5C986A00A6D4D1 /* StructureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructureTests.swift; sourceTree = "<group>"; };
 		E8C9EA071A5C99C400A6D4D1 /* StringTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
@@ -338,7 +338,7 @@
 				E84763691A5A0651000EAE22 /* File.swift */,
 				E8A18A3A1A58971D000362B7 /* Language.swift */,
 				E8241CA41A5E01A10047687E /* Module.swift */,
-				E8AE53C61A5B5FCA0092D24A /* NSString+SourceKitten.swift */,
+				E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */,
 				E83748C21A5BCD7900862B1B /* OffsetMap.swift */,
 				E86847391A587B4D0043DC65 /* Request.swift */,
 				E8AE53C81A5B600D0092D24A /* SequenceType+IndexBefore.swift */,
@@ -571,7 +571,7 @@
 				E89291A91A5B800300D91568 /* SwiftDeclarationKind.swift in Sources */,
 				E83748C31A5BCD7900862B1B /* OffsetMap.swift in Sources */,
 				E8DEEB141A6313070001BBD1 /* Sequence+Compact.swift in Sources */,
-				E8AE53C71A5B5FCA0092D24A /* NSString+SourceKitten.swift in Sources */,
+				E8AE53C71A5B5FCA0092D24A /* String+SourceKitten.swift in Sources */,
 				E852418F1A5F4FB3007099FB /* Dictionary+Merge.swift in Sources */,
 				E80F23691A5CB01A00FD2352 /* SyntaxKind.swift in Sources */,
 				E847636A1A5A0651000EAE22 /* File.swift in Sources */,

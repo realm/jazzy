@@ -15,6 +15,17 @@ None.
   [JP Simard](https://github.com/jpsim)
   [#30](https://github.com/jpsim/SourceKitten/issues/30)
 
+* Fixed out-of-bounds exception and inaccurate parsed declarations when using
+  multibyte characters.  
+  [JP Simard](https://github.com/jpsim)
+  [#35](https://github.com/jpsim/SourceKitten/issues/35)
+
+* Fixed parsing issues with keyword functions such as `subscript`, `init` and
+  `deinit`.  
+  [JP Simard](https://github.com/jpsim)
+  [#27](https://github.com/jpsim/SourceKitten/issues/27)
+
+
 ## 0.3.0
 
 ##### Breaking

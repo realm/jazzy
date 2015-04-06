@@ -257,22 +257,7 @@
           "key.nameoffset" : 1802,
           "key.annotated_decl" : "<Declaration>init(style: <Type usr=\"s:OC7Bicycle7Bicycle5Style\">Style<\/Type>, gearing: <Type usr=\"s:OC7Bicycle7Bicycle7Gearing\">Gearing<\/Type>, handlebar: <Type usr=\"s:OC7Bicycle7Bicycle9Handlebar\">Handlebar<\/Type>, frameSize centimeters: <Type usr=\"s:Si\">Int<\/Type>)<\/Declaration>",
           "key.substructure" : [
-            {
-              "key.kind" : "source.lang.swift.decl.var.local",
-              "key.offset" : 1807,
-              "key.related_decls" : [
-                {
-                  "key.annotated_decl" : "<RelatedName usr=\"s:vC7Bicycle7Bicycle5styleOS0_5Style\">style<\/RelatedName>"
-                }
-              ],
-              "key.parsed_declaration" : "init(style: Style, gearing: Gearing, handlebar: Handlebar, frameSize centimeters: Int)",
-              "key.annotated_decl" : "<Declaration>let style: <Type usr=\"s:C7Bicycle7Bicycle\">Bicycle<\/Type>.<Type usr=\"s:OC7Bicycle7Bicycle5Style\">Style<\/Type><\/Declaration>",
-              "key.length" : 5,
-              "key.typename" : "Bicycle.Style",
-              "key.name" : "style",
-              "key.usr" : "s:vFC7Bicycle7BicyclecFMS0_FT5styleOS0_5Style7gearingOS0_7Gearing9handlebarOS0_9Handlebar9frameSizeSi_S0_L_5styleS1_",
-              "key.filepath" : "Bicycle.swift"
-            }
+
           ],
           "key.filepath" : "Bicycle.swift"
         },

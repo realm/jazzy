@@ -1,0 +1,36 @@
+{
+  "key.substructure" : [
+    {
+      "key.kind" : "source.lang.swift.decl.struct",
+      "key.offset" : 7,
+      "key.parsed_declaration" : "struct VoidStruct",
+      "key.namelength" : 10,
+      "key.bodyoffset" : 19,
+      "key.bodylength" : 113,
+      "key.length" : 10,
+      "key.name" : "VoidStruct",
+      "key.typename" : "VoidStruct.Type",
+      "key.usr" : "s:V9Subscript10VoidStruct",
+      "key.nameoffset" : 7,
+      "key.annotated_decl" : "<Declaration>struct VoidStruct<\/Declaration>",
+      "key.substructure" : [
+        {
+          "key.kind" : "source.lang.swift.decl.function.subscript",
+          "key.offset" : 54,
+          "key.doc.full_as_xml" : "<Other file=\"Subscript.swift\" line=\"3\" column=\"5\"><Name>subscript(_:)<\/Name><USR>s:sV9Subscript10VoidStruct9subscriptFSST_<\/USR><Declaration>subscript (key: String) -&gt; () { get set }<\/Declaration><Abstract><Para>Returns or sets Void.<\/Para><\/Abstract><\/Other>",
+          "key.parsed_declaration" : "subscript(key: String) -> ()",
+          "key.annotated_decl" : "<Declaration>subscript (key: <Type usr=\"s:SS\">String<\/Type>) -&gt; () { get set }<\/Declaration>",
+          "key.length" : 9,
+          "key.typename" : "(String) -> ()",
+          "key.name" : "subscript(_:)",
+          "key.usr" : "s:sV9Subscript10VoidStruct9subscriptFSST_",
+          "key.filepath" : "Subscript.swift"
+        }
+      ],
+      "key.filepath" : "Subscript.swift"
+    }
+  ],
+  "key.offset" : 0,
+  "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
+  "key.length" : 134
+}
