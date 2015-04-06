@@ -30,6 +30,35 @@ class StructureTests: XCTestCase {
             "should generate the same structure for a file as raw text")
     }
 
+    func testEnum() {
+        let structure = Structure(file: File(contents: "enum MyEnum { case First }"))
+        let expectedStructure = [
+            "key.substructure": [
+                [
+                    "key.kind": "source.lang.swift.decl.enum",
+                    "key.offset": 0,
+                    "key.nameoffset": 5,
+                    "key.namelength": 6,
+                    "key.bodyoffset": 13,
+                    "key.bodylength": 12,
+                    "key.length": 26,
+                    "key.substructure": [
+                    // TODO: Uncomment this once rdar://18845613 is fixed.
+                    //    [
+                    //        "key.kind": "source.lang.swift.decl.enumelement",
+                    //        "key.name": "First"
+                    //    ]
+                    ],
+                    "key.name": "MyEnum"
+                ]
+            ],
+            "key.offset": 0,
+            "key.diagnostic_stage": "source.diagnostic.stage.swift.parse",
+            "key.length": 26
+        ]
+        XCTAssertEqual(toAnyObject(structure.dictionary), expectedStructure, "should generate expected structure")
+    }
+
     func testStructurePrintValidJSON() {
         let structure = Structure(file: File(contents: "struct A { func b() {} }"))
         let expectedStructure = [
