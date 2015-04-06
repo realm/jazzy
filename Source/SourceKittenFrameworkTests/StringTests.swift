@@ -43,6 +43,19 @@ class StringTests: XCTestCase {
         XCTAssertEqual(__FILE__.absolutePathRepresentation(), __FILE__, "absolutePathRepresentation() should return the caller if it's already an absolute path")
     }
 
+    func testIsTokenDocumentable() {
+        let source = "struct A { subscript(key: String) -> Void { return () } }"
+        let actual = SyntaxMap(file: File(contents: source)).tokens.filter {
+            source.isTokenDocumentable($0)
+        }
+        let expected = [
+            SyntaxToken(type: SyntaxKind.Identifier.rawValue, offset: 7, length: 1), // `A`
+            SyntaxToken(type: SyntaxKind.Keyword.rawValue, offset: 11, length: 9),   // `subscript`
+            SyntaxToken(type: SyntaxKind.Identifier.rawValue, offset: 21, length: 3) // `key`
+        ]
+        XCTAssertEqual(actual, expected, "should detect documentable tokens")
+    }
+
     func testParseDeclaration() {
         let dict = [
             "key.kind": "source.lang.swift.decl.class",

@@ -49,3 +49,10 @@ Returns true if `lhs` SyntaxToken is equal to `rhs` SyntaxToken.
 public func ==(lhs: SyntaxToken, rhs: SyntaxToken) -> Bool {
     return (lhs.type == rhs.type) && (lhs.offset == rhs.offset) && (lhs.length == rhs.length)
 }
+
+// MARK: Printable
+
+extension SyntaxToken: Printable {
+    /// A textual JSON representation of `SyntaxToken`.
+    public var description: String { return toJSON(dictionaryValue) }
+}
