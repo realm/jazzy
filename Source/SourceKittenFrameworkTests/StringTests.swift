@@ -86,4 +86,9 @@ class StringTests: XCTestCase {
         let syntaxMap = SyntaxMap(file: File(contents: fileContents))
         XCTAssertEqual(fileContents.documentedTokenOffsets(syntaxMap).count, 0, "shouldn't detect any documented token offsets when there are none")
     }
+
+    func testSubstringWithByteRange() {
+        XCTAssertEqual(("😄123" as String).substringWithByteRange(start: 0, length: 4)!, "😄" as String)
+        XCTAssertEqual(("😄123" as String).substringWithByteRange(start: 4, length: 1)!, "1" as String)
+    }
 }

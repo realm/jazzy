@@ -48,7 +48,7 @@ extension String {
     public func isTokenDocumentable(token: SyntaxToken) -> Bool {
         if token.type == SyntaxKind.Keyword.rawValue {
             let keywordFunctions = ["subscript", "init", "deinit"]
-            return flatMap(substringWithByteRange(token.offset, end: token.offset + token.length)) {
+            return flatMap(substringWithByteRange(start: token.offset, length: token.length)) {
                 contains(keywordFunctions, $0)
             } ?? false
         }
@@ -84,11 +84,11 @@ extension String {
     :param: start Starting byte offset.
     :param: end   Ending byte offset.
     */
-    internal func substringWithByteRange(start: Int, end: Int) -> String? {
+    public func substringWithByteRange(# start: Int, length: Int) -> String? {
         let bytes = utf8
         var buffer = [UInt8]()
         var byteIndex = advance(bytes.startIndex, start)
-        for _ in start..<end {
+        for _ in 0..<length {
             buffer.append(bytes[byteIndex])
             byteIndex = byteIndex.successor()
         }
