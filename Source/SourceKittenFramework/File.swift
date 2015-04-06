@@ -145,7 +145,7 @@ public struct File {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
         for offset in offsetMap.keys.array.reverse() { // Do this in reverse to insert the doc at the correct offset
             let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!)
-            if isSwiftDeclarationKind(SwiftDocKey.getKind(response)) {
+            if let kind = flatMap(SwiftDocKey.getKind(response), { SwiftDeclarationKind(rawValue: $0) }) {
                 if let inserted = insertDoc(response, parent: dictionary, offset: Int64(offsetMap[offset]!)) { // Safe to force unwrap
                     dictionary = inserted
                 }
@@ -188,7 +188,7 @@ public struct File {
                 if let markName = markNameFromDictionary(dictionary) {
                     return [SwiftDocKey.Name.rawValue: markName]
                 }
-            } else if kind != SwiftDeclarationKind.Parameter.rawValue && isSwiftDeclarationKind(kind) {
+            } else if kind != SwiftDeclarationKind.VarParameter.rawValue && SwiftDeclarationKind(rawValue: kind) != nil {
                 // Update if kind is a declaration (but not a parameter)
                 var updateDict = Request.sendCursorInfoRequest(cursorInfoRequest,
                     atOffset: SwiftDocKey.getNameOffset(dictionary)!) ?? XPCDictionary()
@@ -311,8 +311,8 @@ Returns true if the dictionary represents a source declaration or a mark-style c
 */
 private func isDeclarationOrCommentMark(dictionary: XPCDictionary) -> Bool {
     if let kind = SwiftDocKey.getKind(dictionary) {
-        return kind != SwiftDeclarationKind.Parameter.rawValue &&
-            (kind == SyntaxKind.CommentMark.rawValue || isSwiftDeclarationKind(kind))
+        return kind != SwiftDeclarationKind.VarParameter.rawValue &&
+            (kind == SyntaxKind.CommentMark.rawValue || SwiftDeclarationKind(rawValue: kind) != nil)
     }
     return false
 }

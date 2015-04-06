@@ -43,7 +43,7 @@ class SyntaxTests: XCTestCase {
                 (.Identifier, 7, 1),
                 (.Keyword, 11, 9),
                 (.Identifier, 21, 5),
-                (.TypeID, 28, 3),
+                (.Typeidentifier, 28, 3),
                 (.Keyword, 41, 6)
             ]
         )

@@ -7,25 +7,36 @@
 //
 
 /// Syntax kind values.
+/// Found in `strings SourceKitService | grep source.lang.swift.syntaxtype.`.
 public enum SyntaxKind: String {
-    /// Represents a comment mark.
+    /// `argument`.
+    case Argument = "source.lang.swift.syntaxtype.argument"
+    /// `attribute.builtin`.
+    case AttributeBuiltin = "source.lang.swift.syntaxtype.attribute.builtin"
+    /// `attribute.id`.
+    case AttributeID = "source.lang.swift.syntaxtype.attribute.id"
+    /// `buildconfig.id`.
+    case BuildconfigID = "source.lang.swift.syntaxtype.buildconfig.id"
+    /// `buildconfig.keyword`.
+    case BuildconfigKeyword = "source.lang.swift.syntaxtype.buildconfig.keyword"
+    /// `comment`.
+    case Comment = "source.lang.swift.syntaxtype.comment"
+    /// `comment.mark`.
     case CommentMark = "source.lang.swift.syntaxtype.comment.mark"
-    /// Represents an identifier.
-    case Identifier  = "source.lang.swift.syntaxtype.identifier"
-    /// Represents a comment.
-    case Comment     = "source.lang.swift.syntaxtype.comment"
-    /// Represents a comment URL.
-    case CommentURL  = "source.lang.swift.syntaxtype.comment.url"
-    /// Represents a keyword.
-    case Keyword     = "source.lang.swift.syntaxtype.keyword"
-    /// Represents a built-in attribute.
-    case BuiltIn     = "source.lang.swift.syntaxtype.attribute.builtin"
-    /// Represents a string literal.
-    case _String     = "source.lang.swift.syntaxtype.string"
-    /// Represents a type identifier.
-    case TypeID      = "source.lang.swift.syntaxtype.typeidentifier"
-    /// Represents a number literal.
-    case Number      = "source.lang.swift.syntaxtype.number"
-    /// Represents an attribute.
-    case Attribute   = "source.lang.swift.syntaxtype.attribute.id"
+    /// `comment.url`.
+    case CommentURL = "source.lang.swift.syntaxtype.comment.url"
+    /// `identifier`.
+    case Identifier = "source.lang.swift.syntaxtype.identifier"
+    /// `keyword`.
+    case Keyword = "source.lang.swift.syntaxtype.keyword"
+    /// `number`.
+    case Number = "source.lang.swift.syntaxtype.number"
+    /// `parameter`.
+    case Parameter = "source.lang.swift.syntaxtype.parameter"
+    /// `string`.
+    case _String = "source.lang.swift.syntaxtype.string"
+    /// `string_interpolation_anchor`.
+    case StringInterpolationAnchor = "source.lang.swift.syntaxtype.string_interpolation_anchor"
+    /// `typeidentifier`.
+    case Typeidentifier = "source.lang.swift.syntaxtype.typeidentifier"
 }
