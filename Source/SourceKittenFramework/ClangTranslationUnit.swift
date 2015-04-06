@@ -51,7 +51,7 @@ public struct ClangTranslationUnit {
     :param: path                Path to run `xcodebuild` from. Uses current path by default.
     */
     public init?(headerFiles: [String], xcodeBuildArguments: [String], inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
-        let xcodeBuildOutput = runXcodeBuildDryRun(xcodeBuildArguments, inPath: path) ?? ""
+        let xcodeBuildOutput = runXcodeBuild(xcodeBuildArguments + ["-dry-run"], inPath: path) ?? ""
         if let clangArguments = parseCompilerArguments(xcodeBuildOutput, language: .ObjC, moduleName: nil) {
             self.init(headerFiles: headerFiles, compilerArguments: clangArguments)
             return

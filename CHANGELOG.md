@@ -27,6 +27,10 @@ None.
   [JP Simard](https://github.com/jpsim)
   [#27](https://github.com/jpsim/SourceKitten/issues/27)
 
+* Fixed issues where USR wasn't accurate because dependencies couldn't be
+  resolved.  
+  [JP Simard](https://github.com/jpsim)
+
 
 ## 0.3.0
 
