@@ -53,7 +53,9 @@ public struct File {
         }
         return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
             let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { Int($0) }
-            return self.contents.substringLinesWithByteRange(start: Int(start), end: end)?
+            let start = Int(start)
+            let length = (end ?? start) - start
+            return self.contents.substringLinesWithByteRange(start: start, length: length)?
                 .stringByTrimmingWhitespaceAndOpeningCurlyBrace()
         }
     }
@@ -76,7 +78,8 @@ public struct File {
                     return Int(bodyOffset + bodyLength)
                 }
             } ?? start
-            return self.contents.lineRangeWithByteRange(start: start, end: end)
+            let length = end - start
+            return self.contents.lineRangeWithByteRange(start: start, length: length)
         }
     }
 
@@ -107,7 +110,7 @@ public struct File {
     :param: dictionary        Dictionary to process.
     :param: cursorInfoRequest Cursor.Info request to get declaration information.
     */
-    public func processDictionary(var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t? = nil) -> XPCDictionary {
+    public func processDictionary(var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t? = nil, syntaxMap: SyntaxMap? = nil) -> XPCDictionary {
         if let cursorInfoRequest = cursorInfoRequest {
             dictionary = merge(
                 dictionary,
@@ -129,10 +132,15 @@ public struct File {
         // Parse `key.doc.full_as_xml` and add to dictionary
         if let parsedXMLDocs = flatMap(SwiftDocKey.getFullXMLDocs(dictionary), { parseFullXMLDocs($0) }) {
             dictionary = merge(dictionary, parsedXMLDocs)
+
+            // Parse documentation comment and add to dictionary
+            if let commentBody = flatMap(syntaxMap, { self.getDocumentationCommentBody(dictionary, syntaxMap: $0) }) {
+                dictionary[SwiftDocKey.DocumentationComment.rawValue] = commentBody
+            }
         }
 
         // Update substructure
-        if let substructure = newSubstructure(dictionary, cursorInfoRequest: cursorInfoRequest) {
+        if let substructure = newSubstructure(dictionary, cursorInfoRequest: cursorInfoRequest, syntaxMap: syntaxMap) {
             dictionary[SwiftDocKey.Substructure.rawValue] = substructure
         }
         return dictionary
@@ -146,10 +154,10 @@ public struct File {
     :param: documentedTokenOffsets Offsets that are likely documented.
     :param: cursorInfoRequest      Cursor.Info request to get declaration information.
     */
-    internal func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t) -> XPCDictionary {
+    internal func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t, syntaxMap: SyntaxMap) -> XPCDictionary {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
         for offset in offsetMap.keys.array.reverse() { // Do this in reverse to insert the doc at the correct offset
-            let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!)
+            let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!, cursorInfoRequest: nil, syntaxMap: syntaxMap)
             if let kind = flatMap(SwiftDocKey.getKind(response), { SwiftDeclarationKind(rawValue: $0) }) {
                 if let inserted = insertDoc(response, parent: dictionary, offset: Int64(offsetMap[offset]!)) { // Safe to force unwrap
                     dictionary = inserted
@@ -160,22 +168,22 @@ public struct File {
     }
 
     /**
-    Update input dictionary's substructure by running `processDictionary(_:cursorInfoRequest:)` on
+    Update input dictionary's substructure by running `processDictionary(_:cursorInfoRequest:syntaxMap:)` on
     its elements, only keeping comment marks and declarations.
 
     :param: dictionary        Input dictionary to process its substructure.
     :param: cursorInfoRequest Cursor.Info request to get declaration information.
 
     :returns: A copy of the input dictionary's substructure processed by running
-              `processDictionary(_:cursorInfoRequest:)` on its elements, only keeping comment marks
+              `processDictionary(_:cursorInfoRequest:syntaxMap:)` on its elements, only keeping comment marks
               and declarations.
     */
-    private func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) -> XPCArray? {
+    private func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?, syntaxMap: SyntaxMap?) -> XPCArray? {
         return SwiftDocKey.getSubstructure(dictionary)?
             .filter({
                 return isDeclarationOrCommentMark($0 as XPCDictionary)
             }).map {
-                return self.processDictionary($0 as XPCDictionary, cursorInfoRequest: cursorInfoRequest)
+                return self.processDictionary($0 as XPCDictionary, cursorInfoRequest: cursorInfoRequest, syntaxMap: syntaxMap)
         }
     }
 
@@ -279,6 +287,25 @@ public struct File {
         let hasOffset               = SwiftDocKey.getOffset(dictionary) != nil
         let isntExtension           = SwiftDocKey.getKind(dictionary) != SwiftDeclarationKind.Extension.rawValue
         return sameFile && hasTypeName && hasAnnotatedDeclaration && hasOffset && isntExtension
+    }
+
+    /**
+    Parses `dictionary`'s documentation comment body.
+
+    :param: dictionary Dictionary to parse.
+    :param: syntaxMap  SyntaxMap for current file.
+    
+    :returns: `dictionary`'s documentation comment body as a string, without any documentation
+              syntax (`/** ... */` or `/// ...`).
+    */
+    public func getDocumentationCommentBody(dictionary: XPCDictionary, syntaxMap: SyntaxMap) -> String? {
+        return flatMap(SwiftDocKey.getOffset(dictionary)) { offset in
+            return flatMap(syntaxMap.commentRangeBeforeOffset(Int(offset))) { commentByteRange in
+                return flatMap(self.contents.byteRangeToNSRange(start: commentByteRange.start, length: commentByteRange.length)) { nsRange in
+                    return self.contents.commentBody(range: nsRange)
+                }
+            }
+        }
     }
 }
 

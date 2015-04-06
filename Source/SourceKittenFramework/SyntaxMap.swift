@@ -68,6 +68,24 @@ public struct SyntaxMap {
     public init(file: File) {
         self.init(sourceKitResponse: Request.EditorOpen(file).send())
     }
+
+    /**
+    Returns the range of the last contiguous comment-like block from the tokens in `self` prior to
+    `offset`.
+    
+    :param: offset Last possible byte offset of the range's start.
+    */
+    public func commentRangeBeforeOffset(offset: Int) -> (start: Int, length: Int)? {
+        let tokensBeforeOffset = tokens.filter { $0.offset < offset }
+        let commentTokensImmediatelyPrecedingOffset = filterLastContiguous(tokensBeforeOffset) {
+            SyntaxKind.isCommentLike($0.type)
+        }
+        return flatMap(commentTokensImmediatelyPrecedingOffset.first) { firstToken in
+            return flatMap(commentTokensImmediatelyPrecedingOffset.last) { lastToken in
+                return (firstToken.offset, lastToken.offset + lastToken.length - firstToken.offset)
+            }
+        }
+    }
 }
 
 // MARK: Printable
