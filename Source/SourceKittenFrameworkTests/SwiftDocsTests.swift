@@ -8,17 +8,34 @@
 
 import Foundation
 import SourceKittenFramework
-import SwiftXPC
 import XCTest
 
+func compareDocsWithFixturesName(name: String) {
+    let swiftFilePath = fixturesDirectory + name + ".swift"
+    let jsonFilePath  = fixturesDirectory + name + ".json"
+
+    let docs = SwiftDocs(file: File(path: swiftFilePath)!, arguments: ["-j4", swiftFilePath])
+
+    let escapedFixturesDirectory = fixturesDirectory.stringByReplacingOccurrencesOfString("/", withString: "\\/")
+    let comparisonString = docs.description.stringByReplacingOccurrencesOfString(escapedFixturesDirectory, withString: "")
+
+    func docsObject(docsString: String) -> NSDictionary {
+        return NSJSONSerialization.JSONObjectWithData(docsString.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: nil) as NSDictionary
+    }
+
+    XCTAssertEqual(
+        docsObject(comparisonString),
+        docsObject(File(path: jsonFilePath)!.contents),
+        "should generate expected docs for Swift file"
+    )
+}
+
 class SwiftDocsTests: XCTestCase {
-    func testSingleSwiftFileDocs() {
-        let docs = SwiftDocs(file: File(path: fixturesDirectory + "Bicycle.swift")!, arguments: ["-j4", fixturesDirectory + "Bicycle.swift"])
-        let escapedFixturesDirectory = fixturesDirectory.stringByReplacingOccurrencesOfString("/", withString: "\\/")
-        let comparisonString = (docs.description + "\n").stringByReplacingOccurrencesOfString(escapedFixturesDirectory, withString: "") as NSString
-        let expected = File(path: fixturesDirectory + "Bicycle.json")!.contents
-        let actualDocsObject = NSJSONSerialization.JSONObjectWithData(comparisonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: nil)! as NSDictionary
-        let expectedDocsObject = NSJSONSerialization.JSONObjectWithData(expected.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: nil)! as NSDictionary
-        XCTAssertEqual(actualDocsObject, expectedDocsObject, "should generate expected docs for Swift file")
+    func testSubscript() {
+        compareDocsWithFixturesName("Subscript")
+    }
+
+    func testBicycle() {
+        compareDocsWithFixturesName("Bicycle")
     }
 }

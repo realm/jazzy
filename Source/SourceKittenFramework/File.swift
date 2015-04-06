@@ -14,9 +14,7 @@ public struct File {
     /// File path. Nil if initialized directly with `File(contents:)`.
     public let path: String?
     /// File contents.
-    public let contents: NSString
-    /// Array of newline offsets in contents.
-    public let lineBreaks: [Int]
+    public let contents: String
 
     /**
     Failable initializer by path. Fails if file contents could not be read as a UTF8 string.
@@ -25,9 +23,8 @@ public struct File {
     */
     public init?(path: String) {
         self.path = path
-        if let contents = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil) {
+        if let contents = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil) as String? {
             self.contents = contents
-            lineBreaks = contents.lineBreaks()
         } else {
             fputs("Could not read contents of `\(path)`\n", stderr)
             return nil
@@ -39,9 +36,8 @@ public struct File {
 
     :param: contents File contents.
     */
-    public init(contents: NSString) {
+    public init(contents: String) {
         self.contents = contents
-        lineBreaks = contents.lineBreaks()
     }
 
     /**
@@ -51,18 +47,19 @@ public struct File {
 
     :returns: Source declaration if successfully parsed.
     */
-    private func parseDeclaration(dictionary: XPCDictionary) -> String? {
+    public func parseDeclaration(dictionary: XPCDictionary) -> String? {
         if !shouldParseDeclaration(dictionary) {
             return nil
         }
-        let offset = Int(SwiftDocKey.getOffset(dictionary)!)
-        let lineBreakIndexBeforeOffset = indexBefore(offset, inSequence: lineBreaks) ?? 0
-        let previousLineBreakOffset = lineBreaks[lineBreakIndexBeforeOffset] + 1
-        if let bodyOffset = SwiftDocKey.getBodyOffset(dictionary) {
-            return contents.filteredSubstring(previousLineBreakOffset, end: Int(bodyOffset))
+        if let start = SwiftDocKey.getOffset(dictionary) {
+            var end: Int? = nil
+            if let bodyOffset = SwiftDocKey.getBodyOffset(dictionary) {
+                end = Int(bodyOffset)
+            }
+            return contents.substringLinesWithByteRange(Int(start), end: end)?
+                .stringByTrimmingWhitespaceAndOpeningCurlyBrace()
         }
-        let nextLineBreakOffset = (lineBreakIndexBeforeOffset + 1 < lineBreaks.count) ? lineBreaks[lineBreakIndexBeforeOffset + 1] : lineBreaks.last!
-        return contents.filteredSubstring(previousLineBreakOffset, end: nextLineBreakOffset + 1)
+        return nil
     }
 
     /**
@@ -91,9 +88,6 @@ public struct File {
 
     :param: dictionary        Dictionary to process.
     :param: cursorInfoRequest Cursor.Info request to get declaration information.
-
-    :returns: A copy of the input dictionary with comment mark names, cursor.info information and
-              parsed declarations for the top-level of the input dictionary and its substructures.
     */
     public func processDictionary(var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t? = nil) -> XPCDictionary {
         if let cursorInfoRequest = cursorInfoRequest {
@@ -122,9 +116,6 @@ public struct File {
     :param: dictionary             Dictionary to insert new docs into.
     :param: documentedTokenOffsets Offsets that are likely documented.
     :param: cursorInfoRequest      Cursor.Info request to get declaration information.
-
-    :returns: A copy of the input dictionary with additional cursorinfo information at the given
-              `documentationTokenOffsets` that haven't yet been documented.
     */
     internal func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t) -> XPCDictionary {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
@@ -152,10 +143,10 @@ public struct File {
     */
     private func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) -> XPCArray? {
         return SwiftDocKey.getSubstructure(dictionary)?
-        .filter({
-            return isDeclarationOrCommentMark($0 as XPCDictionary)
-        }).map {
-            return self.processDictionary($0 as XPCDictionary, cursorInfoRequest: cursorInfoRequest)
+            .filter({
+                return isDeclarationOrCommentMark($0 as XPCDictionary)
+            }).map {
+                return self.processDictionary($0 as XPCDictionary, cursorInfoRequest: cursorInfoRequest)
         }
     }
 
@@ -164,8 +155,6 @@ public struct File {
 
     :param: dictionary        Dictionary to update.
     :param: cursorInfoRequest Cursor.Info request to get declaration information.
-
-    :returns: An updated copy of the input dictionary with comment mark names and cursor.info information.
     */
     private func dictWithCommentMarkNamesCursorInfo(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t) -> XPCDictionary? {
         if let kind = SwiftDocKey.getKind(dictionary) {
@@ -197,17 +186,8 @@ public struct File {
     :returns: True if a doc should be inserted in the parent at the provided offset.
     */
     private func shouldInsert(parent: XPCDictionary, offset: Int64) -> Bool {
-        if offset == 0 {
-            return true
-        }
-        if shouldTreatAsSameFile(parent) {
-            if let rangeStart = SwiftDocKey.getOffset(parent) {
-                if rangeStart == offset {
-                    return true
-                }
-            }
-        }
-        return false
+        return (offset == 0) ||
+            (shouldTreatAsSameFile(parent) && SwiftDocKey.getOffset(parent) == offset)
     }
 
     /**
@@ -253,27 +233,24 @@ public struct File {
     Returns true if path is nil or if path is equal to `key.filepath` in the input dictionary.
 
     :param: dictionary Dictionary to parse.
-
-    :returns: True if path is nil or if path is equal to `key.filepath` in the input dictionary.
     */
     internal func shouldTreatAsSameFile(dictionary: XPCDictionary) -> Bool {
-	return path == SwiftDocKey.getFilePath(dictionary)
+        return path == SwiftDocKey.getFilePath(dictionary)
     }
-}
 
-/**
-Returns true if the input dictionary contains a parseable declaration.
+    /**
+    Returns true if the input dictionary contains a parseable declaration.
 
-:param: dictionary Dictionary to parse.
-
-:returns: True if the input dictionary contains a parseable declaration.
-*/
-private func shouldParseDeclaration(dictionary: XPCDictionary) -> Bool {
-    let hasTypeName = SwiftDocKey.getTypeName(dictionary) != nil
-    let hasAnnotatedDeclaration = SwiftDocKey.getAnnotatedDeclaration(dictionary) != nil
-    let hasOffset = SwiftDocKey.getOffset(dictionary) != nil
-    let isntExtension = SwiftDocKey.getKind(dictionary) != SwiftDeclarationKind.Extension.rawValue
-    return hasTypeName && hasAnnotatedDeclaration && hasOffset && isntExtension
+    :param: dictionary Dictionary to parse.
+    */
+    private func shouldParseDeclaration(dictionary: XPCDictionary) -> Bool {
+        let sameFile                = shouldTreatAsSameFile(dictionary)
+        let hasTypeName             = SwiftDocKey.getTypeName(dictionary) != nil
+        let hasAnnotatedDeclaration = SwiftDocKey.getAnnotatedDeclaration(dictionary) != nil
+        let hasOffset               = SwiftDocKey.getOffset(dictionary) != nil
+        let isntExtension           = SwiftDocKey.getKind(dictionary) != SwiftDeclarationKind.Extension.rawValue
+        return sameFile && hasTypeName && hasAnnotatedDeclaration && hasOffset && isntExtension
+    }
 }
 
 /**
