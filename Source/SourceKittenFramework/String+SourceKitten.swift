@@ -153,10 +153,10 @@ extension String {
             var lineRangeStart = 0
             while index < self.endIndex {
                 numberOfLines++
-                index = self.lineRangeForRange(index...index).endIndex
-                if index < range.startIndex {
-                    lineRangeStart = numberOfLines + 1
+                if index <= range.startIndex {
+                    lineRangeStart = numberOfLines
                 }
+                index = self.lineRangeForRange(index...index).endIndex
                 if index > range.endIndex {
                     return (lineRangeStart, numberOfLines)
                 }

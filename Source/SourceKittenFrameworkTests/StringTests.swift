@@ -109,9 +109,9 @@ class StringTests: XCTestCase {
 
     func testLineRangeWithByteRange() {
         let string = "😄\n123"
-        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 0)! == (0, 1))
-        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 5)! == (0, 2))
-        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 6)! == (0, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 0)! == (1, 1))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 5)! == (1, 2))
+        XCTAssert(string.lineRangeWithByteRange(start: 0, end: 6)! == (1, 2))
         XCTAssert(string.lineRangeWithByteRange(start: 6, end: 6)! == (2, 2))
     }
 }
