@@ -11,6 +11,8 @@ import SwiftXPC
 
 /// SourceKit response dictionary keys.
 internal enum SwiftDocKey: String {
+    // MARK: SourceKit Keys
+
     /// Represents a kind (String).
     case Kind                 = "key.kind"
     /// Represents a syntax map (NSData).
@@ -25,12 +27,6 @@ internal enum SwiftDocKey: String {
     case AnnotatedDeclaration = "key.annotated_decl"
     /// Represents a substructure (XPCArray).
     case Substructure         = "key.substructure"
-    /// Represents a parsed declaration (String).
-    case ParsedDeclaration    = "key.parsed_declaration"
-    /// Represents a parsed scope start (Int64).
-    case ParsedScopeStart     = "key.parsed_scope.start"
-    /// Represents a parsed scope start end (Int64).
-    case ParsedScopeEnd       = "key.parsed_scope.end"
     /// Represents a name offset (Int64).
     case NameOffset           = "key.nameoffset"
     /// Represents a name length (Int64).
@@ -45,6 +41,38 @@ internal enum SwiftDocKey: String {
     case Name                 = "key.name"
     /// Represents a diagnostic stage (String).
     case DiagnosticStage      = "key.diagnostic_stage"
+    /// Represents full XML docs (String).
+    case FullXMLDocs          = "key.doc.full_as_xml"
+
+    // MARK: Custom Keys
+
+    /// Represents a parsed declaration (String).
+    case ParsedDeclaration    = "key.parsed_declaration"
+    /// Represents a parsed scope start (Int64).
+    case ParsedScopeStart     = "key.parsed_scope.start"
+    /// Represents a parsed scope start end (Int64).
+    case ParsedScopeEnd       = "key.parsed_scope.end"
+    /// Type of documented token (String).
+    case DocType              = "key.doc.type"
+    /// File where the documented token is located (String).
+    case DocFile              = "key.doc.file"
+    /// Line where the token's declaration begins (Int64).
+    case DocLine              = "key.doc.line"
+    /// Column where the token's declaration begins (Int64).
+    case DocColumn            = "key.doc.column"
+    /// Name of documented token (String).
+    case DocName              = "key.doc.name"
+    /// USR of documented token (String).
+    case DocUSR               = "key.doc.usr"
+    /// Declaration of documented token (String).
+    case DocDeclaration       = "key.doc.declaration"
+    /// Parameters of documented token (XPCArray).
+    case DocParameters        = "key.doc.parameters"
+    /// Discussion documentation of documented token (XPCArray).
+    case DocDiscussion        = "key.doc.discussion"
+    /// Result discussion documentation of documented token (XPCArray).
+    case DocResultDiscussion  = "key.doc.result_discussion"
+
 
     // MARK: Typed SwiftDocKey Getters
 
@@ -223,5 +251,16 @@ internal enum SwiftDocKey: String {
     */
     internal static func getDiagnosticStage(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.DiagnosticStage, dictionary)
+    }
+
+    /**
+    Get full xml docs string from dictionary.
+
+    :param: dictionary Dictionary to get value from.
+
+    :returns: Full xml docs string if successful.
+    */
+    internal static func getFullXMLDocs(dictionary: XPCDictionary) -> String? {
+        return SwiftDocKey.get(.FullXMLDocs, dictionary)
     }
 }

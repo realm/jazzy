@@ -25,6 +25,7 @@
 		E83A0B351A5D382B0041A60A /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B341A5D382B0041A60A /* Version.swift */; };
 		E83A0B371A5D399A0041A60A /* Syntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B361A5D399A0041A60A /* Syntax.swift */; };
 		E83C8E9A1A5CBADD003A8D35 /* SwiftXPC+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C8E991A5CBADD003A8D35 /* SwiftXPC+JSON.swift */; };
+		E84102C21AD268100031D1B8 /* SWXMLHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84102C11AD268100031D1B8 /* SWXMLHash.swift */; };
 		E847636A1A5A0651000EAE22 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84763691A5A0651000EAE22 /* File.swift */; };
 		E84C630C1AD23CF100E6A9CD /* Optional+SourceKitten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84C630B1AD23CF100E6A9CD /* Optional+SourceKitten.swift */; };
 		E852418F1A5F4FB3007099FB /* Dictionary+Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */; };
@@ -147,6 +148,7 @@
 		E83A0B341A5D382B0041A60A /* Version.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Version.swift; sourceTree = "<group>"; };
 		E83A0B361A5D399A0041A60A /* Syntax.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Syntax.swift; sourceTree = "<group>"; };
 		E83C8E991A5CBADD003A8D35 /* SwiftXPC+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftXPC+JSON.swift"; sourceTree = "<group>"; };
+		E84102C11AD268100031D1B8 /* SWXMLHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWXMLHash.swift; sourceTree = "<group>"; };
 		E84763691A5A0651000EAE22 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; usesTabs = 0; };
 		E84C630B1AD23CF100E6A9CD /* Optional+SourceKitten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Optional+SourceKitten.swift"; sourceTree = "<group>"; };
 		E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Merge.swift"; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 				E89291A61A5B7FF800D91568 /* SwiftDocKey.swift */,
 				E8A18A3E1A592246000362B7 /* SwiftDocs.swift */,
 				E83C8E991A5CBADD003A8D35 /* SwiftXPC+JSON.swift */,
+				E84102C11AD268100031D1B8 /* SWXMLHash.swift */,
 				E80F23681A5CB01A00FD2352 /* SyntaxKind.swift */,
 				E8CC8A2C1A587FD300D1FEC7 /* SyntaxMap.swift */,
 				E80F236A1A5CB04100FD2352 /* SyntaxToken.swift */,
@@ -574,6 +577,7 @@
 				E8AE53C71A5B5FCA0092D24A /* String+SourceKitten.swift in Sources */,
 				E852418F1A5F4FB3007099FB /* Dictionary+Merge.swift in Sources */,
 				E80F23691A5CB01A00FD2352 /* SyntaxKind.swift in Sources */,
+				E84102C21AD268100031D1B8 /* SWXMLHash.swift in Sources */,
 				E847636A1A5A0651000EAE22 /* File.swift in Sources */,
 				E834740F1A593B5B00532B9A /* Structure.swift in Sources */,
 				E89291A71A5B7FF800D91568 /* SwiftDocKey.swift in Sources */,
