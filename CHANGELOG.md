@@ -10,6 +10,10 @@ None.
   [JP Simard](https://github.com/jpsim)
   [#198](https://github.com/realm/jazzy/issues/198)
 
+* Parse `doc.full_as_xml`.  
+  [JP Simard](https://github.com/jpsim)
+  [#37](https://github.com/jpsim/SourceKitten/issues/37)
+
 ##### Bug Fixes
 
 * Fixed out-of-bounds exception when parsing the declaration in files starting

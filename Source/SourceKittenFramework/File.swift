@@ -126,6 +126,11 @@ public struct File {
             dictionary[SwiftDocKey.ParsedScopeEnd.rawValue] = Int64(parsedScopeRange.end)
         }
 
+        // Parse `key.doc.full_as_xml` and add to dictionary
+        if let parsedXMLDocs = flatMap(SwiftDocKey.getFullXMLDocs(dictionary), { parseFullXMLDocs($0) }) {
+            dictionary = merge(dictionary, parsedXMLDocs)
+        }
+
         // Update substructure
         if let substructure = newSubstructure(dictionary, cursorInfoRequest: cursorInfoRequest) {
             dictionary[SwiftDocKey.Substructure.rawValue] = substructure
@@ -306,8 +311,6 @@ internal func replaceUIDsWithSourceKitStrings(var dictionary: XPCDictionary) -> 
 Returns true if the dictionary represents a source declaration or a mark-style comment.
 
 :param: dictionary Dictionary to parse.
-
-:returns: True if the dictionary represents a source declaration or a mark-style comment.
 */
 private func isDeclarationOrCommentMark(dictionary: XPCDictionary) -> Bool {
     if let kind = SwiftDocKey.getKind(dictionary) {
@@ -315,4 +318,57 @@ private func isDeclarationOrCommentMark(dictionary: XPCDictionary) -> Bool {
             (kind == SyntaxKind.CommentMark.rawValue || SwiftDeclarationKind(rawValue: kind) != nil)
     }
     return false
+}
+
+/**
+Parse XML from `key.doc.full_as_xml` from `cursor.info` request.
+
+:param: xmlDocs Contents of `key.doc.full_as_xml` from SourceKit.
+
+:returns: XML parsed as an `XPCDictionary`.
+*/
+public func parseFullXMLDocs(xmlDocs: String) -> XPCDictionary? {
+    let cleanXMLDocs = xmlDocs.stringByReplacingOccurrencesOfString("<rawHTML>",  withString: "")
+                              .stringByReplacingOccurrencesOfString("</rawHTML>", withString: "")
+    return flatMap(SWXMLHash.parse(cleanXMLDocs).children.first) { rootXML in
+        var docs = XPCDictionary()
+        docs[SwiftDocKey.DocType.rawValue] = rootXML.element?.name
+        docs[SwiftDocKey.DocFile.rawValue] = rootXML.element?.attributes["file"]
+        docs[SwiftDocKey.DocLine.rawValue] = flatMap(rootXML.element?.attributes["line"]) {
+            Int64(($0 as NSString).integerValue)
+        }
+        docs[SwiftDocKey.DocColumn.rawValue] = flatMap(rootXML.element?.attributes["column"]) {
+            Int64(($0 as NSString).integerValue)
+        }
+        docs[SwiftDocKey.DocName.rawValue] = rootXML["Name"].element?.text
+        docs[SwiftDocKey.DocUSR.rawValue] = rootXML["USR"].element?.text
+        docs[SwiftDocKey.DocDeclaration.rawValue] = rootXML["Declaration"].element?.text
+        let parameters = rootXML["Parameters"].children
+        if parameters.count > 0 {
+            docs[SwiftDocKey.DocParameters.rawValue] = map(parameters) {
+                return [
+                    "name": $0["Name"].element?.text ?? "",
+                    "discussion": childrenAsArray($0["Discussion"]) ?? []
+                ] as XPCDictionary
+            } as XPCArray
+        }
+        docs[SwiftDocKey.DocDiscussion.rawValue] = childrenAsArray(rootXML["Discussion"])
+        docs[SwiftDocKey.DocResultDiscussion.rawValue] = childrenAsArray(rootXML["ResultDiscussion"])
+        return docs
+    }
+}
+
+/**
+Returns an `XPCArray` of `XPCDictionary` items from `indexer` children, if any.
+
+:param: indexer `XMLIndexer` to traverse.
+*/
+private func childrenAsArray(indexer: XMLIndexer) -> XPCArray? {
+    let children = indexer.children
+    if children.count > 0 {
+        return map(compact(map(children, { $0.element }))) {
+            [$0.name: $0.text ?? ""] as XPCDictionary
+        } as XPCArray
+    }
+    return nil
 }

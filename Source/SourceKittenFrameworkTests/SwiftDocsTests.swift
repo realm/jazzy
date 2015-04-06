@@ -38,4 +38,24 @@ class SwiftDocsTests: XCTestCase {
     func testBicycle() {
         compareDocsWithFixturesName("Bicycle")
     }
+
+    func testParseFullXMLDocs() {
+        let xmlDocsString = "<Type file=\"file\" line=\"1\" column=\"2\"><Name>name</Name><USR>usr</USR><Declaration>declaration</Declaration><Abstract><Para>discussion</Para></Abstract><Parameters><Parameter><Name>param1</Name><Direction isExplicit=\"0\">in</Direction><Discussion><Para>param1_discussion</Para></Discussion></Parameter></Parameters><ResultDiscussion><Para>result_discussion</Para></ResultDiscussion></Type>"
+        let parsed = parseFullXMLDocs(xmlDocsString)!
+        let expected: NSDictionary = [
+            "key.doc.type": "Type",
+            "key.doc.file": "file",
+            "key.doc.line": 1,
+            "key.doc.column": 2,
+            "key.doc.name": "name",
+            "key.doc.usr": "usr",
+            "key.doc.declaration": "declaration",
+            "key.doc.parameters": [[
+                "name": "param1",
+                "discussion": [["Para": "param1_discussion"]]
+            ]],
+            "key.doc.result_discussion": [["Para": "result_discussion"]]
+        ]
+        XCTAssertEqual(toAnyObject(parsed), expected)
+    }
 }

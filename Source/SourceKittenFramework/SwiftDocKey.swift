@@ -11,40 +11,68 @@ import SwiftXPC
 
 /// SourceKit response dictionary keys.
 internal enum SwiftDocKey: String {
-    /// Represents a kind (String).
-    case Kind                 = "key.kind"
-    /// Represents a syntax map (NSData).
-    case SyntaxMap            = "key.syntaxmap"
-    /// Represents an offset (Int64).
-    case Offset               = "key.offset"
-    /// Represents a length (Int64).
-    case Length               = "key.length"
-    /// Represents a type name (String).
-    case TypeName             = "key.typename"
-    /// Represents an annotated declaration (String).
+    // MARK: SourceKit Keys
+
+    /// Annotated declaration (String).
     case AnnotatedDeclaration = "key.annotated_decl"
-    /// Represents a substructure (XPCArray).
-    case Substructure         = "key.substructure"
-    /// Represents a parsed declaration (String).
-    case ParsedDeclaration    = "key.parsed_declaration"
-    /// Represents a parsed scope start (Int64).
-    case ParsedScopeStart     = "key.parsed_scope.start"
-    /// Represents a parsed scope start end (Int64).
-    case ParsedScopeEnd       = "key.parsed_scope.end"
-    /// Represents a name offset (Int64).
-    case NameOffset           = "key.nameoffset"
-    /// Represents a name length (Int64).
-    case NameLength           = "key.namelength"
-    /// Represents a body offset (Int64).
-    case BodyOffset           = "key.bodyoffset"
-    /// Represents a body length (Int64).
+    /// Body length (Int64).
     case BodyLength           = "key.bodylength"
-    /// Represents a file path (String).
-    case FilePath             = "key.filepath"
-    /// Represents a name (String).
-    case Name                 = "key.name"
-    /// Represents a diagnostic stage (String).
+    /// Body offset (Int64).
+    case BodyOffset           = "key.bodyoffset"
+    /// Diagnostic stage (String).
     case DiagnosticStage      = "key.diagnostic_stage"
+    /// File path (String).
+    case FilePath             = "key.filepath"
+    /// Full XML docs (String).
+    case FullXMLDocs          = "key.doc.full_as_xml"
+    /// Kind (String).
+    case Kind                 = "key.kind"
+    /// Length (Int64).
+    case Length               = "key.length"
+    /// Name (String).
+    case Name                 = "key.name"
+    /// Name length (Int64).
+    case NameLength           = "key.namelength"
+    /// Name offset (Int64).
+    case NameOffset           = "key.nameoffset"
+    /// Offset (Int64).
+    case Offset               = "key.offset"
+    /// Substructure (XPCArray).
+    case Substructure         = "key.substructure"
+    /// Syntax map (NSData).
+    case SyntaxMap            = "key.syntaxmap"
+    /// Type name (String).
+    case TypeName             = "key.typename"
+
+    // MARK: Custom Keys
+
+    /// Column where the token's declaration begins (Int64).
+    case DocColumn            = "key.doc.column"
+    /// Declaration of documented token (String).
+    case DocDeclaration       = "key.doc.declaration"
+    /// Discussion documentation of documented token (XPCArray).
+    case DocDiscussion        = "key.doc.discussion"
+    /// File where the documented token is located (String).
+    case DocFile              = "key.doc.file"
+    /// Line where the token's declaration begins (Int64).
+    case DocLine              = "key.doc.line"
+    /// Name of documented token (String).
+    case DocName              = "key.doc.name"
+    /// Parameters of documented token (XPCArray).
+    case DocParameters        = "key.doc.parameters"
+    /// Parsed declaration (String).
+    case DocResultDiscussion  = "key.doc.result_discussion"
+    /// Parsed scope start (Int64).
+    case DocType              = "key.doc.type"
+    /// Parsed scope start end (Int64).
+    case DocUSR               = "key.doc.usr"
+    /// Result discussion documentation of documented token (XPCArray).
+    case ParsedDeclaration    = "key.parsed_declaration"
+    /// Type of documented token (String).
+    case ParsedScopeEnd       = "key.parsed_scope.end"
+    /// USR of documented token (String).
+    case ParsedScopeStart     = "key.parsed_scope.start"
+
 
     // MARK: Typed SwiftDocKey Getters
 
@@ -223,5 +251,16 @@ internal enum SwiftDocKey: String {
     */
     internal static func getDiagnosticStage(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.DiagnosticStage, dictionary)
+    }
+
+    /**
+    Get full xml docs string from dictionary.
+
+    :param: dictionary Dictionary to get value from.
+
+    :returns: Full xml docs string if successful.
+    */
+    internal static func getFullXMLDocs(dictionary: XPCDictionary) -> String? {
+        return SwiftDocKey.get(.FullXMLDocs, dictionary)
     }
 }
