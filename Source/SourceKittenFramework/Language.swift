@@ -25,9 +25,7 @@ Partially filters compiler arguments from `xcodebuild` to something that SourceK
 private func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
     var didRemove = false
     let flagsToRemove = [
-        "--serialize-diagnostics",
-        "-c",
-        "-o"
+        "-output-file-map"
     ]
     for flag in flagsToRemove {
         if let index = find(args, flag) {
@@ -47,11 +45,26 @@ Filters compiler arguments from `xcodebuild` to something that SourceKit/Clang w
 :returns: Filtered compiler arguments.
 */
 private func filterArguments(var args: [String]) -> [String] {
+    args.extend(["-D", "DEBUG"])
     var shouldContinueToFilterArguments = true
     while shouldContinueToFilterArguments {
         (args, shouldContinueToFilterArguments) = partiallyFilterArguments(args)
     }
-    return args.filter { $0 != "-parseable-output" }
+    return args.filter({
+        !contains([
+            "-parseable-output",
+            "-incremental",
+            "-serialize-diagnostics",
+            "-emit-dependencies"
+            ], $0)
+    }).map {
+        if $0 == "-O" {
+            return "-Onone"
+        } else if $0 == "-DNDEBUG=1" {
+            return "-DDEBUG=1"
+        }
+        return $0
+    }
 }
 
 /**
@@ -67,8 +80,7 @@ internal func parseCompilerArguments(xcodebuildOutput: NSString, #language: Lang
     let pattern: String = {
         if language == .ObjC {
             return "/usr/bin/clang.*"
-        }
-        if let moduleName = moduleName {
+        } else if let moduleName = moduleName {
             return "/usr/bin/swiftc.*-module-name \(moduleName) .*"
         }
         return "/usr/bin/swiftc.*"

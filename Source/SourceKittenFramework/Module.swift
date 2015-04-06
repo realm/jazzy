@@ -38,7 +38,7 @@ public struct Module {
     :param: path                Path to run `xcodebuild` from. Uses current path by default.
     */
     public init?(xcodeBuildArguments: [String], name: String? = nil, inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
-        let xcodeBuildOutput = runXcodeBuildDryRun(xcodeBuildArguments, inPath: path) ?? ""
+        let xcodeBuildOutput = runXcodeBuild(xcodeBuildArguments, inPath: path) ?? ""
         if let arguments = parseCompilerArguments(xcodeBuildOutput, language: .Swift, moduleName: name ?? moduleNameFromArguments(xcodeBuildArguments)) {
             if let moduleName = moduleNameFromArguments(arguments) {
                 self.init(name: moduleName, compilerArguments: arguments)
@@ -75,20 +75,20 @@ extension Module: Printable {
 }
 
 /**
-Run `xcodebuild clean build -dry-run` along with any passed in build arguments.
+Run `xcodebuild clean build` along with any passed in build arguments.
 
 :param: arguments Arguments to pass to `xcodebuild`.
 :param: path      Path to run `xcodebuild` from.
 
 :returns: `xcodebuild`'s STDERR+STDOUT output combined.
 */
-internal func runXcodeBuildDryRun(arguments: [String], inPath path: String) -> String? {
-    fputs("Running xcodebuild -dry-run\n", stderr)
+internal func runXcodeBuild(arguments: [String], inPath path: String) -> String? {
+    fputs("Running xcodebuild\n", stderr)
 
     let task = NSTask()
     task.launchPath = "/usr/bin/xcodebuild"
     task.currentDirectoryPath = path
-    task.arguments = arguments + ["clean", "build", "-dry-run", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_REQUIRED=NO"]
+    task.arguments = arguments + ["clean", "build", "CODE_SIGN_IDENTITY=", "CODE_SIGNING_REQUIRED=NO"]
 
     let pipe = NSPipe()
     task.standardOutput = pipe
