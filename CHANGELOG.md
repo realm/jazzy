@@ -14,6 +14,10 @@
   [JP Simard](https://github.com/jpsim)
   [#95](https://github.com/realm/jazzy/issues/95)
 
+* "Show on GitHub" links now link to line-ranges for multi-line definitions.  
+  [JP Simard](https://github.com/jpsim)
+  [#198](https://github.com/realm/jazzy/issues/198)
+
 ##### Bug Fixes
 
 * Fixed issue where docset would contain duplicate files.  

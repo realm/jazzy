@@ -204,7 +204,11 @@ module Jazzy
     def self.gh_token_url(item, source_module)
       if source_module.github_file_prefix && should_link_to_github(item.file)
         relative_file_path = item.file.gsub(`pwd`.strip, '')
-        gh_line = "#L#{item.line}"
+        if item.start_line && (item.start_line != item.end_line)
+          gh_line = "#L#{item.start_line}-L#{item.end_line}"
+        else
+          gh_line = "#L#{item.line}"
+        end
         source_module.github_file_prefix + relative_file_path + gh_line
       end
     end
@@ -227,6 +231,8 @@ module Jazzy
       item_render[:return] = Jazzy.markdown.render(item.return) if item.return
       item_render[:parameters] = item.parameters if item.parameters.any?
       item_render[:url] = item.url if item.children.any?
+      item_render[:start_line] = item.start_line
+      item_render[:end_line] = item.end_line
       item_render.reject { |_, v| v.nil? }
     end
 
