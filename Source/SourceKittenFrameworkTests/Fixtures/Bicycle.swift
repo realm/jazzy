@@ -1,7 +1,7 @@
 import Foundation
 
 /// 🚲 A two-wheeled, human-powered mode of transportation.
-class Bicycle {
+public class Bicycle {
     /**
         Frame and construction style.
 
