@@ -88,7 +88,7 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'document_alamofire',
                             '-m Alamofire -a Alamofire ' \
                             '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj ' \
+                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/' \
                             'Alamofire/Alamofire/blob/1.1.0 ' \
@@ -107,6 +107,7 @@ describe_cli 'jazzy' do
                             '-m MiscJazzyFeatures -a Realm ' \
                             '-u https://github.com/realm/jazzy ' \
                             '-g https://github.com/realm/jazzy ' \
+                            '-x -dry-run ' \
                             '--min-acl private'
     end
   end

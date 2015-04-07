@@ -19,6 +19,25 @@
 * Fixed installation issues on case-sensitive file systems.  
   [kishikawakatsumi](https://github.com/kishikawakatsumi)
 
+* Fixed out-of-bounds exception when parsing the declaration in files starting
+  with a declaration.  
+  [JP Simard](https://github.com/jpsim)
+  [#30](https://github.com/jpsim/SourceKitten/issues/30)
+
+* Fixed out-of-bounds exception and inaccurate parsed declarations when using
+  multibyte characters.  
+  [JP Simard](https://github.com/jpsim)
+  [#35](https://github.com/jpsim/SourceKitten/issues/35)
+
+* Fixed parsing issues with keyword functions such as `subscript`, `init` and
+  `deinit`.  
+  [JP Simard](https://github.com/jpsim)
+  [#27](https://github.com/jpsim/SourceKitten/issues/27)
+
+* Fixed issues where USR wasn't accurate because dependencies couldn't be
+  resolved.  
+  [JP Simard](https://github.com/jpsim)
+
 
 ## 0.1.4
 
