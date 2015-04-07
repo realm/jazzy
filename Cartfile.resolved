@@ -1,4 +1,5 @@
-github "Carthage/LlamaKit" "carthage-0.1.1"
-github "jpsim/SwiftXPC" "0.0.2"
+github "LlamaKit/LlamaKit" "v0.6.0"
+github "drmohundro/SWXMLHash" "ed4602b243152348842f5182d04d22abbeea4bb0"
+github "jpsim/SwiftXPC" "5a0b27bd731d6cac000cd0abd4625f00dc18c538"
 github "jspahrsummers/xcconfigs" "0.7.2"
-github "Carthage/Commandant" "0.2"
+github "Carthage/Commandant" "0.4"

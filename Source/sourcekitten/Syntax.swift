@@ -15,19 +15,18 @@ struct SyntaxCommand: CommandType {
     let verb = "syntax"
     let function = "Print Swift syntax information as JSON"
 
-    func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<(), CommandantError> {
         return SyntaxOptions.evaluate(mode).flatMap { options in
-            if countElements(options.file) > 0 {
+            if count(options.file) > 0 {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
                     println(SyntaxMap(file: file))
-                } else {
-                    return failure(SourceKittenError.ReadFailed(path: options.file).error)
+                    return success()
                 }
-                return success(())
+                return failure(SourceKittenError.ReadFailed(path: options.file).error)
             }
-            if countElements(options.text) > 0 {
+            if count(options.text) > 0 {
                 println(SyntaxMap(file: File(contents: options.text)))
-                return success(())
+                return success()
             }
             return failure(SourceKittenError.InvalidArgument(description: "either file or text must be set when calling syntax").error)
         }
@@ -42,7 +41,7 @@ struct SyntaxOptions: OptionsType {
         return self(file: file, text: text)
     }
 
-    static func evaluate(m: CommandMode) -> Result<SyntaxOptions> {
+    static func evaluate(m: CommandMode) -> Result<SyntaxOptions, CommandantError> {
         return create
             <*> m <| Option(key: "file", defaultValue: "", usage: "relative or absolute path of Swift file to parse")
             <*> m <| Option(key: "text", defaultValue: "", usage: "Swift code text to parse")

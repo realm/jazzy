@@ -7,7 +7,6 @@
 //
 
 import Commandant
-import Foundation
 
 let registry = CommandRegistry()
 registry.register(DocCommand())
@@ -19,5 +18,5 @@ let helpCommand = HelpCommand(registry: registry)
 registry.register(helpCommand)
 
 registry.main(defaultCommand: helpCommand) { error in
-    fputs("\(error.localizedDescription)\n", stderr); return
+    fputs("\(error)\n", stderr)
 }

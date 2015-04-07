@@ -6,23 +6,9 @@
 //  Copyright (c) 2015 SourceKitten. All rights reserved.
 //
 
-import Foundation
+import Commandant
 
-/// The domain for all errors originating within SourceKitten.
-let SourceKittenErrorDomain: NSString = "com.sourcekitten.SourceKitten"
-
-/// Possible error codes with `SourceKittenErrorDomain`.
-enum SourceKittenErrorCode: Int {
-    case InvalidArgument
-    case ReadFailed
-    case DocFailed
-
-    func error(userInfo: [NSObject: AnyObject]?) -> NSError {
-        return NSError(domain: SourceKittenErrorDomain, code: self.rawValue, userInfo: userInfo)
-    }
-}
-
-/// Possible errors within `SourceKittenErrorDomain`.
+/// Possible errors within `sourcekitten`.
 enum SourceKittenError {
     /// One or more arguments was invalid.
     case InvalidArgument(description: String)
@@ -33,21 +19,15 @@ enum SourceKittenError {
     /// Failed to generate documentation.
     case DocFailed
 
-    /// An `NSError` object corresponding to this error code.
-    var error: NSError {
+    /// A `CommandantError` object corresponding to this SourceKitten error.
+    var error: CommandantError {
         switch self {
-        case let .InvalidArgument(description):
-            return SourceKittenErrorCode.InvalidArgument.error([
-                NSLocalizedDescriptionKey: description
-            ])
-        case let .ReadFailed(path):
-            return SourceKittenErrorCode.ReadFailed.error([
-                NSLocalizedDescriptionKey: "Failed to read file at '\(path)'"
-            ])
-        case let .DocFailed:
-            return SourceKittenErrorCode.DocFailed.error([
-                NSLocalizedDescriptionKey: "Failed to generate documentation"
-            ])
+        case .InvalidArgument(let description):
+            return .UsageError(description: description)
+        case .ReadFailed(let path):
+            return .UsageError(description: "Failed to read file at '\(path)'")
+        case .DocFailed:
+            return .UsageError(description: "Failed to generate documentation")
         }
     }
 }

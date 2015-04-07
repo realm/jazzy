@@ -15,7 +15,7 @@ struct DocCommand: CommandType {
     let verb = "doc"
     let function = "Print Swift docs as JSON or Objective-C docs as XML"
 
-    func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<(), CommandantError> {
         return DocOptions.evaluate(mode).flatMap { options in
             let args = Process.arguments
             if options.objc {
@@ -24,30 +24,24 @@ struct DocCommand: CommandType {
             if options.singleFile {
                 return DocCommand.runSwiftSingleFile(args)
             }
-            let moduleName: String? = countElements(options.moduleName) > 0 ? options.moduleName : nil
+            let moduleName: String? = count(options.moduleName) > 0 ? options.moduleName : nil
             return DocCommand.runSwiftModule(moduleName, args: args)
         }
     }
 
-    static func runSwiftModule(moduleName: String?, args: [String]) -> Result<()> {
+    static func runSwiftModule(moduleName: String?, args: [String]) -> Result<(), CommandantError> {
         let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
         let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
         let module = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)
 
-        // FIXME: Don't spawn new processes once this SourceKit bug is fixed:
-        // https://github.com/jpsim/sourcekitten/pull/19#issuecomment-69715853
-        if let docs = module?.docsBySpawningNewProcesses {
-            println(toJSON(docs))
-            return success(())
+        if let docs = module?.docs {
+            println(docs)
+            return success()
         }
-//        if let docs = module?.docs {
-//            println(docs)
-//            return success(())
-//        }
         return failure(SourceKittenError.DocFailed.error)
     }
 
-    static func runSwiftSingleFile(args: [String]) -> Result<()> {
+    static func runSwiftSingleFile(args: [String]) -> Result<(), CommandantError> {
         if args.count < 5 {
             return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--single-file`").error)
         }
@@ -55,12 +49,12 @@ struct DocCommand: CommandType {
         if let file = File(path: args[3]) {
             let docs = SwiftDocs(file: file, arguments: sourcekitdArguments)
             println(docs)
-            return success(())
+            return success()
         }
         return failure(SourceKittenError.ReadFailed(path: args[3]).error)
     }
 
-    static func runObjC(options: DocOptions, args: [String]) -> Result<()> {
+    static func runObjC(options: DocOptions, args: [String]) -> Result<(), CommandantError> {
         if args.count < 5 {
             return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--objc`").error)
         }
@@ -71,7 +65,7 @@ struct DocCommand: CommandType {
         }
         if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
             println(translationUnit)
-            return success(())
+            return success()
         }
         return failure(SourceKittenError.DocFailed.error)
     }
@@ -86,7 +80,7 @@ struct DocOptions: OptionsType {
         return self(singleFile: singleFile, moduleName: moduleName, objc: objc)
     }
 
-    static func evaluate(m: CommandMode) -> Result<DocOptions> {
+    static func evaluate(m: CommandMode) -> Result<DocOptions, CommandantError> {
         return create
             <*> m <| Option(key: "single-file", defaultValue: false, usage: "only document one file")
             <*> m <| Option(key: "module-name", defaultValue: "",    usage: "name of module to document (can't be used with `--single-file` or `--objc`)")

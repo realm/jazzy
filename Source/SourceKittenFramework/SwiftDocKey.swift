@@ -87,7 +87,7 @@ internal enum SwiftDocKey: String {
     :returns: Typed value of a dictionary key.
     */
     private static func get<T>(key: SwiftDocKey, _ dictionary: XPCDictionary) -> T? {
-        return dictionary[key.rawValue] as T?
+        return dictionary[key.rawValue] as! T?
     }
 
     /**

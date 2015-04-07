@@ -28,7 +28,7 @@ Convert XPCArray of XPCDictionary's to JSON.
 :returns: Converted JSON.
 */
 public func toJSON(array: XPCArray) -> String {
-    return toJSON(array.map { toAnyObject($0 as XPCDictionary) })
+    return toJSON(array.map { toAnyObject($0 as! XPCDictionary) })
 }
 
 /**
@@ -41,8 +41,9 @@ JSON Object to JSON String.
 public func toJSON(object: AnyObject) -> String {
     if let prettyJSONData = NSJSONSerialization.dataWithJSONObject(object,
         options: .PrettyPrinted,
-        error: nil) {
-        return NSString(data: prettyJSONData, encoding: NSUTF8StringEncoding)! // Safe to force unwrap
+        error: nil),
+        jsonString = NSString(data: prettyJSONData, encoding: NSUTF8StringEncoding) as? String {
+        return jsonString
     }
     return ""
 }
@@ -59,7 +60,7 @@ public func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
     for (key, object) in dictionary {
         switch object {
         case let object as XPCArray:
-            anyDictionary[key] = object.map { toAnyObject($0 as XPCDictionary) }
+            anyDictionary[key] = object.map { toAnyObject($0 as! XPCDictionary) }
         case let object as XPCDictionary:
             anyDictionary[key] = toAnyObject(object)
         case let object as String:

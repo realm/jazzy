@@ -196,8 +196,8 @@ extension String {
         }
 
         let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)! // Safe to force unwrap
-        let range = NSRange(location: 0, length: utf16Count)
-        let matches = regex.matchesInString(self, options: nil, range: range) as [NSTextCheckingResult]
+        let range = NSRange(location: 0, length: count(utf16))
+        let matches = regex.matchesInString(self, options: nil, range: range) as! [NSTextCheckingResult]
 
         return compact(matches.map({ match in
             documentableOffsets.filter({ $0 >= match.range.location }).first
@@ -220,8 +220,8 @@ extension String {
         }
         for pattern in patterns {
             let regex = NSRegularExpression(pattern: pattern.pattern, options: pattern.options, error: nil)! // Safe to force unwrap
-            let matches = regex.matchesInString(self, options: nil, range: range!) as [NSTextCheckingResult]
-            let bodyParts: [String] = map(matches) { match in
+            let matches = regex.matchesInString(self, options: nil, range: range!) as! [NSTextCheckingResult]
+            let bodyParts: [String] = flatMap(matches) { match in
                 let numberOfRanges = match.numberOfRanges
                 if numberOfRanges < 1 {
                     return []
@@ -242,7 +242,7 @@ extension String {
                     let bodySubstring = nsString.substringWithRange(range)
                     return leadingWhitespaceToAdd + bodySubstring
                 }
-            }.reduce([], +)
+            }
             if bodyParts.count > 0 {
                 return "\n"
                     .join(bodyParts)
@@ -258,13 +258,13 @@ extension String {
         var minLeadingWhitespace = Int.max
         enumerateLines { line, _ in
             let lineLeadingWhitespace = line.countOfLeadingCharactersInSet(whitespaceAndNewlineCharacterSet)
-            if lineLeadingWhitespace < minLeadingWhitespace && lineLeadingWhitespace != countElements(line) {
+            if lineLeadingWhitespace < minLeadingWhitespace && lineLeadingWhitespace != count(line) {
                 minLeadingWhitespace = lineLeadingWhitespace
             }
         }
         var lines = [String]()
         enumerateLines { line, _ in
-            if countElements(line) >= minLeadingWhitespace {
+            if count(line) >= minLeadingWhitespace {
                 lines.append(line[advance(line.startIndex, minLeadingWhitespace)..<line.endIndex])
             } else {
                 lines.append(line)
@@ -290,9 +290,139 @@ extension String {
         return count
     }
 
+    /**
+    Returns a copy of `self` with the trailing contiguous characters belonging to `characterSet`
+    removed.
+    
+    :param: characterSet Character set to check for membership.
+    */
+    public func stringByTrimmingTrailingCharactersInSet(characterSet: NSCharacterSet) -> String {
+        let nsString = self as NSString
+        var charBuffer = [unichar](count: count(utf16), repeatedValue: unichar())
+        nsString.getCharacters(&charBuffer)
+        for length in reverse(1...count(utf16)) {
+            if !characterSet.characterIsMember(charBuffer[length - 1]) {
+                return nsString.substringWithRange(NSRange(location: 0, length: length))
+            }
+        }
+        return self
+    }
+
+    /**
+    Converts a range of byte offsets in `self` to an `NSRange` suitable for filtering `self` as an
+    `NSString`.
+    
+    :param: start Starting byte offset.
+    :param: length Length of bytes to include in range.
+    
+    :returns: An equivalent `NSRange`.
+    */
+    public func byteRangeToNSRange(# start: Int, length: Int) -> NSRange? {
+        let nsString = self as NSString
+        var startStringIndex: Int? = nil
+        var endStringIndex: Int? = nil
+        for stringIndex in 0..<nsString.length {
+            let bytesSoFar = nsString.substringToIndex(stringIndex).lengthOfBytesUsingEncoding(NSUTF8StringEncoding)
+            if startStringIndex == nil && bytesSoFar >= start {
+                startStringIndex = stringIndex
+            }
+            if endStringIndex == nil && bytesSoFar >= start + length {
+                endStringIndex = stringIndex
+                break
+            }
+        }
+        return flatMap(startStringIndex) { startStringIndex in
+            return flatMap(endStringIndex) { endStringIndex in
+                return NSRange(location: startStringIndex, length: endStringIndex - startStringIndex)
+            }
+        }
+    }
+
+    /**
+    Converts a range of byte offsets to a `Range<String.Index>`.
+
+    :param: start  Starting byte offset.
+    :param: length Length of bytes to include in range.
+
+    :returns: Converted `Range<String.Index>` if successful.
+    */
+    public func byteRangeToStringRange(# start: Int, length: Int) -> Range<Index>? {
+        var bytesSoFar = 0
+        var startStringIndex: Index? = nil
+        var endStringIndex: Index? = nil
+        for stringIndex in startIndex..<endIndex {
+            if startStringIndex == nil && bytesSoFar >= start {
+                startStringIndex = stringIndex
+            }
+            if endStringIndex == nil && bytesSoFar >= start + length {
+                endStringIndex = stringIndex
+                break
+            }
+            bytesSoFar += count(String(self[stringIndex]).utf8)
+        }
+        return flatMap(startStringIndex) { startStringIndex in
+            return flatMap(endStringIndex) { endStringIndex in
+                return startStringIndex..<endStringIndex
+            }
+        }
+    }
+
+    /**
+    Returns a substring with the provided byte range.
+
+    :param: start Starting byte offset.
+    :param: length Length of bytes to include in range.
+    */
+    public func substringWithByteRange(# start: Int, length: Int) -> String? {
+        return flatMap(byteRangeToNSRange(start: start, length: length)) {
+            (self as NSString).substringWithRange($0)
+        }
+    }
+
+    /**
+    Returns a substring starting at the beginning of `start`'s line and ending at the end of `end`'s
+    line. Returns `start`'s entire line if `end` is nil.
+
+    :param: start Starting byte offset.
+    :param: length Length of bytes to include in range.
+    */
+    public func substringLinesWithByteRange(# start: Int, length: Int) -> String? {
+        return flatMap(byteRangeToStringRange(start: start, length: length)) { stringRange in
+            var lineStart = startIndex
+            var lineEnd = endIndex
+            getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: stringRange)
+            return self[lineStart..<lineEnd]
+        }
+    }
+
+    /**
+    Returns line numbers containing starting and ending byte offsets.
+
+    :param: start Starting byte offset.
+    :param: length Length of bytes to include in range.
+    */
+    public func lineRangeWithByteRange(# start: Int, length: Int) -> (start: Int, end: Int)? {
+        return flatMap(byteRangeToStringRange(start: start, length: length)) { range in
+            var numberOfLines = 0
+            var index = startIndex
+            var lineRangeStart = 0
+            while index < endIndex {
+                numberOfLines++
+                if index <= range.startIndex {
+                    lineRangeStart = numberOfLines
+                }
+                index = lineRangeForRange(index...index).endIndex
+                if index > range.endIndex {
+                    return (lineRangeStart, numberOfLines)
+                }
+            }
+            return nil
+        }
+    }
+
     /// Returns a copy of the string by trimming whitespace and the opening curly brace (`{`).
     internal func stringByTrimmingWhitespaceAndOpeningCurlyBrace() -> String? {
-        let unwantedSet = whitespaceAndNewlineCharacterSet.mutableCopy() as NSMutableCharacterSet
+        let unwantedSet = whitespaceAndNewlineCharacterSet.mutableCopy() as! NSMutableCharacterSet
         unwantedSet.addCharactersInString("{")
         return stringByTrimmingCharactersInSet(unwantedSet)
     }

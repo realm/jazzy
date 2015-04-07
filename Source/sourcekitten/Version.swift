@@ -15,7 +15,7 @@ struct VersionCommand: CommandType {
     let verb = "version"
     let function = "Display the current version of SourceKitten"
 
-    func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<(), CommandantError> {
         switch mode {
         case let .Arguments:
             println(version)
@@ -23,7 +23,6 @@ struct VersionCommand: CommandType {
         default:
             break
         }
-        
-        return success(())
+        return success()
     }
 }

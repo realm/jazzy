@@ -33,7 +33,7 @@ public struct SyntaxMap {
         data.getBytes(&numberOfTokens, range: NSRange(location: 8, length: 8))
         numberOfTokens = numberOfTokens >> 4
 
-        tokens = [SyntaxToken]()
+        var tmpTokens = [SyntaxToken]()
 
         for parserOffset in stride(from: 16, through: numberOfTokens * 16, by: 16) {
             var uid = UInt64(0), offset = 0, length = 0
@@ -41,7 +41,7 @@ public struct SyntaxMap {
             data.getBytes(&offset, range: NSRange(location: 8 + parserOffset, length: 4))
             data.getBytes(&length, range: NSRange(location: 12 + parserOffset, length: 4))
 
-            tokens.append(
+            tmpTokens.append(
                 SyntaxToken(
                     type: stringForSourceKitUID(uid) ?? "unknown",
                     offset: offset,
@@ -49,6 +49,7 @@ public struct SyntaxMap {
                 )
             )
         }
+        tokens = tmpTokens
     }
 
     /**
@@ -96,7 +97,7 @@ extension SyntaxMap: Printable {
         if let jsonData = NSJSONSerialization.dataWithJSONObject(tokens.map { $0.dictionaryValue },
             options: .PrettyPrinted,
             error: nil) {
-            if let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) {
+            if let jsonString = NSString(data: jsonData, encoding: NSUTF8StringEncoding) as String? {
                 return jsonString
             }
         }

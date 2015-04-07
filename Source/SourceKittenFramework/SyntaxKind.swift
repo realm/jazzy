@@ -34,7 +34,7 @@ public enum SyntaxKind: String {
     /// `parameter`.
     case Parameter = "source.lang.swift.syntaxtype.parameter"
     /// `string`.
-    case _String = "source.lang.swift.syntaxtype.string"
+    case String = "source.lang.swift.syntaxtype.string"
     /// `string_interpolation_anchor`.
     case StringInterpolationAnchor = "source.lang.swift.syntaxtype.string_interpolation_anchor"
     /// `typeidentifier`.

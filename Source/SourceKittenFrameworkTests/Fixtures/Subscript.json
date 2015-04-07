@@ -14,13 +14,14 @@
       "key.usr" : "s:V9Subscript10VoidStruct",
       "key.nameoffset" : 7,
       "key.annotated_decl" : "<Declaration>struct VoidStruct<\/Declaration>",
+      "key.accessibility" : "source.lang.swift.accessibility.internal",
       "key.substructure" : [
         {
           "key.kind" : "source.lang.swift.decl.function.subscript",
           "key.offset" : 54,
           "key.parsed_declaration" : "subscript(key: String) -> ()",
           "key.doc.comment" : "Returns or sets Void.",
-          "key.doc.declaration" : "subscript (key: String) ->() { get set }",
+          "key.doc.declaration" : "subscript (key: String) -> () { get set }",
           "key.doc.line" : 3,
           "key.length" : 9,
           "key.typename" : "(String) -> ()",

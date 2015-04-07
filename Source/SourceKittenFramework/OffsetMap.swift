@@ -51,8 +51,8 @@ extension File {
     private func mapOffsets(dictionary: XPCDictionary, var offsetMap: OffsetMap) -> OffsetMap {
         // Only map if we're in the correct file
         if shouldTreatAsSameFile(dictionary) {
-            if let rangeStart = SwiftDocKey.getNameOffset(dictionary) {
-                if let rangeLength = SwiftDocKey.getNameLength(dictionary) {
+            if let rangeStart = SwiftDocKey.getNameOffset(dictionary),
+                rangeLength = SwiftDocKey.getNameLength(dictionary) {
                     let bodyLength = SwiftDocKey.getBodyLength(dictionary)
                     let offsetsInRange = offsetMap.keys.filter {
                         $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
@@ -60,13 +60,12 @@ extension File {
                     for offset in offsetsInRange {
                         offsetMap[offset] = Int(rangeStart)
                     }
-                }
             }
         }
         // Recurse!
         if let substructure = SwiftDocKey.getSubstructure(dictionary) {
             for subDict in substructure {
-                offsetMap = mapOffsets(subDict as XPCDictionary, offsetMap: offsetMap)
+                offsetMap = mapOffsets(subDict as! XPCDictionary, offsetMap: offsetMap)
             }
         }
         return offsetMap
