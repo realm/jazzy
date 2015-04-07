@@ -146,12 +146,6 @@ class StringTests: XCTestCase {
         XCTAssertEqual(string.substringWithByteRange(start: 4, length: 1)!, "1")
     }
 
-    func testByteRangeToStringRange() {
-        let string = "😄123"
-        XCTAssertEqual(string.byteRangeToStringRange(start: 0, length: 4)!, string.startIndex..<advance(string.startIndex, 1))
-        XCTAssertEqual(string.byteRangeToStringRange(start: 4, length: 1)!, advance(string.startIndex, 1)..<advance(string.startIndex, 2))
-    }
-
     func testSubstringLinesWithByteRange() {
         let string = "😄\n123"
         XCTAssertEqual(string.substringLinesWithByteRange(start: 0, length: 0)!, "😄\n")
