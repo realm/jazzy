@@ -6,7 +6,6 @@ require 'jazzy/executable'
 require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
-require 'jazzy/xml_helper'
 
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
@@ -103,6 +102,8 @@ module Jazzy
     end
 
     def self.should_document?(doc)
+      return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
+
       # Always document extensions, since we can't tell what ACL they are
       return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
 
@@ -120,39 +121,63 @@ module Jazzy
       make_default_doc_info(declaration)
     end
 
-    def self.parameters_from_xml(xml)
-      xml.xpath('Parameters/Parameter').map do |parameter_el|
-        {
-          name: XMLHelper.xpath(parameter_el, 'Name'),
-          discussion: Jazzy.markdown.render(
-              XMLHelper.xpath(parameter_el, 'Discussion') || '',
-            ),
-        }
+    def self.make_paragraphs(doc, key)
+      return nil unless doc[key]
+      doc[key].map do |p|
+        if p.keys.include?('Para')
+          Jazzy.markdown.render(p['Para'])
+        elsif p.keys.include?('Verbatim')
+          Jazzy.markdown.render("```\n" + p['Verbatim'] + "```\n")
+        else
+          warn "Jazzy could not recognize the `#{p.keys.first}` tag. " \
+               'Please report this by filing an issue at ' \
+               'https://github.com/realm/jazzy/issues along with the comment ' \
+               'including this tag.'
+          Jazzy.markdown.render(p.values.first)
+        end
+      end.join
+    end
+
+    def self.parameters(doc)
+      if doc['key.doc.parameters']
+        return doc['key.doc.parameters'].map do |p|
+          {
+            name: p['name'],
+            discussion: make_paragraphs(p, 'discussion'),
+          }
+        end
       end
+      []
     end
 
     def self.make_doc_info(doc, declaration)
       return nil unless should_document?(doc)
-      xml_key = 'key.doc.full_as_xml'
-      return process_undocumented_token(doc, declaration) unless doc[xml_key]
+      unless doc['key.doc.full_as_xml']
+        return process_undocumented_token(doc, declaration)
+      end
 
-      xml = Nokogiri::XML(doc[xml_key]).root
-      declaration.line = XMLHelper.attribute(xml, 'line').to_i
-      declaration.column = XMLHelper.attribute(xml, 'column').to_i
+      declaration.line = doc['key.doc.line']
+      declaration.column = doc['key.doc.column']
       declaration.declaration = Highlighter.highlight(
-        doc['key.parsed_declaration'] || XMLHelper.xpath(xml, 'Declaration'),
+        doc['key.parsed_declaration'] || doc['key.doc.declaration'],
         'swift',
       )
-      declaration.abstract = XMLHelper.xpath(xml, 'Abstract')
-      declaration.discussion = XMLHelper.xpath(xml, 'Discussion')
-      declaration.return = XMLHelper.xpath(xml, 'ResultDiscussion')
+      stripped_comment = string_until_first_rest_definition(
+        doc['key.doc.comment'],
+      ) || ''
+      declaration.abstract = Jazzy.markdown.render(stripped_comment)
+      declaration.discussion = ''
+      declaration.return = make_paragraphs(doc, 'key.doc.result_discussion')
 
-      nodoc = ->(string) { string.to_s.include? '<dt>nodoc</dt>' }
-      return if nodoc[declaration.abstract] || nodoc[declaration.discussion]
-
-      declaration.parameters = parameters_from_xml(xml)
+      declaration.parameters = parameters(doc)
 
       @documented_count += 1
+    end
+
+    def self.string_until_first_rest_definition(string)
+      matches = /^\s*:[^\s]+:/.match(string)
+      return string unless matches
+      string[0...matches.begin(0)]
     end
 
     def self.make_substructure(doc, declaration)
