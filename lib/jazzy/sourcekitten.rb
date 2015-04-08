@@ -95,10 +95,7 @@ module Jazzy
 
     def self.documented_child?(doc)
       return false unless doc['key.substructure']
-      doc['key.substructure'].each do |child|
-        return true if documented_child?(child)
-      end
-      false
+      doc['key.substructure'].any? { |child| documented_child?(child) }
     end
 
     def self.should_document?(doc)
@@ -124,10 +121,10 @@ module Jazzy
     def self.make_paragraphs(doc, key)
       return nil unless doc[key]
       doc[key].map do |p|
-        if p.keys.include?('Para')
-          Jazzy.markdown.render(p['Para'])
-        elsif p.keys.include?('Verbatim')
-          Jazzy.markdown.render("```\n" + p['Verbatim'] + "```\n")
+        if para = p['Para']
+          Jazzy.markdown.render(para)
+        elsif verbatim = p['Verbatim']
+          Jazzy.markdown.render("```\n#{verbatim}```\n")
         else
           warn "Jazzy could not recognize the `#{p.keys.first}` tag. " \
                'Please report this by filing an issue at ' \
@@ -139,19 +136,16 @@ module Jazzy
     end
 
     def self.parameters(doc)
-      if doc['key.doc.parameters']
-        return doc['key.doc.parameters'].map do |p|
-          {
-            name: p['name'],
-            discussion: make_paragraphs(p, 'discussion'),
-          }
-        end
+      (doc['key.doc.parameters'] || []).map do |p|
+        {
+          name: p['name'],
+          discussion: make_paragraphs(p, 'discussion'),
+        }
       end
-      []
     end
 
     def self.make_doc_info(doc, declaration)
-      return nil unless should_document?(doc)
+      return unless should_document?(doc)
       unless doc['key.doc.full_as_xml']
         return process_undocumented_token(doc, declaration)
       end
