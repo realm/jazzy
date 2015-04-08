@@ -107,7 +107,7 @@ module Jazzy
         end
 
         opt.on('-s', '--sourcekitten-sourcefile FILEPATH',
-               'XML doc file generated from sourcekitten to parse') do |s|
+               'File generated from sourcekitten output to parse') do |s|
           config.sourcekitten_sourcefile = Pathname(s)
         end
 

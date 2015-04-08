@@ -7,10 +7,6 @@ module Jazzy
     include Redcarpet::Render::SmartyPants
     include Rouge::Plugins::Redcarpet
 
-    def paragraph(text)
-      "<p class=\"para\">#{text}</p>"
-    end
-
     def header(text, header_level)
       text_slug = text.gsub(/[^a-zA-Z0-9]+/, '_')
         .downcase

@@ -10,6 +10,10 @@
   [segiddins](https://github.com/segiddins)
   [#196](https://github.com/realm/jazzy/issues/196)
 
+* Cleaned up front end HTML & CSS.  
+  [JP Simard](https://github.com/jpsim)
+  [#95](https://github.com/realm/jazzy/issues/95)
+
 ##### Bug Fixes
 
 * Fixed issue where docset would contain duplicate files.  

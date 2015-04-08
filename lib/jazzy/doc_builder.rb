@@ -30,16 +30,14 @@ module Jazzy
     # @return [Array] doc structure comprised of
     #                     section names & child names & URLs
     def self.doc_structure_for_docs(docs)
-      structure = []
-      docs.each do |doc|
-        structure << {
+      docs.map do |doc|
+        {
           section: doc.name,
           children: doc.children.sort_by(&:name).map do |child|
             { name: child.name, url: child.url }
           end,
         }
       end
-      structure
     end
 
     # Build documentation from the given options
@@ -192,6 +190,7 @@ module Jazzy
       doc[:github_url] = source_module.github_url.to_s
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
+      doc[:hide_name] = true
       doc.render
     end
 
