@@ -251,7 +251,7 @@ header {
   padding: 7px;
   border: $gray_border;
   border-radius: 4px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .aside-title {
@@ -262,7 +262,7 @@ header {
 }
 
 .declaration .highlight {
-  overflow-x: scroll;
+  overflow-x: initial; // This allows the scrollbar to show up inside declarations
   padding: 0 40px 40px 0;
   margin-bottom: -25px;
   background-color: transparent;
