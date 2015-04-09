@@ -89,7 +89,7 @@ pre, code {
 }
 p code, li code {
   background-color: $code_bg_color;
-  padding: 4px;
+  padding: 2px 4px;
   border-radius: 4px;
 }
 
@@ -236,19 +236,29 @@ header {
   p {
     line-height: 1.8em;
   }
-  section .section :first-child {
-    margin-top: 0;
-    padding-top: 0;
+  section {
+    .section:first-child {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    .task-group-section .task-group:first-of-type {
+      padding-top: 10px;
+
+      .section-name {
+        padding-top: 15px;
+      }
+    }
   }
 }
 
 .section {
-  padding: 25px 25px 0;
+  padding: 0 25px;
 }
 
 .highlight {
   background-color: $code_bg_color;
-  padding: 7px;
+  padding: 10px 12px;
   border: $gray_border;
   border-radius: 4px;
   overflow-x: auto;
@@ -280,7 +290,7 @@ header {
 }
 
 .task-group {
-  padding-top: 10px;
+  padding-top: 0px;
 }
 
 .item {
