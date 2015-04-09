@@ -64,7 +64,7 @@ module Jazzy
 
     def self.xcode_developer_directory
       dir = Pathname(`xcode-select -p`.chomp)
-      dir.directory? ? dir.realpath : nil
+      dir.directory? ? dir.expand_path : nil
     end
 
     def self.assert_swift_version
