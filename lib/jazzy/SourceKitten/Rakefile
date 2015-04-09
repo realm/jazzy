@@ -3,10 +3,9 @@
 
 task :prepare do
   Dir.glob('*.framework').each do |fw|
-    p fw
     Dir.chdir(fw) do
       basename = File.basename(fw, '.framework')
-      FileUtils.rm(basename)
+      FileUtils.rm_f(basename)
 
       File.symlink('A',                            'Versions/Current')
       File.symlink("Versions/Current/#{basename}", "#{basename}")

@@ -10,7 +10,8 @@
 
 ##### Bug Fixes
 
-* None.
+* Make the gem installable.  
+  [Samuel Giddins](https://github.com/segiddins)
 
 
 ## 0.1.5
