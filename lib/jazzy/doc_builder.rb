@@ -18,7 +18,6 @@ module Jazzy
   # This module handles HTML generation, file writing, asset copying,
   # and generally building docs given sourcekitten output
   module DocBuilder
-
     # mkdir -p output directory and clean if option is set
     def self.prepare_output_dir(output_dir, clean)
       FileUtils.rm_r output_dir if clean && output_dir.directory?
