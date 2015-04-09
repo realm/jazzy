@@ -18,7 +18,6 @@ module Jazzy
   # This module handles HTML generation, file writing, asset copying,
   # and generally building docs given sourcekitten output
   module DocBuilder
-    DEVELOPER_DIR = `xcode-select -p`.chomp
 
     # mkdir -p output directory and clean if option is set
     def self.prepare_output_dir(output_dir, clean)
@@ -195,7 +194,9 @@ module Jazzy
     end
 
     def self.should_link_to_github(file)
-      !file.start_with?(DEVELOPER_DIR) if file
+      developer_directory = SourceKitten.xcode_developer_directory
+      return unless developer_directory && file
+      !file.start_with?(developer_directory.realpath.to_s)
     end
 
     # Construct Github token URL
