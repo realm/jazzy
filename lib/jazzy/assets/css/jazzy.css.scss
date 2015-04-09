@@ -297,6 +297,14 @@ header {
   padding-top: 8px;
   width: 100%;
   list-style-type: none;
+  a[name] {
+    &:before {
+      content: "";
+      display: block;
+      padding-top: $content_top_offset;
+      margin: -$content_top_offset 0 0;
+    }
+  }
   code {
     background-color: transparent;
     padding: 0;

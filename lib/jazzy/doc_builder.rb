@@ -18,8 +18,6 @@ module Jazzy
   # This module handles HTML generation, file writing, asset copying,
   # and generally building docs given sourcekitten output
   module DocBuilder
-    DEVELOPER_DIR = `xcode-select -p`.chomp
-
     # mkdir -p output directory and clean if option is set
     def self.prepare_output_dir(output_dir, clean)
       FileUtils.rm_r output_dir if clean && output_dir.directory?
@@ -195,7 +193,9 @@ module Jazzy
     end
 
     def self.should_link_to_github(file)
-      !file.start_with?(DEVELOPER_DIR) if file
+      developer_directory = SourceKitten.xcode_developer_directory
+      return unless developer_directory && file
+      !file.start_with?(developer_directory.realpath.to_s)
     end
 
     # Construct Github token URL
@@ -204,7 +204,11 @@ module Jazzy
     def self.gh_token_url(item, source_module)
       if source_module.github_file_prefix && should_link_to_github(item.file)
         relative_file_path = item.file.gsub(`pwd`.strip, '')
-        gh_line = "#L#{item.line}"
+        if item.start_line && (item.start_line != item.end_line)
+          gh_line = "#L#{item.start_line}-L#{item.end_line}"
+        else
+          gh_line = "#L#{item.line}"
+        end
         source_module.github_file_prefix + relative_file_path + gh_line
       end
     end
@@ -227,6 +231,8 @@ module Jazzy
       item_render[:return] = Jazzy.markdown.render(item.return) if item.return
       item_render[:parameters] = item.parameters if item.parameters.any?
       item_render[:url] = item.url if item.children.any?
+      item_render[:start_line] = item.start_line
+      item_render[:end_line] = item.end_line
       item_render.reject { |_, v| v.nil? }
     end
 

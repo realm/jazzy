@@ -64,7 +64,7 @@ module Jazzy
 
     def self.xcode_developer_directory
       dir = Pathname(`xcode-select -p`.chomp)
-      dir.directory? ? dir.realpath : nil
+      dir.directory? ? dir.expand_path : nil
     end
 
     def self.assert_swift_version
@@ -215,6 +215,8 @@ module Jazzy
           doc['key.annotated_decl'],
         )
         declaration.access_control_level = acl
+        declaration.start_line = doc['key.parsed_scope.start']
+        declaration.end_line = doc['key.parsed_scope.end']
 
         next unless make_doc_info(doc, declaration)
         make_substructure(doc, declaration)
