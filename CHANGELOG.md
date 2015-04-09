@@ -46,6 +46,10 @@
   resolved.  
   [JP Simard](https://github.com/jpsim)
 
+* Allow using a version of Xcode that is symlinked to
+  `/Applications/Xcode.app`.  
+  [Samuel Giddins](https://github.com/segiddins)
+
 
 ## 0.1.4
 
