@@ -1,3 +1,3 @@
 module Jazzy
-  VERSION = '0.1.4' unless defined? Jazzy::VERSION
+  VERSION = '0.1.5' unless defined? Jazzy::VERSION
 end
