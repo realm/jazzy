@@ -54,7 +54,7 @@ public struct File {
             return nil
         }
         return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
-            let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { Int($0) }
+            let end = map(SwiftDocKey.getBodyOffset(dictionary)) { Int($0) }
             let start = Int(start)
             let length = (end ?? start) - start
             return contents.substringLinesWithByteRange(start: start, length: length)?
@@ -76,7 +76,7 @@ public struct File {
         return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
             let start = Int(start)
             let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { bodyOffset in
-                return flatMap(SwiftDocKey.getBodyLength(dictionary)) { bodyLength in
+                return map(SwiftDocKey.getBodyLength(dictionary)) { bodyLength in
                     return Int(bodyOffset + bodyLength)
                 }
             } ?? start
@@ -356,14 +356,14 @@ Parse XML from `key.doc.full_as_xml` from `cursor.info` request.
 public func parseFullXMLDocs(xmlDocs: String) -> XPCDictionary? {
     let cleanXMLDocs = xmlDocs.stringByReplacingOccurrencesOfString("<rawHTML>",  withString: "")
                               .stringByReplacingOccurrencesOfString("</rawHTML>", withString: "")
-    return flatMap(SWXMLHash.parse(cleanXMLDocs).children.first) { rootXML in
+    return map(SWXMLHash.parse(cleanXMLDocs).children.first) { rootXML in
         var docs = XPCDictionary()
         docs[SwiftDocKey.DocType.rawValue] = rootXML.element?.name
         docs[SwiftDocKey.DocFile.rawValue] = rootXML.element?.attributes["file"]
-        docs[SwiftDocKey.DocLine.rawValue] = flatMap(rootXML.element?.attributes["line"]) {
+        docs[SwiftDocKey.DocLine.rawValue] = map(rootXML.element?.attributes["line"]) {
             Int64(($0 as NSString).integerValue)
         }
-        docs[SwiftDocKey.DocColumn.rawValue] = flatMap(rootXML.element?.attributes["column"]) {
+        docs[SwiftDocKey.DocColumn.rawValue] = map(rootXML.element?.attributes["column"]) {
             Int64(($0 as NSString).integerValue)
         }
         docs[SwiftDocKey.DocName.rawValue] = rootXML["Name"].element?.text

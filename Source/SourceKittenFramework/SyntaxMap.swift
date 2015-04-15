@@ -33,23 +33,18 @@ public struct SyntaxMap {
         data.getBytes(&numberOfTokens, range: NSRange(location: 8, length: 8))
         numberOfTokens = numberOfTokens >> 4
 
-        var tmpTokens = [SyntaxToken]()
-
-        for parserOffset in stride(from: 16, through: numberOfTokens * 16, by: 16) {
+        tokens = map(stride(from: 16, through: numberOfTokens * 16, by: 16)) { parserOffset in
             var uid = UInt64(0), offset = 0, length = 0
             data.getBytes(&uid, range: NSRange(location: parserOffset, length: 8))
             data.getBytes(&offset, range: NSRange(location: 8 + parserOffset, length: 4))
             data.getBytes(&length, range: NSRange(location: 12 + parserOffset, length: 4))
 
-            tmpTokens.append(
-                SyntaxToken(
-                    type: stringForSourceKitUID(uid) ?? "unknown",
-                    offset: offset,
-                    length: length >> 1
-                )
+            return SyntaxToken(
+                type: stringForSourceKitUID(uid) ?? "unknown",
+                offset: offset,
+                length: length >> 1
             )
         }
-        tokens = tmpTokens
     }
 
     /**
@@ -82,7 +77,7 @@ public struct SyntaxMap {
             SyntaxKind.isCommentLike($0.type)
         }
         return flatMap(commentTokensImmediatelyPrecedingOffset.first) { firstToken in
-            return flatMap(commentTokensImmediatelyPrecedingOffset.last) { lastToken in
+            return map(commentTokensImmediatelyPrecedingOffset.last) { lastToken in
                 return (firstToken.offset, lastToken.offset + lastToken.length - firstToken.offset)
             }
         }

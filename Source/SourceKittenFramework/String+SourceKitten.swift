@@ -86,7 +86,7 @@ extension NSString {
     */
     public func byteRangeToNSRange(# start: Int, length: Int) -> NSRange? {
         return flatMap(indexOfByteOffset(start)) { stringStart in
-            return flatMap(self.indexOfByteOffset(start + length)) { stringEnd in
+            return map(self.indexOfByteOffset(start + length)) { stringEnd in
                 return NSRange(location: stringStart, length: stringEnd - stringStart)
             }
         }
@@ -99,7 +99,7 @@ extension NSString {
     :param: length Length of bytes to include in range.
     */
     public func substringWithByteRange(# start: Int, length: Int) -> String? {
-        return flatMap(byteRangeToNSRange(start: start, length: length)) {
+        return map(byteRangeToNSRange(start: start, length: length)) {
             self.substringWithRange($0)
         }
     }
@@ -112,7 +112,7 @@ extension NSString {
     :param: length Length of bytes to include in range.
     */
     public func substringLinesWithByteRange(# start: Int, length: Int) -> String? {
-        return flatMap(byteRangeToNSRange(start: start, length: length)) { range in
+        return map(byteRangeToNSRange(start: start, length: length)) { range in
             var lineStart = 0
             var lineEnd = 0
             self.getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: range)
@@ -174,7 +174,7 @@ extension String {
     public func isTokenDocumentable(token: SyntaxToken) -> Bool {
         if token.type == SyntaxKind.Keyword.rawValue {
             let keywordFunctions = ["subscript", "init", "deinit"]
-            return flatMap((self as NSString).substringWithByteRange(start: token.offset, length: token.length)) {
+            return map((self as NSString).substringWithByteRange(start: token.offset, length: token.length)) {
                 contains(keywordFunctions, $0)
             } ?? false
         }
@@ -332,7 +332,7 @@ extension String {
             }
         }
         return flatMap(startStringIndex) { startStringIndex in
-            return flatMap(endStringIndex) { endStringIndex in
+            return map(endStringIndex) { endStringIndex in
                 return NSRange(location: startStringIndex, length: endStringIndex - startStringIndex)
             }
         }
@@ -361,7 +361,7 @@ extension String {
             bytesSoFar += count(String(self[stringIndex]).utf8)
         }
         return flatMap(startStringIndex) { startStringIndex in
-            return flatMap(endStringIndex) { endStringIndex in
+            return map(endStringIndex) { endStringIndex in
                 return startStringIndex..<endStringIndex
             }
         }
@@ -374,7 +374,7 @@ extension String {
     :param: length Length of bytes to include in range.
     */
     public func substringWithByteRange(# start: Int, length: Int) -> String? {
-        return flatMap(byteRangeToNSRange(start: start, length: length)) {
+        return map(byteRangeToNSRange(start: start, length: length)) {
             (self as NSString).substringWithRange($0)
         }
     }
@@ -387,7 +387,7 @@ extension String {
     :param: length Length of bytes to include in range.
     */
     public func substringLinesWithByteRange(# start: Int, length: Int) -> String? {
-        return flatMap(byteRangeToStringRange(start: start, length: length)) { stringRange in
+        return map(byteRangeToStringRange(start: start, length: length)) { stringRange in
             var lineStart = startIndex
             var lineEnd = endIndex
             getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: stringRange)
