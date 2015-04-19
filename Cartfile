@@ -1,2 +1,2 @@
-github "jpsim/SwiftXPC" "xcode6p3b"
-github "drmohundro/SWXMLHash" "xcode-6.3"
+github "jpsim/SwiftXPC" ~> 1.0
+github "drmohundro/SWXMLHash" ~> 1.0

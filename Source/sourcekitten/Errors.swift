@@ -6,11 +6,12 @@
 //  Copyright (c) 2015 SourceKitten. All rights reserved.
 //
 
+import LlamaKit
 import Commandant
 
-/// Possible errors within `sourcekitten`.
-enum SourceKittenError {
-    /// One or more arguments was invalid.
+/// Possible errors within SourceKitten.
+enum SourceKittenError: Printable {
+    /// One or more argument was invalid.
     case InvalidArgument(description: String)
 
     /// Failed to read a file at the given path.
@@ -19,15 +20,19 @@ enum SourceKittenError {
     /// Failed to generate documentation.
     case DocFailed
 
-    /// A `CommandantError` object corresponding to this SourceKitten error.
-    var error: CommandantError {
+    /// An error message corresponding to this error.
+    var description: String {
         switch self {
-        case .InvalidArgument(let description):
-            return .UsageError(description: description)
-        case .ReadFailed(let path):
-            return .UsageError(description: "Failed to read file at '\(path)'")
-        case .DocFailed:
-            return .UsageError(description: "Failed to generate documentation")
+        case let .InvalidArgument(description):
+            return description
+        case let .ReadFailed(path):
+            return "Failed to read file at '\(path)'"
+        case let .DocFailed:
+            return "Failed to generate documentation"
         }
     }
+}
+
+func toCommandantError(sourceKittenError: SourceKittenError) -> CommandantError<SourceKittenError> {
+    return .CommandError(Box(sourceKittenError))
 }

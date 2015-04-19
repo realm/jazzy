@@ -12,10 +12,11 @@ import LlamaKit
 import SourceKittenFramework
 
 struct DocCommand: CommandType {
+    typealias ClientError = SourceKittenError
     let verb = "doc"
     let function = "Print Swift docs as JSON or Objective-C docs as XML"
 
-    func run(mode: CommandMode) -> Result<(), CommandantError> {
+    func run(mode: CommandMode) -> Result<(), CommandantError<SourceKittenError>> {
         return DocOptions.evaluate(mode).flatMap { options in
             let args = Process.arguments
             if options.objc {
@@ -29,7 +30,7 @@ struct DocCommand: CommandType {
         }
     }
 
-    static func runSwiftModule(moduleName: String?, args: [String]) -> Result<(), CommandantError> {
+    static func runSwiftModule(moduleName: String?, args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
         let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
         let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
         let module = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)
@@ -38,12 +39,12 @@ struct DocCommand: CommandType {
             println(docs)
             return success()
         }
-        return failure(SourceKittenError.DocFailed.error)
+        return failure(toCommandantError(.DocFailed))
     }
 
-    static func runSwiftSingleFile(args: [String]) -> Result<(), CommandantError> {
+    static func runSwiftSingleFile(args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
         if args.count < 5 {
-            return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--single-file`").error)
+            return failure(toCommandantError(.InvalidArgument(description: "at least 5 arguments are required when using `--single-file`")))
         }
         let sourcekitdArguments = Array<String>(args[4..<args.count])
         if let file = File(path: args[3]) {
@@ -51,23 +52,23 @@ struct DocCommand: CommandType {
             println(docs)
             return success()
         }
-        return failure(SourceKittenError.ReadFailed(path: args[3]).error)
+        return failure(toCommandantError(.ReadFailed(path: args[3])))
     }
 
-    static func runObjC(options: DocOptions, args: [String]) -> Result<(), CommandantError> {
+    static func runObjC(options: DocOptions, args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
         if args.count < 5 {
-            return failure(SourceKittenError.InvalidArgument(description: "at least 5 arguments are required when using `--objc`").error)
+            return failure(toCommandantError(.InvalidArgument(description: "at least 5 arguments are required when using `--objc`")))
         }
         let startIndex = options.singleFile ? 4 : 3
         let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(Array<String>(args[startIndex..<args.count]))
         if headerFiles.count == 0 {
-            return failure(SourceKittenError.InvalidArgument(description: "must pass in at least one Objective-C header file").error)
+            return failure(toCommandantError(.InvalidArgument(description: "must pass in at least one Objective-C header file")))
         }
         if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
             println(translationUnit)
             return success()
         }
-        return failure(SourceKittenError.DocFailed.error)
+        return failure(toCommandantError(.DocFailed))
     }
 }
 
@@ -80,7 +81,7 @@ struct DocOptions: OptionsType {
         return self(singleFile: singleFile, moduleName: moduleName, objc: objc)
     }
 
-    static func evaluate(m: CommandMode) -> Result<DocOptions, CommandantError> {
+    static func evaluate(m: CommandMode) -> Result<DocOptions, CommandantError<SourceKittenError>> {
         return create
             <*> m <| Option(key: "single-file", defaultValue: false, usage: "only document one file")
             <*> m <| Option(key: "module-name", defaultValue: "",    usage: "name of module to document (can't be used with `--single-file` or `--objc`)")

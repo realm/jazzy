@@ -8,7 +8,7 @@
 
 import Commandant
 
-let registry = CommandRegistry()
+let registry = CommandRegistry<SourceKittenError>()
 registry.register(DocCommand())
 registry.register(SyntaxCommand())
 registry.register(StructureCommand())
@@ -17,6 +17,6 @@ registry.register(VersionCommand())
 let helpCommand = HelpCommand(registry: registry)
 registry.register(helpCommand)
 
-registry.main(defaultCommand: helpCommand) { error in
+registry.main(defaultVerb: "help") { error in
     fputs("\(error)\n", stderr)
 }
