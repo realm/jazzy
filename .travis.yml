@@ -1,3 +1,4 @@
+language: objective-c
 osx_image: xcode611
 git:
   submodules: false
