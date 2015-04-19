@@ -100,7 +100,7 @@ internal func runXcodeBuild(arguments: [String], inPath path: String) -> String?
     let xcodebuildOutput = NSString(data: file.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
     file.closeFile()
 
-    return xcodebuildOutput
+    return xcodebuildOutput as! String?
 }
 
 /**

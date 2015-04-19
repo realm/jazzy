@@ -1,1 +1,2 @@
-github "jpsim/SwiftXPC" >= 0.0.2
+github "jpsim/SwiftXPC" ~> 1.0
+github "drmohundro/SWXMLHash" ~> 1.0

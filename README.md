@@ -7,12 +7,12 @@ SourceKitten links and communicates with `sourcekitd.framework` to parse the Swi
 ![Test Status](https://travis-ci.org/jpsim/SourceKitten.svg?branch=master)
 
 ## Installation
-Install the `sourcekitten` command line tool by running `git clone` for this repo followed by `make install` in the root directory. Make sure that Xcode 6.1 is set in `xcode-select` before running `make`.
 
+Install the `sourcekitten` command line tool by running `git clone` for this repo followed by `make install` in the root directory. Make sure that Xcode 6.3 is set in `xcode-select` before running `make`.
 
 ## Command Line Usage
 
-By default, SourceKitten will use the copy of `sourcekitd.framework` under `/Applications/Xcode.app` (preferrably Xcode 6.1 or later).
+Install the `sourcekitten` command line tool by running `make install`, first making sure that Xcode 6.3 is set in `xcode-select` and installed under `/Applications/Xcode.app`.
 
 ```
 $ sourcekitten help

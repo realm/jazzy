@@ -24,7 +24,7 @@ class StructureTests: XCTestCase {
     }
 
     func testGenerateSameStructureFileAndContents() {
-        let fileContents = NSString(contentsOfFile: __FILE__, encoding: NSUTF8StringEncoding, error: nil)!
+        let fileContents = NSString(contentsOfFile: __FILE__, encoding: NSUTF8StringEncoding, error: nil) as String!
         XCTAssertEqual(Structure(file: File(path: __FILE__)!),
             Structure(file: File(contents: fileContents)),
             "should generate the same structure for a file as raw text")
@@ -36,6 +36,7 @@ class StructureTests: XCTestCase {
             "key.substructure": [
                 [
                     "key.kind": "source.lang.swift.decl.enum",
+                    "key.accessibility": "source.lang.swift.accessibility.internal",
                     "key.offset": 0,
                     "key.nameoffset": 5,
                     "key.namelength": 6,
@@ -46,6 +47,7 @@ class StructureTests: XCTestCase {
                     // TODO: Uncomment this once rdar://18845613 is fixed.
                     //    [
                     //        "key.kind": "source.lang.swift.decl.enumelement",
+                    //        "key.accessibility": "source.lang.swift.accessibility.internal",
                     //        "key.name": "First"
                     //    ]
                     ],
@@ -65,6 +67,7 @@ class StructureTests: XCTestCase {
             "key.substructure": [
                 [
                     "key.kind": "source.lang.swift.decl.struct",
+                    "key.accessibility": "source.lang.swift.accessibility.internal",
                     "key.offset": 0,
                     "key.nameoffset": 7,
                     "key.namelength": 1,
@@ -74,6 +77,7 @@ class StructureTests: XCTestCase {
                     "key.substructure": [
                         [
                             "key.kind": "source.lang.swift.decl.function.method.instance",
+                            "key.accessibility": "source.lang.swift.accessibility.internal",
                             "key.offset": 11,
                             "key.nameoffset": 16,
                             "key.namelength": 3,
@@ -97,7 +101,7 @@ class StructureTests: XCTestCase {
 
         let structureJSON = structure.description
         var error: NSError? = nil
-        let jsonDictionary = NSJSONSerialization.JSONObjectWithData(structureJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: &error) as NSDictionary?
+        let jsonDictionary = NSJSONSerialization.JSONObjectWithData(structureJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: &error) as! NSDictionary?
         XCTAssertNil(error, "JSON should be propery parsed")
         XCTAssertNotNil(jsonDictionary, "JSON should be propery parsed")
         if let jsonDictionary = jsonDictionary {

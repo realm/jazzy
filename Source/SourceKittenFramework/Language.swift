@@ -88,7 +88,7 @@ internal func parseCompilerArguments(xcodebuildOutput: NSString, #language: Lang
     let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)! // Safe to force unwrap
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
 
-    if let regexMatch = regex.firstMatchInString(xcodebuildOutput, options: nil, range: range) {
+    if let regexMatch = regex.firstMatchInString(xcodebuildOutput as! String, options: nil, range: range) {
         let escapedSpacePlaceholder = "\u{0}"
         let args = filterArguments(xcodebuildOutput
             .substringWithRange(regexMatch.range)

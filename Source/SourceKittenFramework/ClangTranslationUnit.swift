@@ -102,8 +102,8 @@ Extracts Objective-C header files and `xcodebuild` arguments from an array of he
 public func parseHeaderFilesAndXcodebuildArguments(sourcekittenArguments: [String]) -> (headerFiles: [String], xcodebuildArguments: [String]) {
     var xcodebuildArguments = sourcekittenArguments
     var headerFiles = [String]()
-    while xcodebuildArguments.first?.isObjectiveCHeaderFile() ?? false {
-        headerFiles.append(xcodebuildArguments.first!.absolutePathRepresentation()) // Safe to force unwrap
+    while let headerFile = xcodebuildArguments.first where headerFile.isObjectiveCHeaderFile() {
+        headerFiles.append(headerFile.absolutePathRepresentation())
         xcodebuildArguments.removeAtIndex(0)
     }
     return (headerFiles, xcodebuildArguments)

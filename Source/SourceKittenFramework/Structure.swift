@@ -20,9 +20,9 @@ public struct Structure {
     :param: file File to parse for structural information.
     */
     public init(file: File) {
-        dictionary = Request.EditorOpen(file).send()
-        let syntaxMapData = dictionary.removeValueForKey(SwiftDocKey.SyntaxMap.rawValue) as NSData
-        dictionary = file.processDictionary(dictionary, cursorInfoRequest: nil, syntaxMap: SyntaxMap(data: syntaxMapData))
+        var tmpDictionary = Request.EditorOpen(file).send()
+        let syntaxMapData = tmpDictionary.removeValueForKey(SwiftDocKey.SyntaxMap.rawValue) as! NSData
+        dictionary = file.processDictionary(tmpDictionary, cursorInfoRequest: nil, syntaxMap: SyntaxMap(data: syntaxMapData))
     }
 }
 

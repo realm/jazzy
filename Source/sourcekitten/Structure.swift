@@ -12,24 +12,26 @@ import LlamaKit
 import SourceKittenFramework
 
 struct StructureCommand: CommandType {
+    typealias ClientError = SourceKittenError
     let verb = "structure"
     let function = "Print Swift structure information as JSON"
 
-    func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<(), CommandantError<SourceKittenError>> {
         return StructureOptions.evaluate(mode).flatMap { options in
-            if countElements(options.file) > 0 {
+            if count(options.file) > 0 {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
                     println(Structure(file: file))
-                } else {
-                    return failure(SourceKittenError.ReadFailed(path: options.file).error)
+                    return success()
                 }
-                return success(())
+                return failure(toCommandantError(.ReadFailed(path: options.file)))
             }
-            if countElements(options.text) > 0 {
+            if count(options.text) > 0 {
                 println(Structure(file: File(contents: options.text)))
-                return success(())
+                return success()
             }
-            return failure(SourceKittenError.InvalidArgument(description: "either file or text must be set when calling structure").error)
+            return failure(toCommandantError(
+                .InvalidArgument(description: "either file or text must be set when calling structure")
+            ))
         }
     }
 }
@@ -42,7 +44,7 @@ struct StructureOptions: OptionsType {
         return self(file: file, text: text)
     }
 
-    static func evaluate(m: CommandMode) -> Result<StructureOptions> {
+    static func evaluate(m: CommandMode) -> Result<StructureOptions, CommandantError<SourceKittenError>> {
         return create
             <*> m <| Option(key: "file", defaultValue: "", usage: "relative or absolute path of Swift file to parse")
             <*> m <| Option(key: "text", defaultValue: "", usage: "Swift code text to parse")

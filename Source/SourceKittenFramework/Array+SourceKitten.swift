@@ -15,15 +15,14 @@ Returns an array containing the last contiguous group of elements matching the f
 public func filterLastContiguous<T>(array: [T], filter: T -> Bool) -> [T] {
     // remove trailing elements until the last one matches the filter
     var arrayWithTrailingNonMatchesRemoved = array
-    while arrayWithTrailingNonMatchesRemoved.last != nil &&
-        !filter(arrayWithTrailingNonMatchesRemoved.last!) { // Safe to force unwrap
+    while let last = arrayWithTrailingNonMatchesRemoved.last where !filter(last) {
         arrayWithTrailingNonMatchesRemoved.removeLast()
     }
     var lastContiguousArray = [T]()
     // keep trailing elements until the first one matches the filter
-    while arrayWithTrailingNonMatchesRemoved.last != nil &&
-        filter(arrayWithTrailingNonMatchesRemoved.last!) { // Safe to force unwrap
-        lastContiguousArray.insert(arrayWithTrailingNonMatchesRemoved.removeLast(), atIndex: 0)
+    while let last = arrayWithTrailingNonMatchesRemoved.last where filter(last) {
+        lastContiguousArray.insert(arrayWithTrailingNonMatchesRemoved.removeLast(),
+            atIndex: 0)
     }
     return lastContiguousArray
 }

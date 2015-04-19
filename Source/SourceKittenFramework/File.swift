@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftXPC
+import SWXMLHash
 
 /// Represents a source file.
 public struct File {
@@ -23,7 +24,7 @@ public struct File {
     */
     public init?(path: String) {
         self.path = path
-        if let contents = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil) as String? {
+        if let contents = NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil) as? String {
             self.contents = contents
         } else {
             fputs("Could not read contents of `\(path)`\n", stderr)
@@ -37,6 +38,7 @@ public struct File {
     :param: contents File contents.
     */
     public init(contents: String) {
+        path = nil
         self.contents = contents
     }
 
@@ -52,10 +54,10 @@ public struct File {
             return nil
         }
         return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
-            let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { Int($0) }
+            let end = map(SwiftDocKey.getBodyOffset(dictionary)) { Int($0) }
             let start = Int(start)
             let length = (end ?? start) - start
-            return self.contents.substringLinesWithByteRange(start: start, length: length)?
+            return contents.substringLinesWithByteRange(start: start, length: length)?
                 .stringByTrimmingWhitespaceAndOpeningCurlyBrace()
         }
     }
@@ -74,12 +76,12 @@ public struct File {
         return flatMap(SwiftDocKey.getOffset(dictionary)) { start in
             let start = Int(start)
             let end = flatMap(SwiftDocKey.getBodyOffset(dictionary)) { bodyOffset in
-                return flatMap(SwiftDocKey.getBodyLength(dictionary)) { bodyLength in
+                return map(SwiftDocKey.getBodyLength(dictionary)) { bodyLength in
                     return Int(bodyOffset + bodyLength)
                 }
             } ?? start
             let length = end - start
-            return self.contents.lineRangeWithByteRange(start: start, length: length)
+            return contents.lineRangeWithByteRange(start: start, length: length)
         }
     }
 
@@ -94,11 +96,10 @@ public struct File {
         precondition(SwiftDocKey.getKind(dictionary)! == SyntaxKind.CommentMark.rawValue)
         let offset = Int(SwiftDocKey.getOffset(dictionary)!)
         let length = Int(SwiftDocKey.getLength(dictionary)!)
-        if let fileContentsData = contents.dataUsingEncoding(NSUTF8StringEncoding) {
-            let subdata = fileContentsData.subdataWithRange(NSRange(location: offset, length: length))
-            if let substring = NSString(data: subdata, encoding: NSUTF8StringEncoding) as String? {
-                return substring
-            }
+        if let fileContentsData = contents.dataUsingEncoding(NSUTF8StringEncoding),
+            subdata = Optional(fileContentsData.subdataWithRange(NSRange(location: offset, length: length))),
+            substring = NSString(data: subdata, encoding: NSUTF8StringEncoding) as String? {
+            return substring
         }
         return nil
     }
@@ -134,7 +135,7 @@ public struct File {
             dictionary = merge(dictionary, parsedXMLDocs)
 
             // Parse documentation comment and add to dictionary
-            if let commentBody = flatMap(syntaxMap, { self.getDocumentationCommentBody(dictionary, syntaxMap: $0) }) {
+            if let commentBody = flatMap(syntaxMap, { getDocumentationCommentBody(dictionary, syntaxMap: $0) }) {
                 dictionary[SwiftDocKey.DocumentationComment.rawValue] = commentBody
             }
         }
@@ -158,10 +159,10 @@ public struct File {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
         for offset in offsetMap.keys.array.reverse() { // Do this in reverse to insert the doc at the correct offset
             let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!, cursorInfoRequest: nil, syntaxMap: syntaxMap)
-            if let kind = flatMap(SwiftDocKey.getKind(response), { SwiftDeclarationKind(rawValue: $0) }) {
-                if let inserted = insertDoc(response, parent: dictionary, offset: Int64(offsetMap[offset]!)) { // Safe to force unwrap
-                    dictionary = inserted
-                }
+            if let kind = SwiftDocKey.getKind(response),
+                _ = SwiftDeclarationKind(rawValue: kind),
+                inserted = insertDoc(response, parent: dictionary, offset: Int64(offsetMap[offset]!)) { // Safe to force unwrap
+                dictionary = inserted
             }
         }
         return dictionary
@@ -181,9 +182,9 @@ public struct File {
     private func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?, syntaxMap: SyntaxMap?) -> XPCArray? {
         return SwiftDocKey.getSubstructure(dictionary)?
             .filter({
-                return isDeclarationOrCommentMark($0 as XPCDictionary)
+                return isDeclarationOrCommentMark($0 as! XPCDictionary)
             }).map {
-                return self.processDictionary($0 as XPCDictionary, cursorInfoRequest: cursorInfoRequest, syntaxMap: syntaxMap)
+                return self.processDictionary($0 as! XPCDictionary, cursorInfoRequest: cursorInfoRequest, syntaxMap: syntaxMap)
         }
     }
 
@@ -201,7 +202,7 @@ public struct File {
                 if let markName = markNameFromDictionary(dictionary) {
                     return [SwiftDocKey.Name.rawValue: markName]
                 }
-            } else if kind != SwiftDeclarationKind.VarParameter.rawValue && SwiftDeclarationKind(rawValue: kind) != nil {
+            } else if let decl = SwiftDeclarationKind(rawValue: kind) where decl != .VarParameter {
                 // Update if kind is a declaration (but not a parameter)
                 var updateDict = Request.sendCursorInfoRequest(cursorInfoRequest,
                     atOffset: SwiftDocKey.getNameOffset(dictionary)!) ?? XPCDictionary()
@@ -243,7 +244,7 @@ public struct File {
             var substructure = SwiftDocKey.getSubstructure(parent)!
             var insertIndex = substructure.count
             for (index, structure) in enumerate(substructure.reverse()) {
-                if SwiftDocKey.getOffset(structure as XPCDictionary)! < offset {
+                if SwiftDocKey.getOffset(structure as! XPCDictionary)! < offset {
                     break
                 }
                 insertIndex = substructure.count - index
@@ -255,7 +256,7 @@ public struct File {
         for key in parent.keys {
             if var subArray = parent[key] as? XPCArray {
                 for i in 0..<subArray.count {
-                    if let subDict = insertDoc(doc, parent: subArray[i] as XPCDictionary, offset: offset) {
+                    if let subDict = insertDoc(doc, parent: subArray[i] as! XPCDictionary, offset: offset) {
                         subArray[i] = subDict
                         parent[key] = subArray
                         return parent
@@ -301,8 +302,8 @@ public struct File {
     public func getDocumentationCommentBody(dictionary: XPCDictionary, syntaxMap: SyntaxMap) -> String? {
         return flatMap(SwiftDocKey.getOffset(dictionary)) { offset in
             return flatMap(syntaxMap.commentRangeBeforeOffset(Int(offset))) { commentByteRange in
-                return flatMap(self.contents.byteRangeToNSRange(start: commentByteRange.start, length: commentByteRange.length)) { nsRange in
-                    return self.contents.commentBody(range: nsRange)
+                return flatMap(contents.byteRangeToNSRange(start: commentByteRange.start, length: commentByteRange.length)) { nsRange in
+                    return contents.commentBody(range: nsRange)
                 }
             }
         }
@@ -318,13 +319,11 @@ Traverse the dictionary replacing SourceKit UIDs with their string value.
 */
 internal func replaceUIDsWithSourceKitStrings(var dictionary: XPCDictionary) -> XPCDictionary {
     for key in dictionary.keys {
-        if let uid = dictionary[key] as? UInt64 {
-            if let uidString = stringForSourceKitUID(uid) {
-                dictionary[key] = uidString
-            }
+        if let uid = dictionary[key] as? UInt64, uidString = stringForSourceKitUID(uid) {
+            dictionary[key] = uidString
         } else if var array = dictionary[key] as? XPCArray {
             for (index, dict) in enumerate(array) {
-                array[index] = replaceUIDsWithSourceKitStrings(dict as XPCDictionary)
+                array[index] = replaceUIDsWithSourceKitStrings(dict as! XPCDictionary)
             }
             dictionary[key] = array
         } else if let dict = dictionary[key] as? XPCDictionary {
@@ -357,14 +356,14 @@ Parse XML from `key.doc.full_as_xml` from `cursor.info` request.
 public func parseFullXMLDocs(xmlDocs: String) -> XPCDictionary? {
     let cleanXMLDocs = xmlDocs.stringByReplacingOccurrencesOfString("<rawHTML>",  withString: "")
                               .stringByReplacingOccurrencesOfString("</rawHTML>", withString: "")
-    return flatMap(SWXMLHash.parse(cleanXMLDocs).children.first) { rootXML in
+    return map(SWXMLHash.parse(cleanXMLDocs).children.first) { rootXML in
         var docs = XPCDictionary()
         docs[SwiftDocKey.DocType.rawValue] = rootXML.element?.name
         docs[SwiftDocKey.DocFile.rawValue] = rootXML.element?.attributes["file"]
-        docs[SwiftDocKey.DocLine.rawValue] = flatMap(rootXML.element?.attributes["line"]) {
+        docs[SwiftDocKey.DocLine.rawValue] = map(rootXML.element?.attributes["line"]) {
             Int64(($0 as NSString).integerValue)
         }
-        docs[SwiftDocKey.DocColumn.rawValue] = flatMap(rootXML.element?.attributes["column"]) {
+        docs[SwiftDocKey.DocColumn.rawValue] = map(rootXML.element?.attributes["column"]) {
             Int64(($0 as NSString).integerValue)
         }
         docs[SwiftDocKey.DocName.rawValue] = rootXML["Name"].element?.text

@@ -115,13 +115,12 @@ public enum Request {
     */
     public func send() -> XPCDictionary {
         dispatch_once(&sourceKitInitializationToken) {
-            sourcekitd_initialize(); return
+            sourcekitd_initialize()
         }
         if let response = sourcekitd_send_request_sync(xpcValue) {
             return replaceUIDsWithSourceKitStrings(fromXPC(response))
         }
         fatalError("SourceKit response nil for request \(self)")
-        return XPCDictionary() // Keep the compiler happy 😄
     }
 }
 

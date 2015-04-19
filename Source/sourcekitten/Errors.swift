@@ -6,25 +6,12 @@
 //  Copyright (c) 2015 SourceKitten. All rights reserved.
 //
 
-import Foundation
+import LlamaKit
+import Commandant
 
-/// The domain for all errors originating within SourceKitten.
-let SourceKittenErrorDomain: NSString = "com.sourcekitten.SourceKitten"
-
-/// Possible error codes with `SourceKittenErrorDomain`.
-enum SourceKittenErrorCode: Int {
-    case InvalidArgument
-    case ReadFailed
-    case DocFailed
-
-    func error(userInfo: [NSObject: AnyObject]?) -> NSError {
-        return NSError(domain: SourceKittenErrorDomain, code: self.rawValue, userInfo: userInfo)
-    }
-}
-
-/// Possible errors within `SourceKittenErrorDomain`.
-enum SourceKittenError {
-    /// One or more arguments was invalid.
+/// Possible errors within SourceKitten.
+enum SourceKittenError: Printable {
+    /// One or more argument was invalid.
     case InvalidArgument(description: String)
 
     /// Failed to read a file at the given path.
@@ -33,21 +20,19 @@ enum SourceKittenError {
     /// Failed to generate documentation.
     case DocFailed
 
-    /// An `NSError` object corresponding to this error code.
-    var error: NSError {
+    /// An error message corresponding to this error.
+    var description: String {
         switch self {
         case let .InvalidArgument(description):
-            return SourceKittenErrorCode.InvalidArgument.error([
-                NSLocalizedDescriptionKey: description
-            ])
+            return description
         case let .ReadFailed(path):
-            return SourceKittenErrorCode.ReadFailed.error([
-                NSLocalizedDescriptionKey: "Failed to read file at '\(path)'"
-            ])
+            return "Failed to read file at '\(path)'"
         case let .DocFailed:
-            return SourceKittenErrorCode.DocFailed.error([
-                NSLocalizedDescriptionKey: "Failed to generate documentation"
-            ])
+            return "Failed to generate documentation"
         }
     }
+}
+
+func toCommandantError(sourceKittenError: SourceKittenError) -> CommandantError<SourceKittenError> {
+    return .CommandError(Box(sourceKittenError))
 }

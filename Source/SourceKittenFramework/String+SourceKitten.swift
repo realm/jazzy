@@ -86,7 +86,7 @@ extension NSString {
     */
     public func byteRangeToNSRange(# start: Int, length: Int) -> NSRange? {
         return flatMap(indexOfByteOffset(start)) { stringStart in
-            return flatMap(self.indexOfByteOffset(start + length)) { stringEnd in
+            return map(self.indexOfByteOffset(start + length)) { stringEnd in
                 return NSRange(location: stringStart, length: stringEnd - stringStart)
             }
         }
@@ -99,7 +99,7 @@ extension NSString {
     :param: length Length of bytes to include in range.
     */
     public func substringWithByteRange(# start: Int, length: Int) -> String? {
-        return flatMap(byteRangeToNSRange(start: start, length: length)) {
+        return map(byteRangeToNSRange(start: start, length: length)) {
             self.substringWithRange($0)
         }
     }
@@ -112,7 +112,7 @@ extension NSString {
     :param: length Length of bytes to include in range.
     */
     public func substringLinesWithByteRange(# start: Int, length: Int) -> String? {
-        return flatMap(byteRangeToNSRange(start: start, length: length)) { range in
+        return map(byteRangeToNSRange(start: start, length: length)) { range in
             var lineStart = 0
             var lineEnd = 0
             self.getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: range)
@@ -174,7 +174,7 @@ extension String {
     public func isTokenDocumentable(token: SyntaxToken) -> Bool {
         if token.type == SyntaxKind.Keyword.rawValue {
             let keywordFunctions = ["subscript", "init", "deinit"]
-            return flatMap((self as NSString).substringWithByteRange(start: token.offset, length: token.length)) {
+            return map((self as NSString).substringWithByteRange(start: token.offset, length: token.length)) {
                 contains(keywordFunctions, $0)
             } ?? false
         }
@@ -196,8 +196,8 @@ extension String {
         }
 
         let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)! // Safe to force unwrap
-        let range = NSRange(location: 0, length: utf16Count)
-        let matches = regex.matchesInString(self, options: nil, range: range) as [NSTextCheckingResult]
+        let range = NSRange(location: 0, length: count(utf16))
+        let matches = regex.matchesInString(self, options: nil, range: range) as! [NSTextCheckingResult]
 
         return compact(matches.map({ match in
             documentableOffsets.filter({ $0 >= match.range.location }).first
@@ -220,8 +220,8 @@ extension String {
         }
         for pattern in patterns {
             let regex = NSRegularExpression(pattern: pattern.pattern, options: pattern.options, error: nil)! // Safe to force unwrap
-            let matches = regex.matchesInString(self, options: nil, range: range!) as [NSTextCheckingResult]
-            let bodyParts: [String] = map(matches) { match in
+            let matches = regex.matchesInString(self, options: nil, range: range!) as! [NSTextCheckingResult]
+            let bodyParts: [String] = flatMap(matches) { match in
                 let numberOfRanges = match.numberOfRanges
                 if numberOfRanges < 1 {
                     return []
@@ -242,7 +242,7 @@ extension String {
                     let bodySubstring = nsString.substringWithRange(range)
                     return leadingWhitespaceToAdd + bodySubstring
                 }
-            }.reduce([], +)
+            }
             if bodyParts.count > 0 {
                 return "\n"
                     .join(bodyParts)
@@ -258,13 +258,13 @@ extension String {
         var minLeadingWhitespace = Int.max
         enumerateLines { line, _ in
             let lineLeadingWhitespace = line.countOfLeadingCharactersInSet(whitespaceAndNewlineCharacterSet)
-            if lineLeadingWhitespace < minLeadingWhitespace && lineLeadingWhitespace != countElements(line) {
+            if lineLeadingWhitespace < minLeadingWhitespace && lineLeadingWhitespace != count(line) {
                 minLeadingWhitespace = lineLeadingWhitespace
             }
         }
         var lines = [String]()
         enumerateLines { line, _ in
-            if countElements(line) >= minLeadingWhitespace {
+            if count(line) >= minLeadingWhitespace {
                 lines.append(line[advance(line.startIndex, minLeadingWhitespace)..<line.endIndex])
             } else {
                 lines.append(line)
@@ -292,7 +292,7 @@ extension String {
 
     /// Returns a copy of the string by trimming whitespace and the opening curly brace (`{`).
     internal func stringByTrimmingWhitespaceAndOpeningCurlyBrace() -> String? {
-        let unwantedSet = whitespaceAndNewlineCharacterSet.mutableCopy() as NSMutableCharacterSet
+        let unwantedSet = whitespaceAndNewlineCharacterSet.mutableCopy() as! NSMutableCharacterSet
         unwantedSet.addCharactersInString("{")
         return stringByTrimmingCharactersInSet(unwantedSet)
     }

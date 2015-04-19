@@ -9,13 +9,14 @@
 import Commandant
 import LlamaKit
 
-private let version = "0.3.2"
+private let version = "0.3.3"
 
 struct VersionCommand: CommandType {
+    typealias ClientError = SourceKittenError
     let verb = "version"
     let function = "Display the current version of SourceKitten"
 
-    func run(mode: CommandMode) -> Result<()> {
+    func run(mode: CommandMode) -> Result<(), CommandantError<SourceKittenError>> {
         switch mode {
         case let .Arguments:
             println(version)
@@ -23,7 +24,6 @@ struct VersionCommand: CommandType {
         default:
             break
         }
-        
-        return success(())
+        return success()
     }
 }

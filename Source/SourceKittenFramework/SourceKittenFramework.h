@@ -18,3 +18,4 @@ FOUNDATION_EXPORT const unsigned char SourceKittenFrameworkVersionString[];
 
 // Ideally this would be in a bridging header, but due to rdar://17633863, we can't have nice things.
 #import <SourceKittenFramework/Index.h>
+#import <SourceKittenFramework/CXCompilationDatabase.h>

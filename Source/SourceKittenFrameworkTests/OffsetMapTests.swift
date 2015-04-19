@@ -12,12 +12,12 @@ import XCTest
 
 class OffsetMapTests: XCTestCase {
     func testOffsetMapContainsDeclarationOffsetWithDocCommentButNotAlreadyDocumented() {
-        // Global declarations aren't parsed by SourceKit, so OffsetMap should contain its offset.
-        let file = File(contents: "/// Doc Comment\nlet global = 0")
+        // Enum cases aren't parsed by SourceKit, so OffsetMap should contain its offset.
+        let file = File(contents: "enum MyEnum {\n/// Doc Comment\ncase First\n}")
         let documentedTokenOffsets = file.contents.documentedTokenOffsets(SyntaxMap(file: file))
         let response = file.processDictionary(Request.EditorOpen(file).send(), cursorInfoRequest: nil)
         let offsetMap = file.generateOffsetMap(documentedTokenOffsets, dictionary: response)
-        XCTAssertEqual(offsetMap, [20: 0], "should generate correct offset map of [(declaration offset): 0]")
+        XCTAssertEqual(offsetMap, [35: 5], "should generate correct offset map of [(declaration offset): (parent offset)]")
     }
 
     func testOffsetMapDoesntContainAlreadyDocumentedDeclarationOffset() {

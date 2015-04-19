@@ -13,4 +13,7 @@
    <FileRef
       location = "group:Carthage/Checkouts/Commandant/Carthage/Checkouts/LlamaKit/LlamaKit.xcodeproj">
    </FileRef>
+   <FileRef
+      location = "group:Carthage/Checkouts/SWXMLHash/SWXMLHash.xcodeproj">
+   </FileRef>
 </Workspace>
