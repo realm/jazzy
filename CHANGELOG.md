@@ -1,3 +1,19 @@
+## 0.3.3
+
+##### Breaking
+
+* Requires Swift 1.2 to build.  
+  [JP Simard](https://github.com/jpsim)
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+None.
+
+
 ## 0.3.2
 
 ##### Breaking
