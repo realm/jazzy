@@ -1,7 +1,7 @@
 osx_image: xcode611
 git:
   submodules: false
-script: BUILD_TOOL=xctool script/cibuild
+script: script/cibuild
 notifications:
   email: false
   slack: realmio:vPdpsG9NLDo2DNlbqtcMAQuE
