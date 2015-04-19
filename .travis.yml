@@ -1,15 +1,7 @@
-language: objective-c
-xcode_workspace: SourceKitten.xcworkspace
-xcode_scheme: sourcekitten
 osx_image: xcode611
-before_install: true
-install: true
 git:
   submodules: false
 script: BUILD_TOOL=xctool script/cibuild
 notifications:
   email: false
   slack: realmio:vPdpsG9NLDo2DNlbqtcMAQuE
-branches:
-  except:
-    - swift1p2
