@@ -15,17 +15,17 @@ module Jazzy
 
     it 'validates the current xcode version' do
       SourceKitten.stubs(:`).returns <<-O
-Swift version 1.1 (swift-600.0.57.4)
-Target: x86_64-apple-darwin14.1.0
+Apple Swift version 1.2 (swiftlang-602.0.49.6 clang-602.0.49)
+Target: x86_64-apple-darwin14.3.0
       O
       should.not.raise { SourceKitten.assert_swift_version }
 
       SourceKitten.stubs(:`).returns <<-O
-Apple Swift version 1.2 (swiftlang-602.0.47.4 clang-602.0.48)
+Swift version 1.1 (swift-600.0.57.4)
 Target: x86_64-apple-darwin14.1.0
       O
       should.raise { SourceKitten.assert_swift_version }.message.should
-        .match /Jazzy.*Swift 1\.1/
+        .match /Jazzy.*Swift 1\.2/
     end
   end
 end
