@@ -1,3 +1,25 @@
+## 0.2.0
+
+##### Breaking
+
+* Jazzy now only supports projects using Swift 1.2.  
+  [JP Simard](https://github.com/jpsim)
+  [#170](https://github.com/realm/jazzy/issues/170)
+* Increase default minimum ACL to public.  
+  [JP Simard](https://github.com/jpsim)
+  [#186](https://github.com/realm/jazzy/issues/186)
+
+##### Enhancements
+
+* Use key.accessibility to determine ACL.  
+  [JP Simard](https://github.com/jpsim)
+  [#185](https://github.com/realm/jazzy/issues/185)
+
+##### Bug Fixes
+
+* None.
+
+
 ## 0.1.6
 
 ##### Breaking
