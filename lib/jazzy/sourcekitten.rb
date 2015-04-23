@@ -210,10 +210,8 @@ module Jazzy
         declaration.usr  = doc['key.usr']
         declaration.name = doc['key.name']
         declaration.mark = current_mark
-        acl = SourceDeclaration::AccessControlLevel.new(
-          doc['key.accessibility'],
-        )
-        declaration.access_control_level = acl
+        declaration.access_control_level =
+          SourceDeclaration::AccessControlLevel.from_doc(doc)
         declaration.start_line = doc['key.parsed_scope.start']
         declaration.end_line = doc['key.parsed_scope.end']
 
