@@ -16,6 +16,8 @@ module Jazzy
           @level = :internal
         elsif accessibility == ACCESSIBILITY_PUBLIC
           @level = :public
+        else
+          raise "cannot initialize AccessControlLevel with '#{accessibility}'"
         end
       end
 

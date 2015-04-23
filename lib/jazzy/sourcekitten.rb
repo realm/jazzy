@@ -12,6 +12,7 @@ module Jazzy
   module SourceKitten
     @documented_count = 0
     @undocumented_tokens = []
+    @expected_swift_version = '1.2'
 
     # Group root-level docs by type and add as children to a group doc element
     def self.group_docs(docs, type)
@@ -70,9 +71,8 @@ module Jazzy
     def self.assert_swift_version
       swift_version = `xcrun swift --version` =~ /Swift version ([\d\.]+)/ &&
         Regexp.last_match[1]
-      expected_swift_version = '1.2'
-      return if swift_version == expected_swift_version
-      raise "Jazzy only works with Swift #{expected_swift_version}."
+      return if swift_version == @expected_swift_version
+      raise "Jazzy only works with Swift #{@expected_swift_version}."
     end
 
     # Run sourcekitten with given arguments and return STDOUT
