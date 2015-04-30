@@ -30,7 +30,7 @@ module Jazzy
         status  = Open4.spawn(bin, *args, options)
         unless status.success?
           full_command = "#{bin.shellescape} #{args.map(&:shellescape)}"
-          output  = stdout.to_s << stderr.to_S
+          output = stdout.to_s << stderr.to_s
           if raise_on_failure
             raise "#{full_command}\n\n#{output}"
           else
