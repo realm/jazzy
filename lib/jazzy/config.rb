@@ -28,6 +28,7 @@ module Jazzy
     attr_accessor :docset_icon
     attr_accessor :docset_path
     attr_accessor :source_directory
+    attr_accessor :excluded
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -42,6 +43,7 @@ module Jazzy
       self.min_acl = SourceDeclaration::AccessControlLevel.public
       self.skip_undocumented = false
       self.source_directory = Pathname.pwd
+      self.excluded = []
     end
 
     def podspec=(podspec)
@@ -162,6 +164,11 @@ module Jazzy
         opt.on('--readme FILEPATH',
                'The path to a markdown README file') do |readme|
           config.readme_path = Pathname(readme)
+        end
+
+        opt.on('-e', '--exclude file1,file2,…fileN', Array,
+               'Files to be excluded from documentation') do |files|
+          config.excluded = files
         end
 
         opt.on('-v', '--version', 'Print version number') do
