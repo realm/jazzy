@@ -44,9 +44,10 @@ module Jazzy
             id = doc.name || 'unknown'
             warn "`#{id}` has no USR. First make sure all modules used in " \
               'your project have been imported. If all used modules are ' \
-              'imported, please report this by filing an issue at ' \
+              'imported, please report this problem by filing an issue at ' \
               'https://github.com/realm/jazzy/issues along with your Xcode ' \
-              'project.'
+              'project. If this token is declared in an `#if` block, please ' \
+              'ignore this message.'
           end
           doc.url = parents.join('/') + '.html#/' + id
         end
