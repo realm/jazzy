@@ -1,3 +1,19 @@
+## 0.4.1
+
+##### Breaking
+
+* SwiftDocs now prints its file path in its `description`.  
+  [JP Simard](https://github.com/jpsim)
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+None.
+
+
 ## 0.4.0
 
 ##### Breaking

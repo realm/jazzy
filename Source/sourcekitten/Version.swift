@@ -9,7 +9,7 @@
 import Commandant
 import LlamaKit
 
-private let version = "0.4.0"
+private let version = "0.4.1"
 
 struct VersionCommand: CommandType {
     typealias ClientError = SourceKittenError

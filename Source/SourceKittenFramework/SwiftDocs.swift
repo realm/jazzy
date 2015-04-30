@@ -11,6 +11,9 @@ import SwiftXPC
 
 /// Represents docs for a Swift file.
 public struct SwiftDocs {
+    /// Documented File.
+    public let file: File
+
     /// Docs information as an XPCDictionary.
     public let docsDictionary: XPCDictionary
 
@@ -36,6 +39,7 @@ public struct SwiftDocs {
     :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
     */
     public init(file: File, var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) {
+        self.file = file
         let syntaxMapData = dictionary.removeValueForKey(SwiftDocKey.SyntaxMap.rawValue) as! NSData
         let syntaxMap = SyntaxMap(data: syntaxMapData)
         dictionary = file.processDictionary(dictionary, cursorInfoRequest: cursorInfoRequest, syntaxMap: syntaxMap)
@@ -56,5 +60,5 @@ public struct SwiftDocs {
 
 extension SwiftDocs: Printable {
     /// A textual JSON representation of `SwiftDocs`.
-    public var description: String { return toJSON(docsDictionary) }
+    public var description: String { return toJSON([file.path ?? "<No File>": docsDictionary]) }
 }
