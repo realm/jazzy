@@ -241,9 +241,10 @@ module Jazzy
     end
 
     def self.filter_excluded_files(json)
-      excluded_files = Config.instance.excluded
+      excluded_files = Config.instance.excluded_files
       json.map do |doc|
-        doc.values.first unless excluded_files.include?(doc.keys.first)
+        key = doc.keys.first
+        doc[key] unless excluded_files.include?(key)
       end.compact
     end
 

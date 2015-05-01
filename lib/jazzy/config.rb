@@ -28,7 +28,7 @@ module Jazzy
     attr_accessor :docset_icon
     attr_accessor :docset_path
     attr_accessor :source_directory
-    attr_accessor :excluded
+    attr_accessor :excluded_files
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -43,7 +43,7 @@ module Jazzy
       self.min_acl = SourceDeclaration::AccessControlLevel.public
       self.skip_undocumented = false
       self.source_directory = Pathname.pwd
-      self.excluded = []
+      self.excluded_files = []
     end
 
     def podspec=(podspec)
@@ -168,7 +168,7 @@ module Jazzy
 
         opt.on('-e', '--exclude file1,file2,…fileN', Array,
                'Files to be excluded from documentation') do |files|
-          config.excluded = files
+          config.excluded_files = files
         end
 
         opt.on('-v', '--version', 'Print version number') do
