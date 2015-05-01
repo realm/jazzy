@@ -1,3 +1,21 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Added the ability to ignore certain files by passing in an `-e`/`--exclude`
+  argument to jazzy.  
+  [JP Simard](https://github.com/jpsim)
+  [#173](https://github.com/realm/jazzy/issues/173)
+
+##### Bug Fixes
+
+* None.
+
+
 ## 0.2.0
 
 ##### Breaking

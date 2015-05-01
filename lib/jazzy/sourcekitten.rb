@@ -240,12 +240,20 @@ module Jazzy
       end
     end
 
+    def self.filter_excluded_files(json)
+      excluded_files = Config.instance.excluded_files
+      json.map do |doc|
+        key = doc.keys.first
+        doc[key] unless excluded_files.include?(key)
+      end.compact
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, min_acl, skip_undocumented)
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
-      sourcekitten_json = JSON.parse(sourcekitten_output)
+      sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json)
       docs = deduplicate_declarations(docs)
       SourceDeclaration::Type.all.each do |type|
