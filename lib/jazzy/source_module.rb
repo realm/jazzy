@@ -13,6 +13,10 @@ module Jazzy
     attr_accessor :github_url
     attr_accessor :github_file_prefix
     attr_accessor :author_url
+    attr_accessor :copyright_label
+    attr_accessor :copyright_year
+    attr_accessor :copyright_holder
+    attr_accessor :copyright_url
     attr_accessor :dash_url
 
     def initialize(options, docs, doc_structure, doc_coverage)
@@ -24,6 +28,10 @@ module Jazzy
       self.github_url = options.github_url
       self.github_file_prefix = options.github_file_prefix
       self.author_url = options.author_url
+      self.copyright_label = options.copyright_label
+      self.copyright_year = options.copyright_year
+      self.copyright_holder = options.copyright_holder != '' ? options.copyright_holder : options.author_name
+	  self.copyright_url = options.copyright_url.to_s != '' ? options.copyright_url : options.author_url
       return unless options.dash_url
       self.dash_url = "dash-feed://#{URI.encode(options.dash_url.to_s, /\W/)}"
     end

@@ -185,6 +185,10 @@ module Jazzy
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:author_website] = source_module.author_url.to_s
+      doc[:copyright_label] = source_module.copyright_label
+      doc[:copyright_year] = source_module.copyright_year
+      doc[:copyright_holder] = source_module.copyright_holder
+      doc[:copyright_url] = source_module.copyright_url.to_s
       doc[:github_url] = source_module.github_url.to_s
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
@@ -288,6 +292,10 @@ module Jazzy
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:author_website] = source_module.author_url.to_s
+      doc[:copyright_label] = source_module.copyright_label
+      doc[:copyright_year] = source_module.copyright_year
+      doc[:copyright_holder] = source_module.copyright_holder
+      doc[:copyright_url] = source_module.copyright_url.to_s
       doc[:github_url] = source_module.github_url.to_s
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root

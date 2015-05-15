@@ -12,6 +12,10 @@ module Jazzy
     attr_accessor :xcodebuild_arguments
     attr_accessor :author_name
     attr_accessor :module_name
+    attr_accessor :copyright_label
+    attr_accessor :copyright_year
+    attr_accessor :copyright_holder
+    attr_accessor :copyright_url
     attr_accessor :github_url
     attr_accessor :github_file_prefix
     attr_accessor :author_url
@@ -37,6 +41,10 @@ module Jazzy
       self.author_name = ''
       self.module_name = ''
       self.author_url = URI('')
+      self.copyright_label = '©'
+      self.copyright_year = DateTime.now.strftime('%Y')
+      self.copyright_holder = ''
+      self.copyright_url = URI('')
       self.clean = false
       self.docset_platform = 'jazzy'
       self.version = '1.0'
@@ -83,6 +91,26 @@ module Jazzy
         opt.on('-u', '--author_url URL',
                'Author URL of this project (i.e. http://realm.io)') do |u|
           config.author_url = URI(u)
+        end
+
+        opt.on('--copyright_label LABEL',
+               'The text shown as the Copyright label; defaults to ©') do |label|
+          config.copyright_label = label
+        end
+
+        opt.on('--copyright_year YEAR',
+               'The copyright year; defaults to current year but accepts arbitrary text') do |year|
+          config.copyright_year = year
+        end
+
+        opt.on('--copyright_holder HOLDER',
+               'The holder of the copyright; defaults to the author if not specified') do |holder|
+          config.copyright_holder = holder
+        end
+
+        opt.on('--copyright_url URL',
+               'The URL associated with the copyright holder; defaults to the author URL if not specified') do |u|
+          config.copyright_url = URI(u)
         end
 
         opt.on('-m', '--module MODULE_NAME',
