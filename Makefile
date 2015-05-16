@@ -6,8 +6,6 @@ XCODEFLAGS=-workspace 'SourceKitten.xcworkspace' -scheme 'sourcekitten' DSTROOT=
 
 BUILT_BUNDLE=$(TEMPORARY_FOLDER)/Applications/sourcekitten.app
 SOURCEKITTEN_FRAMEWORK_BUNDLE=$(BUILT_BUNDLE)/Contents/Frameworks/SourceKittenFramework.framework
-COMMANDANT_FRAMEWORK_BUNDLE=$(BUILT_BUNDLE)/Contents/Frameworks/Commandant.framework
-LLAMAKIT_FRAMEWORK_BUNDLE=$(BUILT_BUNDLE)/Contents/Frameworks/LlamaKit.framework
 SOURCEKITTEN_EXECUTABLE=$(BUILT_BUNDLE)/Contents/MacOS/sourcekitten
 
 FRAMEWORKS_FOLDER=/Library/Frameworks
@@ -39,8 +37,6 @@ install: package
 
 uninstall:
 	rm -rf "$(FRAMEWORKS_FOLDER)/SourceKittenFramework.framework"
-	rm -rf "$(FRAMEWORKS_FOLDER)/Commandant.framework"
-	rm -rf "$(FRAMEWORKS_FOLDER)/LlamaKit.framework"
 	rm -f "$(BINARIES_FOLDER)/sourcekitten"
 
 installables: clean bootstrap
@@ -48,18 +44,14 @@ installables: clean bootstrap
 
 	mkdir -p "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)" "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)"
 	mv -f "$(SOURCEKITTEN_FRAMEWORK_BUNDLE)" "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/SourceKittenFramework.framework"
-	mv -f "$(COMMANDANT_FRAMEWORK_BUNDLE)" "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/Commandant.framework"
-	mv -f "$(LLAMAKIT_FRAMEWORK_BUNDLE)" "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/LlamaKit.framework"
 	mv -f "$(SOURCEKITTEN_EXECUTABLE)" "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/sourcekitten"
 	rm -rf "$(BUILT_BUNDLE)"
 
 prefix_install: installables
-	mkdir -p "$(PREFIX)/Frameworks" "$(PREFIX)/bin"
 	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/SourceKittenFramework.framework" "$(PREFIX)/Frameworks/"
-	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/Commandant.framework" "$(PREFIX)/Frameworks/"
-	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/LlamaKit.framework" "$(PREFIX)/Frameworks/"
 	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/sourcekitten" "$(PREFIX)/bin/"
-	install_name_tool -add_rpath "@executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks/"  "$(PREFIX)/bin/sourcekitten"
+	install_name_tool -add_rpath "@executable_path/../Frameworks" "$(PREFIX)/bin/sourcekitten"
+	install_name_tool -add_rpath "@executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks/" "$(PREFIX)/bin/sourcekitten"
 
 package: installables
 	pkgbuild \

@@ -1,3 +1,20 @@
+## 0.4.2
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* SourceKitten can now be installed alongside Carthage because
+  SourceKittenFramework now nests its Commandant and LlamaKit frameworks.  
+  [JP Simard](https://github.com/jpsim)
+
+
 ## 0.4.1
 
 ##### Breaking

@@ -21,25 +21,21 @@
 				<key>RootRelativeBundlePath</key>
 				<string>Library/Frameworks/SourceKittenFramework.framework/Versions/A/Frameworks/SWXMLHash.framework</string>
 			</dict>
+			<dict>
+				<key>BundleOverwriteAction</key>
+				<string></string>
+				<key>RootRelativeBundlePath</key>
+				<string>Library/Frameworks/SourceKittenFramework.framework/Versions/A/Frameworks/Commandant.framework</string>
+			</dict>
+			<dict>
+				<key>BundleOverwriteAction</key>
+				<string></string>
+				<key>RootRelativeBundlePath</key>
+				<string>Library/Frameworks/SourceKittenFramework.framework/Versions/A/Frameworks/LlamaKit.framework</string>
+			</dict>
 		</array>
 		<key>RootRelativeBundlePath</key>
 		<string>Library/Frameworks/SourceKittenFramework.framework</string>
-	</dict>
-	<dict>
-		<key>BundleIsVersionChecked</key>
-		<false/>
-		<key>BundleOverwriteAction</key>
-		<string>upgrade</string>
-		<key>RootRelativeBundlePath</key>
-		<string>Library/Frameworks/Commandant.framework</string>
-	</dict>
-	<dict>
-		<key>BundleIsVersionChecked</key>
-		<false/>
-		<key>BundleOverwriteAction</key>
-		<string>upgrade</string>
-		<key>RootRelativeBundlePath</key>
-		<string>Library/Frameworks/LlamaKit.framework</string>
 	</dict>
 </array>
 </plist>
