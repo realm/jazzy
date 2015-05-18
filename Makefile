@@ -48,6 +48,7 @@ installables: clean bootstrap
 	rm -rf "$(BUILT_BUNDLE)"
 
 prefix_install: installables
+	mkdir -p "$(PREFIX)/Frameworks" "$(PREFIX)/bin"
 	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/SourceKittenFramework.framework" "$(PREFIX)/Frameworks/"
 	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/sourcekitten" "$(PREFIX)/bin/"
 	install_name_tool -add_rpath "@executable_path/../Frameworks" "$(PREFIX)/bin/sourcekitten"
