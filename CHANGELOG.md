@@ -1,3 +1,19 @@
+## 0.4.3
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* Fixed issue when installing 0.4.2 via Homebrew.  
+  [JP Simard](https://github.com/jpsim)
+
+
 ## 0.4.2
 
 ##### Breaking
