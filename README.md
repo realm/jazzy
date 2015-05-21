@@ -19,8 +19,8 @@ documentation, post WWDC 2014.
 
 ### Requirements
 
-* [Xcode 6.1][xcode], installed in `/Applications/Xcode.app`
-* `xcode-select -p` should print Xcode 6.1's path. If it doesn't, run
+* [Xcode 6.3][xcode], installed in `/Applications/Xcode.app`
+* `xcode-select -p` should print Xcode 6.3's path. If it doesn't, run
 `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`
 
 ### Installing
