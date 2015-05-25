@@ -32,6 +32,11 @@ To install jazzy, run `[sudo] gem install jazzy` from your command line.
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional
 options.
 
+### Troubleshooting
+
+#### Only extensions are listed in the documentation.
+By default, jazzy only documents public declarations. To generate documentation for declarations with a lower accessibility level (internal or private), please set the `--min-acl` flag to `internal` or `private`.
+
 ### Development
 
 jazzy is composed of two parts: the parser ([sourcekitten][sourcekitten],
