@@ -32,14 +32,10 @@ To install jazzy, run `[sudo] gem install jazzy` from your command line.
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional
 options.
 
-### Troubleshooting
+#### Troubleshooting
 
 ***Only extensions are listed in the documentation.***
-By default, jazzy will only create documentation for public methods and classes. If you want to generate documentation for all of your files, make sure you set the `--min-acl` flag to `internal` or `private`.
-
-```sh
-jazzy --output /path/to/output --source-directory /path/to/src --min-acl internal
-```
+By default, jazzy only documents public declarations. To generate documentation for declarations with a lower accessibility level (internal or private), please set the `--min-acl` flag to `internal` or `private`.
 
 ### Development
 
