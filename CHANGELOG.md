@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* Fixed a crash when parsing an empty documentation comment.  
+  [JP Simard](https://github.com/jpsim)
+  [#236](https://github.com/realm/jazzy/issues/236)
+
+
 ## 0.4.3
 
 ##### Breaking
