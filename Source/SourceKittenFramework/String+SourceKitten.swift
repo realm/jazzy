@@ -53,6 +53,9 @@ extension NSString {
     :param: characterSet Character set to check for membership.
     */
     public func stringByTrimmingTrailingCharactersInSet(characterSet: NSCharacterSet) -> String {
+        if length == 0 {
+            return self as String
+        }
         var charBuffer = [unichar](count: length, repeatedValue: 0)
         getCharacters(&charBuffer)
         for newLength in reverse(1...length) {
