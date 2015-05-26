@@ -9,7 +9,6 @@ rvm:
 before_install:
   - sudo gem install bundler
   - git submodule update --init --recursive
-  - pod setup
 script:
   - bundle exec rake spec
 notifications:

@@ -48,6 +48,10 @@ require 'pretty_bacon'
 require 'colored'
 require 'CLIntegracon'
 
+require 'cocoapods'
+Pod::Config.instance.silent = true
+Pod::Command::Setup.invoke
+
 CLIntegracon.configure do |c|
   c.spec_path = ROOT + 'spec/integration_specs'
   c.temp_path = ROOT + 'tmp'
