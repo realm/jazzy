@@ -77,7 +77,7 @@ describe_cli 'jazzy' do
     s.environment_vars = {
       'JAZZY_FAKE_DATE'            => 'YYYY-MM-DD',
       'JAZZY_FAKE_VERSION'         => 'X.X.X',
-      'COCOAPODS_SKIP_NEW_VERSION' => 'TRUE',
+      'COCOAPODS_SKIP_UPDATE_MESSAGE' => 'TRUE',
     }
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
