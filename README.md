@@ -2,6 +2,8 @@
 
 ![analytics](https://ga-beacon.appspot.com/UA-50247013-2/jazzy/README?pixel)
 
+![Test Status](https://travis-ci.org/realm/jazzy.svg?branch=master)
+
 jazzy is a command-line utility that generates documentation for your Swift or
 Objective-C projects.
 

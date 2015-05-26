@@ -1,0 +1,13 @@
+language: objective-c
+osx_image: beta-xcode6.3
+cache: bundler
+rvm:
+  - system
+before_install:
+  - sudo gem install bundler
+  - git submodule update --init --recursive
+script:
+  - bundle exec rake spec
+notifications:
+  email: false
+  slack: realmio:vPdpsG9NLDo2DNlbqtcMAQuE
