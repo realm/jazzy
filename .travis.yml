@@ -1,6 +1,8 @@
 language: objective-c
 osx_image: beta-xcode6.3
 cache: bundler
+branches:
+  - master
 rvm:
   - system
 before_install:
