@@ -13,4 +13,5 @@ script:
   - bundle exec rake spec
 notifications:
   email: false
-  slack: realmio:vPdpsG9NLDo2DNlbqtcMAQuE
+  slack:
+    secure: LW96qfX3kzcjn2PmjTGsUsD75I92OvLcJ7lLQNXZ7fc5WHQzSha4U+ZGNJdBQg1n3891UkBBVx3GW0872UMEYuNKgRK+SNbj9iKPLpgbw/bVKOeRAf4+G1UxWh42oCI6uldDOG9U14DqFJRAxIS2rDEEXZPucOm65bNDdSQyfiY=
