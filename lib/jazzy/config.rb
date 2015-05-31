@@ -167,7 +167,8 @@ module Jazzy
         end
 
         opt.on('-e', '--exclude file1,file2,…fileN', Array,
-               'Files to be excluded from documentation') do |files|
+               'Files to be excluded from documentation.' \
+			   'Requires the file to be the absolute path to the file.') do |files|
           config.excluded_files = files
         end
 
