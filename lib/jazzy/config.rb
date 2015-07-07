@@ -2,6 +2,7 @@ require 'optparse'
 require 'pathname'
 require 'uri'
 
+require 'jazzy/doc'
 require 'jazzy/podspec_documenter'
 require 'jazzy/source_declaration/access_control_level'
 
@@ -29,6 +30,7 @@ module Jazzy
     attr_accessor :docset_path
     attr_accessor :source_directory
     attr_accessor :excluded_files
+    attr_accessor :template_directory
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -44,10 +46,16 @@ module Jazzy
       self.skip_undocumented = false
       self.source_directory = Pathname.pwd
       self.excluded_files = []
+      self.template_directory = Pathname(__FILE__).parent + 'templates'
     end
 
     def podspec=(podspec)
       @podspec = PodspecDocumenter.configure(self, podspec)
+    end
+
+    def template_directory=(template_directory)
+      @template_directory = template_directory
+      Doc.template_path = template_directory
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -159,6 +167,11 @@ module Jazzy
         opt.on('--source-directory DIRPATH', 'The directory that contains ' \
                'the source to be documented') do |source_directory|
           config.source_directory = Pathname(source_directory)
+        end
+
+        opt.on('t', '--template-directory DIRPATH', 'The directory that ' \
+               'contains the mustache templates to use') do |template_directory|
+          config.template_directory = Pathname(template_directory)
         end
 
         opt.on('--readme FILEPATH',

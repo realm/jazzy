@@ -1,3 +1,21 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Added support for custom templates: use the `-t`/`--template-directory`
+  argument to jazzy.  
+  [JP Simard](https://github.com/jpsim)
+  [#20](https://github.com/realm/jazzy/issues/20)
+
+##### Bug Fixes
+
+* None.
+
+
 ## 0.2.1
 
 ##### Breaking
