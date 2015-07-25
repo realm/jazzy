@@ -31,6 +31,10 @@ module Jazzy
         kind == 'source.lang.swift.syntaxtype.comment.mark'
       end
 
+      def enum_case?
+        kind == 'source.lang.swift.decl.enumcase'
+      end
+
       def should_document?
         declaration? && !param?
       end
@@ -84,6 +88,10 @@ module Jazzy
           jazzy: 'Global Variable',
           dash: 'Global',
         }.freeze,
+        'source.lang.swift.decl.enumcase' => {
+          jazzy: 'Enum Case',
+          dash: 'Case',
+        }.freeze,
         'source.lang.swift.decl.enumelement' => {
           jazzy: 'Enum Element',
           dash: 'Element',
@@ -94,6 +102,18 @@ module Jazzy
         }.freeze,
         'source.lang.swift.decl.extension' => {
           jazzy: 'Extension',
+          dash: 'Extension',
+        }.freeze,
+        'source.lang.swift.decl.extension.class' => {
+          jazzy: 'Class Extension',
+          dash: 'Extension',
+        }.freeze,
+        'source.lang.swift.decl.extension.enum' => {
+          jazzy: 'Enum Extension',
+          dash: 'Extension',
+        }.freeze,
+        'source.lang.swift.decl.extension.protocol' => {
+          jazzy: 'Protocol Extension',
           dash: 'Extension',
         }.freeze,
         'source.lang.swift.decl.function.free' => {

@@ -88,19 +88,19 @@ describe_cli 'jazzy' do
   end
 
   describe 'jazzy' do
-    describe 'Creates docs with a module name, author name, project URL, ' \
-      'xcodebuild options, and github info' do
-      behaves_like cli_spec 'document_alamofire',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/1.1.0 ' \
-                            '--module-version 1.1.0 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented'
-    end
+    # describe 'Creates docs with a module name, author name, project URL, ' \
+    #   'xcodebuild options, and github info' do
+    #   behaves_like cli_spec 'document_alamofire',
+    #                         '-m Alamofire -a Alamofire ' \
+    #                         '-u https://nshipster.com/alamofire ' \
+    #                         '-x -project,Alamofire.xcodeproj,-dry-run ' \
+    #                         '-g https://github.com/Alamofire/Alamofire ' \
+    #                         '--github-file-prefix https://github.com/' \
+    #                         'Alamofire/Alamofire/blob/swift-2.0 ' \
+    #                         '--module-version swift-2.0 ' \
+    #                         '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
+    #                         '--skip-undocumented'
+    # end
 
     describe 'Creates Realm Swift docs' do
       realm_version = '0.93.2'
@@ -119,10 +119,10 @@ describe_cli 'jazzy' do
                             '"-project,RealmSwift.xcodeproj,-dry-run" '
     end
 
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec'
-    end
+    # describe 'Creates docs for a podspec with dependencies and subspecs' do
+    #   behaves_like cli_spec 'document_moya_podspec',
+    #                         '--podspec=Moya.podspec'
+    # end
 
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',

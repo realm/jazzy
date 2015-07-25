@@ -12,7 +12,7 @@ module Jazzy
   module SourceKitten
     @documented_count = 0
     @undocumented_tokens = []
-    @expected_swift_version = '1.2'
+    @expected_swift_version = '2.0'
 
     # Group root-level docs by type and add as children to a group doc element
     def self.group_docs(docs, type)
@@ -56,9 +56,9 @@ module Jazzy
 
     def self.assert_xcode_location
       expected_xcode_select_path =
-        Pathname('/Applications/Xcode.app/Contents/Developer')
+        Pathname('/Applications/Xcode-beta.app/Contents/Developer')
       return if xcode_developer_directory == expected_xcode_select_path
-      raise 'Please install or symlink Xcode 6.3 in ' \
+      raise 'Please install or symlink Xcode 7.0 Beta 4 in ' \
             "#{expected_xcode_select_path} and set as active developer " \
             'directory by running `sudo xcode-select -s ' \
             "#{expected_xcode_select_path}`"
@@ -80,7 +80,7 @@ module Jazzy
     def self.run_sourcekitten(arguments)
       assert_xcode_location
       assert_swift_version
-      bin_path = Pathname(__FILE__).parent + 'SourceKitten/sourcekitten'
+      bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
       output, _ = Executable.execute_command(bin_path, arguments, true)
       output
     end
@@ -198,6 +198,10 @@ module Jazzy
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
           current_mark = SourceMark.new(doc['key.name'])
+        end
+        if declaration.type.enum_case?
+          declarations += make_source_declarations(doc['key.substructure'])
+          next
         end
         next unless declaration.type.should_document?
 
