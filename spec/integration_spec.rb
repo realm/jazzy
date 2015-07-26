@@ -102,6 +102,23 @@ describe_cli 'jazzy' do
                             '--skip-undocumented'
     end
 
+    describe 'Creates Realm Swift docs' do
+      realm_version = '0.93.2'
+      behaves_like cli_spec 'document_realm_swift',
+                            '--author Realm ' \
+                            '--author_url "https://realm.io" ' \
+                            '--github_url ' \
+                            'https://github.com/realm/realm-cocoa ' \
+                            '--github-file-prefix https://github.com/realm/' \
+                            "realm-cocoa/tree/v#{realm_version} " \
+                            '--module RealmSwift ' \
+                            "--module-version #{realm_version} " \
+                            '--root-url https://realm.io/docs/swift/' \
+                            "#{realm_version}/api/ " \
+                            '--xcodebuild-arguments ' \
+                            '"-project,RealmSwift.xcodeproj,-dry-run" '
+    end
+
     describe 'Creates docs for a podspec with dependencies and subspecs' do
       behaves_like cli_spec 'document_moya_podspec',
                             '--podspec=Moya.podspec'

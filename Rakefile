@@ -28,7 +28,7 @@ begin
   desc 'Run specs'
   task :spec do
     title 'Running Unit Tests'
-    files = FileList['spec/**/*_spec.rb']
+    files = FileList['spec/*_spec.rb']
       .exclude('spec/integration_spec.rb').shuffle.join(' ')
     sh "bundle exec bacon #{files}"
     sh 'bundle exec bacon spec/integration_spec.rb'
@@ -72,7 +72,7 @@ begin
 
   require 'rubocop/rake_task'
   RuboCop::RakeTask.new(:rubocop) do |task|
-    task.patterns = %w(lib spec Rakefile Gemfile jazzy.gemspec)
+    task.patterns = %w(lib spec/*.rb Rakefile Gemfile jazzy.gemspec)
   end
 
   #-- SourceKitten -----------------------------------------------------------#
