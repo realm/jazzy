@@ -103,7 +103,11 @@ describe_cli 'jazzy' do
     end
 
     describe 'Creates Realm Swift docs' do
-      realm_version = '0.93.2'
+      realm_version = ''
+      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
+        realm_version = `./build.sh get-version`.chomp
+        `REALM_SWIFT_VERSION=2.0 ./build.sh set-swift-version`
+      end
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
                             '--author_url "https://realm.io" ' \
