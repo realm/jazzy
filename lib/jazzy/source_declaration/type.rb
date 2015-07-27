@@ -35,12 +35,20 @@ module Jazzy
         kind == 'source.lang.swift.decl.enumcase'
       end
 
+      def enum_element?
+        kind == 'source.lang.swift.decl.enumelement'
+      end
+
       def should_document?
         declaration? && !param?
       end
 
       def declaration?
         kind =~ /^source\.lang\.swift\.decl\..*/
+      end
+
+      def extension?
+        kind =~ /^source\.lang\.swift\.extension.*/
       end
 
       def param?

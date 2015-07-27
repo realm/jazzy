@@ -102,8 +102,9 @@ module Jazzy
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
-      # Always document extensions, since we can't tell what ACL they are
-      return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
+      # Document extensions & enum elements, since we can't tell their ACL.
+      type = SourceDeclaration::Type.new(doc['key.kind'])
+      return true if type.extension? || type.enum_element?
 
       SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
     end
@@ -193,6 +194,7 @@ module Jazzy
           current_mark = SourceMark.new(doc['key.name'])
         end
         if declaration.type.enum_case?
+          # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(doc['key.substructure'])
           next
         end
@@ -257,6 +259,9 @@ module Jazzy
       SourceDeclaration::Type.all.each do |type|
         docs = group_docs(docs, type)
       end
+      # Remove top-level enum cases because it means they have an ACL lower
+      # than min_acl
+      docs = docs.reject { |doc| doc.type.enum_element? }
       [make_doc_urls(docs, []), doc_coverage, @undocumented_tokens]
     end
   end
