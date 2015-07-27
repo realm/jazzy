@@ -170,7 +170,7 @@ module Jazzy
     end
 
     def self.string_until_first_special_list_item(string)
-      matches = /-\s*(parameter|returns|Throws|warning)/.match(string)
+      matches = /^\s*-\s*(parameter|returns|Throws|warning):/.match(string)
       return string unless matches
       string[0...matches.begin(0)]
     end
