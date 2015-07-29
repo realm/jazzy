@@ -145,22 +145,13 @@ module Jazzy
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
         'swift',
       )
-      stripped_comment = string_until_first_special_list_item(
-        doc['key.doc.comment'],
-      ) || ''
-      declaration.abstract = Jazzy.markdown.render(stripped_comment)
+      declaration.abstract = Jazzy.markdown.render(doc['key.doc.comment'] || '')
       declaration.discussion = ''
       declaration.return = make_paragraphs(doc, 'key.doc.result_discussion')
 
       declaration.parameters = parameters(doc)
 
       @documented_count += 1
-    end
-
-    def self.string_until_first_special_list_item(string)
-      matches = /^\s*-\s*(parameter|returns|Throws|warning):/.match(string)
-      return string unless matches
-      string[0...matches.begin(0)]
     end
 
     def self.make_substructure(doc, declaration)
