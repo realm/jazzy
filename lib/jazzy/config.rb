@@ -178,7 +178,7 @@ module Jazzy
 
         opt.on('--assets-directory DIRPATH', 'The directory that ' \
                'contains the assets (CSS, JS, images)  to use') do |assets_directory|
-          config.assets_directory = Pathname(assets_directory)
+          config.assets_directory = Pathname(assets_directory).expand_path
         end
 
         opt.on('--readme FILEPATH',
