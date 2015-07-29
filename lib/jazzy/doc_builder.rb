@@ -195,22 +195,22 @@ module Jazzy
     def self.should_link_to_github(file)
       developer_directory = SourceKitten.xcode_developer_directory
       return unless developer_directory && file
-      !file.start_with?(developer_directory.realpath.to_s)
+      !file.realpath.to_path.start_with?(developer_directory.realpath.to_path)
     end
 
     # Construct Github token URL
     # @param [Hash] item Parsed doc child item
     # @param [Config] options Build options
     def self.gh_token_url(item, source_module)
-      if source_module.github_file_prefix && should_link_to_github(item.file)
-        relative_file_path = item.file.gsub(`pwd`.strip, '')
-        if item.start_line && (item.start_line != item.end_line)
-          gh_line = "#L#{item.start_line}-L#{item.end_line}"
-        else
-          gh_line = "#L#{item.line}"
-        end
-        source_module.github_file_prefix + relative_file_path + gh_line
+      return unless github_prefix = source_module.github_file_prefix
+      return unless should_link_to_github(item.file)
+      if item.start_line && (item.start_line != item.end_line)
+        gh_line = "#L#{item.start_line}-L#{item.end_line}"
+      else
+        gh_line = "#L#{item.line}"
       end
+      relative_file_path = item.file.realpath.relative_path_from(Pathname.pwd)
+      "#{github_prefix}/#{relative_file_path}#{gh_line}"
     end
 
     # Build mustache item for a top-level doc
