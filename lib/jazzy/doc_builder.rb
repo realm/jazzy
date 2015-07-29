@@ -160,7 +160,8 @@ module Jazzy
     end
 
     def self.copy_assets(destination)
-      origin = Pathname(__FILE__).parent + '../../lib/jazzy/assets/.'
+      # origin = Pathname(__FILE__).parent + '../../lib/jazzy/assets/.'
+      origin = options.assets_directory;
       FileUtils.cp_r(origin, destination)
       Pathname.glob(destination + 'css/**/*.scss').each do |scss|
         contents = scss.read

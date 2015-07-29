@@ -31,6 +31,7 @@ module Jazzy
     attr_accessor :source_directory
     attr_accessor :excluded_files
     attr_accessor :template_directory
+    attr_accessor :assets_directory
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -47,6 +48,7 @@ module Jazzy
       self.source_directory = Pathname.pwd
       self.excluded_files = []
       self.template_directory = Pathname(__FILE__).parent + 'templates'
+      self.assets_directory = Pathname(__FILE__).parent + '../../lib/jazzy/assets/'
     end
 
     def podspec=(podspec)
@@ -172,6 +174,11 @@ module Jazzy
         opt.on('t', '--template-directory DIRPATH', 'The directory that ' \
                'contains the mustache templates to use') do |template_directory|
           config.template_directory = Pathname(template_directory)
+        end
+
+        opt.on('--assets-directory DIRPATH', 'The directory that ' \
+               'contains the assets (CSS, JS, images)  to use') do |assets_directory|
+          config.assets_directory = Pathname(assets_directory)
         end
 
         opt.on('--readme FILEPATH',
