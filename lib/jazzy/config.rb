@@ -50,7 +50,7 @@ module Jazzy
       self.excluded_files = []
       self.template_directory = Pathname(__FILE__).parent + 'templates'
       self.swift_version = '1.2'
-      self.assets_directory = Pathname(__FILE__).parent + '../../lib/jazzy/assets/'
+      self.assets_directory = Pathname(__FILE__).parent + 'assets'
     end
 
     def podspec=(podspec)
