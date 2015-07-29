@@ -186,6 +186,7 @@ module Jazzy
 
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def self.make_source_declarations(docs)
       declarations = []
       current_mark = SourceMark.new
@@ -207,7 +208,7 @@ module Jazzy
                 "for `#{declaration.type.kind}`."
         end
 
-        declaration.file = doc['key.filepath']
+        declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
         declaration.usr  = doc['key.usr']
         declaration.name = doc['key.name']
         declaration.mark = current_mark
@@ -222,6 +223,7 @@ module Jazzy
       end
       declarations
     end
+    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength
 
