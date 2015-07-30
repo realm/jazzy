@@ -1,3 +1,19 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* Declarations with no USR will no longer be documented.  
+  [JP Simard](https://github.com/jpsim)
+
+
 ## 0.2.2
 
 ##### Breaking
