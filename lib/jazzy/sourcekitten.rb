@@ -39,17 +39,7 @@ module Jazzy
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
-          id = doc.usr
-          unless id
-            id = doc.name || 'unknown'
-            warn "`#{id}` has no USR. First make sure all modules used in " \
-              'your project have been imported. If all used modules are ' \
-              'imported, please report this problem by filing an issue at ' \
-              'https://github.com/realm/jazzy/issues along with your Xcode ' \
-              'project. If this token is declared in an `#if` block, please ' \
-              'ignore this message.'
-          end
-          doc.url = parents.join('/') + '.html#/' + id
+          doc.url = parents.join('/') + '.html#/' + doc.usr
         end
       end
     end
@@ -100,6 +90,15 @@ module Jazzy
     end
 
     def self.should_document?(doc)
+      unless doc['key.usr']
+        warn "`#{doc['key.name']}` has no USR. First make sure all modules "  \
+              'used in your project have been imported. If all used modules ' \
+              'are imported, please report this problem by filing an issue '  \
+              'at https://github.com/realm/jazzy/issues along with your '     \
+              'Xcode project. If this token is declared in an `#if` block, '  \
+              'please ignore this message.'
+        return false
+      end
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
       # Always document extensions, since we can't tell what ACL they are
