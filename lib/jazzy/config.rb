@@ -31,6 +31,7 @@ module Jazzy
     attr_accessor :source_directory
     attr_accessor :excluded_files
     attr_accessor :template_directory
+    attr_accessor :swift_version
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -47,6 +48,7 @@ module Jazzy
       self.source_directory = Pathname.pwd
       self.excluded_files = []
       self.template_directory = Pathname(__FILE__).parent + 'templates'
+      self.swift_version = '1.2'
     end
 
     def podspec=(podspec)
@@ -172,6 +174,10 @@ module Jazzy
         opt.on('t', '--template-directory DIRPATH', 'The directory that ' \
                'contains the mustache templates to use') do |template_directory|
           config.template_directory = Pathname(template_directory)
+        end
+
+        opt.on('--swift-version VERSION') do |swift_version|
+          config.swift_version = swift_version
         end
 
         opt.on('--readme FILEPATH',

@@ -193,9 +193,10 @@ module Jazzy
     end
 
     def self.should_link_to_github(file)
-      developer_directory = SourceKitten.xcode_developer_directory
-      return unless developer_directory && file
-      !file.realpath.to_path.start_with?(developer_directory.realpath.to_path)
+      return unless file
+      file = file.realpath.to_path
+      source_directory = Config.instance.source_directory.to_path
+      file.start_with?(source_directory)
     end
 
     # Construct Github token URL

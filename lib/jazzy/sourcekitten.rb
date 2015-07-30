@@ -1,5 +1,6 @@
 require 'json'
 require 'pathname'
+require 'xcinvoke'
 
 require 'jazzy/config'
 require 'jazzy/executable'
@@ -12,7 +13,6 @@ module Jazzy
   module SourceKitten
     @documented_count = 0
     @undocumented_tokens = []
-    @expected_swift_version = '1.2'
 
     # Group root-level docs by type and add as children to a group doc element
     def self.group_docs(docs, type)
@@ -44,34 +44,12 @@ module Jazzy
       end
     end
 
-    def self.assert_xcode_location
-      expected_xcode_select_path =
-        Pathname('/Applications/Xcode.app/Contents/Developer')
-      return if xcode_developer_directory == expected_xcode_select_path
-      raise 'Please install or symlink Xcode 6.3 in ' \
-            "#{expected_xcode_select_path} and set as active developer " \
-            'directory by running `sudo xcode-select -s ' \
-            "#{expected_xcode_select_path}`"
-    end
-
-    def self.xcode_developer_directory
-      dir = Pathname(`xcode-select -p`.chomp)
-      dir.directory? ? dir.expand_path : nil
-    end
-
-    def self.assert_swift_version
-      swift_version = `xcrun swift --version` =~ /Swift version ([\d\.]+)/ &&
-        Regexp.last_match[1]
-      return if swift_version == @expected_swift_version
-      raise "Jazzy only works with Swift #{@expected_swift_version}."
-    end
-
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      assert_xcode_location
-      assert_swift_version
+      xcode = XCInvoke::Xcode.find_swift_version(Config.instance.swift_version)
       bin_path = Pathname(__FILE__).parent + 'SourceKitten/sourcekitten'
-      output, _ = Executable.execute_command(bin_path, arguments, true)
+      output, _ = Executable.execute_command(bin_path, arguments, true,
+                                             env: xcode.as_env)
       output
     end
 
