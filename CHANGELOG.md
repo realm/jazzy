@@ -6,7 +6,10 @@
 
 ##### Enhancements
 
-* None.
+* The `jazzy` CLI now accepts a `--swift-version` option (defaulting to 1.2),
+  and will automatically find an appropriate Xcode installation.  
+  [Samuel Giddins](https://github.com/segiddins)
+  [#214](https://github.com/realm/jazzy/issues/214)
 
 ##### Bug Fixes
 

@@ -75,6 +75,7 @@ module Jazzy
         c.installation_root = Pathname(Dir.mktmpdir)
         c.installation_root.rmtree if c.installation_root.exist?
         c.integrate_targets = false
+        c.deduplicate_targets = false
       end
     end
 
