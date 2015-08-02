@@ -8,8 +8,8 @@ BUILT_BUNDLE=$(TEMPORARY_FOLDER)/Applications/sourcekitten.app
 SOURCEKITTEN_FRAMEWORK_BUNDLE=$(BUILT_BUNDLE)/Contents/Frameworks/SourceKittenFramework.framework
 SOURCEKITTEN_EXECUTABLE=$(BUILT_BUNDLE)/Contents/MacOS/sourcekitten
 
-FRAMEWORKS_FOLDER=/Library/Frameworks
-BINARIES_FOLDER=/usr/local/bin
+FRAMEWORKS_FOLDER=$(PREFIX)/Frameworks
+BINARIES_FOLDER=$(PREFIX)/bin
 
 OUTPUT_PACKAGE=SourceKitten.pkg
 
@@ -48,11 +48,9 @@ installables: clean bootstrap
 	rm -rf "$(BUILT_BUNDLE)"
 
 prefix_install: installables
-	mkdir -p "$(PREFIX)/Frameworks" "$(PREFIX)/bin"
-	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/SourceKittenFramework.framework" "$(PREFIX)/Frameworks/"
-	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/sourcekitten" "$(PREFIX)/bin/"
-	install_name_tool -add_rpath "@executable_path/../Frameworks" "$(PREFIX)/bin/sourcekitten"
-	install_name_tool -add_rpath "@executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks/" "$(PREFIX)/bin/sourcekitten"
+	mkdir -p "$(FRAMEWORKS_FOLDER)" "$(BINARIES_FOLDER)"
+	cp -rf "$(TEMPORARY_FOLDER)$(FRAMEWORKS_FOLDER)/SourceKittenFramework.framework" "$(FRAMEWORKS_FOLDER)/"
+	cp -f "$(TEMPORARY_FOLDER)$(BINARIES_FOLDER)/sourcekitten" "$(BINARIES_FOLDER)/"
 
 package: installables
 	pkgbuild \
