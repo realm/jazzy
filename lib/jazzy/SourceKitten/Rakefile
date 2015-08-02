@@ -2,7 +2,7 @@
 # when installed as a gem, as RubyGems doesn't play nice with symlinks.
 
 task :prepare do
-  Dir.glob('*.framework').each do |fw|
+  Dir.glob('**/*.framework/').each do |fw|
     Dir.chdir(fw) do
       basename = File.basename(fw, '.framework')
       FileUtils.rm_f(basename)
@@ -10,7 +10,6 @@ task :prepare do
       File.symlink('A',                            'Versions/Current')
       File.symlink("Versions/Current/#{basename}", "#{basename}")
       File.symlink('Versions/Current/Resources',   'Resources')
-      File.symlink('Versions/Current/Modules',     'Modules')
     end
   end
 end

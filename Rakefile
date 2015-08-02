@@ -85,12 +85,10 @@ begin
 
     destination = 'lib/jazzy/sourcekitten'
     rakefile = File.read("#{destination}/Rakefile")
-    frameworks = Dir.glob('/tmp/SourceKitten.dst/Library/Frameworks/*')
-    binary = '/tmp/SourceKitten.dst/usr/local/bin/sourcekitten'
+    source = '/tmp/SourceKitten.dst/usr/local/.'
     FileUtils.rm_rf destination
     FileUtils.mkdir_p destination
-    FileUtils.cp_r frameworks, destination
-    FileUtils.cp binary, destination
+    FileUtils.cp_r source, destination
     File.open("#{destination}/Rakefile", 'w') { |f| f.write rakefile }
   end
 

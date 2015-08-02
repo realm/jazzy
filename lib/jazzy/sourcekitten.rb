@@ -47,7 +47,7 @@ module Jazzy
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
       xcode = XCInvoke::Xcode.find_swift_version(Config.instance.swift_version)
-      bin_path = Pathname(__FILE__).parent + 'SourceKitten/sourcekitten'
+      bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
       output, _ = Executable.execute_command(bin_path, arguments, true,
                                              env: xcode.as_env)
       output
