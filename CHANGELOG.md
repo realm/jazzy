@@ -1,3 +1,21 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Improved how SourceKitten is vendored.  
+  [JP Simard](https://github.com/jpsim)
+
+##### Bug Fixes
+
+* Fixed a crash when parsing an empty documentation comment.  
+  [JP Simard](https://github.com/jpsim)
+  [#236](https://github.com/realm/jazzy/issues/236)
+
+
 ## 0.2.3
 
 ##### Breaking
