@@ -48,7 +48,7 @@ module Jazzy
       end
 
       def extension?
-        kind =~ /^source\.lang\.swift\.extension.*/
+        kind =~ /^source\.lang\.swift\.decl\.extension.*/
       end
 
       def param?
