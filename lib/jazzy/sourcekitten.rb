@@ -15,17 +15,49 @@ module Jazzy
     @documented_count = 0
     @undocumented_tokens = []
 
-    # Group root-level docs by type and add as children to a group doc element
-    def self.group_docs(docs, type)
-      group, docs = docs.partition { |doc| doc.type == type }
-      docs << SourceDeclaration.new.tap do |sd|
+    # Group root-level docs by custom categories (if any) and type
+    def self.group_docs(docs)
+      custom_categories, docs = group_custom_categories(docs)
+      type_categories, uncategorized = group_type_categories(
+        docs, custom_categories.any? ? "Other " : "")
+      custom_categories + type_categories + uncategorized
+    end
+
+    def self.group_custom_categories(docs)
+      group = Config.instance.custom_categories.map do |category|
+        children = category['children'].flat_map do |name|
+          docs_with_name, docs = docs.partition { |doc| doc.name == name }
+          if docs_with_name.empty?
+            STDERR.puts "WARNING: No documented top-level declarations match "\
+                        "name \"#{name}\" specified in categories file"
+          end
+          docs_with_name
+        end
+        # Category config overrides alphabetization
+        children.each.with_index { |child, i| child.nav_order = i }
+        make_group(children, category["name"], "")
+      end
+      [group.compact, docs]
+    end
+
+    def self.group_type_categories(docs, type_category_prefix)
+      group = SourceDeclaration::Type.all.map do |type|
+        children, docs = docs.partition { |doc| doc.type == type }
+        make_group(
+          children,
+          type_category_prefix + type.plural_name, 
+          "The following #{type.plural_name.downcase} are available globally.")
+      end
+      [group.compact, docs]
+    end
+
+    def self.make_group(group, name, abstract)
+      SourceDeclaration.new.tap do |sd|
         sd.type     = SourceDeclaration::Type.overview
-        sd.name     = type.plural_name
-        sd.abstract = "The following #{type.plural_name.downcase} are " \
-                      'available globally.'
+        sd.name     = name
+        sd.abstract = abstract
         sd.children = group
-      end if group.count > 0
-      docs
+      end unless group.empty?
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -249,9 +281,7 @@ module Jazzy
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json)
       docs = deduplicate_declarations(docs)
-      SourceDeclaration::Type.all.each do |type|
-        docs = group_docs(docs, type)
-      end
+      docs = group_docs(docs)
       # Remove top-level enum cases because it means they have an ACL lower
       # than min_acl
       docs = docs.reject { |doc| doc.type.enum_element? }
