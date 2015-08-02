@@ -31,7 +31,7 @@ module Jazzy
       docs.map do |doc|
         {
           section: doc.name,
-          children: doc.children.sort_by(&:name).map do |child|
+          children: doc.children.sort_by(&:name).sort_by(&:nav_order).map do |child|
             { name: child.name, url: child.url }
           end,
         }
