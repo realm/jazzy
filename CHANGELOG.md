@@ -1,8 +1,9 @@
-## Master
+## 0.4.4
 
 ##### Breaking
 
-None.
+* Simplified rpath's.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Enhancements
 
