@@ -84,10 +84,12 @@ begin
     end
 
     destination = 'lib/jazzy/sourcekitten'
+    rakefile = File.read("#{destination}/Rakefile")
     source = '/tmp/SourceKitten.dst/usr/local/.'
     FileUtils.rm_rf destination
     FileUtils.mkdir_p destination
     FileUtils.cp_r source, destination
+    File.open("#{destination}/Rakefile", 'w') { |f| f.write rakefile }
   end
 
 rescue LoadError, NameError => e
