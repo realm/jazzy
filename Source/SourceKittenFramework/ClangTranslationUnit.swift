@@ -31,18 +31,6 @@ public struct ClangTranslationUnit {
     }
 
     /**
-    Failable initializer to create a ClangTranslationUnit by passing an array of Objective-C header
-    files followed by `xcodebuild` arguments. Optionally pass in a `path`.
-
-    - parameter headerFilesAndXcodeBuildArguments: Array of Objective-C header files followed by `xcodebuild` arguments.
-    - parameter path:                              Path to run `xcodebuild` from. Uses current path by default.
-    */
-    public init?(headerFilesAndXcodeBuildArguments: [String], inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
-        let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(headerFilesAndXcodeBuildArguments)
-        self.init(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments, inPath: path)
-    }
-
-    /**
     Failable initializer to create a ClangTranslationUnit by passing Objective-C header files and
     `xcodebuild` arguments. Optionally pass in a `path`.
 
