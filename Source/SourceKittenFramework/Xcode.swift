@@ -132,20 +132,20 @@ internal func parseCompilerArguments(xcodebuildOutput: NSString, language: Langu
     let regex = try! NSRegularExpression(pattern: pattern, options: []) // Safe to force try
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
 
-    if let regexMatch = regex.firstMatchInString(xcodebuildOutput as String, options: [], range: range) {
-        let escapedSpacePlaceholder = "\u{0}"
-        let args = filterArguments(xcodebuildOutput
-            .substringWithRange(regexMatch.range)
-            .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
-            .componentsSeparatedByString(" "))
-
-        // Remove first argument (swiftc/clang) and re-add spaces in arguments
-        return Array<String>(args[1..<args.count]).map {
-            $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
-        }
+    guard let regexMatch = regex.firstMatchInString(xcodebuildOutput as String, options: [], range: range) else {
+        return nil
     }
 
-    return nil
+    let escapedSpacePlaceholder = "\u{0}"
+    let args = filterArguments(xcodebuildOutput
+        .substringWithRange(regexMatch.range)
+        .stringByReplacingOccurrencesOfString("\\ ", withString: escapedSpacePlaceholder)
+        .componentsSeparatedByString(" "))
+
+    // Remove first argument (swiftc/clang) and re-add spaces in arguments
+    return (args[1..<args.count]).map {
+        $0.stringByReplacingOccurrencesOfString(escapedSpacePlaceholder, withString: " ")
+    }
 }
 
 /**
