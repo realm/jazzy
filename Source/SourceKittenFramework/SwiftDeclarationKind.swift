@@ -6,13 +6,15 @@
 //  Copyright (c) 2015 SourceKitten. All rights reserved.
 //
 
-/// Declaration kind values.
+/// Swift declaration kinds.
 /// Found in `strings SourceKitService | grep source.lang.swift.decl.`.
 public enum SwiftDeclarationKind: String {
     /// `class`.
     case Class = "source.lang.swift.decl.class"
     /// `enum`.
     case Enum = "source.lang.swift.decl.enum"
+    /// `enumcase`.
+    case Enumcase = "source.lang.swift.decl.enumcase"
     /// `enumelement`.
     case Enumelement = "source.lang.swift.decl.enumelement"
     /// `extension`.
@@ -21,6 +23,8 @@ public enum SwiftDeclarationKind: String {
     case ExtensionClass = "source.lang.swift.decl.extension.class"
     /// `extension.enum`.
     case ExtensionEnum = "source.lang.swift.decl.extension.enum"
+    /// `extension.protocol`.
+    case ExtensionProtocol = "source.lang.swift.decl.extension.protocol"
     /// `extension.struct`.
     case ExtensionStruct = "source.lang.swift.decl.extension.struct"
     /// `function.accessor.address`.

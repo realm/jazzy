@@ -25,14 +25,22 @@ public enum SyntaxKind: String {
     case CommentMark = "source.lang.swift.syntaxtype.comment.mark"
     /// `comment.url`.
     case CommentURL = "source.lang.swift.syntaxtype.comment.url"
+    /// `doccomment`.
+    case DocComment = "source.lang.swift.syntaxtype.doccomment"
+    /// `doccomment.field`.
+    case DocCommentField = "source.lang.swift.syntaxtype.doccomment.field"
     /// `identifier`.
     case Identifier = "source.lang.swift.syntaxtype.identifier"
     /// `keyword`.
     case Keyword = "source.lang.swift.syntaxtype.keyword"
     /// `number`.
     case Number = "source.lang.swift.syntaxtype.number"
+    /// `objectliteral`.
+    case Objectliteral = "source.lang.swift.syntaxtype.objectliteral"
     /// `parameter`.
     case Parameter = "source.lang.swift.syntaxtype.parameter"
+    /// `placeholder`.
+    case Placeholder = "source.lang.swift.syntaxtype.placeholder"
     /// `string`.
     case String = "source.lang.swift.syntaxtype.string"
     /// `string_interpolation_anchor`.
@@ -46,6 +54,6 @@ public enum SyntaxKind: String {
     - parameter string: Input string.
     */
     internal static func isCommentLike(string: Swift.String) -> Bool {
-        return [Comment.rawValue, CommentMark.rawValue, CommentURL.rawValue].contains(string)
+        return [Comment, CommentMark, CommentURL, DocComment, DocCommentField].map({ $0.rawValue }).contains(string)
     }
 }
