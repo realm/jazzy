@@ -18,12 +18,12 @@ extension File {
     have documentation comments, but haven't been documented by SourceKitten yet.
 
     - parameter documentedTokenOffsets: Offsets where there are declarations that likely
-                                   have documentation comments.
+                                        have documentation comments.
     - parameter dictionary:             Docs dictionary to check for which offsets are already
-                                   documented.
+                                        documented.
 
     - returns: OffsetMap containing offset locations at which there are declarations that likely
-              have documentation comments, but haven't been documented by SourceKitten yet.
+               have documentation comments, but haven't been documented by SourceKitten yet.
     */
     public func generateOffsetMap(documentedTokenOffsets: [Int], dictionary: XPCDictionary) -> OffsetMap {
         var offsetMap = OffsetMap()
@@ -31,7 +31,7 @@ extension File {
             offsetMap[offset] = 0
         }
         offsetMap = mapOffsets(dictionary, offsetMap: offsetMap)
-        let alreadyDocumentedOffsets = offsetMap.keys.filter { $0 == offsetMap[$0] }
+        let alreadyDocumentedOffsets = offsetMap.filter({ $0.0 == $0.1 }).map { $0.0 }
         for alreadyDocumentedOffset in alreadyDocumentedOffsets {
             offsetMap.removeValueForKey(alreadyDocumentedOffset)
         }
@@ -44,7 +44,7 @@ extension File {
 
     - parameter dictionary: Already documented dictionary.
     - parameter offsetMap:  Dictionary mapping potentially documented offsets to its nearest parent
-                       offset.
+                            offset.
 
     - returns: OffsetMap of potentially documented declaration offsets to its nearest parent offset.
     */
@@ -53,13 +53,13 @@ extension File {
         if shouldTreatAsSameFile(dictionary) {
             if let rangeStart = SwiftDocKey.getNameOffset(dictionary),
                 rangeLength = SwiftDocKey.getNameLength(dictionary) {
-                    let bodyLength = SwiftDocKey.getBodyLength(dictionary)
-                    let offsetsInRange = offsetMap.keys.filter {
-                        $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
-                    }
-                    for offset in offsetsInRange {
-                        offsetMap[offset] = Int(rangeStart)
-                    }
+                let bodyLength = SwiftDocKey.getBodyLength(dictionary)
+                let offsetsInRange = offsetMap.keys.filter {
+                    $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
+                }
+                for offset in offsetsInRange {
+                    offsetMap[offset] = Int(rangeStart)
+                }
             }
         }
         // Recurse!

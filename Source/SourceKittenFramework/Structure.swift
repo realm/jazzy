@@ -26,7 +26,7 @@ public struct Structure {
     }
 }
 
-// MARK: Printable
+// MARK: CustomStringConvertible
 
 extension Structure: CustomStringConvertible {
     /// A textual JSON representation of `Structure`.

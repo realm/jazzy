@@ -398,7 +398,7 @@ Returns an `XPCArray` of `XPCDictionary` items from `indexer` children, if any.
 private func childrenAsArray(indexer: XMLIndexer) -> XPCArray? {
     let children = indexer.children
     if children.count > 0 {
-        return compact(children.map({ $0.element })).map {
+        return children.flatMap({ $0.element }).map {
             [$0.name: $0.text ?? ""] as XPCDictionary
         } as XPCArray
     }

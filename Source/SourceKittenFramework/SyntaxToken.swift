@@ -50,7 +50,7 @@ public func ==(lhs: SyntaxToken, rhs: SyntaxToken) -> Bool {
     return (lhs.type == rhs.type) && (lhs.offset == rhs.offset) && (lhs.length == rhs.length)
 }
 
-// MARK: Printable
+// MARK: CustomStringConvertible
 
 extension SyntaxToken: CustomStringConvertible {
     /// A textual JSON representation of `SyntaxToken`.

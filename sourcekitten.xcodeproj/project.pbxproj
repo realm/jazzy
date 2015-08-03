@@ -59,7 +59,6 @@
 		E8DD06E61AE44540006D9C86 /* StructureCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B21A5D452C0016D959 /* StructureCommand.swift */; };
 		E8DD06E71AE447AB006D9C86 /* SyntaxCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */; };
 		E8DD06E81AE447E9006D9C86 /* DocCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B41A5D474B0016D959 /* DocCommand.swift */; };
-		E8DEEB141A6313070001BBD1 /* SequenceType+SourceKitten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DEEB131A6313070001BBD1 /* SequenceType+SourceKitten.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,7 +177,6 @@
 		E8D474321A648ED10011A49C /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClangTranslationUnit.swift; sourceTree = "<group>"; };
 		E8D86D841A688EF20063E8E9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		E8DEEB131A6313070001BBD1 /* SequenceType+SourceKitten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SequenceType+SourceKitten.swift"; sourceTree = "<group>"; };
 		E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -339,7 +337,6 @@
 				E8241CA41A5E01A10047687E /* Module.swift */,
 				E83748C21A5BCD7900862B1B /* OffsetMap.swift */,
 				E86847391A587B4D0043DC65 /* Request.swift */,
-				E8DEEB131A6313070001BBD1 /* SequenceType+SourceKitten.swift */,
 				E868473D1A587CCC0043DC65 /* sourcekitd.swift */,
 				E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */,
 				E834740E1A593B5B00532B9A /* Structure.swift */,
@@ -574,7 +571,6 @@
 				E8CC8A2D1A587FD300D1FEC7 /* SyntaxMap.swift in Sources */,
 				E89291A91A5B800300D91568 /* SwiftDeclarationKind.swift in Sources */,
 				E83748C31A5BCD7900862B1B /* OffsetMap.swift in Sources */,
-				E8DEEB141A6313070001BBD1 /* SequenceType+SourceKitten.swift in Sources */,
 				E8AE53C71A5B5FCA0092D24A /* String+SourceKitten.swift in Sources */,
 				E852418F1A5F4FB3007099FB /* Dictionary+Merge.swift in Sources */,
 				E80F23691A5CB01A00FD2352 /* SyntaxKind.swift in Sources */,

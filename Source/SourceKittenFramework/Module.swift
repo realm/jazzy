@@ -19,14 +19,14 @@ public struct Module {
     public var docs: [SwiftDocs] {
         var fileIndex = 1
         let sourceFilesCount = sourceFiles.count
-        return compact(sourceFiles.map({
+        return sourceFiles.flatMap {
             if let file = File(path: $0) {
                 fputs("Parsing \($0.lastPathComponent) (\(fileIndex++)/\(sourceFilesCount))\n", stderr)
-                return SwiftDocs(file: file, arguments: self.compilerArguments)
+                return SwiftDocs(file: file, arguments: compilerArguments)
             }
             fputs("Could not parse `\($0.lastPathComponent)`. Please open an issue at https://github.com/jpsim/SourceKitten/issues with the file contents.\n", stderr)
             return nil
-        }))
+        }
     }
 
     /**
@@ -39,17 +39,16 @@ public struct Module {
     */
     public init?(xcodeBuildArguments: [String], name: String? = nil, inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
         let xcodeBuildOutput = runXcodeBuild(xcodeBuildArguments, inPath: path) ?? ""
-        if let arguments = parseCompilerArguments(xcodeBuildOutput, language: .Swift, moduleName: name ?? moduleNameFromArguments(xcodeBuildArguments)) {
-            if let moduleName = moduleNameFromArguments(arguments) {
-                self.init(name: moduleName, compilerArguments: arguments)
-                return
-            }
+        guard let arguments = parseCompilerArguments(xcodeBuildOutput, language: .Swift, moduleName: name ?? moduleNameFromArguments(xcodeBuildArguments)) else {
+            fputs("Could not parse compiler arguments from `xcodebuild` output.\n", stderr)
+            fputs("\(xcodeBuildOutput)\n", stderr)
+            return nil
+        }
+        guard let moduleName = moduleNameFromArguments(arguments) else {
             fputs("Could not parse module name from compiler arguments.\n", stderr)
             return nil
         }
-        fputs("Could not parse compiler arguments from `xcodebuild` output.\n", stderr)
-        fputs("\(xcodeBuildOutput)\n", stderr)
-        return nil
+        self.init(name: moduleName, compilerArguments: arguments)
     }
 
     /**
@@ -65,7 +64,7 @@ public struct Module {
     }
 }
 
-// MARK: Printable
+// MARK: CustomStringConvertible
 
 extension Module: CustomStringConvertible {
     /// A textual representation of `Module`.
