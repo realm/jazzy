@@ -21,9 +21,10 @@ documentation, post WWDC 2014.
 
 ### Requirements
 
-* [Xcode 6.3][xcode], installed in `/Applications/Xcode.app`
-* `xcode-select -p` should print Xcode 6.3's path. If it doesn't, run
-`sudo xcode-select -s /Applications/Xcode.app/Contents/Developer`
+* A 6.x version of [Xcode][xcode] capable of building the Swift project
+  you wish to document, installed anywhere under `/Applications`.
+  Support for Xcode 7 betas is in progress (see
+  [#261](https://github.com/realm/jazzy/pull/261)).
 
 ### Installing
 
