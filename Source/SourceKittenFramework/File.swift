@@ -180,8 +180,8 @@ public struct File {
     - parameter cursorInfoRequest: Cursor.Info request to get declaration information.
 
     - returns: A copy of the input dictionary's substructure processed by running
-              `processDictionary(_:cursorInfoRequest:syntaxMap:)` on its elements, only keeping comment marks
-              and declarations.
+               `processDictionary(_:cursorInfoRequest:syntaxMap:)` on its elements, only keeping comment marks
+               and declarations.
     */
     private func newSubstructure(dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?, syntaxMap: SyntaxMap?) -> XPCArray? {
         return SwiftDocKey.getSubstructure(dictionary)?
@@ -326,11 +326,8 @@ internal func replaceUIDsWithSourceKitStrings(var dictionary: XPCDictionary) -> 
     for key in dictionary.keys {
         if let uid = dictionary[key] as? UInt64, uidString = stringForSourceKitUID(uid) {
             dictionary[key] = uidString
-        } else if var array = dictionary[key] as? XPCArray {
-            for (index, dict) in array.enumerate() {
-                array[index] = replaceUIDsWithSourceKitStrings(dict as! XPCDictionary)
-            }
-            dictionary[key] = array
+        } else if let array = dictionary[key] as? XPCArray {
+            dictionary[key] = array.map { replaceUIDsWithSourceKitStrings($0 as! XPCDictionary) } as XPCArray
         } else if let dict = dictionary[key] as? XPCDictionary {
             dictionary[key] = replaceUIDsWithSourceKitStrings(dict)
         }
