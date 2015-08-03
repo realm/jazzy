@@ -364,7 +364,7 @@
             "key.doc.usr" : "s:ZFP10Commandant11OptionsType8evaluateuRq_S0__FMq_FOS_11CommandModeGO6Result6Resultq_GOS_15CommandantErrorqq_S0_11ClientError__",
             "key.doc.discussion" : [
               {
-                "Para" : "Returns the parsed options or a ."
+                "Para" : "Returns the parsed options or a `UsageError`."
               }
             ]
           }
@@ -372,7 +372,7 @@
         "key.doc.usr" : "s:P10Commandant11OptionsType",
         "key.doc.discussion" : [
           {
-            "Para" : "This is most helpful when used in conjunction with the  and  types, and  and  combinators."
+            "Para" : "This is most helpful when used in conjunction with the `Option` and `Switch` types, and `<*>` and `<|` combinators."
           },
           {
             "Para" : "Example:"
@@ -905,34 +905,34 @@
         ],
         "key.doc.discussion" : [
           {
-            "Para" : "Swift strings are designed to be Unicode-correct.  In particular, the APIs make it easy to write code that works correctly, and does not surprise end-users, regardless of where you venture in the Unicode character space.  For example, the  operator checks for , so two different representations of the same string will always compare equal."
+            "Para" : "Swift strings are designed to be Unicode-correct.  In particular, the APIs make it easy to write code that works correctly, and does not surprise end-users, regardless of where you venture in the Unicode character space.  For example, the `==` operator checks for , so two different representations of the same string will always compare equal."
           },
           {
-            "Para" : "The fundamental operations on Swift strings are not sensitive to locale settings.  That's because, for example, the validity of a  in a running program depends on a given string comparison having a single, stable result.  Therefore, Swift always uses the default, un- Unicode algorithms for basic string operations."
+            "Para" : "The fundamental operations on Swift strings are not sensitive to locale settings.  That's because, for example, the validity of a `Dictionary<String, T>` in a running program depends on a given string comparison having a single, stable result.  Therefore, Swift always uses the default, un- Unicode algorithms for basic string operations."
           },
           {
-            "Para" : "Importing  endows swift strings with the full power of the  API, which allows you to choose more complex locale-sensitive operations explicitly."
+            "Para" : "Importing `Foundation` endows swift strings with the full power of the `NSString` API, which allows you to choose more complex locale-sensitive operations explicitly."
           },
           {
-            "Para" : "Each string variable,  binding, or stored property has an independent value, so mutations to the string are not observable through its copies:"
+            "Para" : "Each string variable, `let` binding, or stored property has an independent value, so mutations to the string are not observable through its copies:"
           },
           {
             "CodeListing" : ""
           },
           {
-            "Para" : "Strings use Copy-on-Write so that their data is only copied lazily, upon mutation, when more than one string instance is using the same buffer.  Therefore, the first in any sequence of mutating operations may cost  time and space, where  is the length of the string's (unspecified) underlying representation."
+            "Para" : "Strings use Copy-on-Write so that their data is only copied lazily, upon mutation, when more than one string instance is using the same buffer.  Therefore, the first in any sequence of mutating operations may cost `O(N)` time and space, where `N` is the length of the string's (unspecified) underlying representation."
           },
           {
-            "Para" : " is not itself a collection of anything.  Instead, it has properties that present the string's contents as meaningful collections:"
+            "Para" : "`String` is not itself a collection of anything.  Instead, it has properties that present the string's contents as meaningful collections:"
           },
           {
             "List-Bullet" : ""
           },
           {
-            "Para" : "When a string's contiguous storage fills up, new storage must be allocated and characters must be moved to the new storage.  uses an exponential growth strategy that makes  a constant time operation ."
+            "Para" : "When a string's contiguous storage fills up, new storage must be allocated and characters must be moved to the new storage. `String` uses an exponential growth strategy that makes `append` a constant time operation ."
           },
           {
-            "Para" : " is bridged to Objective-C as , and a  that originated in Objective-C may store its characters in an .  Since any arbitrary subclass of  can become a , there are no guarantees about representation or efficiency in this case.  Since  is immutable, it is just as though the storage was shared by some copy: the first in any sequence of mutating operations causes elements to be copied into unique, contiguous storage which may cost  time and space, where  is the length of the string representation (or more, if the underlying  is has unusual performance characteristics)."
+            "Para" : "`String` is bridged to Objective-C as `NSString`, and a `String` that originated in Objective-C may store its characters in an `NSString`.  Since any arbitrary subclass of `NSSString` can become a `String`, there are no guarantees about representation or efficiency in this case.  Since `NSString` is immutable, it is just as though the storage was shared by some copy: the first in any sequence of mutating operations causes elements to be copied into unique, contiguous storage which may cost `O(N)` time and space, where `N` is the length of the string representation (or more, if the underlying `NSString` is has unusual performance characteristics)."
           }
         ]
       },
@@ -1070,7 +1070,7 @@
         "key.doc.usr" : "s:ZF10Commandantoi2lou0_Rq_S_12ArgumentType_FTOS_11CommandModeGVS_6Optionq___GO6Result6Resultq_GOS_15CommandantErrorq0___",
         "key.doc.discussion" : [
           {
-            "Para" : "If parsing command line arguments, and no value was specified on the command line, the option's  is used."
+            "Para" : "If parsing command line arguments, and no value was specified on the command line, the option's `defaultValue` is used."
           }
         ]
       },
@@ -1118,7 +1118,7 @@
         "key.doc.usr" : "s:ZF10Commandantoi2lourFTOS_11CommandModeGVS_6OptionSb__GO6Result6ResultSbGOS_15CommandantErrorq___",
         "key.doc.discussion" : [
           {
-            "Para" : "If parsing command line arguments, and no value was specified on the command line, the option's  is used."
+            "Para" : "If parsing command line arguments, and no value was specified on the command line, the option's `defaultValue` is used."
           }
         ]
       }
@@ -1243,7 +1243,7 @@
         "key.doc.usr" : "s:O10Commandant15CommandantError",
         "key.doc.discussion" : [
           {
-            "Para" : " should be the type of error (if any) that can occur when running commands."
+            "Para" : "`ClientError` should be the type of error (if any) that can occur when running commands."
           }
         ]
       },
@@ -1308,7 +1308,7 @@
         "key.doc.usr" : "s:O10Commandant15CommandantError",
         "key.doc.discussion" : [
           {
-            "Para" : " should be the type of error (if any) that can occur when running commands."
+            "Para" : "`ClientError` should be the type of error (if any) that can occur when running commands."
           }
         ]
       },
@@ -1698,7 +1698,7 @@
             "key.doc.usr" : "s:vV10Commandant6Switch4flagGSqVSs9Character_",
             "key.doc.discussion" : [
               {
-                "Para" : "Multiple flags can be grouped together as a single argument and will split when parsing (e.g.  treats 'r' and 'f' as inidividual flags)."
+                "Para" : "Multiple flags can be grouped together as a single argument and will split when parsing (e.g. `rm -rf` treats 'r' and 'f' as inidividual flags)."
               }
             ]
           },
@@ -1757,7 +1757,7 @@
         "key.doc.usr" : "s:V10Commandant6Switch",
         "key.doc.discussion" : [
           {
-            "Para" : "For a boolean toggle that can be enabled and disabled use ."
+            "Para" : "For a boolean toggle that can be enabled and disabled use `Option<Bool>`."
           }
         ]
       },
@@ -1822,7 +1822,7 @@
         "key.doc.usr" : "s:V10Commandant6Switch",
         "key.doc.discussion" : [
           {
-            "Para" : "For a boolean toggle that can be enabled and disabled use ."
+            "Para" : "For a boolean toggle that can be enabled and disabled use `Option<Bool>`."
           }
         ]
       },
@@ -1870,7 +1870,7 @@
         "key.doc.usr" : "s:ZF10Commandantoi2lourFTOS_11CommandModeVS_6Switch_GO6Result6ResultSbGOS_15CommandantErrorq___",
         "key.doc.discussion" : [
           {
-            "Para" : "If parsing command line arguments, and no value was specified on the command line, the option's  is used."
+            "Para" : "If parsing command line arguments, and no value was specified on the command line, the option's `defaultValue` is used."
           }
         ]
       }
@@ -2438,7 +2438,7 @@
             "key.doc.usr" : "s:FC10Commandant15CommandRegistry8registeru__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FGS0_q__Fqd__T_",
             "key.doc.discussion" : [
               {
-                "Para" : "If another command was already registered with the same , it will be overwritten."
+                "Para" : "If another command was already registered with the same `verb`, it will be overwritten."
               }
             ]
           },
@@ -2551,7 +2551,7 @@
                 "Para" : "If the chosen command fails, the provided error handler will be invoked, then the process will exit with a failure exit code."
               },
               {
-                "Para" : "If a matching command could not be found or a usage error occurred, a helpful error message will be written to , then the process will exit with a failure error code."
+                "Para" : "If a matching command could not be found or a usage error occurred, a helpful error message will be written to `stderr`, then the process will exit with a failure error code."
               }
             ]
           }
