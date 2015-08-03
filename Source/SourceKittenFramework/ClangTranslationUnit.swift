@@ -78,20 +78,3 @@ public func commentXML(translationUnit: CXTranslationUnit) -> [String] {
     }
     return commentXMLs
 }
-
-/**
-Extracts Objective-C header files and `xcodebuild` arguments from an array of header files followed by `xcodebuild` arguments.
-
-- parameter sourcekittenArguments: Array of Objective-C header files followed by `xcodebuild` arguments.
-
-- returns: Tuple of header files and xcodebuild arguments.
-*/
-public func parseHeaderFilesAndXcodebuildArguments(sourcekittenArguments: [String]) -> (headerFiles: [String], xcodebuildArguments: [String]) {
-    var xcodebuildArguments = sourcekittenArguments
-    var headerFiles = [String]()
-    while let headerFile = xcodebuildArguments.first where headerFile.isObjectiveCHeaderFile() {
-        headerFiles.append(headerFile.absolutePathRepresentation())
-        xcodebuildArguments.removeAtIndex(0)
-    }
-    return (headerFiles, xcodebuildArguments)
-}
