@@ -20,7 +20,7 @@ Cancel request
 /**
 Initialize the SourceKit XPC service. This should only be done once per session (as Xcode does).
 
-:returns: ??? maybe 0 for success and 1 for failure?
+- returns: ??? maybe 0 for success and 1 for failure?
 */
 @asmname("sourcekitd_initialize") internal func sourcekitd_initialize() -> Int
 

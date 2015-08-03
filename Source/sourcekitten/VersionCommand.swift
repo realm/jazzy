@@ -7,23 +7,22 @@
 //
 
 import Commandant
-import LlamaKit
+import Result
 
 private let version = "0.4.5"
 
 struct VersionCommand: CommandType {
-    typealias ClientError = SourceKittenError
     let verb = "version"
     let function = "Display the current version of SourceKitten"
 
     func run(mode: CommandMode) -> Result<(), CommandantError<SourceKittenError>> {
         switch mode {
-        case let .Arguments:
-            println(version)
+        case .Arguments:
+            print(version)
 
         default:
             break
         }
-        return success()
+        return .Success()
     }
 }

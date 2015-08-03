@@ -17,9 +17,9 @@ public enum Language {
 /**
 Partially filters compiler arguments from `xcodebuild` to something that SourceKit/Clang will accept.
 
-:param: args Compiler arguments, as parsed from `xcodebuild`.
+- parameter args: Compiler arguments, as parsed from `xcodebuild`.
 
-:returns: A tuple of partially filtered compiler arguments in `.0`, and whether or not there are
+- returns: A tuple of partially filtered compiler arguments in `.0`, and whether or not there are
           more flags to remove in `.1`.
 */
 private func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
@@ -28,7 +28,7 @@ private func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
         "-output-file-map"
     ]
     for flag in flagsToRemove {
-        if let index = find(args, flag) {
+        if let index = args.indexOf(flag) {
             didRemove = true
             args.removeAtIndex(index.successor())
             args.removeAtIndex(index)
@@ -40,9 +40,9 @@ private func partiallyFilterArguments(var args: [String]) -> ([String], Bool) {
 /**
 Filters compiler arguments from `xcodebuild` to something that SourceKit/Clang will accept.
 
-:param: args Compiler arguments, as parsed from `xcodebuild`.
+- parameter args: Compiler arguments, as parsed from `xcodebuild`.
 
-:returns: Filtered compiler arguments.
+- returns: Filtered compiler arguments.
 */
 private func filterArguments(var args: [String]) -> [String] {
     args.extend(["-D", "DEBUG"])
@@ -51,12 +51,12 @@ private func filterArguments(var args: [String]) -> [String] {
         (args, shouldContinueToFilterArguments) = partiallyFilterArguments(args)
     }
     return args.filter({
-        !contains([
+        ![
             "-parseable-output",
             "-incremental",
             "-serialize-diagnostics",
             "-emit-dependencies"
-            ], $0)
+            ].contains($0)
     }).map {
         if $0 == "-O" {
             return "-Onone"
@@ -70,13 +70,13 @@ private func filterArguments(var args: [String]) -> [String] {
 /**
 Parses the compiler arguments needed to compile the `language` files.
 
-:param: xcodebuildOutput Output of `xcodebuild` to be parsed for compiler arguments.
-:param: language         Language to parse for.
-:param: moduleName       Name of the Module for which to extract compiler arguments.
+- parameter xcodebuildOutput: Output of `xcodebuild` to be parsed for compiler arguments.
+- parameter language:         Language to parse for.
+- parameter moduleName:       Name of the Module for which to extract compiler arguments.
 
-:returns: Compiler arguments, filtered for suitable use by SourceKit if `.Swift` or Clang if `.ObjC`.
+- returns: Compiler arguments, filtered for suitable use by SourceKit if `.Swift` or Clang if `.ObjC`.
 */
-internal func parseCompilerArguments(xcodebuildOutput: NSString, #language: Language, #moduleName: String?) -> [String]? {
+internal func parseCompilerArguments(xcodebuildOutput: NSString, language: Language, moduleName: String?) -> [String]? {
     let pattern: String = {
         if language == .ObjC {
             return "/usr/bin/clang.*"
@@ -85,10 +85,10 @@ internal func parseCompilerArguments(xcodebuildOutput: NSString, #language: Lang
         }
         return "/usr/bin/swiftc.*"
     }()
-    let regex = NSRegularExpression(pattern: pattern, options: nil, error: nil)! // Safe to force unwrap
+    let regex = try! NSRegularExpression(pattern: pattern, options: []) // Safe to force unwrap
     let range = NSRange(location: 0, length: xcodebuildOutput.length)
 
-    if let regexMatch = regex.firstMatchInString(xcodebuildOutput as! String, options: nil, range: range) {
+    if let regexMatch = regex.firstMatchInString(xcodebuildOutput as String, options: [], range: range) {
         let escapedSpacePlaceholder = "\u{0}"
         let args = filterArguments(xcodebuildOutput
             .substringWithRange(regexMatch.range)

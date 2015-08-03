@@ -9,8 +9,8 @@
 /**
 Returns an array containing the last contiguous group of elements matching the filter.
 
-:param: array  Array to filter.
-:param: filter Closure to filter elements.
+- parameter array:  Array to filter.
+- parameter filter: Closure to filter elements.
 */
 public func filterLastContiguous<T>(array: [T], filter: T -> Bool) -> [T] {
     // remove trailing elements until the last one matches the filter

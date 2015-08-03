@@ -81,10 +81,10 @@ internal enum SwiftDocKey: String {
     /**
     Returns the typed value of a dictionary key.
 
-    :param: key        SwiftDoctKey to get from the dictionary.
-    :param: dictionary Dictionary to get value from.
+    - parameter key:        SwiftDoctKey to get from the dictionary.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Typed value of a dictionary key.
+    - returns: Typed value of a dictionary key.
     */
     private static func get<T>(key: SwiftDocKey, _ dictionary: XPCDictionary) -> T? {
         return dictionary[key.rawValue] as! T?
@@ -93,9 +93,9 @@ internal enum SwiftDocKey: String {
     /**
     Get kind string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Kind string if successful.
+    - returns: Kind string if successful.
     */
     internal static func getKind(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.Kind, dictionary)
@@ -104,9 +104,9 @@ internal enum SwiftDocKey: String {
     /**
     Get syntax map data from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Syntax map data if successful.
+    - returns: Syntax map data if successful.
     */
     internal static func getSyntaxMap(dictionary: XPCDictionary) -> NSData? {
         return SwiftDocKey.get(.SyntaxMap, dictionary)
@@ -115,9 +115,9 @@ internal enum SwiftDocKey: String {
     /**
     Get offset int from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Offset int if successful.
+    - returns: Offset int if successful.
     */
     internal static func getOffset(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.Offset, dictionary)
@@ -126,9 +126,9 @@ internal enum SwiftDocKey: String {
     /**
     Get length int from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Length int if successful.
+    - returns: Length int if successful.
     */
     internal static func getLength(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.Length, dictionary)
@@ -137,9 +137,9 @@ internal enum SwiftDocKey: String {
     /**
     Get type name string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Type name string if successful.
+    - returns: Type name string if successful.
     */
     internal static func getTypeName(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.TypeName, dictionary)
@@ -148,9 +148,9 @@ internal enum SwiftDocKey: String {
     /**
     Get annotated declaration string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Annotated declaration string if successful.
+    - returns: Annotated declaration string if successful.
     */
     internal static func getAnnotatedDeclaration(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.AnnotatedDeclaration, dictionary)
@@ -159,9 +159,9 @@ internal enum SwiftDocKey: String {
     /**
     Get substructure array from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Substructure array if successful.
+    - returns: Substructure array if successful.
     */
     internal static func getSubstructure(dictionary: XPCDictionary) -> XPCArray? {
         return SwiftDocKey.get(.Substructure, dictionary)
@@ -170,9 +170,9 @@ internal enum SwiftDocKey: String {
     /**
     Get parsed declaration string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Parsed declaration string if successful.
+    - returns: Parsed declaration string if successful.
     */
     internal static func getParsedDeclaration(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.ParsedDeclaration, dictionary)
@@ -181,9 +181,9 @@ internal enum SwiftDocKey: String {
     /**
     Get name offset int from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Name offset int if successful.
+    - returns: Name offset int if successful.
     */
     internal static func getNameOffset(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.NameOffset, dictionary)
@@ -192,9 +192,9 @@ internal enum SwiftDocKey: String {
     /**
     Get length int from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Length int if successful.
+    - returns: Length int if successful.
     */
     internal static func getNameLength(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.NameLength, dictionary)
@@ -203,9 +203,9 @@ internal enum SwiftDocKey: String {
     /**
     Get body offset int from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Body offset int if successful.
+    - returns: Body offset int if successful.
     */
     internal static func getBodyOffset(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.BodyOffset, dictionary)
@@ -214,9 +214,9 @@ internal enum SwiftDocKey: String {
     /**
     Get body length int from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Body length int if successful.
+    - returns: Body length int if successful.
     */
     internal static func getBodyLength(dictionary: XPCDictionary) -> Int64? {
         return SwiftDocKey.get(.BodyLength, dictionary)
@@ -225,9 +225,9 @@ internal enum SwiftDocKey: String {
     /**
     Get file path string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: File path string if successful.
+    - returns: File path string if successful.
     */
     internal static func getFilePath(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.FilePath, dictionary)
@@ -236,9 +236,9 @@ internal enum SwiftDocKey: String {
     /**
     Get name string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Name string if successful.
+    - returns: Name string if successful.
     */
     internal static func getName(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.Name, dictionary)
@@ -247,9 +247,9 @@ internal enum SwiftDocKey: String {
     /**
     Get diagnostic stage string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Diagnostic stage string if successful.
+    - returns: Diagnostic stage string if successful.
     */
     internal static func getDiagnosticStage(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.DiagnosticStage, dictionary)
@@ -258,9 +258,9 @@ internal enum SwiftDocKey: String {
     /**
     Get full xml docs string from dictionary.
 
-    :param: dictionary Dictionary to get value from.
+    - parameter dictionary: Dictionary to get value from.
 
-    :returns: Full xml docs string if successful.
+    - returns: Full xml docs string if successful.
     */
     internal static func getFullXMLDocs(dictionary: XPCDictionary) -> String? {
         return SwiftDocKey.get(.FullXMLDocs, dictionary)

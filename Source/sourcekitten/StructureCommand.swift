@@ -8,28 +8,27 @@
 
 import Commandant
 import Foundation
-import LlamaKit
 import SourceKittenFramework
+import Result
 
 struct StructureCommand: CommandType {
-    typealias ClientError = SourceKittenError
     let verb = "structure"
     let function = "Print Swift structure information as JSON"
 
     func run(mode: CommandMode) -> Result<(), CommandantError<SourceKittenError>> {
         return StructureOptions.evaluate(mode).flatMap { options in
-            if count(options.file) > 0 {
+            if options.file.characters.count > 0 {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
-                    println(Structure(file: file))
-                    return success()
+                    print(Structure(file: file))
+                    return .Success()
                 }
-                return failure(toCommandantError(.ReadFailed(path: options.file)))
+                return .Failure(.CommandError(.ReadFailed(path: options.file)))
             }
-            if count(options.text) > 0 {
-                println(Structure(file: File(contents: options.text)))
-                return success()
+            if options.text.characters.count > 0 {
+                print(Structure(file: File(contents: options.text)))
+                return .Success()
             }
-            return failure(toCommandantError(
+            return .Failure(.CommandError(
                 .InvalidArgument(description: "either file or text must be set when calling structure")
             ))
         }
@@ -41,7 +40,7 @@ struct StructureOptions: OptionsType {
     let text: String
 
     static func create(file: String)(text: String) -> StructureOptions {
-        return self(file: file, text: text)
+        return self.init(file: file, text: text)
     }
 
     static func evaluate(m: CommandMode) -> Result<StructureOptions, CommandantError<SourceKittenError>> {

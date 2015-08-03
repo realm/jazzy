@@ -17,12 +17,12 @@ extension File {
     Creates an OffsetMap containing offset locations at which there are declarations that likely
     have documentation comments, but haven't been documented by SourceKitten yet.
 
-    :param: documentedTokenOffsets Offsets where there are declarations that likely
+    - parameter documentedTokenOffsets: Offsets where there are declarations that likely
                                    have documentation comments.
-    :param: dictionary             Docs dictionary to check for which offsets are already
+    - parameter dictionary:             Docs dictionary to check for which offsets are already
                                    documented.
 
-    :returns: OffsetMap containing offset locations at which there are declarations that likely
+    - returns: OffsetMap containing offset locations at which there are declarations that likely
               have documentation comments, but haven't been documented by SourceKitten yet.
     */
     public func generateOffsetMap(documentedTokenOffsets: [Int], dictionary: XPCDictionary) -> OffsetMap {
@@ -42,11 +42,11 @@ extension File {
     Creates a new OffsetMap that matches all offsets in the offsetMap parameter's keys to its
     nearest, currently documented parent offset.
 
-    :param: dictionary Already documented dictionary.
-    :param: offsetMap  Dictionary mapping potentially documented offsets to its nearest parent
+    - parameter dictionary: Already documented dictionary.
+    - parameter offsetMap:  Dictionary mapping potentially documented offsets to its nearest parent
                        offset.
 
-    :returns: OffsetMap of potentially documented declaration offsets to its nearest parent offset.
+    - returns: OffsetMap of potentially documented declaration offsets to its nearest parent offset.
     */
     private func mapOffsets(dictionary: XPCDictionary, var offsetMap: OffsetMap) -> OffsetMap {
         // Only map if we're in the correct file

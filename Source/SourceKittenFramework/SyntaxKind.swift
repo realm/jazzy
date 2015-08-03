@@ -43,9 +43,9 @@ public enum SyntaxKind: String {
     /**
     Returns true if the input is a comment-like syntax kind string.
 
-    :param: string Input string.
+    - parameter string: Input string.
     */
     internal static func isCommentLike(string: Swift.String) -> Bool {
-        return contains([Comment.rawValue, CommentMark.rawValue, CommentURL.rawValue], string)
+        return [Comment.rawValue, CommentMark.rawValue, CommentURL.rawValue].contains(string)
     }
 }

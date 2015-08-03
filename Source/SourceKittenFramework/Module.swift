@@ -33,9 +33,9 @@ public struct Module {
     Failable initializer to create a Module by the arguments necessary pass in to `xcodebuild` to build it.
     Optionally pass in a `moduleName` and `path`.
 
-    :param: xcodeBuildArguments The arguments necessary pass in to `xcodebuild` to build this Module.
-    :param: name                Module name. Will be parsed from `xcodebuild` output if nil.
-    :param: path                Path to run `xcodebuild` from. Uses current path by default.
+    - parameter xcodeBuildArguments: The arguments necessary pass in to `xcodebuild` to build this Module.
+    - parameter name:                Module name. Will be parsed from `xcodebuild` output if nil.
+    - parameter path:                Path to run `xcodebuild` from. Uses current path by default.
     */
     public init?(xcodeBuildArguments: [String], name: String? = nil, inPath path: String = NSFileManager.defaultManager().currentDirectoryPath) {
         let xcodeBuildOutput = runXcodeBuild(xcodeBuildArguments, inPath: path) ?? ""
@@ -55,8 +55,8 @@ public struct Module {
     /**
     Initializer to create a Module by name and compiler arguments.
 
-    :param: name              Module name.
-    :param: compilerArguments Compiler arguments required by SourceKit to process the source files in this Module.
+    - parameter name:              Module name.
+    - parameter compilerArguments: Compiler arguments required by SourceKit to process the source files in this Module.
     */
     public init(name: String, compilerArguments: [String]) {
         self.name = name
@@ -67,7 +67,7 @@ public struct Module {
 
 // MARK: Printable
 
-extension Module: Printable {
+extension Module: CustomStringConvertible {
     /// A textual representation of `Module`.
     public var description: String {
         return "Module(name: \(name), compilerArguments: \(compilerArguments), sourceFiles: \(sourceFiles))"
@@ -77,10 +77,10 @@ extension Module: Printable {
 /**
 Run `xcodebuild clean build` along with any passed in build arguments.
 
-:param: arguments Arguments to pass to `xcodebuild`.
-:param: path      Path to run `xcodebuild` from.
+- parameter arguments: Arguments to pass to `xcodebuild`.
+- parameter path:      Path to run `xcodebuild` from.
 
-:returns: `xcodebuild`'s STDERR+STDOUT output combined.
+- returns: `xcodebuild`'s STDERR+STDOUT output combined.
 */
 internal func runXcodeBuild(arguments: [String], inPath path: String) -> String? {
     fputs("Running xcodebuild\n", stderr)
@@ -100,7 +100,7 @@ internal func runXcodeBuild(arguments: [String], inPath path: String) -> String?
     let xcodebuildOutput = NSString(data: file.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
     file.closeFile()
 
-    return xcodebuildOutput as! String?
+    return xcodebuildOutput as String?
 }
 
 /**
@@ -108,14 +108,14 @@ Parses likely module name from compiler or `xcodebuild` arguments.
 
 Will the following values, in this priority: module name, target name, scheme name.
 
-:param: arguments Compiler or `xcodebuild` arguments to parse.
+- parameter arguments: Compiler or `xcodebuild` arguments to parse.
 
-:returns: Module name if successful.
+- returns: Module name if successful.
 */
 private func moduleNameFromArguments(arguments: [String]) -> String? {
     let flags = ["-module-name", "-target", "-scheme"]
     for flag in flags {
-        if let flagIndex = find(arguments, flag) {
+        if let flagIndex = arguments.indexOf(flag) {
             if flagIndex + 1 < arguments.count {
                 return arguments[flagIndex + 1]
             }

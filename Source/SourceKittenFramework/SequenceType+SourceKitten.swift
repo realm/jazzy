@@ -9,12 +9,12 @@
 /**
 Returns an array of the non-nil elements of the input sequence.
 
-:param: sequence Sequence to compact.
+- parameter sequence: Sequence to compact.
 
-:returns: An array of the non-nil elements of the input sequence.
+- returns: An array of the non-nil elements of the input sequence.
 */
 public func compact<T, S: SequenceType where S.Generator.Element == Optional<T>>(sequence: S) -> [T] {
-    return filter(sequence, {
+    return sequence.filter({
         $0 != nil
     }).map {
         $0! // Safe to force unwrap

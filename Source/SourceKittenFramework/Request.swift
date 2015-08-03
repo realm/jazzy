@@ -18,9 +18,9 @@ private var uidStringMap = [UInt64: String]()
 /**
 Cache SourceKit requests for strings from UIDs
 
-:param: uid UID received from sourcekitd* responses
+- parameter uid: UID received from sourcekitd* responses
 
-:returns: Cached UID string if available, other
+- returns: Cached UID string if available, other
 */
 internal func stringForSourceKitUID(uid: UInt64) -> String? {
     if uid < 4_300_000_000 {
@@ -80,10 +80,10 @@ public enum Request {
     /**
     Create a Request.CursorInfo.xpcValue() from a file path and compiler arguments.
 
-    :param: filePath  Path of the file to create request.
-    :param: arguments Compiler arguments.
+    - parameter filePath:  Path of the file to create request.
+    - parameter arguments: Compiler arguments.
 
-    :returns: xpc_object_t representation of the Request, if successful.
+    - returns: xpc_object_t representation of the Request, if successful.
     */
     internal static func cursorInfoRequestForFilePath(filePath: String?, arguments: [String]) -> xpc_object_t? {
         if let path = filePath {
@@ -95,10 +95,10 @@ public enum Request {
     /**
     Send a Request.CursorInfo by updating its offset. Returns SourceKit response if successful.
 
-    :param: request xpc_object_t representation of Request.CursorInfo
-    :param: offset  Offset to update request.
+    - parameter request: xpc_object_t representation of Request.CursorInfo
+    - parameter offset:  Offset to update request.
 
-    :returns: SourceKit response if successful.
+    - returns: SourceKit response if successful.
     */
     internal static func sendCursorInfoRequest(request: xpc_object_t, atOffset offset: Int64) -> XPCDictionary? {
         if offset == 0 {
@@ -111,7 +111,7 @@ public enum Request {
     /**
     Sends the request to SourceKit and return the response as an XPCDictionary.
 
-    :returns: SourceKit output as an XPC dictionary.
+    - returns: SourceKit output as an XPC dictionary.
     */
     public func send() -> XPCDictionary {
         dispatch_once(&sourceKitInitializationToken) {
@@ -126,7 +126,7 @@ public enum Request {
 
 // MARK: Printable
 
-extension Request: Printable {
+extension Request: CustomStringConvertible {
     /// A textual representation of `Request`.
     public var description: String { return xpcValue.description }
 }
