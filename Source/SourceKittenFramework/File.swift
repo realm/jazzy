@@ -278,7 +278,7 @@ public struct File {
     - parameter dictionary: Dictionary to parse.
     */
     internal func shouldTreatAsSameFile(dictionary: XPCDictionary) -> Bool {
-        return path?.lastPathComponent == SwiftDocKey.getFilePath(dictionary)?.lastPathComponent
+        return path == SwiftDocKey.getFilePath(dictionary)
     }
 
     /**

@@ -60,7 +60,7 @@ public struct Module {
     public init(name: String, compilerArguments: [String]) {
         self.name = name
         self.compilerArguments = compilerArguments
-        sourceFiles = compilerArguments.filter { $0.isSwiftFile() }
+        sourceFiles = compilerArguments.filter({ $0.isSwiftFile() }).map { ($0 as NSString).stringByResolvingSymlinksInPath }
     }
 }
 
