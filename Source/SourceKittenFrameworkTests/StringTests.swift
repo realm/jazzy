@@ -13,15 +13,11 @@ import XCTest
 
 class StringTests: XCTestCase {
     func testStringByRemovingCommonLeadingWhitespaceFromLines() {
-        autoreleasepool {
-            let input = "a\n b\n  c"
-            XCTAssertEqual(input.stringByRemovingCommonLeadingWhitespaceFromLines(), input)
-        }
+        var input = "a\n b\n  c"
+        XCTAssertEqual(input.stringByRemovingCommonLeadingWhitespaceFromLines(), input)
 
-        autoreleasepool {
-            let input = " a\n  b\n   c"
-            XCTAssertEqual(input.stringByRemovingCommonLeadingWhitespaceFromLines(), "a\n b\n  c")
-        }
+        input = " a\n  b\n   c"
+        XCTAssertEqual(input.stringByRemovingCommonLeadingWhitespaceFromLines(), "a\n b\n  c")
     }
 
     func testStringByTrimmingTrailingCharactersInSet() {
@@ -30,40 +26,26 @@ class StringTests: XCTestCase {
     }
 
     func testCommentBody() {
-        autoreleasepool {
-            let commentString = "/// Single line comment.\n\n"
-            XCTAssertEqual(commentString.commentBody()!, "Single line comment.")
-        }
+        var commentString = "/// Single line comment.\n\n"
+        XCTAssertEqual(commentString.commentBody()!, "Single line comment.")
 
-        autoreleasepool {
-            let commentString = "/// Multiple\n/// single line comments.\n\n"
-            XCTAssertEqual(commentString.commentBody()!, "Multiple\nsingle line comments.")
-        }
+        commentString = "/// Multiple\n/// single line comments.\n\n"
+        XCTAssertEqual(commentString.commentBody()!, "Multiple\nsingle line comments.")
 
-        autoreleasepool {
-            let commentString = "/**\nMultiple\nline\ncomments.\n*/"
-            XCTAssertEqual(commentString.commentBody()!, "Multiple\nline\ncomments.")
-        }
+        commentString = "/**\nMultiple\nline\ncomments.\n*/"
+        XCTAssertEqual(commentString.commentBody()!, "Multiple\nline\ncomments.")
 
-        autoreleasepool {
-            let commentString = "/*\nNot a documentation comment.\n*/"
-            XCTAssertNil(commentString.commentBody())
-        }
+        commentString = "/*\nNot a documentation comment.\n*/"
+        XCTAssertNil(commentString.commentBody())
 
-        autoreleasepool {
-            let commentString = "// Not a documentation comment."
-            XCTAssertNil(commentString.commentBody())
-        }
+        commentString = "// Not a documentation comment."
+        XCTAssertNil(commentString.commentBody())
 
-        autoreleasepool {
-            let commentString = "😄\n    /// Multiple\n        /// single line comments.\n\n"
-            XCTAssertEqual(commentString.commentBody()!, "Multiple\n    single line comments.")
-        }
+        commentString = "😄\n    /// Multiple\n        /// single line comments.\n\n"
+        XCTAssertEqual(commentString.commentBody()!, "Multiple\n    single line comments.")
 
-        autoreleasepool {
-            let commentString = "😄\n    /**\n    Multiple\n        line\n    comments.\n    */"
-            XCTAssertEqual(commentString.commentBody()!, "Multiple\n    line\ncomments.")
-        }
+        commentString = "😄\n    /**\n    Multiple\n        line\n    comments.\n    */"
+        XCTAssertEqual(commentString.commentBody()!, "Multiple\n    line\ncomments.")
     }
 
     func testIsSwiftFile() {
@@ -99,9 +81,7 @@ class StringTests: XCTestCase {
 
     func testIsTokenDocumentable() {
         let source = "struct A { subscript(key: String) -> Void { return () } }"
-        let actual = SyntaxMap(file: File(contents: source)).tokens.filter {
-            source.isTokenDocumentable($0)
-        }
+        let actual = SyntaxMap(file: File(contents: source)).tokens.filter(source.isTokenDocumentable)
         let expected = [
             SyntaxToken(type: SyntaxKind.Identifier.rawValue, offset: 7, length: 1), // `A`
             SyntaxToken(type: SyntaxKind.Keyword.rawValue, offset: 11, length: 9),   // `subscript`
@@ -111,13 +91,13 @@ class StringTests: XCTestCase {
     }
 
     func testParseDeclaration() {
-        let dict = [
+        let dict: XPCDictionary = [
             "key.kind": "source.lang.swift.decl.class",
             "key.offset": Int64(24),
             "key.bodyoffset": Int64(32),
             "key.annotated_decl": "",
             "key.typename": "ClassA.Type"
-        ] as XPCDictionary
+        ]
         // This string is a regression test for https://github.com/jpsim/SourceKitten/issues/35 .
         let file = File(contents: "/**\n　ほげ\n*/\nclass ClassA {\n}\n")
         XCTAssertEqual("class ClassA", file.parseDeclaration(dict)!, "should extract declaration from source text")
@@ -157,6 +137,7 @@ class StringTests: XCTestCase {
     }
 
     func testLineRangeWithByteRange() {
+        XCTAssert("".lineRangeWithByteRange(start: 0, length: 0) == nil)
         let string = "😄\n123"
         XCTAssert(string.lineRangeWithByteRange(start: 0, length: 0)! == (1, 1))
         XCTAssert(string.lineRangeWithByteRange(start: 0, length: 4)! == (1, 1))
