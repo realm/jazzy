@@ -8,8 +8,8 @@
 
 import Commandant
 import Foundation
-import SourceKittenFramework
 import Result
+import SourceKittenFramework
 
 struct SyntaxCommand: CommandType {
     let verb = "syntax"
@@ -17,14 +17,14 @@ struct SyntaxCommand: CommandType {
 
     func run(mode: CommandMode) -> Result<(), CommandantError<SourceKittenError>> {
         return SyntaxOptions.evaluate(mode).flatMap { options in
-            if options.file.characters.count > 0 {
+            if !options.file.isEmpty {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
                     print(SyntaxMap(file: file))
                     return .Success()
                 }
                 return .Failure(.CommandError(.ReadFailed(path: options.file)))
             }
-            if options.text.characters.count > 0 {
+            if !options.text.isEmpty {
                 print(SyntaxMap(file: File(contents: options.text)))
                 return .Success()
             }

@@ -8,8 +8,8 @@
 
 import Commandant
 import Foundation
-import SourceKittenFramework
 import Result
+import SourceKittenFramework
 
 struct DocCommand: CommandType {
     let verb = "doc"
@@ -24,7 +24,7 @@ struct DocCommand: CommandType {
             if options.singleFile {
                 return runSwiftSingleFile(args)
             }
-            let moduleName: String? = options.moduleName.characters.count > 0 ? options.moduleName : nil
+            let moduleName: String? = options.moduleName.isEmpty ? nil : options.moduleName
             return runSwiftModule(moduleName, args: args)
         }
     }

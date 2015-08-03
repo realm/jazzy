@@ -8,8 +8,8 @@
 
 import Commandant
 import Foundation
-import SourceKittenFramework
 import Result
+import SourceKittenFramework
 
 struct StructureCommand: CommandType {
     let verb = "structure"
@@ -17,14 +17,14 @@ struct StructureCommand: CommandType {
 
     func run(mode: CommandMode) -> Result<(), CommandantError<SourceKittenError>> {
         return StructureOptions.evaluate(mode).flatMap { options in
-            if options.file.characters.count > 0 {
+            if !options.file.isEmpty {
                 if let file = File(path: options.file.absolutePathRepresentation()) {
                     print(Structure(file: file))
                     return .Success()
                 }
                 return .Failure(.CommandError(.ReadFailed(path: options.file)))
             }
-            if options.text.characters.count > 0 {
+            if !options.text.isEmpty {
                 print(Structure(file: File(contents: options.text)))
                 return .Success()
             }
