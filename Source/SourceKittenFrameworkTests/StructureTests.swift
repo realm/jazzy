@@ -43,12 +43,24 @@ class StructureTests: XCTestCase {
                     "key.bodylength": 12,
                     "key.length": 26,
                     "key.substructure": [
-                    // TODO: Uncomment this once rdar://18845613 is fixed.
-                    //    [
-                    //        "key.kind": "source.lang.swift.decl.enumelement",
-                    //        "key.accessibility": "source.lang.swift.accessibility.internal",
-                    //        "key.name": "First"
-                    //    ]
+                        [
+                            "key.kind": "source.lang.swift.decl.enumcase",
+                            "key.offset": 14,
+                            "key.length": 10,
+                            "key.nameoffset": 0,
+                            "key.namelength": 0,
+                            "key.substructure": [
+                                [
+                                    "key.kind": "source.lang.swift.decl.enumelement",
+                                    "key.accessibility": "source.lang.swift.accessibility.internal",
+                                    "key.name": "First",
+                                    "key.offset": 19,
+                                    "key.length": 5,
+                                    "key.nameoffset": 19,
+                                    "key.namelength": 5
+                                ]
+                            ]
+                        ]
                     ],
                     "key.name": "MyEnum"
                 ]
