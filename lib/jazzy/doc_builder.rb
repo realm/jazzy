@@ -70,25 +70,25 @@ module Jazzy
     # @param [Config] options Build options
     # @param [Array] doc_structure @see #doc_structure_for_docs
     def self.build_docs(output_dir, docs, source_module)
-      each_doc(output_dir, docs) do |doc, path, depth|
+      each_doc(output_dir, docs) do |doc, path|
         prepare_output_dir(path.parent, false)
-        path_to_root = ['../'].cycle(depth).to_a.join('')
+        depth = path.relative_path_from(output_dir).each_filename.count - 1
+        path_to_root = '../' * depth
         path.open('w') do |file|
           file.write(document(source_module, doc, path_to_root))
         end
       end
     end
 
-    def self.each_doc(output_dir, docs, depth = 0, &block)
+    def self.each_doc(output_dir, docs, &block)
       docs.each do |doc|
         next if doc.name != 'index' && doc.children.count == 0
-        path = output_dir + "#{doc.name}.html"
-        block.call(doc, path, depth)
+        path = output_dir + (doc.url || "#{doc.name}.html")   # Assumes URL is relative to documentation root!
+        block.call(doc, path)
         next if doc.name == 'index'
         each_doc(
-          output_dir + doc.name,
+          output_dir,
           doc.children,
-          depth + 1,
           &block
         )
       end
