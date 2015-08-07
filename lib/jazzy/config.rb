@@ -181,7 +181,7 @@ module Jazzy
 
         opt.on('-e', '--exclude file1,file2,…fileN', Array,
                'Files to be excluded from documentation') do |files|
-          config.excluded_files = files
+          config.excluded_files = files.map { |f| File.expand_path(f) }
         end
 
         opt.on('-v', '--version', 'Print version number') do

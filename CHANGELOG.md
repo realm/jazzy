@@ -1,3 +1,19 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* `--exclude` now works properly if its argument is a relative path.
+  [pcantrell](https://github.com/pcantrell)
+
+
 ## 0.2.2
 
 ##### Breaking
