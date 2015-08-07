@@ -65,11 +65,10 @@ module Jazzy
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs, parents)
       docs.each do |doc|
-        if doc.children.count > 0
-          # Create HTML page for this doc if it has children
-          parents_slash = parents.count > 0 ? '/' : ''
-          doc.url = parents.join('/') + parents_slash + doc.name + '.html'
-          doc.children = make_doc_urls(doc.children, parents + [doc.name])
+        if parents.empty? || doc.children.count > 0
+          # Create HTML page for this doc if it has children or is root-level
+          doc.url = (subdir_for_doc(doc, parents) + [doc.name + '.html']).join('/')
+          doc.children = make_doc_urls(doc.children, parents + [doc])
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
@@ -90,11 +89,23 @@ module Jazzy
               'project. If this token is declared in an `#if` block, please ' \
               'ignore this message.'
           end
-          doc.url = parents.join('/') + '.html#/' + id
+          doc.url = parents.last.url + '#/' + id
         end
       end
     end
     # rubocop:enable Metrics/MethodLength
+
+    # Determine the subdirectory in which a doc should be placed
+    def self.subdir_for_doc(doc, parents)
+      # To group docs by category file instead of declaration type,
+      # return parents.map(&:name)
+
+      if doc.type.name
+        [doc.type.plural_name]
+      else
+        []
+      end
+    end
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
