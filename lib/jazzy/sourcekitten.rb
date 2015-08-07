@@ -100,8 +100,8 @@ module Jazzy
       doc[key].map do |p|
         if para = p['Para']
           Jazzy.markdown.render(para)
-        elsif verbatim = p['Verbatim']
-          Jazzy.markdown.render("```\n#{verbatim}```\n")
+        elsif code = p['Verbatim'] || p['CodeListing']
+          Jazzy.markdown.render("```\n#{code}```\n")
         else
           warn "Jazzy could not recognize the `#{p.keys.first}` tag. " \
                'Please report this by filing an issue at ' \
