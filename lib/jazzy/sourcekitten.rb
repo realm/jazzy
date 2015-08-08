@@ -40,6 +40,11 @@ module Jazzy
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
           id = doc.usr
+          if id =~ /ERR$/
+            warn "A compile error prevented " + (parents[1..-1] + [doc.name]).join('.') +
+              " from receiving a unique USR. Documentation may be incomplete. " \
+              "Please check for compile errors by running `xcodebuild`."
+          end
           unless id
             id = doc.name || 'unknown'
             warn "`#{id}` has no USR. First make sure all modules used in " \
