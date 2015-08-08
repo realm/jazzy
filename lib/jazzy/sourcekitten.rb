@@ -224,12 +224,30 @@ module Jazzy
         (@undocumented_tokens.count + @documented_count)
     end
 
+    # Merges multiple extensions of the same entity into a single document.
+    #
+    # Merges extensions into the protocol/class/struct/enum they extend, if it
+    # occurs in the same project.
+    #
+    # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
-      duplicates = declarations.group_by { |d| [d.usr, d.type.kind] }.values
+      duplicates = declarations.group_by { |d| deduplication_key(d) }.values
+
       duplicates.map do |decls|
+        # Put extended type (if present) before extensions
+        decls = decls.partition { |d| d.type.extensible? }.flatten
         decls.first.tap do |d|
           d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
         end
+      end
+    end
+
+    # Two declarations get merged if they have the same deduplication key.
+    def self.deduplication_key(decl)
+      if decl.type.extensible? || decl.type.extension?
+        [decl.usr]
+      else
+        [decl.usr, decl.type.kind]
       end
     end
 
