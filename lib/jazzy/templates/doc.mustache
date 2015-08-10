@@ -27,6 +27,13 @@
         <section>
           <section class="section">
             {{^hide_name}}<h1>{{name}}</h1>{{/hide_name}}
+            {{#declaration}}
+              <div class="declaration">
+                <div class="Swift">
+                  {{{declaration}}}
+                </div>
+              </div>
+            {{/declaration}}
             {{{overview}}}
           </section>
           {{> tasks}}
