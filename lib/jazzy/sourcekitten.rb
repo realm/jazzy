@@ -41,9 +41,11 @@ module Jazzy
           # Instead, make its link a hash-link on its parent's page
           id = doc.usr
           if id =~ /ERR$/
-            warn "A compile error prevented " + (parents[1..-1] + [doc.name]).join('.') +
+            warn "A compile error prevented " +
+              (parents[1..-1] + [doc]).map(&:name).join('.') +
               " from receiving a unique USR. Documentation may be incomplete. " \
-              "Please check for compile errors by running `xcodebuild`."
+              "Please check for compile errors by running `xcodebuild` along with "\
+              "any arguments passed to jazzy's `-x` or `--xcodebuild-arguments`."
           end
           unless id
             id = doc.name || 'unknown'
