@@ -104,7 +104,12 @@ module Jazzy
 
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])
-      return true if type.extension? || type.enum_element?
+      return true if type.enum_element?
+      if type.extension?
+        return (doc['key.substructure'] || []).any? do |subdoc|
+          should_document?(subdoc)
+        end
+      end
 
       SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
     end
