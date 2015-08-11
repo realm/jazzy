@@ -3,7 +3,8 @@ require 'jazzy/source_declaration/type'
 
 module Jazzy
   class SourceDeclaration
-    attr_accessor :type
+    attr_accessor :type      # kind of declaration (e.g. class, variable, function)
+    attr_accessor :typename  # static type of declared element (e.g. String.Type -> ())
     attr_accessor :file
     attr_accessor :line
     attr_accessor :column
