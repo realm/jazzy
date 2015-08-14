@@ -328,13 +328,28 @@ module Jazzy
 
     # Merges all of the given types and extensions into a single document.
     def self.merge_declarations(decls)
-      extensions, types = decls.partition { |d| d.type.extension? }
+      extensions, typedecls = decls.partition { |d| d.type.extension? }
 
-      types.select { |t| t.type.protocol? }.each do |protocol|
-        merge_default_implementations_into_protocol(protocol, extensions)
+      if typedecls.size > 1
+        warn "Found conflicting type declarations with the same name, which " +
+          "may indicate a build issue or a bug in Jazzy: " +
+          types.map { |t| "#{t.type.name.downcase} #{t.name}" }.join(', ')
+      end
+      typedecl = typedecls.first
+
+      if typedecl && typedecl.type.protocol?
+        merge_default_implementations_into_protocol(typedecl, extensions)
+        extensions.reject! { |ext| ext.children.empty? }
+
+        ext_mark = SourceMark.new('- Extension Members')
+        extensions.each do |ext|
+          ext.children.each do |ext_member|
+            ext_member.mark = ext_mark
+          end
+        end
       end
 
-      decls = types + extensions
+      decls = typedecls + extensions
       decls.first.tap do |d|
         d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
       end
