@@ -65,6 +65,10 @@ module Jazzy
         kind =~ /^source\.lang\.swift\.decl\.(class|struct|protocol|enum)$/
       end
 
+      def protocol?
+        kind =~ /^source\.lang\.swift\.decl\.protocol$/
+      end
+
       def param?
         # SourceKit strangely categorizes initializer parameters as local
         # variables, so both kinds represent a parameter in jazzy.

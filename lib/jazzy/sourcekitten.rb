@@ -309,14 +309,11 @@ module Jazzy
     #
     # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
-      duplicates = declarations.group_by { |d| deduplication_key(d) }.values
+      duplicate_groups = declarations.group_by { |d| deduplication_key(d) }.values
 
-      duplicates.map do |decls|
+      duplicate_groups.map do |group|
         # Put extended type (if present) before extensions
-        decls = decls.partition { |d| d.type.extensible? }.flatten
-        decls.first.tap do |d|
-          d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
-        end
+        merge_declarations(group)
       end
     end
 
@@ -326,6 +323,37 @@ module Jazzy
         [decl.usr]
       else
         [decl.usr, decl.type.kind]
+      end
+    end
+
+    # Merges all of the given types and extensions into a single document.
+    def self.merge_declarations(decls)
+      extensions, types = decls.partition { |d| d.type.extension? }
+
+      types.select { |t| t.type.protocol? }.each do |protocol|
+        merge_default_implementations_into_protocol(protocol, extensions)
+      end
+
+      decls = types + extensions
+      decls.first.tap do |d|
+        d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+      end
+    end
+
+    # If any of the extensions provide default implementations for methods in the
+    # given protocol, merge those members into the protocol doc instead of keeping
+    # them on the extension.
+    def self.merge_default_implementations_into_protocol(protocol, extensions)
+      protocol.children.each do |proto_method|
+        extensions.each do |ext|
+          defaults, ext.children = ext.children.partition do |ext_member|
+            ext_member.name == proto_method.name
+          end
+          unless defaults.empty?
+            proto_method.default_impl_abstract =
+              defaults.flat_map { |d| [d.abstract, d.discussion] }.join("\n\n")
+          end
+        end
       end
     end
 
