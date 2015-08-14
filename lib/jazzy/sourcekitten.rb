@@ -39,6 +39,13 @@ module Jazzy
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
+          if doc.typename == "<<error type>>"
+            warn "A compile error prevented " +
+              (parents[1..-1] + [doc]).map(&:name).join('.') +
+              " from receiving a unique USR. Documentation may be incomplete. " \
+              "Please check for compile errors by running `xcodebuild` along with "\
+              "any arguments passed to jazzy's `-x` or `--xcodebuild-arguments`."
+          end
           id = doc.usr
           unless id
             id = doc.name || 'unknown'
@@ -194,6 +201,7 @@ module Jazzy
         end
         declaration = SourceDeclaration.new
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
+        declaration.typename = doc['key.typename']
         if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
           current_mark = SourceMark.new(doc['key.name'])
         end
