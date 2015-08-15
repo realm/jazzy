@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias Line = (index: Int, content: String)
+
 private let whitespaceAndNewlineCharacterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
 
 extension NSString {
@@ -150,6 +152,18 @@ extension NSString {
 }
 
 extension String {
+    /**
+    Returns an array of Lines for each line in the file
+    */
+    internal func lines() -> [Line] {
+        var lines = [Line]()
+        var lineIndex = 1
+        enumerateLines { line, _ in
+            lines.append((lineIndex++, line))
+        }
+        return lines
+    }
+
     /**
     Returns true if self is an Objective-C header file.
     */
