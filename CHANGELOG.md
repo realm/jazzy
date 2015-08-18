@@ -1,3 +1,19 @@
+## master
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+* Add `lines` convenience property to `File`  
+  [Keith Smiley](https://github.com/keith)
+
+##### Bug Fixes
+
+None.
+
+
 ## 0.4.4
 
 ##### Breaking

@@ -16,6 +16,10 @@ public struct File {
     public let path: String?
     /// File contents.
     public let contents: String
+    /// File lines.
+    lazy public var lines: [Line] = {
+        return self.contents.lines()
+    }()
 
     /**
     Failable initializer by path. Fails if file contents could not be read as a UTF8 string.
