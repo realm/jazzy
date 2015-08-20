@@ -77,7 +77,7 @@ extension NSString {
         if absolutePath {
             return self as String
         }
-        return NSString.pathWithComponents([rootDirectory, self as String]).stringByStandardizingPath
+        return (NSString.pathWithComponents([rootDirectory, self as String]) as NSString).stringByStandardizingPath
     }
 
     /**
@@ -144,9 +144,7 @@ extension NSString {
             return nil
         }
     }
-}
 
-extension String {
     /**
     Returns an array of Lines for each line in the file
     */
@@ -172,7 +170,9 @@ extension String {
     public func isSwiftFile() -> Bool {
         return pathExtension == "swift"
     }
+}
 
+extension String {
     /**
     Returns whether or not the `token` can be documented. Either because it is a
     `SyntaxKind.Identifier` or because it is a function treated as a `SyntaxKind.Keyword`:

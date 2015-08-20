@@ -12,14 +12,15 @@ import XCTest
 
 class ModuleTests: XCTestCase {
     func testModuleNilInPathWithNoXcodeProject() {
-        let pathWithNoXcodeProject = __FILE__.stringByDeletingLastPathComponent
+        let pathWithNoXcodeProject = (__FILE__ as NSString).stringByDeletingLastPathComponent
         let model = Module(xcodeBuildArguments: [], name: nil, inPath: pathWithNoXcodeProject)
         XCTAssert(model == nil, "model initialization without any Xcode project should fail")
     }
 
     func testSourceKittenFrameworkDocsAreValidJSON() {
-        let projectRoot = __FILE__.stringByDeletingLastPathComponent
-            .stringByDeletingLastPathComponent
+        let projectRoot = (((__FILE__ as NSString)
+            .stringByDeletingLastPathComponent as NSString)
+            .stringByDeletingLastPathComponent as NSString)
             .stringByDeletingLastPathComponent
         let sourceKittenModule = Module(xcodeBuildArguments: ["-workspace", "SourceKitten.xcworkspace", "-scheme", "SourceKittenFramework"], name: nil, inPath: projectRoot)!
         let docsJSON = sourceKittenModule.docs.description
@@ -33,8 +34,9 @@ class ModuleTests: XCTestCase {
     }
 
     func testCommandantDocs() {
-        let projectRoot = __FILE__.stringByDeletingLastPathComponent
-            .stringByDeletingLastPathComponent
+        let projectRoot = (((__FILE__ as NSString)
+            .stringByDeletingLastPathComponent as NSString)
+            .stringByDeletingLastPathComponent as NSString)
             .stringByDeletingLastPathComponent
         let commandantPath = projectRoot + "/Carthage/Checkouts/Commandant/"
         let commandantModule = Module(xcodeBuildArguments: ["-workspace", "Commandant.xcworkspace", "-scheme", "Commandant"], name: nil, inPath: commandantPath)!

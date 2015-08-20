@@ -9,7 +9,7 @@
 import SourceKittenFramework
 import XCTest
 
-let fixturesDirectory = __FILE__.stringByDeletingLastPathComponent + "/Fixtures/"
+let fixturesDirectory = (__FILE__ as NSString).stringByDeletingLastPathComponent + "/Fixtures/"
 
 func sdkPath() -> String {
     let task = NSTask()

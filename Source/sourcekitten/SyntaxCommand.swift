@@ -24,11 +24,8 @@ struct SyntaxCommand: CommandType {
                 }
                 return .Failure(.CommandError(.ReadFailed(path: options.file)))
             }
-            if !options.text.isEmpty {
-                print(SyntaxMap(file: File(contents: options.text)))
-                return .Success()
-            }
-            return .Failure(.CommandError(.InvalidArgument(description: "either file or text must be set when calling syntax")))
+            print(SyntaxMap(file: File(contents: options.text)))
+            return .Success()
         }
     }
 }

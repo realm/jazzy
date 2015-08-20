@@ -26,9 +26,9 @@ private func run(executable: String, arguments: [String]) -> String? {
 }
 
 private func sourcekitStringsStartingWith(pattern: String) -> Set<String> {
-    let sourceKitServicePath = run("/usr/bin/xcrun", arguments: ["-f", "swiftc"])!
-        .stringByDeletingLastPathComponent
-        .stringByDeletingLastPathComponent
+    let sourceKitServicePath = (((run("/usr/bin/xcrun", arguments: ["-f", "swiftc"])! as NSString)
+        .stringByDeletingLastPathComponent as NSString)
+        .stringByDeletingLastPathComponent as NSString)
         .stringByAppendingPathComponent("lib/sourcekitd.framework/XPCServices/SourceKitService.xpc/Contents/MacOS/SourceKitService")
     let strings = run("/usr/bin/strings", arguments: [sourceKitServicePath])
     return Set(strings!.componentsSeparatedByString("\n").filter { string in

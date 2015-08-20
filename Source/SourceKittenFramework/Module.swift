@@ -20,11 +20,12 @@ public struct Module {
         var fileIndex = 1
         let sourceFilesCount = sourceFiles.count
         return sourceFiles.flatMap {
+            let filename = ($0 as NSString).lastPathComponent
             if let file = File(path: $0) {
-                fputs("Parsing \($0.lastPathComponent) (\(fileIndex++)/\(sourceFilesCount))\n", stderr)
+                fputs("Parsing \(filename) (\(fileIndex++)/\(sourceFilesCount))\n", stderr)
                 return SwiftDocs(file: file, arguments: compilerArguments)
             }
-            fputs("Could not parse `\($0.lastPathComponent)`. Please open an issue at https://github.com/jpsim/SourceKitten/issues with the file contents.\n", stderr)
+            fputs("Could not parse `\(filename)`. Please open an issue at https://github.com/jpsim/SourceKitten/issues with the file contents.\n", stderr)
             return nil
         }
     }
