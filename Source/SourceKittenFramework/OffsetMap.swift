@@ -50,16 +50,17 @@ extension File {
     */
     private func mapOffsets(dictionary: XPCDictionary, var offsetMap: OffsetMap) -> OffsetMap {
         // Only map if we're in the correct file
-        if shouldTreatAsSameFile(dictionary) {
-            if let rangeStart = SwiftDocKey.getNameOffset(dictionary),
-                rangeLength = SwiftDocKey.getNameLength(dictionary) {
-                let bodyLength = SwiftDocKey.getBodyLength(dictionary)
-                let offsetsInRange = offsetMap.keys.filter {
-                    $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
-                }
-                for offset in offsetsInRange {
-                    offsetMap[offset] = Int(rangeStart)
-                }
+        if let rangeStart = SwiftDocKey.getNameOffset(dictionary),
+            rangeLength = SwiftDocKey.getNameLength(dictionary) where
+            shouldTreatAsSameFile(dictionary) {
+            let bodyLength = SwiftDocKey.getBodyLength(dictionary) ?? 0
+            let rangeMax = Int(rangeStart + rangeLength + bodyLength)
+            let rangeStart = Int(rangeStart)
+            let offsetsInRange = offsetMap.keys.filter {
+                $0 >= rangeStart && $0 <= rangeMax
+            }
+            for offset in offsetsInRange {
+                offsetMap[offset] = rangeStart
             }
         }
         // Recurse!
