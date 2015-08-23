@@ -1,5 +1,5 @@
-github "antitypical/Result" "932ac1aabf6d881ead74c4e6911d1271e95d2859"
-github "drmohundro/SWXMLHash" "32a99e66dddae9a8660e07ebde2d4215326f6c44"
+github "antitypical/Result" "0.6-beta.1"
+github "drmohundro/SWXMLHash" "2203b05b1e093b1dc3e32114953f937a6e7aa5f5"
 github "jpsim/SwiftXPC" "d32e70f1b35cfa833be85fd40e70401f4190f5b0"
 github "jspahrsummers/xcconfigs" "0.8.1"
-github "Carthage/Commandant" "78fbc9513fd8e150bb05b2f5cd484c75e54f62af"
+github "Carthage/Commandant" "cc47af4a9e7a7d56bd1202d52762c1c66184c936"
