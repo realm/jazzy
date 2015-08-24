@@ -33,18 +33,19 @@ class ModuleTests: XCTestCase {
         }
     }
 
-    func testCommandantDocs() {
-        let projectRoot = (((__FILE__ as NSString)
-            .stringByDeletingLastPathComponent as NSString)
-            .stringByDeletingLastPathComponent as NSString)
-            .stringByDeletingLastPathComponent
-        let commandantPath = projectRoot + "/Carthage/Checkouts/Commandant/"
-        let commandantModule = Module(xcodeBuildArguments: ["-workspace", "Commandant.xcworkspace", "-scheme", "Commandant"], name: nil, inPath: commandantPath)!
-        let escapedCommandantPath = commandantPath.stringByReplacingOccurrencesOfString("/", withString: "\\/")
-        let comparisonString = commandantModule.docs.description.stringByReplacingOccurrencesOfString(escapedCommandantPath, withString: "")
-        let expected = File(path: fixturesDirectory + "Commandant.json")!.contents
-        let actualDocsObject = try! NSJSONSerialization.JSONObjectWithData(comparisonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! NSArray
-        let expectedDocsObject = try! NSJSONSerialization.JSONObjectWithData(expected.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! NSArray
-        XCTAssertEqual(actualDocsObject, expectedDocsObject, "should generate expected docs for Swift module")
-    }
+//    TODO: Re-enable once http://www.openradar.me/22394418 is fixed.
+//    func testCommandantDocs() {
+//        let projectRoot = (((__FILE__ as NSString)
+//            .stringByDeletingLastPathComponent as NSString)
+//            .stringByDeletingLastPathComponent as NSString)
+//            .stringByDeletingLastPathComponent
+//        let commandantPath = projectRoot + "/Carthage/Checkouts/Commandant/"
+//        let commandantModule = Module(xcodeBuildArguments: ["-workspace", "Commandant.xcworkspace", "-scheme", "Commandant"], name: nil, inPath: commandantPath)!
+//        let escapedCommandantPath = commandantPath.stringByReplacingOccurrencesOfString("/", withString: "\\/")
+//        let comparisonString = commandantModule.docs.description.stringByReplacingOccurrencesOfString(escapedCommandantPath, withString: "")
+//        let expected = File(path: fixturesDirectory + "Commandant.json")!.contents
+//        let actualDocsObject = try! NSJSONSerialization.JSONObjectWithData(comparisonString.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! NSArray
+//        let expectedDocsObject = try! NSJSONSerialization.JSONObjectWithData(expected.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! NSArray
+//        XCTAssertEqual(actualDocsObject, expectedDocsObject, "should generate expected docs for Swift module")
+//    }
 }
