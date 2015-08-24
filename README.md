@@ -8,11 +8,23 @@ SourceKitten links and communicates with `sourcekitd.framework` to parse the Swi
 
 ## Installation
 
-Install the `sourcekitten` command line tool by running `git clone` for this repo followed by `make install` in the root directory. Make sure that Xcode 6.3 is set in `xcode-select` before running `make`.
+If you need to use SourceKitten with Swift 1.2, please use SourceKitten 0.4.5. For Swift 2.0, build from source from the `master` branch.
+
+### Homebrew
+
+Run `brew install sourcekitten`. Make sure that Xcode 6.4 is set in `xcode-select`.
+
+### Source
+
+Run `git clone` for this repo followed by `make install` in the root directory. Make sure that Xcode 7 Beta 5 is set in `xcode-select` before running `make`.
+
+### Package
+
+Download and open SourceKitten.pkg from the [releases tab](/jpsim/SourceKitten/releases).
 
 ## Command Line Usage
 
-Install the `sourcekitten` command line tool by running `make install`, first making sure that Xcode 6.3 is set in `xcode-select` and installed under `/Applications/Xcode.app`.
+Once SourceKitten is installed, you may use it from the command line.
 
 ```
 $ sourcekitten help

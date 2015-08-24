@@ -10,57 +10,39 @@ import Foundation
 import SwiftXPC
 
 /**
-Convert XPCDictionary to JSON.
-
-:param: dictionary XPCDictionary to convert.
-
-:returns: Converted JSON.
-*/
-public func toJSON(dictionary: XPCDictionary) -> String {
-    return toJSON(toAnyObject(dictionary))
-}
-
-/**
-Convert XPCArray of XPCDictionary's to JSON.
-
-:param: array XPCArray of XPCDictionary's to convert.
-
-:returns: Converted JSON.
-*/
-public func toJSON(array: XPCArray) -> String {
-    return toJSON(array.map { toAnyObject($0 as! XPCDictionary) })
-}
-
-/**
 JSON Object to JSON String.
 
-:param: object Object to convert to JSON.
+- parameter object: Object to convert to JSON.
 
-:returns: JSON string representation of the input object.
+- returns: JSON string representation of the input object.
 */
 public func toJSON(object: AnyObject) -> String {
-    if let prettyJSONData = NSJSONSerialization.dataWithJSONObject(object,
-        options: .PrettyPrinted,
-        error: nil),
-        jsonString = NSString(data: prettyJSONData, encoding: NSUTF8StringEncoding) as? String {
-        return jsonString
-    }
+    do {
+        let prettyJSONData = try NSJSONSerialization.dataWithJSONObject(object, options: .PrettyPrinted)
+        if let jsonString = NSString(data: prettyJSONData, encoding: NSUTF8StringEncoding) as? String {
+            return jsonString
+        }
+    } catch {}
     return ""
 }
 
 /**
-Convert XPCDictionary to `[String: AnyObject]` for conversion using NSJSONSerialization. See toJSON(_:)
+Convert XPCDictionary to `[String: AnyObject]`.
 
-:param: dictionary XPCDictionary to convert.
+- parameter dictionary: XPCDictionary to convert.
 
-:returns: JSON-serializable Dictionary.
+- returns: JSON-serializable Dictionary.
 */
 public func toAnyObject(dictionary: XPCDictionary) -> [String: AnyObject] {
     var anyDictionary = [String: AnyObject]()
     for (key, object) in dictionary {
         switch object {
+        case let object as AnyObject:
+            anyDictionary[key] = object
         case let object as XPCArray:
             anyDictionary[key] = object.map { toAnyObject($0 as! XPCDictionary) }
+        case let object as [XPCDictionary]:
+            anyDictionary[key] = object.map { toAnyObject($0) }
         case let object as XPCDictionary:
             anyDictionary[key] = toAnyObject(object)
         case let object as String:

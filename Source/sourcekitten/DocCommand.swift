@@ -8,11 +8,10 @@
 
 import Commandant
 import Foundation
-import LlamaKit
+import Result
 import SourceKittenFramework
 
 struct DocCommand: CommandType {
-    typealias ClientError = SourceKittenError
     let verb = "doc"
     let function = "Print Swift docs as JSON or Objective-C docs as XML"
 
@@ -20,55 +19,55 @@ struct DocCommand: CommandType {
         return DocOptions.evaluate(mode).flatMap { options in
             let args = Process.arguments
             if options.objc {
-                return DocCommand.runObjC(options, args: args)
+                return runObjC(options, args: args)
             }
             if options.singleFile {
-                return DocCommand.runSwiftSingleFile(args)
+                return runSwiftSingleFile(args)
             }
-            let moduleName: String? = count(options.moduleName) > 0 ? options.moduleName : nil
-            return DocCommand.runSwiftModule(moduleName, args: args)
+            let moduleName: String? = options.moduleName.isEmpty ? nil : options.moduleName
+            return runSwiftModule(moduleName, args: args)
         }
     }
 
-    static func runSwiftModule(moduleName: String?, args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
+    func runSwiftModule(moduleName: String?, args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
         let xcodeBuildArgumentsStart = (moduleName != nil) ? 4 : 2
         let xcodeBuildArguments = Array<String>(args[xcodeBuildArgumentsStart..<args.count])
         let module = Module(xcodeBuildArguments: xcodeBuildArguments, name: moduleName)
 
         if let docs = module?.docs {
-            println(docs)
-            return success()
+            print(docs)
+            return .Success()
         }
-        return failure(toCommandantError(.DocFailed))
+        return .Failure(.CommandError(.DocFailed))
     }
 
-    static func runSwiftSingleFile(args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
+    func runSwiftSingleFile(args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
         if args.count < 5 {
-            return failure(toCommandantError(.InvalidArgument(description: "at least 5 arguments are required when using `--single-file`")))
+            return .Failure(.CommandError(.InvalidArgument(description: "at least 5 arguments are required when using `--single-file`")))
         }
         let sourcekitdArguments = Array<String>(args[4..<args.count])
         if let file = File(path: args[3]) {
             let docs = SwiftDocs(file: file, arguments: sourcekitdArguments)
-            println(docs)
-            return success()
+            print(docs)
+            return .Success()
         }
-        return failure(toCommandantError(.ReadFailed(path: args[3])))
+        return .Failure(.CommandError(.ReadFailed(path: args[3])))
     }
 
-    static func runObjC(options: DocOptions, args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
+    func runObjC(options: DocOptions, args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
         if args.count < 5 {
-            return failure(toCommandantError(.InvalidArgument(description: "at least 5 arguments are required when using `--objc`")))
+            return .Failure(.CommandError(.InvalidArgument(description: "at least 5 arguments are required when using `--objc`")))
         }
         let startIndex = options.singleFile ? 4 : 3
         let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(Array<String>(args[startIndex..<args.count]))
         if headerFiles.count == 0 {
-            return failure(toCommandantError(.InvalidArgument(description: "must pass in at least one Objective-C header file")))
+            return .Failure(.CommandError(.InvalidArgument(description: "must pass in at least one Objective-C header file")))
         }
         if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
-            println(translationUnit)
-            return success()
+            print(translationUnit)
+            return .Success()
         }
-        return failure(toCommandantError(.DocFailed))
+        return .Failure(.CommandError(.DocFailed))
     }
 }
 
@@ -78,7 +77,7 @@ struct DocOptions: OptionsType {
     let objc: Bool
 
     static func create(singleFile: Bool)(moduleName: String)(objc: Bool) -> DocOptions {
-        return self(singleFile: singleFile, moduleName: moduleName, objc: objc)
+        return self.init(singleFile: singleFile, moduleName: moduleName, objc: objc)
     }
 
     static func evaluate(m: CommandMode) -> Result<DocOptions, CommandantError<SourceKittenError>> {

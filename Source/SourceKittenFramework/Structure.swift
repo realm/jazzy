@@ -17,7 +17,7 @@ public struct Structure {
     /**
     Initialize a Structure by passing in a File.
 
-    :param: file File to parse for structural information.
+    - parameter file: File to parse for structural information.
     */
     public init(file: File) {
         var tmpDictionary = Request.EditorOpen(file).send()
@@ -26,11 +26,11 @@ public struct Structure {
     }
 }
 
-// MARK: Printable
+// MARK: CustomStringConvertible
 
-extension Structure: Printable {
+extension Structure: CustomStringConvertible {
     /// A textual JSON representation of `Structure`.
-    public var description: String { return toJSON(dictionary) }
+    public var description: String { return toJSON(toAnyObject(dictionary)) }
 }
 
 // MARK: Equatable
@@ -40,10 +40,10 @@ extension Structure: Equatable {}
 /**
 Returns true if `lhs` Structure is equal to `rhs` Structure.
 
-:param: lhs Structure to compare to `rhs`.
-:param: rhs Structure to compare to `lhs`.
+- parameter lhs: Structure to compare to `rhs`.
+- parameter rhs: Structure to compare to `lhs`.
 
-:returns: True if `lhs` Structure is equal to `rhs` Structure.
+- returns: True if `lhs` Structure is equal to `rhs` Structure.
 */
 public func ==(lhs: Structure, rhs: Structure) -> Bool {
     return lhs.dictionary == rhs.dictionary

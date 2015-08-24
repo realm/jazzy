@@ -1,6 +1,3 @@
-[submodule "Carthage/Checkouts/LlamaKit"]
-	path = Carthage/Checkouts/LlamaKit
-	url = https://github.com/LlamaKit/LlamaKit.git
 [submodule "Carthage/Checkouts/SwiftXPC"]
 	path = Carthage/Checkouts/SwiftXPC
 	url = https://github.com/jpsim/SwiftXPC.git
@@ -13,3 +10,6 @@
 [submodule "Carthage/Checkouts/SWXMLHash"]
 	path = Carthage/Checkouts/SWXMLHash
 	url = https://github.com/drmohundro/SWXMLHash.git
+[submodule "Carthage/Checkouts/Result"]
+	path = Carthage/Checkouts/Result
+	url = https://github.com/antitypical/Result.git

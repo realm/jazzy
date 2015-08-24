@@ -13,12 +13,16 @@
 		D0DB09A419EA354200234B16 /* SyntaxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DB09A319EA354200234B16 /* SyntaxTests.swift */; };
 		D0E7B65319E9C6AD00EDBA4D /* SourceKittenFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0D1216D19E87B05005E4BAA /* SourceKittenFramework.framework */; };
 		D0E7B65619E9C76900EDBA4D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D1211B19E87861005E4BAA /* main.swift */; };
+		E805A0481B55CBAF00EA654A /* SourceKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E805A0471B55CBAF00EA654A /* SourceKitTests.swift */; };
+		E805A04A1B560FCA00EA654A /* FileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E805A0491B560FCA00EA654A /* FileTests.swift */; };
 		E80F23671A5CADD900FD2352 /* SwiftDocsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F23661A5CADD900FD2352 /* SwiftDocsTests.swift */; };
 		E80F23691A5CB01A00FD2352 /* SyntaxKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F23681A5CB01A00FD2352 /* SyntaxKind.swift */; };
 		E80F236B1A5CB04100FD2352 /* SyntaxToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F236A1A5CB04100FD2352 /* SyntaxToken.swift */; };
 		E8241CA31A5E01840047687E /* ModuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8241CA21A5E01840047687E /* ModuleTests.swift */; };
 		E8241CA51A5E01A10047687E /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8241CA41A5E01A10047687E /* Module.swift */; };
 		E834740F1A593B5B00532B9A /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = E834740E1A593B5B00532B9A /* Structure.swift */; };
+		E834D61E1B2D054B002AA1FE /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E834D61D1B2D054B002AA1FE /* Result.framework */; };
+		E834D61F1B2D0554002AA1FE /* Result.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E834D61D1B2D054B002AA1FE /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E83748C31A5BCD7900862B1B /* OffsetMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83748C21A5BCD7900862B1B /* OffsetMap.swift */; };
 		E83A0B351A5D382B0041A60A /* VersionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B341A5D382B0041A60A /* VersionCommand.swift */; };
 		E83C8E9A1A5CBADD003A8D35 /* SwiftXPC+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C8E991A5CBADD003A8D35 /* SwiftXPC+JSON.swift */; };
@@ -31,13 +35,13 @@
 		E868473E1A587CCC0043DC65 /* sourcekitd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E868473D1A587CCC0043DC65 /* sourcekitd.swift */; };
 		E872121A1AD2FFCD00A484F4 /* Array+SourceKitten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87212191AD2FFCD00A484F4 /* Array+SourceKitten.swift */; };
 		E87429AA1B07A7920064F38B /* Commandant.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */; };
-		E87429AB1B07A7920064F38B /* LlamaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E854CAA61A5DF71100211501 /* LlamaKit.framework */; };
 		E87429AC1B07A79D0064F38B /* Commandant.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E87429AD1B07A7A50064F38B /* LlamaKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = E854CAA61A5DF71100211501 /* LlamaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E89291A71A5B7FF800D91568 /* SwiftDocKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89291A61A5B7FF800D91568 /* SwiftDocKey.swift */; };
 		E89291A91A5B800300D91568 /* SwiftDeclarationKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E89291A81A5B800300D91568 /* SwiftDeclarationKind.swift */; };
 		E8A18A3B1A58971D000362B7 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A18A3A1A58971D000362B7 /* Language.swift */; };
 		E8A18A3F1A592246000362B7 /* SwiftDocs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A18A3E1A592246000362B7 /* SwiftDocs.swift */; };
+		E8A9B8901B56CB5500CD17D4 /* Xcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9B88F1B56CB5500CD17D4 /* Xcode.swift */; };
+		E8A9B8921B56D1B100CD17D4 /* SourceDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8A9B8911B56D1B100CD17D4 /* SourceDeclaration.swift */; };
 		E8AB1A2E1A649F2100452012 /* libclang.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8AB1A2D1A649F2100452012 /* libclang.dylib */; };
 		E8AB1A301A64A21400452012 /* ClangTranslationUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AB1A2F1A64A21400452012 /* ClangTranslationUnitTests.swift */; };
 		E8AE53C71A5B5FCA0092D24A /* String+SourceKitten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */; };
@@ -59,7 +63,6 @@
 		E8DD06E61AE44540006D9C86 /* StructureCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B21A5D452C0016D959 /* StructureCommand.swift */; };
 		E8DD06E71AE447AB006D9C86 /* SyntaxCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */; };
 		E8DD06E81AE447E9006D9C86 /* DocCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B41A5D474B0016D959 /* DocCommand.swift */; };
-		E8DEEB141A6313070001BBD1 /* SequenceType+SourceKitten.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DEEB131A6313070001BBD1 /* SequenceType+SourceKitten.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +89,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E87429AD1B07A7A50064F38B /* LlamaKit.framework in Copy Frameworks */,
+				E834D61F1B2D0554002AA1FE /* Result.framework in Copy Frameworks */,
 				E87429AC1B07A79D0064F38B /* Commandant.framework in Copy Frameworks */,
 				E8C0DFCE1AD349E5007EE3D4 /* SWXMLHash.framework in Copy Frameworks */,
 				E86847381A587B0A0043DC65 /* SwiftXPC.framework in Copy Frameworks */,
@@ -136,7 +139,8 @@
 		D0D1217D19E87B05005E4BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D0DB09A319EA354200234B16 /* SyntaxTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxTests.swift; sourceTree = "<group>"; usesTabs = 0; };
 		D0E7B63219E9C64500EDBA4D /* sourcekitten.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sourcekitten.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0E7B65819E9CA0800EDBA4D /* sourcekitten */ = {isa = PBXFileReference; lastKnownFileType = text; path = sourcekitten; sourceTree = BUILT_PRODUCTS_DIR; };
+		E805A0471B55CBAF00EA654A /* SourceKitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceKitTests.swift; sourceTree = "<group>"; };
+		E805A0491B560FCA00EA654A /* FileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTests.swift; sourceTree = "<group>"; };
 		E80604B21A5D452C0016D959 /* StructureCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructureCommand.swift; sourceTree = "<group>"; };
 		E80604B41A5D474B0016D959 /* DocCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocCommand.swift; sourceTree = "<group>"; };
 		E80F23661A5CADD900FD2352 /* SwiftDocsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDocsTests.swift; sourceTree = "<group>"; };
@@ -145,6 +149,7 @@
 		E8241CA21A5E01840047687E /* ModuleTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModuleTests.swift; sourceTree = "<group>"; };
 		E8241CA41A5E01A10047687E /* Module.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		E834740E1A593B5B00532B9A /* Structure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; usesTabs = 0; };
+		E834D61D1B2D054B002AA1FE /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Result.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E83748C21A5BCD7900862B1B /* OffsetMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffsetMap.swift; sourceTree = "<group>"; };
 		E83A0B341A5D382B0041A60A /* VersionCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCommand.swift; sourceTree = "<group>"; };
 		E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxCommand.swift; sourceTree = "<group>"; };
@@ -161,6 +166,8 @@
 		E89291A81A5B800300D91568 /* SwiftDeclarationKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDeclarationKind.swift; sourceTree = "<group>"; };
 		E8A18A3A1A58971D000362B7 /* Language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; usesTabs = 0; };
 		E8A18A3E1A592246000362B7 /* SwiftDocs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDocs.swift; sourceTree = "<group>"; usesTabs = 0; };
+		E8A9B88F1B56CB5500CD17D4 /* Xcode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Xcode.swift; sourceTree = "<group>"; };
+		E8A9B8911B56D1B100CD17D4 /* SourceDeclaration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceDeclaration.swift; sourceTree = "<group>"; };
 		E8AB1A2D1A649F2100452012 /* libclang.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libclang.dylib; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib; sourceTree = DEVELOPER_DIR; };
 		E8AB1A2F1A64A21400452012 /* ClangTranslationUnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClangTranslationUnitTests.swift; sourceTree = "<group>"; };
 		E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+SourceKitten.swift"; sourceTree = "<group>"; };
@@ -178,7 +185,6 @@
 		E8D474321A648ED10011A49C /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClangTranslationUnit.swift; sourceTree = "<group>"; };
 		E8D86D841A688EF20063E8E9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
-		E8DEEB131A6313070001BBD1 /* SequenceType+SourceKitten.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SequenceType+SourceKitten.swift"; sourceTree = "<group>"; };
 		E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -187,8 +193,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E834D61E1B2D054B002AA1FE /* Result.framework in Frameworks */,
 				E87429AA1B07A7920064F38B /* Commandant.framework in Frameworks */,
-				E87429AB1B07A7920064F38B /* LlamaKit.framework in Frameworks */,
 				E8AB1A2E1A649F2100452012 /* libclang.dylib in Frameworks */,
 				E868473C1A587C6E0043DC65 /* sourcekitd.framework in Frameworks */,
 				E86847371A587AF40043DC65 /* SwiftXPC.framework in Frameworks */,
@@ -231,7 +237,6 @@
 				D0D1216E19E87B05005E4BAA /* SourceKittenFramework */,
 				D0D1217B19E87B05005E4BAA /* SourceKittenFrameworkTests */,
 				D0D1211919E87861005E4BAA /* Products */,
-				D0E7B65819E9CA0800EDBA4D /* sourcekitten */,
 			);
 			sourceTree = "<group>";
 			usesTabs = 0;
@@ -340,7 +345,7 @@
 				E8241CA41A5E01A10047687E /* Module.swift */,
 				E83748C21A5BCD7900862B1B /* OffsetMap.swift */,
 				E86847391A587B4D0043DC65 /* Request.swift */,
-				E8DEEB131A6313070001BBD1 /* SequenceType+SourceKitten.swift */,
+				E8A9B8911B56D1B100CD17D4 /* SourceDeclaration.swift */,
 				E868473D1A587CCC0043DC65 /* sourcekitd.swift */,
 				E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */,
 				E834740E1A593B5B00532B9A /* Structure.swift */,
@@ -351,6 +356,7 @@
 				E80F23681A5CB01A00FD2352 /* SyntaxKind.swift */,
 				E8CC8A2C1A587FD300D1FEC7 /* SyntaxMap.swift */,
 				E80F236A1A5CB04100FD2352 /* SyntaxToken.swift */,
+				E8A9B88F1B56CB5500CD17D4 /* Xcode.swift */,
 				D0D1216F19E87B05005E4BAA /* Supporting Files */,
 			);
 			name = SourceKittenFramework;
@@ -360,6 +366,7 @@
 		D0D1216F19E87B05005E4BAA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E834D61D1B2D054B002AA1FE /* Result.framework */,
 				E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */,
 				E854CAA61A5DF71100211501 /* LlamaKit.framework */,
 				E8AB1A2D1A649F2100452012 /* libclang.dylib */,
@@ -375,8 +382,10 @@
 			isa = PBXGroup;
 			children = (
 				E8AB1A2F1A64A21400452012 /* ClangTranslationUnitTests.swift */,
+				E805A0491B560FCA00EA654A /* FileTests.swift */,
 				E8241CA21A5E01840047687E /* ModuleTests.swift */,
 				E8C9EA091A5C9A2900A6D4D1 /* OffsetMapTests.swift */,
+				E805A0471B55CBAF00EA654A /* SourceKitTests.swift */,
 				E8C9EA071A5C99C400A6D4D1 /* StringTests.swift */,
 				E8C9EA031A5C986A00A6D4D1 /* StructureTests.swift */,
 				E80F23661A5CADD900FD2352 /* SwiftDocsTests.swift */,
@@ -492,7 +501,9 @@
 		D0D1211019E87861005E4BAA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = SourceKitten;
 				TargetAttributes = {
 					D0D1216C19E87B05005E4BAA = {
@@ -572,9 +583,9 @@
 				E8CC8A2D1A587FD300D1FEC7 /* SyntaxMap.swift in Sources */,
 				E89291A91A5B800300D91568 /* SwiftDeclarationKind.swift in Sources */,
 				E83748C31A5BCD7900862B1B /* OffsetMap.swift in Sources */,
-				E8DEEB141A6313070001BBD1 /* SequenceType+SourceKitten.swift in Sources */,
 				E8AE53C71A5B5FCA0092D24A /* String+SourceKitten.swift in Sources */,
 				E852418F1A5F4FB3007099FB /* Dictionary+Merge.swift in Sources */,
+				E8A9B8901B56CB5500CD17D4 /* Xcode.swift in Sources */,
 				E80F23691A5CB01A00FD2352 /* SyntaxKind.swift in Sources */,
 				E872121A1AD2FFCD00A484F4 /* Array+SourceKitten.swift in Sources */,
 				E847636A1A5A0651000EAE22 /* File.swift in Sources */,
@@ -583,6 +594,7 @@
 				E8241CA51A5E01A10047687E /* Module.swift in Sources */,
 				E80F236B1A5CB04100FD2352 /* SyntaxToken.swift in Sources */,
 				E868473E1A587CCC0043DC65 /* sourcekitd.swift in Sources */,
+				E8A9B8921B56D1B100CD17D4 /* SourceDeclaration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,9 +602,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E805A04A1B560FCA00EA654A /* FileTests.swift in Sources */,
 				E80F23671A5CADD900FD2352 /* SwiftDocsTests.swift in Sources */,
 				E8AB1A301A64A21400452012 /* ClangTranslationUnitTests.swift in Sources */,
 				D0DB09A419EA354200234B16 /* SyntaxTests.swift in Sources */,
+				E805A0481B55CBAF00EA654A /* SourceKitTests.swift in Sources */,
 				E8C9EA0A1A5C9A2900A6D4D1 /* OffsetMapTests.swift in Sources */,
 				E8C9EA081A5C99C400A6D4D1 /* StringTests.swift in Sources */,
 				E8C9EA041A5C986A00A6D4D1 /* StructureTests.swift in Sources */,
@@ -633,6 +647,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0D1212619E878CC005E4BAA /* Debug.xcconfig */;
 			buildSettings = {
+				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
@@ -670,6 +685,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFramework;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -701,6 +717,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFramework;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -720,7 +737,9 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = Source/SourceKittenFrameworkTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFrameworkTests;
 			};
 			name = Debug;
@@ -733,7 +752,9 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = Source/SourceKittenFrameworkTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFrameworkTests;
 			};
 			name = Release;
@@ -768,6 +789,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFramework;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -787,7 +809,9 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = Source/SourceKittenFrameworkTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFrameworkTests;
 			};
 			name = Profile;
@@ -822,6 +846,7 @@
 					"$(inherited)",
 					"$(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFramework;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -841,7 +866,9 @@
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 					"$(inherited)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				INFOPLIST_FILE = Source/SourceKittenFrameworkTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = SourceKittenFrameworkTests;
 			};
 			name = Test;
@@ -853,6 +880,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Source/sourcekitten/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -864,6 +892,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Source/sourcekitten/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Test;
@@ -875,6 +904,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Source/sourcekitten/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -886,6 +916,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Source/sourcekitten/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/../Frameworks @executable_path/../Frameworks/SourceKittenFramework.framework/Versions/Current/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sourcekitten.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Profile;

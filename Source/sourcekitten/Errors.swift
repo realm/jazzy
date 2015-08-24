@@ -6,11 +6,10 @@
 //  Copyright (c) 2015 SourceKitten. All rights reserved.
 //
 
-import LlamaKit
 import Commandant
 
 /// Possible errors within SourceKitten.
-enum SourceKittenError: Printable {
+enum SourceKittenError: CustomStringConvertible {
     /// One or more argument was invalid.
     case InvalidArgument(description: String)
 
@@ -27,12 +26,8 @@ enum SourceKittenError: Printable {
             return description
         case let .ReadFailed(path):
             return "Failed to read file at '\(path)'"
-        case let .DocFailed:
+        case .DocFailed:
             return "Failed to generate documentation"
         }
     }
-}
-
-func toCommandantError(sourceKittenError: SourceKittenError) -> CommandantError<SourceKittenError> {
-    return .CommandError(Box(sourceKittenError))
 }

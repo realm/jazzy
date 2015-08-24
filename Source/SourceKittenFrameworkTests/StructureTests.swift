@@ -13,18 +13,17 @@ import XCTest
 
 class StructureTests: XCTestCase {
     func testPrintEmptyStructure() {
-        let expected = [
-            "key.substructure": [],
+        let expected: NSDictionary = [
             "key.offset": 0,
             "key.length": 0,
             "key.diagnostic_stage": "source.diagnostic.stage.swift.parse"
-        ] as NSDictionary
+        ]
         let structure = Structure(file: File(contents: ""))
         XCTAssertEqual(toAnyObject(structure.dictionary), expected, "should generate expected structure")
     }
 
     func testGenerateSameStructureFileAndContents() {
-        let fileContents = NSString(contentsOfFile: __FILE__, encoding: NSUTF8StringEncoding, error: nil) as String!
+        let fileContents = try! NSString(contentsOfFile: __FILE__, encoding: NSUTF8StringEncoding) as String!
         XCTAssertEqual(Structure(file: File(path: __FILE__)!),
             Structure(file: File(contents: fileContents)),
             "should generate the same structure for a file as raw text")
@@ -32,7 +31,7 @@ class StructureTests: XCTestCase {
 
     func testEnum() {
         let structure = Structure(file: File(contents: "enum MyEnum { case First }"))
-        let expectedStructure = [
+        let expectedStructure: NSDictionary = [
             "key.substructure": [
                 [
                     "key.kind": "source.lang.swift.decl.enum",
@@ -44,12 +43,24 @@ class StructureTests: XCTestCase {
                     "key.bodylength": 12,
                     "key.length": 26,
                     "key.substructure": [
-                    // TODO: Uncomment this once rdar://18845613 is fixed.
-                    //    [
-                    //        "key.kind": "source.lang.swift.decl.enumelement",
-                    //        "key.accessibility": "source.lang.swift.accessibility.internal",
-                    //        "key.name": "First"
-                    //    ]
+                        [
+                            "key.kind": "source.lang.swift.decl.enumcase",
+                            "key.offset": 14,
+                            "key.length": 10,
+                            "key.nameoffset": 0,
+                            "key.namelength": 0,
+                            "key.substructure": [
+                                [
+                                    "key.kind": "source.lang.swift.decl.enumelement",
+                                    "key.accessibility": "source.lang.swift.accessibility.internal",
+                                    "key.name": "First",
+                                    "key.offset": 19,
+                                    "key.length": 5,
+                                    "key.nameoffset": 19,
+                                    "key.namelength": 5
+                                ]
+                            ]
+                        ]
                     ],
                     "key.name": "MyEnum"
                 ]
@@ -63,7 +74,7 @@ class StructureTests: XCTestCase {
 
     func testStructurePrintValidJSON() {
         let structure = Structure(file: File(contents: "struct A { func b() {} }"))
-        let expectedStructure = [
+        let expectedStructure: NSDictionary = [
             "key.substructure": [
                 [
                     "key.kind": "source.lang.swift.decl.struct",
@@ -84,9 +95,6 @@ class StructureTests: XCTestCase {
                             "key.bodyoffset": 21,
                             "key.bodylength": 0,
                             "key.length": 11,
-                            "key.substructure": [
-                                
-                            ],
                             "key.name": "b()"
                         ]
                     ],
@@ -100,12 +108,14 @@ class StructureTests: XCTestCase {
         XCTAssertEqual(toAnyObject(structure.dictionary), expectedStructure, "should generate expected structure")
 
         let structureJSON = structure.description
-        var error: NSError? = nil
-        let jsonDictionary = NSJSONSerialization.JSONObjectWithData(structureJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: &error) as! NSDictionary?
-        XCTAssertNil(error, "JSON should be propery parsed")
-        XCTAssertNotNil(jsonDictionary, "JSON should be propery parsed")
-        if let jsonDictionary = jsonDictionary {
-            XCTAssertEqual(jsonDictionary, expectedStructure, "JSON should match expected structure")
+        do {
+            let jsonDictionary = try NSJSONSerialization.JSONObjectWithData(structureJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? NSDictionary
+            XCTAssertNotNil(jsonDictionary, "JSON should be propery parsed")
+            if let jsonDictionary = jsonDictionary {
+                XCTAssertEqual(jsonDictionary, expectedStructure, "JSON should match expected structure")
+            }
+        } catch {
+            XCTFail("JSON should be propery parsed")
         }
     }
 }

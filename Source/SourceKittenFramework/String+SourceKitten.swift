@@ -16,9 +16,9 @@ extension NSString {
     /**
     Binary search for NSString index equivalent to byte offset.
 
-    :param: offset Byte offset.
+    - parameter offset: Byte offset.
 
-    :returns: NSString index, if any.
+    - returns: NSString index, if any.
     */
     private func indexOfByteOffset(offset: Int) -> Int? {
         var usedLength = 0
@@ -32,7 +32,7 @@ extension NSString {
                 maxLength: Int.max,
                 usedLength: &usedLength,
                 encoding: NSUTF8StringEncoding,
-                options: nil,
+                options: [],
                 range: NSRange(location: 0, length: midpoint),
                 remainingRange: nil)
             if usedLength < offset {
@@ -52,7 +52,7 @@ extension NSString {
     Returns a copy of `self` with the trailing contiguous characters belonging to `characterSet`
     removed.
 
-    :param: characterSet Character set to check for membership.
+    - parameter characterSet: Character set to check for membership.
     */
     public func stringByTrimmingTrailingCharactersInSet(characterSet: NSCharacterSet) -> String {
         if length == 0 {
@@ -60,7 +60,7 @@ extension NSString {
         }
         var charBuffer = [unichar](count: length, repeatedValue: 0)
         getCharacters(&charBuffer)
-        for newLength in reverse(1...length) {
+        for newLength in (1...length).reverse() {
             if !characterSet.characterIsMember(charBuffer[newLength - 1]) {
                 return substringWithRange(NSRange(location: 0, length: newLength))
             }
@@ -71,27 +71,27 @@ extension NSString {
     /**
     Returns self represented as an absolute path.
 
-    :param: rootDirectory Absolute parent path if not already an absolute path.
+    - parameter rootDirectory: Absolute parent path if not already an absolute path.
     */
     public func absolutePathRepresentation(rootDirectory: String = NSFileManager.defaultManager().currentDirectoryPath) -> String {
         if absolutePath {
             return self as String
         }
-        return NSString.pathWithComponents([rootDirectory, self]).stringByStandardizingPath
+        return (NSString.pathWithComponents([rootDirectory, self as String]) as NSString).stringByStandardizingPath
     }
 
     /**
     Converts a range of byte offsets in `self` to an `NSRange` suitable for filtering `self` as an
     `NSString`.
 
-    :param: start Starting byte offset.
-    :param: length Length of bytes to include in range.
+    - parameter start: Starting byte offset.
+    - parameter length: Length of bytes to include in range.
 
-    :returns: An equivalent `NSRange`.
+    - returns: An equivalent `NSRange`.
     */
-    public func byteRangeToNSRange(# start: Int, length: Int) -> NSRange? {
-        return flatMap(indexOfByteOffset(start)) { stringStart in
-            return map(self.indexOfByteOffset(start + length)) { stringEnd in
+    public func byteRangeToNSRange(start start: Int, length: Int) -> NSRange? {
+        return indexOfByteOffset(start).flatMap { stringStart in
+            return indexOfByteOffset(start + length).map { stringEnd in
                 return NSRange(location: stringStart, length: stringEnd - stringStart)
             }
         }
@@ -100,48 +100,43 @@ extension NSString {
     /**
     Returns a substring with the provided byte range.
 
-    :param: start Starting byte offset.
-    :param: length Length of bytes to include in range.
+    - parameter start: Starting byte offset.
+    - parameter length: Length of bytes to include in range.
     */
-    public func substringWithByteRange(# start: Int, length: Int) -> String? {
-        return map(byteRangeToNSRange(start: start, length: length)) {
-            self.substringWithRange($0)
-        }
+    public func substringWithByteRange(start start: Int, length: Int) -> String? {
+        return byteRangeToNSRange(start: start, length: length).map(substringWithRange)
     }
 
     /**
     Returns a substring starting at the beginning of `start`'s line and ending at the end of `end`'s
     line. Returns `start`'s entire line if `end` is nil.
 
-    :param: start Starting byte offset.
-    :param: length Length of bytes to include in range.
+    - parameter start: Starting byte offset.
+    - parameter length: Length of bytes to include in range.
     */
-    public func substringLinesWithByteRange(# start: Int, length: Int) -> String? {
-        return map(byteRangeToNSRange(start: start, length: length)) { range in
-            var lineStart = 0
-            var lineEnd = 0
-            self.getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: range)
-            return self.substringWithRange(NSRange(location: lineStart, length: lineEnd - lineStart))
+    public func substringLinesWithByteRange(start start: Int, length: Int) -> String? {
+        return byteRangeToNSRange(start: start, length: length).map { range in
+            var lineStart = 0, lineEnd = 0
+            getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: range)
+            return substringWithRange(NSRange(location: lineStart, length: lineEnd - lineStart))
         }
     }
 
     /**
     Returns line numbers containing starting and ending byte offsets.
 
-    :param: start Starting byte offset.
-    :param: length Length of bytes to include in range.
+    - parameter start: Starting byte offset.
+    - parameter length: Length of bytes to include in range.
     */
-    public func lineRangeWithByteRange(# start: Int, length: Int) -> (start: Int, end: Int)? {
-        return flatMap(byteRangeToNSRange(start: start, length: length)) { range in
-            var numberOfLines = 0
-            var index = 0
-            var lineRangeStart = 0
+    public func lineRangeWithByteRange(start start: Int, length: Int) -> (start: Int, end: Int)? {
+        return byteRangeToNSRange(start: start, length: length).flatMap { range in
+            var numberOfLines = 0, index = 0, lineRangeStart = 0
             while index < self.length {
                 numberOfLines++
                 if index <= range.location {
                     lineRangeStart = numberOfLines
                 }
-                index = NSMaxRange(self.lineRangeForRange(NSRange(location: index, length: 1)))
+                index = NSMaxRange(lineRangeForRange(NSRange(location: index, length: 1)))
                 if index > NSMaxRange(range) {
                     return (lineRangeStart, numberOfLines)
                 }
@@ -149,16 +144,14 @@ extension NSString {
             return nil
         }
     }
-}
 
-extension String {
     /**
-    Returns an array of Lines for each line in the file
+    Returns an array of Lines for each line in the file.
     */
     internal func lines() -> [Line] {
         var lines = [Line]()
         var lineIndex = 1
-        enumerateLines { line, _ in
+        enumerateLinesUsingBlock { line, _ in
             lines.append((lineIndex++, line))
         }
         return lines
@@ -168,7 +161,7 @@ extension String {
     Returns true if self is an Objective-C header file.
     */
     public func isObjectiveCHeaderFile() -> Bool {
-        return contains(["h", "hpp", "hh"], pathExtension)
+        return ["h", "hpp", "hh"].contains(pathExtension)
     }
 
     /**
@@ -177,7 +170,9 @@ extension String {
     public func isSwiftFile() -> Bool {
         return pathExtension == "swift"
     }
+}
 
+extension String {
     /**
     Returns whether or not the `token` can be documented. Either because it is a
     `SyntaxKind.Identifier` or because it is a function treated as a `SyntaxKind.Keyword`:
@@ -186,14 +181,13 @@ extension String {
     - `init`
     - `deinit`
 
-    :param: token Token to process.
+    - parameter token: Token to process.
     */
     public func isTokenDocumentable(token: SyntaxToken) -> Bool {
         if token.type == SyntaxKind.Keyword.rawValue {
             let keywordFunctions = ["subscript", "init", "deinit"]
-            return map((self as NSString).substringWithByteRange(start: token.offset, length: token.length)) {
-                contains(keywordFunctions, $0)
-            } ?? false
+            return ((self as NSString).substringWithByteRange(start: token.offset, length: token.length))
+                .map(keywordFunctions.contains) ?? false
         }
         return token.type == SyntaxKind.Identifier.rawValue
     }
@@ -201,57 +195,54 @@ extension String {
     /**
     Find integer offsets of documented Swift tokens in self.
 
-    :param: syntaxMap Syntax Map returned from SourceKit editor.open request.
+    - parameter syntaxMap: Syntax Map returned from SourceKit editor.open request.
 
-    :returns: Array of documented token offsets.
+    - returns: Array of documented token offsets.
     */
     public func documentedTokenOffsets(syntaxMap: SyntaxMap) -> [Int] {
-        let documentableOffsets = syntaxMap.tokens.filter({
-            self.isTokenDocumentable($0)
-        }).map {
+        let documentableOffsets = syntaxMap.tokens.filter(isTokenDocumentable).map {
             $0.offset
         }
 
-        let regex = NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: nil, error: nil)! // Safe to force unwrap
-        let range = NSRange(location: 0, length: count(utf16))
-        let matches = regex.matchesInString(self, options: nil, range: range) as! [NSTextCheckingResult]
+        let regex = try! NSRegularExpression(pattern: "(///.*\\n|\\*/\\n)", options: []) // Safe to force try
+        let range = NSRange(location: 0, length: utf16.count)
+        let matches = regex.matchesInString(self, options: [], range: range)
 
-        return compact(matches.map({ match in
+        return matches.flatMap { match in
             documentableOffsets.filter({ $0 >= match.range.location }).first
-        }))
+        }
     }
 
     /**
     Returns the body of the comment if the string is a comment.
     
-    :param: range Range to restrict the search for a comment body.
+    - parameter range: Range to restrict the search for a comment body.
     */
-    public func commentBody(var range: NSRange? = nil) -> String? {
+    public func commentBody(range: NSRange? = nil) -> String? {
         let nsString = self as NSString
         let patterns: [(pattern: String, options: NSRegularExpressionOptions)] = [
-            ("^\\s*\\/\\*\\*\\s*(.+)\\*\\/", .AnchorsMatchLines | .DotMatchesLineSeparators),   // multi: ^\s*\/\*\*\s*(.+)\*\/
-            ("^\\s*\\/\\/\\/(.+)?",          .AnchorsMatchLines)                                // single: ^\s*\/\/\/(.+)?
+            ("^\\s*\\/\\*\\*\\s*(.+)\\*\\/", [.AnchorsMatchLines, .DotMatchesLineSeparators]),   // multi: ^\s*\/\*\*\s*(.+)\*\/
+            ("^\\s*\\/\\/\\/(.+)?",          .AnchorsMatchLines)                                 // single: ^\s*\/\/\/(.+)?
         ]
-        if range == nil {
-            range = NSRange(location: 0, length: nsString.length)
-        }
+        let range = range ?? NSRange(location: 0, length: nsString.length)
         for pattern in patterns {
-            let regex = NSRegularExpression(pattern: pattern.pattern, options: pattern.options, error: nil)! // Safe to force unwrap
-            let matches = regex.matchesInString(self, options: nil, range: range!) as! [NSTextCheckingResult]
-            let bodyParts: [String] = flatMap(matches) { match in
+            let regex = try! NSRegularExpression(pattern: pattern.pattern, options: pattern.options) // Safe to force try
+            let matches = regex.matchesInString(self, options: [], range: range)
+            let bodyParts = matches.flatMap { match -> [String] in
                 let numberOfRanges = match.numberOfRanges
                 if numberOfRanges < 1 {
                     return []
                 }
-                return map(1..<numberOfRanges) { rangeIndex in
+                return (1..<numberOfRanges).map { rangeIndex in
                     let range = match.rangeAtIndex(rangeIndex)
                     if range.location == NSNotFound {
-                        // empty capture group, return empty string
-                        return ""
+                        return "" // empty capture group, return empty string
                     }
                     var lineStart = 0
-                    var lineEnd   = nsString.length
-                    let indexRange = self.byteRangeToNSRange(start: range.location, length: 0)!
+                    var lineEnd = nsString.length
+                    guard let indexRange = self.byteRangeToNSRange(start: range.location, length: 0) else {
+                        return "" // out of range, return empty string
+                    }
                     nsString.getLineStart(&lineStart, end: &lineEnd, contentsEnd: nil, forRange: indexRange)
                     let leadingWhitespaceCountToAdd = nsString.substringWithRange(NSRange(location: lineStart, length: lineEnd - lineStart)).countOfLeadingCharactersInSet(whitespaceAndNewlineCharacterSet)
                     let leadingWhitespaceToAdd = String(count: leadingWhitespaceCountToAdd, repeatedValue: Character(" "))
@@ -275,13 +266,13 @@ extension String {
         var minLeadingWhitespace = Int.max
         enumerateLines { line, _ in
             let lineLeadingWhitespace = line.countOfLeadingCharactersInSet(whitespaceAndNewlineCharacterSet)
-            if lineLeadingWhitespace < minLeadingWhitespace && lineLeadingWhitespace != count(line) {
+            if lineLeadingWhitespace < minLeadingWhitespace && lineLeadingWhitespace != line.characters.count {
                 minLeadingWhitespace = lineLeadingWhitespace
             }
         }
         var lines = [String]()
         enumerateLines { line, _ in
-            if count(line) >= minLeadingWhitespace {
+            if line.characters.count >= minLeadingWhitespace {
                 lines.append(line[advance(line.startIndex, minLeadingWhitespace)..<line.endIndex])
             } else {
                 lines.append(line)
@@ -293,7 +284,7 @@ extension String {
     /**
     Returns the number of contiguous characters at the start of `self` belonging to `characterSet`.
     
-    :param: characterSet Character set to check for membership.
+    - parameter characterSet: Character set to check for membership.
     */
     public func countOfLeadingCharactersInSet(characterSet: NSCharacterSet) -> Int {
         let utf16View = utf16

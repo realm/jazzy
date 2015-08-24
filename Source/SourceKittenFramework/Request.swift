@@ -18,9 +18,9 @@ private var uidStringMap = [UInt64: String]()
 /**
 Cache SourceKit requests for strings from UIDs
 
-:param: uid UID received from sourcekitd* responses
+- parameter uid: UID received from sourcekitd* responses.
 
-:returns: Cached UID string if available, other
+- returns: Cached UID string if available, nil otherwise.
 */
 internal func stringForSourceKitUID(uid: UInt64) -> String? {
     if uid < 4_300_000_000 {
@@ -28,11 +28,9 @@ internal func stringForSourceKitUID(uid: UInt64) -> String? {
         return nil
     } else if let string = uidStringMap[uid] {
         return string
-    } else {
-        if let uidString = String(UTF8String: sourcekitd_uid_get_string_ptr(uid)) {
-            uidStringMap[uid] = uidString
-            return uidString
-        }
+    } else if let uidString = String(UTF8String: sourcekitd_uid_get_string_ptr(uid)) {
+        uidStringMap[uid] = uidString
+        return uidString
     }
     return nil
 }
@@ -54,20 +52,20 @@ public enum Request {
             if let path = file.path {
                 return toXPC([
                     "key.request": openRequestUID,
-                    "key.name": "",
+                    "key.name": path,
                     "key.sourcefile": path
                 ])
             } else {
                 return toXPC([
                     "key.request": openRequestUID,
-                    "key.name": "",
-                    "key.sourcetext": file.contents as String
+                    "key.name": String(file.contents.hash),
+                    "key.sourcetext": file.contents
                 ])
             }
         case .CursorInfo(let file, let offset, let arguments):
             return toXPC([
                 "key.request": sourcekitd_uid_get_from_cstr("source.request.cursorinfo"),
-                "key.name": "",
+                "key.name": file,
                 "key.sourcefile": file,
                 "key.offset": offset,
                 "key.compilerargs": (arguments.map { $0 as XPCRepresentable } as XPCArray)
@@ -80,10 +78,10 @@ public enum Request {
     /**
     Create a Request.CursorInfo.xpcValue() from a file path and compiler arguments.
 
-    :param: filePath  Path of the file to create request.
-    :param: arguments Compiler arguments.
+    - parameter filePath:  Path of the file to create request.
+    - parameter arguments: Compiler arguments.
 
-    :returns: xpc_object_t representation of the Request, if successful.
+    - returns: xpc_object_t representation of the Request, if successful.
     */
     internal static func cursorInfoRequestForFilePath(filePath: String?, arguments: [String]) -> xpc_object_t? {
         if let path = filePath {
@@ -95,10 +93,10 @@ public enum Request {
     /**
     Send a Request.CursorInfo by updating its offset. Returns SourceKit response if successful.
 
-    :param: request xpc_object_t representation of Request.CursorInfo
-    :param: offset  Offset to update request.
+    - parameter request: xpc_object_t representation of Request.CursorInfo
+    - parameter offset:  Offset to update request.
 
-    :returns: SourceKit response if successful.
+    - returns: SourceKit response if successful.
     */
     internal static func sendCursorInfoRequest(request: xpc_object_t, atOffset offset: Int64) -> XPCDictionary? {
         if offset == 0 {
@@ -111,22 +109,22 @@ public enum Request {
     /**
     Sends the request to SourceKit and return the response as an XPCDictionary.
 
-    :returns: SourceKit output as an XPC dictionary.
+    - returns: SourceKit output as an XPC dictionary.
     */
     public func send() -> XPCDictionary {
         dispatch_once(&sourceKitInitializationToken) {
             sourcekitd_initialize()
         }
-        if let response = sourcekitd_send_request_sync(xpcValue) {
-            return replaceUIDsWithSourceKitStrings(fromXPC(response))
+        guard let response = sourcekitd_send_request_sync(xpcValue) else {
+            fatalError("SourceKit response nil for request \(self)")
         }
-        fatalError("SourceKit response nil for request \(self)")
+        return replaceUIDsWithSourceKitStrings(fromXPC(response))
     }
 }
 
-// MARK: Printable
+// MARK: CustomStringConvertible
 
-extension Request: Printable {
+extension Request: CustomStringConvertible {
     /// A textual representation of `Request`.
     public var description: String { return xpcValue.description }
 }

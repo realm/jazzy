@@ -17,13 +17,13 @@ extension File {
     Creates an OffsetMap containing offset locations at which there are declarations that likely
     have documentation comments, but haven't been documented by SourceKitten yet.
 
-    :param: documentedTokenOffsets Offsets where there are declarations that likely
-                                   have documentation comments.
-    :param: dictionary             Docs dictionary to check for which offsets are already
-                                   documented.
+    - parameter documentedTokenOffsets: Offsets where there are declarations that likely
+                                        have documentation comments.
+    - parameter dictionary:             Docs dictionary to check for which offsets are already
+                                        documented.
 
-    :returns: OffsetMap containing offset locations at which there are declarations that likely
-              have documentation comments, but haven't been documented by SourceKitten yet.
+    - returns: OffsetMap containing offset locations at which there are declarations that likely
+               have documentation comments, but haven't been documented by SourceKitten yet.
     */
     public func generateOffsetMap(documentedTokenOffsets: [Int], dictionary: XPCDictionary) -> OffsetMap {
         var offsetMap = OffsetMap()
@@ -31,7 +31,7 @@ extension File {
             offsetMap[offset] = 0
         }
         offsetMap = mapOffsets(dictionary, offsetMap: offsetMap)
-        let alreadyDocumentedOffsets = offsetMap.keys.filter { $0 == offsetMap[$0] }
+        let alreadyDocumentedOffsets = offsetMap.filter({ $0.0 == $0.1 }).map { $0.0 }
         for alreadyDocumentedOffset in alreadyDocumentedOffsets {
             offsetMap.removeValueForKey(alreadyDocumentedOffset)
         }
@@ -42,24 +42,25 @@ extension File {
     Creates a new OffsetMap that matches all offsets in the offsetMap parameter's keys to its
     nearest, currently documented parent offset.
 
-    :param: dictionary Already documented dictionary.
-    :param: offsetMap  Dictionary mapping potentially documented offsets to its nearest parent
-                       offset.
+    - parameter dictionary: Already documented dictionary.
+    - parameter offsetMap:  Dictionary mapping potentially documented offsets to its nearest parent
+                            offset.
 
-    :returns: OffsetMap of potentially documented declaration offsets to its nearest parent offset.
+    - returns: OffsetMap of potentially documented declaration offsets to its nearest parent offset.
     */
     private func mapOffsets(dictionary: XPCDictionary, var offsetMap: OffsetMap) -> OffsetMap {
         // Only map if we're in the correct file
-        if shouldTreatAsSameFile(dictionary) {
-            if let rangeStart = SwiftDocKey.getNameOffset(dictionary),
-                rangeLength = SwiftDocKey.getNameLength(dictionary) {
-                    let bodyLength = SwiftDocKey.getBodyLength(dictionary)
-                    let offsetsInRange = offsetMap.keys.filter {
-                        $0 >= Int(rangeStart) && $0 <= Int(rangeStart + rangeLength + (bodyLength ?? 0))
-                    }
-                    for offset in offsetsInRange {
-                        offsetMap[offset] = Int(rangeStart)
-                    }
+        if let rangeStart = SwiftDocKey.getNameOffset(dictionary),
+            rangeLength = SwiftDocKey.getNameLength(dictionary) where
+            shouldTreatAsSameFile(dictionary) {
+            let bodyLength = SwiftDocKey.getBodyLength(dictionary) ?? 0
+            let rangeMax = Int(rangeStart + rangeLength + bodyLength)
+            let rangeStart = Int(rangeStart)
+            let offsetsInRange = offsetMap.keys.filter {
+                $0 >= rangeStart && $0 <= rangeMax
+            }
+            for offset in offsetsInRange {
+                offsetMap[offset] = rangeStart
             }
         }
         // Recurse!

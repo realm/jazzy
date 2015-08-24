@@ -20,7 +20,7 @@ func compareDocsWithFixturesName(name: String) {
     let comparisonString = docs.description.stringByReplacingOccurrencesOfString(escapedFixturesDirectory, withString: "")
 
     func docsObject(docsString: String) -> NSDictionary {
-        return NSJSONSerialization.JSONObjectWithData(docsString.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: nil) as! NSDictionary
+        return try! NSJSONSerialization.JSONObjectWithData(docsString.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as! NSDictionary
     }
 
     XCTAssertEqual(

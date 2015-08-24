@@ -20,8 +20,8 @@ public struct SwiftDocs {
     /**
     Create docs for the specified Swift file and compiler arguments.
 
-    :param: file Swift file to document
-    :param: arguments compiler arguments to pass to SourceKit
+    - parameter file:      Swift file to document.
+    - parameter arguments: compiler arguments to pass to SourceKit.
     */
     public init(file: File, arguments: [String]) {
         self.init(
@@ -34,9 +34,9 @@ public struct SwiftDocs {
     /**
     Create docs for the specified Swift file, editor.open SourceKit response and cursor info request.
 
-    :param: file Swift file to document
-    :param: dictionary editor.open response from SourceKit
-    :param: cursorInfoRequest SourceKit xpc dictionary to use to send cursorinfo request.
+    - parameter file:              Swift file to document.
+    - parameter dictionary:        editor.open response from SourceKit.
+    - parameter cursorInfoRequest: SourceKit xpc dictionary to use to send cursorinfo request.
     */
     public init(file: File, var dictionary: XPCDictionary, cursorInfoRequest: xpc_object_t?) {
         self.file = file
@@ -56,9 +56,11 @@ public struct SwiftDocs {
     }
 }
 
-// MARK: Printable
+// MARK: CustomStringConvertible
 
-extension SwiftDocs: Printable {
+extension SwiftDocs: CustomStringConvertible {
     /// A textual JSON representation of `SwiftDocs`.
-    public var description: String { return toJSON([file.path ?? "<No File>": docsDictionary]) }
+    public var description: String {
+        return toJSON(toAnyObject([file.path ?? "<No File>": docsDictionary]))
+    }
 }

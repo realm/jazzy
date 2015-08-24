@@ -11,7 +11,7 @@ import SourceKittenFramework
 import SwiftXPC
 import XCTest
 
-func compareSyntax(file: File, expectedTokens: [(SyntaxKind, Int, Int)]) {
+func compareSyntax(file: File, _ expectedTokens: [(SyntaxKind, Int, Int)]) {
     let expectedSyntaxMap = SyntaxMap(tokens: expectedTokens.map { tokenTuple in
         return SyntaxToken(type: tokenTuple.0.rawValue, offset: tokenTuple.1, length: tokenTuple.2)
     })
@@ -19,7 +19,7 @@ func compareSyntax(file: File, expectedTokens: [(SyntaxKind, Int, Int)]) {
     XCTAssertEqual(syntaxMap, expectedSyntaxMap, "should generate expected syntax map")
 
     let syntaxJSON = syntaxMap.description
-    let jsonArray = NSJSONSerialization.JSONObjectWithData(syntaxJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: nil, error: nil) as! NSArray?
+    let jsonArray = try! NSJSONSerialization.JSONObjectWithData(syntaxJSON.dataUsingEncoding(NSUTF8StringEncoding)!, options: []) as? NSArray
     XCTAssertNotNil(jsonArray, "JSON should be propery parsed")
     XCTAssertEqual(jsonArray!, expectedSyntaxMap.tokens.map { $0.dictionaryValue }, "JSON should match expected syntax")
 }
@@ -30,7 +30,7 @@ class SyntaxTests: XCTestCase {
     }
 
     func testGenerateSameSyntaxMapFileAndContents() {
-        let fileContents = NSString(contentsOfFile: __FILE__, encoding: NSUTF8StringEncoding, error: nil) as String!
+        let fileContents = try! NSString(contentsOfFile: __FILE__, encoding: NSUTF8StringEncoding) as String!
         XCTAssertEqual(SyntaxMap(file: File(path: __FILE__)!),
             SyntaxMap(file: File(contents: fileContents)),
             "should generate the same syntax map for a file as raw text")
