@@ -146,12 +146,12 @@ extension NSString {
     }
 
     /**
-    Returns an array of Lines for each line in the file
+    Returns an array of Lines for each line in the file.
     */
     internal func lines() -> [Line] {
         var lines = [Line]()
         var lineIndex = 1
-        enumerateLines { line, _ in
+        enumerateLinesUsingBlock { line, _ in
             lines.append((lineIndex++, line))
         }
         return lines
