@@ -252,8 +252,8 @@ extension String {
                 }
             }
             if bodyParts.count > 0 {
-                return "\n"
-                    .join(bodyParts)
+                return bodyParts
+                    .joinWithSeparator("\n")
                     .stringByTrimmingTrailingCharactersInSet(whitespaceAndNewlineCharacterSet)
                     .stringByRemovingCommonLeadingWhitespaceFromLines()
             }
@@ -273,12 +273,12 @@ extension String {
         var lines = [String]()
         enumerateLines { line, _ in
             if line.characters.count >= minLeadingWhitespace {
-                lines.append(line[advance(line.startIndex, minLeadingWhitespace)..<line.endIndex])
+                lines.append(line[line.startIndex.advancedBy(minLeadingWhitespace)..<line.endIndex])
             } else {
                 lines.append(line)
             }
         }
-        return "\n".join(lines)
+        return lines.joinWithSeparator("\n")
     }
 
     /**

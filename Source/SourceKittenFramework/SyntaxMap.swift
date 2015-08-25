@@ -33,7 +33,7 @@ public struct SyntaxMap {
         data.getBytes(&numberOfTokens, range: NSRange(location: 8, length: 8))
         numberOfTokens = numberOfTokens >> 4
 
-        tokens = stride(from: 16, through: numberOfTokens * 16, by: 16).map { parserOffset in
+        tokens = 16.stride(through: numberOfTokens * 16, by: 16).map { parserOffset in
             var uid = UInt64(0), offset = 0, length = 0
             data.getBytes(&uid, range: NSRange(location: parserOffset, length: 8))
             data.getBytes(&offset, range: NSRange(location: 8 + parserOffset, length: 4))

@@ -160,7 +160,7 @@ public struct File {
     */
     internal func furtherProcessDictionary(var dictionary: XPCDictionary, documentedTokenOffsets: [Int], cursorInfoRequest: xpc_object_t, syntaxMap: SyntaxMap) -> XPCDictionary {
         let offsetMap = generateOffsetMap(documentedTokenOffsets, dictionary: dictionary)
-        for offset in offsetMap.keys.array.reverse() { // Do this in reverse to insert the doc at the correct offset
+        for offset in offsetMap.keys.reverse() { // Do this in reverse to insert the doc at the correct offset
             let response = processDictionary(Request.sendCursorInfoRequest(cursorInfoRequest, atOffset: Int64(offset))!, cursorInfoRequest: nil, syntaxMap: syntaxMap)
             if let kind = SwiftDocKey.getKind(response),
                 _ = SwiftDeclarationKind(rawValue: kind),

@@ -54,7 +54,7 @@ public struct ClangTranslationUnit {
 extension ClangTranslationUnit: CustomStringConvertible {
     /// A textual XML representation of `ClangTranslationUnit`.
     public var description: String {
-        let commentXMLs = "\n".join(clangTranslationUnits.map({commentXML($0)}).reduce([], combine: +))
+        let commentXMLs = clangTranslationUnits.map({commentXML($0)}).reduce([], combine: +).joinWithSeparator("\n")
         return "<?xml version=\"1.0\"?>\n<sourcekitten>\n" + commentXMLs + "\n</sourcekitten>"
     }
 }
