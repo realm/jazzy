@@ -16,7 +16,7 @@ Run `brew install sourcekitten`. Make sure that Xcode 6.4 is set in `xcode-selec
 
 ### Source
 
-Run `git clone` for this repo followed by `make install` in the root directory. Make sure that Xcode 7 Beta 5 is set in `xcode-select` before running `make`.
+Run `git clone` for this repo followed by `make install` in the root directory. Make sure that Xcode 7 Beta 6 is set in `xcode-select` before running `make`.
 
 ### Package
 

@@ -8,10 +8,10 @@
         "key.doc.comment" : "A basic implementation of a `help` command, using information available in a\n`CommandRegistry`.\n\nIf you want to use this command, initialize it with the registry, then add\nit to that same registry:\n\n\tlet commands: CommandRegistry<MyErrorType> = …\n\tlet helpCommand = HelpCommand(registry: commands)\n\tcommands.register(helpCommand)",
         "key.namelength" : 11,
         "key.doc.line" : 21,
-        "key.bodylength" : 1168,
+        "key.bodylength" : 1107,
         "key.length" : 11,
         "key.doc.column" : 15,
-        "key.parsed_scope.end" : 61,
+        "key.parsed_scope.end" : 57,
         "key.usr" : "s:V10Commandant11HelpCommand",
         "key.doc.file" : "Commandant\/HelpCommand.swift",
         "key.nameoffset" : 565,
@@ -143,11 +143,11 @@
             "key.parsed_declaration" : "public func run(mode: CommandMode) -> Result<(), CommandantError<ClientError>>",
             "key.namelength" : 22,
             "key.bodyoffset" : 1005,
-            "key.bodylength" : 765,
+            "key.bodylength" : 704,
             "key.length" : 22,
             "key.name" : "run(_:)",
             "key.typename" : "<ClientError> HelpCommand<ClientError> -> (CommandMode) -> Result<(), CommandantError<ClientError>>",
-            "key.parsed_scope.end" : 60,
+            "key.parsed_scope.end" : 56,
             "key.usr" : "s:FV10Commandant11HelpCommand3runurFGS0_q__FOS_11CommandModeGO6Result6ResultT_GOS_15CommandantErrorq___",
             "key.overrides" : [
               {
@@ -176,17 +176,17 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.struct",
-        "key.offset" : 1790,
+        "key.offset" : 1729,
         "key.parsed_declaration" : "private struct HelpOptions<ClientError>: OptionsType",
         "key.namelength" : 11,
-        "key.bodyoffset" : 1829,
+        "key.bodyoffset" : 1768,
         "key.bodylength" : 366,
         "key.length" : 11,
         "key.name" : "HelpOptions",
         "key.typename" : "HelpOptions.Type",
-        "key.parsed_scope.end" : 78,
+        "key.parsed_scope.end" : 74,
         "key.usr" : "s:V10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions",
-        "key.nameoffset" : 1790,
+        "key.nameoffset" : 1729,
         "key.inheritedtypes" : [
           {
             "key.name" : "OptionsType"
@@ -197,34 +197,55 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 1835,
+            "key.offset" : 1774,
             "key.parsed_declaration" : "let verb: String?",
             "key.namelength" : 4,
             "key.length" : 4,
             "key.typename" : "String?",
             "key.name" : "verb",
-            "key.parsed_scope.end" : 64,
+            "key.parsed_scope.end" : 60,
             "key.usr" : "s:vV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions4verbGSqSS_",
-            "key.nameoffset" : 1835,
+            "key.nameoffset" : 1774,
             "key.annotated_decl" : "<Declaration>let verb: <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
-            "key.parsed_scope.start" : 64,
+            "key.parsed_scope.start" : 60,
             "key.filepath" : "Commandant\/HelpCommand.swift"
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 1852,
+            "key.offset" : 1791,
             "key.parsed_declaration" : "init(verb: String?)",
             "key.namelength" : 19,
-            "key.bodyoffset" : 1873,
+            "key.bodyoffset" : 1812,
             "key.bodylength" : 21,
             "key.length" : 19,
             "key.name" : "init(verb:)",
             "key.typename" : "<ClientError> HelpOptions<ClientError>.Type -> (verb: String?) -> HelpOptions<ClientError>",
-            "key.parsed_scope.end" : 68,
+            "key.parsed_scope.end" : 64,
             "key.usr" : "s:FV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptionscurFMGS0_q__FT4verbGSqSS__GS0_q__",
-            "key.nameoffset" : 1852,
+            "key.nameoffset" : 1791,
             "key.annotated_decl" : "<Declaration>init(verb: <Type usr=\"s:SS\">String<\/Type>?)<\/Declaration>",
+            "key.accessibility" : "source.lang.swift.accessibility.private",
+            "key.substructure" : [
+
+            ],
+            "key.parsed_scope.start" : 62,
+            "key.filepath" : "Commandant\/HelpCommand.swift"
+          },
+          {
+            "key.kind" : "source.lang.swift.decl.function.method.static",
+            "key.offset" : 1849,
+            "key.parsed_declaration" : "static func create(verb: String) -> HelpOptions",
+            "key.namelength" : 20,
+            "key.bodyoffset" : 1886,
+            "key.bodylength" : 54,
+            "key.length" : 20,
+            "key.name" : "create(_:)",
+            "key.typename" : "<ClientError> HelpOptions<ClientError>.Type -> (String) -> HelpOptions<ClientError>",
+            "key.parsed_scope.end" : 68,
+            "key.usr" : "s:ZFV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions6createurFMGS0_q__FSSGS0_q__",
+            "key.nameoffset" : 1849,
+            "key.annotated_decl" : "<Declaration>static func create(verb: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:V10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions\">HelpOptions<\/Type>&lt;ClientError&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.substructure" : [
 
@@ -234,66 +255,45 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 1910,
-            "key.parsed_declaration" : "static func create(verb: String) -> HelpOptions",
-            "key.namelength" : 20,
-            "key.bodyoffset" : 1947,
-            "key.bodylength" : 54,
-            "key.length" : 20,
-            "key.name" : "create(_:)",
-            "key.typename" : "<ClientError> HelpOptions<ClientError>.Type -> (String) -> HelpOptions<ClientError>",
-            "key.parsed_scope.end" : 72,
-            "key.usr" : "s:ZFV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions6createurFMGS0_q__FSSGS0_q__",
-            "key.nameoffset" : 1910,
-            "key.annotated_decl" : "<Declaration>static func create(verb: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:V10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions\">HelpOptions<\/Type>&lt;ClientError&gt;<\/Declaration>",
-            "key.accessibility" : "source.lang.swift.accessibility.private",
-            "key.substructure" : [
-
-            ],
-            "key.parsed_scope.start" : 70,
-            "key.filepath" : "Commandant\/HelpCommand.swift"
-          },
-          {
-            "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 2017,
+            "key.offset" : 1956,
             "key.parsed_declaration" : "static func evaluate(m: CommandMode) -> Result<HelpOptions, CommandantError<ClientError>>",
             "key.namelength" : 24,
-            "key.bodyoffset" : 2096,
+            "key.bodyoffset" : 2035,
             "key.bodylength" : 97,
             "key.length" : 24,
             "key.name" : "evaluate(_:)",
             "key.typename" : "<ClientError> HelpOptions<ClientError>.Type -> (CommandMode) -> Result<HelpOptions<ClientError>, CommandantError<ClientError>>",
-            "key.parsed_scope.end" : 77,
+            "key.parsed_scope.end" : 73,
             "key.usr" : "s:ZFV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions8evaluateurFMGS0_q__FOS_11CommandModeGO6Result6ResultGS0_q__GOS_15CommandantErrorq___",
             "key.overrides" : [
               {
                 "key.usr" : "s:ZFP10Commandant11OptionsType8evaluateuRq_S0__FMq_FOS_11CommandModeGO6Result6Resultq_GOS_15CommandantErrorqq_S0_11ClientError__"
               }
             ],
-            "key.nameoffset" : 2017,
+            "key.nameoffset" : 1956,
             "key.annotated_decl" : "<Declaration>static func evaluate(m: <Type usr=\"s:O10Commandant11CommandMode\">CommandMode<\/Type>) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;<Type usr=\"s:V10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions\">HelpOptions<\/Type>&lt;ClientError&gt;, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.substructure" : [
 
             ],
-            "key.parsed_scope.start" : 74,
+            "key.parsed_scope.start" : 70,
             "key.filepath" : "Commandant\/HelpCommand.swift"
           }
         ],
         "key.elements" : [
           {
             "key.kind" : "source.lang.swift.structure.elem.typeref",
-            "key.offset" : 1816,
+            "key.offset" : 1755,
             "key.length" : 11
           }
         ],
-        "key.parsed_scope.start" : 63,
+        "key.parsed_scope.start" : 59,
         "key.filepath" : "Commandant\/HelpCommand.swift"
       }
     ],
     "key.offset" : 0,
     "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-    "key.length" : 2197
+    "key.length" : 2136
   }
 }, {
   "Commandant\/Option.swift" : {
@@ -327,7 +327,7 @@
             "key.attribute" : "source.decl.attribute.__raw_doc_comment"
           }
         ],
-        "key.doc.full_as_xml" : "<Class file=\"Commandant\/Option.swift\" line=\"37\" column=\"17\"><Name>OptionsType<\/Name><USR>s:P10Commandant11OptionsType<\/USR><Declaration>public protocol OptionsType<\/Declaration><Abstract><Para>Represents a record of options for a command, which can be parsed from a list of command-line arguments.<\/Para><\/Abstract><Discussion><Para>This is most helpful when used in conjunction with the <codeVoice>Option<\/codeVoice> and <codeVoice>Switch<\/codeVoice> types, and <codeVoice>&lt;*&gt;<\/codeVoice> and <codeVoice>&lt;|<\/codeVoice> combinators.<\/Para><Para>Example:<\/Para><CodeListing><zCodeLineNumbered><![CDATA[    struct LogOptions: OptionsType {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[        let verbosity: Int]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[        let outputFilename: String]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[        let logName: String]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[        static func create(verbosity: Int)(outputFilename: String)(logName: String) -> LogOptions {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[            return LogOptions(verbosity: verbosity, outputFilename: outputFilename, logName: logName)]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[        }]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[        static func evaluate(m: CommandMode) -> Result<LogOptions> {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[            return create]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[                <*> m <| Option(key: \"verbose\", defaultValue: 0, usage: \"the verbosity level with which to read the logs\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[                <*> m <| Option(key: \"outputFilename\", defaultValue: \"\", usage: \"a file to print output to, instead of stdout\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[                <*> m <| Switch(flag: \"d\", key: \"delete\", defaultValue: false, usage: \"delete the logs when finished\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[                <*> m <| Option(usage: \"the log to read\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[        }]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[    }]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><\/CodeListing><\/Discussion><\/Class>",
+        "key.doc.full_as_xml" : "<Class file=\"Commandant\/Option.swift\" line=\"37\" column=\"17\"><Name>OptionsType<\/Name><USR>s:P10Commandant11OptionsType<\/USR><Declaration>public protocol OptionsType<\/Declaration><Abstract><Para>Represents a record of options for a command, which can be parsed from a list of command-line arguments.<\/Para><\/Abstract><Discussion><Para>This is most helpful when used in conjunction with the <codeVoice>Option<\/codeVoice> and <codeVoice>Switch<\/codeVoice> types, and <codeVoice>&lt;*&gt;<\/codeVoice> and <codeVoice>&lt;|<\/codeVoice> combinators.<\/Para><Para>Example:<\/Para><CodeListing><zCodeLineNumbered><![CDATA[\tstruct LogOptions: OptionsType {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet verbosity: Int]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet outputFilename: String]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet logName: String]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tstatic func create(verbosity: Int)(outputFilename: String)(logName: String) -> LogOptions {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\treturn LogOptions(verbosity: verbosity, outputFilename: outputFilename, logName: logName)]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tstatic func evaluate(m: CommandMode) -> Result<LogOptions> {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\treturn create]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(key: \"verbose\", defaultValue: 0, usage: \"the verbosity level with which to read the logs\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(key: \"outputFilename\", defaultValue: \"\", usage: \"a file to print output to, instead of stdout\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Switch(flag: \"d\", key: \"delete\", defaultValue: false, usage: \"delete the logs when finished\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(usage: \"the log to read\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><\/CodeListing><\/Discussion><\/Class>",
         "key.doc.name" : "OptionsType",
         "key.substructure" : [
           {
@@ -748,12 +748,12 @@
         "key.bodyoffset" : 3532,
         "key.bodylength" : 119,
         "key.length" : 149,
-        "key.doc.declaration" : "struct Int : _SignedIntegerType, Comparable, Equatable, _IntegerType, IntegerArithmeticType, _IntegerArithmeticType, SignedIntegerType, IntegerType",
+        "key.doc.declaration" : "struct Int : SignedIntegerType, IntegerType, Equatable, _SignedIntegerType, Comparable, _IntegerType, IntegerArithmeticType, _IntegerArithmeticType",
         "key.name" : "Int",
         "key.typename" : "Int.Type",
         "key.usr" : "s:Si",
         "key.doc.type" : "Class",
-        "key.doc.full_as_xml" : "<Class><Name>Int<\/Name><USR>s:Si<\/USR><Declaration>struct Int : _SignedIntegerType, Comparable, Equatable, _IntegerType, IntegerArithmeticType, _IntegerArithmeticType, SignedIntegerType, IntegerType<\/Declaration><Abstract><Para>A 64-bit signed integer value type.<\/Para><\/Abstract><\/Class>",
+        "key.doc.full_as_xml" : "<Class><Name>Int<\/Name><USR>s:Si<\/USR><Declaration>struct Int : SignedIntegerType, IntegerType, Equatable, _SignedIntegerType, Comparable, _IntegerType, IntegerArithmeticType, _IntegerArithmeticType<\/Declaration><Abstract><Para>A 64-bit signed integer value type.<\/Para><\/Abstract><\/Class>",
         "key.nameoffset" : 3513,
         "key.doc.name" : "Int",
         "key.inheritedtypes" : [
@@ -761,7 +761,7 @@
             "key.name" : "ArgumentType"
           }
         ],
-        "key.annotated_decl" : "<Declaration>struct Int : <Type usr=\"s:PSs18_SignedIntegerType\">_SignedIntegerType<\/Type>, <Type usr=\"s:PSs10Comparable\">Comparable<\/Type>, <Type usr=\"s:PSs9Equatable\">Equatable<\/Type>, <Type usr=\"s:PSs33_BuiltinIntegerLiteralConvertible\">_BuiltinIntegerLiteralConvertible<\/Type>, <Type usr=\"s:PSs12_IntegerType\">_IntegerType<\/Type>, <Type usr=\"s:PSs21IntegerArithmeticType\">IntegerArithmeticType<\/Type>, <Type usr=\"s:PSs22_IntegerArithmeticType\">_IntegerArithmeticType<\/Type>, <Type usr=\"s:PSs17SignedIntegerType\">SignedIntegerType<\/Type>, <Type usr=\"s:PSs11IntegerType\">IntegerType<\/Type><\/Declaration>",
+        "key.annotated_decl" : "<Declaration>struct Int : <Type usr=\"s:PSs17SignedIntegerType\">SignedIntegerType<\/Type>, <Type usr=\"s:PSs11IntegerType\">IntegerType<\/Type>, <Type usr=\"s:PSs9Equatable\">Equatable<\/Type>, <Type usr=\"s:PSs18_SignedIntegerType\">_SignedIntegerType<\/Type>, <Type usr=\"s:PSs10Comparable\">Comparable<\/Type>, <Type usr=\"s:PSs12_IntegerType\">_IntegerType<\/Type>, <Type usr=\"s:PSs21IntegerArithmeticType\">IntegerArithmeticType<\/Type>, <Type usr=\"s:PSs22_IntegerArithmeticType\">_IntegerArithmeticType<\/Type><\/Declaration>",
         "key.is_system" : true,
         "key.substructure" : [
           {
@@ -836,7 +836,7 @@
         "key.typename" : "String.Type",
         "key.usr" : "s:SS",
         "key.doc.type" : "Class",
-        "key.doc.full_as_xml" : "<Class><Name>String<\/Name><USR>s:SS<\/USR><Declaration>struct String<\/Declaration><Abstract><Para>An arbitrary Unicode string value.<\/Para><\/Abstract><Discussion><rawHTML><![CDATA[<h1>]]><\/rawHTML>Unicode-Correct<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>Swift strings are designed to be Unicode-correct.  In particular, the APIs make it easy to write code that works correctly, and does not surprise end-users, regardless of where you venture in the Unicode character space.  For example, the <codeVoice>==<\/codeVoice> operator checks for <Link href=\"http:\/\/www.unicode.org\/glossary\/#deterministic_comparison\">Unicode canonical equivalence<\/Link>, so two different representations of the same string will always compare equal.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Locale-Insensitive<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>The fundamental operations on Swift strings are not sensitive to locale settings.  That&apos;s because, for example, the validity of a <codeVoice>Dictionary&lt;String, T&gt;<\/codeVoice> in a running program depends on a given string comparison having a single, stable result.  Therefore, Swift always uses the default, un-<Link href=\"http:\/\/www.unicode.org\/glossary\/#tailorable\">tailored<\/Link> Unicode algorithms for basic string operations.<\/Para><Para>Importing <codeVoice>Foundation<\/codeVoice> endows swift strings with the full power of the <codeVoice>NSString<\/codeVoice> API, which allows you to choose more complex locale-sensitive operations explicitly.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Value Semantics<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>Each string variable, <codeVoice>let<\/codeVoice> binding, or stored property has an independent value, so mutations to the string are not observable through its copies:<\/Para><CodeListing><zCodeLineNumbered><![CDATA[var a = \"foo\"]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[var b = a]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[b.extend(\"bar\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[print(\"a=\\(a), b=\\(b)\")     \/\/ a=foo, b=foobar]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><\/CodeListing><Para>Strings use Copy-on-Write so that their data is only copied lazily, upon mutation, when more than one string instance is using the same buffer.  Therefore, the first in any sequence of mutating operations may cost <codeVoice>O(N)<\/codeVoice> time and space, where <codeVoice>N<\/codeVoice> is the length of the string&apos;s (unspecified) underlying representation.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Views<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para><codeVoice>String<\/codeVoice> is not itself a collection of anything.  Instead, it has properties that present the string&apos;s contents as meaningful collections:<\/Para><List-Bullet><Item><Para><codeVoice>characters<\/codeVoice>: a collection of <codeVoice>Character<\/codeVoice> (<Link href=\"http:\/\/www.unicode.org\/glossary\/#extended_grapheme_cluster\">extended grapheme cluster<\/Link>) elements, a unit of text that is meaningful to most humans.<\/Para><\/Item><Item><Para><codeVoice>unicodeScalars<\/codeVoice>: a collection of <codeVoice>UnicodeScalar<\/codeVoice> (<Link href=\"http:\/\/www.unicode.org\/glossary\/#unicode_scalar_value\">Unicode scalar values<\/Link>) the 21-bit codes that are the basic unit of Unicode.  These values are equivalent to UTF-32 code units.<\/Para><\/Item><Item><Para><codeVoice>utf16<\/codeVoice>: a collection of <codeVoice>UTF16.CodeUnit<\/codeVoice>, the 16-bit elements of the string&apos;s UTF-16 encoding.<\/Para><\/Item><Item><Para><codeVoice>utf8<\/codeVoice>: a collection of <codeVoice>UTF8.CodeUnit<\/codeVoice>, the 8-bit elements of the string&apos;s UTF-8 encoding.<\/Para><\/Item><\/List-Bullet><rawHTML><![CDATA[<h1>]]><\/rawHTML>Growth and Capacity<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>When a string&apos;s contiguous storage fills up, new storage must be allocated and characters must be moved to the new storage. <codeVoice>String<\/codeVoice> uses an exponential growth strategy that makes <codeVoice>append<\/codeVoice> a constant time operation <emphasis>when amortized over many invocations<\/emphasis>.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Objective-C Bridge<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para><codeVoice>String<\/codeVoice> is bridged to Objective-C as <codeVoice>NSString<\/codeVoice>, and a <codeVoice>String<\/codeVoice> that originated in Objective-C may store its characters in an <codeVoice>NSString<\/codeVoice>.  Since any arbitrary subclass of <codeVoice>NSSString<\/codeVoice> can become a <codeVoice>String<\/codeVoice>, there are no guarantees about representation or efficiency in this case.  Since <codeVoice>NSString<\/codeVoice> is immutable, it is just as though the storage was shared by some copy: the first in any sequence of mutating operations causes elements to be copied into unique, contiguous storage which may cost <codeVoice>O(N)<\/codeVoice> time and space, where <codeVoice>N<\/codeVoice> is the length of the string representation (or more, if the underlying <codeVoice>NSString<\/codeVoice> is has unusual performance characteristics).<\/Para><\/Discussion><\/Class>",
+        "key.doc.full_as_xml" : "<Class><Name>String<\/Name><USR>s:SS<\/USR><Declaration>struct String<\/Declaration><Abstract><Para>An arbitrary Unicode string value.<\/Para><\/Abstract><Discussion><rawHTML><![CDATA[<h1>]]><\/rawHTML>Unicode-Correct<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>Swift strings are designed to be Unicode-correct.  In particular, the APIs make it easy to write code that works correctly, and does not surprise end-users, regardless of where you venture in the Unicode character space.  For example, the <codeVoice>==<\/codeVoice> operator checks for <Link href=\"http:\/\/www.unicode.org\/glossary\/#deterministic_comparison\">Unicode canonical equivalence<\/Link>, so two different representations of the same string will always compare equal.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Locale-Insensitive<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>The fundamental operations on Swift strings are not sensitive to locale settings.  That&apos;s because, for example, the validity of a <codeVoice>Dictionary&lt;String, T&gt;<\/codeVoice> in a running program depends on a given string comparison having a single, stable result.  Therefore, Swift always uses the default, un-<Link href=\"http:\/\/www.unicode.org\/glossary\/#tailorable\">tailored<\/Link> Unicode algorithms for basic string operations.<\/Para><Para>Importing <codeVoice>Foundation<\/codeVoice> endows swift strings with the full power of the <codeVoice>NSString<\/codeVoice> API, which allows you to choose more complex locale-sensitive operations explicitly.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Value Semantics<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>Each string variable, <codeVoice>let<\/codeVoice> binding, or stored property has an independent value, so mutations to the string are not observable through its copies:<\/Para><CodeListing><zCodeLineNumbered><![CDATA[var a = \"foo\"]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[var b = a]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[b.appendContentsOf(\"bar\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[print(\"a=\\(a), b=\\(b)\")     \/\/ a=foo, b=foobar]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><\/CodeListing><Para>Strings use Copy-on-Write so that their data is only copied lazily, upon mutation, when more than one string instance is using the same buffer.  Therefore, the first in any sequence of mutating operations may cost <codeVoice>O(N)<\/codeVoice> time and space, where <codeVoice>N<\/codeVoice> is the length of the string&apos;s (unspecified) underlying representation.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Views<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para><codeVoice>String<\/codeVoice> is not itself a collection of anything.  Instead, it has properties that present the string&apos;s contents as meaningful collections:<\/Para><List-Bullet><Item><Para><codeVoice>characters<\/codeVoice>: a collection of <codeVoice>Character<\/codeVoice> (<Link href=\"http:\/\/www.unicode.org\/glossary\/#extended_grapheme_cluster\">extended grapheme cluster<\/Link>) elements, a unit of text that is meaningful to most humans.<\/Para><\/Item><Item><Para><codeVoice>unicodeScalars<\/codeVoice>: a collection of <codeVoice>UnicodeScalar<\/codeVoice> (<Link href=\"http:\/\/www.unicode.org\/glossary\/#unicode_scalar_value\">Unicode scalar values<\/Link>) the 21-bit codes that are the basic unit of Unicode.  These values are equivalent to UTF-32 code units.<\/Para><\/Item><Item><Para><codeVoice>utf16<\/codeVoice>: a collection of <codeVoice>UTF16.CodeUnit<\/codeVoice>, the 16-bit elements of the string&apos;s UTF-16 encoding.<\/Para><\/Item><Item><Para><codeVoice>utf8<\/codeVoice>: a collection of <codeVoice>UTF8.CodeUnit<\/codeVoice>, the 8-bit elements of the string&apos;s UTF-8 encoding.<\/Para><\/Item><\/List-Bullet><rawHTML><![CDATA[<h1>]]><\/rawHTML>Growth and Capacity<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>When a string&apos;s contiguous storage fills up, new storage must be allocated and characters must be moved to the new storage. <codeVoice>String<\/codeVoice> uses an exponential growth strategy that makes <codeVoice>append<\/codeVoice> a constant time operation <emphasis>when amortized over many invocations<\/emphasis>.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Objective-C Bridge<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para><codeVoice>String<\/codeVoice> is bridged to Objective-C as <codeVoice>NSString<\/codeVoice>, and a <codeVoice>String<\/codeVoice> that originated in Objective-C may store its characters in an <codeVoice>NSString<\/codeVoice>.  Since any arbitrary subclass of <codeVoice>NSSString<\/codeVoice> can become a <codeVoice>String<\/codeVoice>, there are no guarantees about representation or efficiency in this case.  Since <codeVoice>NSString<\/codeVoice> is immutable, it is just as though the storage was shared by some copy: the first in any sequence of mutating operations causes elements to be copied into unique, contiguous storage which may cost <codeVoice>O(N)<\/codeVoice> time and space, where <codeVoice>N<\/codeVoice> is the length of the string representation (or more, if the underlying <codeVoice>NSString<\/codeVoice> is has unusual performance characteristics).<\/Para><\/Discussion><\/Class>",
         "key.nameoffset" : 3664,
         "key.doc.name" : "String",
         "key.inheritedtypes" : [
@@ -972,7 +972,19 @@
         "key.doc.full_as_xml" : "<Function file=\"Commandant\/Option.swift\" line=\"159\" column=\"13\"><Name>&lt;*&gt;(_:_:)<\/Name><USR>s:ZF10Commandantoi3lmgu1_rFTFq_q0_GO6Result6Resultq_GOS_15CommandantErrorq1____GS1_q0_GS2_q1___<\/USR><Declaration>public func &lt;*&gt;&lt;T, U, ClientError&gt;(f: T -&gt; U, value: Result&lt;T, CommandantError&lt;ClientError&gt;&gt;) -&gt; Result.Result&lt;U, Commandant.CommandantError&lt;ClientError&gt;&gt;<\/Declaration><Abstract><Para>Applies <codeVoice>f<\/codeVoice> to the value in the given result.<\/Para><\/Abstract><Discussion><Para>In the context of command-line option parsing, this is used to chain together the parsing of multiple arguments. See OptionsType for an example.<\/Para><\/Discussion><\/Function>",
         "key.doc.name" : "<*>(_:_:)",
         "key.substructure" : [
-
+          {
+            "key.kind" : "source.lang.swift.decl.generic_type_param",
+            "key.offset" : 5300,
+            "key.parsed_declaration" : "public func <*> <T, U, ClientError>(f: T -> U, value: Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
+            "key.annotated_decl" : "<Declaration>T<\/Declaration>",
+            "key.length" : 1,
+            "key.typename" : "T.Type",
+            "key.name" : "T",
+            "key.parsed_scope.start" : 159,
+            "key.parsed_scope.end" : 159,
+            "key.usr" : "s:FZF10Commandantoi3lmgu1_rFTFq_q0_GO6Result6Resultq_GOS_15CommandantErrorq1____GS1_q0_GS2_q1___L_1TMq_",
+            "key.filepath" : "Commandant\/Option.swift"
+          }
         ],
         "key.doc.usr" : "s:ZF10Commandantoi3lmgu1_rFTFq_q0_GO6Result6Resultq_GOS_15CommandantErrorq1____GS1_q0_GS2_q1___",
         "key.doc.discussion" : [
@@ -1017,7 +1029,19 @@
         "key.doc.full_as_xml" : "<Function file=\"Commandant\/Option.swift\" line=\"167\" column=\"13\"><Name>&lt;*&gt;(_:_:)<\/Name><USR>s:ZF10Commandantoi3lmgu1_rFTGO6Result6ResultFq_q0_GOS_15CommandantErrorq1___GS1_q_GS2_q1____GS1_q0_GS2_q1___<\/USR><Declaration>public func &lt;*&gt;&lt;T, U, ClientError&gt;(f: Result&lt;(T -&gt; U), CommandantError&lt;ClientError&gt;&gt;, value: Result&lt;T, CommandantError&lt;ClientError&gt;&gt;) -&gt; Result.Result&lt;U, Commandant.CommandantError&lt;ClientError&gt;&gt;<\/Declaration><Abstract><Para>Applies the function in <codeVoice>f<\/codeVoice> to the value in the given result.<\/Para><\/Abstract><Discussion><Para>In the context of command-line option parsing, this is used to chain together the parsing of multiple arguments. See OptionsType for an example.<\/Para><\/Discussion><\/Function>",
         "key.doc.name" : "<*>(_:_:)",
         "key.substructure" : [
-
+          {
+            "key.kind" : "source.lang.swift.decl.generic_type_param",
+            "key.offset" : 5687,
+            "key.parsed_declaration" : "public func <*> <T, U, ClientError>(f: Result<(T -> U), CommandantError<ClientError>>, value: Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
+            "key.annotated_decl" : "<Declaration>T<\/Declaration>",
+            "key.length" : 1,
+            "key.typename" : "T.Type",
+            "key.name" : "T",
+            "key.parsed_scope.start" : 167,
+            "key.parsed_scope.end" : 167,
+            "key.usr" : "s:FZF10Commandantoi3lmgu1_rFTGO6Result6ResultFq_q0_GOS_15CommandantErrorq1___GS1_q_GS2_q1____GS1_q0_GS2_q1___L_1TMq_",
+            "key.filepath" : "Commandant\/Option.swift"
+          }
         ],
         "key.doc.usr" : "s:ZF10Commandantoi3lmgu1_rFTGO6Result6ResultFq_q0_GOS_15CommandantErrorq1___GS1_q_GS2_q1____GS1_q0_GS2_q1___",
         "key.doc.discussion" : [
@@ -1065,7 +1089,19 @@
         "key.doc.full_as_xml" : "<Function file=\"Commandant\/Option.swift\" line=\"188\" column=\"13\"><Name>&lt;|(_:_:)<\/Name><USR>s:ZF10Commandantoi2lou0_Rq_S_12ArgumentType_FTOS_11CommandModeGVS_6Optionq___GO6Result6Resultq_GOS_15CommandantErrorq0___<\/USR><Declaration>public func &lt;|&lt;T : ArgumentType, ClientError&gt;(mode: CommandMode, option: Option&lt;T&gt;) -&gt; Result.Result&lt;T, Commandant.CommandantError&lt;ClientError&gt;&gt;<\/Declaration><Abstract><Para>Evaluates the given option in the given mode.<\/Para><\/Abstract><Discussion><Para>If parsing command line arguments, and no value was specified on the command line, the option&apos;s <codeVoice>defaultValue<\/codeVoice> is used.<\/Para><\/Discussion><\/Function>",
         "key.doc.name" : "<|(_:_:)",
         "key.substructure" : [
-
+          {
+            "key.kind" : "source.lang.swift.decl.generic_type_param",
+            "key.offset" : 6401,
+            "key.parsed_declaration" : "public func <| <T: ArgumentType, ClientError>(mode: CommandMode, option: Option<T>) -> Result<T, CommandantError<ClientError>>",
+            "key.annotated_decl" : "<Declaration>T : <Type usr=\"s:P10Commandant12ArgumentType\">ArgumentType<\/Type><\/Declaration>",
+            "key.length" : 1,
+            "key.typename" : "T.Type",
+            "key.name" : "T",
+            "key.parsed_scope.start" : 188,
+            "key.parsed_scope.end" : 188,
+            "key.usr" : "s:FZF10Commandantoi2lou0_Rq_S_12ArgumentType_FTOS_11CommandModeGVS_6Optionq___GO6Result6Resultq_GOS_15CommandantErrorq0___L_1TMq_",
+            "key.filepath" : "Commandant\/Option.swift"
+          }
         ],
         "key.doc.usr" : "s:ZF10Commandantoi2lou0_Rq_S_12ArgumentType_FTOS_11CommandModeGVS_6Optionq___GO6Result6Resultq_GOS_15CommandantErrorq0___",
         "key.doc.discussion" : [
@@ -1113,7 +1149,19 @@
         "key.doc.full_as_xml" : "<Function file=\"Commandant\/Option.swift\" line=\"231\" column=\"13\"><Name>&lt;|(_:_:)<\/Name><USR>s:ZF10Commandantoi2lourFTOS_11CommandModeGVS_6OptionSb__GO6Result6ResultSbGOS_15CommandantErrorq___<\/USR><Declaration>public func &lt;|&lt;ClientError&gt;(mode: CommandMode, option: Option&lt;Bool&gt;) -&gt; Result.Result&lt;Bool, Commandant.CommandantError&lt;ClientError&gt;&gt;<\/Declaration><Abstract><Para>Evaluates the given boolean option in the given mode.<\/Para><\/Abstract><Discussion><Para>If parsing command line arguments, and no value was specified on the command line, the option&apos;s <codeVoice>defaultValue<\/codeVoice> is used.<\/Para><\/Discussion><\/Function>",
         "key.doc.name" : "<|(_:_:)",
         "key.substructure" : [
-
+          {
+            "key.kind" : "source.lang.swift.decl.generic_type_param",
+            "key.offset" : 7668,
+            "key.parsed_declaration" : "public func <| <ClientError>(mode: CommandMode, option: Option<Bool>) -> Result<Bool, CommandantError<ClientError>>",
+            "key.annotated_decl" : "<Declaration>ClientError<\/Declaration>",
+            "key.length" : 11,
+            "key.typename" : "ClientError.Type",
+            "key.name" : "ClientError",
+            "key.parsed_scope.start" : 231,
+            "key.parsed_scope.end" : 231,
+            "key.usr" : "s:FZF10Commandantoi2lourFTOS_11CommandModeGVS_6OptionSb__GO6Result6ResultSbGOS_15CommandantErrorq___L_11ClientErrorMq_",
+            "key.filepath" : "Commandant\/Option.swift"
+          }
         ],
         "key.doc.usr" : "s:ZF10Commandantoi2lourFTOS_11CommandModeGVS_6OptionSb__GO6Result6ResultSbGOS_15CommandantErrorq___",
         "key.doc.discussion" : [
@@ -1865,7 +1913,19 @@
         "key.doc.full_as_xml" : "<Function file=\"Commandant\/Switch.swift\" line=\"52\" column=\"13\"><Name>&lt;|(_:_:)<\/Name><USR>s:ZF10Commandantoi2lourFTOS_11CommandModeVS_6Switch_GO6Result6ResultSbGOS_15CommandantErrorq___<\/USR><Declaration>public func &lt;|&lt;ClientError&gt;(mode: CommandMode, option: Switch) -&gt; Result.Result&lt;Bool, Commandant.CommandantError&lt;ClientError&gt;&gt;<\/Declaration><Abstract><Para>Evaluates the given boolean switch in the given mode.<\/Para><\/Abstract><Discussion><Para>If parsing command line arguments, and no value was specified on the command line, the option&apos;s <codeVoice>defaultValue<\/codeVoice> is used.<\/Para><\/Discussion><\/Function>",
         "key.doc.name" : "<|(_:_:)",
         "key.substructure" : [
-
+          {
+            "key.kind" : "source.lang.swift.decl.generic_type_param",
+            "key.offset" : 1531,
+            "key.parsed_declaration" : "public func <| <ClientError> (mode: CommandMode, option: Switch) -> Result<Bool, CommandantError<ClientError>>",
+            "key.annotated_decl" : "<Declaration>ClientError<\/Declaration>",
+            "key.length" : 11,
+            "key.typename" : "ClientError.Type",
+            "key.name" : "ClientError",
+            "key.parsed_scope.start" : 52,
+            "key.parsed_scope.end" : 52,
+            "key.usr" : "s:FZF10Commandantoi2lourFTOS_11CommandModeVS_6Switch_GO6Result6ResultSbGOS_15CommandantErrorq___L_11ClientErrorMq_",
+            "key.filepath" : "Commandant\/Switch.swift"
+          }
         ],
         "key.doc.usr" : "s:ZF10Commandantoi2lourFTOS_11CommandModeVS_6Switch_GO6Result6ResultSbGOS_15CommandantErrorq___",
         "key.doc.discussion" : [
@@ -2735,6 +2795,9 @@
             "key.annotated_decl" : "<RelatedName usr=\"s:ZF10Foundationoi2eeuRq_S_16__BridgedNSErrorqq_Ss16RawRepresentable8RawValueSs19UnsignedIntegerType_FTq_q__Sb\">==&lt;T : __BridgedNSError where T.RawValue : UnsignedIntegerType&gt;(_: T, _: T) -&gt; Bool<\/RelatedName>"
           },
           {
+            "key.annotated_decl" : "<RelatedName usr=\"s:ZF6Darwinoi2eeFTVS_13DarwinBooleanS0__Sb\">==(_: DarwinBoolean, _: DarwinBoolean) -&gt; Bool<\/RelatedName>"
+          },
+          {
             "key.annotated_decl" : "<RelatedName usr=\"s:ZF10ObjectiveCoi2eeFTVS_8SelectorS0__Sb\">==(_: Selector, _: Selector) -&gt; Bool<\/RelatedName>"
           },
           {
@@ -2771,9 +2834,6 @@
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss9Equatable_FTGSaq__GSaq___Sb\">==&lt;Element : Equatable&gt;(_: Array&lt;Element&gt;, _: Array&lt;Element&gt;) -&gt; Bool<\/RelatedName>"
           },
           {
-            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss9Equatable_FTGVSs14_UnitTestArrayq__GS0_q___Sb\">==&lt;Element : Equatable&gt;(_: _UnitTestArray&lt;Element&gt;, _: _UnitTestArray&lt;Element&gt;) -&gt; Bool<\/RelatedName>"
-          },
-          {
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeFTSbSb_Sb\">==(_: Bool, _: Bool) -&gt; Bool<\/RelatedName>"
           },
           {
@@ -2792,13 +2852,7 @@
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss16RawRepresentableqq_S_8RawValueSs9Equatable_FTq_q__Sb\">==&lt;T : RawRepresentable where T.RawValue : Equatable&gt;(_: T, _: T) -&gt; Bool<\/RelatedName>"
           },
           {
-            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss14CollectionTypeqqq_S_9GeneratorSs13GeneratorType7ElementS__FTGVSs24_ConcatenateForwardIndexq__GS1_q___Sb\">==&lt;I&gt;(_: _ConcatenateForwardIndex&lt;I&gt;, _: _ConcatenateForwardIndex&lt;I&gt;) -&gt; Bool<\/RelatedName>"
-          },
-          {
-            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss14CollectionTypeqq_Ss9Indexable5IndexSs22BidirectionalIndexTypeqqq_S_9GeneratorSs13GeneratorType7ElementS_qqqq_S_9GeneratorS2_7ElementS0_5IndexS1__FTGVSs30_ConcatenateBidirectionalIndexq__GS3_q___Sb\">==&lt;I&gt;(_: _ConcatenateBidirectionalIndex&lt;I&gt;, _: _ConcatenateBidirectionalIndex&lt;I&gt;) -&gt; Bool<\/RelatedName>"
-          },
-          {
-            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss14CollectionType_FTGVSs21FilterCollectionIndexq__GS0_q___Sb\">==&lt;Base : CollectionType&gt;(_: FilterCollectionIndex&lt;Base&gt;, _: FilterCollectionIndex&lt;Base&gt;) -&gt; Bool<\/RelatedName>"
+            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss14CollectionType_FTGVSs15LazyFilterIndexq__GS0_q___Sb\">==&lt;Base : CollectionType&gt;(_: LazyFilterIndex&lt;Base&gt;, _: LazyFilterIndex&lt;Base&gt;) -&gt; Bool<\/RelatedName>"
           },
           {
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeFTVSs5UInt8S__Sb\">==(_: UInt8, _: UInt8) -&gt; Bool<\/RelatedName>"
@@ -2831,6 +2885,12 @@
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeFTSiSi_Sb\">==(_: Int, _: Int) -&gt; Bool<\/RelatedName>"
           },
           {
+            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss14CollectionTypeqqq_S_9GeneratorSs13GeneratorType7ElementS__FTGVSs22FlattenCollectionIndexq__GS1_q___Sb\">==&lt;BaseElements&gt;(_: FlattenCollectionIndex&lt;BaseElements&gt;, _: FlattenCollectionIndex&lt;BaseElements&gt;) -&gt; Bool<\/RelatedName>"
+          },
+          {
+            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss14CollectionTypeqq_Ss9Indexable5IndexSs22BidirectionalIndexTypeqqq_S_9GeneratorSs13GeneratorType7ElementS_qqqq_S_9GeneratorS2_7ElementS0_5IndexS1__FTGVSs35FlattenBidirectionalCollectionIndexq__GS3_q___Sb\">==&lt;BaseElements&gt;(_: FlattenBidirectionalCollectionIndex&lt;BaseElements&gt;, _: FlattenBidirectionalCollectionIndex&lt;BaseElements&gt;) -&gt; Bool<\/RelatedName>"
+          },
+          {
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeFTSfSf_Sb\">==(_: Float, _: Float) -&gt; Bool<\/RelatedName>"
           },
           {
@@ -2853,6 +2913,9 @@
           },
           {
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeu0_Rq_Ss8Hashable_FTGVSs15DictionaryIndexq_q0__GS0_q_q0___Sb\">==&lt;Key : Hashable, Value&gt;(_: DictionaryIndex&lt;Key, Value&gt;, _: DictionaryIndex&lt;Key, Value&gt;) -&gt; Bool<\/RelatedName>"
+          },
+          {
+            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeu0_rFTGVSs11_HeapBufferq_q0__GS_q_q0___Sb\">==&lt;Value, Element&gt;(_: _HeapBuffer&lt;Value, Element&gt;, _: _HeapBuffer&lt;Value, Element&gt;) -&gt; Bool<\/RelatedName>"
           },
           {
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss10Comparable_FTGVSs16HalfOpenIntervalq__GS0_q___Sb\">==&lt;Bound : Comparable&gt;(_: HalfOpenInterval&lt;Bound&gt;, _: HalfOpenInterval&lt;Bound&gt;) -&gt; Bool<\/RelatedName>"
@@ -2879,10 +2942,7 @@
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeFTVSs16ObjectIdentifierS__Sb\">==(_: ObjectIdentifier, _: ObjectIdentifier) -&gt; Bool<\/RelatedName>"
           },
           {
-            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss22BidirectionalIndexType_FTGVSs12ReverseIndexq__GS0_q___Sb\">==&lt;I&gt;(_: ReverseIndex&lt;I&gt;, _: ReverseIndex&lt;I&gt;) -&gt; Bool<\/RelatedName>"
-          },
-          {
-            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss21RandomAccessIndexType_FTGVSs24ReverseRandomAccessIndexq__GS0_q___Sb\">==&lt;I&gt;(_: ReverseRandomAccessIndex&lt;I&gt;, _: ReverseRandomAccessIndex&lt;I&gt;) -&gt; Bool<\/RelatedName>"
+            "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss22BidirectionalIndexType_FTGVSs12ReverseIndexq__GS0_q___Sb\">==&lt;Base&gt;(_: ReverseIndex&lt;Base&gt;, _: ReverseIndex&lt;Base&gt;) -&gt; Bool<\/RelatedName>"
           },
           {
             "key.annotated_decl" : "<RelatedName usr=\"s:ZFSsoi2eeuRq_Ss11_Strideable_FTq_q__Sb\">==&lt;T : _Strideable&gt;(_: T, _: T) -&gt; Bool<\/RelatedName>"
@@ -3009,7 +3069,7 @@
         "key.doc.comment" : "Destructively parses a list of command-line arguments.",
         "key.namelength" : 14,
         "key.doc.line" : 57,
-        "key.bodylength" : 3615,
+        "key.bodylength" : 3619,
         "key.length" : 14,
         "key.doc.column" : 20,
         "key.parsed_scope.end" : 190,
@@ -3075,7 +3135,7 @@
             "key.doc.comment" : "Initializes the generator from a simple list of command-line arguments.",
             "key.namelength" : 27,
             "key.doc.line" : 62,
-            "key.bodylength" : 685,
+            "key.bodylength" : 689,
             "key.length" : 27,
             "key.doc.column" : 9,
             "key.parsed_scope.end" : 83,
@@ -3105,7 +3165,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 2366,
+            "key.offset" : 2370,
             "key.parsed_declaration" : "internal func consumeBooleanKey(key: String) -> Bool?",
             "key.doc.comment" : "Returns whether the given key was enabled or disabled, or nil if it\nwas not given at all.\n\nIf the key is found, it is then removed from the list of arguments\nremaining to be parsed.",
             "key.namelength" : 30,
@@ -3116,12 +3176,12 @@
             "key.parsed_scope.end" : 106,
             "key.usr" : "s:FC10Commandant14ArgumentParser17consumeBooleanKeyFS0_FSSGSqSb_",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 2366,
+            "key.nameoffset" : 2370,
             "key.annotated_decl" : "<Declaration>internal func consumeBooleanKey(key: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:Sb\">Bool<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
             "key.parsed_scope.start" : 90,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 2407,
+            "key.bodyoffset" : 2411,
             "key.doc.declaration" : "internal func consumeBooleanKey(key: String) -> Bool?",
             "key.name" : "consumeBooleanKey(_:)",
             "key.typename" : "ArgumentParser -> (String) -> Bool?",
@@ -3145,7 +3205,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 3006,
+            "key.offset" : 3010,
             "key.parsed_declaration" : "internal func consumeValueForKey(key: String) -> Result<String?, CommandantError<NoError>>",
             "key.doc.comment" : "Returns the value associated with the given flag, or nil if the flag was\nnot specified. If the key is presented, but no value was given, an error\nis returned.\n\nIf a value is found, the key and the value are both removed from the\nlist of arguments remaining to be parsed.",
             "key.namelength" : 31,
@@ -3156,12 +3216,12 @@
             "key.parsed_scope.end" : 141,
             "key.usr" : "s:FC10Commandant14ArgumentParser18consumeValueForKeyFS0_FSSGO6Result6ResultGSqSS_GOS_15CommandantErrorOS_7NoError__",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 3006,
+            "key.nameoffset" : 3010,
             "key.annotated_decl" : "<Declaration>internal func consumeValueForKey(key: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;<Type usr=\"s:SS\">String<\/Type>?, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;<Type usr=\"s:O10Commandant7NoError\">NoError<\/Type>&gt;&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
             "key.parsed_scope.start" : 114,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 3084,
+            "key.bodyoffset" : 3088,
             "key.doc.declaration" : "internal func consumeValueForKey(key: String) -> Result.Result<String?, Commandant.CommandantError<Commandant.NoError>>",
             "key.name" : "consumeValueForKey(_:)",
             "key.typename" : "ArgumentParser -> (String) -> Result<String?, CommandantError<NoError>>",
@@ -3185,7 +3245,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 3782,
+            "key.offset" : 3786,
             "key.parsed_declaration" : "internal func consumePositionalArgument() -> String?",
             "key.doc.comment" : "Returns the next positional argument that hasn't yet been returned, or\nnil if there are no more positional arguments.",
             "key.namelength" : 27,
@@ -3196,12 +3256,12 @@
             "key.parsed_scope.end" : 158,
             "key.usr" : "s:FC10Commandant14ArgumentParser25consumePositionalArgumentFS0_FT_GSqSS_",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 3782,
+            "key.nameoffset" : 3786,
             "key.annotated_decl" : "<Declaration>internal func consumePositionalArgument() -&gt; <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
             "key.parsed_scope.start" : 145,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 3822,
+            "key.bodyoffset" : 3826,
             "key.doc.declaration" : "internal func consumePositionalArgument() -> String?",
             "key.name" : "consumePositionalArgument()",
             "key.typename" : "ArgumentParser -> () -> String?",
@@ -3220,7 +3280,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 4168,
+            "key.offset" : 4172,
             "key.parsed_declaration" : "internal func consumeKey(key: String) -> Bool",
             "key.doc.comment" : "Returns whether the given key was specified and removes it from the\nlist of arguments remaining.",
             "key.namelength" : 23,
@@ -3231,12 +3291,12 @@
             "key.parsed_scope.end" : 167,
             "key.usr" : "s:FC10Commandant14ArgumentParser10consumeKeyFS0_FSSSb",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 4168,
+            "key.nameoffset" : 4172,
             "key.annotated_decl" : "<Declaration>internal func consumeKey(key: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:Sb\">Bool<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
             "key.parsed_scope.start" : 162,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 4201,
+            "key.bodyoffset" : 4205,
             "key.doc.declaration" : "internal func consumeKey(key: String) -> Bool",
             "key.name" : "consumeKey(_:)",
             "key.typename" : "ArgumentParser -> (String) -> Bool",
@@ -3255,7 +3315,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 4470,
+            "key.offset" : 4474,
             "key.parsed_declaration" : "internal func consumeBooleanFlag(flag: Character) -> Bool",
             "key.doc.comment" : "Returns whether the given flag was specified and removes it from the\nlist of arguments remaining.",
             "key.namelength" : 35,
@@ -3266,12 +3326,12 @@
             "key.parsed_scope.end" : 189,
             "key.usr" : "s:FC10Commandant14ArgumentParser18consumeBooleanFlagFS0_FVSs9CharacterSb",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 4470,
+            "key.nameoffset" : 4474,
             "key.annotated_decl" : "<Declaration>internal func consumeBooleanFlag(flag: <Type usr=\"s:VSs9Character\">Character<\/Type>) -&gt; <Type usr=\"s:Sb\">Bool<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
             "key.parsed_scope.start" : 171,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 4515,
+            "key.bodyoffset" : 4519,
             "key.doc.declaration" : "internal func consumeBooleanFlag(flag: Character) -> Bool",
             "key.name" : "consumeBooleanFlag(_:)",
             "key.typename" : "ArgumentParser -> (Character) -> Bool",
@@ -3294,6 +3354,6 @@
     ],
     "key.offset" : 0,
     "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-    "key.length" : 4847
+    "key.length" : 4851
   }
 }]

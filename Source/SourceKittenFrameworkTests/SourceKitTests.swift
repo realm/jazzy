@@ -53,7 +53,6 @@ class SourceKitTests: XCTestCase {
             .Identifier,
             .Keyword,
             .Number,
-            .Objectliteral,
             .Parameter,
             .Placeholder,
             .String,

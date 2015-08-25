@@ -89,7 +89,7 @@ Filters compiler arguments from `xcodebuild` to something that SourceKit/Clang w
 - returns: Filtered compiler arguments.
 */
 private func filterArguments(var args: [String]) -> [String] {
-    args.extend(["-D", "DEBUG"])
+    args.appendContentsOf(["-D", "DEBUG"])
     var shouldContinueToFilterArguments = true
     while shouldContinueToFilterArguments {
         (args, shouldContinueToFilterArguments) = partiallyFilterArguments(args)
