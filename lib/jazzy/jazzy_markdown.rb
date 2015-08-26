@@ -44,16 +44,19 @@ module Jazzy
                             Version
                             Warning).freeze
 
+    # rubocop:disable RegexpLiteral
     SPECIAL_LIST_TYPE_REGEX = %r{
       \A\s* # optional leading spaces
       (<p>\s*)? # optional opening p tag
-      (#{SPECIAL_LIST_TYPES.map(&Regexp.method(:escape)).join('|')}) # any one of our special list types
+      # any one of our special list types
+      (#{SPECIAL_LIST_TYPES.map(&Regexp.method(:escape)).join('|')})
       [\s:] # followed by either a space or a colon
     }ix
+    # rubocop:enable RegexpLiteral
 
-    ELIDED_LI_TOKEN = '7wNVzLB0OYPL2eGlPKu8q4vITltqh0Y6DPZf659TPMAeYh49oEc15B33bAo'.freeze
+    ELIDED_LI_TOKEN = '7wNVzLB0OYPL2eGlPKu8q4vITltqh0Y6DPZf659TPMAeYh49o'.freeze
 
-    def list_item(text, list_type)
+    def list_item(text, _list_type)
       return ELIDED_LI_TOKEN if text =~ SPECIAL_LIST_TYPE_REGEX
       str = '<li>'
       str << text.strip
