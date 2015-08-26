@@ -1,5 +1,6 @@
 require 'json'
 require 'pathname'
+require 'shellwords'
 require 'xcinvoke'
 
 require 'jazzy/config'
@@ -27,6 +28,7 @@ module Jazzy
       docs
     end
 
+    # rubocop:disable Metrics/MethodLength
     # Generate doc URL by prepending its parents URLs
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs, parents)
@@ -39,10 +41,28 @@ module Jazzy
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
-          doc.url = parents.join('/') + '.html#/' + doc.usr
+          if doc.typename == '<<error type>>'
+            warn 'A compile error prevented ' +
+              (parents[1..-1] + [doc.name]).join('.') + ' from receiving a ' \
+              'unique USR. Documentation may be incomplete. Please check for ' \
+              'compile errors by running `xcodebuild ' \
+              "#{Config.instance.xcodebuild_arguments.shelljoin}`."
+          end
+          id = doc.usr
+          unless id
+            id = doc.name || 'unknown'
+            warn "`#{id}` has no USR. First make sure all modules used in " \
+              'your project have been imported. If all used modules are ' \
+              'imported, please report this problem by filing an issue at ' \
+              'https://github.com/realm/jazzy/issues along with your Xcode ' \
+              'project. If this token is declared in an `#if` block, please ' \
+              'ignore this message.'
+          end
+          doc.url = parents.join('/') + '.html#/' + id
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
@@ -100,8 +120,8 @@ module Jazzy
       doc[key].map do |p|
         if para = p['Para']
           Jazzy.markdown.render(para)
-        elsif verbatim = p['Verbatim']
-          Jazzy.markdown.render("```\n#{verbatim}```\n")
+        elsif code = p['Verbatim'] || p['CodeListing']
+          Jazzy.markdown.render("```\n#{code}```\n")
         else
           warn "Jazzy could not recognize the `#{p.keys.first}` tag. " \
                'Please report this by filing an issue at ' \
@@ -174,6 +194,7 @@ module Jazzy
         end
         declaration = SourceDeclaration.new
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
+        declaration.typename = doc['key.typename']
         if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
           current_mark = SourceMark.new(doc['key.name'])
         end

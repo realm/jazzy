@@ -15,6 +15,9 @@
   [JP Simard](https://github.com/jpsim)
   [#236](https://github.com/realm/jazzy/issues/236)
 
+* `--exclude` now works properly if its argument is a relative path.  
+  [pcantrell](https://github.com/pcantrell)
+
 
 ## 0.2.3
 
