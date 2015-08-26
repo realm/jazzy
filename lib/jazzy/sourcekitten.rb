@@ -88,19 +88,11 @@ module Jazzy
     end
 
     def self.should_document?(doc)
-      unless doc['key.usr']
-        warn "`#{doc['key.name']}` has no USR. First make sure all modules "  \
-              'used in your project have been imported. If all used modules ' \
-              'are imported, please report this problem by filing an issue '  \
-              'at https://github.com/realm/jazzy/issues along with your '     \
-              'Xcode project. If this token is declared in an `#if` block, '  \
-              'please ignore this message.'
-        return false
-      end
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
-      # Always document extensions, since we can't tell what ACL they are
-      return true if doc['key.kind'] == 'source.lang.swift.decl.extension'
+      # Document extensions & enum elements, since we can't tell their ACL.
+      type = SourceDeclaration::Type.new(doc['key.kind'])
+      return true if type.extension? || type.enum_element?
 
       SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
     end
@@ -153,7 +145,7 @@ module Jazzy
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
         'swift',
       )
-      stripped_comment = string_until_first_rest_definition(
+      stripped_comment = string_until_first_special_list_item(
         doc['key.doc.comment'],
       ) || ''
       declaration.abstract = Jazzy.markdown.render(stripped_comment)
@@ -165,8 +157,8 @@ module Jazzy
       @documented_count += 1
     end
 
-    def self.string_until_first_rest_definition(string)
-      matches = /^\s*:[^\s]+:/.match(string)
+    def self.string_until_first_special_list_item(string)
+      matches = /^\s*-\s*(parameter|returns|Throws|warning):/.match(string)
       return string unless matches
       string[0...matches.begin(0)]
     end
@@ -197,6 +189,11 @@ module Jazzy
         declaration.typename = doc['key.typename']
         if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
           current_mark = SourceMark.new(doc['key.name'])
+        end
+        if declaration.type.enum_case?
+          # Enum "cases" are thin wrappers around enum "elements".
+          declarations += make_source_declarations(doc['key.substructure'])
+          next
         end
         next unless declaration.type.should_document?
 
@@ -259,6 +256,9 @@ module Jazzy
       SourceDeclaration::Type.all.each do |type|
         docs = group_docs(docs, type)
       end
+      # Remove top-level enum cases because it means they have an ACL lower
+      # than min_acl
+      docs = docs.reject { |doc| doc.type.enum_element? }
       [make_doc_urls(docs, []), doc_coverage, @undocumented_tokens]
     end
   end
