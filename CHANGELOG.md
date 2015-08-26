@@ -9,6 +9,9 @@
 * Improved how SourceKitten is vendored.  
   [JP Simard](https://github.com/jpsim)
 
+* Show type declaration under its title.  
+  [pcantrell](https://github.com/pcantrell)
+
 ##### Bug Fixes
 
 * Fixed a crash when parsing an empty documentation comment.  
