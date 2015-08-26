@@ -1,5 +1,6 @@
 require 'json'
 require 'pathname'
+require 'shellwords'
 require 'xcinvoke'
 
 require 'jazzy/config'
@@ -27,6 +28,7 @@ module Jazzy
       docs
     end
 
+    # rubocop:disable Metrics/MethodLength
     # Generate doc URL by prepending its parents URLs
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs, parents)
@@ -39,12 +41,12 @@ module Jazzy
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
-          if doc.typename == "<<error type>>"
-            warn "A compile error prevented " +
-              (parents[1..-1] + [doc]).map(&:name).join('.') +
-              " from receiving a unique USR. Documentation may be incomplete. " \
-              "Please check for compile errors by running `xcodebuild` along with "\
-              "any arguments passed to jazzy's `-x` or `--xcodebuild-arguments`."
+          if doc.typename == '<<error type>>'
+            warn 'A compile error prevented ' +
+              (parents[1..-1] + [doc.name]).join('.') + ' from receiving a ' \
+              'unique USR. Documentation may be incomplete. Please check for ' \
+              'compile errors by running `xcodebuild ' \
+              "#{Config.instance.xcodebuild_arguments.shelljoin}`."
           end
           id = doc.usr
           unless id
@@ -60,6 +62,7 @@ module Jazzy
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
