@@ -120,7 +120,7 @@ describe_cli 'jazzy' do
                             '--root-url https://realm.io/docs/swift/' \
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
-                            '-project,RealmSwift.xcodeproj,-dry-run'
+                            '-project,RealmSwift.xcodeproj,-dry-run ' \
                             '--template-directory "docs/templates/swift" '
     end
 
