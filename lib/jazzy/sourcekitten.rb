@@ -255,7 +255,7 @@ module Jazzy
       if typedecls.size > 1
         warn "Found conflicting type declarations with the same name, which " +
           "may indicate a build issue or a bug in Jazzy: " +
-          types.map { |t| "#{t.type.name.downcase} #{t.name}" }.join(', ')
+          typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }.join(', ')
       end
       typedecl = typedecls.first
 
