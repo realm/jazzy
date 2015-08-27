@@ -12,6 +12,9 @@
 * Show type declaration under its title.  
   [pcantrell](https://github.com/pcantrell)
 
+* Added support for custom assets: pass `--assets-directory` to jazzy.  
+  [gurkendoktor](https://github.com/gurkendoktor)
+
 ##### Bug Fixes
 
 * Fixed a crash when parsing an empty documentation comment.  

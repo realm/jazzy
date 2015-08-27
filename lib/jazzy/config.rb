@@ -32,6 +32,7 @@ module Jazzy
     attr_accessor :excluded_files
     attr_accessor :template_directory
     attr_accessor :swift_version
+    attr_accessor :assets_directory
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -49,6 +50,7 @@ module Jazzy
       self.excluded_files = []
       self.template_directory = Pathname(__FILE__).parent + 'templates'
       self.swift_version = '1.2'
+      self.assets_directory = Pathname(__FILE__).parent + 'assets'
     end
 
     def podspec=(podspec)
@@ -178,6 +180,11 @@ module Jazzy
 
         opt.on('--swift-version VERSION') do |swift_version|
           config.swift_version = swift_version
+        end
+
+        opt.on('--assets-directory DIRPATH', 'The directory that contains ' \
+               'the assets (CSS, JS, images)  to use') do |assets_directory|
+          config.assets_directory = Pathname(assets_directory)
         end
 
         opt.on('--readme FILEPATH',
