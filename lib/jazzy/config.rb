@@ -182,9 +182,9 @@ module Jazzy
           config.swift_version = swift_version
         end
 
-        opt.on('--assets-directory DIRPATH', 'The directory that ' \
-               'contains the assets (CSS, JS, images)  to use') do |assets_directory|
-          config.assets_directory = Pathname(assets_directory).expand_path
+        opt.on('--assets-directory DIRPATH', 'The directory that contains ' \
+               'the assets (CSS, JS, images)  to use') do |assets_directory|
+          config.assets_directory = Pathname(assets_directory)
         end
 
         opt.on('--readme FILEPATH',
