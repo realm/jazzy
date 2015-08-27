@@ -3,6 +3,7 @@ require 'pathname'
 require 'uri'
 
 require 'jazzy/doc'
+require 'jazzy/jazzy_markdown'
 require 'jazzy/podspec_documenter'
 require 'jazzy/source_declaration/access_control_level'
 
@@ -33,6 +34,7 @@ module Jazzy
     attr_accessor :template_directory
     attr_accessor :swift_version
     attr_accessor :assets_directory
+    attr_accessor :copyright
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -60,6 +62,21 @@ module Jazzy
     def template_directory=(template_directory)
       @template_directory = template_directory
       Doc.template_path = template_directory
+    end
+
+    def copyright=(copyright)
+      @copyright = Jazzy.copyright_markdown.render(copyright)
+    end
+
+    def copyright
+      @copyright ||= (
+        date = ENV['JAZZY_FAKE_DATE'] || DateTime.now.strftime('%Y-%m-%d')
+        year = date[0..3]
+        Jazzy.copyright_markdown.render(
+          "&copy; #{year} [#{author_name}](#{author_url}). " \
+          "All rights reserved. (Last updated: #{date})",
+        ).chomp
+      )
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -200,6 +217,11 @@ module Jazzy
         opt.on('-v', '--version', 'Print version number') do
           puts 'jazzy version: ' + Jazzy::VERSION
           exit
+        end
+
+        opt.on('--copyright COPYRIGHT_MARKDOWN', 'copyright markdown ' \
+               'rendered at the bottom of the docs pages') do |copyright|
+          config.copyright = copyright
         end
 
         opt.on('-h', '--help', 'Print this help message') do
