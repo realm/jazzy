@@ -15,6 +15,9 @@
 * Added support for custom assets: pass `--assets-directory` to jazzy.  
   [gurkendoktor](https://github.com/gurkendoktor)
 
+* Added support for custom copyright text: pass `--copyright` to jazzy.  
+  [emaloney](https://github.com/emaloney)
+
 ##### Bug Fixes
 
 * Fixed a crash when parsing an empty documentation comment.  

@@ -33,6 +33,7 @@ module Jazzy
     attr_accessor :template_directory
     attr_accessor :swift_version
     attr_accessor :assets_directory
+    attr_accessor :copyright
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
@@ -200,6 +201,11 @@ module Jazzy
         opt.on('-v', '--version', 'Print version number') do
           puts 'jazzy version: ' + Jazzy::VERSION
           exit
+        end
+
+        opt.on('--copyright COPYRIGHT_MARKDOWN', 'copyright markdown ' \
+               'rendered at the bottom of the docs pages') do |copyright|
+          config.copyright = copyright
         end
 
         opt.on('-h', '--help', 'Print this help message') do

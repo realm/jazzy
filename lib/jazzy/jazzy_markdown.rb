@@ -31,6 +31,20 @@ module Jazzy
   end
 
   def self.markdown
-    @markdown ||= Redcarpet::Markdown.new(JazzyHTML,  JazzyHTML::OPTIONS)
+    @markdown ||= Redcarpet::Markdown.new(JazzyHTML, JazzyHTML::OPTIONS)
+  end
+
+  class JazzyCopyright < Redcarpet::Render::HTML
+    def link(link, _title, content)
+      %(<a class="link" href="#{link}" target="_blank" \
+rel="external">#{content}</a>)
+    end
+  end
+
+  def self.copyright_markdown
+    @copyright_markdown ||= Redcarpet::Markdown.new(
+      JazzyCopyright,
+      JazzyHTML::OPTIONS,
+    )
   end
 end
