@@ -1,3 +1,19 @@
+## master
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+* Update `File` `lines` convenience property to be immutable.  
+  [Keith Smiley](https://github.com/keith)
+
+##### Bug Fixes
+
+None.
+
+
 ## 0.4.5
 
 ##### Breaking
