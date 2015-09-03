@@ -192,7 +192,7 @@ module Jazzy
           config.excluded_files = files.map { |f| File.expand_path(f) }
         end
 
-        opt.on('--categories file.json', 'JSON file with custom top-level groupings') do |file|
+        opt.on('--categories file', 'JSON or YAML file with custom top-level groupings.', 'Format is array of groups, each with "name" and "children" attributes.') do |file|
           config.custom_categories = case File.extname(file)
             when '.json'        then JSON.parse(File.read(file))
             when '.yaml','.yml' then YAML.load(File.read(file))
