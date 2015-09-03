@@ -16,9 +16,7 @@ public struct File {
     /// File contents.
     public let contents: String
     /// File lines.
-    lazy public var lines: [Line] = {
-        return self.contents.lines()
-    }()
+    public let lines: [Line]
 
     /**
     Failable initializer by path. Fails if file contents could not be read as a UTF8 string.
@@ -29,6 +27,7 @@ public struct File {
         self.path = path
         do {
             self.contents = try NSString(contentsOfFile: path, encoding: NSUTF8StringEncoding) as String
+            self.lines = self.contents.lines()
         } catch {
             fputs("Could not read contents of `\(path)`\n", stderr)
             return nil
@@ -43,6 +42,7 @@ public struct File {
     public init(contents: String) {
         path = nil
         self.contents = contents
+        self.lines = self.contents.lines()
     }
 
     /**
