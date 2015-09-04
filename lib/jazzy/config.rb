@@ -200,12 +200,9 @@ module Jazzy
           config.excluded_files = files.map { |f| File.expand_path(f) }
         end
 
-        opt.on('--categories file', 'JSON or YAML file with custom top-level groupings.', 'Format is array of groups, each with "name" and "children" attributes.') do |file|
-          config.custom_categories = case File.extname(file)
-            when '.json'        then JSON.parse(File.read(file))
-            when '.yaml','.yml' then YAML.load(File.read(file))
-            else raise "File provided for --categories must be .yaml or .json"
-          end
+        opt.on('--categories file',
+               'JSON or YAML file with custom groupings') do |file|
+          config.custom_categories = parse_config_file(file)
         end
 
         opt.on('-v', '--version', 'Print version number') do
@@ -225,6 +222,14 @@ module Jazzy
       end.parse!
 
       config
+    end
+
+    def parse_config_file(file)
+      case File.extname(file)
+      when '.json'         then JSON.parse(File.read(file))
+      when '.yaml', '.yml' then YAML.load(File.read(file))
+      else raise "Config file must be .yaml or .json, but got #{file.inspect}"
+      end
     end
 
     #-------------------------------------------------------------------------#
