@@ -19,7 +19,7 @@ module Jazzy
     def self.group_docs(docs)
       custom_categories, docs = group_custom_categories(docs)
       type_categories, uncategorized = group_type_categories(
-        docs, custom_categories.any? ? "Other " : "")
+        docs, custom_categories.any? ? 'Other' : '')
       custom_categories + type_categories + uncategorized
     end
 
@@ -28,14 +28,14 @@ module Jazzy
         children = category['children'].flat_map do |name|
           docs_with_name, docs = docs.partition { |doc| doc.name == name }
           if docs_with_name.empty?
-            STDERR.puts "WARNING: No documented top-level declarations match "\
+            STDERR.puts 'WARNING: No documented top-level declarations match ' \
                         "name \"#{name}\" specified in categories file"
           end
           docs_with_name
         end
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }
-        make_group(children, category["name"], "")
+        make_group(children, category['name'], '')
       end
       [group.compact, docs]
     end
@@ -45,7 +45,7 @@ module Jazzy
         children, docs = docs.partition { |doc| doc.type == type }
         make_group(
           children,
-          type_category_prefix + type.plural_name, 
+          type_category_prefix + type.plural_name,
           "The following #{type.plural_name.downcase} are available globally.")
       end
       [group.compact, docs]
@@ -67,17 +67,20 @@ module Jazzy
       docs.each do |doc|
         if parents.empty? || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
-          doc.url = (subdir_for_doc(doc, parents) + [doc.name + '.html']).join('/')
+          doc.url = (
+              subdir_for_doc(doc, parents) +
+              [doc.name + '.html']
+            ).join('/')
           doc.children = make_doc_urls(doc.children, parents + [doc])
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
           if doc.typename == '<<error type>>'
             warn 'A compile error prevented ' +
-              (parents[1..-1] + [doc]).map(&:name).join('.') + ' from receiving a ' \
-              'unique USR. Documentation may be incomplete. Please check for ' \
-              'compile errors by running `xcodebuild ' \
-              "#{Config.instance.xcodebuild_arguments.shelljoin}`."
+              (parents[1..-1] + [doc]).map(&:name).join('.') +
+              ' from receiving a unique USR. Documentation may be ' \
+              'incomplete. Please check for compile errors by running ' \
+              "`xcodebuild #{Config.instance.xcodebuild_arguments.shelljoin}`."
           end
           id = doc.usr
           unless id
