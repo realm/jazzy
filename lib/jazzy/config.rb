@@ -211,7 +211,7 @@ module Jazzy
       config
     end
 
-    def parse_config_file(file)
+    def self.parse_config_file(file)
       case File.extname(file)
       when '.json'         then JSON.parse(File.read(file))
       when '.yaml', '.yml' then YAML.load(File.read(file))
