@@ -74,7 +74,7 @@ module Jazzy
           # Instead, make its link a hash-link on its parent's page
           if doc.typename == '<<error type>>'
             warn 'A compile error prevented ' +
-              (parents[1..-1] + [doc.name]).join('.') + ' from receiving a ' \
+              (parents[1..-1] + [doc]).map(&:name).join('.') + ' from receiving a ' \
               'unique USR. Documentation may be incomplete. Please check for ' \
               'compile errors by running `xcodebuild ' \
               "#{Config.instance.xcodebuild_arguments.shelljoin}`."
