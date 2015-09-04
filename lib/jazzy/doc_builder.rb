@@ -31,9 +31,12 @@ module Jazzy
       docs.map do |doc|
         {
           section: doc.name,
-          children: doc.children.sort_by(&:name).sort_by(&:nav_order).map do |child|
-            { name: child.name, url: child.url }
-          end,
+          children: doc.children
+              .sort_by(&:name)
+              .sort_by(&:nav_order)
+              .map do |child|
+                { name: child.name, url: child.url }
+              end,
         }
       end
     end
@@ -83,7 +86,8 @@ module Jazzy
     def self.each_doc(output_dir, docs, &block)
       docs.each do |doc|
         next if doc.name != 'index' && doc.children.count == 0
-        path = output_dir + (doc.url || "#{doc.name}.html")   # Assumes URL is relative to documentation root!
+        # Assuming URL is relative to documentation root:
+        path = output_dir + (doc.url || "#{doc.name}.html")
         block.call(doc, path)
         next if doc.name == 'index'
         each_doc(
