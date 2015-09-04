@@ -1,11 +1,5 @@
-matrix:
-  include:
-    - language: objective-c
-      os: osx
-      osx_image: xcode6.4
-    - language: objective-c
-      os: osx
-      osx_image: xcode7
+language: objective-c
+osx_image: xcode7
 cache: bundler
 branches:
   only:
