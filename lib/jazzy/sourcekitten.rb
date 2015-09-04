@@ -97,13 +97,11 @@ module Jazzy
 
     # Determine the subdirectory in which a doc should be placed
     def self.subdir_for_doc(doc, parents)
-      # To group docs by category file instead of declaration type,
-      # return parents.map(&:name)
-
-      if doc.type.name
-        [doc.type.plural_name]
-      else
-        []
+      parents.map(&:name).tap do |names|
+        # We always want to create top-level subdirs according to type (Struct,
+        # Class, etc), but parents[0] might be a custom category name.
+        top_level_decl = (parents + [doc])[1]
+        names[0] = top_level_decl.type.plural_name if top_level_decl
       end
     end
 
