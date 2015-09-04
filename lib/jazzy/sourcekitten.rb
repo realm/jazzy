@@ -19,7 +19,7 @@ module Jazzy
     def self.group_docs(docs)
       custom_categories, docs = group_custom_categories(docs)
       type_categories, uncategorized = group_type_categories(
-        docs, custom_categories.any? ? 'Other' : '')
+        docs, custom_categories.any? ? 'Other ' : '')
       custom_categories + type_categories + uncategorized
     end
 
