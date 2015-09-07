@@ -11,22 +11,6 @@ import XCTest
 
 let fixturesDirectory = (__FILE__ as NSString).stringByDeletingLastPathComponent + "/Fixtures/"
 
-func sdkPath() -> String {
-    let task = NSTask()
-    task.launchPath = "/usr/bin/xcrun"
-    task.arguments = ["--show-sdk-path"]
-
-    let pipe = NSPipe()
-    task.standardOutput = pipe
-
-    task.launch()
-
-    let file = pipe.fileHandleForReading
-    let sdkPath = NSString(data: file.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
-    file.closeFile()
-    return sdkPath?.stringByReplacingOccurrencesOfString("\n", withString: "") ?? ""
-}
-
 class ClangTranslationUnitTests: XCTestCase {
     func testParsesObjectiveCHeaderFilesAndXcodebuildArguments() {
         let headerFiles = [
