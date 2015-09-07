@@ -138,7 +138,7 @@ module Jazzy
       type = SourceDeclaration::Type.new(doc['key.kind'])
       return true if type.enum_element?
       if type.extension?
-        return (doc['key.substructure'] || []).any? do |subdoc|
+        return Array(doc['key.substructure']).any? do |subdoc|
           should_document?(subdoc)
         end
       end

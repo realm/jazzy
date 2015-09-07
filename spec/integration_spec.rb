@@ -124,10 +124,10 @@ describe_cli 'jazzy' do
                             '--template-directory "docs/templates/swift" '
     end
 
-    # describe 'Creates docs for a podspec with dependencies and subspecs' do
-    #   behaves_like cli_spec 'document_moya_podspec',
-    #                         '--podspec=Moya.podspec'
-    # end
+    describe 'Creates docs for a podspec with dependencies and subspecs' do
+      behaves_like cli_spec 'document_moya_podspec',
+                            '--podspec=Moya.podspec --swift-version=1.2'
+    end
 
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',
