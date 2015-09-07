@@ -63,6 +63,7 @@
 		E8DD06E61AE44540006D9C86 /* StructureCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B21A5D452C0016D959 /* StructureCommand.swift */; };
 		E8DD06E71AE447AB006D9C86 /* SyntaxCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */; };
 		E8DD06E81AE447E9006D9C86 /* DocCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B41A5D474B0016D959 /* DocCommand.swift */; };
+		E8EE34BF1B9A502F00947605 /* CodeCompletionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +187,7 @@
 		E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClangTranslationUnit.swift; sourceTree = "<group>"; };
 		E8D86D841A688EF20063E8E9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCompletionItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -339,6 +341,7 @@
 				D0D1217119E87B05005E4BAA /* SourceKittenFramework.h */,
 				E87212191AD2FFCD00A484F4 /* Array+SourceKitten.swift */,
 				E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */,
+				E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */,
 				E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */,
 				E84763691A5A0651000EAE22 /* File.swift */,
 				E8A18A3A1A58971D000362B7 /* Language.swift */,
@@ -579,6 +582,7 @@
 				E8A18A3F1A592246000362B7 /* SwiftDocs.swift in Sources */,
 				E83C8E9A1A5CBADD003A8D35 /* SwiftXPC+JSON.swift in Sources */,
 				E8A18A3B1A58971D000362B7 /* Language.swift in Sources */,
+				E8EE34BF1B9A502F00947605 /* CodeCompletionItem.swift in Sources */,
 				E868473A1A587B4D0043DC65 /* Request.swift in Sources */,
 				E8CC8A2D1A587FD300D1FEC7 /* SyntaxMap.swift in Sources */,
 				E89291A91A5B800300D91568 /* SwiftDeclarationKind.swift in Sources */,
