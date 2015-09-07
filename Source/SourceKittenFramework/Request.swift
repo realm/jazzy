@@ -23,8 +23,8 @@ Cache SourceKit requests for strings from UIDs
 - returns: Cached UID string if available, nil otherwise.
 */
 internal func stringForSourceKitUID(uid: UInt64) -> String? {
-    if uid < 4_300_000_000 {
-        // UID's are always higher than 4.3M
+    if uid < UInt64(UInt32.max) {
+        // UID's are always higher than UInt32.max
         return nil
     } else if let string = uidStringMap[uid] {
         return string
