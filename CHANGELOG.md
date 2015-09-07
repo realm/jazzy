@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* "View on GitHub" is now only generated if a GitHub URL is specified.  
+  [mbogh](https://github.com/mbogh)
+  [#244](https://github.com/realm/jazzy/issues/244)
+
+
 ## 0.2.4
 
 ##### Breaking
