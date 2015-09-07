@@ -87,7 +87,16 @@ describe_cli 'jazzy' do
     s.replace_path ROOT.to_s, 'ROOT'
   end
 
-  describe 'jazzy' do
+  travis_swift = ENV['TRAVIS_SWIFT_VERSION']
+
+  describe 'jazzy swift 1.2' do
+    describe 'Creates docs for a podspec with dependencies and subspecs' do
+      behaves_like cli_spec 'document_moya_podspec',
+                            '--podspec=Moya.podspec --swift-version=1.2'
+    end
+  end if !travis_swift || travis_swift == '1.2'
+
+  describe 'jazzy swift 2.0' do
     describe 'Creates docs with a module name, author name, project URL, ' \
       'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
@@ -124,11 +133,6 @@ describe_cli 'jazzy' do
                             '--template-directory "docs/templates/swift" '
     end
 
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec --swift-version=1.2'
-    end
-
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',
                             '-m MiscJazzyFeatures -a Realm ' \
@@ -137,5 +141,5 @@ describe_cli 'jazzy' do
                             '-x -dry-run ' \
                             '--min-acl private'
     end
-  end
+  end if !travis_swift || travis_swift == '2.0'
 end
