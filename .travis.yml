@@ -2,6 +2,9 @@ language: objective-c
 branches:
   only:
     - master
+git:
+  submodules: false
+before_install: git submodule update --init --recursive
 script: bundle exec rake spec
 notifications:
   email: false
