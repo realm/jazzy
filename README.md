@@ -30,6 +30,7 @@ Once SourceKitten is installed, you may use it from the command line.
 $ sourcekitten help
 Available commands:
 
+   complete    Generate code completion options.
    doc         Print Swift docs as JSON or Objective-C docs as XML
    help        Display general or command-specific help
    structure   Print Swift structure information as JSON
@@ -37,9 +38,42 @@ Available commands:
    version     Display the current version of SourceKitten
 ```
 
+## Complete
+
+Running `sourcekitten complete --file file.swift --offset 123` or
+`sourcekitten complete --text "0." --offset 2` will print out code completion
+options for the offset in the file/text provided:
+
+```json
+[{
+  "descriptionKey" : "advancedBy(n: Distance)",
+  "associatedUSRs" : "s:FSi10advancedByFSiFSiSi s:FPSs21RandomAccessIndexType10advancedByuRq_S__Fq_Fqq_Ss16ForwardIndexType8Distanceq_ s:FPSs16ForwardIndexType10advancedByuRq_S__Fq_Fqq_S_8Distanceq_ s:FPSs10Strideable10advancedByuRq_S__Fq_Fqq_S_6Strideq_ s:FPSs11_Strideable10advancedByuRq_S__Fq_Fqq_S_6Strideq_",
+  "kind" : "source.lang.swift.decl.function.method.instance",
+  "sourcetext" : "advancedBy(<#T##n: Distance##Distance#>)",
+  "context" : "source.codecompletion.context.thisclass",
+  "typeName" : "Int",
+  "moduleName" : "Swift",
+  "name" : "advancedBy(n: Distance)"
+},
+{
+  "descriptionKey" : "advancedBy(n: Self.Distance, limit: Self)",
+  "associatedUSRs" : "s:FeRq_Ss21RandomAccessIndexType_SsS_10advancedByuRq_S__Fq_FTqq_Ss16ForwardIndexType8Distance5limitq__q_",
+  "kind" : "source.lang.swift.decl.function.method.instance",
+  "sourcetext" : "advancedBy(<#T##n: Self.Distance##Self.Distance#>, limit: <#T##Self#>)",
+  "context" : "source.codecompletion.context.superclass",
+  "typeName" : "Self",
+  "moduleName" : "Swift",
+  "name" : "advancedBy(n: Self.Distance, limit: Self)"
+},
+...
+]
+```
+
 ## Doc
 
-Calling `sourcekitten doc` will pass all arguments after what is parsed to `xcodebuild` (or directly to the compiler, SourceKit/clang, in the `--single-file` mode).
+Running `sourcekitten doc` will pass all arguments after what is parsed to
+`xcodebuild` (or directly to the compiler, SourceKit/clang, in the
+`--single-file` mode).
 
 ### Example usage
 
