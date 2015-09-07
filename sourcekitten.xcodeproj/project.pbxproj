@@ -64,6 +64,7 @@
 		E8DD06E71AE447AB006D9C86 /* SyntaxCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */; };
 		E8DD06E81AE447E9006D9C86 /* DocCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B41A5D474B0016D959 /* DocCommand.swift */; };
 		E8EE34BF1B9A502F00947605 /* CodeCompletionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */; settings = {ASSET_TAGS = (); }; };
+		E8F4AF121B9A56A70054C51C /* CompleteCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F4AF111B9A56A70054C51C /* CompleteCommand.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +189,7 @@
 		E8D86D841A688EF20063E8E9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCompletionItem.swift; sourceTree = "<group>"; };
+		E8F4AF111B9A56A70054C51C /* CompleteCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteCommand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				D0D1211B19E87861005E4BAA /* main.swift */,
+				E8F4AF111B9A56A70054C51C /* CompleteCommand.swift */,
 				E80604B41A5D474B0016D959 /* DocCommand.swift */,
 				E80604B21A5D452C0016D959 /* StructureCommand.swift */,
 				E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */,
@@ -624,6 +627,7 @@
 			files = (
 				E83A0B351A5D382B0041A60A /* VersionCommand.swift in Sources */,
 				E8DD06E71AE447AB006D9C86 /* SyntaxCommand.swift in Sources */,
+				E8F4AF121B9A56A70054C51C /* CompleteCommand.swift in Sources */,
 				E8DD06E81AE447E9006D9C86 /* DocCommand.swift in Sources */,
 				D0E7B65619E9C76900EDBA4D /* main.swift in Sources */,
 				E8D86D851A688EF20063E8E9 /* Errors.swift in Sources */,

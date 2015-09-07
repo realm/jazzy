@@ -9,6 +9,7 @@
 import Commandant
 
 let registry = CommandRegistry<SourceKittenError>()
+registry.register(CompleteCommand())
 registry.register(DocCommand())
 registry.register(SyntaxCommand())
 registry.register(StructureCommand())
