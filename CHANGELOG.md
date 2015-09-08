@@ -1,8 +1,9 @@
-## master
+## 0.5.0
 
 ##### Breaking
 
-None.
+* Updated to Swift 2.0.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Enhancements
 
