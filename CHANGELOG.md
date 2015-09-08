@@ -9,6 +9,7 @@
 
 * Now supports Swift 2.0 (previous Swift versions are still supported).  
   [JP Simard](https://github.com/jpsim)
+  [Samuel Giddins](https://github.com/segiddins)
 
 * Declarations can now be grouped by custom categories defined in a JSON or YAML
   file passed to `--categories`.  
