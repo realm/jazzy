@@ -23,8 +23,8 @@ Cache SourceKit requests for strings from UIDs
 - returns: Cached UID string if available, nil otherwise.
 */
 internal func stringForSourceKitUID(uid: UInt64) -> String? {
-    if uid < 4_300_000_000 {
-        // UID's are always higher than 4.3M
+    if uid < UInt64(UInt32.max) {
+        // UID's are always higher than UInt32.max
         return nil
     } else if let string = uidStringMap[uid] {
         return string
@@ -39,10 +39,13 @@ internal func stringForSourceKitUID(uid: UInt64) -> String? {
 public enum Request {
     /// An `editor.open` request for the given File.
     case EditorOpen(File)
-    /// A `cursor.info` request for an offset in the given file, using the `arguments` given.
+    /// A `cursorinfo` request for an offset in the given file, using the `arguments` given.
     case CursorInfo(file: String, offset: Int64, arguments: [String])
     /// A custom request by passing in the xpc_object_t directly.
     case CustomRequest(xpc_object_t)
+    /// A `codecomplete` request by passing in the file name, contents, offset
+    /// for which to generate code completion options and array of compiler arguments.
+    case CodeCompletionRequest(file: String, contents: String, offset: Int64, arguments: [String])
 
     /// xpc_object_t version of the Request to be sent to SourceKit.
     private var xpcValue: xpc_object_t {
@@ -72,6 +75,15 @@ public enum Request {
             ])
         case .CustomRequest(let request):
             return request
+        case .CodeCompletionRequest(let file, let contents, let offset, let arguments):
+            return toXPC([
+                "key.request": sourcekitd_uid_get_from_cstr("source.request.codecomplete"),
+                "key.name": file,
+                "key.sourcefile": file,
+                "key.sourcetext": contents,
+                "key.offset": offset,
+                "key.compilerargs": (arguments.map { $0 as XPCRepresentable } as XPCArray)
+            ])
         }
     }
 

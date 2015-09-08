@@ -164,3 +164,19 @@ public func parseHeaderFilesAndXcodebuildArguments(sourcekittenArguments: [Strin
     }
     return (headerFiles, xcodebuildArguments)
 }
+
+public func sdkPath() -> String {
+    let task = NSTask()
+    task.launchPath = "/usr/bin/xcrun"
+    task.arguments = ["--show-sdk-path"]
+
+    let pipe = NSPipe()
+    task.standardOutput = pipe
+
+    task.launch()
+
+    let file = pipe.fileHandleForReading
+    let sdkPath = NSString(data: file.readDataToEndOfFile(), encoding: NSUTF8StringEncoding)
+    file.closeFile()
+    return sdkPath?.stringByReplacingOccurrencesOfString("\n", withString: "") ?? ""
+}

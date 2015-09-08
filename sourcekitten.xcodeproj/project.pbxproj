@@ -26,6 +26,7 @@
 		E83748C31A5BCD7900862B1B /* OffsetMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83748C21A5BCD7900862B1B /* OffsetMap.swift */; };
 		E83A0B351A5D382B0041A60A /* VersionCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B341A5D382B0041A60A /* VersionCommand.swift */; };
 		E83C8E9A1A5CBADD003A8D35 /* SwiftXPC+JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83C8E991A5CBADD003A8D35 /* SwiftXPC+JSON.swift */; };
+		E845EFEC1B9941AA00CFA57B /* CodeCompletionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E845EFEB1B9941AA00CFA57B /* CodeCompletionTests.swift */; settings = {ASSET_TAGS = (); }; };
 		E847636A1A5A0651000EAE22 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84763691A5A0651000EAE22 /* File.swift */; };
 		E852418F1A5F4FB3007099FB /* Dictionary+Merge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */; };
 		E86847371A587AF40043DC65 /* SwiftXPC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86847361A587AF40043DC65 /* SwiftXPC.framework */; };
@@ -63,6 +64,8 @@
 		E8DD06E61AE44540006D9C86 /* StructureCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B21A5D452C0016D959 /* StructureCommand.swift */; };
 		E8DD06E71AE447AB006D9C86 /* SyntaxCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */; };
 		E8DD06E81AE447E9006D9C86 /* DocCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80604B41A5D474B0016D959 /* DocCommand.swift */; };
+		E8EE34BF1B9A502F00947605 /* CodeCompletionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */; settings = {ASSET_TAGS = (); }; };
+		E8F4AF121B9A56A70054C51C /* CompleteCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F4AF111B9A56A70054C51C /* CompleteCommand.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +157,7 @@
 		E83A0B341A5D382B0041A60A /* VersionCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VersionCommand.swift; sourceTree = "<group>"; };
 		E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxCommand.swift; sourceTree = "<group>"; };
 		E83C8E991A5CBADD003A8D35 /* SwiftXPC+JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftXPC+JSON.swift"; sourceTree = "<group>"; };
+		E845EFEB1B9941AA00CFA57B /* CodeCompletionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCompletionTests.swift; sourceTree = "<group>"; };
 		E84763691A5A0651000EAE22 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; usesTabs = 0; };
 		E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Merge.swift"; sourceTree = "<group>"; };
 		E854CAA61A5DF71100211501 /* LlamaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LlamaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +190,8 @@
 		E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClangTranslationUnit.swift; sourceTree = "<group>"; };
 		E8D86D841A688EF20063E8E9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		E8EBAA5D1A5D374B002F1B8E /* Commandant.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Commandant.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCompletionItem.swift; sourceTree = "<group>"; };
+		E8F4AF111B9A56A70054C51C /* CompleteCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteCommand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -255,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				D0D1211B19E87861005E4BAA /* main.swift */,
+				E8F4AF111B9A56A70054C51C /* CompleteCommand.swift */,
 				E80604B41A5D474B0016D959 /* DocCommand.swift */,
 				E80604B21A5D452C0016D959 /* StructureCommand.swift */,
 				E83A0B361A5D399A0041A60A /* SyntaxCommand.swift */,
@@ -339,6 +346,7 @@
 				D0D1217119E87B05005E4BAA /* SourceKittenFramework.h */,
 				E87212191AD2FFCD00A484F4 /* Array+SourceKitten.swift */,
 				E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */,
+				E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */,
 				E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */,
 				E84763691A5A0651000EAE22 /* File.swift */,
 				E8A18A3A1A58971D000362B7 /* Language.swift */,
@@ -382,6 +390,7 @@
 			isa = PBXGroup;
 			children = (
 				E8AB1A2F1A64A21400452012 /* ClangTranslationUnitTests.swift */,
+				E845EFEB1B9941AA00CFA57B /* CodeCompletionTests.swift */,
 				E805A0491B560FCA00EA654A /* FileTests.swift */,
 				E8241CA21A5E01840047687E /* ModuleTests.swift */,
 				E8C9EA091A5C9A2900A6D4D1 /* OffsetMapTests.swift */,
@@ -579,6 +588,7 @@
 				E8A18A3F1A592246000362B7 /* SwiftDocs.swift in Sources */,
 				E83C8E9A1A5CBADD003A8D35 /* SwiftXPC+JSON.swift in Sources */,
 				E8A18A3B1A58971D000362B7 /* Language.swift in Sources */,
+				E8EE34BF1B9A502F00947605 /* CodeCompletionItem.swift in Sources */,
 				E868473A1A587B4D0043DC65 /* Request.swift in Sources */,
 				E8CC8A2D1A587FD300D1FEC7 /* SyntaxMap.swift in Sources */,
 				E89291A91A5B800300D91568 /* SwiftDeclarationKind.swift in Sources */,
@@ -606,6 +616,7 @@
 				E80F23671A5CADD900FD2352 /* SwiftDocsTests.swift in Sources */,
 				E8AB1A301A64A21400452012 /* ClangTranslationUnitTests.swift in Sources */,
 				D0DB09A419EA354200234B16 /* SyntaxTests.swift in Sources */,
+				E845EFEC1B9941AA00CFA57B /* CodeCompletionTests.swift in Sources */,
 				E805A0481B55CBAF00EA654A /* SourceKitTests.swift in Sources */,
 				E8C9EA0A1A5C9A2900A6D4D1 /* OffsetMapTests.swift in Sources */,
 				E8C9EA081A5C99C400A6D4D1 /* StringTests.swift in Sources */,
@@ -620,6 +631,7 @@
 			files = (
 				E83A0B351A5D382B0041A60A /* VersionCommand.swift in Sources */,
 				E8DD06E71AE447AB006D9C86 /* SyntaxCommand.swift in Sources */,
+				E8F4AF121B9A56A70054C51C /* CompleteCommand.swift in Sources */,
 				E8DD06E81AE447E9006D9C86 /* DocCommand.swift in Sources */,
 				D0E7B65619E9C76900EDBA4D /* main.swift in Sources */,
 				E8D86D851A688EF20063E8E9 /* Errors.swift in Sources */,

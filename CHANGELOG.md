@@ -9,6 +9,9 @@ None.
 * Update `File` `lines` convenience property to be immutable.  
   [Keith Smiley](https://github.com/keith)
 
+* Added the ability to generate code completion options (`complete` command).  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 None.
