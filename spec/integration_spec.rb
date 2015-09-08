@@ -87,7 +87,54 @@ describe_cli 'jazzy' do
     s.replace_path ROOT.to_s, 'ROOT'
   end
 
-  describe 'jazzy' do
+  travis_swift = ENV['TRAVIS_SWIFT_VERSION']
+
+  describe 'jazzy swift 1.2' do
+    describe 'Creates docs with a module name, author name, project URL, ' \
+      'xcodebuild options, and github info' do
+      behaves_like cli_spec 'document_alamofire1.2',
+                            '-m Alamofire -a Alamofire ' \
+                            '-u https://nshipster.com/alamofire ' \
+                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
+                            '-g https://github.com/Alamofire/Alamofire ' \
+                            '--github-file-prefix https://github.com/' \
+                            'Alamofire/Alamofire/blob/1.3.1 ' \
+                            '--module-version 1.3.1 ' \
+                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
+                            '--skip-undocumented ' \
+                            '--swift-version=1.2'
+    end
+
+    describe 'Creates Realm Swift docs' do
+      realm_version = ''
+      dir = ROOT + 'spec/integration_specs/document_realm_swift1.2/before'
+      Dir.chdir(dir) do
+        realm_version = `./build.sh get-version`.chomp
+        `REALM_SWIFT_VERSION=1.2 ./build.sh set-swift-version`
+      end
+      behaves_like cli_spec 'document_realm_swift1.2',
+                            '--author Realm ' \
+                            '--author_url "https://realm.io" ' \
+                            '--github_url ' \
+                            'https://github.com/realm/realm-cocoa ' \
+                            '--github-file-prefix https://github.com/realm/' \
+                            "realm-cocoa/tree/v#{realm_version} " \
+                            '--module RealmSwift ' \
+                            "--module-version #{realm_version} " \
+                            '--root-url https://realm.io/docs/swift/' \
+                            "#{realm_version}/api/ " \
+                            '--xcodebuild-arguments ' \
+                            '-project,RealmSwift.xcodeproj,-dry-run ' \
+                            '--swift-version=1.2'
+    end
+
+    describe 'Creates docs for a podspec with dependencies and subspecs' do
+      behaves_like cli_spec 'document_moya_podspec',
+                            '--podspec=Moya.podspec --swift-version=1.2'
+    end
+  end if !travis_swift || travis_swift == '1.2'
+
+  describe 'jazzy swift 2.0' do
     describe 'Creates docs with a module name, author name, project URL, ' \
       'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
@@ -96,14 +143,18 @@ describe_cli 'jazzy' do
                             '-x -project,Alamofire.xcodeproj,-dry-run ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/1.1.0 ' \
-                            '--module-version 1.1.0 ' \
+                            'Alamofire/Alamofire/blob/swift-2.0 ' \
+                            '--module-version swift-2.0 ' \
                             '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
                             '--skip-undocumented'
     end
 
     describe 'Creates Realm Swift docs' do
-      realm_version = '0.93.2'
+      realm_version = ''
+      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
+        realm_version = `./build.sh get-version`.chomp
+        `REALM_SWIFT_VERSION=2.0 ./build.sh set-swift-version`
+      end
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
                             '--author_url "https://realm.io" ' \
@@ -116,12 +167,8 @@ describe_cli 'jazzy' do
                             '--root-url https://realm.io/docs/swift/' \
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
-                            '-project,RealmSwift.xcodeproj,-dry-run'
-    end
-
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec'
+                            '-project,RealmSwift.xcodeproj,-dry-run ' \
+                            '--template-directory "docs/templates/swift" '
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
@@ -132,5 +179,5 @@ describe_cli 'jazzy' do
                             '-x -dry-run ' \
                             '--min-acl private'
     end
-  end
+  end if !travis_swift || travis_swift == '2.0'
 end

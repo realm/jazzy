@@ -23,6 +23,7 @@ module Jazzy
     attr_accessor :access_control_level
     attr_accessor :start_line
     attr_accessor :end_line
+    attr_accessor :nav_order
 
     def overview
       "#{abstract}\n\n#{discussion}".strip

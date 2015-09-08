@@ -30,6 +30,7 @@ module Jazzy
     attr_accessor :docset_path
     attr_accessor :source_directory
     attr_accessor :excluded_files
+    attr_accessor :custom_categories
     attr_accessor :template_directory
     attr_accessor :swift_version
     attr_accessor :assets_directory
@@ -49,8 +50,9 @@ module Jazzy
       self.skip_undocumented = false
       self.source_directory = Pathname.pwd
       self.excluded_files = []
+      self.custom_categories = {}
       self.template_directory = Pathname(__FILE__).parent + 'templates'
-      self.swift_version = '1.2'
+      self.swift_version = '2.0'
       self.assets_directory = Pathname(__FILE__).parent + 'assets'
     end
 
@@ -198,6 +200,11 @@ module Jazzy
           config.excluded_files = files.map { |f| File.expand_path(f) }
         end
 
+        opt.on('--categories file',
+               'JSON or YAML file with custom groupings') do |file|
+          config.custom_categories = parse_config_file(file)
+        end
+
         opt.on('-v', '--version', 'Print version number') do
           puts 'jazzy version: ' + Jazzy::VERSION
           exit
@@ -215,6 +222,14 @@ module Jazzy
       end.parse!
 
       config
+    end
+
+    def self.parse_config_file(file)
+      case File.extname(file)
+      when '.json'         then JSON.parse(File.read(file))
+      when '.yaml', '.yml' then YAML.load(File.read(file))
+      else raise "Config file must be .yaml or .json, but got #{file.inspect}"
+      end
     end
 
     #-------------------------------------------------------------------------#

@@ -31,9 +31,12 @@ module Jazzy
       docs.map do |doc|
         {
           section: doc.name,
-          children: doc.children.sort_by(&:name).map do |child|
-            { name: child.name, url: child.url }
-          end,
+          children: doc.children
+              .sort_by(&:name)
+              .sort_by(&:nav_order)
+              .map do |child|
+                { name: child.name, url: child.url }
+              end,
         }
       end
     end
@@ -70,25 +73,26 @@ module Jazzy
     # @param [Config] options Build options
     # @param [Array] doc_structure @see #doc_structure_for_docs
     def self.build_docs(output_dir, docs, source_module)
-      each_doc(output_dir, docs) do |doc, path, depth|
+      each_doc(output_dir, docs) do |doc, path|
         prepare_output_dir(path.parent, false)
-        path_to_root = ['../'].cycle(depth).to_a.join('')
+        depth = path.relative_path_from(output_dir).each_filename.count - 1
+        path_to_root = '../' * depth
         path.open('w') do |file|
           file.write(document(source_module, doc, path_to_root))
         end
       end
     end
 
-    def self.each_doc(output_dir, docs, depth = 0, &block)
+    def self.each_doc(output_dir, docs, &block)
       docs.each do |doc|
         next if doc.name != 'index' && doc.children.count == 0
-        path = output_dir + "#{doc.name}.html"
-        block.call(doc, path, depth)
+        # Assuming URL is relative to documentation root:
+        path = output_dir + (doc.url || "#{doc.name}.html")
+        block.call(doc, path)
         next if doc.name == 'index'
         each_doc(
-          output_dir + doc.name,
+          output_dir,
           doc.children,
-          depth + 1,
           &block
         )
       end
@@ -183,6 +187,8 @@ module Jazzy
       doc[:structure] = source_module.doc_structure
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
+      # TODO: Remove shortly (kept for backwards compatibility)
+      doc[:author_website] = source_module.author_url
       doc[:github_url] = source_module.github_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
@@ -287,6 +293,8 @@ module Jazzy
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
+      # TODO: Remove shortly (kept for backwards compatibility)
+      doc[:author_website] = source_module.author_url.to_s
       doc[:github_url] = source_module.github_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
