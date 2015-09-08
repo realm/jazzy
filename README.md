@@ -8,15 +8,19 @@ SourceKitten links and communicates with `sourcekitd.framework` to parse the Swi
 
 ## Installation
 
-If you need to use SourceKitten with Swift 1.2, please use SourceKitten 0.4.5. For Swift 2.0, build from source from the `master` branch.
+Building SourceKitten up to 0.4.5 requires Xcode 6.4.
+
+Building SourceKitten 0.5.0 or later requires Xcode 7 Beta 6.
+
+SourceKitten typically supports previous versions of SourceKit.
 
 ### Homebrew
 
-Run `brew install sourcekitten`. Make sure that Xcode 6.4 is set in `xcode-select`.
+Run `brew install sourcekitten`.
 
 ### Source
 
-Run `git clone` for this repo followed by `make install` in the root directory. Make sure that Xcode 7 Beta 6 is set in `xcode-select` before running `make`.
+Run `git clone` for this repo followed by `make install` in the root directory.
 
 ### Package
 
