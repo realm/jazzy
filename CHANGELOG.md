@@ -2,17 +2,30 @@
 
 ##### Breaking
 
-* None.
+* `--swift-version` now defaults to 2.0 instead of 1.2.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Enhancements
 
-* None.
+* Now supports Swift 2.0 (previous Swift versions are still supported).  
+  [JP Simard](https://github.com/jpsim)
+
+* Declarations can now be grouped by custom categories defined in a JSON or YAML
+  file passed to `--categories`.  
+  [pcantrell](https://github.com/pcantrell)
 
 ##### Bug Fixes
 
 * "View on GitHub" is now only generated if a GitHub URL is specified.  
   [mbogh](https://github.com/mbogh)
   [#244](https://github.com/realm/jazzy/issues/244)
+
+* Empty extensions are no longer documented.  
+  [pcantrell](https://github.com/pcantrell)
+
+* Undocumented enum cases are now supported.  
+  [JP Simard](https://github.com/jpsim)
+  [#74](https://github.com/realm/jazzy/issues/74)
 
 
 ## 0.2.4
