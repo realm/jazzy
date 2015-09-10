@@ -72,6 +72,34 @@ module Jazzy
       end
 
       TYPES = {
+        'source.lang.swift.decl.function.accessor.address' => {
+          jazzy: 'Address Accessor',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.accessor.didset' => {
+          jazzy: 'DidSet Accessor',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.accessor.getter' => {
+          jazzy: 'Getter Accessor',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.accessor.mutableaddress' => {
+          jazzy: 'Mutable Address Accessor',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.accessor.setter' => {
+          jazzy: 'Setter Accessor',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.accessor.willset' => {
+          jazzy: 'WillSet Accessor',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.operator' => {
+          jazzy: 'Operator',
+          dash: 'Function',
+        }.freeze,
         'source.lang.swift.decl.function.method.class' => {
           jazzy: 'Class Method',
           dash: 'Method',
@@ -124,6 +152,10 @@ module Jazzy
           jazzy: 'Protocol Extension',
           dash: 'Extension',
         }.freeze,
+        'source.lang.swift.decl.extension.struct' => {
+          jazzy: 'Struct Extension',
+          dash: 'Extension',
+        }.freeze,
         'source.lang.swift.decl.function.free' => {
           jazzy: 'Function',
           dash: 'Function',
@@ -167,6 +199,10 @@ module Jazzy
         'source.lang.swift.decl.typealias' => {
           jazzy: 'Typealias',
           dash: 'Alias',
+        }.freeze,
+        'source.lang.swift.decl.generic_type_param' => {
+          jazzy: 'Generic Type Parameter',
+          dash: 'Parameter',
         }.freeze,
       }.freeze
     end

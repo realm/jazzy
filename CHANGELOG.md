@@ -1,3 +1,19 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* Added missing Swift 2 declaration types.  
+  [JP Simard](https://github.com/jpsim)
+
+
 ## 0.3.0
 
 ##### Breaking
