@@ -1,3 +1,21 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* Fixed an issue that prevented building projects with different schema & module
+  names.  
+  [JP Simard](https://github.com/jpsim)
+  [#259](https://github.com/realm/jazzy/issues/259)
+
+
 ## 0.3.1
 
 ##### Breaking
