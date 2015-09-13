@@ -108,6 +108,16 @@ module Jazzy
       end
     end
 
+    # Builds SourceKitten arguments based on Jazzy options
+    def self.arguments_from_options(options)
+      arguments = ['doc']
+      unless options.module_name.empty?
+        arguments += ['--module-name', options.module_name]
+      end
+      arguments += options.xcodebuild_arguments
+      arguments
+    end
+
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
       xcode = XCInvoke::Xcode.find_swift_version(Config.instance.swift_version)
