@@ -15,6 +15,10 @@
   [JP Simard](https://github.com/jpsim)
   [#259](https://github.com/realm/jazzy/issues/259)
 
+* Minor improvements to error handling and reporting.  
+  [JP Simard](https://github.com/jpsim)
+  [#301](https://github.com/realm/jazzy/issues/301)
+
 
 ## 0.3.1
 
