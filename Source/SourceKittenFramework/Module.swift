@@ -6,6 +6,8 @@
 //  Copyright (c) 2015 SourceKitten. All rights reserved.
 //
 
+import Foundation
+
 /// Represents source module to be documented.
 public struct Module {
     /// Module Name.
@@ -42,7 +44,10 @@ public struct Module {
         let xcodeBuildOutput = runXcodeBuild(xcodeBuildArguments, inPath: path) ?? ""
         guard let arguments = parseCompilerArguments(xcodeBuildOutput, language: .Swift, moduleName: name ?? moduleNameFromArguments(xcodeBuildArguments)) else {
             fputs("Could not parse compiler arguments from `xcodebuild` output.\n", stderr)
-            fputs("\(xcodeBuildOutput)\n", stderr)
+            fputs("Please confirm that `xcodebuild` is building a Swift module.\n", stderr)
+            let file = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("xcodebuild-\(NSUUID().UUIDString).log")
+            xcodeBuildOutput.dataUsingEncoding(NSUTF8StringEncoding)?.writeToURL(file, atomically: true)
+            fputs("Saved `xcodebuild` log file: \(file.path!)\n", stderr)
             return nil
         }
         guard let moduleName = moduleNameFromArguments(arguments) else {
