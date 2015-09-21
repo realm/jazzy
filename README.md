@@ -10,7 +10,7 @@ SourceKitten links and communicates with `sourcekitd.framework` to parse the Swi
 
 Building SourceKitten up to 0.4.5 requires Xcode 6.4.
 
-Building SourceKitten 0.5.0 or later requires Xcode 7 Beta 6.
+Building SourceKitten 0.5.0 or later requires Xcode 7.
 
 SourceKitten typically supports previous versions of SourceKit.
 
