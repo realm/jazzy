@@ -25,7 +25,9 @@ struct CompleteCommand: CommandType {
                 if let file = File(path: path) {
                     contents = file.contents
                 }
-                return .Failure(.CommandError(.ReadFailed(path: options.file)))
+                else {
+                    return .Failure(.CommandError(.ReadFailed(path: options.file)))
+                }
             } else {
                 path = "\(NSUUID().UUIDString).swift"
                 contents = options.text
