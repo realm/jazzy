@@ -1,3 +1,5 @@
+require 'filename_cleaner'
+
 require 'jazzy/source_declaration/access_control_level'
 require 'jazzy/source_declaration/type'
 
@@ -27,6 +29,10 @@ module Jazzy
 
     def overview
       "#{abstract}\n\n#{discussion}".strip
+    end
+
+    def filename
+      FilenameCleaner.sanitize("#{name}")
     end
   end
 end
