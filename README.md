@@ -24,7 +24,7 @@ Run `git clone` for this repo followed by `make install` in the root directory.
 
 ### Package
 
-Download and open SourceKitten.pkg from the [releases tab](/jpsim/SourceKitten/releases).
+Download and open SourceKitten.pkg from the [releases tab](https://github.com/jpsim/SourceKitten/releases).
 
 ## Command Line Usage
 
