@@ -6,16 +6,16 @@
   "context" : "source.codecompletion.context.thisclass",
   "typeName" : "Int",
   "moduleName" : "Swift",
-  "name" : "advancedBy(n: Distance)"
+  "name" : "advancedBy(n:)"
 }, {
-  "descriptionKey" : "advancedBy(n: Self.Distance, limit: Self)",
+  "descriptionKey" : "advancedBy(n: Int, limit: Int)",
   "associatedUSRs" : "s:FeRq_Ss21RandomAccessIndexType_SsS_10advancedByuRq_S__Fq_FTqq_Ss16ForwardIndexType8Distance5limitq__q_",
   "kind" : "source.lang.swift.decl.function.method.instance",
-  "sourcetext" : "advancedBy(<#T##n: Self.Distance##Self.Distance#>, limit: <#T##Self#>)",
+  "sourcetext" : "advancedBy(<#T##n: Int##Int#>, limit: <#T##Int#>)",
   "context" : "source.codecompletion.context.superclass",
-  "typeName" : "Self",
+  "typeName" : "Int",
   "moduleName" : "Swift",
-  "name" : "advancedBy(n: Self.Distance, limit: Self)"
+  "name" : "advancedBy(n:, limit:)"
 }, {
   "descriptionKey" : "bigEndian",
   "docBrief" : "Returns the big-endian representation of the integer, changing the byte order if necessary.",
@@ -54,7 +54,7 @@
   "context" : "source.codecompletion.context.thisclass",
   "typeName" : "Distance",
   "moduleName" : "Swift",
-  "name" : "distanceTo(other: Int)"
+  "name" : "distanceTo(other:)"
 }, {
   "descriptionKey" : "hashValue",
   "docBrief" : "The hash value.",
@@ -86,25 +86,25 @@
   "moduleName" : "Swift",
   "name" : "predecessor()"
 }, {
-  "descriptionKey" : "stride(through: Self, by: Self.Stride)",
+  "descriptionKey" : "stride(through: Int, by: Distance)",
   "docBrief" : "Return the sequence of values (start, start + stride, start + stride + stride, ... last) where last is the last value in the progression less than or equal to end.",
   "kind" : "source.lang.swift.decl.function.method.instance",
   "associatedUSRs" : "s:FeRq_Ss10Strideable_SsS_6strideuRq_S__Fq_FT7throughq_2byqq_S_6Stride_GVSs13StrideThroughq__",
-  "sourcetext" : "stride(through: <#T##Self#>, by: <#T##Self.Stride#>)",
+  "sourcetext" : "stride(through: <#T##Int#>, by: <#T##Distance#>)",
   "context" : "source.codecompletion.context.superclass",
-  "typeName" : "StrideThrough<Self>",
+  "typeName" : "StrideThrough<Int>",
   "moduleName" : "Swift",
-  "name" : "stride(through: Self, by: Self.Stride)"
+  "name" : "stride(through:, by:)"
 }, {
-  "descriptionKey" : "stride(to: Self, by: Self.Stride)",
+  "descriptionKey" : "stride(to: Int, by: Distance)",
   "docBrief" : "Return the sequence of values (self, self + stride, self + stride + stride, ... last) where last is the last value in the progression that is less than end.",
   "kind" : "source.lang.swift.decl.function.method.instance",
   "associatedUSRs" : "s:FeRq_Ss10Strideable_SsS_6strideuRq_S__Fq_FT2toq_2byqq_S_6Stride_GVSs8StrideToq__",
-  "sourcetext" : "stride(to: <#T##Self#>, by: <#T##Self.Stride#>)",
+  "sourcetext" : "stride(to: <#T##Int#>, by: <#T##Distance#>)",
   "context" : "source.codecompletion.context.superclass",
-  "typeName" : "StrideTo<Self>",
+  "typeName" : "StrideTo<Int>",
   "moduleName" : "Swift",
-  "name" : "stride(to: Self, by: Self.Stride)"
+  "name" : "stride(to:, by:)"
 }, {
   "descriptionKey" : "successor()",
   "docBrief" : "Returns the next consecutive value after self.",
