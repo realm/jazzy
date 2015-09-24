@@ -183,7 +183,8 @@ module Jazzy
       doc = Doc.new # Mustache model instance
       doc[:name] = source_module.name
       doc[:overview] = ReadmeGenerator.generate(source_module)
-      doc[:doc_coverage] = source_module.doc_coverage unless Config.instance.hide_documentation_coverage
+      doc[:doc_coverage] = source_module.doc_coverage unless
+        Config.instance.hide_documentation_coverage
       doc[:structure] = source_module.doc_structure
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
@@ -283,7 +284,8 @@ module Jazzy
       end
 
       doc = Doc.new # Mustache model instance
-      doc[:doc_coverage] = source_module.doc_coverage unless Config.instance.hide_documentation_coverage
+      doc[:doc_coverage] = source_module.doc_coverage unless
+        Config.instance.hide_documentation_coverage
       doc[:name] = doc_model.name
       doc[:kind] = doc_model.type.name
       doc[:dash_type] = doc_model.type.dash_type
