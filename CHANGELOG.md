@@ -15,6 +15,10 @@
   [JP Simard](https://github.com/jpsim)
   [#259](https://github.com/realm/jazzy/issues/259)
 
+* Hide documentation coverage from header using `--hide-documentation-coverage`.  
+  [mbogh](https://github.com/mbogh)
+  [#129](https://github.com/realm/jazzy/issues/297)
+
 
 ## 0.3.1
 

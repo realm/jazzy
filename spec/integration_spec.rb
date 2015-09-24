@@ -177,7 +177,8 @@ describe_cli 'jazzy' do
                             '-u https://github.com/realm/jazzy ' \
                             '-g https://github.com/realm/jazzy ' \
                             '-x -dry-run ' \
-                            '--min-acl private'
+                            '--min-acl private ' \
+                            '--hide-documentation-coverage'
     end
   end if !travis_swift || travis_swift == '2.0'
 end

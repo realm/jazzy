@@ -25,6 +25,7 @@ module Jazzy
     attr_accessor :version
     attr_accessor :min_acl
     attr_accessor :skip_undocumented
+    attr_accessor :hide_documentation_coverage
     attr_accessor :podspec
     attr_accessor :docset_icon
     attr_accessor :docset_path
@@ -48,6 +49,7 @@ module Jazzy
       self.version = '1.0'
       self.min_acl = SourceDeclaration::AccessControlLevel.public
       self.skip_undocumented = false
+      self.hide_documentation_coverage = false
       self.source_directory = Pathname.pwd
       self.excluded_files = []
       self.custom_categories = {}
@@ -156,6 +158,12 @@ module Jazzy
                comments.",
                ) do |skip_undocumented|
           config.skip_undocumented = skip_undocumented
+        end
+
+        opt.on('--[no-]hide-documentation-coverage',
+               "Hide \"(X\% documented)\" from the generated documents",
+               ) do |hide_documentation_coverage|
+          config.hide_documentation_coverage = hide_documentation_coverage
         end
 
         opt.on('--podspec FILEPATH') do |podspec|
