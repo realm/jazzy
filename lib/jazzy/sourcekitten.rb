@@ -240,7 +240,7 @@ module Jazzy
     def self.make_source_declarations(docs)
       declarations = []
       current_mark = SourceMark.new
-      docs.each do |doc|
+      Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
           declarations += make_source_declarations(doc['key.substructure'])
           next
