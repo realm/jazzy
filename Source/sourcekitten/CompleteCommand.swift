@@ -32,9 +32,18 @@ struct CompleteCommand: CommandType {
                 path = "\(NSUUID().UUIDString).swift"
                 contents = options.text
             }
+
+            var args = ["-c", path]
+            if !options.compilerargs.isEmpty {
+                args.appendContentsOf(options.compilerargs.componentsSeparatedByString(" "))
+            }
+            if args.indexOf("-sdk") == nil {
+                args.append("-sdk \(sdkPath())")
+            }
+
             let request = Request.CodeCompletionRequest(file: path, contents: contents,
                                                         offset: Int64(options.offset),
-                                                        arguments: ["-sdk", sdkPath(), "-c", path])
+                                                        arguments: args)
             print(CodeCompletionItem.parseResponse(request.send()))
             return .Success()
         }
@@ -45,9 +54,10 @@ struct CompleteOptions: OptionsType {
     let file: String
     let text: String
     let offset: Int
+    let compilerargs: String
 
-    static func create(file: String)(text: String)(offset: Int) -> CompleteOptions {
-        return self.init(file: file, text: text, offset: offset)
+    static func create(file: String)(text: String)(offset: Int)(compilerargs: String) -> CompleteOptions {
+        return self.init(file: file, text: text, offset: offset, compilerargs: compilerargs)
     }
 
     static func evaluate(m: CommandMode) -> Result<CompleteOptions, CommandantError<SourceKittenError>> {
@@ -55,5 +65,6 @@ struct CompleteOptions: OptionsType {
             <*> m <| Option(key: "file", defaultValue: "", usage: "relative or absolute path of Swift file to parse")
             <*> m <| Option(key: "text", defaultValue: "", usage: "Swift code text to parse")
             <*> m <| Option(key: "offset", defaultValue: 0, usage: "Offset for which to generate code completion options.")
+            <*> m <| Option(key: "compilerargs", defaultValue: "", usage: "Compiler arguments to pass to SourceKit. This must be specified following the '--'")
     }
 }
