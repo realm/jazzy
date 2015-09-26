@@ -1,3 +1,19 @@
+## 0.5.2
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+* Add `compilerargs` option to complete command.  
+  [Masayuki Yamaya](https://github.com/yamaya)
+
+##### Bug Fixes
+
+None.
+
+
 ## 0.5.1
 
 ##### Breaking
