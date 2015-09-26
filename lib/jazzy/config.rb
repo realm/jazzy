@@ -11,15 +11,14 @@ module Jazzy
   class Config
 
     class Attribute
-      attr_reader :name
-      attr_reader :description
-      attr_reader :command_line
-      attr_reader :parse
+      attr_reader :name, :description, :command_line, :default, :parse
 
-      def initialize(name, description: nil, command_line: nil, parse: ->(x) { x })
+      def initialize(name, description: nil, command_line: nil,
+                     default: nil, parse: ->(x) { x })
         @name = name
         @description = description
         @command_line = command_line
+        @default = default
         @parse = parse
       end
 
@@ -29,6 +28,10 @@ module Jazzy
 
       def set(config, val)
         config.method("#{name}=").call(parse.call(val))
+      end
+
+      def set_to_default(config)
+        set(config, default) if default
       end
 
       def attach_to_option_parser(config, opt)
@@ -46,22 +49,29 @@ module Jazzy
       @config_attrs << Attribute.new(name, **opts)
     end
 
+    def self.all_config_attrs
+      @config_attrs
+    end
+
     # ──────── Build ────────
 
     config_attr :output,
       description: 'Folder to output the HTML docs to',
       command_line: ['-o', '--output FOLDER'],
+      default: 'docs',
       parse: ->(o) { Pathname(o) }
 
     config_attr :clean,
       command_line: ['-c', '--[no-]clean'],
       description: ['Delete contents of output directory before running. ',
                     'WARNING: If --output is set to ~/Desktop, this will '\
-                    'delete the ~/Desktop directory.']
+                    'delete the ~/Desktop directory.'],
+      default: false
 
     config_attr :xcodebuild_arguments,
       command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
-      description: 'Arguments to forward to xcodebuild'
+      description: 'Arguments to forward to xcodebuild',
+      default: []
 
     config_attr :sourcekitten_sourcefile,
       command_line: ['-s', '--sourcekitten-sourcefile FILEPATH'],
@@ -71,36 +81,43 @@ module Jazzy
     config_attr :source_directory,
       command_line: ['--source-directory DIRPATH'],
       description: 'The directory that contains the source to be documented',
+      default: Pathname.pwd,
       parse: ->(sd) { Pathname(sd) }
 
     config_attr :excluded_files,
       command_line: ['-e', '--exclude file1,file2,…fileN', Array],
       description: 'Files to be excluded from documentation',
+      default: [],
       parse: ->(files) do
         files.map { |f| File.expand_path(f) }
       end
 
     config_attr :swift_version,
-      command_line: ['--swift-version VERSION']
+      command_line: ['--swift-version VERSION'],
+      default: '2.0'
 
     # ──────── Metadata ────────
 
     config_attr :author_name,
       command_line: ['-a', '--author AUTHOR_NAME'],
-      description: 'Name of author to attribute in docs (e.g. Realm)'
+      description: 'Name of author to attribute in docs (e.g. Realm)',
+      default: ''
 
     config_attr :author_url,
       command_line: ['-u', '--author_url URL'],
       description: 'Author URL of this project (e.g. http://realm.io)',
+      default: '',
       parse: ->(u) { URI(u) }
 
     config_attr :module_name,
       command_line: ['-m', '--module MODULE_NAME'],
-      description: 'Name of module being documented. (e.g. RealmSwift)'
+      description: 'Name of module being documented. (e.g. RealmSwift)',
+      default: ''
 
     config_attr :version,
       command_line: ['--module-version VERSION'],
-      description: 'module version. will be used when generating docset'
+      description: 'module version. will be used when generating docset',
+      default: '1.0'
 
     config_attr :copyright,
       command_line: ['--copyright COPYRIGHT_MARKDOWN'],
@@ -117,7 +134,7 @@ module Jazzy
         PodspecDocumenter.configure(self, Pathname(ps))
       end
 
-    config_attr :docset_platform
+    config_attr :docset_platform, default: 'jazzy'
 
     config_attr :docset_icon,
       command_line: ['--docset-icon FILEPATH'],
@@ -157,54 +174,44 @@ module Jazzy
       command_line: ['--min-acl [private | internal | public]'],
       description: 'minimum access control level to document '\
                     'default is public)',
+      default: 'public',
       parse: ->(acl) do
         case acl
-          when 'private'  then SourceDeclaration::AccessControlLevel.private
+          when 'public'   then SourceDeclaration::AccessControlLevel.public
           when 'internal' then SourceDeclaration::AccessControlLevel.internal
+          when 'private'  then SourceDeclaration::AccessControlLevel.private
         end
       end
 
     config_attr :skip_undocumented,
       command_line: ['--[no-]skip-undocumented'],
       description: "Don't document declarations that have no documentation '\
-                  'comments."
+                  'comments.",
+      default: false
 
     config_attr :hide_documentation_coverage,
       command_line: ['--[no-]hide-documentation-coverage'],
-      description: "Hide \"(X\% documented)\" from the generated documents"
+      description: "Hide \"(X\% documented)\" from the generated documents",
+      default: false
 
-    config_attr :custom_categories
+    config_attr :custom_categories, default: {}
 
     config_attr :template_directory,
       command_line: ['t', '--template-directory DIRPATH'],
       description: 'The directory that contains the mustache templates to use',
+      default: Pathname(__FILE__).parent + 'templates',
       parse: ->(td) { Pathname(td) }
 
     config_attr :assets_directory,
       command_line: ['--assets-directory DIRPATH'],
       description: 'The directory that contains the assets (CSS, JS, images) '\
                    'used by the templates',
+      default: Pathname(__FILE__).parent + 'assets',
       parse: ->(ad) { Pathname(ad) }
 
     def initialize
       PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
-      self.output = Pathname('docs')
-      self.xcodebuild_arguments = []
-      self.author_name = ''
-      self.module_name = ''
-      self.author_url = URI('')
-      self.clean = false
-      self.docset_platform = 'jazzy'
-      self.version = '1.0'
-      self.min_acl = SourceDeclaration::AccessControlLevel.public
-      self.skip_undocumented = false
-      self.hide_documentation_coverage = false
-      self.source_directory = Pathname.pwd
-      self.excluded_files = []
-      self.custom_categories = {}
-      self.template_directory = Pathname(__FILE__).parent + 'templates'
-      self.swift_version = '2.0'
-      self.assets_directory = Pathname(__FILE__).parent + 'assets'
+      self.class.all_config_attrs.each { |attr| attr.set_to_default(self) }
     end
 
     def template_directory=(template_directory)
