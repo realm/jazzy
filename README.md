@@ -73,6 +73,12 @@ options for the offset in the file/text provided:
 ]
 ```
 
+To use the iOS SDK is to specified the `compilerargs` option. The value
+specified by `compilerargs` the `--` to must be prefixed:
+```
+sourcekitten complete --text "import UIKit ; UIColor." --offset 22 --compilerargs -- '-target arm64-apple-ios9.0 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk'
+```
+
 ## Doc
 
 Running `sourcekitten doc` will pass all arguments after what is parsed to
