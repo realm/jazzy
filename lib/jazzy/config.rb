@@ -26,8 +26,12 @@ module Jazzy
         config.method(name).call
       end
 
+      def set_raw(config, val)
+        config.method("#{name}=").call(val)
+      end
+
       def set(config, val, mark_configured: true)
-        config.method("#{name}=").call(parse.call(val))
+        set_raw(config, parse.call(val))
         config.method("#{name}_configured=").call(true) if mark_configured
       end
 
@@ -268,6 +272,8 @@ module Jazzy
           exit
         end
       end.parse!
+
+      expand_paths(Pathname.pwd)
     end
 
     def parse_config_file
@@ -282,6 +288,8 @@ module Jazzy
           attr.set_if_unconfigured(self, config_file[key])
         end
       end
+
+      expand_paths(config_path.parent)
     end
 
     def locate_config_file
@@ -300,6 +308,15 @@ module Jazzy
         when '.json'         then JSON.parse(File.read(file))
         when '.yaml', '.yml' then YAML.load(File.read(file))
         else raise "Config file must be .yaml or .json, but got #{file.inspect}"
+      end
+    end
+
+    def expand_paths(base_path)
+      self.class.all_config_attrs.each do |attr|
+        val = attr.get(self)
+        if val.respond_to?(:expand_path)
+          attr.set_raw(self, val.expand_path(base_path))
+        end
       end
     end
 
