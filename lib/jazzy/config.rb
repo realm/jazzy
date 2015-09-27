@@ -268,11 +268,15 @@ module Jazzy
 
         opt.on('-h', '--help [TOPIC]', 'Available topics:',
                '  usage   Command line options (this help message)',
-               '  config  Configuration file options') do |topic|
+               '  config  Configuration file options',
+               '...or any configuration option keyword, e.g. "dash"') do |topic|
           case topic
-            when 'usage', nil then puts opt
-            when 'config'     then print_config_help
-            else warn "Unknown help topic #{topic.inspect}"
+            when 'usage', nil
+              puts opt
+            when 'config'
+              print_config_file_help
+            else
+              print_option_help(topic)
           end
           exit
         end
@@ -325,7 +329,7 @@ module Jazzy
       end
     end
 
-    def print_config_help
+    def print_config_file_help
       puts <<-_EOS_
         
         By default, jazzy looks for a file named ".jazzy.yaml" in the source
@@ -344,11 +348,42 @@ module Jazzy
       self.class.all_config_attrs.each do |attr|
         puts "#{attr.name}:"
         puts
-        Array(attr.description).each { |line| puts "  #{line}"}
-        if attr.default
-          puts "  Default: #{attr.default}"
-        end
+        print_attr_description(attr)
         puts
+      end
+    end
+
+    def print_option_help(topic)
+      found = false
+      self.class.all_config_attrs.each do |attr|
+        match = ([attr.name] + Array(attr.command_line)).any? do
+          |opt| opt.to_s.include?(topic)
+        end
+        if match
+          found = true
+          puts
+          puts attr.name.to_s.gsub('_', ' ').upcase
+          puts 
+          puts "  In the config file:"
+          puts "    #{attr.name}"
+          puts
+          if attr.command_line
+            puts "  From the command line:"
+            attr.command_line.each do |opt|
+              puts "    #{opt}"
+            end
+            puts
+          end
+          print_attr_description(attr)
+        end
+      end
+      warn "Unknown help topic #{topic.inspect}" unless found
+    end
+
+    def print_attr_description(attr)
+      Array(attr.description).each { |line| puts "  #{line}"}
+      if attr.default
+        puts "  Default: #{attr.default}"
       end
     end
 
