@@ -238,10 +238,8 @@ module Jazzy
     # rubocop:disable Metrics/MethodLength
     def self.parse!
       config = new
-
-      parse_command_line(config)
-
-      parse_config_file(config)
+      config.parse_command_line
+      config.parse_config_file
 
       if config.root_url
         config.dash_url ||= URI.join(r, "docsets/#{config.module_name}.xml")
@@ -250,14 +248,14 @@ module Jazzy
       config
     end
 
-    def self.parse_command_line(config)
+    def parse_command_line
       OptionParser.new do |opt|
         opt.banner = 'Usage: jazzy'
         opt.separator ''
         opt.separator 'Options'
 
-        @config_attrs.each do |attr|
-          attr.attach_to_option_parser(config, opt)
+        self.class.all_config_attrs.each do |attr|
+          attr.attach_to_option_parser(self, opt)
         end
 
         opt.on('-v', '--version', 'Print version number') do
@@ -272,24 +270,24 @@ module Jazzy
       end.parse!
     end
 
-    def self.parse_config_file(config)
-      file = locate_config_file(config)
-      return unless file
+    def parse_config_file
+      config_path = locate_config_file
+      return unless config_path
 
-      puts "Using custom config file #{file}"
-      config_file = read_config_file(file)
-      @config_attrs.each do |attr|
+      puts "Using custom config file #{config_path}"
+      config_file = read_config_file(config_path)
+      self.class.all_config_attrs.each do |attr|
         key = attr.name.to_s
         if config_file.has_key?(key)
-          attr.set_if_unconfigured(config, config_file[key])
+          attr.set_if_unconfigured(self, config_file[key])
         end
       end
     end
 
-    def self.locate_config_file(config)
-      return config.config_file if config.config_file
+    def locate_config_file
+      return config_file if config_file
 
-      config.source_directory.ascend do |dir|
+      source_directory.ascend do |dir|
         candidate = dir.join('.jazzy.yaml')
         return candidate if candidate.exist?
       end
@@ -297,7 +295,7 @@ module Jazzy
       nil
     end
 
-    def self.read_config_file(file)
+    def read_config_file(file)
       case File.extname(file)
         when '.json'         then JSON.parse(File.read(file))
         when '.yaml', '.yml' then YAML.load(File.read(file))
