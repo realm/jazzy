@@ -192,8 +192,7 @@ module Jazzy
 
     config_attr :min_acl,
       command_line: ['--min-acl [private | internal | public]'],
-      description: 'minimum access control level to document '\
-                    'default is public)',
+      description: 'minimum access control level to document',
       default: 'public',
       parse: ->(acl) do
         case acl
@@ -267,8 +266,14 @@ module Jazzy
           exit
         end
 
-        opt.on('-h', '--help', 'Print this help message') do
-          puts opt
+        opt.on('-h', '--help [TOPIC]', 'Available topics:',
+               '  usage   Command line options (this help message)',
+               '  config  Configuration file options') do |topic|
+          case topic
+            when 'usage', nil then puts opt
+            when 'config'     then print_config_help
+            else warn "Unknown help topic #{topic.inspect}"
+          end
           exit
         end
       end.parse!
@@ -317,6 +322,33 @@ module Jazzy
         if val.respond_to?(:expand_path)
           attr.set_raw(self, val.expand_path(base_path))
         end
+      end
+    end
+
+    def print_config_help
+      puts <<-_EOS_
+        
+        By default, jazzy looks for a file named ".jazzy.yaml" in the source
+        directory and its ancestors. You can override the config file location
+        with --config.
+
+        (The source directory is the current working directory by default.
+        You can override that with --source-directory.)
+
+        The config file can be in YAML or JSON format. Available configuration
+        keys are:
+
+        _EOS_
+        .gsub(/^ +/, '')
+
+      self.class.all_config_attrs.each do |attr|
+        puts "#{attr.name}:"
+        puts
+        Array(attr.description).each { |line| puts "  #{line}"}
+        if attr.default
+          puts "  Default: #{attr.default}"
+        end
+        puts
       end
     end
 
