@@ -216,7 +216,7 @@ module Jazzy
     config_attr :custom_categories, default: {}
 
     config_attr :template_directory,
-      command_line: ['t', '--template-directory DIRPATH'],
+      command_line: ['-t', '--template-directory DIRPATH'],
       description: 'The directory that contains the mustache templates to use',
       default: Pathname(__FILE__).parent + 'templates',
       parse: ->(td) { Pathname(td) }
