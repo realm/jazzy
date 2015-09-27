@@ -16,8 +16,8 @@ module Jazzy
       def initialize(name, description: nil, command_line: nil,
                      default: nil, parse: ->(x) { x })
         @name = name
-        @description = description
-        @command_line = command_line
+        @description = Array(description)
+        @command_line = Array(command_line)
         @default = default
         @parse = parse
       end
@@ -48,8 +48,8 @@ module Jazzy
       end
 
       def attach_to_option_parser(config, opt)
-        if command_line
-          opt.on *Array(command_line), *Array(description) do |val|
+        unless command_line.empty?
+          opt.on *command_line, *description do |val|
             set(config, val)
           end
         end
@@ -269,7 +269,7 @@ module Jazzy
         opt.on('-h', '--help [TOPIC]', 'Available topics:',
                '  usage   Command line options (this help message)',
                '  config  Configuration file options',
-               '...or any configuration option keyword, e.g. "dash"') do |topic|
+               '...or an option keyword, e.g. "dash"') do |topic|
           case topic
             when 'usage', nil
               puts opt
@@ -339,24 +339,18 @@ module Jazzy
         (The source directory is the current working directory by default.
         You can override that with --source-directory.)
 
-        The config file can be in YAML or JSON format. Available configuration
-        keys are:
+        The config file can be in YAML or JSON format. Available options are:
 
         _EOS_
         .gsub(/^ +/, '')
 
-      self.class.all_config_attrs.each do |attr|
-        puts "#{attr.name}:"
-        puts
-        print_attr_description(attr)
-        puts
-      end
+      print_option_help
     end
 
-    def print_option_help(topic)
+    def print_option_help(topic = '')
       found = false
       self.class.all_config_attrs.each do |attr|
-        match = ([attr.name] + Array(attr.command_line)).any? do
+        match = ([attr.name] + attr.command_line).any? do
           |opt| opt.to_s.include?(topic)
         end
         if match
@@ -367,7 +361,7 @@ module Jazzy
           puts "  In the config file:"
           puts "    #{attr.name}"
           puts
-          if attr.command_line
+          unless attr.command_line.empty?
             puts "  From the command line:"
             attr.command_line.each do |opt|
               puts "    #{opt}"
@@ -381,7 +375,7 @@ module Jazzy
     end
 
     def print_attr_description(attr)
-      Array(attr.description).each { |line| puts "  #{line}"}
+      attr.description.each { |line| puts "  #{line}"}
       if attr.default
         puts "  Default: #{attr.default}"
       end
