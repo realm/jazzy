@@ -364,7 +364,7 @@ module Jazzy
           unless attr.command_line.empty?
             puts "  From the command line:"
             attr.command_line.each do |opt|
-              puts "    #{opt}"
+              puts "    #{opt}" if opt.is_a?(String)
             end
             puts
           end
@@ -376,7 +376,7 @@ module Jazzy
 
     def print_attr_description(attr)
       attr.description.each { |line| puts "  #{line}"}
-      if attr.default
+      if attr.default && attr.default != ''
         puts "  Default: #{attr.default}"
       end
     end
