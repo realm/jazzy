@@ -26,12 +26,21 @@ module Jazzy
         config.method(name).call
       end
 
-      def set(config, val)
+      def set(config, val, mark_configured: true)
         config.method("#{name}=").call(parse.call(val))
+        config.method("#{name}_configured=").call(true) if mark_configured
       end
 
       def set_to_default(config)
-        set(config, default) if default
+        set(config, default, mark_configured: false) if default
+      end
+
+      def set_if_unconfigured(config, val)
+        set(config, val) unless configured?(config)
+      end
+
+      def configured?(config)
+        config.method("#{name}_configured").call
       end
 
       def attach_to_option_parser(config, opt)
@@ -45,6 +54,7 @@ module Jazzy
 
     def self.config_attr(name, **opts)
       attr_accessor name
+      attr_accessor "#{name}_configured"
       @config_attrs ||= []
       @config_attrs << Attribute.new(name, **opts)
     end
@@ -67,6 +77,12 @@ module Jazzy
                     'WARNING: If --output is set to ~/Desktop, this will '\
                     'delete the ~/Desktop directory.'],
       default: false
+
+    config_attr :config_file,
+      command_line: ['--config PATH'],
+      description: ['Configuration file (.yaml or .json)',
+                    'Default: .jazzy.yaml in source directory or ancestor'],
+      parse: ->(cf) { Pathname(cf) }
 
     config_attr :xcodebuild_arguments,
       command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
@@ -222,6 +238,19 @@ module Jazzy
     # rubocop:disable Metrics/MethodLength
     def self.parse!
       config = new
+
+      parse_command_line(config)
+
+      parse_config_file(config)
+
+      if config.root_url
+        config.dash_url ||= URI.join(r, "docsets/#{config.module_name}.xml")
+      end
+
+      config
+    end
+
+    def self.parse_command_line(config)
       OptionParser.new do |opt|
         opt.banner = 'Usage: jazzy'
         opt.separator ''
@@ -241,15 +270,34 @@ module Jazzy
           exit
         end
       end.parse!
-
-      if config.root_url
-        config.dash_url ||= URI.join(r, "docsets/#{config.module_name}.xml")
-      end
-
-      config
     end
 
-    def self.parse_config_file(file)
+    def self.parse_config_file(config)
+      file = locate_config_file(config)
+      return unless file
+
+      puts "Using custom config file #{file}"
+      config_file = read_config_file(file)
+      @config_attrs.each do |attr|
+        key = attr.name.to_s
+        if config_file.has_key?(key)
+          attr.set_if_unconfigured(config, config_file[key])
+        end
+      end
+    end
+
+    def self.locate_config_file(config)
+      return config.config_file if config.config_file
+
+      config.source_directory.ascend do |dir|
+        candidate = dir.join('.jazzy.yaml')
+        return candidate if candidate.exist?
+      end
+      
+      nil
+    end
+
+    def self.read_config_file(file)
       case File.extname(file)
         when '.json'         then JSON.parse(File.read(file))
         when '.yaml', '.yml' then YAML.load(File.read(file))
