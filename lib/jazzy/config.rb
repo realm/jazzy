@@ -83,7 +83,7 @@ module Jazzy
       default: false
 
     config_attr :config_file,
-      command_line: ['--config PATH'],
+      command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',
                     'Default: .jazzy.yaml in source directory or ancestor'],
       parse: ->(cf) { Pathname(cf) }
@@ -99,7 +99,7 @@ module Jazzy
       parse: ->(s) { Pathname(s) }
 
     config_attr :source_directory,
-      command_line: ['--source-directory DIRPATH'],
+      command_line: '--source-directory DIRPATH',
       description: 'The directory that contains the source to be documented',
       default: Pathname.pwd,
       parse: ->(sd) { Pathname(sd) }
@@ -113,7 +113,7 @@ module Jazzy
       end
 
     config_attr :swift_version,
-      command_line: ['--swift-version VERSION'],
+      command_line: '--swift-version VERSION',
       default: '2.0'
 
     # ──────── Metadata ────────
@@ -135,21 +135,21 @@ module Jazzy
       default: ''
 
     config_attr :version,
-      command_line: ['--module-version VERSION'],
+      command_line: '--module-version VERSION',
       description: 'module version. will be used when generating docset',
       default: '1.0'
 
     config_attr :copyright,
-      command_line: ['--copyright COPYRIGHT_MARKDOWN'],
+      command_line: '--copyright COPYRIGHT_MARKDOWN',
       description: 'copyright markdown rendered at the bottom of the docs pages'
 
     config_attr :readme_path,
-      command_line: ['--readme FILEPATH'],
+      command_line: '--readme FILEPATH',
       description: 'The path to a markdown README file',
       parse: ->(rp) { Pathname(rp) }
 
     config_attr :podspec,
-      command_line: ['--podspec FILEPATH'],
+      command_line: '--podspec FILEPATH',
       parse: ->(ps) do
         PodspecDocumenter.configure(self, Pathname(ps))
       end
@@ -157,11 +157,11 @@ module Jazzy
     config_attr :docset_platform, default: 'jazzy'
 
     config_attr :docset_icon,
-      command_line: ['--docset-icon FILEPATH'],
+      command_line: '--docset-icon FILEPATH',
       parse: ->(di) { Pathname(di) }
 
     config_attr :docset_path,
-      command_line: ['--docset-path DIRPATH'],
+      command_line: '--docset-path DIRPATH',
       description: 'The relative path for the generated docset'
 
     # ──────── URLs ────────
@@ -184,14 +184,14 @@ module Jazzy
       parse: ->(g) { URI(g) }
 
     config_attr :github_file_prefix,
-      command_line: ['--github-file-prefix PREFIX'],
+      command_line: '--github-file-prefix PREFIX',
       description: 'GitHub URL file prefix of this project (e.g. '\
                    'https://github.com/realm/realm-cocoa/tree/v0.87.1)'
 
     # ──────── Doc generation options ────────
 
     config_attr :min_acl,
-      command_line: ['--min-acl [private | internal | public]'],
+      command_line: '--min-acl [private | internal | public]',
       description: 'minimum access control level to document',
       default: 'public',
       parse: ->(acl) do
@@ -203,13 +203,13 @@ module Jazzy
       end
 
     config_attr :skip_undocumented,
-      command_line: ['--[no-]skip-undocumented'],
+      command_line: '--[no-]skip-undocumented',
       description: "Don't document declarations that have no documentation '\
                   'comments.",
       default: false
 
     config_attr :hide_documentation_coverage,
-      command_line: ['--[no-]hide-documentation-coverage'],
+      command_line: '--[no-]hide-documentation-coverage',
       description: "Hide \"(X\% documented)\" from the generated documents",
       default: false
 
@@ -222,7 +222,7 @@ module Jazzy
       parse: ->(td) { Pathname(td) }
 
     config_attr :assets_directory,
-      command_line: ['--assets-directory DIRPATH'],
+      command_line: '--assets-directory DIRPATH',
       description: 'The directory that contains the assets (CSS, JS, images) '\
                    'used by the templates',
       default: Pathname(__FILE__).parent + 'assets',
