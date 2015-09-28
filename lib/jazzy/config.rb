@@ -250,7 +250,7 @@ module Jazzy
       config.parse_config_file
 
       if config.root_url
-        config.dash_url ||= URI.join(r, "docsets/#{config.module_name}.xml")
+        config.dash_url ||= URI.join(config.root_url, "docsets/#{config.module_name}.xml")
       end
 
       config
