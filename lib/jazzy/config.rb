@@ -363,16 +363,12 @@ module Jazzy
           puts
           puts attr.name.to_s.gsub('_', ' ').upcase
           puts 
-          puts "  In the config file:"
-          puts "    #{attr.name}"
-          puts
-          unless attr.command_line.empty?
-            puts "  From the command line:"
-            attr.command_line.each do |opt|
-              puts "    #{opt}" if opt.is_a?(String)
-            end
-            puts
+          puts "  Config file:   #{attr.name}"
+          cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
+          if cmd_line_forms.any?
+            puts "  Command line:  #{cmd_line_forms.join(', ')}"
           end
+          puts
           print_attr_description(attr)
         end
       end
