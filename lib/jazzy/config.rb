@@ -218,6 +218,7 @@ module Jazzy
                     '“Classes, Protocols, etc.”', 'Types not explicitly named '\
                     'in a custom category appear in generic groups at the end.',
                     'Example: http://git.io/vcTZm'],
+      default: []
 
     config_attr :template_directory,
       command_line: ['-t', '--template-directory DIRPATH'],
