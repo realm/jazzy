@@ -213,7 +213,11 @@ module Jazzy
       description: "Hide \"(X\% documented)\" from the generated documents",
       default: false
 
-    config_attr :custom_categories, default: {}
+    config_attr :custom_categories,
+      description: ['Custom navigation categories to replace the standard '\
+                    '“Classes, Protocols, etc.”', 'Types not explicitly named '\
+                    'in a custom category appear in generic groups at the end.',
+                    'Example: http://git.io/vcTZm'],
 
     config_attr :template_directory,
       command_line: ['-t', '--template-directory DIRPATH'],
