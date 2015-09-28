@@ -23,22 +23,24 @@ module Jazzy
       stdout.reduce([]) { |a, s| a + JSON.load(s) }.to_json
     end
 
-    def self.configure(config, podspec)
-      case podspec
+    def self.create_podspec(podspec_path)
+      case podspec_path
       when Pathname, String
         require 'cocoapods'
-        podspec = Pod::Specification.from_file(podspec)
+        Pod::Specification.from_file(podspec_path)
+      else
+        nil
       end
+    end
 
+    def self.apply_config_defaults(podspec, config)
       return unless podspec
 
-      config.author_name = author_name(podspec)
-      config.module_name = podspec.module_name
-      config.author_url = podspec.homepage || github_file_prefix(podspec)
-      config.version = podspec.version.to_s
-      config.github_file_prefix = github_file_prefix(podspec)
-
-      podspec
+      config.author_name ||= author_name(podspec)
+      config.module_name ||= podspec.module_name
+      config.author_url ||= podspec.homepage || github_file_prefix(podspec)
+      config.version ||= podspec.version.to_s
+      config.github_file_prefix ||= github_file_prefix(podspec)
     end
 
     private

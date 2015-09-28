@@ -150,9 +150,8 @@ module Jazzy
 
     config_attr :podspec,
       command_line: '--podspec FILEPATH',
-      parse: ->(ps) do
-        PodspecDocumenter.configure(self, Pathname(ps))
-      end
+      parse: ->(ps) { PodspecDocumenter.create_podspec(Pathname(ps)) if ps },
+      default: Dir['*.podspec{,.json}'].first
 
     config_attr :docset_platform, default: 'jazzy'
 
@@ -234,8 +233,9 @@ module Jazzy
       parse: ->(ad) { Pathname(ad) }
 
     def initialize
-      PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
-      self.class.all_config_attrs.each { |attr| attr.set_to_default(self) }
+      self.class.all_config_attrs.each do |attr|
+        attr.set_to_default(self)
+      end
     end
 
     def template_directory=(template_directory)
@@ -248,6 +248,7 @@ module Jazzy
       config = new
       config.parse_command_line
       config.parse_config_file
+      PodspecDocumenter.apply_config_defaults(config.podspec, config)
 
       if config.root_url
         config.dash_url ||= URI.join(config.root_url, "docsets/#{config.module_name}.xml")
