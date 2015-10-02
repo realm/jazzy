@@ -19,6 +19,10 @@
   [mbogh](https://github.com/mbogh)
   [#129](https://github.com/realm/jazzy/issues/297)
 
+* Print a more informative error when unable to find an Xcode that has the
+  requested Swift version.  
+  [Samuel Giddins])https://github.com/segiddins
+
 
 ## 0.3.1
 
