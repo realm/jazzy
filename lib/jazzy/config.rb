@@ -9,7 +9,7 @@ require 'jazzy/source_declaration/access_control_level'
 module Jazzy
   # rubocop:disable Metrics/ClassLength
   class Config
-
+    # rubocop:disable Style/AccessorMethodName
     class Attribute
       attr_reader :name, :description, :command_line, :default, :parse
 
@@ -48,26 +48,28 @@ module Jazzy
       end
 
       def attach_to_option_parser(config, opt)
-        unless command_line.empty?
-          opt.on *command_line, *description do |val|
-            set(config, val)
-          end
+        return if command_line.empty?
+        opt.on(*command_line, *description) do |val|
+          set(config, val)
         end
       end
     end
+    # rubocop:enable Style/AccessorMethodName
 
     def self.config_attr(name, **opts)
       attr_accessor name
       attr_accessor "#{name}_configured"
-      @config_attrs ||= []
-      @config_attrs << Attribute.new(name, **opts)
+      @all_config_attrs ||= []
+      @all_config_attrs << Attribute.new(name, **opts)
     end
 
-    def self.all_config_attrs
-      @config_attrs
+    class << self
+      attr_reader :all_config_attrs
     end
 
     # ──────── Build ────────
+
+    # rubocop:disable Style/AlignParameters
 
     config_attr :output,
       description: 'Folder to output the HTML docs to',
@@ -108,9 +110,9 @@ module Jazzy
       command_line: ['-e', '--exclude file1,file2,…fileN', Array],
       description: 'Files to be excluded from documentation',
       default: [],
-      parse: ->(files) do
+      parse: (lambda do |files|
         files.map { |f| File.expand_path(f) }
-      end
+      end)
 
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
@@ -168,7 +170,7 @@ module Jazzy
     config_attr :root_url,
       command_line: ['-r', '--root-url URL'],
       description: 'Absolute URL root where these docs will be stored',
-      parse: ->(r) { URI(r)}
+      parse: ->(r) { URI(r) }
 
     config_attr :dash_url,
       command_line: ['-d', '--dash_url URL'],
@@ -193,13 +195,13 @@ module Jazzy
       command_line: '--min-acl [private | internal | public]',
       description: 'minimum access control level to document',
       default: 'public',
-      parse: ->(acl) do
+      parse: (lambda do |acl|
         case acl
-          when 'public'   then SourceDeclaration::AccessControlLevel.public
-          when 'internal' then SourceDeclaration::AccessControlLevel.internal
-          when 'private'  then SourceDeclaration::AccessControlLevel.private
+        when 'public'   then SourceDeclaration::AccessControlLevel.public
+        when 'internal' then SourceDeclaration::AccessControlLevel.internal
+        when 'private'  then SourceDeclaration::AccessControlLevel.private
         end
-      end
+      end)
 
     config_attr :skip_undocumented,
       command_line: '--[no-]skip-undocumented',
@@ -232,6 +234,8 @@ module Jazzy
       default: Pathname(__FILE__).parent + 'assets',
       parse: ->(ad) { Pathname(ad) }
 
+    # rubocop:enable Style/AlignParameters
+
     def initialize
       self.class.all_config_attrs.each do |attr|
         attr.set_to_default(self)
@@ -251,7 +255,9 @@ module Jazzy
       PodspecDocumenter.apply_config_defaults(config.podspec, config)
 
       if config.root_url
-        config.dash_url ||= URI.join(config.root_url, "docsets/#{config.module_name}.xml")
+        config.dash_url ||= URI.join(
+          config.root_url,
+          "docsets/#{config.module_name}.xml")
       end
 
       config
@@ -277,12 +283,12 @@ module Jazzy
                '  config  Configuration file options',
                '...or an option keyword, e.g. "dash"') do |topic|
           case topic
-            when 'usage', nil
-              puts opt
-            when 'config'
-              print_config_file_help
-            else
-              print_option_help(topic)
+          when 'usage', nil
+            puts opt
+          when 'config'
+            print_config_file_help
+          else
+            print_option_help(topic)
           end
           exit
         end
@@ -299,7 +305,7 @@ module Jazzy
       config_file = read_config_file(config_path)
       self.class.all_config_attrs.each do |attr|
         key = attr.name.to_s
-        if config_file.has_key?(key)
+        if config_file.key?(key)
           attr.set_if_unconfigured(self, config_file[key])
         end
       end
@@ -314,15 +320,15 @@ module Jazzy
         candidate = dir.join('.jazzy.yaml')
         return candidate if candidate.exist?
       end
-      
+
       nil
     end
 
     def read_config_file(file)
       case File.extname(file)
-        when '.json'         then JSON.parse(File.read(file))
-        when '.yaml', '.yml' then YAML.load(File.read(file))
-        else raise "Config file must be .yaml or .json, but got #{file.inspect}"
+      when '.json'         then JSON.parse(File.read(file))
+      when '.yaml', '.yml' then YAML.load(File.read(file))
+      else raise "Config file must be .yaml or .json, but got #{file.inspect}"
       end
     end
 
@@ -337,7 +343,7 @@ module Jazzy
 
     def print_config_file_help
       puts <<-_EOS_
-        
+
         By default, jazzy looks for a file named ".jazzy.yaml" in the source
         directory and its ancestors. You can override the config file location
         with --config.
@@ -359,28 +365,26 @@ module Jazzy
         match = ([attr.name] + attr.command_line).any? do
           |opt| opt.to_s.include?(topic)
         end
-        if match
-          found = true
-          puts
-          puts attr.name.to_s.gsub('_', ' ').upcase
-          puts 
-          puts "  Config file:   #{attr.name}"
-          cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
-          if cmd_line_forms.any?
-            puts "  Command line:  #{cmd_line_forms.join(', ')}"
-          end
-          puts
-          print_attr_description(attr)
+        next unless match
+
+        found = true
+        puts
+        puts attr.name.to_s.gsub('_', ' ').upcase
+        puts
+        puts "  Config file:   #{attr.name}"
+        cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
+        if cmd_line_forms.any?
+          puts "  Command line:  #{cmd_line_forms.join(', ')}"
         end
+        puts
+        print_attr_description(attr)
       end
       warn "Unknown help topic #{topic.inspect}" unless found
     end
 
     def print_attr_description(attr)
-      attr.description.each { |line| puts "  #{line}"}
-      if attr.default && attr.default != ''
-        puts "  Default: #{attr.default}"
-      end
+      attr.description.each { |line| puts "  #{line}" }
+      puts "  Default: #{attr.default}" if attr.default && attr.default != ''
     end
 
     #-------------------------------------------------------------------------#

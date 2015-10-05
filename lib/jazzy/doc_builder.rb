@@ -128,7 +128,8 @@ module Jazzy
 
       DocsetBuilder.new(output_dir, source_module).build!
 
-      puts "jam out ♪♫ to your fresh new docs in `#{relative_path_if_inside(output_dir, Pathname.pwd)}`"
+      friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
+      puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
 
       source_module
     end

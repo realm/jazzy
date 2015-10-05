@@ -33,6 +33,8 @@ module Jazzy
       end
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def self.apply_config_defaults(podspec, config)
       return unless podspec
 
@@ -52,6 +54,8 @@ module Jazzy
         config.github_file_prefix = github_file_prefix(podspec)
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     private
 
