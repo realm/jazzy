@@ -128,9 +128,18 @@ module Jazzy
 
       DocsetBuilder.new(output_dir, source_module).build!
 
-      puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
+      puts "jam out ♪♫ to your fresh new docs in `#{relative_path_if_inside(output_dir, Pathname.pwd)}`"
 
       source_module
+    end
+
+    def self.relative_path_if_inside(path, base_path)
+      relative = path.relative_path_from(base_path)
+      if relative.to_path =~ /^..(\/|$)/
+        path
+      else
+        relative
+      end
     end
 
     def self.decl_for_token(token)
