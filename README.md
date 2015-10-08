@@ -52,6 +52,41 @@ point, run jazzy from source by running `bin/jazzy`.
 Instructions to build sourcekitten from source can be found at
 [sourcekitten's GitHub repository][sourcekitten].
 
+
+### Testing
+
+Before you can successfully test you will have to download the integration repo.  This can be done as follows
+
+```bash
+bundle exec rake rebuild_integration_fixtures
+bundle install
+```
+####Swift 1.2 Tests
+
+To run the Swift 1.2 tests you can do this.
+
+```bash
+export TRAVIS_SWIFT_VERSION=1.2
+export BUNDLE_GEMFILE=$PWD/Gemfile
+git submodule update --init --recursive
+bundle install --jobs=3 --retry=3 --deployment
+bundle exec rake spec
+```
+
+
+####Swift 2.0
+
+For Swift 2.0 test try the following
+
+```bash
+export TRAVIS_SWIFT_VERSION=2.0
+export BUNDLE_GEMFILE=$PWD/Gemfile
+git submodule update --init --recursive
+bundle install --jobs=3 --retry=3 --deployment
+bundle exec rake spec
+```
+
+
 ### Design Goals
 
 jazzy's main design goals are:
@@ -62,6 +97,8 @@ jazzy's main design goals are:
 - Leverage the power and accuracy of the [Clang AST][ast] and [SourceKit][sourcekit]
 - Support for Xcode and Dash docsets (*work in progress*)
 - Support Swift, Objective-C or mixed projects (*work in progress*)
+
+
 
 ### License
 
