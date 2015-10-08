@@ -12,6 +12,7 @@ module Jazzy
     attr_accessor :author_name
     attr_accessor :github_url
     attr_accessor :github_file_prefix
+    attr_accessor :bitbucket_url
     attr_accessor :author_url
     attr_accessor :dash_url
 
@@ -23,6 +24,7 @@ module Jazzy
       self.author_name = options.author_name
       self.github_url = options.github_url
       self.github_file_prefix = options.github_file_prefix
+      self.bitbucket_url = options.bitbucket_url      
       self.author_url = options.author_url
       return unless options.dash_url
       self.dash_url = "dash-feed://#{URI.encode(options.dash_url.to_s, /\W/)}"

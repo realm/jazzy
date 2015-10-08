@@ -191,6 +191,7 @@ module Jazzy
       # TODO: Remove shortly (kept for backwards compatibility)
       doc[:author_website] = source_module.author_url
       doc[:github_url] = source_module.github_url
+      doc[:bitbucket_url] = source_module.bitbucket_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:hide_name] = true
@@ -298,6 +299,7 @@ module Jazzy
       # TODO: Remove shortly (kept for backwards compatibility)
       doc[:author_website] = source_module.author_url.to_s
       doc[:github_url] = source_module.github_url
+      doc[:bitbucket_url] = source_module.bitbucket_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc.render

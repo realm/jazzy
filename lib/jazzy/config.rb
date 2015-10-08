@@ -17,6 +17,7 @@ module Jazzy
     attr_accessor :github_file_prefix
     attr_accessor :author_url
     attr_accessor :dash_url
+    attr_accessor :bitbucket_url
     attr_accessor :sourcekitten_sourcefile
     attr_accessor :clean
     attr_accessor :readme_path
@@ -111,6 +112,12 @@ module Jazzy
                'Location of the dash XML feed \
                (i.e. http://realm.io/docsets/realm.xml') do |d|
           config.dash_url = URI(d)
+        end
+
+        opt.on('-b', '--bitbucket_url URL',
+               'Location of the project on a bitbucket server \
+               (i.e. https://bitbucket.org/atlassian/jetbrains-bitbucket-connector') do |b|
+          config.bitbucket_url = URI(b)
         end
 
         opt.on('-g', '--github_url URL',
