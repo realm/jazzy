@@ -156,6 +156,14 @@ Running `sourcekitten syntax --file file.swift` or `sourcekitten syntax --text "
 ]
 ```
 
+## SourceKittenFramework
+
+Most of the functionality of the `sourcekitten` command line tool is actually encapsulated in a framework named SourceKittenFramework.
+
+If you’re interested in using SourceKitten as part of another tool, or perhaps extending its functionality, take a look at the SourceKittenFramework source code to see if the API fits your needs.
+
+*Note: SourceKitten is written entirely in Swift, and the SourceKittenFramework API is not designed to interface with Objective-C.*
+
 ## License
 
 MIT licensed.
