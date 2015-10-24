@@ -26,6 +26,56 @@ $code_font: 0.95em Menlo, monospace;
 $gray_border: 1px solid #e2e2e2;
 $declaration_swift_border: 5px solid #cde9f4;
 
+// Asides
+$aside_attention_color: #aaa;
+$aside_attention_border: 5px solid lighten($aside_attention_color, 20%);
+$aside_author_color: #aaa;
+$aside_author_border: 5px solid lighten($aside_author_color, 20%);
+$aside_authors_color: #aaa;
+$aside_authors_border: 5px solid lighten($aside_authors_color, 20%);
+$aside_bug_color: #aaa;
+$aside_bug_border: 5px solid lighten($aside_bug_color, 20%);
+$aside_complexity_color: #aaa;
+$aside_complexity_border: 5px solid lighten($aside_complexity_color, 20%);
+$aside_copyright_color: #aaa;
+$aside_copyright_border: 5px solid lighten($aside_copyright_color, 20%);
+$aside_date_color: #aaa;
+$aside_date_border: 5px solid lighten($aside_date_color, 20%);
+$aside_experiment_color: #aaa;
+$aside_experiment_border: 5px solid lighten($aside_experiment_color, 20%);
+$aside_important_color: #aaa;
+$aside_important_border: 5px solid lighten($aside_important_color, 20%);
+$aside_invariant_color: #aaa;
+$aside_invariant_border: 5px solid lighten($aside_invariant_color, 20%);
+$aside_note_color: #aaa;
+$aside_note_border: 5px solid lighten($aside_note_color, 20%);
+$aside_parameter_color: #aaa;
+$aside_parameter_border: 5px solid lighten($aside_parameter_color, 20%);
+$aside_postcondition_color: #aaa;
+$aside_postcondition_border: 5px solid lighten($aside_postcondition_color, 20%);
+$aside_precondition_color: #aaa;
+$aside_precondition_border: 5px solid lighten($aside_precondition_color, 20%);
+$aside_remark_color: #aaa;
+$aside_remark_border: 5px solid lighten($aside_remark_color, 20%);
+$aside_requires_color: #aaa;
+$aside_requires_border: 5px solid lighten($aside_requires_color, 20%);
+$aside_returns_color: #aaa;
+$aside_returns_border: 5px solid lighten($aside_returns_color, 20%);
+$aside_see_color: #aaa;
+$aside_see_border: 5px solid lighten($aside_see_color, 20%);
+$aside_seealso_color: #aaa;
+$aside_seealso_border: 5px solid lighten($aside_seealso_color, 20%);
+$aside_since_color: #aaa;
+$aside_since_border: 5px solid lighten($aside_since_color, 20%);
+$aside_todo_color: #aaa;
+$aside_todo_border: 5px solid lighten($aside_todo_color, 20%);
+$aside_throws_color: #aaa;
+$aside_throws_border: 5px solid lighten($aside_throws_color, 20%);
+$aside_version_color: #aaa;
+$aside_version_border: 5px solid lighten($aside_version_color, 20%);
+$aside_warning_color: #ff0000;
+$aside_warning_border: 5px solid lighten($aside_warning_color, 20%);
+
 ////////////////////////////////
 // Reset
 ////////////////////////////////
@@ -356,6 +406,8 @@ header {
   }
 }
 
+// Asides
+
 div.Swift {
   padding: 4px 0 2px 10px;
   margin-bottom: 1em;
@@ -363,6 +415,248 @@ div.Swift {
   overflow-y: hidden;
   .aside-title {
     color: $declaration_lang_title_swift_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.attention {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_attention_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_attention_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.author {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_author_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_author_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.authors {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_authors_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_authors_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.bug {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_bug_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_bug_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.complexity {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_complexity_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_complexity_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.copyright {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_copyright_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_copyright_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.date {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_date_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_date_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.experiment {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_experiment_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_experiment_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.important {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_important_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_important_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.invariant {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_invariant_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_invariant_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.note {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_note_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_note_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.postcondition {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_postcondition_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_postcondition_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.precondition {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_precondition_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_precondition_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.remark {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_remark_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_remark_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.requires {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_requires_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_requires_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.see {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_see_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_see_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.seealso {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_seealso_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_seealso_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.since {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_since_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_since_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.todo {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_todo_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_todo_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.throws {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_throws_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_throws_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.version {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_version_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_version_color;
+    -webkit-user-select: none;
+  }
+}
+
+div.warning {
+  padding: 4px 0 2px 10px;
+  margin-bottom: 1em;
+  border-left: $aside_warning_border;
+  overflow-y: hidden;
+  .aside-title {
+    color: $aside_warning_color;
     -webkit-user-select: none;
   }
 }
