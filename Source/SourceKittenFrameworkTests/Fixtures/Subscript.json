@@ -1,5 +1,5 @@
 {
-  "Subscript.swift": {
+  "Subscript.swift" : {
     "key.substructure" : [
       {
         "key.kind" : "source.lang.swift.decl.struct",
@@ -35,7 +35,6 @@
             "key.doc.full_as_xml" : "<Other file=\"Subscript.swift\" line=\"3\" column=\"5\"><Name>subscript(_:)<\/Name><USR>s:sV9Subscript10VoidStruct9subscriptFSST_<\/USR><Declaration>subscript (key: String) -&gt; () { get set }<\/Declaration><Abstract><Para>Returns or sets Void.<\/Para><\/Abstract><\/Other>",
             "key.doc.name" : "subscript(_:)",
             "key.annotated_decl" : "<Declaration>subscript (key: <Type usr=\"s:SS\">String<\/Type>) -&gt; () { get set }<\/Declaration>",
-            "key.doc.usr" : "s:sV9Subscript10VoidStruct9subscriptFSST_",
             "key.parsed_scope.start" : 3,
             "key.filepath" : "Subscript.swift"
           }

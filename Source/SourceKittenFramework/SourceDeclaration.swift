@@ -32,7 +32,7 @@ public func parseFullXMLDocs(xmlDocs: String) -> XPCDictionary? {
             Int64($0)
         }
         docs[SwiftDocKey.DocName.rawValue] = rootXML["Name"].element?.text
-        docs[SwiftDocKey.DocUSR.rawValue] = rootXML["USR"].element?.text
+        docs[SwiftDocKey.USR.rawValue] = rootXML["USR"].element?.text
         docs[SwiftDocKey.DocDeclaration.rawValue] = rootXML["Declaration"].element?.text
         let parameters = rootXML["Parameters"].children
         if parameters.count > 0 {

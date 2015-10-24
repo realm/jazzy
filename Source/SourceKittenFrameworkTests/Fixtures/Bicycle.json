@@ -138,7 +138,6 @@
                 "key.length" : 35
               }
             ],
-            "key.doc.usr" : "s:OC7Bicycle7Bicycle5Style",
             "key.doc.discussion" : [
               {
                 "List-Bullet" : ""
@@ -227,7 +226,6 @@
                 "key.length" : 27
               }
             ],
-            "key.doc.usr" : "s:OC7Bicycle7Bicycle7Gearing",
             "key.doc.discussion" : [
               {
                 "List-Bullet" : ""
@@ -339,7 +337,6 @@
                 "key.length" : 33
               }
             ],
-            "key.doc.usr" : "s:OC7Bicycle7Bicycle9Handlebar",
             "key.doc.discussion" : [
               {
                 "List-Bullet" : ""
@@ -372,7 +369,6 @@
             "key.annotated_decl" : "<Declaration>let style: <Type usr=\"s:C7Bicycle7Bicycle\">Bicycle<\/Type>.<Type usr=\"s:OC7Bicycle7Bicycle5Style\">Style<\/Type><\/Declaration>",
             "key.doc.name" : "style",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.doc.usr" : "s:vC7Bicycle7Bicycle5styleOS0_5Style",
             "key.parsed_scope.start" : 41,
             "key.filepath" : "Bicycle.swift"
           },
@@ -402,7 +398,6 @@
             "key.annotated_decl" : "<Declaration>let gearing: <Type usr=\"s:C7Bicycle7Bicycle\">Bicycle<\/Type>.<Type usr=\"s:OC7Bicycle7Bicycle7Gearing\">Gearing<\/Type><\/Declaration>",
             "key.doc.name" : "gearing",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.doc.usr" : "s:vC7Bicycle7Bicycle7gearingOS0_7Gearing",
             "key.parsed_scope.start" : 44,
             "key.filepath" : "Bicycle.swift"
           },
@@ -432,7 +427,6 @@
             "key.annotated_decl" : "<Declaration>let handlebar: <Type usr=\"s:C7Bicycle7Bicycle\">Bicycle<\/Type>.<Type usr=\"s:OC7Bicycle7Bicycle9Handlebar\">Handlebar<\/Type><\/Declaration>",
             "key.doc.name" : "handlebar",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.doc.usr" : "s:vC7Bicycle7Bicycle9handlebarOS0_9Handlebar",
             "key.parsed_scope.start" : 47,
             "key.filepath" : "Bicycle.swift"
           },
@@ -462,7 +456,6 @@
             "key.annotated_decl" : "<Declaration>let frameSize: <Type usr=\"s:Si\">Int<\/Type><\/Declaration>",
             "key.doc.name" : "frameSize",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.doc.usr" : "s:vC7Bicycle7Bicycle9frameSizeSi",
             "key.parsed_scope.start" : 50,
             "key.filepath" : "Bicycle.swift"
           },
@@ -474,18 +467,12 @@
             "key.namelength" : 13,
             "key.doc.line" : 53,
             "key.length" : 13,
-            "key.doc.column" : 22,
-            "key.parsed_scope.end" : 53,
-            "key.usr" : "s:vC7Bicycle7Bicycle13numberOfTripsSi",
-            "key.doc.file" : "Bicycle.swift",
-            "key.nameoffset" : 1230,
-            "key.annotated_decl" : "<Declaration>private(set) var numberOfTrips: <Type usr=\"s:Si\">Int<\/Type><\/Declaration>",
-            "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.parsed_scope.start" : 53,
-            "key.filepath" : "Bicycle.swift",
             "key.doc.declaration" : "private(set) var numberOfTrips: Int",
             "key.typename" : "Int",
             "key.name" : "numberOfTrips",
+            "key.doc.column" : 22,
+            "key.parsed_scope.end" : 53,
+            "key.usr" : "s:vC7Bicycle7Bicycle13numberOfTripsSi",
             "key.doc.type" : "Other",
             "key.attributes" : [
               {
@@ -493,9 +480,14 @@
               }
             ],
             "key.doc.full_as_xml" : "<Other file=\"Bicycle.swift\" line=\"53\" column=\"22\"><Name>numberOfTrips<\/Name><USR>s:vC7Bicycle7Bicycle13numberOfTripsSi<\/USR><Declaration>private(set) var numberOfTrips: Int<\/Declaration><Abstract><Para>The number of trips travelled by the bicycle.<\/Para><\/Abstract><\/Other>",
+            "key.nameoffset" : 1230,
+            "key.doc.file" : "Bicycle.swift",
+            "key.annotated_decl" : "<Declaration>private(set) var numberOfTrips: <Type usr=\"s:Si\">Int<\/Type><\/Declaration>",
             "key.doc.name" : "numberOfTrips",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
             "key.setter_accessibility" : "source.lang.swift.accessibility.private",
-            "key.doc.usr" : "s:vC7Bicycle7Bicycle13numberOfTripsSi"
+            "key.parsed_scope.start" : 53,
+            "key.filepath" : "Bicycle.swift"
           },
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
@@ -505,18 +497,12 @@
             "key.namelength" : 17,
             "key.doc.line" : 56,
             "key.length" : 17,
-            "key.doc.column" : 22,
-            "key.parsed_scope.end" : 56,
-            "key.usr" : "s:vC7Bicycle7Bicycle17distanceTravelledSd",
-            "key.doc.file" : "Bicycle.swift",
-            "key.nameoffset" : 1335,
-            "key.annotated_decl" : "<Declaration>private(set) var distanceTravelled: <Type usr=\"s:Sd\">Double<\/Type><\/Declaration>",
-            "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.parsed_scope.start" : 56,
-            "key.filepath" : "Bicycle.swift",
             "key.doc.declaration" : "private(set) var distanceTravelled: Double",
             "key.typename" : "Double",
             "key.name" : "distanceTravelled",
+            "key.doc.column" : 22,
+            "key.parsed_scope.end" : 56,
+            "key.usr" : "s:vC7Bicycle7Bicycle17distanceTravelledSd",
             "key.doc.type" : "Other",
             "key.attributes" : [
               {
@@ -524,9 +510,14 @@
               }
             ],
             "key.doc.full_as_xml" : "<Other file=\"Bicycle.swift\" line=\"56\" column=\"22\"><Name>distanceTravelled<\/Name><USR>s:vC7Bicycle7Bicycle17distanceTravelledSd<\/USR><Declaration>private(set) var distanceTravelled: Double<\/Declaration><Abstract><Para>The total distance travelled by the bicycle, in meters.<\/Para><\/Abstract><\/Other>",
+            "key.nameoffset" : 1335,
+            "key.doc.file" : "Bicycle.swift",
+            "key.annotated_decl" : "<Declaration>private(set) var distanceTravelled: <Type usr=\"s:Sd\">Double<\/Type><\/Declaration>",
             "key.doc.name" : "distanceTravelled",
+            "key.accessibility" : "source.lang.swift.accessibility.internal",
             "key.setter_accessibility" : "source.lang.swift.accessibility.private",
-            "key.doc.usr" : "s:vC7Bicycle7Bicycle17distanceTravelledSd"
+            "key.parsed_scope.start" : 56,
+            "key.filepath" : "Bicycle.swift"
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
@@ -599,8 +590,7 @@
             "key.doc.name" : "init(style:gearing:handlebar:frameSize:)",
             "key.substructure" : [
 
-            ],
-            "key.doc.usr" : "s:FC7Bicycle7BicyclecFMS0_FT5styleOS0_5Style7gearingOS0_7Gearing9handlebarOS0_9Handlebar9frameSizeSi_S0_"
+            ]
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
@@ -644,11 +634,9 @@
             "key.doc.name" : "travel(distance:)",
             "key.substructure" : [
 
-            ],
-            "key.doc.usr" : "s:FC7Bicycle7Bicycle6travelFS0_FT8distanceSd_T_"
+            ]
           }
-        ],
-        "key.doc.usr" : "s:C7Bicycle7Bicycle"
+        ]
       }
     ],
     "key.offset" : 0,
