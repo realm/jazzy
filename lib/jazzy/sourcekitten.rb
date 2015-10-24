@@ -312,19 +312,21 @@ module Jazzy
     end
 
     def self.names_and_urls(docs)
-      names_and_urls = docs.flat_map do |doc|
+      docs.flat_map do |doc|
         # FIXME: autolink more than just top-level items.
-        [{:name => doc.name, :url => doc.url}] # + names_and_urls(doc.children)
+        [{ name: doc.name, url: doc.url }] # + names_and_urls(doc.children)
       end
     end
 
     def self.autolink_text(text, data, url)
-      text.gsub(/\b(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\b/) do
-        auto_url = data.find { |d| d[:name] == $1 }[:url]
-        unless auto_url == url # docs shouldn't autolink to themselves
-          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{$1}</a>"
+      regex = /\b(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\b/
+      text.gsub(regex) do
+        name = Regexp.last_match(1)
+        auto_url = data.find { |d| d[:name] == name }[:url]
+        if auto_url == url # docs shouldn't autolink to themselves
+          Regexp.last_match(0)
         else
-          $1
+          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{name}</a>"
         end
       end
     end
@@ -351,7 +353,7 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.enum_element? }
       docs = make_doc_urls(docs, [])
-      docs = autolink(docs, names_and_urls(docs.flat_map { |d| d.children }))
+      docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
       [docs, doc_coverage, @undocumented_tokens]
     end
   end
