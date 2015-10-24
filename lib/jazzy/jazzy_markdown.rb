@@ -58,7 +58,7 @@ module Jazzy
 
     def list_item(text, _list_type)
       if text =~ SPECIAL_LIST_TYPE_REGEX
-        type = $2
+        type = Regexp.last_match(2)
         return ELIDED_LI_TOKEN if type =~ /parameter|returns/
         return render_aside(type, text.sub(/#{Regexp.escape(type)}:\s+/, ''))
       end
@@ -68,16 +68,16 @@ module Jazzy
     end
 
     def render_aside(type, text)
-      %{<div class="#{type}">
+      %(<div class="#{type}">
           <p class="aside-title">#{type}</p>
           #{text}
-        </div>}
+        </div>)
     end
 
     def list(text, list_type)
       elided = text.gsub!(ELIDED_LI_TOKEN, '')
       return if text =~ /\A\s*\Z/ && elided
-      return text if text =~ /aside-title/
+      return text if text =~ /class="aside-title"/
       str = "\n"
       str << (list_type == :ordered ? "<ol>\n" : "<ul>\n")
       str << text
