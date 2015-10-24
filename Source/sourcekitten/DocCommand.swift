@@ -55,19 +55,9 @@ struct DocCommand: CommandType {
     }
 
     func runObjC(options: DocOptions, args: [String]) -> Result<(), CommandantError<SourceKittenError>> {
-        if args.count < 5 {
-            return .Failure(.CommandError(.InvalidArgument(description: "at least 5 arguments are required when using `--objc`")))
-        }
-        let startIndex = options.singleFile ? 4 : 3
-        let (headerFiles, xcodebuildArguments) = parseHeaderFilesAndXcodebuildArguments(Array<String>(args[startIndex..<args.count]))
-        if headerFiles.count == 0 {
-            return .Failure(.CommandError(.InvalidArgument(description: "must pass in at least one Objective-C header file")))
-        }
-        if let translationUnit = ClangTranslationUnit(headerFiles: headerFiles, xcodeBuildArguments: xcodebuildArguments) {
-            print(translationUnit)
-            return .Success()
-        }
-        return .Failure(.CommandError(.DocFailed))
+        let translationUnit = ClangTranslationUnit(headerFiles: [args[3]], compilerArguments: Array<String>(args[4..<args.count]))
+        print(translationUnit)
+        return .Success()
     }
 }
 
