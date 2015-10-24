@@ -248,6 +248,9 @@ extension String {
                     let leadingWhitespaceToAdd = String(count: leadingWhitespaceCountToAdd, repeatedValue: Character(" "))
 
                     let bodySubstring = nsString.substringWithRange(range)
+                    if bodySubstring.containsString("@name") {
+                        return "" // appledoc directive, return empty string
+                    }
                     return leadingWhitespaceToAdd + bodySubstring
                 }
             }
