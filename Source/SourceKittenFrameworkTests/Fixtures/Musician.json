@@ -1,0 +1,85 @@
+[
+  {
+    "Musician.h" : {
+      "key.substructure" : [
+        {
+          "key.kind" : "sourcekitten.source.lang.objc.decl.class",
+          "key.doc.file" : "Musician.h",
+          "key.parsed_declaration" : "@interface JAZMusician : NSObject",
+          "key.doc.comment" : "JAZMusician models, you guessed it... Jazz Musicians!\nFrom Ellington to Marsalis, this class has you covered.",
+          "key.doc.full_as_xml" : "",
+          "key.doc.line" : "12",
+          "key.substructure" : [
+            {
+              "key.kind" : "sourcekitten.source.lang.objc.decl.property",
+              "key.doc.file" : "Musician.h",
+              "key.parsed_declaration" : "@property (readonly, nonatomic) NSString *name;",
+              "key.doc.comment" : "The name of the musician. i.e. \"John Coltrane\"",
+              "key.doc.full_as_xml" : "",
+              "key.doc.line" : "17",
+              "key.name" : "name",
+              "key.doc.column" : "44",
+              "key.filepath" : "Musician.h",
+              "key.usr" : "c:objc(cs)JAZMusician(py)name"
+            },
+            {
+              "key.kind" : "sourcekitten.source.lang.objc.decl.property",
+              "key.doc.file" : "Musician.h",
+              "key.parsed_declaration" : "@property (readonly, nonatomic) NSUInteger birthyear;",
+              "key.doc.comment" : "The year the musician was born. i.e. 1926",
+              "key.doc.full_as_xml" : "",
+              "key.doc.line" : "22",
+              "key.name" : "birthyear",
+              "key.doc.column" : "44",
+              "key.filepath" : "Musician.h",
+              "key.usr" : "c:objc(cs)JAZMusician(py)birthyear"
+            },
+            {
+              "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
+              "key.doc.file" : "Musician.h",
+              "key.parsed_declaration" : "- (instancetype)initWithName:(NSString *)name birthyear:(NSUInteger)birthyear;",
+              "key.doc.comment" : "Initialize a JAZMusician.\nDon't forget to have a name and a birthyear.\n\n- warning: Jazz can be addicting.\nPlease be careful out there.\n\n- parameter: name      The name of the musician.\n- parameter: birthyear The year the musician was born.\n\n- returns:          An initialized JAZMusician instance.",
+              "key.doc.parameters" : [
+                {
+                  "discussion" : [
+                    {
+                      "Para" : "The name of the musician.\n ",
+                      "kind" : ""
+                    }
+                  ],
+                  "name" : "name"
+                },
+                {
+                  "discussion" : [
+                    {
+                      "Para" : "The year the musician was born.",
+                      "kind" : ""
+                    }
+                  ],
+                  "name" : "birthyear"
+                }
+              ],
+              "key.doc.line" : "36",
+              "key.doc.full_as_xml" : "",
+              "key.name" : "-initWithName:birthyear:",
+              "key.doc.result_discussion" : [
+                {
+                  "Para" : "An initialized JAZMusician instance.",
+                  "kind" : ""
+                }
+              ],
+              "key.doc.column" : "17",
+              "key.filepath" : "Musician.h",
+              "key.usr" : "c:objc(cs)JAZMusician(im)initWithName:birthyear:"
+            }
+          ],
+          "key.name" : "JAZMusician",
+          "key.doc.column" : "12",
+          "key.filepath" : "Musician.h",
+          "key.usr" : "c:objc(cs)JAZMusician"
+        }
+      ],
+      "key.diagnostic_stage" : ""
+    }
+  }
+]
