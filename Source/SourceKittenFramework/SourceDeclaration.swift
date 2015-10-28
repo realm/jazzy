@@ -17,6 +17,45 @@ public struct SourceDeclaration {
     let documentation: Documentation?
     let commentBody: String?
     let children: [SourceDeclaration]
+
+    /// Returns the USR for the auto-generated getter for this property.
+    ///
+    /// - warning: can only be invoked if `type == .Property`.
+    var getterUSR: String {
+        return generateAccessorUSR(getter: true)
+    }
+
+    /// Returns the USR for the auto-generated setter for this property.
+    ///
+    /// - warning: can only be invoked if `type == .Property`.
+    var setterUSR: String {
+        return generateAccessorUSR(getter: false)
+    }
+
+    private func generateAccessorUSR(getter getter: Bool) -> String {
+        assert(type == .Property)
+        guard let usr = usr else {
+            fatalError("Couldn't extract USR")
+        }
+        guard let declaration = declaration else {
+            fatalError("Couldn't extract declaration")
+        }
+        let pyStartIndex = usr.rangeOfString("(py)")!.startIndex
+        let usrPrefix = usr.substringToIndex(pyStartIndex)
+        let fullDeclarationRange = NSRange(location: 0, length: (declaration as NSString).length)
+        let regex = try! NSRegularExpression(pattern: getter ? "getter=(\\w+)" : "setter=(\\w+:)", options: [])
+        let matches = regex.matchesInString(declaration, options: [], range: fullDeclarationRange)
+        if matches.count > 0 {
+            let accessorName = (declaration as NSString).substringWithRange(matches[0].rangeAtIndex(1))
+            return usrPrefix + "(im)\(accessorName)"
+        } else if getter {
+            return usr.stringByReplacingOccurrencesOfString("(py)", withString: "(im)")
+        }
+        // Setter
+        let capitalFirstLetter = String(usr.characters[pyStartIndex.advancedBy(4)]).capitalizedString
+        let restOfSetterName = usr.substringFromIndex(pyStartIndex.advancedBy(5))
+        return "\(usrPrefix)(im)set\(capitalFirstLetter)\(restOfSetterName):"
+    }
 }
 
 extension SourceDeclaration {
@@ -43,37 +82,12 @@ extension SourceDeclaration {
 extension SequenceType where Generator.Element == SourceDeclaration {
     /// Removes implicitly generated property getters & setters
     func rejectPropertyMethods() -> [SourceDeclaration] {
-        let tmpChildren = Array(self)
-        let properties = tmpChildren.filter { $0.type == .Property }
-        let propertyGetterSetterUSRs = properties.flatMap { property -> [String] in
-            let usr = property.usr!
-            let pyStartIndex = usr.rangeOfString("(py)")!.startIndex
-            let usrPrefix = usr.substringToIndex(pyStartIndex)
-            let declaration = property.declaration!
-            let getterRegex = try! NSRegularExpression(pattern: "getter=(\\w+)", options: [])
-            let fullDeclarationRange = NSRange(location: 0, length: (declaration as NSString).length)
-            let getterMatches = getterRegex.matchesInString(declaration, options: [], range: fullDeclarationRange)
-            let getter: String
-            if getterMatches.count > 0 {
-                let getterName = (declaration as NSString).substringWithRange(getterMatches[0].rangeAtIndex(1))
-                getter = usrPrefix + "(im)\(getterName)"
-            } else {
-                getter = usr.stringByReplacingOccurrencesOfString("(py)", withString: "(im)")
-            }
-            let setterRegex = try! NSRegularExpression(pattern: "setter=(\\w+:)", options: [])
-            let setterMatches = setterRegex.matchesInString(declaration, options: [], range: fullDeclarationRange)
-            let setter: String
-            if setterMatches.count > 0 {
-                let setterName = (declaration as NSString).substringWithRange(setterMatches[0].rangeAtIndex(1))
-                setter = usrPrefix + "(im)\(setterName)"
-            } else {
-                let capitalFirstLetter = String(usr.characters[pyStartIndex.advancedBy(4)]).capitalizedString
-                let restOfSetterName = usr.substringFromIndex(pyStartIndex.advancedBy(5))
-                setter = "\(usrPrefix)(im)set\(capitalFirstLetter)\(restOfSetterName):"
-            }
-            return [getter, setter]
+        let propertyGetterSetterUSRs = filter {
+            $0.type == .Property
+        }.flatMap {
+            [$0.getterUSR, $0.setterUSR]
         }
-        return tmpChildren.filter { !propertyGetterSetterUSRs.contains($0.usr!) }
+        return filter { !propertyGetterSetterUSRs.contains($0.usr!) }
     }
 }
 
