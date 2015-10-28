@@ -60,11 +60,7 @@ public struct SourceDeclaration {
 
 extension SourceDeclaration {
     init?(cursor: CXCursor) {
-        guard clang_isDeclaration(cursor.kind) != 0 else {
-            return nil
-        }
-        let comment = cursor.parsedComment()
-        guard comment.kind() != CXComment_Null else {
+        guard cursor.shouldDocument() else {
             return nil
         }
         type = cursor.objCKind()
@@ -73,7 +69,7 @@ extension SourceDeclaration {
         usr = cursor.usr()
         declaration = cursor.declaration()
         mark = cursor.mark()
-        documentation = Documentation(comment: comment)
+        documentation = Documentation(comment: cursor.parsedComment())
         commentBody = cursor.commentBody()
         children = cursor.flatMap(SourceDeclaration.init).rejectPropertyMethods()
     }
@@ -98,7 +94,8 @@ extension SourceDeclaration: Hashable {
 }
 
 public func ==(lhs: SourceDeclaration, rhs: SourceDeclaration) -> Bool {
-    return lhs.usr == rhs.usr
+    return lhs.usr == rhs.usr &&
+        lhs.location == rhs.location
 }
 
 // MARK: Comparable
@@ -108,27 +105,5 @@ extension SourceDeclaration: Comparable {}
 /// A [strict total order](http://en.wikipedia.org/wiki/Total_order#Strict_total_order)
 /// over instances of `Self`.
 public func <(lhs: SourceDeclaration, rhs: SourceDeclaration) -> Bool {
-    // Sort by file path.
-    switch lhs.location.file.compare(rhs.location.file) {
-    case .OrderedDescending:
-        return false
-    case .OrderedAscending:
-        return true
-    case .OrderedSame:
-        break
-    }
-
-    // Then line.
-    if lhs.location.line > rhs.location.line {
-        return false
-    } else if lhs.location.line < rhs.location.line {
-        return true
-    }
-
-    // Then column.
-    if lhs.location.column > rhs.location.column {
-        return false
-    }
-
-    return true
+    return lhs.location > rhs.location
 }

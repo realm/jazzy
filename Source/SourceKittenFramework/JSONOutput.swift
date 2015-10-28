@@ -49,7 +49,9 @@ private func toOutputDictionary(decl: SourceDeclaration) -> [String: AnyObject] 
     setA(.DocParameters, decl.documentation?.parameters.map(toOutputDictionary))
     setA(.Substructure, extractMarks(decl.children).map(toOutputDictionary))
 
-    set(.FullXMLDocs, "")
+    if decl.commentBody != nil {
+        set(.FullXMLDocs, "")
+    }
 
     return dict
 }

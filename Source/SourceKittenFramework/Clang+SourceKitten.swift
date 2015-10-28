@@ -39,17 +39,22 @@ extension CXTranslationUnit {
 
 extension CXCursor {
     func location() -> SourceLocation {
-        var cxfile = CXFile()
-        var line: UInt32 = 0
-        var column: UInt32 = 0
-        var offset: UInt32 = 0
-        clang_getSpellingLocation(clang_getCursorLocation(self), &cxfile, &line, &column, &offset)
-        return SourceLocation(file: clang_getFileName(cxfile).str() ?? "<none>",
-            line: line, column: column, offset: offset)
+        return SourceLocation(clangLocation: clang_getCursorLocation(self))
+    }
+
+    func shouldDocument() -> Bool {
+        return clang_isDeclaration(kind) != 0 &&
+            kind != CXCursor_ParmDecl &&
+            kind != CXCursor_TemplateTypeParameter &&
+            clang_Location_isInSystemHeader(clang_getCursorLocation(self)) == 0
     }
 
     func declaration() -> String? {
-        let commentXML = clang_FullComment_getAsXML(clang_Cursor_getParsedComment(self)).str() ?? ""
+        let comment = parsedComment()
+        if comment.kind() == CXComment_Null {
+            return str()
+        }
+        let commentXML = clang_FullComment_getAsXML(comment).str() ?? ""
         guard let rootXML = SWXMLHash.parse(commentXML).children.first else {
             fatalError("couldn't parse XML")
         }
@@ -73,6 +78,14 @@ extension CXCursor {
             }
         }
         return nil
+    }
+
+    func str() -> String? {
+        let range = clang_getCursorExtent(self)
+        let start = SourceLocation(clangLocation: clang_getRangeStart(range))
+        let end = SourceLocation(clangLocation: clang_getRangeEnd(range))
+        let contents = try! NSString(contentsOfFile: start.file, encoding: NSUTF8StringEncoding)
+        return contents.substringWithSourceRange(start, end: end)
     }
 
     func name() -> String {

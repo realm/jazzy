@@ -170,6 +170,14 @@ extension NSString {
     public func isSwiftFile() -> Bool {
         return pathExtension == "swift"
     }
+
+    /**
+    Returns a substring from a start and end SourceLocation.
+    */
+    public func substringWithSourceRange(start: SourceLocation, end: SourceLocation) -> String? {
+//        assert(start <= end)
+        return substringWithByteRange(start: Int(start.offset), length: Int(end.offset - start.offset))
+    }
 }
 
 extension String {
