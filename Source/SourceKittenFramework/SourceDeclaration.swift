@@ -6,45 +6,6 @@
 //  Copyright © 2015 SourceKitten. All rights reserved.
 //
 
-public struct SourceLocation {
-    let file: String
-    let line: UInt32
-    let column: UInt32
-    let offset: UInt32
-}
-
-public enum Text {
-    case Para(String, String?)
-    case Verbatim(String)
-}
-
-public struct Parameter {
-    let name: String
-    let discussion: [Text]
-
-    init(comment: CXComment) {
-        name = comment.paramName() ?? "<none>"
-        discussion = comment.paragraph().paragraphToString()
-    }
-}
-
-public struct Documentation {
-    let parameters: [Parameter]
-    let returnDiscussion: [Text]
-
-    init(comment: CXComment) {
-        let comments = (0..<comment.count()).map { comment[$0] }
-        parameters = comments.filter {
-            $0.kind() == CXComment_ParamCommand
-        }.map(Parameter.init)
-        returnDiscussion = comments.filter {
-            $0.kind() == CXComment_BlockCommand && $0.commandName() == "return"
-        }.flatMap {
-            $0.paragraphToString()
-        }
-    }
-}
-
 /// Represents a source code declaration.
 public struct SourceDeclaration {
     let type: ObjCDeclarationKind

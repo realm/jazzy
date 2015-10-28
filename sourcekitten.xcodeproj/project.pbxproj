@@ -21,6 +21,10 @@
 		D0E7B65619E9C76900EDBA4D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D1211B19E87861005E4BAA /* main.swift */; };
 		E805A0481B55CBAF00EA654A /* SourceKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E805A0471B55CBAF00EA654A /* SourceKitTests.swift */; };
 		E805A04A1B560FCA00EA654A /* FileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E805A0491B560FCA00EA654A /* FileTests.swift */; };
+		E806D28D1BE0589B00D1BE41 /* SourceLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E806D28C1BE0589B00D1BE41 /* SourceLocation.swift */; settings = {ASSET_TAGS = (); }; };
+		E806D28F1BE058B100D1BE41 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = E806D28E1BE058B100D1BE41 /* Text.swift */; settings = {ASSET_TAGS = (); }; };
+		E806D2911BE058C400D1BE41 /* Parameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E806D2901BE058C400D1BE41 /* Parameter.swift */; settings = {ASSET_TAGS = (); }; };
+		E806D2931BE058D600D1BE41 /* Documentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E806D2921BE058D600D1BE41 /* Documentation.swift */; settings = {ASSET_TAGS = (); }; };
 		E80F23671A5CADD900FD2352 /* SwiftDocsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F23661A5CADD900FD2352 /* SwiftDocsTests.swift */; };
 		E80F23691A5CB01A00FD2352 /* SyntaxKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F23681A5CB01A00FD2352 /* SyntaxKind.swift */; };
 		E80F236B1A5CB04100FD2352 /* SyntaxToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80F236A1A5CB04100FD2352 /* SyntaxToken.swift */; };
@@ -150,6 +154,10 @@
 		E805A0491B560FCA00EA654A /* FileTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTests.swift; sourceTree = "<group>"; };
 		E80604B21A5D452C0016D959 /* StructureCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StructureCommand.swift; sourceTree = "<group>"; };
 		E80604B41A5D474B0016D959 /* DocCommand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocCommand.swift; sourceTree = "<group>"; };
+		E806D28C1BE0589B00D1BE41 /* SourceLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceLocation.swift; sourceTree = "<group>"; };
+		E806D28E1BE058B100D1BE41 /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		E806D2901BE058C400D1BE41 /* Parameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parameter.swift; sourceTree = "<group>"; };
+		E806D2921BE058D600D1BE41 /* Documentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Documentation.swift; sourceTree = "<group>"; };
 		E80F23661A5CADD900FD2352 /* SwiftDocsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftDocsTests.swift; sourceTree = "<group>"; };
 		E80F23681A5CB01A00FD2352 /* SyntaxKind.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxKind.swift; sourceTree = "<group>"; };
 		E80F236A1A5CB04100FD2352 /* SyntaxToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyntaxToken.swift; sourceTree = "<group>"; };
@@ -356,16 +364,19 @@
 				E8D4743A1A648F290011A49C /* ClangTranslationUnit.swift */,
 				E8EE34BE1B9A502F00947605 /* CodeCompletionItem.swift */,
 				E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */,
+				E806D2921BE058D600D1BE41 /* Documentation.swift */,
 				E84763691A5A0651000EAE22 /* File.swift */,
 				3F56EACF1BAB251C006433D0 /* JSONOutput.swift */,
 				E8A18A3A1A58971D000362B7 /* Language.swift */,
 				E8241CA41A5E01A10047687E /* Module.swift */,
 				E877D9261B5693E70095BB2B /* ObjCDeclarationKind.swift */,
 				E83748C21A5BCD7900862B1B /* OffsetMap.swift */,
+				E806D2901BE058C400D1BE41 /* Parameter.swift */,
 				E86847391A587B4D0043DC65 /* Request.swift */,
 				E8A9B8911B56D1B100CD17D4 /* SourceDeclaration.swift */,
 				E868473D1A587CCC0043DC65 /* sourcekitd.swift */,
 				D0D1217119E87B05005E4BAA /* SourceKittenFramework.h */,
+				E806D28C1BE0589B00D1BE41 /* SourceLocation.swift */,
 				E8AE53C61A5B5FCA0092D24A /* String+SourceKitten.swift */,
 				E834740E1A593B5B00532B9A /* Structure.swift */,
 				E89291A81A5B800300D91568 /* SwiftDeclarationKind.swift */,
@@ -375,6 +386,7 @@
 				E80F23681A5CB01A00FD2352 /* SyntaxKind.swift */,
 				E8CC8A2C1A587FD300D1FEC7 /* SyntaxMap.swift */,
 				E80F236A1A5CB04100FD2352 /* SyntaxToken.swift */,
+				E806D28E1BE058B100D1BE41 /* Text.swift */,
 				E8A9B88F1B56CB5500CD17D4 /* Xcode.swift */,
 			);
 			name = SourceKittenFramework;
@@ -590,6 +602,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E806D2931BE058D600D1BE41 /* Documentation.swift in Sources */,
 				E872121A1AD2FFCD00A484F4 /* Array+SourceKitten.swift in Sources */,
 				3F0CBB411BAAFF160015BBA8 /* Clang+SourceKitten.swift in Sources */,
 				E8D4743B1A648F290011A49C /* ClangTranslationUnit.swift in Sources */,
@@ -598,11 +611,14 @@
 				E847636A1A5A0651000EAE22 /* File.swift in Sources */,
 				3F56EAD01BAB251C006433D0 /* JSONOutput.swift in Sources */,
 				E8A18A3B1A58971D000362B7 /* Language.swift in Sources */,
+				E806D28F1BE058B100D1BE41 /* Text.swift in Sources */,
 				E8241CA51A5E01A10047687E /* Module.swift in Sources */,
 				E877D9271B5693E70095BB2B /* ObjCDeclarationKind.swift in Sources */,
 				E83748C31A5BCD7900862B1B /* OffsetMap.swift in Sources */,
+				E806D2911BE058C400D1BE41 /* Parameter.swift in Sources */,
 				E868473A1A587B4D0043DC65 /* Request.swift in Sources */,
 				E8A9B8921B56D1B100CD17D4 /* SourceDeclaration.swift in Sources */,
+				E806D28D1BE0589B00D1BE41 /* SourceLocation.swift in Sources */,
 				E868473E1A587CCC0043DC65 /* sourcekitd.swift in Sources */,
 				E8AE53C71A5B5FCA0092D24A /* String+SourceKitten.swift in Sources */,
 				E834740F1A593B5B00532B9A /* Structure.swift in Sources */,
