@@ -1,3 +1,19 @@
+## Master
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+* Add support for Xcode 7.1.  
+  [JP Simard](https://github.com/jpsim)
+
+##### Bug Fixes
+
+None.
+
+
 ## 0.5.2
 
 ##### Breaking

@@ -35,6 +35,8 @@ public enum SyntaxKind: String {
     case Keyword = "source.lang.swift.syntaxtype.keyword"
     /// `number`.
     case Number = "source.lang.swift.syntaxtype.number"
+    /// `objectliteral`
+    case ObjectLiteral = "source.lang.swift.syntaxtype.objectliteral"
     /// `parameter`.
     case Parameter = "source.lang.swift.syntaxtype.parameter"
     /// `placeholder`.

@@ -748,12 +748,12 @@
         "key.bodyoffset" : 3532,
         "key.bodylength" : 119,
         "key.length" : 149,
-        "key.doc.declaration" : "struct Int : SignedIntegerType, IntegerType, Equatable, _SignedIntegerType, Comparable, _IntegerType, IntegerArithmeticType, _IntegerArithmeticType",
+        "key.doc.declaration" : "struct Int : SignedIntegerType, Comparable, Equatable",
         "key.name" : "Int",
         "key.typename" : "Int.Type",
         "key.usr" : "s:Si",
         "key.doc.type" : "Class",
-        "key.doc.full_as_xml" : "<Class><Name>Int<\/Name><USR>s:Si<\/USR><Declaration>struct Int : SignedIntegerType, IntegerType, Equatable, _SignedIntegerType, Comparable, _IntegerType, IntegerArithmeticType, _IntegerArithmeticType<\/Declaration><Abstract><Para>A 64-bit signed integer value type.<\/Para><\/Abstract><\/Class>",
+        "key.doc.full_as_xml" : "<Class><Name>Int<\/Name><USR>s:Si<\/USR><Declaration>struct Int : SignedIntegerType, Comparable, Equatable<\/Declaration><Abstract><Para>A 64-bit signed integer value type.<\/Para><\/Abstract><\/Class>",
         "key.nameoffset" : 3513,
         "key.doc.name" : "Int",
         "key.inheritedtypes" : [
@@ -761,7 +761,7 @@
             "key.name" : "ArgumentType"
           }
         ],
-        "key.annotated_decl" : "<Declaration>struct Int : <Type usr=\"s:PSs17SignedIntegerType\">SignedIntegerType<\/Type>, <Type usr=\"s:PSs11IntegerType\">IntegerType<\/Type>, <Type usr=\"s:PSs9Equatable\">Equatable<\/Type>, <Type usr=\"s:PSs18_SignedIntegerType\">_SignedIntegerType<\/Type>, <Type usr=\"s:PSs10Comparable\">Comparable<\/Type>, <Type usr=\"s:PSs12_IntegerType\">_IntegerType<\/Type>, <Type usr=\"s:PSs21IntegerArithmeticType\">IntegerArithmeticType<\/Type>, <Type usr=\"s:PSs22_IntegerArithmeticType\">_IntegerArithmeticType<\/Type><\/Declaration>",
+        "key.annotated_decl" : "<Declaration>struct Int : <Type usr=\"s:PSs17SignedIntegerType\">SignedIntegerType<\/Type>, <Type usr=\"s:PSs10Comparable\">Comparable<\/Type>, <Type usr=\"s:PSs9Equatable\">Equatable<\/Type><\/Declaration>",
         "key.is_system" : true,
         "key.substructure" : [
           {
@@ -982,7 +982,7 @@
             "key.name" : "T",
             "key.parsed_scope.start" : 159,
             "key.parsed_scope.end" : 159,
-            "key.usr" : "s:FZF10Commandantoi3lmgu1_rFTFq_q0_GO6Result6Resultq_GOS_15CommandantErrorq1____GS1_q0_GS2_q1___L_1TMq_",
+            "key.usr" : "s:tZF10Commandantoi3lmgu1_rFTFq_q0_GO6Result6Resultq_GOS_15CommandantErrorq1____GS1_q0_GS2_q1___L_1TMq_",
             "key.filepath" : "Commandant\/Option.swift"
           }
         ],
@@ -1039,7 +1039,7 @@
             "key.name" : "T",
             "key.parsed_scope.start" : 167,
             "key.parsed_scope.end" : 167,
-            "key.usr" : "s:FZF10Commandantoi3lmgu1_rFTGO6Result6ResultFq_q0_GOS_15CommandantErrorq1___GS1_q_GS2_q1____GS1_q0_GS2_q1___L_1TMq_",
+            "key.usr" : "s:tZF10Commandantoi3lmgu1_rFTGO6Result6ResultFq_q0_GOS_15CommandantErrorq1___GS1_q_GS2_q1____GS1_q0_GS2_q1___L_1TMq_",
             "key.filepath" : "Commandant\/Option.swift"
           }
         ],
@@ -1099,7 +1099,7 @@
             "key.name" : "T",
             "key.parsed_scope.start" : 188,
             "key.parsed_scope.end" : 188,
-            "key.usr" : "s:FZF10Commandantoi2lou0_Rq_S_12ArgumentType_FTOS_11CommandModeGVS_6Optionq___GO6Result6Resultq_GOS_15CommandantErrorq0___L_1TMq_",
+            "key.usr" : "s:tZF10Commandantoi2lou0_Rq_S_12ArgumentType_FTOS_11CommandModeGVS_6Optionq___GO6Result6Resultq_GOS_15CommandantErrorq0___L_1TMq_",
             "key.filepath" : "Commandant\/Option.swift"
           }
         ],
@@ -1159,7 +1159,7 @@
             "key.name" : "ClientError",
             "key.parsed_scope.start" : 231,
             "key.parsed_scope.end" : 231,
-            "key.usr" : "s:FZF10Commandantoi2lourFTOS_11CommandModeGVS_6OptionSb__GO6Result6ResultSbGOS_15CommandantErrorq___L_11ClientErrorMq_",
+            "key.usr" : "s:tZF10Commandantoi2lourFTOS_11CommandModeGVS_6OptionSb__GO6Result6ResultSbGOS_15CommandantErrorq___L_11ClientErrorMq_",
             "key.filepath" : "Commandant\/Option.swift"
           }
         ],
@@ -1923,7 +1923,7 @@
             "key.name" : "ClientError",
             "key.parsed_scope.start" : 52,
             "key.parsed_scope.end" : 52,
-            "key.usr" : "s:FZF10Commandantoi2lourFTOS_11CommandModeVS_6Switch_GO6Result6ResultSbGOS_15CommandantErrorq___L_11ClientErrorMq_",
+            "key.usr" : "s:tZF10Commandantoi2lourFTOS_11CommandModeVS_6Switch_GO6Result6ResultSbGOS_15CommandantErrorq___L_11ClientErrorMq_",
             "key.filepath" : "Commandant\/Switch.swift"
           }
         ],

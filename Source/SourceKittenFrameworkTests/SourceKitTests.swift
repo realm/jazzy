@@ -53,16 +53,23 @@ class SourceKitTests: XCTestCase {
             .Identifier,
             .Keyword,
             .Number,
+            .ObjectLiteral,
             .Parameter,
             .Placeholder,
             .String,
             .StringInterpolationAnchor,
             .Typeidentifier
         ]
+        let actual = sourcekitStringsStartingWith("source.lang.swift.syntaxtype.")
+        let expectedStrings = Set(expected.map { $0.rawValue })
         XCTAssertEqual(
-            sourcekitStringsStartingWith("source.lang.swift.syntaxtype."),
-            Set(expected.map { $0.rawValue })
+            actual,
+            expectedStrings
         )
+        if actual != expectedStrings {
+            print("the following strings were added: \(actual.subtract(expectedStrings))")
+            print("the following strings were removed: \(expectedStrings.subtract(actual))")
+        }
     }
 
     func testSwiftDeclarationKind() {
@@ -91,6 +98,7 @@ class SourceKitTests: XCTestCase {
             .FunctionOperator,
             .FunctionSubscript,
             .GenericTypeParam,
+            .Module,
             .Protocol,
             .Struct,
             .Typealias,
@@ -101,9 +109,15 @@ class SourceKitTests: XCTestCase {
             .VarParameter,
             .VarStatic
         ]
+        let actual = sourcekitStringsStartingWith("source.lang.swift.decl.")
+        let expectedStrings = Set(expected.map { $0.rawValue })
         XCTAssertEqual(
-            sourcekitStringsStartingWith("source.lang.swift.decl."),
-            Set(expected.map { $0.rawValue })
+            actual,
+            expectedStrings
         )
+        if actual != expectedStrings {
+            print("the following strings were added: \(actual.subtract(expectedStrings))")
+            print("the following strings were removed: \(expectedStrings.subtract(actual))")
+        }
     }
 }
