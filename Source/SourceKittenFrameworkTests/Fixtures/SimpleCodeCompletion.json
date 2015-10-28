@@ -15,7 +15,7 @@
   "context" : "source.codecompletion.context.superclass",
   "typeName" : "Int",
   "moduleName" : "Swift",
-  "name" : "advancedBy(n:, limit:)"
+  "name" : "advancedBy(n:limit:)"
 }, {
   "descriptionKey" : "bigEndian",
   "docBrief" : "Returns the big-endian representation of the integer, changing the byte order if necessary.",
@@ -94,7 +94,7 @@
   "context" : "source.codecompletion.context.superclass",
   "typeName" : "StrideThrough<Int>",
   "moduleName" : "Swift",
-  "name" : "stride(through:, by:)"
+  "name" : "stride(through:by:)"
 }, {
   "descriptionKey" : "stride(to: Int, by: Distance)",
   "docBrief" : "Return the sequence of values (self, self + stride, self + stride + stride, ... last) where last is the last value in the progression that is less than end.",
@@ -104,7 +104,7 @@
   "context" : "source.codecompletion.context.superclass",
   "typeName" : "StrideTo<Int>",
   "moduleName" : "Swift",
-  "name" : "stride(to:, by:)"
+  "name" : "stride(to:by:)"
 }, {
   "descriptionKey" : "successor()",
   "docBrief" : "Returns the next consecutive value after self.",
