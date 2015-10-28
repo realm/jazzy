@@ -92,12 +92,13 @@ extension CXCursor {
         let spelling = clang_getCursorSpelling(self).str()!
         let type = objCKind()
         if let usrNSString = usr() as NSString? where type == .Category {
+            let ext = (usrNSString.rangeOfString("c:objc(ext)").location == 0)
             let regex = try! NSRegularExpression(pattern: "(\\w+)@(\\w+)", options: [])
             let range = NSRange(location: 0, length: usrNSString.length)
             let matches = regex.matchesInString(usrNSString as String, options: [], range: range)
             if matches.count > 0 {
                 let categoryOn = usrNSString.substringWithRange(matches[0].rangeAtIndex(1))
-                let categoryName = usrNSString.substringWithRange(matches[0].rangeAtIndex(2))
+                let categoryName = ext ? "" : usrNSString.substringWithRange(matches[0].rangeAtIndex(2))
                 return "\(categoryOn)(\(categoryName))"
             } else {
                 fatalError("Couldn't get category name")

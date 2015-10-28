@@ -27,10 +27,6 @@ RLM_ASSUME_NONNULL_BEGIN
 
 typedef void (^RLMObjectMigrationBlock)(RLMObject * __nullable oldObject, RLMObject * __nullable newObject);
 
-/**---------------------------------------------------------------------------------------
- *  @name Realm Migrations
- *  ---------------------------------------------------------------------------------------
- */
 /**
  RLMMigration is the object passed into a user defined RLMMigrationBlock when updating the version
  of an RLMRealm instance.

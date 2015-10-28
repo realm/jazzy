@@ -50,5 +50,5 @@ public func <(lhs: SourceLocation, rhs: SourceLocation) -> Bool {
     }
 
     // Then offset.
-    return lhs.offset > rhs.offset
+    return lhs.offset < rhs.offset
 }

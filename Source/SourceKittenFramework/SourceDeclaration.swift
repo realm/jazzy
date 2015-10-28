@@ -105,5 +105,5 @@ extension SourceDeclaration: Comparable {}
 /// A [strict total order](http://en.wikipedia.org/wiki/Total_order#Strict_total_order)
 /// over instances of `Self`.
 public func <(lhs: SourceDeclaration, rhs: SourceDeclaration) -> Bool {
-    return lhs.location > rhs.location
+    return lhs.location < rhs.location
 }
