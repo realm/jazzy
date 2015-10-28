@@ -7,7 +7,7 @@
 //
 
 public func declarationsToJSON(decl: [String: [SourceDeclaration]]) -> String {
-    return toJSON(decl.map({ [$0: toOutputDictionary($1)] }))
+    return toJSON(decl.map({ [$0: toOutputDictionary($1)] }).sort({ $0.keys.first < $1.keys.first }))
 }
 
 private func extractMarks(decl: [SourceDeclaration]) -> [SourceDeclaration] {
