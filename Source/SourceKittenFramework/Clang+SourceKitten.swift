@@ -6,6 +6,8 @@
 //  Copyright © 2015 SourceKitten. All rights reserved.
 //
 
+import SWXMLHash
+
 struct ClangIndex {
     private let cx = clang_createIndex(0, 1)
 
@@ -33,10 +35,6 @@ extension CXTranslationUnit {
     func cursor() -> CXCursor {
         return clang_getTranslationUnitCursor(self)
     }
-
-    func visit(block: ((CXCursor, CXCursor) -> CXChildVisitResult)) {
-        cursor().visit(block)
-    }
 }
 
 extension CXCursor {
@@ -50,53 +48,57 @@ extension CXCursor {
             line: line, column: column, offset: offset)
     }
 
-    func name() -> String {
-        return clang_getCursorSpelling(self).str()!
+    func declaration() -> String? {
+        let commentXML = clang_FullComment_getAsXML(clang_Cursor_getParsedComment(self)).str() ?? ""
+        guard let rootXML = SWXMLHash.parse(commentXML).children.first else {
+            fatalError("couldn't parse XML")
+        }
+        return rootXML["Declaration"].element?.text?
+            .stringByReplacingOccurrencesOfString("\n@end", withString: "")
+            .stringByReplacingOccurrencesOfString("@property(", withString: "@property (")
     }
 
-    func type() -> CXType {
-        return clang_getCursorType(self)
+    func objCKind() -> ObjCDeclarationKind {
+        return ObjCDeclarationKind.fromClang(kind)
+    }
+
+    func mark() -> String? {
+        if let rawComment = clang_Cursor_getRawCommentText(self).str() where rawComment.containsString("@name") {
+            let nsString = rawComment as NSString
+            let regex = try! NSRegularExpression(pattern: "@name +(.*)", options: [])
+            let range = NSRange(location: 0, length: nsString.length)
+            let matches = regex.matchesInString(rawComment, options: [], range: range)
+            if matches.count > 0 {
+                return nsString.substringWithRange(matches[0].rangeAtIndex(1))
+            }
+        }
+        return nil
+    }
+
+    func name() -> String {
+        let spelling = clang_getCursorSpelling(self).str()!
+        let type = ObjCDeclarationKind.fromClang(kind)
+        if let usrNSString = usr() as NSString? where type == .Category {
+            let regex = try! NSRegularExpression(pattern: "(\\w+)@(\\w+)", options: [])
+            let range = NSRange(location: 0, length: usrNSString.length)
+            let matches = regex.matchesInString(usrNSString as String, options: [], range: range)
+            if matches.count > 0 {
+                let categoryOn = usrNSString.substringWithRange(matches[0].rangeAtIndex(1))
+                let categoryName = usrNSString.substringWithRange(matches[0].rangeAtIndex(2))
+                return "\(categoryOn)(\(categoryName))"
+            }
+        } else {
+            if type == .MethodInstance {
+                return "-" + spelling
+            } else if type == .MethodClass {
+                return "+" + spelling
+            }
+        }
+        return spelling
     }
 
     func usr() -> String? {
         return clang_getCursorUSR(self).str()
-    }
-
-    func text() -> String {
-        // Tokenize the string, then reassemble the tokens back into one string
-        // This is kinda wtf but there's no way to get the raw string...
-        let range = clang_getCursorExtent(self)
-        var tokens = UnsafeMutablePointer<CXToken>()
-        var count = UInt32(0)
-        clang_tokenize(translationUnit(), range, &tokens, &count)
-
-        func needsWhitespace(kind: CXTokenKind) -> Bool {
-            return kind == CXToken_Identifier || kind == CXToken_Keyword
-        }
-
-        var str = ""
-        var prevWasIdentifier = false
-        for i in 0..<count {
-            let type = clang_getTokenKind(tokens[Int(i)])
-            if type == CXToken_Comment {
-                break
-            }
-
-            if let s = tokens[Int(i)].str(translationUnit()) {
-                if prevWasIdentifier && needsWhitespace(type) {
-                    str += " "
-                }
-                str += s
-                prevWasIdentifier = needsWhitespace(type)
-            }
-        }
-
-        clang_disposeTokens(translationUnit(), tokens, count)
-        return str
-    }
-
-    func translationUnit() -> CXTranslationUnit {
-        return clang_Cursor_getTranslationUnit(self)
     }
 
     func visit(block: CXCursorVisitorBlock) {
@@ -117,17 +119,21 @@ extension CXCursor {
         }
         return ret
     }
-}
 
-extension CXToken {
-    func str(tu: CXTranslationUnit) -> String? {
-        return clang_getTokenSpelling(tu, self).str()
-    }
-}
-
-extension CXType {
-    func name() -> String? {
-        return clang_getTypeSpelling(self).str()
+    func commentBody() -> String? {
+        let rawComment = clang_Cursor_getRawCommentText(self).str()
+        let replacements = [
+            "@param ": "- parameter: ",
+            "@return ": "- returns: ",
+            "@warning ": "- warning: ",
+            "@see ": "- see: ",
+            "@note ": "- note: ",
+        ]
+        var commentBody = rawComment?.commentBody()
+        for (original, replacement) in replacements {
+            commentBody = commentBody?.stringByReplacingOccurrencesOfString(original, withString: replacement)
+        }
+        return commentBody
     }
 }
 

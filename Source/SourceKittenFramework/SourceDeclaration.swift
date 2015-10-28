@@ -6,8 +6,6 @@
 //  Copyright © 2015 SourceKitten. All rights reserved.
 //
 
-import SWXMLHash
-
 public struct SourceLocation {
     let file: String
     let line: UInt32
@@ -32,51 +30,18 @@ public struct Parameter {
 
 public struct Documentation {
     let parameters: [Parameter]
-    let discussion: [Text]
     let returnDiscussion: [Text]
 
     init(comment: CXComment) {
-        var params = [Parameter]()
-        var d = [Text]()
-        var r = [Text]()
-
-        for i in 0..<comment.count() {
-            let c = comment[i]
-            switch c.kind().rawValue {
-            case CXComment_Text.rawValue:
-                d += c.paragraphToString()
-                break
-            case CXComment_InlineCommand.rawValue:
-                break
-            case CXComment_HTMLStartTag.rawValue: break
-            case CXComment_HTMLEndTag.rawValue: break
-            case CXComment_Paragraph.rawValue:
-                d += c.paragraphToString()
-                break
-            case CXComment_BlockCommand.rawValue:
-                let command = c.commandName()
-                if command == "return" {
-                    r += c.paragraphToString()
-                }
-                else {
-                    d += c.paragraphToString(command)
-                }
-                break
-            case CXComment_ParamCommand.rawValue:
-                params.append(Parameter(comment: c))
-                break
-            case CXComment_VerbatimBlockCommand.rawValue: break
-            case CXComment_VerbatimBlockLine.rawValue: break
-            case CXComment_VerbatimLine.rawValue:
-                d += c.paragraphToString()
-                break
-            default: break
-            }
+        let comments = (0..<comment.count()).map { comment[$0] }
+        parameters = comments.filter {
+            $0.kind() == CXComment_ParamCommand
+        }.map(Parameter.init)
+        returnDiscussion = comments.filter {
+            $0.kind() == CXComment_BlockCommand && $0.commandName() == "return"
+        }.flatMap {
+            $0.paragraphToString()
         }
-
-        parameters = params
-        discussion = d
-        returnDiscussion = r
     }
 }
 
@@ -84,13 +49,12 @@ public struct Documentation {
 public struct SourceDeclaration {
     let type: ObjCDeclarationKind
     let location: SourceLocation
-
     let name: String?
     let usr: String?
     let declaration: String?
     let mark: String?
     let documentation: Documentation?
-    let rawDocumentation: String?
+    let commentBody: String?
     let children: [SourceDeclaration]
 }
 
@@ -103,69 +67,22 @@ extension SourceDeclaration {
         guard comment.kind() != CXComment_Null else {
             return nil
         }
-
-        let rawComment = clang_Cursor_getRawCommentText(cursor).str()
-        let replacements = [
-            "@param ": "- parameter: ",
-            "@return ": "- returns: ",
-            "@warning ": "- warning: ",
-            "@see ": "- see: ",
-            "@note ": "- note: ",
-        ]
-        var varRawDocumentation = rawComment?.commentBody()
-        for (original, replacement) in replacements {
-            varRawDocumentation = varRawDocumentation?.stringByReplacingOccurrencesOfString(original, withString: replacement)
-        }
-        rawDocumentation = varRawDocumentation
-        if let rawComment = rawComment where rawComment.containsString("@name") {
-            let nsString = rawComment as NSString
-            let regex = try! NSRegularExpression(pattern: "@name +(.*)", options: [])
-            let range = NSRange(location: 0, length: nsString.length)
-            let matches = regex.matchesInString(rawComment, options: [], range: range)
-            if matches.count > 0 {
-                mark = nsString.substringWithRange(matches[0].rangeAtIndex(1))
-            }
-            else {
-                mark = nil
-            }
-        }
-        else {
-            mark = nil
-        }
-
+        type = cursor.objCKind()
         location = cursor.location()
-        type = ObjCDeclarationKind.fromClang(cursor.kind)
+        name = cursor.name()
         usr = cursor.usr()
-        if let usrNSString = usr as NSString? where type == .Category {
-            let regex = try! NSRegularExpression(pattern: "(\\w+)@(\\w+)", options: [])
-            let range = NSRange(location: 0, length: usrNSString.length)
-            let matches = regex.matchesInString(usrNSString as String, options: [], range: range)
-            if matches.count > 0 {
-                let categoryOn = usrNSString.substringWithRange(matches[0].rangeAtIndex(1))
-                let categoryName = usrNSString.substringWithRange(matches[0].rangeAtIndex(2))
-                name = "\(categoryOn)(\(categoryName))"
-            } else {
-                name = cursor.name()
-            }
-        } else {
-            if type == .MethodInstance {
-                name = "-" + cursor.name()
-            } else if type == .MethodClass {
-                name = "+" + cursor.name()
-            } else {
-                name = cursor.name()
-            }
-        }
-        let commentXML = String.fromCString(clang_getCString(clang_FullComment_getAsXML(clang_Cursor_getParsedComment(cursor)))) ?? ""
-        guard let rootXML = SWXMLHash.parse(commentXML).children.first else {
-            fatalError("couldn't parse XML")
-        }
-        declaration = rootXML["Declaration"].element?.text?
-            .stringByReplacingOccurrencesOfString("\n@end", withString: "")
-            .stringByReplacingOccurrencesOfString("@property(", withString: "@property (")
+        declaration = cursor.declaration()
+        mark = cursor.mark()
         documentation = Documentation(comment: comment)
-        // Remove implicitly generated property getters & setters
-        let tmpChildren = cursor.flatMap(SourceDeclaration.init)
+        commentBody = cursor.commentBody()
+        children = cursor.flatMap(SourceDeclaration.init).rejectPropertyMethods()
+    }
+}
+
+extension SequenceType where Generator.Element == SourceDeclaration {
+    /// Removes implicitly generated property getters & setters
+    func rejectPropertyMethods() -> [SourceDeclaration] {
+        let tmpChildren = Array(self)
         let properties = tmpChildren.filter { $0.type == .Property }
         let propertyGetterSetterUSRs = properties.flatMap { property -> [String] in
             let usr = property.usr!
@@ -195,7 +112,7 @@ extension SourceDeclaration {
             }
             return [getter, setter]
         }
-        children = tmpChildren.filter { !propertyGetterSetterUSRs.contains($0.usr!) }
+        return tmpChildren.filter { !propertyGetterSetterUSRs.contains($0.usr!) }
     }
 }
 

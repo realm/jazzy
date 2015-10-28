@@ -7,11 +7,7 @@
 //
 
 public func declarationsToJSON(decl: [String: [SourceDeclaration]]) -> String {
-    var ret = [AnyObject]()
-    for (key, value) in decl {
-        ret.append([key: toOutputDictionary(value)])
-    }
-    return toJSON(ret)
+    return toJSON(decl.map({ [$0: toOutputDictionary($1)] }))
 }
 
 private func extractMarks(decl: [SourceDeclaration]) -> [SourceDeclaration] {
@@ -19,7 +15,7 @@ private func extractMarks(decl: [SourceDeclaration]) -> [SourceDeclaration] {
         if let mark = decl.mark {
             let md = SourceDeclaration(type: .Mark, location: decl.location,
                 name: "MARK: " + mark, usr: nil, declaration: nil, mark: nil,
-                documentation: nil, rawDocumentation: nil, children: [])
+                documentation: nil, commentBody: nil, children: [])
             return [md, decl]
         }
         return [decl]
@@ -47,7 +43,7 @@ private func toOutputDictionary(decl: SourceDeclaration) -> [String: AnyObject] 
     set(.Name, decl.name)
     set(.USR, decl.usr)
     set(.ParsedDeclaration, decl.declaration)
-    set(.DocumentationComment, decl.rawDocumentation)
+    set(.DocumentationComment, decl.commentBody)
 
     setA(.DocResultDiscussion, decl.documentation?.returnDiscussion.map(toOutputDictionary))
     setA(.DocParameters, decl.documentation?.parameters.map(toOutputDictionary))
