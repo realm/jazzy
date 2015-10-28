@@ -5,7 +5,7 @@ git:
 branches:
   only:
     - master
-script: script/cibuild
+script: make test
 notifications:
   email: false
   slack: realmio:vPdpsG9NLDo2DNlbqtcMAQuE
