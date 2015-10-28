@@ -77,7 +77,7 @@ extension CXCursor {
 
     func name() -> String {
         let spelling = clang_getCursorSpelling(self).str()!
-        let type = ObjCDeclarationKind.fromClang(kind)
+        let type = objCKind()
         if let usrNSString = usr() as NSString? where type == .Category {
             let regex = try! NSRegularExpression(pattern: "(\\w+)@(\\w+)", options: [])
             let range = NSRange(location: 0, length: usrNSString.length)
@@ -86,13 +86,13 @@ extension CXCursor {
                 let categoryOn = usrNSString.substringWithRange(matches[0].rangeAtIndex(1))
                 let categoryName = usrNSString.substringWithRange(matches[0].rangeAtIndex(2))
                 return "\(categoryOn)(\(categoryName))"
+            } else {
+                fatalError("Couldn't get category name")
             }
-        } else {
-            if type == .MethodInstance {
-                return "-" + spelling
-            } else if type == .MethodClass {
-                return "+" + spelling
-            }
+        } else if type == .MethodInstance {
+            return "-" + spelling
+        } else if type == .MethodClass {
+            return "+" + spelling
         }
         return spelling
     }
