@@ -371,6 +371,9 @@ header {
     color: $aside_color;
     -webkit-user-select: none;
   }
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .Swift {
