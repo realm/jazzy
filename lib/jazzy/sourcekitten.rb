@@ -9,6 +9,8 @@ require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 
+ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
+
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
@@ -309,6 +311,35 @@ module Jazzy
       end.compact
     end
 
+    def self.names_and_urls(docs)
+      docs.flat_map do |doc|
+        # FIXME: autolink more than just top-level items.
+        [{ name: doc.name, url: doc.url }] # + names_and_urls(doc.children)
+      end
+    end
+
+    def self.autolink_text(text, data, url)
+      regex = /\b(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\b/
+      text.gsub(regex) do
+        name = Regexp.last_match(1)
+        auto_url = data.find { |d| d[:name] == name }[:url]
+        if auto_url == url # docs shouldn't autolink to themselves
+          Regexp.last_match(0)
+        else
+          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{name}</a>"
+        end
+      end
+    end
+
+    def self.autolink(docs, data)
+      docs.map do |doc|
+        doc.abstract = autolink_text(doc.abstract, data, doc.url)
+        doc.return = autolink_text(doc.return, data, doc.url) if doc.return
+        doc.children = autolink(doc.children, data)
+        doc
+      end
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, min_acl, skip_undocumented)
@@ -321,7 +352,9 @@ module Jazzy
       # Remove top-level enum cases because it means they have an ACL lower
       # than min_acl
       docs = docs.reject { |doc| doc.type.enum_element? }
-      [make_doc_urls(docs, []), doc_coverage, @undocumented_tokens]
+      docs = make_doc_urls(docs, [])
+      docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
+      [docs, doc_coverage, @undocumented_tokens]
     end
   end
 end

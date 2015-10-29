@@ -6,6 +6,9 @@
 
 ##### Enhancements
 
+* Mentions of top-level declarations in documentation comments are now
+  automatically hyperlinked to their reference.
+
 * Render special list items (e.g. Throws, See, etc.). See
   http://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/ for
   a complete list.  
