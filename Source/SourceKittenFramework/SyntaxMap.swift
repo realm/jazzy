@@ -71,14 +71,14 @@ public struct SyntaxMap {
     
     - parameter offset: Last possible byte offset of the range's start.
     */
-    public func commentRangeBeforeOffset(offset: Int) -> (start: Int, length: Int)? {
+    public func commentRangeBeforeOffset(offset: Int) -> Range<Int>? {
         let tokensBeforeOffset = tokens.filter { $0.offset < offset }
         let commentTokensImmediatelyPrecedingOffset = filterLastContiguous(tokensBeforeOffset) {
             SyntaxKind.isCommentLike($0.type)
         }
         return commentTokensImmediatelyPrecedingOffset.first.flatMap { firstToken in
             return commentTokensImmediatelyPrecedingOffset.last.map { lastToken in
-                return (firstToken.offset, lastToken.offset + lastToken.length - firstToken.offset)
+                return Range(start: firstToken.offset, end: lastToken.offset + lastToken.length)
             }
         }
     }
