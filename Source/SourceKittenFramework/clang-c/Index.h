@@ -32,7 +32,7 @@
  * compatible, thus CINDEX_VERSION_MAJOR is expected to remain stable.
  */
 #define CINDEX_VERSION_MAJOR 0
-#define CINDEX_VERSION_MINOR 30
+#define CINDEX_VERSION_MINOR 31
 
 #define CINDEX_VERSION_ENCODE(major, minor) ( \
       ((major) * 10000)                       \
@@ -1573,7 +1573,7 @@ enum CXCursorKind {
   CXCursor_ObjCImplementationDecl        = 18,
   /** \brief An Objective-C \@implementation for a category. */
   CXCursor_ObjCCategoryImplDecl          = 19,
-  /** \brief A typedef */
+  /** \brief A typedef. */
   CXCursor_TypedefDecl                   = 20,
   /** \brief A C++ class method. */
   CXCursor_CXXMethod                     = 21,
@@ -1982,7 +1982,11 @@ enum CXCursorKind {
    */
   CXCursor_ObjCSelfExpr                  = 146,
 
-  CXCursor_LastExpr                      = CXCursor_ObjCSelfExpr,
+  /** \brief OpenMP 4.0 [2.4, Array Section].
+   */
+  CXCursor_OMPArraySectionExpr           = 147,
+
+  CXCursor_LastExpr                      = CXCursor_OMPArraySectionExpr,
 
   /* Statements */
   CXCursor_FirstStmt                     = 200,
@@ -2227,17 +2231,21 @@ enum CXCursorKind {
 
   /** \brief OpenMP taskgroup directive.
    */
-  CXCursor_OMPTaskgroupDirective          = 254,
+  CXCursor_OMPTaskgroupDirective         = 254,
 
   /** \brief OpenMP cancellation point directive.
    */
-  CXCursor_OMPCancellationPointDirective  = 255,
+  CXCursor_OMPCancellationPointDirective = 255,
 
   /** \brief OpenMP cancel directive.
    */
-  CXCursor_OMPCancelDirective             = 256,
+  CXCursor_OMPCancelDirective            = 256,
 
-  CXCursor_LastStmt                    = CXCursor_OMPCancelDirective,
+  /** \brief OpenMP target data directive.
+   */
+  CXCursor_OMPTargetDataDirective        = 257,
+
+  CXCursor_LastStmt                      = CXCursor_OMPTargetDataDirective,
 
   /**
    * \brief Cursor that represents the translation unit itself.
@@ -2271,7 +2279,8 @@ enum CXCursorKind {
   CXCursor_CUDAGlobalAttr                = 414,
   CXCursor_CUDAHostAttr                  = 415,
   CXCursor_CUDASharedAttr                = 416,
-  CXCursor_LastAttr                      = CXCursor_CUDASharedAttr,
+  CXCursor_VisibilityAttr                = 417,
+  CXCursor_LastAttr                      = CXCursor_VisibilityAttr,
 
   /* Preprocessing */
   CXCursor_PreprocessingDirective        = 500,
@@ -3946,6 +3955,11 @@ CXFile clang_Module_getTopLevelHeader(CXTranslationUnit,
  *
  * @{
  */
+
+/**
+ * \brief Determine if a C++ field is declared 'mutable'.
+ */
+CINDEX_LINKAGE unsigned clang_CXXField_isMutable(CXCursor C);
 
 /**
  * \brief Determine if a C++ member function or member function template is
