@@ -269,13 +269,6 @@ header {
   overflow-x: auto;
 }
 
-.aside-title {
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding-bottom: 0;
-}
-
 .declaration .highlight {
   overflow-x: initial; // This allows the scrollbar to show up inside declarations
   padding: 0 40px 40px 0;
@@ -367,6 +360,10 @@ header {
   border-left: $aside_border;
   overflow-y: hidden;
   .aside-title {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding-bottom: 0;
     margin: 0;
     color: $aside_color;
     -webkit-user-select: none;
