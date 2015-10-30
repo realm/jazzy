@@ -35,6 +35,8 @@ To install jazzy, run `[sudo] gem install jazzy` from your command line.
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional
 options.
 
+You can set options for your project’s documentation in a configuration file, `.jazzy.yaml` by default. For a detailed explanation and an exhaustive list of all available options, run `jazzy --help config`.
+
 ### Troubleshooting
 
 #### Only extensions are listed in the documentation.
