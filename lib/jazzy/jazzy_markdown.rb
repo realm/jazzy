@@ -68,8 +68,8 @@ module Jazzy
     end
 
     def render_aside(type, text)
-      %(<div class="#{type}">
-          <p class="aside-title">#{type}</p>
+      %(<div class="aside aside-#{type.underscore.gsub('_', '-')}">
+          <p class="aside-title">#{type.underscore.humanize}</p>
           #{text}
         </div>)
     end
