@@ -301,7 +301,7 @@ module Jazzy
       config_path = locate_config_file
       return unless config_path
 
-      puts "Using custom config file #{config_path}"
+      puts "Using config file #{config_path}"
       config_file = read_config_file(config_path)
       self.class.all_config_attrs.each do |attr|
         key = attr.name.to_s
