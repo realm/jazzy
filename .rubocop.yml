@@ -47,6 +47,23 @@ TrailingComma:
 Style/SpecialGlobalVars:
   Enabled: false
 
+# For lambdas nested within certain expressions, this rule forces either ugly
+# parens or curly braces that violate the "do/end for multiline blocks" rule.
+Lambda:
+  Enabled: false
+
+# Disallowing indented "when" clauses destroys readability when using the
+# single-line "when/then" style.
+CaseIndentation:
+  Enabled: false
+
+# These are both subjective judgements that depend on the situation, and are
+# not appropriate as absolute rules.
+GuardClause:
+  Enabled: false
+Next:
+  Enabled: false
+
 #- Jazzy specs -----------------------------------------------------------#
 
 # Allow for `should.match /regexp/`.

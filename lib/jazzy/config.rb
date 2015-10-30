@@ -110,9 +110,9 @@ module Jazzy
       command_line: ['-e', '--exclude file1,file2,…fileN', Array],
       description: 'Files to be excluded from documentation',
       default: [],
-      parse: (lambda do |files|
+      parse: ->(files) do
         files.map { |f| File.expand_path(f) }
-      end)
+      end
 
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
@@ -195,13 +195,13 @@ module Jazzy
       command_line: '--min-acl [private | internal | public]',
       description: 'minimum access control level to document',
       default: 'public',
-      parse: (lambda do |acl|
+      parse: ->(acl) do
         case acl
-        when 'public'   then SourceDeclaration::AccessControlLevel.public
-        when 'internal' then SourceDeclaration::AccessControlLevel.internal
-        when 'private'  then SourceDeclaration::AccessControlLevel.private
+          when 'public'   then SourceDeclaration::AccessControlLevel.public
+          when 'internal' then SourceDeclaration::AccessControlLevel.internal
+          when 'private'  then SourceDeclaration::AccessControlLevel.private
         end
-      end)
+      end
 
     config_attr :skip_undocumented,
       command_line: '--[no-]skip-undocumented',
@@ -326,9 +326,9 @@ module Jazzy
 
     def read_config_file(file)
       case File.extname(file)
-      when '.json'         then JSON.parse(File.read(file))
-      when '.yaml', '.yml' then YAML.load(File.read(file))
-      else raise "Config file must be .yaml or .json, but got #{file.inspect}"
+        when '.json'         then JSON.parse(File.read(file))
+        when '.yaml', '.yml' then YAML.load(File.read(file))
+        else raise "Config file must be .yaml or .json, but got #{file.inspect}"
       end
     end
 
@@ -365,26 +365,28 @@ module Jazzy
         match = ([attr.name] + attr.command_line).any? do
           |opt| opt.to_s.include?(topic)
         end
-        next unless match
-
-        found = true
-        puts
-        puts attr.name.to_s.gsub('_', ' ').upcase
-        puts
-        puts "  Config file:   #{attr.name}"
-        cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
-        if cmd_line_forms.any?
-          puts "  Command line:  #{cmd_line_forms.join(', ')}"
+        if match
+          found = true
+          puts
+          puts attr.name.to_s.gsub('_', ' ').upcase
+          puts
+          puts "  Config file:   #{attr.name}"
+          cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
+          if cmd_line_forms.any?
+            puts "  Command line:  #{cmd_line_forms.join(', ')}"
+          end
+          puts
+          print_attr_description(attr)
         end
-        puts
-        print_attr_description(attr)
       end
       warn "Unknown help topic #{topic.inspect}" unless found
     end
 
     def print_attr_description(attr)
       attr.description.each { |line| puts "  #{line}" }
-      puts "  Default: #{attr.default}" if attr.default && attr.default != ''
+      if attr.default && attr.default != ''
+        puts "  Default: #{attr.default}"
+      end
     end
 
     #-------------------------------------------------------------------------#
