@@ -173,12 +173,7 @@ describe_cli 'jazzy' do
 
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',
-                            '-m MiscJazzyFeatures -a Realm ' \
-                            '-u https://github.com/realm/jazzy ' \
-                            '-g https://github.com/realm/jazzy ' \
-                            '-x -dry-run ' \
-                            '--min-acl private ' \
-                            '--hide-documentation-coverage'
+                            '-x -dry-run '
     end
   end if !travis_swift || travis_swift == '2.0'
 end
