@@ -18,10 +18,15 @@
         <a class="token" href="#/{{usr}}">{{name}}</a>
         </code>
         {{#default_impl_abstract}}
-          <span class="has_default_implementation">
+          <span class="declaration-note">
             Default implementation
           </span>
         {{/default_impl_abstract}}
+        {{#merged_from_protocol_extension}}
+          <span class="declaration-note">
+            Extension method
+          </span>
+        {{/merged_from_protocol_extension}}
       </div>
       <div class="height-container">
         <div class="pointer-container"></div>

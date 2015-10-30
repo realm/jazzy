@@ -341,10 +341,9 @@ module Jazzy
         merge_default_implementations_into_protocol(typedecl, extensions)
         extensions.reject! { |ext| ext.children.empty? }
 
-        ext_mark = SourceMark.new('- Extension Members')
         extensions.each do |ext|
           ext.children.each do |ext_member|
-            ext_member.mark = ext_mark
+            ext_member.merged_from_protocol_extension = true
           end
         end
       end

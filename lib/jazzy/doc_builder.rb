@@ -243,6 +243,7 @@ module Jazzy
       gh_token_url = gh_token_url(item, source_module)
       item_render[:github_token_url] = gh_token_url
       item_render[:default_impl_abstract] = Jazzy.markdown.render(item.default_impl_abstract) if item.default_impl_abstract
+      item_render[:merged_from_protocol_extension] = item.merged_from_protocol_extension
       item_render[:return] = Jazzy.markdown.render(item.return) if item.return
       item_render[:parameters] = item.parameters if item.parameters.any?
       item_render[:url] = item.url if item.children.any?
