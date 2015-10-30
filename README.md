@@ -21,10 +21,8 @@ documentation, post WWDC 2014.
 
 ### Requirements
 
-* A 6.x version of [Xcode][xcode] capable of building the Swift project
-  you wish to document, installed anywhere under `/Applications`.
-  Support for Xcode 7 betas is in progress (see
-  [#261](https://github.com/realm/jazzy/pull/261)).
+* A version of [Xcode][xcode] (6.x or 7.x) capable of building the Swift project
+  you wish to document, installed in a location indexed by Spotlight.
 
 ### Installing
 
@@ -40,6 +38,7 @@ You can set options for your project’s documentation in a configuration file, 
 ### Troubleshooting
 
 #### Only extensions are listed in the documentation.
+
 By default, jazzy only documents public declarations. To generate documentation for declarations with a lower accessibility level (internal or private), please set the `--min-acl` flag to `internal` or `private`.
 
 ### Development

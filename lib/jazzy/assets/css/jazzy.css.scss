@@ -26,6 +26,11 @@ $code_font: 0.95em Menlo, monospace;
 $gray_border: 1px solid #e2e2e2;
 $declaration_swift_border: 5px solid #cde9f4;
 
+$aside_color: #aaa;
+$aside_border: 5px solid lighten($aside_color, 20%);
+$aside_warning_color: #ff0000;
+$aside_warning_border: 5px solid lighten($aside_warning_color, 20%);
+
 ////////////////////////////////
 // Reset
 ////////////////////////////////
@@ -264,13 +269,6 @@ header {
   overflow-x: auto;
 }
 
-.aside-title {
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding-bottom: 0;
-}
-
 .declaration .highlight {
   overflow-x: initial; // This allows the scrollbar to show up inside declarations
   padding: 0 40px 40px 0;
@@ -356,14 +354,36 @@ header {
   }
 }
 
-div.Swift {
-  padding: 4px 0 2px 10px;
-  margin-bottom: 1em;
-  border-left: $declaration_swift_border;
+.aside, .Swift {
+  padding: 6px 12px;
+  margin: 12px 0;
+  border-left: $aside_border;
   overflow-y: hidden;
   .aside-title {
-    color: $declaration_lang_title_swift_color;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding-bottom: 0;
+    margin: 0;
+    color: $aside_color;
     -webkit-user-select: none;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.Swift {
+  border-left: $declaration_swift_border;
+  .aside-title {
+    color: $declaration_lang_title_swift_color;
+  }
+}
+
+.aside-warning {
+  border-left: $aside_warning_border;
+  .aside-title {
+    color: $aside_warning_color;
   }
 }
 

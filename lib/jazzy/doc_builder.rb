@@ -310,7 +310,7 @@ module Jazzy
       doc[:github_url] = source_module.github_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
-      doc.render
+      doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
   end
 end

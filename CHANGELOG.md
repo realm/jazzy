@@ -6,10 +6,34 @@
 
 ##### Enhancements
 
+* Mentions of top-level declarations in documentation comments are now
+  automatically hyperlinked to their reference.
+
 * Jazzy can now read options from a configuration file. The command line
   provides comprehensive help for available options via `jazzy -h config`.
   [pcantrell](https://github.com/pcantrell)
   [310](https://github.com/realm/jazzy/pull/310)
+
+* Render special list items (e.g. Throws, See, etc.). See
+  http://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/ for
+  a complete list.  
+  [JP Simard](https://github.com/jpsim)
+  [#317](https://github.com/realm/jazzy/issues/317)
+
+##### Bug Fixes
+
+* None.
+
+
+## 0.3.2
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
 
 ##### Bug Fixes
 
@@ -21,6 +45,10 @@
 * Hide documentation coverage from header using `--hide-documentation-coverage`.  
   [mbogh](https://github.com/mbogh)
   [#129](https://github.com/realm/jazzy/issues/297)
+
+* Print a more informative error when unable to find an Xcode that has the
+  requested Swift version.  
+  [Samuel Giddins])https://github.com/segiddins
 
 
 ## 0.3.1
