@@ -8,7 +8,7 @@
         "key.doc.comment" : "A basic implementation of a `help` command, using information available in a\n`CommandRegistry`.\n\nIf you want to use this command, initialize it with the registry, then add\nit to that same registry:\n\n\tlet commands: CommandRegistry<MyErrorType> = …\n\tlet helpCommand = HelpCommand(registry: commands)\n\tcommands.register(helpCommand)",
         "key.namelength" : 11,
         "key.doc.line" : 21,
-        "key.bodylength" : 1107,
+        "key.bodylength" : 1123,
         "key.length" : 11,
         "key.doc.column" : 15,
         "key.parsed_scope.end" : 57,
@@ -143,7 +143,7 @@
             "key.parsed_declaration" : "public func run(mode: CommandMode) -> Result<(), CommandantError<ClientError>>",
             "key.namelength" : 22,
             "key.bodyoffset" : 1005,
-            "key.bodylength" : 704,
+            "key.bodylength" : 720,
             "key.length" : 22,
             "key.name" : "run(_:)",
             "key.typename" : "<ClientError> HelpCommand<ClientError> -> (CommandMode) -> Result<(), CommandantError<ClientError>>",
@@ -176,17 +176,17 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.struct",
-        "key.offset" : 1729,
+        "key.offset" : 1745,
         "key.parsed_declaration" : "private struct HelpOptions<ClientError>: OptionsType",
         "key.namelength" : 11,
-        "key.bodyoffset" : 1768,
+        "key.bodyoffset" : 1784,
         "key.bodylength" : 366,
         "key.length" : 11,
         "key.name" : "HelpOptions",
         "key.typename" : "HelpOptions.Type",
         "key.parsed_scope.end" : 74,
         "key.usr" : "s:V10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions",
-        "key.nameoffset" : 1729,
+        "key.nameoffset" : 1745,
         "key.inheritedtypes" : [
           {
             "key.name" : "OptionsType"
@@ -197,7 +197,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 1774,
+            "key.offset" : 1790,
             "key.parsed_declaration" : "let verb: String?",
             "key.namelength" : 4,
             "key.length" : 4,
@@ -205,7 +205,7 @@
             "key.name" : "verb",
             "key.parsed_scope.end" : 60,
             "key.usr" : "s:vV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions4verbGSqSS_",
-            "key.nameoffset" : 1774,
+            "key.nameoffset" : 1790,
             "key.annotated_decl" : "<Declaration>let verb: <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.parsed_scope.start" : 60,
@@ -213,17 +213,17 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 1791,
+            "key.offset" : 1807,
             "key.parsed_declaration" : "init(verb: String?)",
             "key.namelength" : 19,
-            "key.bodyoffset" : 1812,
+            "key.bodyoffset" : 1828,
             "key.bodylength" : 21,
             "key.length" : 19,
             "key.name" : "init(verb:)",
             "key.typename" : "<ClientError> HelpOptions<ClientError>.Type -> (verb: String?) -> HelpOptions<ClientError>",
             "key.parsed_scope.end" : 64,
             "key.usr" : "s:FV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptionscurFMGS0_q__FT4verbGSqSS__GS0_q__",
-            "key.nameoffset" : 1791,
+            "key.nameoffset" : 1807,
             "key.annotated_decl" : "<Declaration>init(verb: <Type usr=\"s:SS\">String<\/Type>?)<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.substructure" : [
@@ -234,17 +234,17 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 1849,
+            "key.offset" : 1865,
             "key.parsed_declaration" : "static func create(verb: String) -> HelpOptions",
             "key.namelength" : 20,
-            "key.bodyoffset" : 1886,
+            "key.bodyoffset" : 1902,
             "key.bodylength" : 54,
             "key.length" : 20,
             "key.name" : "create(_:)",
             "key.typename" : "<ClientError> HelpOptions<ClientError>.Type -> (String) -> HelpOptions<ClientError>",
             "key.parsed_scope.end" : 68,
             "key.usr" : "s:ZFV10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions6createurFMGS0_q__FSSGS0_q__",
-            "key.nameoffset" : 1849,
+            "key.nameoffset" : 1865,
             "key.annotated_decl" : "<Declaration>static func create(verb: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:V10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions\">HelpOptions<\/Type>&lt;ClientError&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.substructure" : [
@@ -255,10 +255,10 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 1956,
+            "key.offset" : 1972,
             "key.parsed_declaration" : "static func evaluate(m: CommandMode) -> Result<HelpOptions, CommandantError<ClientError>>",
             "key.namelength" : 24,
-            "key.bodyoffset" : 2035,
+            "key.bodyoffset" : 2051,
             "key.bodylength" : 97,
             "key.length" : 24,
             "key.name" : "evaluate(_:)",
@@ -270,7 +270,7 @@
                 "key.usr" : "s:ZFP10Commandant11OptionsType8evaluateuRq_S0__FMq_FOS_11CommandModeGO6Result6Resultq_GOS_15CommandantErrorqq_S0_11ClientError__"
               }
             ],
-            "key.nameoffset" : 1956,
+            "key.nameoffset" : 1972,
             "key.annotated_decl" : "<Declaration>static func evaluate(m: <Type usr=\"s:O10Commandant11CommandMode\">CommandMode<\/Type>) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;<Type usr=\"s:V10CommandantP33_38F61CE0DF9D73793CEDF5D1C314033111HelpOptions\">HelpOptions<\/Type>&lt;ClientError&gt;, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.substructure" : [
@@ -283,7 +283,7 @@
         "key.elements" : [
           {
             "key.kind" : "source.lang.swift.structure.elem.typeref",
-            "key.offset" : 1755,
+            "key.offset" : 1771,
             "key.length" : 11
           }
         ],
@@ -293,16 +293,16 @@
     ],
     "key.offset" : 0,
     "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-    "key.length" : 2136
+    "key.length" : 2152
   }
 }, {
   "Commandant\/Option.swift" : {
     "key.substructure" : [
       {
         "key.kind" : "source.lang.swift.decl.protocol",
-        "key.offset" : 1290,
+        "key.offset" : 1322,
         "key.parsed_declaration" : "public protocol OptionsType",
-        "key.doc.comment" : "Represents a record of options for a command, which can be parsed from\na list of command-line arguments.\n\nThis is most helpful when used in conjunction with the `Option` and `Switch`\ntypes, and `<*>` and `<|` combinators.\n\nExample:\n\n\tstruct LogOptions: OptionsType {\n\t\tlet verbosity: Int\n\t\tlet outputFilename: String\n\t\tlet logName: String\n\n\t\tstatic func create(verbosity: Int)(outputFilename: String)(logName: String) -> LogOptions {\n\t\t\treturn LogOptions(verbosity: verbosity, outputFilename: outputFilename, logName: logName)\n\t\t}\n\n\t\tstatic func evaluate(m: CommandMode) -> Result<LogOptions> {\n\t\t\treturn create\n\t\t\t\t<*> m <| Option(key: \"verbose\", defaultValue: 0, usage: \"the verbosity level with which to read the logs\")\n\t\t\t\t<*> m <| Option(key: \"outputFilename\", defaultValue: \"\", usage: \"a file to print output to, instead of stdout\")\n\t\t\t\t<*> m <| Switch(flag: \"d\", key: \"delete\", defaultValue: false, usage: \"delete the logs when finished\")\n\t\t\t\t<*> m <| Option(usage: \"the log to read\")\n\t\t}\n\t}",
+        "key.doc.comment" : "Represents a record of options for a command, which can be parsed from\na list of command-line arguments.\n\nThis is most helpful when used in conjunction with the `Option` and `Switch`\ntypes, and `<*>` and `<|` combinators.\n\nExample:\n\n\tstruct LogOptions: OptionsType {\n\t\tlet verbosity: Int\n\t\tlet outputFilename: String\n\t\tlet logName: String\n\n\t\tstatic func create(verbosity: Int)(outputFilename: String)(logName: String) -> LogOptions {\n\t\t\treturn LogOptions(verbosity: verbosity, outputFilename: outputFilename, logName: logName)\n\t\t}\n\n\t\tstatic func evaluate(m: CommandMode) -> Result<LogOptions, CommandantError<YourErrorType>> {\n\t\t\treturn create\n\t\t\t\t<*> m <| Option(key: \"verbose\", defaultValue: 0, usage: \"the verbosity level with which to read the logs\")\n\t\t\t\t<*> m <| Option(key: \"outputFilename\", defaultValue: \"\", usage: \"a file to print output to, instead of stdout\")\n\t\t\t\t<*> m <| Switch(flag: \"d\", key: \"delete\", defaultValue: false, usage: \"delete the logs when finished\")\n\t\t\t\t<*> m <| Option(usage: \"the log to read\")\n\t\t}\n\t}",
         "key.namelength" : 11,
         "key.doc.line" : 37,
         "key.bodylength" : 219,
@@ -311,13 +311,13 @@
         "key.parsed_scope.end" : 44,
         "key.usr" : "s:P10Commandant11OptionsType",
         "key.doc.file" : "Commandant\/Option.swift",
-        "key.nameoffset" : 1290,
+        "key.nameoffset" : 1322,
         "key.annotated_decl" : "<Declaration>public protocol OptionsType<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.runtime_name" : "_TtP8__main__11OptionsType_",
         "key.parsed_scope.start" : 37,
         "key.filepath" : "Commandant\/Option.swift",
-        "key.bodyoffset" : 1303,
+        "key.bodyoffset" : 1335,
         "key.doc.declaration" : "public protocol OptionsType",
         "key.name" : "OptionsType",
         "key.typename" : "OptionsType.Protocol",
@@ -327,12 +327,12 @@
             "key.attribute" : "source.decl.attribute.__raw_doc_comment"
           }
         ],
-        "key.doc.full_as_xml" : "<Class file=\"Commandant\/Option.swift\" line=\"37\" column=\"17\"><Name>OptionsType<\/Name><USR>s:P10Commandant11OptionsType<\/USR><Declaration>public protocol OptionsType<\/Declaration><Abstract><Para>Represents a record of options for a command, which can be parsed from a list of command-line arguments.<\/Para><\/Abstract><Discussion><Para>This is most helpful when used in conjunction with the <codeVoice>Option<\/codeVoice> and <codeVoice>Switch<\/codeVoice> types, and <codeVoice>&lt;*&gt;<\/codeVoice> and <codeVoice>&lt;|<\/codeVoice> combinators.<\/Para><Para>Example:<\/Para><CodeListing><zCodeLineNumbered><![CDATA[\tstruct LogOptions: OptionsType {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet verbosity: Int]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet outputFilename: String]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet logName: String]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tstatic func create(verbosity: Int)(outputFilename: String)(logName: String) -> LogOptions {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\treturn LogOptions(verbosity: verbosity, outputFilename: outputFilename, logName: logName)]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tstatic func evaluate(m: CommandMode) -> Result<LogOptions> {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\treturn create]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(key: \"verbose\", defaultValue: 0, usage: \"the verbosity level with which to read the logs\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(key: \"outputFilename\", defaultValue: \"\", usage: \"a file to print output to, instead of stdout\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Switch(flag: \"d\", key: \"delete\", defaultValue: false, usage: \"delete the logs when finished\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(usage: \"the log to read\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><\/CodeListing><\/Discussion><\/Class>",
+        "key.doc.full_as_xml" : "<Class file=\"Commandant\/Option.swift\" line=\"37\" column=\"17\"><Name>OptionsType<\/Name><USR>s:P10Commandant11OptionsType<\/USR><Declaration>public protocol OptionsType<\/Declaration><Abstract><Para>Represents a record of options for a command, which can be parsed from a list of command-line arguments.<\/Para><\/Abstract><Discussion><Para>This is most helpful when used in conjunction with the <codeVoice>Option<\/codeVoice> and <codeVoice>Switch<\/codeVoice> types, and <codeVoice>&lt;*&gt;<\/codeVoice> and <codeVoice>&lt;|<\/codeVoice> combinators.<\/Para><Para>Example:<\/Para><CodeListing><zCodeLineNumbered><![CDATA[\tstruct LogOptions: OptionsType {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet verbosity: Int]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet outputFilename: String]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tlet logName: String]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tstatic func create(verbosity: Int)(outputFilename: String)(logName: String) -> LogOptions {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\treturn LogOptions(verbosity: verbosity, outputFilename: outputFilename, logName: logName)]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\tstatic func evaluate(m: CommandMode) -> Result<LogOptions, CommandantError<YourErrorType>> {]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\treturn create]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(key: \"verbose\", defaultValue: 0, usage: \"the verbosity level with which to read the logs\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(key: \"outputFilename\", defaultValue: \"\", usage: \"a file to print output to, instead of stdout\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Switch(flag: \"d\", key: \"delete\", defaultValue: false, usage: \"delete the logs when finished\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t\t\t<*> m <| Option(usage: \"the log to read\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[\t}]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><\/CodeListing><\/Discussion><\/Class>",
         "key.doc.name" : "OptionsType",
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 1451,
+            "key.offset" : 1483,
             "key.parsed_declaration" : "static func evaluate(m: CommandMode) -> Result<Self, CommandantError<ClientError>>",
             "key.doc.comment" : "Evaluates this set of options in the given mode.\n\nReturns the parsed options or a `UsageError`.",
             "key.namelength" : 24,
@@ -342,7 +342,7 @@
             "key.parsed_scope.end" : 43,
             "key.usr" : "s:ZFP10Commandant11OptionsType8evaluateuRq_S0__FMq_FOS_11CommandModeGO6Result6Resultq_GOS_15CommandantErrorqq_S0_11ClientError__",
             "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 1451,
+            "key.nameoffset" : 1483,
             "key.annotated_decl" : "<Declaration>static func evaluate(m: <Type usr=\"s:O10Commandant11CommandMode\">CommandMode<\/Type>) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;Self, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;Self.ClientError&gt;&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 43,
@@ -384,7 +384,7 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.struct",
-        "key.offset" : 1605,
+        "key.offset" : 1637,
         "key.parsed_declaration" : "public struct Option<T>",
         "key.doc.comment" : "Describes an option that can be provided on the command line.",
         "key.namelength" : 6,
@@ -395,12 +395,12 @@
         "key.parsed_scope.end" : 83,
         "key.usr" : "s:V10Commandant6Option",
         "key.doc.file" : "Commandant\/Option.swift",
-        "key.nameoffset" : 1605,
+        "key.nameoffset" : 1637,
         "key.annotated_decl" : "<Declaration>public struct Option&lt;T&gt;<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.parsed_scope.start" : 47,
         "key.filepath" : "Commandant\/Option.swift",
-        "key.bodyoffset" : 1616,
+        "key.bodyoffset" : 1648,
         "key.doc.declaration" : "public struct Option<T>",
         "key.name" : "Option",
         "key.typename" : "Option.Type",
@@ -415,7 +415,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 1950,
+            "key.offset" : 1982,
             "key.parsed_declaration" : "public let key: String?",
             "key.doc.comment" : "The key that controls this option. For example, a key of `verbose` would\nbe used for a `--verbose` option.\n\nIf this is nil, this option will not have a corresponding flag, and must\nbe specified as a plain value at the end of the argument list.\n\nThis must be non-nil for a boolean option.",
             "key.namelength" : 3,
@@ -425,7 +425,7 @@
             "key.parsed_scope.end" : 55,
             "key.usr" : "s:vV10Commandant6Option3keyGSqSS_",
             "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 1950,
+            "key.nameoffset" : 1982,
             "key.annotated_decl" : "<Declaration>public let key: <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 55,
@@ -453,7 +453,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 2180,
+            "key.offset" : 2212,
             "key.parsed_declaration" : "public let defaultValue: T?",
             "key.doc.comment" : "The default value for this option. This is the value that will be used\nif the option is never explicitly specified on the command line.\n\nIf this is nil, this option is always required.",
             "key.namelength" : 12,
@@ -463,7 +463,7 @@
             "key.parsed_scope.end" : 61,
             "key.usr" : "s:vV10Commandant6Option12defaultValueGSqq__",
             "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 2180,
+            "key.nameoffset" : 2212,
             "key.annotated_decl" : "<Declaration>public let defaultValue: T?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 61,
@@ -488,7 +488,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 2515,
+            "key.offset" : 2547,
             "key.parsed_declaration" : "public let usage: String",
             "key.doc.comment" : "A human-readable string describing the purpose of this option. This will\nbe shown in help messages.\n\nFor boolean operations, this should describe the effect of _not_ using\nthe default value (i.e., what will happen if you disable\/enable the flag\ndifferently from the default).",
             "key.namelength" : 5,
@@ -498,7 +498,7 @@
             "key.parsed_scope.end" : 69,
             "key.usr" : "s:vV10Commandant6Option5usageSS",
             "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 2515,
+            "key.nameoffset" : 2547,
             "key.annotated_decl" : "<Declaration>public let usage: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 69,
@@ -523,17 +523,17 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 2538,
+            "key.offset" : 2570,
             "key.parsed_declaration" : "public init(key: String? = nil, defaultValue: T? = nil, usage: String)",
             "key.namelength" : 63,
-            "key.bodyoffset" : 2603,
+            "key.bodyoffset" : 2635,
             "key.bodylength" : 75,
             "key.length" : 63,
             "key.name" : "init(key:defaultValue:usage:)",
             "key.typename" : "<T> Option<T>.Type -> (key: String?, defaultValue: T?, usage: String) -> Option<T>",
             "key.parsed_scope.end" : 75,
             "key.usr" : "s:FV10Commandant6OptioncurFMGS0_q__FT3keyGSqSS_12defaultValueGSqq__5usageSS_GS0_q__",
-            "key.nameoffset" : 2538,
+            "key.nameoffset" : 2570,
             "key.annotated_decl" : "<Declaration>public init(key: <Type usr=\"s:SS\">String<\/Type>? = default, defaultValue: T? = default, usage: <Type usr=\"s:SS\">String<\/Type>)<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.substructure" : [
@@ -544,7 +544,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 2850,
+            "key.offset" : 2882,
             "key.parsed_declaration" : "private func invalidUsageError<ClientError>(value: String) -> CommandantError<ClientError>",
             "key.doc.comment" : "Constructs an `InvalidArgument` error that describes how the option was\nused incorrectly. `value` should be the invalid value given by the user.",
             "key.namelength" : 45,
@@ -555,12 +555,12 @@
             "key.parsed_scope.end" : 82,
             "key.usr" : "s:FV10Commandant6OptionP33_4F8DF2BC794A725A9EB7CCE887709D3217invalidUsageErroru__rFGS0_q__FSSGOS_15CommandantErrorqd___",
             "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 2850,
+            "key.nameoffset" : 2882,
             "key.annotated_decl" : "<Declaration>private func invalidUsageError&lt;ClientError&gt;(value: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.parsed_scope.start" : 79,
             "key.filepath" : "Commandant\/Option.swift",
-            "key.bodyoffset" : 2929,
+            "key.bodyoffset" : 2961,
             "key.doc.declaration" : "private func invalidUsageError<ClientError>(value: String) -> Commandant.CommandantError<ClientError>",
             "key.name" : "invalidUsageError(_:)",
             "key.typename" : "<T> Option<T> -> <ClientError> (String) -> CommandantError<ClientError>",
@@ -582,10 +582,10 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.extension",
-        "key.offset" : 1605,
+        "key.offset" : 1637,
         "key.doc.comment" : "Describes an option that can be provided on the command line.",
         "key.namelength" : 6,
-        "key.bodyoffset" : 3086,
+        "key.bodyoffset" : 3118,
         "key.bodylength" : 111,
         "key.length" : 6,
         "key.doc.line" : 47,
@@ -597,7 +597,7 @@
         "key.doc.type" : "Class",
         "key.doc.file" : "Commandant\/Option.swift",
         "key.doc.full_as_xml" : "<Class file=\"Commandant\/Option.swift\" line=\"47\" column=\"15\"><Name>Option<\/Name><USR>s:V10Commandant6Option<\/USR><Declaration>public struct Option&lt;T&gt;<\/Declaration><Abstract><Para>Describes an option that can be provided on the command line.<\/Para><\/Abstract><\/Class>",
-        "key.nameoffset" : 3053,
+        "key.nameoffset" : 3085,
         "key.doc.name" : "Option",
         "key.inheritedtypes" : [
           {
@@ -608,10 +608,10 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 3099,
+            "key.offset" : 3131,
             "key.parsed_declaration" : "public var description: String",
             "key.namelength" : 11,
-            "key.bodyoffset" : 3120,
+            "key.bodyoffset" : 3152,
             "key.bodylength" : 75,
             "key.length" : 11,
             "key.typename" : "String",
@@ -623,7 +623,7 @@
                 "key.usr" : "s:vPSs23CustomStringConvertible11descriptionSS"
               }
             ],
-            "key.nameoffset" : 3099,
+            "key.nameoffset" : 3131,
             "key.annotated_decl" : "<Declaration>public var description: <Type usr=\"s:SS\">String<\/Type> { get }<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 86,
@@ -634,7 +634,7 @@
         "key.elements" : [
           {
             "key.kind" : "source.lang.swift.structure.elem.typeref",
-            "key.offset" : 3061,
+            "key.offset" : 3093,
             "key.length" : 23
           }
         ],
@@ -642,7 +642,7 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.protocol",
-        "key.offset" : 3291,
+        "key.offset" : 3323,
         "key.parsed_declaration" : "public protocol ArgumentType",
         "key.doc.comment" : "Represents a value that can be converted from a command-line argument.",
         "key.namelength" : 12,
@@ -653,13 +653,13 @@
         "key.parsed_scope.end" : 102,
         "key.usr" : "s:P10Commandant12ArgumentType",
         "key.doc.file" : "Commandant\/Option.swift",
-        "key.nameoffset" : 3291,
+        "key.nameoffset" : 3323,
         "key.annotated_decl" : "<Declaration>public protocol ArgumentType<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.runtime_name" : "_TtP8__main__12ArgumentType_",
         "key.parsed_scope.start" : 96,
         "key.filepath" : "Commandant\/Option.swift",
-        "key.bodyoffset" : 3305,
+        "key.bodyoffset" : 3337,
         "key.doc.declaration" : "public protocol ArgumentType",
         "key.name" : "ArgumentType",
         "key.typename" : "ArgumentType.Protocol",
@@ -674,7 +674,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.static",
-            "key.offset" : 3360,
+            "key.offset" : 3392,
             "key.parsed_declaration" : "static var name: String { get }",
             "key.doc.comment" : "A human-readable name for this type.",
             "key.namelength" : 4,
@@ -685,12 +685,12 @@
             "key.parsed_scope.end" : 98,
             "key.usr" : "s:ZvP10Commandant12ArgumentType4nameSS",
             "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 3360,
+            "key.nameoffset" : 3392,
             "key.annotated_decl" : "<Declaration>static var name: <Type usr=\"s:SS\">String<\/Type> { get }<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 98,
             "key.filepath" : "Commandant\/Option.swift",
-            "key.bodyoffset" : 3374,
+            "key.bodyoffset" : 3406,
             "key.doc.declaration" : "static var name: String { get }",
             "key.typename" : "String",
             "key.name" : "name",
@@ -706,7 +706,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 3464,
+            "key.offset" : 3496,
             "key.parsed_declaration" : "static func fromString(string: String) -> Self?",
             "key.doc.comment" : "Attempts to parse a value from the given command-line argument.",
             "key.namelength" : 26,
@@ -716,7 +716,7 @@
             "key.parsed_scope.end" : 101,
             "key.usr" : "s:ZFP10Commandant12ArgumentType10fromStringuRq_S0__FMq_FSSGSqq__",
             "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 3464,
+            "key.nameoffset" : 3496,
             "key.annotated_decl" : "<Declaration>static func fromString(string: <Type usr=\"s:SS\">String<\/Type>) -&gt; Self?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 101,
@@ -742,10 +742,10 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.extension",
-        "key.offset" : 3503,
+        "key.offset" : 3535,
         "key.doc.comment" : "Attempts to parse a value from the given command-line argument.",
         "key.namelength" : 3,
-        "key.bodyoffset" : 3532,
+        "key.bodyoffset" : 3564,
         "key.bodylength" : 119,
         "key.length" : 149,
         "key.doc.declaration" : "struct Int : SignedIntegerType, Comparable, Equatable",
@@ -754,7 +754,7 @@
         "key.usr" : "s:Si",
         "key.doc.type" : "Class",
         "key.doc.full_as_xml" : "<Class><Name>Int<\/Name><USR>s:Si<\/USR><Declaration>struct Int : SignedIntegerType, Comparable, Equatable<\/Declaration><Abstract><Para>A 64-bit signed integer value type.<\/Para><\/Abstract><\/Class>",
-        "key.nameoffset" : 3513,
+        "key.nameoffset" : 3545,
         "key.doc.name" : "Int",
         "key.inheritedtypes" : [
           {
@@ -766,7 +766,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.static",
-            "key.offset" : 3552,
+            "key.offset" : 3584,
             "key.parsed_declaration" : "public static let name = \"integer\"",
             "key.namelength" : 4,
             "key.length" : 4,
@@ -779,7 +779,7 @@
               }
             ],
             "key.usr" : "s:ZvE10CommandantSi4nameSS",
-            "key.nameoffset" : 3552,
+            "key.nameoffset" : 3584,
             "key.annotated_decl" : "<Declaration>public static let name: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 105,
@@ -787,10 +787,10 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 3590,
+            "key.offset" : 3622,
             "key.parsed_declaration" : "public static func fromString(string: String) -> Int?",
             "key.namelength" : 26,
-            "key.bodyoffset" : 3626,
+            "key.bodyoffset" : 3658,
             "key.bodylength" : 23,
             "key.length" : 26,
             "key.name" : "fromString(_:)",
@@ -802,7 +802,7 @@
                 "key.usr" : "s:ZFP10Commandant12ArgumentType10fromStringuRq_S0__FMq_FSSGSqq__"
               }
             ],
-            "key.nameoffset" : 3590,
+            "key.nameoffset" : 3622,
             "key.annotated_decl" : "<Declaration>public static func fromString(string: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:Si\">Int<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.substructure" : [
@@ -816,7 +816,7 @@
         "key.elements" : [
           {
             "key.kind" : "source.lang.swift.structure.elem.typeref",
-            "key.offset" : 3518,
+            "key.offset" : 3550,
             "key.length" : 12
           }
         ],
@@ -824,11 +824,11 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.extension",
-        "key.offset" : 3654,
+        "key.offset" : 3686,
         "key.doc.comment" : "Attempts to parse a value from the given command-line argument.",
         "key.modulename" : "Swift",
         "key.namelength" : 6,
-        "key.bodyoffset" : 3686,
+        "key.bodyoffset" : 3718,
         "key.bodylength" : 116,
         "key.length" : 149,
         "key.doc.declaration" : "struct String",
@@ -837,7 +837,7 @@
         "key.usr" : "s:SS",
         "key.doc.type" : "Class",
         "key.doc.full_as_xml" : "<Class><Name>String<\/Name><USR>s:SS<\/USR><Declaration>struct String<\/Declaration><Abstract><Para>An arbitrary Unicode string value.<\/Para><\/Abstract><Discussion><rawHTML><![CDATA[<h1>]]><\/rawHTML>Unicode-Correct<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>Swift strings are designed to be Unicode-correct.  In particular, the APIs make it easy to write code that works correctly, and does not surprise end-users, regardless of where you venture in the Unicode character space.  For example, the <codeVoice>==<\/codeVoice> operator checks for <Link href=\"http:\/\/www.unicode.org\/glossary\/#deterministic_comparison\">Unicode canonical equivalence<\/Link>, so two different representations of the same string will always compare equal.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Locale-Insensitive<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>The fundamental operations on Swift strings are not sensitive to locale settings.  That&apos;s because, for example, the validity of a <codeVoice>Dictionary&lt;String, T&gt;<\/codeVoice> in a running program depends on a given string comparison having a single, stable result.  Therefore, Swift always uses the default, un-<Link href=\"http:\/\/www.unicode.org\/glossary\/#tailorable\">tailored<\/Link> Unicode algorithms for basic string operations.<\/Para><Para>Importing <codeVoice>Foundation<\/codeVoice> endows swift strings with the full power of the <codeVoice>NSString<\/codeVoice> API, which allows you to choose more complex locale-sensitive operations explicitly.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Value Semantics<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>Each string variable, <codeVoice>let<\/codeVoice> binding, or stored property has an independent value, so mutations to the string are not observable through its copies:<\/Para><CodeListing><zCodeLineNumbered><![CDATA[var a = \"foo\"]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[var b = a]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[b.appendContentsOf(\"bar\")]]><\/zCodeLineNumbered><zCodeLineNumbered><![CDATA[print(\"a=\\(a), b=\\(b)\")     \/\/ a=foo, b=foobar]]><\/zCodeLineNumbered><zCodeLineNumbered><\/zCodeLineNumbered><\/CodeListing><Para>Strings use Copy-on-Write so that their data is only copied lazily, upon mutation, when more than one string instance is using the same buffer.  Therefore, the first in any sequence of mutating operations may cost <codeVoice>O(N)<\/codeVoice> time and space, where <codeVoice>N<\/codeVoice> is the length of the string&apos;s (unspecified) underlying representation.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Views<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para><codeVoice>String<\/codeVoice> is not itself a collection of anything.  Instead, it has properties that present the string&apos;s contents as meaningful collections:<\/Para><List-Bullet><Item><Para><codeVoice>characters<\/codeVoice>: a collection of <codeVoice>Character<\/codeVoice> (<Link href=\"http:\/\/www.unicode.org\/glossary\/#extended_grapheme_cluster\">extended grapheme cluster<\/Link>) elements, a unit of text that is meaningful to most humans.<\/Para><\/Item><Item><Para><codeVoice>unicodeScalars<\/codeVoice>: a collection of <codeVoice>UnicodeScalar<\/codeVoice> (<Link href=\"http:\/\/www.unicode.org\/glossary\/#unicode_scalar_value\">Unicode scalar values<\/Link>) the 21-bit codes that are the basic unit of Unicode.  These values are equivalent to UTF-32 code units.<\/Para><\/Item><Item><Para><codeVoice>utf16<\/codeVoice>: a collection of <codeVoice>UTF16.CodeUnit<\/codeVoice>, the 16-bit elements of the string&apos;s UTF-16 encoding.<\/Para><\/Item><Item><Para><codeVoice>utf8<\/codeVoice>: a collection of <codeVoice>UTF8.CodeUnit<\/codeVoice>, the 8-bit elements of the string&apos;s UTF-8 encoding.<\/Para><\/Item><\/List-Bullet><rawHTML><![CDATA[<h1>]]><\/rawHTML>Growth and Capacity<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para>When a string&apos;s contiguous storage fills up, new storage must be allocated and characters must be moved to the new storage. <codeVoice>String<\/codeVoice> uses an exponential growth strategy that makes <codeVoice>append<\/codeVoice> a constant time operation <emphasis>when amortized over many invocations<\/emphasis>.<\/Para><rawHTML><![CDATA[<h1>]]><\/rawHTML>Objective-C Bridge<rawHTML><![CDATA[<\/h1>]]><\/rawHTML><Para><codeVoice>String<\/codeVoice> is bridged to Objective-C as <codeVoice>NSString<\/codeVoice>, and a <codeVoice>String<\/codeVoice> that originated in Objective-C may store its characters in an <codeVoice>NSString<\/codeVoice>.  Since any arbitrary subclass of <codeVoice>NSSString<\/codeVoice> can become a <codeVoice>String<\/codeVoice>, there are no guarantees about representation or efficiency in this case.  Since <codeVoice>NSString<\/codeVoice> is immutable, it is just as though the storage was shared by some copy: the first in any sequence of mutating operations causes elements to be copied into unique, contiguous storage which may cost <codeVoice>O(N)<\/codeVoice> time and space, where <codeVoice>N<\/codeVoice> is the length of the string representation (or more, if the underlying <codeVoice>NSString<\/codeVoice> is has unusual performance characteristics).<\/Para><\/Discussion><\/Class>",
-        "key.nameoffset" : 3664,
+        "key.nameoffset" : 3696,
         "key.doc.name" : "String",
         "key.inheritedtypes" : [
           {
@@ -849,7 +849,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.static",
-            "key.offset" : 3706,
+            "key.offset" : 3738,
             "key.parsed_declaration" : "public static let name = \"string\"",
             "key.namelength" : 4,
             "key.length" : 4,
@@ -862,7 +862,7 @@
               }
             ],
             "key.usr" : "s:ZvE10CommandantSS4nameSS",
-            "key.nameoffset" : 3706,
+            "key.nameoffset" : 3738,
             "key.annotated_decl" : "<Declaration>public static let name: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 113,
@@ -870,10 +870,10 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.static",
-            "key.offset" : 3743,
+            "key.offset" : 3775,
             "key.parsed_declaration" : "public static func fromString(string: String) -> String?",
             "key.namelength" : 26,
-            "key.bodyoffset" : 3782,
+            "key.bodyoffset" : 3814,
             "key.bodylength" : 18,
             "key.length" : 26,
             "key.name" : "fromString(_:)",
@@ -885,7 +885,7 @@
                 "key.usr" : "s:ZFP10Commandant12ArgumentType10fromStringuRq_S0__FMq_FSSGSqq__"
               }
             ],
-            "key.nameoffset" : 3743,
+            "key.nameoffset" : 3775,
             "key.annotated_decl" : "<Declaration>public static func fromString(string: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.substructure" : [
@@ -899,7 +899,7 @@
         "key.elements" : [
           {
             "key.kind" : "source.lang.swift.structure.elem.typeref",
-            "key.offset" : 3672,
+            "key.offset" : 3704,
             "key.length" : 12
           }
         ],
@@ -938,7 +938,7 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.function.free",
-        "key.offset" : 5295,
+        "key.offset" : 5327,
         "key.parsed_declaration" : "public func <*> <T, U, ClientError>(f: T -> U, value: Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
         "key.doc.comment" : "Applies `f` to the value in the given result.\n\nIn the context of command-line option parsing, this is used to chain\ntogether the parsing of multiple arguments. See OptionsType for an example.",
         "key.namelength" : 82,
@@ -949,12 +949,12 @@
         "key.parsed_scope.end" : 161,
         "key.usr" : "s:ZF10Commandantoi3lmgu1_rFTFq_q0_GO6Result6Resultq_GOS_15CommandantErrorq1____GS1_q0_GS2_q1___",
         "key.doc.file" : "Commandant\/Option.swift",
-        "key.nameoffset" : 5295,
+        "key.nameoffset" : 5327,
         "key.annotated_decl" : "<Declaration>public func &lt;*&gt;&lt;T, U, ClientError&gt;(f: T -&gt; U, value: <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;T, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;U, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.parsed_scope.start" : 159,
         "key.filepath" : "Commandant\/Option.swift",
-        "key.bodyoffset" : 5422,
+        "key.bodyoffset" : 5454,
         "key.doc.declaration" : "public func <*><T, U, ClientError>(f: T -> U, value: Result<T, CommandantError<ClientError>>) -> Result.Result<U, Commandant.CommandantError<ClientError>>",
         "key.name" : "<*>(_:_:)",
         "key.typename" : "<T, U, ClientError> (T -> U, Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
@@ -974,7 +974,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.generic_type_param",
-            "key.offset" : 5300,
+            "key.offset" : 5332,
             "key.parsed_declaration" : "public func <*> <T, U, ClientError>(f: T -> U, value: Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
             "key.annotated_decl" : "<Declaration>T<\/Declaration>",
             "key.length" : 1,
@@ -995,23 +995,23 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.function.free",
-        "key.offset" : 5682,
+        "key.offset" : 5714,
         "key.parsed_declaration" : "public func <*> <T, U, ClientError>(f: Result<(T -> U), CommandantError<ClientError>>, value: Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
         "key.doc.comment" : "Applies the function in `f` to the value in the given result.\n\nIn the context of command-line option parsing, this is used to chain\ntogether the parsing of multiple arguments. See OptionsType for an example.",
         "key.namelength" : 122,
         "key.doc.line" : 167,
-        "key.bodylength" : 351,
+        "key.bodylength" : 346,
         "key.length" : 122,
         "key.doc.column" : 13,
         "key.parsed_scope.end" : 182,
         "key.usr" : "s:ZF10Commandantoi3lmgu1_rFTGO6Result6ResultFq_q0_GOS_15CommandantErrorq1___GS1_q_GS2_q1____GS1_q0_GS2_q1___",
         "key.doc.file" : "Commandant\/Option.swift",
-        "key.nameoffset" : 5682,
+        "key.nameoffset" : 5714,
         "key.annotated_decl" : "<Declaration>public func &lt;*&gt;&lt;T, U, ClientError&gt;(f: <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;(T -&gt; U), <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;, value: <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;T, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;U, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.parsed_scope.start" : 167,
         "key.filepath" : "Commandant\/Option.swift",
-        "key.bodyoffset" : 5849,
+        "key.bodyoffset" : 5881,
         "key.doc.declaration" : "public func <*><T, U, ClientError>(f: Result<(T -> U), CommandantError<ClientError>>, value: Result<T, CommandantError<ClientError>>) -> Result.Result<U, Commandant.CommandantError<ClientError>>",
         "key.name" : "<*>(_:_:)",
         "key.typename" : "<T, U, ClientError> (Result<(T -> U), CommandantError<ClientError>>, Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
@@ -1031,7 +1031,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.generic_type_param",
-            "key.offset" : 5687,
+            "key.offset" : 5719,
             "key.parsed_declaration" : "public func <*> <T, U, ClientError>(f: Result<(T -> U), CommandantError<ClientError>>, value: Result<T, CommandantError<ClientError>>) -> Result<U, CommandantError<ClientError>>",
             "key.annotated_decl" : "<Declaration>T<\/Declaration>",
             "key.length" : 1,
@@ -1052,7 +1052,7 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.function.free",
-        "key.offset" : 6397,
+        "key.offset" : 6424,
         "key.parsed_declaration" : "public func <| <T: ArgumentType, ClientError>(mode: CommandMode, option: Option<T>) -> Result<T, CommandantError<ClientError>>",
         "key.doc.comment" : "Evaluates the given option in the given mode.\n\nIf parsing command line arguments, and no value was specified on the command\nline, the option's `defaultValue` is used.",
         "key.namelength" : 71,
@@ -1063,12 +1063,12 @@
         "key.parsed_scope.end" : 225,
         "key.usr" : "s:ZF10Commandantoi2lou0_Rq_S_12ArgumentType_FTOS_11CommandModeGVS_6Optionq___GO6Result6Resultq_GOS_15CommandantErrorq0___",
         "key.doc.file" : "Commandant\/Option.swift",
-        "key.nameoffset" : 6397,
+        "key.nameoffset" : 6424,
         "key.annotated_decl" : "<Declaration>public func &lt;|&lt;T : <Type usr=\"s:P10Commandant12ArgumentType\">ArgumentType<\/Type>, ClientError&gt;(mode: <Type usr=\"s:O10Commandant11CommandMode\">CommandMode<\/Type>, option: <Type usr=\"s:V10Commandant6Option\">Option<\/Type>&lt;T&gt;) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;T, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.parsed_scope.start" : 188,
         "key.filepath" : "Commandant\/Option.swift",
-        "key.bodyoffset" : 6513,
+        "key.bodyoffset" : 6540,
         "key.doc.declaration" : "public func <|<T : ArgumentType, ClientError>(mode: CommandMode, option: Option<T>) -> Result.Result<T, Commandant.CommandantError<ClientError>>",
         "key.name" : "<|(_:_:)",
         "key.typename" : "<T : ArgumentType, ClientError> (CommandMode, Option<T>) -> Result<T, CommandantError<ClientError>>",
@@ -1091,7 +1091,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.generic_type_param",
-            "key.offset" : 6401,
+            "key.offset" : 6428,
             "key.parsed_declaration" : "public func <| <T: ArgumentType, ClientError>(mode: CommandMode, option: Option<T>) -> Result<T, CommandantError<ClientError>>",
             "key.annotated_decl" : "<Declaration>T : <Type usr=\"s:P10Commandant12ArgumentType\">ArgumentType<\/Type><\/Declaration>",
             "key.length" : 1,
@@ -1112,7 +1112,7 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.function.free",
-        "key.offset" : 7664,
+        "key.offset" : 7691,
         "key.parsed_declaration" : "public func <| <ClientError>(mode: CommandMode, option: Option<Bool>) -> Result<Bool, CommandantError<ClientError>>",
         "key.doc.comment" : "Evaluates the given boolean option in the given mode.\n\nIf parsing command line arguments, and no value was specified on the command\nline, the option's `defaultValue` is used.",
         "key.namelength" : 57,
@@ -1123,12 +1123,12 @@
         "key.parsed_scope.end" : 247,
         "key.usr" : "s:ZF10Commandantoi2lourFTOS_11CommandModeGVS_6OptionSb__GO6Result6ResultSbGOS_15CommandantErrorq___",
         "key.doc.file" : "Commandant\/Option.swift",
-        "key.nameoffset" : 7664,
+        "key.nameoffset" : 7691,
         "key.annotated_decl" : "<Declaration>public func &lt;|&lt;ClientError&gt;(mode: <Type usr=\"s:O10Commandant11CommandMode\">CommandMode<\/Type>, option: <Type usr=\"s:V10Commandant6Option\">Option<\/Type>&lt;<Type usr=\"s:Sb\">Bool<\/Type>&gt;) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;<Type usr=\"s:Sb\">Bool<\/Type>, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.parsed_scope.start" : 231,
         "key.filepath" : "Commandant\/Option.swift",
-        "key.bodyoffset" : 7769,
+        "key.bodyoffset" : 7796,
         "key.doc.declaration" : "public func <|<ClientError>(mode: CommandMode, option: Option<Bool>) -> Result.Result<Bool, Commandant.CommandantError<ClientError>>",
         "key.name" : "<|(_:_:)",
         "key.typename" : "<ClientError> (CommandMode, Option<Bool>) -> Result<Bool, CommandantError<ClientError>>",
@@ -1151,7 +1151,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.generic_type_param",
-            "key.offset" : 7668,
+            "key.offset" : 7695,
             "key.parsed_declaration" : "public func <| <ClientError>(mode: CommandMode, option: Option<Bool>) -> Result<Bool, CommandantError<ClientError>>",
             "key.annotated_decl" : "<Declaration>ClientError<\/Declaration>",
             "key.length" : 11,
@@ -1173,7 +1173,7 @@
     ],
     "key.offset" : 0,
     "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-    "key.length" : 8169
+    "key.length" : 8196
   }
 }, {
   "Commandant\/Errors.swift" : {
@@ -1614,42 +1614,42 @@
       {
         "key.kind" : "source.lang.swift.decl.function.free",
         "key.offset" : 3226,
-        "key.parsed_declaration" : "internal func combineUsageErrors<ClientError>(lhs: CommandantError<ClientError>, rhs: CommandantError<ClientError>) -> CommandantError<ClientError>",
+        "key.parsed_declaration" : "internal func combineUsageErrors<ClientError>(lhs: CommandantError<ClientError>, _ rhs: CommandantError<ClientError>) -> CommandantError<ClientError>",
         "key.doc.comment" : "Combines the text of the two errors, if they're both `UsageError`s.\nOtherwise, uses whichever one is not (biased toward the left).",
-        "key.namelength" : 101,
+        "key.namelength" : 103,
         "key.doc.line" : 103,
         "key.bodylength" : 266,
-        "key.length" : 101,
+        "key.length" : 103,
         "key.doc.column" : 15,
         "key.parsed_scope.end" : 115,
-        "key.usr" : "s:F10Commandant18combineUsageErrorsurFTGOS_15CommandantErrorq__3rhsGS0_q___GS0_q__",
+        "key.usr" : "s:F10Commandant18combineUsageErrorsurFTGOS_15CommandantErrorq__GS0_q___GS0_q__",
         "key.doc.file" : "Commandant\/Errors.swift",
         "key.nameoffset" : 3226,
-        "key.annotated_decl" : "<Declaration>internal func combineUsageErrors&lt;ClientError&gt;(lhs: <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;, rhs: <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;) -&gt; <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;<\/Declaration>",
+        "key.annotated_decl" : "<Declaration>internal func combineUsageErrors&lt;ClientError&gt;(lhs: <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;, _ rhs: <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;) -&gt; <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.internal",
         "key.parsed_scope.start" : 103,
         "key.filepath" : "Commandant\/Errors.swift",
-        "key.bodyoffset" : 3361,
-        "key.doc.declaration" : "internal func combineUsageErrors<ClientError>(lhs: CommandantError<ClientError>, rhs: CommandantError<ClientError>) -> Commandant.CommandantError<ClientError>",
-        "key.name" : "combineUsageErrors(_:rhs:)",
-        "key.typename" : "<ClientError> (CommandantError<ClientError>, rhs: CommandantError<ClientError>) -> CommandantError<ClientError>",
+        "key.bodyoffset" : 3363,
+        "key.doc.declaration" : "internal func combineUsageErrors<ClientError>(lhs: CommandantError<ClientError>, _ rhs: CommandantError<ClientError>) -> Commandant.CommandantError<ClientError>",
+        "key.name" : "combineUsageErrors(_:_:)",
+        "key.typename" : "<ClientError> (CommandantError<ClientError>, CommandantError<ClientError>) -> CommandantError<ClientError>",
         "key.doc.type" : "Function",
         "key.attributes" : [
           {
             "key.attribute" : "source.decl.attribute.__raw_doc_comment"
           }
         ],
-        "key.doc.full_as_xml" : "<Function file=\"Commandant\/Errors.swift\" line=\"103\" column=\"15\"><Name>combineUsageErrors(_:rhs:)<\/Name><USR>s:F10Commandant18combineUsageErrorsurFTGOS_15CommandantErrorq__3rhsGS0_q___GS0_q__<\/USR><Declaration>internal func combineUsageErrors&lt;ClientError&gt;(lhs: CommandantError&lt;ClientError&gt;, rhs: CommandantError&lt;ClientError&gt;) -&gt; Commandant.CommandantError&lt;ClientError&gt;<\/Declaration><Abstract><Para>Combines the text of the two errors, if they&apos;re both <codeVoice>UsageError<\/codeVoice>s. Otherwise, uses whichever one is not (biased toward the left).<\/Para><\/Abstract><\/Function>",
-        "key.doc.name" : "combineUsageErrors(_:rhs:)",
+        "key.doc.full_as_xml" : "<Function file=\"Commandant\/Errors.swift\" line=\"103\" column=\"15\"><Name>combineUsageErrors(_:_:)<\/Name><USR>s:F10Commandant18combineUsageErrorsurFTGOS_15CommandantErrorq__GS0_q___GS0_q__<\/USR><Declaration>internal func combineUsageErrors&lt;ClientError&gt;(lhs: CommandantError&lt;ClientError&gt;, _ rhs: CommandantError&lt;ClientError&gt;) -&gt; Commandant.CommandantError&lt;ClientError&gt;<\/Declaration><Abstract><Para>Combines the text of the two errors, if they&apos;re both <codeVoice>UsageError<\/codeVoice>s. Otherwise, uses whichever one is not (biased toward the left).<\/Para><\/Abstract><\/Function>",
+        "key.doc.name" : "combineUsageErrors(_:_:)",
         "key.substructure" : [
 
         ],
-        "key.doc.usr" : "s:F10Commandant18combineUsageErrorsurFTGOS_15CommandantErrorq__3rhsGS0_q___GS0_q__"
+        "key.doc.usr" : "s:F10Commandant18combineUsageErrorsurFTGOS_15CommandantErrorq__GS0_q___GS0_q__"
       }
     ],
     "key.offset" : 0,
     "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-    "key.length" : 3629
+    "key.length" : 3631
   }
 }, {
   "Commandant\/Switch.swift" : {
@@ -2077,40 +2077,40 @@
       {
         "key.kind" : "source.lang.swift.decl.struct",
         "key.offset" : 710,
-        "key.parsed_declaration" : "public struct CommandOf<ClientError>: CommandType",
+        "key.parsed_declaration" : "public struct AnyCommand<ClientError>: CommandType",
         "key.doc.comment" : "A type-erased CommandType.",
-        "key.namelength" : 9,
+        "key.namelength" : 10,
         "key.doc.line" : 29,
         "key.bodylength" : 472,
-        "key.length" : 9,
+        "key.length" : 10,
         "key.doc.column" : 15,
         "key.parsed_scope.end" : 44,
-        "key.usr" : "s:V10Commandant9CommandOf",
+        "key.usr" : "s:V10Commandant10AnyCommand",
         "key.doc.file" : "Commandant\/Command.swift",
         "key.nameoffset" : 710,
-        "key.annotated_decl" : "<Declaration>public struct CommandOf&lt;ClientError&gt; : <Type usr=\"s:P10Commandant11CommandType\">CommandType<\/Type><\/Declaration>",
+        "key.annotated_decl" : "<Declaration>public struct AnyCommand&lt;ClientError&gt; : <Type usr=\"s:P10Commandant11CommandType\">CommandType<\/Type><\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.elements" : [
           {
             "key.kind" : "source.lang.swift.structure.elem.typeref",
-            "key.offset" : 734,
+            "key.offset" : 735,
             "key.length" : 11
           }
         ],
         "key.parsed_scope.start" : 29,
         "key.filepath" : "Commandant\/Command.swift",
-        "key.bodyoffset" : 747,
-        "key.doc.declaration" : "public struct CommandOf<ClientError> : CommandType",
-        "key.name" : "CommandOf",
-        "key.typename" : "CommandOf.Type",
+        "key.bodyoffset" : 748,
+        "key.doc.declaration" : "public struct AnyCommand<ClientError> : CommandType",
+        "key.name" : "AnyCommand",
+        "key.typename" : "AnyCommand.Type",
         "key.doc.type" : "Class",
         "key.attributes" : [
           {
             "key.attribute" : "source.decl.attribute.__raw_doc_comment"
           }
         ],
-        "key.doc.full_as_xml" : "<Class file=\"Commandant\/Command.swift\" line=\"29\" column=\"15\"><Name>CommandOf<\/Name><USR>s:V10Commandant9CommandOf<\/USR><Declaration>public struct CommandOf&lt;ClientError&gt; : CommandType<\/Declaration><Abstract><Para>A type-erased CommandType.<\/Para><\/Abstract><\/Class>",
-        "key.doc.name" : "CommandOf",
+        "key.doc.full_as_xml" : "<Class file=\"Commandant\/Command.swift\" line=\"29\" column=\"15\"><Name>AnyCommand<\/Name><USR>s:V10Commandant10AnyCommand<\/USR><Declaration>public struct AnyCommand&lt;ClientError&gt; : CommandType<\/Declaration><Abstract><Para>A type-erased CommandType.<\/Para><\/Abstract><\/Class>",
+        "key.doc.name" : "AnyCommand",
         "key.inheritedtypes" : [
           {
             "key.name" : "CommandType"
@@ -2119,7 +2119,7 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 760,
+            "key.offset" : 761,
             "key.parsed_declaration" : "public let verb: String",
             "key.namelength" : 4,
             "key.length" : 4,
@@ -2131,8 +2131,8 @@
                 "key.usr" : "s:vP10Commandant11CommandType4verbSS"
               }
             ],
-            "key.usr" : "s:vV10Commandant9CommandOf4verbSS",
-            "key.nameoffset" : 760,
+            "key.usr" : "s:vV10Commandant10AnyCommand4verbSS",
+            "key.nameoffset" : 761,
             "key.annotated_decl" : "<Declaration>public let verb: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 30,
@@ -2140,7 +2140,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 785,
+            "key.offset" : 786,
             "key.parsed_declaration" : "public let function: String",
             "key.namelength" : 8,
             "key.length" : 8,
@@ -2152,8 +2152,8 @@
                 "key.usr" : "s:vP10Commandant11CommandType8functionSS"
               }
             ],
-            "key.usr" : "s:vV10Commandant9CommandOf8functionSS",
-            "key.nameoffset" : 785,
+            "key.usr" : "s:vV10Commandant10AnyCommand8functionSS",
+            "key.nameoffset" : 786,
             "key.annotated_decl" : "<Declaration>public let function: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 31,
@@ -2161,15 +2161,15 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 815,
+            "key.offset" : 816,
             "key.parsed_declaration" : "private let runClosure: CommandMode -> Result<(), CommandantError<ClientError>>",
             "key.namelength" : 10,
             "key.length" : 10,
             "key.typename" : "CommandMode -> Result<(), CommandantError<ClientError>>",
             "key.name" : "runClosure",
             "key.parsed_scope.end" : 32,
-            "key.usr" : "s:vV10Commandant9CommandOfP33_1DD6990CD6DFDE28F713A55F8EE2B70E10runClosureFOS_11CommandModeGO6Result6ResultT_GOS_15CommandantErrorq___",
-            "key.nameoffset" : 815,
+            "key.usr" : "s:vV10Commandant10AnyCommandP33_1DD6990CD6DFDE28F713A55F8EE2B70E10runClosureFOS_11CommandModeGO6Result6ResultT_GOS_15CommandantErrorq___",
+            "key.nameoffset" : 816,
             "key.annotated_decl" : "<Declaration>private let runClosure: <Type usr=\"s:O10Commandant11CommandMode\">CommandMode<\/Type> -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;(), <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.parsed_scope.start" : 32,
@@ -2177,7 +2177,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 935,
+            "key.offset" : 936,
             "key.parsed_declaration" : "public init<C: CommandType where C.ClientError == ClientError>(_ command: C)",
             "key.doc.comment" : "Creates a command that wraps another.",
             "key.namelength" : 69,
@@ -2186,48 +2186,48 @@
             "key.length" : 69,
             "key.doc.column" : 9,
             "key.parsed_scope.end" : 39,
-            "key.usr" : "s:FV10Commandant9CommandOfcu__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FMGS0_q__Fqd__GS0_q__",
+            "key.usr" : "s:FV10Commandant10AnyCommandcu__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FMGS0_q__Fqd__GS0_q__",
             "key.doc.file" : "Commandant\/Command.swift",
-            "key.nameoffset" : 935,
+            "key.nameoffset" : 936,
             "key.annotated_decl" : "<Declaration>public init&lt;C : <Type usr=\"s:P10Commandant11CommandType\">CommandType<\/Type> where C.ClientError == ClientError&gt;(_ command: C)<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 35,
             "key.filepath" : "Commandant\/Command.swift",
-            "key.bodyoffset" : 1006,
+            "key.bodyoffset" : 1007,
             "key.doc.declaration" : "public init<C : CommandType where C.ClientError == ClientError>(_ command: C)",
             "key.name" : "init(_:)",
-            "key.typename" : "<ClientError> CommandOf<ClientError>.Type -> <C : CommandType where C.ClientError == ClientError> (C) -> CommandOf<ClientError>",
+            "key.typename" : "<ClientError> AnyCommand<ClientError>.Type -> <C : CommandType where C.ClientError == ClientError> (C) -> AnyCommand<ClientError>",
             "key.doc.type" : "Function",
             "key.attributes" : [
               {
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
               }
             ],
-            "key.doc.full_as_xml" : "<Function file=\"Commandant\/Command.swift\" line=\"35\" column=\"9\"><Name>init(_:)<\/Name><USR>s:FV10Commandant9CommandOfcu__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FMGS0_q__Fqd__GS0_q__<\/USR><Declaration>public init&lt;C : CommandType where C.ClientError == ClientError&gt;(_ command: C)<\/Declaration><Abstract><Para>Creates a command that wraps another.<\/Para><\/Abstract><\/Function>",
+            "key.doc.full_as_xml" : "<Function file=\"Commandant\/Command.swift\" line=\"35\" column=\"9\"><Name>init(_:)<\/Name><USR>s:FV10Commandant10AnyCommandcu__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FMGS0_q__Fqd__GS0_q__<\/USR><Declaration>public init&lt;C : CommandType where C.ClientError == ClientError&gt;(_ command: C)<\/Declaration><Abstract><Para>Creates a command that wraps another.<\/Para><\/Abstract><\/Function>",
             "key.doc.name" : "init(_:)",
             "key.substructure" : [
 
             ],
-            "key.doc.usr" : "s:FV10Commandant9CommandOfcu__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FMGS0_q__Fqd__GS0_q__"
+            "key.doc.usr" : "s:FV10Commandant10AnyCommandcu__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FMGS0_q__Fqd__GS0_q__"
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 1121,
+            "key.offset" : 1122,
             "key.parsed_declaration" : "public func run(mode: CommandMode) -> Result<(), CommandantError<ClientError>>",
             "key.namelength" : 22,
-            "key.bodyoffset" : 1189,
+            "key.bodyoffset" : 1190,
             "key.bodylength" : 28,
             "key.length" : 22,
             "key.name" : "run(_:)",
-            "key.typename" : "<ClientError> CommandOf<ClientError> -> (CommandMode) -> Result<(), CommandantError<ClientError>>",
+            "key.typename" : "<ClientError> AnyCommand<ClientError> -> (CommandMode) -> Result<(), CommandantError<ClientError>>",
             "key.parsed_scope.end" : 43,
-            "key.usr" : "s:FV10Commandant9CommandOf3runurFGS0_q__FOS_11CommandModeGO6Result6ResultT_GOS_15CommandantErrorq___",
+            "key.usr" : "s:FV10Commandant10AnyCommand3runurFGS0_q__FOS_11CommandModeGO6Result6ResultT_GOS_15CommandantErrorq___",
             "key.overrides" : [
               {
                 "key.usr" : "s:FP10Commandant11CommandType3runuRq_S0__Fq_FOS_11CommandModeGO6Result6ResultT_GOS_15CommandantErrorqq_S0_11ClientError__"
               }
             ],
-            "key.nameoffset" : 1121,
+            "key.nameoffset" : 1122,
             "key.annotated_decl" : "<Declaration>public func run(mode: <Type usr=\"s:O10Commandant11CommandMode\">CommandMode<\/Type>) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;(), <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.substructure" : [
@@ -2237,11 +2237,11 @@
             "key.filepath" : "Commandant\/Command.swift"
           }
         ],
-        "key.doc.usr" : "s:V10Commandant9CommandOf"
+        "key.doc.usr" : "s:V10Commandant10AnyCommand"
       },
       {
         "key.kind" : "source.lang.swift.decl.enum",
-        "key.offset" : 1290,
+        "key.offset" : 1291,
         "key.parsed_declaration" : "public enum CommandMode",
         "key.doc.comment" : "Describes the \"mode\" in which a command should run.",
         "key.namelength" : 11,
@@ -2252,12 +2252,12 @@
         "key.parsed_scope.end" : 54,
         "key.usr" : "s:O10Commandant11CommandMode",
         "key.doc.file" : "Commandant\/Command.swift",
-        "key.nameoffset" : 1290,
+        "key.nameoffset" : 1291,
         "key.annotated_decl" : "<Declaration>public enum CommandMode<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.parsed_scope.start" : 47,
         "key.filepath" : "Commandant\/Command.swift",
-        "key.bodyoffset" : 1303,
+        "key.bodyoffset" : 1304,
         "key.doc.declaration" : "public enum CommandMode",
         "key.name" : "CommandMode",
         "key.typename" : "CommandMode.Type",
@@ -2274,7 +2274,7 @@
             "key.substructure" : [
               {
                 "key.kind" : "source.lang.swift.decl.enumelement",
-                "key.offset" : 1379,
+                "key.offset" : 1380,
                 "key.parsed_declaration" : "case Arguments(ArgumentParser)",
                 "key.doc.comment" : "Options should be parsed from the given command-line arguments.",
                 "key.namelength" : 9,
@@ -2288,7 +2288,7 @@
                 "key.doc.type" : "Other",
                 "key.doc.file" : "Commandant\/Command.swift",
                 "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"49\" column=\"7\"><Name>Arguments<\/Name><USR>s:FO10Commandant11CommandMode9ArgumentsFMS0_FCS_14ArgumentParserS0_<\/USR><Declaration><\/Declaration><Abstract><Para>Options should be parsed from the given command-line arguments.<\/Para><\/Abstract><\/Other>",
-                "key.nameoffset" : 1379,
+                "key.nameoffset" : 1380,
                 "key.doc.name" : "Arguments",
                 "key.annotated_decl" : "<Declaration><\/Declaration>",
                 "key.accessibility" : "source.lang.swift.accessibility.internal",
@@ -2298,7 +2298,7 @@
               }
             ],
             "key.kind" : "source.lang.swift.decl.enumcase",
-            "key.offset" : 1374,
+            "key.offset" : 1375,
             "key.nameoffset" : 0,
             "key.namelength" : 0,
             "key.length" : 30
@@ -2307,7 +2307,7 @@
             "key.substructure" : [
               {
                 "key.kind" : "source.lang.swift.decl.enumelement",
-                "key.offset" : 1513,
+                "key.offset" : 1514,
                 "key.parsed_declaration" : "case Usage",
                 "key.doc.comment" : "Each option should record its usage information in an error, for\npresentation to the user.",
                 "key.namelength" : 5,
@@ -2321,7 +2321,7 @@
                 "key.doc.type" : "Other",
                 "key.doc.file" : "Commandant\/Command.swift",
                 "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"53\" column=\"7\"><Name>Usage<\/Name><USR>s:FO10Commandant11CommandMode5UsageFMS0_S0_<\/USR><Declaration><\/Declaration><Abstract><Para>Each option should record its usage information in an error, for presentation to the user.<\/Para><\/Abstract><\/Other>",
-                "key.nameoffset" : 1513,
+                "key.nameoffset" : 1514,
                 "key.doc.name" : "Usage",
                 "key.annotated_decl" : "<Declaration><\/Declaration>",
                 "key.accessibility" : "source.lang.swift.accessibility.internal",
@@ -2331,7 +2331,7 @@
               }
             ],
             "key.kind" : "source.lang.swift.decl.enumcase",
-            "key.offset" : 1508,
+            "key.offset" : 1509,
             "key.nameoffset" : 0,
             "key.namelength" : 0,
             "key.length" : 10
@@ -2341,23 +2341,23 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.class",
-        "key.offset" : 1594,
+        "key.offset" : 1595,
         "key.parsed_declaration" : "public final class CommandRegistry<ClientError>",
         "key.doc.comment" : "Maintains the list of commands available to run.",
         "key.namelength" : 15,
         "key.doc.line" : 57,
-        "key.bodylength" : 1082,
+        "key.bodylength" : 1086,
         "key.length" : 15,
         "key.doc.column" : 20,
         "key.parsed_scope.end" : 88,
         "key.usr" : "s:C10Commandant15CommandRegistry",
         "key.doc.file" : "Commandant\/Command.swift",
-        "key.nameoffset" : 1594,
+        "key.nameoffset" : 1595,
         "key.annotated_decl" : "<Declaration>public final class CommandRegistry&lt;ClientError&gt;<\/Declaration>",
         "key.accessibility" : "source.lang.swift.accessibility.public",
         "key.parsed_scope.start" : 57,
         "key.filepath" : "Commandant\/Command.swift",
-        "key.bodyoffset" : 1624,
+        "key.bodyoffset" : 1625,
         "key.doc.declaration" : "public final class CommandRegistry<ClientError>",
         "key.name" : "CommandRegistry",
         "key.typename" : "CommandRegistry.Type",
@@ -2375,16 +2375,16 @@
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 1638,
-            "key.parsed_declaration" : "private var commandsByVerb: [String: CommandOf<ClientError>] = [:]",
+            "key.offset" : 1639,
+            "key.parsed_declaration" : "private var commandsByVerb: [String: AnyCommand<ClientError>] = [:]",
             "key.namelength" : 14,
             "key.length" : 14,
-            "key.typename" : "[String : CommandOf<ClientError>]",
+            "key.typename" : "[String : AnyCommand<ClientError>]",
             "key.name" : "commandsByVerb",
             "key.parsed_scope.end" : 58,
-            "key.usr" : "s:vC10Commandant15CommandRegistryP33_1DD6990CD6DFDE28F713A55F8EE2B70E14commandsByVerbGVSs10DictionarySSGVS_9CommandOfq___",
-            "key.nameoffset" : 1638,
-            "key.annotated_decl" : "<Declaration>private var commandsByVerb: [<Type usr=\"s:SS\">String<\/Type> : <Type usr=\"s:V10Commandant9CommandOf\">CommandOf<\/Type>&lt;ClientError&gt;]<\/Declaration>",
+            "key.usr" : "s:vC10Commandant15CommandRegistryP33_1DD6990CD6DFDE28F713A55F8EE2B70E14commandsByVerbGVSs10DictionarySSGVS_10AnyCommandq___",
+            "key.nameoffset" : 1639,
+            "key.annotated_decl" : "<Declaration>private var commandsByVerb: [<Type usr=\"s:SS\">String<\/Type> : <Type usr=\"s:V10Commandant10AnyCommand\">AnyCommand<\/Type>&lt;ClientError&gt;]<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.private",
             "key.setter_accessibility" : "source.lang.swift.accessibility.private",
             "key.parsed_scope.start" : 58,
@@ -2392,30 +2392,30 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.subscript",
-            "key.offset" : 2620,
-            "key.parsed_declaration" : "public subscript(verb: String) -> CommandOf<ClientError>?",
+            "key.offset" : 2624,
+            "key.parsed_declaration" : "public subscript(verb: String) -> AnyCommand<ClientError>?",
             "key.doc.comment" : "Returns the command matching the given verb, or nil if no such command\nis registered.",
-            "key.doc.declaration" : "public subscript (verb: String) -> Commandant.CommandOf<ClientError>? { get }",
+            "key.doc.declaration" : "public subscript (verb: String) -> Commandant.AnyCommand<ClientError>? { get }",
             "key.doc.line" : 85,
             "key.length" : 9,
-            "key.typename" : "(String) -> CommandOf<ClientError>?",
+            "key.typename" : "(String) -> AnyCommand<ClientError>?",
             "key.name" : "subscript(_:)",
             "key.doc.column" : 9,
             "key.parsed_scope.end" : 85,
-            "key.usr" : "s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_9CommandOfq___",
+            "key.usr" : "s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_10AnyCommandq___",
             "key.doc.type" : "Other",
             "key.doc.file" : "Commandant\/Command.swift",
-            "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"85\" column=\"9\"><Name>subscript(_:)<\/Name><USR>s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_9CommandOfq___<\/USR><Declaration>public subscript (verb: String) -&gt; Commandant.CommandOf&lt;ClientError&gt;? { get }<\/Declaration><Abstract><Para>Returns the command matching the given verb, or nil if no such command is registered.<\/Para><\/Abstract><\/Other>",
+            "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"85\" column=\"9\"><Name>subscript(_:)<\/Name><USR>s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_10AnyCommandq___<\/USR><Declaration>public subscript (verb: String) -&gt; Commandant.AnyCommand&lt;ClientError&gt;? { get }<\/Declaration><Abstract><Para>Returns the command matching the given verb, or nil if no such command is registered.<\/Para><\/Abstract><\/Other>",
             "key.doc.name" : "subscript(_:)",
-            "key.annotated_decl" : "<Declaration>public subscript (verb: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:V10Commandant9CommandOf\">CommandOf<\/Type>&lt;ClientError&gt;? { get }<\/Declaration>",
-            "key.doc.usr" : "s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_9CommandOfq___",
+            "key.annotated_decl" : "<Declaration>public subscript (verb: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:V10Commandant10AnyCommand\">AnyCommand<\/Type>&lt;ClientError&gt;? { get }<\/Declaration>",
+            "key.doc.usr" : "s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_10AnyCommandq___",
             "key.parsed_scope.start" : 85,
             "key.filepath" : "Commandant\/Command.swift"
           },
           {
             "key.kind" : "source.lang.swift.decl.var.instance",
-            "key.offset" : 1735,
-            "key.parsed_declaration" : "public var commands: [CommandOf<ClientError>]",
+            "key.offset" : 1737,
+            "key.parsed_declaration" : "public var commands: [AnyCommand<ClientError>]",
             "key.doc.comment" : "All available commands.",
             "key.namelength" : 8,
             "key.doc.line" : 61,
@@ -2423,16 +2423,16 @@
             "key.length" : 8,
             "key.doc.column" : 13,
             "key.parsed_scope.end" : 63,
-            "key.usr" : "s:vC10Commandant15CommandRegistry8commandsGSaGVS_9CommandOfq___",
+            "key.usr" : "s:vC10Commandant15CommandRegistry8commandsGSaGVS_10AnyCommandq___",
             "key.doc.file" : "Commandant\/Command.swift",
-            "key.nameoffset" : 1735,
-            "key.annotated_decl" : "<Declaration>public var commands: [<Type usr=\"s:V10Commandant9CommandOf\">CommandOf<\/Type>&lt;ClientError&gt;] { get }<\/Declaration>",
+            "key.nameoffset" : 1737,
+            "key.annotated_decl" : "<Declaration>public var commands: [<Type usr=\"s:V10Commandant10AnyCommand\">AnyCommand<\/Type>&lt;ClientError&gt;] { get }<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 61,
             "key.filepath" : "Commandant\/Command.swift",
-            "key.bodyoffset" : 1771,
-            "key.doc.declaration" : "public var commands: [Commandant.CommandOf<ClientError>] { get }",
-            "key.typename" : "[CommandOf<ClientError>]",
+            "key.bodyoffset" : 1774,
+            "key.doc.declaration" : "public var commands: [Commandant.AnyCommand<ClientError>] { get }",
+            "key.typename" : "[AnyCommand<ClientError>]",
             "key.name" : "commands",
             "key.doc.type" : "Other",
             "key.attributes" : [
@@ -2440,23 +2440,23 @@
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
               }
             ],
-            "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"61\" column=\"13\"><Name>commands<\/Name><USR>s:vC10Commandant15CommandRegistry8commandsGSaGVS_9CommandOfq___<\/USR><Declaration>public var commands: [Commandant.CommandOf&lt;ClientError&gt;] { get }<\/Declaration><Abstract><Para>All available commands.<\/Para><\/Abstract><\/Other>",
+            "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"61\" column=\"13\"><Name>commands<\/Name><USR>s:vC10Commandant15CommandRegistry8commandsGSaGVS_10AnyCommandq___<\/USR><Declaration>public var commands: [Commandant.AnyCommand&lt;ClientError&gt;] { get }<\/Declaration><Abstract><Para>All available commands.<\/Para><\/Abstract><\/Other>",
             "key.doc.name" : "commands",
-            "key.doc.usr" : "s:vC10Commandant15CommandRegistry8commandsGSaGVS_9CommandOfq___"
+            "key.doc.usr" : "s:vC10Commandant15CommandRegistry8commandsGSaGVS_10AnyCommandq___"
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 1849,
+            "key.offset" : 1852,
             "key.parsed_declaration" : "public init() {}",
             "key.namelength" : 6,
-            "key.bodyoffset" : 1857,
+            "key.bodyoffset" : 1860,
             "key.bodylength" : 0,
             "key.length" : 6,
             "key.name" : "init()",
             "key.typename" : "<ClientError> CommandRegistry<ClientError>.Type -> () -> CommandRegistry<ClientError>",
             "key.parsed_scope.end" : 65,
             "key.usr" : "s:FC10Commandant15CommandRegistrycurFMGS0_q__FT_GS0_q__",
-            "key.nameoffset" : 1849,
+            "key.nameoffset" : 1852,
             "key.annotated_decl" : "<Declaration>public init()<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 65,
@@ -2464,23 +2464,23 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 2038,
+            "key.offset" : 2041,
             "key.parsed_declaration" : "public func register<C: CommandType where C.ClientError == ClientError>(command: C)",
             "key.doc.comment" : "Registers the given command, making it available to run.\n\nIf another command was already registered with the same `verb`, it will\nbe overwritten.",
             "key.namelength" : 71,
             "key.doc.line" : 71,
-            "key.bodylength" : 54,
+            "key.bodylength" : 55,
             "key.length" : 71,
             "key.doc.column" : 14,
             "key.parsed_scope.end" : 73,
             "key.usr" : "s:FC10Commandant15CommandRegistry8registeru__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FGS0_q__Fqd__T_",
             "key.doc.file" : "Commandant\/Command.swift",
-            "key.nameoffset" : 2038,
+            "key.nameoffset" : 2041,
             "key.annotated_decl" : "<Declaration>public func register&lt;C : <Type usr=\"s:P10Commandant11CommandType\">CommandType<\/Type> where C.ClientError == ClientError&gt;(command: C)<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 71,
             "key.filepath" : "Commandant\/Command.swift",
-            "key.bodyoffset" : 2111,
+            "key.bodyoffset" : 2114,
             "key.doc.declaration" : "public func register<C : CommandType where C.ClientError == ClientError>(command: C)",
             "key.name" : "register(_:)",
             "key.typename" : "<ClientError> CommandRegistry<ClientError> -> <C : CommandType where C.ClientError == ClientError> (C) -> ()",
@@ -2504,7 +2504,7 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 2355,
+            "key.offset" : 2359,
             "key.parsed_declaration" : "public func runCommand(verb: String, arguments: [String]) -> Result<(), CommandantError<ClientError>>?",
             "key.doc.comment" : "Runs the command corresponding to the given verb, passing it the given\narguments.\n\nReturns the results of the execution, or nil if no such command exists.",
             "key.namelength" : 45,
@@ -2515,12 +2515,12 @@
             "key.parsed_scope.end" : 81,
             "key.usr" : "s:FC10Commandant15CommandRegistry10runCommandurFGS0_q__FTSS9argumentsGSaSS__GSqGO6Result6ResultT_GOS_15CommandantErrorq____",
             "key.doc.file" : "Commandant\/Command.swift",
-            "key.nameoffset" : 2355,
+            "key.nameoffset" : 2359,
             "key.annotated_decl" : "<Declaration>public func runCommand(verb: <Type usr=\"s:SS\">String<\/Type>, arguments: [<Type usr=\"s:SS\">String<\/Type>]) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;(), <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;ClientError&gt;&gt;?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 79,
             "key.filepath" : "Commandant\/Command.swift",
-            "key.bodyoffset" : 2447,
+            "key.bodyoffset" : 2451,
             "key.doc.declaration" : "public func runCommand(verb: String, arguments: [String]) -> Result.Result<(), Commandant.CommandantError<ClientError>>?",
             "key.name" : "runCommand(_:arguments:)",
             "key.typename" : "<ClientError> CommandRegistry<ClientError> -> (String, arguments: [String]) -> Result<(), CommandantError<ClientError>>?",
@@ -2547,11 +2547,11 @@
       },
       {
         "key.kind" : "source.lang.swift.decl.extension",
-        "key.offset" : 1594,
+        "key.offset" : 1595,
         "key.doc.comment" : "Maintains the list of commands available to run.",
         "key.namelength" : 15,
-        "key.bodyoffset" : 2736,
-        "key.bodylength" : 1460,
+        "key.bodyoffset" : 2741,
+        "key.bodylength" : 2245,
         "key.length" : 15,
         "key.doc.line" : 57,
         "key.name" : "CommandRegistry",
@@ -2562,29 +2562,29 @@
         "key.doc.type" : "Class",
         "key.doc.file" : "Commandant\/Command.swift",
         "key.doc.full_as_xml" : "<Class file=\"Commandant\/Command.swift\" line=\"57\" column=\"20\"><Name>CommandRegistry<\/Name><USR>s:C10Commandant15CommandRegistry<\/USR><Declaration>public final class CommandRegistry&lt;ClientError&gt;<\/Declaration><Abstract><Para>Maintains the list of commands available to run.<\/Para><\/Abstract><\/Class>",
-        "key.nameoffset" : 2719,
+        "key.nameoffset" : 2724,
         "key.doc.name" : "CommandRegistry",
         "key.annotated_decl" : "<Declaration>public final class CommandRegistry&lt;ClientError&gt;<\/Declaration>",
         "key.substructure" : [
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 3372,
+            "key.offset" : 3377,
             "key.parsed_declaration" : "@noreturn public func main(defaultVerb defaultVerb: String, errorHandler: ClientError -> ())",
             "key.doc.comment" : "Hands off execution to the CommandRegistry, by parsing Process.arguments\nand then running whichever command has been identified in the argument\nlist.\n\nIf the chosen command executes successfully, the process will exit with\na successful exit code.\n\nIf the chosen command fails, the provided error handler will be invoked,\nthen the process will exit with a failure exit code.\n\nIf a matching command could not be found or a usage error occurred,\na helpful error message will be written to `stderr`, then the process\nwill exit with a failure error code.",
             "key.namelength" : 70,
             "key.doc.line" : 104,
-            "key.bodylength" : 750,
+            "key.bodylength" : 93,
             "key.length" : 70,
             "key.doc.column" : 24,
-            "key.parsed_scope.end" : 137,
+            "key.parsed_scope.end" : 106,
             "key.usr" : "s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT11defaultVerbSS12errorHandlerFq_T__T_",
             "key.doc.file" : "Commandant\/Command.swift",
-            "key.nameoffset" : 3372,
+            "key.nameoffset" : 3377,
             "key.annotated_decl" : "<Declaration>@noreturn public func main(defaultVerb defaultVerb: <Type usr=\"s:SS\">String<\/Type>, errorHandler: ClientError -&gt; ())<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.public",
             "key.parsed_scope.start" : 104,
             "key.filepath" : "Commandant\/Command.swift",
-            "key.bodyoffset" : 3444,
+            "key.bodyoffset" : 3449,
             "key.doc.declaration" : "@noreturn public func main(defaultVerb defaultVerb: String, errorHandler: ClientError -> ())",
             "key.name" : "main(defaultVerb:errorHandler:)",
             "key.typename" : "<ClientError> CommandRegistry<ClientError> -> @noreturn (defaultVerb: String, errorHandler: ClientError -> ()) -> ()",
@@ -2595,6 +2595,11 @@
               },
               {
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+              }
+            ],
+            "key.related_decls" : [
+              {
+                "key.annotated_decl" : "<RelatedName usr=\"s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT9argumentsGSaSS_11defaultVerbSS12errorHandlerFq_T__T_\">main(arguments:defaultVerb:errorHandler:)<\/RelatedName>"
               }
             ],
             "key.doc.full_as_xml" : "<Function file=\"Commandant\/Command.swift\" line=\"104\" column=\"24\"><Name>main(defaultVerb:errorHandler:)<\/Name><USR>s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT11defaultVerbSS12errorHandlerFq_T__T_<\/USR><Declaration>@noreturn public func main(defaultVerb defaultVerb: String, errorHandler: ClientError -&gt; ())<\/Declaration><Abstract><Para>Hands off execution to the CommandRegistry, by parsing Process.arguments and then running whichever command has been identified in the argument list.<\/Para><\/Abstract><Discussion><Para>If the chosen command executes successfully, the process will exit with a successful exit code.<\/Para><Para>If the chosen command fails, the provided error handler will be invoked, then the process will exit with a failure exit code.<\/Para><Para>If a matching command could not be found or a usage error occurred, a helpful error message will be written to <codeVoice>stderr<\/codeVoice>, then the process will exit with a failure error code.<\/Para><\/Discussion><\/Function>",
@@ -2614,6 +2619,60 @@
                 "Para" : "If a matching command could not be found or a usage error occurred, a helpful error message will be written to `stderr`, then the process will exit with a failure error code."
               }
             ]
+          },
+          {
+            "key.kind" : "source.lang.swift.decl.function.method.instance",
+            "key.offset" : 4175,
+            "key.parsed_declaration" : "@noreturn public func main(var arguments arguments: [String], defaultVerb: String, errorHandler: ClientError -> ())",
+            "key.doc.comment" : "Hands off execution to the CommandRegistry, by parsing `arguments`\nand then running whichever command has been identified in the argument\nlist.\n\nIf the chosen command executes successfully, the process will exit with\na successful exit code.\n\nIf the chosen command fails, the provided error handler will be invoked,\nthen the process will exit with a failure exit code.\n\nIf a matching command could not be found or a usage error occurred,\na helpful error message will be written to `stderr`, then the process\nwill exit with a failure error code.",
+            "key.namelength" : 93,
+            "key.doc.line" : 121,
+            "key.bodylength" : 714,
+            "key.length" : 93,
+            "key.doc.column" : 24,
+            "key.parsed_scope.end" : 153,
+            "key.usr" : "s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT9argumentsGSaSS_11defaultVerbSS12errorHandlerFq_T__T_",
+            "key.doc.file" : "Commandant\/Command.swift",
+            "key.nameoffset" : 4175,
+            "key.annotated_decl" : "<Declaration>@noreturn public func main(arguments arguments: [<Type usr=\"s:SS\">String<\/Type>], defaultVerb: <Type usr=\"s:SS\">String<\/Type>, errorHandler: ClientError -&gt; ())<\/Declaration>",
+            "key.accessibility" : "source.lang.swift.accessibility.public",
+            "key.parsed_scope.start" : 121,
+            "key.filepath" : "Commandant\/Command.swift",
+            "key.bodyoffset" : 4270,
+            "key.doc.declaration" : "@noreturn public func main(arguments arguments: [String], defaultVerb: String, errorHandler: ClientError -> ())",
+            "key.name" : "main(arguments:defaultVerb:errorHandler:)",
+            "key.typename" : "<ClientError> CommandRegistry<ClientError> -> @noreturn (arguments: [String], defaultVerb: String, errorHandler: ClientError -> ()) -> ()",
+            "key.doc.type" : "Function",
+            "key.attributes" : [
+              {
+                "key.attribute" : "source.decl.attribute.noreturn"
+              },
+              {
+                "key.attribute" : "source.decl.attribute.__raw_doc_comment"
+              }
+            ],
+            "key.related_decls" : [
+              {
+                "key.annotated_decl" : "<RelatedName usr=\"s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT11defaultVerbSS12errorHandlerFq_T__T_\">main(defaultVerb:errorHandler:)<\/RelatedName>"
+              }
+            ],
+            "key.doc.full_as_xml" : "<Function file=\"Commandant\/Command.swift\" line=\"121\" column=\"24\"><Name>main(arguments:defaultVerb:errorHandler:)<\/Name><USR>s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT9argumentsGSaSS_11defaultVerbSS12errorHandlerFq_T__T_<\/USR><Declaration>@noreturn public func main(arguments arguments: [String], defaultVerb: String, errorHandler: ClientError -&gt; ())<\/Declaration><Abstract><Para>Hands off execution to the CommandRegistry, by parsing <codeVoice>arguments<\/codeVoice> and then running whichever command has been identified in the argument list.<\/Para><\/Abstract><Discussion><Para>If the chosen command executes successfully, the process will exit with a successful exit code.<\/Para><Para>If the chosen command fails, the provided error handler will be invoked, then the process will exit with a failure exit code.<\/Para><Para>If a matching command could not be found or a usage error occurred, a helpful error message will be written to <codeVoice>stderr<\/codeVoice>, then the process will exit with a failure error code.<\/Para><\/Discussion><\/Function>",
+            "key.doc.name" : "main(arguments:defaultVerb:errorHandler:)",
+            "key.substructure" : [
+
+            ],
+            "key.doc.usr" : "s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT9argumentsGSaSS_11defaultVerbSS12errorHandlerFq_T__T_",
+            "key.doc.discussion" : [
+              {
+                "Para" : "If the chosen command executes successfully, the process will exit with a successful exit code."
+              },
+              {
+                "Para" : "If the chosen command fails, the provided error handler will be invoked, then the process will exit with a failure exit code."
+              },
+              {
+                "Para" : "If a matching command could not be found or a usage error occurred, a helpful error message will be written to `stderr`, then the process will exit with a failure error code."
+              }
+            ]
           }
         ],
         "key.doc.usr" : "s:C10Commandant15CommandRegistry",
@@ -2622,7 +2681,7 @@
     ],
     "key.offset" : 0,
     "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-    "key.length" : 4198
+    "key.length" : 4988
   }
 }, {
   "Commandant\/ArgumentParser.swift" : {
@@ -3069,10 +3128,10 @@
         "key.doc.comment" : "Destructively parses a list of command-line arguments.",
         "key.namelength" : 14,
         "key.doc.line" : 57,
-        "key.bodylength" : 3619,
+        "key.bodylength" : 3646,
         "key.length" : 14,
         "key.doc.column" : 20,
-        "key.parsed_scope.end" : 190,
+        "key.parsed_scope.end" : 194,
         "key.usr" : "s:C10Commandant14ArgumentParser",
         "key.doc.file" : "Commandant\/ArgumentParser.swift",
         "key.nameoffset" : 1214,
@@ -3135,10 +3194,10 @@
             "key.doc.comment" : "Initializes the generator from a simple list of command-line arguments.",
             "key.namelength" : 27,
             "key.doc.line" : 62,
-            "key.bodylength" : 689,
+            "key.bodylength" : 716,
             "key.length" : 27,
             "key.doc.column" : 9,
-            "key.parsed_scope.end" : 83,
+            "key.parsed_scope.end" : 87,
             "key.usr" : "s:FC10Commandant14ArgumentParsercFMS0_FGSaSS_S0_",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
             "key.nameoffset" : 1428,
@@ -3165,23 +3224,23 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 2370,
+            "key.offset" : 2397,
             "key.parsed_declaration" : "internal func consumeBooleanKey(key: String) -> Bool?",
             "key.doc.comment" : "Returns whether the given key was enabled or disabled, or nil if it\nwas not given at all.\n\nIf the key is found, it is then removed from the list of arguments\nremaining to be parsed.",
             "key.namelength" : 30,
-            "key.doc.line" : 90,
+            "key.doc.line" : 94,
             "key.bodylength" : 281,
             "key.length" : 30,
             "key.doc.column" : 16,
-            "key.parsed_scope.end" : 106,
+            "key.parsed_scope.end" : 110,
             "key.usr" : "s:FC10Commandant14ArgumentParser17consumeBooleanKeyFS0_FSSGSqSb_",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 2370,
+            "key.nameoffset" : 2397,
             "key.annotated_decl" : "<Declaration>internal func consumeBooleanKey(key: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:Sb\">Bool<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.parsed_scope.start" : 90,
+            "key.parsed_scope.start" : 94,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 2411,
+            "key.bodyoffset" : 2438,
             "key.doc.declaration" : "internal func consumeBooleanKey(key: String) -> Bool?",
             "key.name" : "consumeBooleanKey(_:)",
             "key.typename" : "ArgumentParser -> (String) -> Bool?",
@@ -3191,7 +3250,7 @@
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
               }
             ],
-            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"90\" column=\"16\"><Name>consumeBooleanKey(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser17consumeBooleanKeyFS0_FSSGSqSb_<\/USR><Declaration>internal func consumeBooleanKey(key: String) -&gt; Bool?<\/Declaration><Abstract><Para>Returns whether the given key was enabled or disabled, or nil if it was not given at all.<\/Para><\/Abstract><Discussion><Para>If the key is found, it is then removed from the list of arguments remaining to be parsed.<\/Para><\/Discussion><\/Function>",
+            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"94\" column=\"16\"><Name>consumeBooleanKey(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser17consumeBooleanKeyFS0_FSSGSqSb_<\/USR><Declaration>internal func consumeBooleanKey(key: String) -&gt; Bool?<\/Declaration><Abstract><Para>Returns whether the given key was enabled or disabled, or nil if it was not given at all.<\/Para><\/Abstract><Discussion><Para>If the key is found, it is then removed from the list of arguments remaining to be parsed.<\/Para><\/Discussion><\/Function>",
             "key.doc.name" : "consumeBooleanKey(_:)",
             "key.substructure" : [
 
@@ -3205,23 +3264,23 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 3010,
+            "key.offset" : 3037,
             "key.parsed_declaration" : "internal func consumeValueForKey(key: String) -> Result<String?, CommandantError<NoError>>",
             "key.doc.comment" : "Returns the value associated with the given flag, or nil if the flag was\nnot specified. If the key is presented, but no value was given, an error\nis returned.\n\nIf a value is found, the key and the value are both removed from the\nlist of arguments remaining to be parsed.",
             "key.namelength" : 31,
-            "key.doc.line" : 114,
+            "key.doc.line" : 118,
             "key.bodylength" : 552,
             "key.length" : 31,
             "key.doc.column" : 16,
-            "key.parsed_scope.end" : 141,
+            "key.parsed_scope.end" : 145,
             "key.usr" : "s:FC10Commandant14ArgumentParser18consumeValueForKeyFS0_FSSGO6Result6ResultGSqSS_GOS_15CommandantErrorOS_7NoError__",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 3010,
+            "key.nameoffset" : 3037,
             "key.annotated_decl" : "<Declaration>internal func consumeValueForKey(key: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:O6Result6Result\">Result<\/Type>&lt;<Type usr=\"s:SS\">String<\/Type>?, <Type usr=\"s:O10Commandant15CommandantError\">CommandantError<\/Type>&lt;<Type usr=\"s:O10Commandant7NoError\">NoError<\/Type>&gt;&gt;<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.parsed_scope.start" : 114,
+            "key.parsed_scope.start" : 118,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 3088,
+            "key.bodyoffset" : 3115,
             "key.doc.declaration" : "internal func consumeValueForKey(key: String) -> Result.Result<String?, Commandant.CommandantError<Commandant.NoError>>",
             "key.name" : "consumeValueForKey(_:)",
             "key.typename" : "ArgumentParser -> (String) -> Result<String?, CommandantError<NoError>>",
@@ -3231,7 +3290,7 @@
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
               }
             ],
-            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"114\" column=\"16\"><Name>consumeValueForKey(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser18consumeValueForKeyFS0_FSSGO6Result6ResultGSqSS_GOS_15CommandantErrorOS_7NoError__<\/USR><Declaration>internal func consumeValueForKey(key: String) -&gt; Result.Result&lt;String?, Commandant.CommandantError&lt;Commandant.NoError&gt;&gt;<\/Declaration><Abstract><Para>Returns the value associated with the given flag, or nil if the flag was not specified. If the key is presented, but no value was given, an error is returned.<\/Para><\/Abstract><Discussion><Para>If a value is found, the key and the value are both removed from the list of arguments remaining to be parsed.<\/Para><\/Discussion><\/Function>",
+            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"118\" column=\"16\"><Name>consumeValueForKey(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser18consumeValueForKeyFS0_FSSGO6Result6ResultGSqSS_GOS_15CommandantErrorOS_7NoError__<\/USR><Declaration>internal func consumeValueForKey(key: String) -&gt; Result.Result&lt;String?, Commandant.CommandantError&lt;Commandant.NoError&gt;&gt;<\/Declaration><Abstract><Para>Returns the value associated with the given flag, or nil if the flag was not specified. If the key is presented, but no value was given, an error is returned.<\/Para><\/Abstract><Discussion><Para>If a value is found, the key and the value are both removed from the list of arguments remaining to be parsed.<\/Para><\/Discussion><\/Function>",
             "key.doc.name" : "consumeValueForKey(_:)",
             "key.substructure" : [
 
@@ -3245,23 +3304,23 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 3786,
+            "key.offset" : 3813,
             "key.parsed_declaration" : "internal func consumePositionalArgument() -> String?",
             "key.doc.comment" : "Returns the next positional argument that hasn't yet been returned, or\nnil if there are no more positional arguments.",
             "key.namelength" : 27,
-            "key.doc.line" : 145,
+            "key.doc.line" : 149,
             "key.bodylength" : 221,
             "key.length" : 27,
             "key.doc.column" : 16,
-            "key.parsed_scope.end" : 158,
+            "key.parsed_scope.end" : 162,
             "key.usr" : "s:FC10Commandant14ArgumentParser25consumePositionalArgumentFS0_FT_GSqSS_",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 3786,
+            "key.nameoffset" : 3813,
             "key.annotated_decl" : "<Declaration>internal func consumePositionalArgument() -&gt; <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.parsed_scope.start" : 145,
+            "key.parsed_scope.start" : 149,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 3826,
+            "key.bodyoffset" : 3853,
             "key.doc.declaration" : "internal func consumePositionalArgument() -> String?",
             "key.name" : "consumePositionalArgument()",
             "key.typename" : "ArgumentParser -> () -> String?",
@@ -3271,7 +3330,7 @@
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
               }
             ],
-            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"145\" column=\"16\"><Name>consumePositionalArgument()<\/Name><USR>s:FC10Commandant14ArgumentParser25consumePositionalArgumentFS0_FT_GSqSS_<\/USR><Declaration>internal func consumePositionalArgument() -&gt; String?<\/Declaration><Abstract><Para>Returns the next positional argument that hasn&apos;t yet been returned, or nil if there are no more positional arguments.<\/Para><\/Abstract><\/Function>",
+            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"149\" column=\"16\"><Name>consumePositionalArgument()<\/Name><USR>s:FC10Commandant14ArgumentParser25consumePositionalArgumentFS0_FT_GSqSS_<\/USR><Declaration>internal func consumePositionalArgument() -&gt; String?<\/Declaration><Abstract><Para>Returns the next positional argument that hasn&apos;t yet been returned, or nil if there are no more positional arguments.<\/Para><\/Abstract><\/Function>",
             "key.doc.name" : "consumePositionalArgument()",
             "key.substructure" : [
 
@@ -3280,23 +3339,23 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 4172,
+            "key.offset" : 4199,
             "key.parsed_declaration" : "internal func consumeKey(key: String) -> Bool",
             "key.doc.comment" : "Returns whether the given key was specified and removes it from the\nlist of arguments remaining.",
             "key.namelength" : 23,
-            "key.doc.line" : 162,
+            "key.doc.line" : 166,
             "key.bodylength" : 143,
             "key.length" : 23,
             "key.doc.column" : 16,
-            "key.parsed_scope.end" : 167,
+            "key.parsed_scope.end" : 171,
             "key.usr" : "s:FC10Commandant14ArgumentParser10consumeKeyFS0_FSSSb",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 4172,
+            "key.nameoffset" : 4199,
             "key.annotated_decl" : "<Declaration>internal func consumeKey(key: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:Sb\">Bool<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.parsed_scope.start" : 162,
+            "key.parsed_scope.start" : 166,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 4205,
+            "key.bodyoffset" : 4232,
             "key.doc.declaration" : "internal func consumeKey(key: String) -> Bool",
             "key.name" : "consumeKey(_:)",
             "key.typename" : "ArgumentParser -> (String) -> Bool",
@@ -3306,7 +3365,7 @@
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
               }
             ],
-            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"162\" column=\"16\"><Name>consumeKey(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser10consumeKeyFS0_FSSSb<\/USR><Declaration>internal func consumeKey(key: String) -&gt; Bool<\/Declaration><Abstract><Para>Returns whether the given key was specified and removes it from the list of arguments remaining.<\/Para><\/Abstract><\/Function>",
+            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"166\" column=\"16\"><Name>consumeKey(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser10consumeKeyFS0_FSSSb<\/USR><Declaration>internal func consumeKey(key: String) -&gt; Bool<\/Declaration><Abstract><Para>Returns whether the given key was specified and removes it from the list of arguments remaining.<\/Para><\/Abstract><\/Function>",
             "key.doc.name" : "consumeKey(_:)",
             "key.substructure" : [
 
@@ -3315,23 +3374,23 @@
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
-            "key.offset" : 4474,
+            "key.offset" : 4501,
             "key.parsed_declaration" : "internal func consumeBooleanFlag(flag: Character) -> Bool",
             "key.doc.comment" : "Returns whether the given flag was specified and removes it from the\nlist of arguments remaining.",
             "key.namelength" : 35,
-            "key.doc.line" : 171,
+            "key.doc.line" : 175,
             "key.bodylength" : 328,
             "key.length" : 35,
             "key.doc.column" : 16,
-            "key.parsed_scope.end" : 189,
+            "key.parsed_scope.end" : 193,
             "key.usr" : "s:FC10Commandant14ArgumentParser18consumeBooleanFlagFS0_FVSs9CharacterSb",
             "key.doc.file" : "Commandant\/ArgumentParser.swift",
-            "key.nameoffset" : 4474,
+            "key.nameoffset" : 4501,
             "key.annotated_decl" : "<Declaration>internal func consumeBooleanFlag(flag: <Type usr=\"s:VSs9Character\">Character<\/Type>) -&gt; <Type usr=\"s:Sb\">Bool<\/Type><\/Declaration>",
             "key.accessibility" : "source.lang.swift.accessibility.internal",
-            "key.parsed_scope.start" : 171,
+            "key.parsed_scope.start" : 175,
             "key.filepath" : "Commandant\/ArgumentParser.swift",
-            "key.bodyoffset" : 4519,
+            "key.bodyoffset" : 4546,
             "key.doc.declaration" : "internal func consumeBooleanFlag(flag: Character) -> Bool",
             "key.name" : "consumeBooleanFlag(_:)",
             "key.typename" : "ArgumentParser -> (Character) -> Bool",
@@ -3341,7 +3400,7 @@
                 "key.attribute" : "source.decl.attribute.__raw_doc_comment"
               }
             ],
-            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"171\" column=\"16\"><Name>consumeBooleanFlag(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser18consumeBooleanFlagFS0_FVSs9CharacterSb<\/USR><Declaration>internal func consumeBooleanFlag(flag: Character) -&gt; Bool<\/Declaration><Abstract><Para>Returns whether the given flag was specified and removes it from the list of arguments remaining.<\/Para><\/Abstract><\/Function>",
+            "key.doc.full_as_xml" : "<Function file=\"Commandant\/ArgumentParser.swift\" line=\"175\" column=\"16\"><Name>consumeBooleanFlag(_:)<\/Name><USR>s:FC10Commandant14ArgumentParser18consumeBooleanFlagFS0_FVSs9CharacterSb<\/USR><Declaration>internal func consumeBooleanFlag(flag: Character) -&gt; Bool<\/Declaration><Abstract><Para>Returns whether the given flag was specified and removes it from the list of arguments remaining.<\/Para><\/Abstract><\/Function>",
             "key.doc.name" : "consumeBooleanFlag(_:)",
             "key.substructure" : [
 
@@ -3354,6 +3413,6 @@
     ],
     "key.offset" : 0,
     "key.diagnostic_stage" : "source.diagnostic.stage.swift.parse",
-    "key.length" : 4851
+    "key.length" : 4878
   }
 }]

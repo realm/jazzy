@@ -1,2 +1,2 @@
 github "jpsim/SwiftXPC" "swift-2.0"
-github "drmohundro/SWXMLHash" "xcode-7.0"
+github "drmohundro/SWXMLHash" ~> 2.0.3
