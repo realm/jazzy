@@ -10,14 +10,13 @@ module Jazzy
       ACCESSIBILITY_PUBLIC   = 'source.lang.swift.accessibility.public'
 
       def initialize(accessibility)
-        if accessibility == ACCESSIBILITY_PRIVATE
-          @level = :private
-        elsif accessibility == ACCESSIBILITY_INTERNAL
-          @level = :internal
-        elsif accessibility == ACCESSIBILITY_PUBLIC
-          @level = :public
-        else
-          raise "cannot initialize AccessControlLevel with '#{accessibility}'"
+        @level = case accessibility
+                 when ACCESSIBILITY_PRIVATE then :private
+                 when ACCESSIBILITY_INTERNAL then :internal
+                 when ACCESSIBILITY_PUBLIC then :public
+                 else
+                   raise 'cannot initialize AccessControlLevel with ' \
+                     "'#{accessibility}'"
         end
       end
 
@@ -34,13 +33,24 @@ module Jazzy
       end
 
       def self.from_explicit_declaration(declaration_string)
-        if declaration_string =~ /private\ /
-          return AccessControlLevel.private
-        elsif declaration_string =~ /public\ /
-          return AccessControlLevel.public
-        elsif declaration_string =~ /internal\ /
-          return AccessControlLevel.internal
+        # rubocop:disable Style/EmptyLinesAroundAccessModifier
+        case declaration_string
+        when /private\ / then private
+        when /public\ / then public
+        when /internal\ / then internal
         end
+        # rubocop:enable Style/EmptyLinesAroundAccessModifier
+      end
+
+      def self.from_human_string(string)
+        # rubocop:disable Style/EmptyLinesAroundAccessModifier
+        case string.to_s.downcase
+        when 'private' then private
+        when 'internal' then internal
+        when 'public' then public
+        else raise "cannot initialize AccessControlLevel with '#{string}'"
+        end
+        # rubocop:enable Style/EmptyLinesAroundAccessModifier
       end
 
       def self.private

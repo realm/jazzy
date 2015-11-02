@@ -146,11 +146,8 @@ module Jazzy
         opt.on('--min-acl [private | internal | public]',
                'minimum access control level to document \
                (default is public)') do |acl|
-          if acl == 'private'
-            config.min_acl = SourceDeclaration::AccessControlLevel.private
-          elsif acl == 'internal'
-            config.min_acl = SourceDeclaration::AccessControlLevel.internal
-          end
+          config.min_acl = SourceDeclaration::AccessControlLevel
+            .from_human_string(acl)
         end
 
         opt.on('--[no-]skip-undocumented',
