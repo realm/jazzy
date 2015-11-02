@@ -409,11 +409,10 @@ module Jazzy
     end
 
     def self.autolink(docs, data)
-      docs.map do |doc|
+      docs.each do |doc|
         doc.abstract = autolink_text(doc.abstract, data, doc.url)
         doc.return = autolink_text(doc.return, data, doc.url) if doc.return
         doc.children = autolink(doc.children, data)
-        doc
       end
     end
 
@@ -445,8 +444,8 @@ module Jazzy
         # than min_acl
         docs = docs.reject { |doc| doc.type.swift_enum_element? }
       end
-      docs = make_doc_urls(docs, [])
-      docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
+      make_doc_urls(docs, [])
+      autolink(docs, names_and_urls(docs.flat_map(&:children)))
       [docs, doc_coverage, @undocumented_tokens]
     end
   end
