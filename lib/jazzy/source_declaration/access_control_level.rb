@@ -43,6 +43,17 @@ module Jazzy
         end
       end
 
+      def self.from_human_string(string)
+        # rubocop:disable Style/EmptyLinesAroundAccessModifier
+        case string.to_s.downcase
+        when 'private' then private
+        when 'internal' then internal
+        when 'public' then public
+        else raise "cannot initialize AccessControlLevel with '#{string}'"
+        end
+        # rubocop:enable Style/EmptyLinesAroundAccessModifier
+      end
+
       def self.private
         new(ACCESSIBILITY_PRIVATE)
       end
