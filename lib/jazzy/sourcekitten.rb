@@ -396,14 +396,14 @@ module Jazzy
     end
 
     def self.autolink_text(text, data, url)
-      regex = /\b(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\b/
+      regex = /<code>\s*(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\s*<\/code>/
       text.gsub(regex) do
         name = Regexp.last_match(1)
         auto_url = data.find { |d| d[:name] == name }[:url]
         if auto_url == url # docs shouldn't autolink to themselves
           Regexp.last_match(0)
         else
-          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{name}</a>"
+          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{name}</a></code>"
         end
       end
     end
