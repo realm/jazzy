@@ -228,8 +228,9 @@ public struct File {
     - returns: True if a doc should be inserted in the parent at the provided offset.
     */
     private func shouldInsert(parent: XPCDictionary, offset: Int64) -> Bool {
-        return (offset == 0) ||
-            (shouldTreatAsSameFile(parent) && SwiftDocKey.getOffset(parent) == offset)
+        return SwiftDocKey.getSubstructure(parent) != nil &&
+            ((offset == 0) ||
+            (shouldTreatAsSameFile(parent) && SwiftDocKey.getOffset(parent) == offset))
     }
 
     /**

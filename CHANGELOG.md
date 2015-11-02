@@ -11,7 +11,9 @@ None.
 
 ##### Bug Fixes
 
-None.
+* Fix a bug where documentation inside a function would crash SourceKitten.  
+  [JP Simard](https://github.com/jpsim)
+  [#75](https://github.com/jpsim/SourceKitten/issues/75)
 
 
 ## 0.5.2
