@@ -2,18 +2,23 @@
 
 ##### Breaking
 
-* None.
+* `--swift-version` now defaults to 2.1 instead of 2.0.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Enhancements
 
 * Mentions of top-level declarations in documentation comments are now
-  automatically hyperlinked to their reference.
+  automatically hyperlinked to their reference.  
+  [JP Simard](https://github.com/jpsim)
 
 * Render special list items (e.g. Throws, See, etc.). See
   http://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/ for
   a complete list.  
   [JP Simard](https://github.com/jpsim)
   [#317](https://github.com/realm/jazzy/issues/317)
+
+* Support for Swift 2.1.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Bug Fixes
 

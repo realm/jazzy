@@ -54,7 +54,7 @@ module Jazzy
       self.excluded_files = []
       self.custom_categories = {}
       self.template_directory = Pathname(__FILE__).parent + 'templates'
-      self.swift_version = '2.0'
+      self.swift_version = '2.1'
       self.assets_directory = Pathname(__FILE__).parent + 'assets'
     end
 
