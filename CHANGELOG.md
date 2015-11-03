@@ -12,9 +12,9 @@
   [JP Simard](https://github.com/jpsim)
 
 * Jazzy can now read options from a configuration file. The command line
-  provides comprehensive help for available options via `jazzy -h config`.
+  provides comprehensive help for available options via `jazzy -h config`.  
   [pcantrell](https://github.com/pcantrell)
-  [310](https://github.com/realm/jazzy/pull/310)
+  [#310](https://github.com/realm/jazzy/pull/310)
 
 * Render special list items (e.g. Throws, See, etc.). See
   http://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/ for
