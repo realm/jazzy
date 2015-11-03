@@ -9,9 +9,9 @@ module Jazzy
 
     def header(text, header_level)
       text_slug = text.gsub(/[^a-zA-Z0-9]+/, '_')
-        .downcase
-        .sub(/^_/, '')
-        .sub(/_$/, '')
+                  .downcase
+                  .sub(/^_/, '')
+                  .sub(/_$/, '')
 
       "<a href='##{text_slug}' class='anchor' aria-hidden=true>" \
         '<span class="header-anchor"></span>' \
@@ -68,7 +68,7 @@ module Jazzy
     end
 
     def render_aside(type, text)
-      %(<div class="aside aside-#{type.underscore.gsub('_', '-')}">
+      %(<div class="aside aside-#{type.underscore.tr('_', '-')}">
           <p class="aside-title">#{type.underscore.humanize}</p>
           #{text}
         </div>)

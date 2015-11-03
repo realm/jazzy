@@ -15,8 +15,9 @@ module Jazzy
 
       def initialize(generated_docs_dir, source_module)
         @source_module = source_module
-        @docset_dir = generated_docs_dir +
-          (config.docset_path || "docsets/#{source_module.name}.docset")
+        docset_path = config.docset_path ||
+                      "docsets/#{source_module.name}.docset"
+        @docset_dir = generated_docs_dir + docset_path
         @generated_docs_dir = generated_docs_dir
         @output_dir = docset_dir.parent
         @documents_dir = docset_dir + 'Contents/Resources/Documents/'
@@ -59,7 +60,7 @@ module Jazzy
 
       def copy_docs
         files_to_copy = Pathname.glob(generated_docs_dir + '*') -
-          [docset_dir, output_dir]
+                        [docset_dir, output_dir]
 
         FileUtils.mkdir_p documents_dir
         FileUtils.cp_r files_to_copy, documents_dir

@@ -31,29 +31,29 @@ module Jazzy
 
         # <a href="#{license[:url]}">#{license[:license]}</a>
         <<-EOS
-# #{ podspec.name }
+# #{podspec.name}
 
-### #{podspec.summary }
+### #{podspec.summary}
 
-#{ podspec.description }
+#{podspec.description}
 
 ### Installation
 
 ```ruby
-pod '#{ podspec.name }'
+pod '#{podspec.name}'
 ```
 
 ### Authors
 
-#{ source_module.author_name }
+#{source_module.author_name}
 EOS
       else
         <<-EOS
-# #{ source_module.name }
+# #{source_module.name}
 
 ### Authors
 
-#{ source_module.author_name }
+#{source_module.author_name}
 EOS
       end
     end

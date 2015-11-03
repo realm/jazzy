@@ -29,14 +29,15 @@ module Jazzy
     #                     section names & child names & URLs
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
+        children = doc.children
+                   .sort_by(&:name)
+                   .sort_by(&:nav_order)
+                   .map do |child|
+          { name: child.name, url: child.url }
+        end
         {
           section: doc.name,
-          children: doc.children
-              .sort_by(&:name)
-              .sort_by(&:nav_order)
-              .map do |child|
-                { name: child.name, url: child.url }
-              end,
+          children: children,
         }
       end
     end
@@ -136,7 +137,7 @@ module Jazzy
 
     def self.relative_path_if_inside(path, base_path)
       relative = path.relative_path_from(base_path)
-      if relative.to_path =~ /^..(\/|$)/
+      if relative.to_path =~ %r{/^..(\/|$)/}
         path
       else
         relative

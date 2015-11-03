@@ -28,8 +28,6 @@ module Jazzy
       when Pathname, String
         require 'cocoapods'
         Pod::Specification.from_file(podspec_path)
-      else
-        nil
       end
     end
 
@@ -111,7 +109,7 @@ module Jazzy
         platform :ios, '8.0'
         [podspec, *podspec.recursive_subspecs].each do |ss|
           ss.available_platforms.each do |p|
-            t = "Jazzy-#{ss.name.gsub(/\//, '__')}-#{p.name}"
+            t = "Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}"
             targets << "Pods-#{t}-#{ss.root.name}"
             target(t) do
               use_frameworks!

@@ -24,7 +24,8 @@ module Jazzy
 
         require 'open4'
 
-        stdout, stderr = IO.new, IO.new($stderr)
+        stdout = IO.new
+        stderr = IO.new($stderr)
 
         options = { stdout: stdout, stderr: stderr, status: true }
         status  = Open4.spawn(env, bin, *args, options)

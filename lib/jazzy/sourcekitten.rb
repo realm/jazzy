@@ -133,8 +133,8 @@ module Jazzy
         raise "Unable to find an Xcode with swift version #{swift_version}."
       end
       bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
-      output, _ = Executable.execute_command(bin_path, arguments, true,
-                                             env: xcode.as_env)
+      output, = Executable.execute_command(bin_path, arguments, true,
+                                           env: xcode.as_env)
       output
     end
 
