@@ -21,8 +21,8 @@ public struct Structure {
     */
     public init(file: File) {
         var tmpDictionary = Request.EditorOpen(file).send()
-        let syntaxMapData = tmpDictionary.removeValueForKey(SwiftDocKey.SyntaxMap.rawValue) as! NSData
-        dictionary = file.processDictionary(tmpDictionary, cursorInfoRequest: nil, syntaxMap: SyntaxMap(data: syntaxMapData))
+        _ = tmpDictionary.removeValueForKey(SwiftDocKey.SyntaxMap.rawValue)
+        dictionary = tmpDictionary
     }
 }
 

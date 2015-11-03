@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+None.
+
+##### Bug Fixes
+
+* Don't process SourceKit's response when building Structure.  
+  [JP Simard](https://github.com/jpsim)
+  [#82](https://github.com/jpsim/SourceKitten/issues/82)
+
+
 ## 0.5.2
 
 ##### Breaking
