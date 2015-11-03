@@ -48,8 +48,8 @@ module Jazzy
       if options.sourcekitten_sourcefile
         stdout = options.sourcekitten_sourcefile.read
       else
-        if podspec = options.podspec
-          stdout = PodspecDocumenter.new(podspec).sourcekitten_output
+        if options.podspec_configured
+          stdout = PodspecDocumenter.new(options.podspec).sourcekitten_output
         else
           stdout = Dir.chdir(options.source_directory) do
             arguments = SourceKitten.arguments_from_options(options)
@@ -128,9 +128,19 @@ module Jazzy
 
       DocsetBuilder.new(output_dir, source_module).build!
 
-      puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
+      friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
+      puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
 
       source_module
+    end
+
+    def self.relative_path_if_inside(path, base_path)
+      relative = path.relative_path_from(base_path)
+      if relative.to_path =~ /^..(\/|$)/
+        path
+      else
+        relative
+      end
     end
 
     def self.decl_for_token(token)

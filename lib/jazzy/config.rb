@@ -9,57 +9,233 @@ require 'jazzy/source_declaration/access_control_level'
 module Jazzy
   # rubocop:disable Metrics/ClassLength
   class Config
-    attr_accessor :output
-    attr_accessor :xcodebuild_arguments
-    attr_accessor :author_name
-    attr_accessor :module_name
-    attr_accessor :github_url
-    attr_accessor :github_file_prefix
-    attr_accessor :author_url
-    attr_accessor :dash_url
-    attr_accessor :sourcekitten_sourcefile
-    attr_accessor :clean
-    attr_accessor :readme_path
-    attr_accessor :docset_platform
-    attr_accessor :root_url
-    attr_accessor :version
-    attr_accessor :min_acl
-    attr_accessor :skip_undocumented
-    attr_accessor :hide_documentation_coverage
-    attr_accessor :podspec
-    attr_accessor :docset_icon
-    attr_accessor :docset_path
-    attr_accessor :source_directory
-    attr_accessor :excluded_files
-    attr_accessor :custom_categories
-    attr_accessor :template_directory
-    attr_accessor :swift_version
-    attr_accessor :assets_directory
-    attr_accessor :copyright
+    # rubocop:disable Style/AccessorMethodName
+    class Attribute
+      attr_reader :name, :description, :command_line, :default, :parse
 
-    def initialize
-      PodspecDocumenter.configure(self, Dir['*.podspec{,.json}'].first)
-      self.output = Pathname('docs')
-      self.xcodebuild_arguments = []
-      self.author_name = ''
-      self.module_name = ''
-      self.author_url = URI('')
-      self.clean = false
-      self.docset_platform = 'jazzy'
-      self.version = '1.0'
-      self.min_acl = SourceDeclaration::AccessControlLevel.public
-      self.skip_undocumented = false
-      self.hide_documentation_coverage = false
-      self.source_directory = Pathname.pwd
-      self.excluded_files = []
-      self.custom_categories = {}
-      self.template_directory = Pathname(__FILE__).parent + 'templates'
-      self.swift_version = '2.1'
-      self.assets_directory = Pathname(__FILE__).parent + 'assets'
+      def initialize(name, description: nil, command_line: nil,
+                     default: nil, parse: ->(x) { x })
+        @name = name
+        @description = Array(description)
+        @command_line = Array(command_line)
+        @default = default
+        @parse = parse
+      end
+
+      def get(config)
+        config.method(name).call
+      end
+
+      def set_raw(config, val)
+        config.method("#{name}=").call(val)
+      end
+
+      def set(config, val, mark_configured: true)
+        set_raw(config, parse.call(val))
+        config.method("#{name}_configured=").call(true) if mark_configured
+      end
+
+      def set_to_default(config)
+        set(config, default, mark_configured: false) if default
+      end
+
+      def set_if_unconfigured(config, val)
+        set(config, val) unless configured?(config)
+      end
+
+      def configured?(config)
+        config.method("#{name}_configured").call
+      end
+
+      def attach_to_option_parser(config, opt)
+        return if command_line.empty?
+        opt.on(*command_line, *description) do |val|
+          set(config, val)
+        end
+      end
+    end
+    # rubocop:enable Style/AccessorMethodName
+
+    def self.config_attr(name, **opts)
+      attr_accessor name
+      attr_accessor "#{name}_configured"
+      @all_config_attrs ||= []
+      @all_config_attrs << Attribute.new(name, **opts)
     end
 
-    def podspec=(podspec)
-      @podspec = PodspecDocumenter.configure(self, podspec)
+    class << self
+      attr_reader :all_config_attrs
+    end
+
+    # ──────── Build ────────
+
+    # rubocop:disable Style/AlignParameters
+
+    config_attr :output,
+      description: 'Folder to output the HTML docs to',
+      command_line: ['-o', '--output FOLDER'],
+      default: 'docs',
+      parse: ->(o) { Pathname(o) }
+
+    config_attr :clean,
+      command_line: ['-c', '--[no-]clean'],
+      description: ['Delete contents of output directory before running. ',
+                    'WARNING: If --output is set to ~/Desktop, this will '\
+                    'delete the ~/Desktop directory.'],
+      default: false
+
+    config_attr :config_file,
+      command_line: '--config PATH',
+      description: ['Configuration file (.yaml or .json)',
+                    'Default: .jazzy.yaml in source directory or ancestor'],
+      parse: ->(cf) { Pathname(cf) }
+
+    config_attr :xcodebuild_arguments,
+      command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
+      description: 'Arguments to forward to xcodebuild',
+      default: []
+
+    config_attr :sourcekitten_sourcefile,
+      command_line: ['-s', '--sourcekitten-sourcefile FILEPATH'],
+      description: 'File generated from sourcekitten output to parse',
+      parse: ->(s) { Pathname(s) }
+
+    config_attr :source_directory,
+      command_line: '--source-directory DIRPATH',
+      description: 'The directory that contains the source to be documented',
+      default: Pathname.pwd,
+      parse: ->(sd) { Pathname(sd) }
+
+    config_attr :excluded_files,
+      command_line: ['-e', '--exclude file1,file2,…fileN', Array],
+      description: 'Files to be excluded from documentation',
+      default: [],
+      parse: ->(files) do
+        files.map { |f| File.expand_path(f) }
+      end
+
+    config_attr :swift_version,
+      command_line: '--swift-version VERSION',
+      default: '2.1'
+
+    # ──────── Metadata ────────
+
+    config_attr :author_name,
+      command_line: ['-a', '--author AUTHOR_NAME'],
+      description: 'Name of author to attribute in docs (e.g. Realm)',
+      default: ''
+
+    config_attr :author_url,
+      command_line: ['-u', '--author_url URL'],
+      description: 'Author URL of this project (e.g. http://realm.io)',
+      default: '',
+      parse: ->(u) { URI(u) }
+
+    config_attr :module_name,
+      command_line: ['-m', '--module MODULE_NAME'],
+      description: 'Name of module being documented. (e.g. RealmSwift)',
+      default: ''
+
+    config_attr :version,
+      command_line: '--module-version VERSION',
+      description: 'module version. will be used when generating docset',
+      default: '1.0'
+
+    config_attr :copyright,
+      command_line: '--copyright COPYRIGHT_MARKDOWN',
+      description: 'copyright markdown rendered at the bottom of the docs pages'
+
+    config_attr :readme_path,
+      command_line: '--readme FILEPATH',
+      description: 'The path to a markdown README file',
+      parse: ->(rp) { Pathname(rp) }
+
+    config_attr :podspec,
+      command_line: '--podspec FILEPATH',
+      parse: ->(ps) { PodspecDocumenter.create_podspec(Pathname(ps)) if ps },
+      default: Dir['*.podspec{,.json}'].first
+
+    config_attr :docset_platform, default: 'jazzy'
+
+    config_attr :docset_icon,
+      command_line: '--docset-icon FILEPATH',
+      parse: ->(di) { Pathname(di) }
+
+    config_attr :docset_path,
+      command_line: '--docset-path DIRPATH',
+      description: 'The relative path for the generated docset'
+
+    # ──────── URLs ────────
+
+    config_attr :root_url,
+      command_line: ['-r', '--root-url URL'],
+      description: 'Absolute URL root where these docs will be stored',
+      parse: ->(r) { URI(r) }
+
+    config_attr :dash_url,
+      command_line: ['-d', '--dash_url URL'],
+      description: 'Location of the dash XML feed '\
+                    'e.g. http://realm.io/docsets/realm.xml)',
+      parse: ->(d) { URI(d) }
+
+    config_attr :github_url,
+      command_line: ['-g', '--github_url URL'],
+      description: 'GitHub URL of this project (e.g. '\
+                   'https://github.com/realm/realm-cocoa)',
+      parse: ->(g) { URI(g) }
+
+    config_attr :github_file_prefix,
+      command_line: '--github-file-prefix PREFIX',
+      description: 'GitHub URL file prefix of this project (e.g. '\
+                   'https://github.com/realm/realm-cocoa/tree/v0.87.1)'
+
+    # ──────── Doc generation options ────────
+
+    config_attr :min_acl,
+      command_line: '--min-acl [private | internal | public]',
+      description: 'minimum access control level to document',
+      default: 'public',
+      parse: ->(acl) do
+        SourceDeclaration::AccessControlLevel.from_human_string(acl)
+      end
+
+    config_attr :skip_undocumented,
+      command_line: '--[no-]skip-undocumented',
+      description: "Don't document declarations that have no documentation '\
+                  'comments.",
+      default: false
+
+    config_attr :hide_documentation_coverage,
+      command_line: '--[no-]hide-documentation-coverage',
+      description: "Hide \"(X\% documented)\" from the generated documents",
+      default: false
+
+    config_attr :custom_categories,
+      description: ['Custom navigation categories to replace the standard '\
+                    '“Classes, Protocols, etc.”', 'Types not explicitly named '\
+                    'in a custom category appear in generic groups at the end.',
+                    'Example: http://git.io/vcTZm'],
+      default: []
+
+    config_attr :template_directory,
+      command_line: ['-t', '--template-directory DIRPATH'],
+      description: 'The directory that contains the mustache templates to use',
+      default: Pathname(__FILE__).parent + 'templates',
+      parse: ->(td) { Pathname(td) }
+
+    config_attr :assets_directory,
+      command_line: '--assets-directory DIRPATH',
+      description: 'The directory that contains the assets (CSS, JS, images) '\
+                   'used by the templates',
+      default: Pathname(__FILE__).parent + 'assets',
+      parse: ->(ad) { Pathname(ad) }
+
+    # rubocop:enable Style/AlignParameters
+
+    def initialize
+      self.class.all_config_attrs.each do |attr|
+        attr.set_to_default(self)
+      end
     end
 
     def template_directory=(template_directory)
@@ -70,144 +246,27 @@ module Jazzy
     # rubocop:disable Metrics/MethodLength
     def self.parse!
       config = new
+      config.parse_command_line
+      config.parse_config_file
+      PodspecDocumenter.apply_config_defaults(config.podspec, config)
+
+      if config.root_url
+        config.dash_url ||= URI.join(
+          config.root_url,
+          "docsets/#{config.module_name}.xml")
+      end
+
+      config
+    end
+
+    def parse_command_line
       OptionParser.new do |opt|
         opt.banner = 'Usage: jazzy'
         opt.separator ''
         opt.separator 'Options'
 
-        opt.on('-o', '--output FOLDER',
-               'Folder to output the HTML docs to') do |output|
-          config.output = Pathname(output)
-        end
-
-        opt.on('-c', '--[no-]clean',
-               'Delete contents of output directory before running.',
-               'WARNING: If --output is set to ~/Desktop, this will delete the \
-                ~/Desktop directory.') do |clean|
-          config.clean = clean
-        end
-
-        opt.on('-x', '--xcodebuild-arguments arg1,arg2,…argN', Array,
-               'Arguments to forward to xcodebuild') do |args|
-          config.xcodebuild_arguments = args
-        end
-
-        opt.on('-a', '--author AUTHOR_NAME',
-               'Name of author to attribute in docs (i.e. Realm)') do |a|
-          config.author_name = a
-        end
-
-        opt.on('-u', '--author_url URL',
-               'Author URL of this project (i.e. http://realm.io)') do |u|
-          config.author_url = URI(u)
-        end
-
-        opt.on('-m', '--module MODULE_NAME',
-               'Name of module being documented. (i.e. RealmSwift)') do |m|
-          config.module_name = m
-        end
-
-        opt.on('-d', '--dash_url URL',
-               'Location of the dash XML feed \
-               (i.e. http://realm.io/docsets/realm.xml') do |d|
-          config.dash_url = URI(d)
-        end
-
-        opt.on('-g', '--github_url URL',
-               'GitHub URL of this project (i.e. \
-                https://github.com/realm/realm-cocoa)') do |g|
-          config.github_url = URI(g)
-        end
-
-        opt.on('--github-file-prefix PREFIX',
-               'GitHub URL file prefix of this project (i.e. \
-                https://github.com/realm/realm-cocoa/tree/v0.87.1)') do |g|
-          config.github_file_prefix = g
-        end
-
-        opt.on('-s', '--sourcekitten-sourcefile FILEPATH',
-               'File generated from sourcekitten output to parse') do |s|
-          config.sourcekitten_sourcefile = Pathname(s)
-        end
-
-        opt.on('-r', '--root-url URL',
-               'Absolute URL root where these docs will be stored') do |r|
-          config.root_url = URI(r)
-          if !config.dash_url && config.root_url
-            config.dash_url = URI.join(r, "docsets/#{config.module_name}.xml")
-          end
-        end
-
-        opt.on('--module-version VERSION',
-               'module version. will be used when generating docset') do |mv|
-          config.version = mv
-        end
-
-        opt.on('--min-acl [private | internal | public]',
-               'minimum access control level to document \
-               (default is public)') do |acl|
-          config.min_acl = SourceDeclaration::AccessControlLevel
-            .from_human_string(acl)
-        end
-
-        opt.on('--[no-]skip-undocumented',
-               "Don't document declarations that have no documentation \
-               comments.",
-               ) do |skip_undocumented|
-          config.skip_undocumented = skip_undocumented
-        end
-
-        opt.on('--[no-]hide-documentation-coverage',
-               "Hide \"(X\% documented)\" from the generated documents",
-               ) do |hide_documentation_coverage|
-          config.hide_documentation_coverage = hide_documentation_coverage
-        end
-
-        opt.on('--podspec FILEPATH') do |podspec|
-          config.podspec = Pathname(podspec)
-        end
-
-        opt.on('--docset-icon FILEPATH') do |docset_icon|
-          config.docset_icon = Pathname(docset_icon)
-        end
-
-        opt.on('--docset-path DIRPATH', 'The relative path for the generated ' \
-               'docset') do |docset_path|
-          config.docset_path = docset_path
-        end
-
-        opt.on('--source-directory DIRPATH', 'The directory that contains ' \
-               'the source to be documented') do |source_directory|
-          config.source_directory = Pathname(source_directory)
-        end
-
-        opt.on('t', '--template-directory DIRPATH', 'The directory that ' \
-               'contains the mustache templates to use') do |template_directory|
-          config.template_directory = Pathname(template_directory)
-        end
-
-        opt.on('--swift-version VERSION') do |swift_version|
-          config.swift_version = swift_version
-        end
-
-        opt.on('--assets-directory DIRPATH', 'The directory that contains ' \
-               'the assets (CSS, JS, images)  to use') do |assets_directory|
-          config.assets_directory = Pathname(assets_directory)
-        end
-
-        opt.on('--readme FILEPATH',
-               'The path to a markdown README file') do |readme|
-          config.readme_path = Pathname(readme)
-        end
-
-        opt.on('-e', '--exclude file1,file2,…fileN', Array,
-               'Files to be excluded from documentation') do |files|
-          config.excluded_files = files.map { |f| File.expand_path(f) }
-        end
-
-        opt.on('--categories file',
-               'JSON or YAML file with custom groupings') do |file|
-          config.custom_categories = parse_config_file(file)
+        self.class.all_config_attrs.each do |attr|
+          attr.attach_to_option_parser(self, opt)
         end
 
         opt.on('-v', '--version', 'Print version number') do
@@ -215,25 +274,114 @@ module Jazzy
           exit
         end
 
-        opt.on('--copyright COPYRIGHT_MARKDOWN', 'copyright markdown ' \
-               'rendered at the bottom of the docs pages') do |copyright|
-          config.copyright = copyright
-        end
-
-        opt.on('-h', '--help', 'Print this help message') do
-          puts opt
+        opt.on('-h', '--help [TOPIC]', 'Available topics:',
+               '  usage   Command line options (this help message)',
+               '  config  Configuration file options',
+               '...or an option keyword, e.g. "dash"') do |topic|
+          case topic
+          when 'usage', nil
+            puts opt
+          when 'config'
+            print_config_file_help
+          else
+            print_option_help(topic)
+          end
           exit
         end
       end.parse!
 
-      config
+      expand_paths(Pathname.pwd)
     end
 
-    def self.parse_config_file(file)
+    def parse_config_file
+      config_path = locate_config_file
+      return unless config_path
+
+      puts "Using config file #{config_path}"
+      config_file = read_config_file(config_path)
+      self.class.all_config_attrs.each do |attr|
+        key = attr.name.to_s
+        if config_file.key?(key)
+          attr.set_if_unconfigured(self, config_file[key])
+        end
+      end
+
+      expand_paths(config_path.parent)
+    end
+
+    def locate_config_file
+      return config_file if config_file
+
+      source_directory.ascend do |dir|
+        candidate = dir.join('.jazzy.yaml')
+        return candidate if candidate.exist?
+      end
+
+      nil
+    end
+
+    def read_config_file(file)
       case File.extname(file)
-      when '.json'         then JSON.parse(File.read(file))
-      when '.yaml', '.yml' then YAML.load(File.read(file))
-      else raise "Config file must be .yaml or .json, but got #{file.inspect}"
+        when '.json'         then JSON.parse(File.read(file))
+        when '.yaml', '.yml' then YAML.load(File.read(file))
+        else raise "Config file must be .yaml or .json, but got #{file.inspect}"
+      end
+    end
+
+    def expand_paths(base_path)
+      self.class.all_config_attrs.each do |attr|
+        val = attr.get(self)
+        if val.respond_to?(:expand_path)
+          attr.set_raw(self, val.expand_path(base_path))
+        end
+      end
+    end
+
+    def print_config_file_help
+      puts <<-_EOS_
+
+        By default, jazzy looks for a file named ".jazzy.yaml" in the source
+        directory and its ancestors. You can override the config file location
+        with --config.
+
+        (The source directory is the current working directory by default.
+        You can override that with --source-directory.)
+
+        The config file can be in YAML or JSON format. Available options are:
+
+        _EOS_
+        .gsub(/^ +/, '')
+
+      print_option_help
+    end
+
+    def print_option_help(topic = '')
+      found = false
+      self.class.all_config_attrs.each do |attr|
+        match = ([attr.name] + attr.command_line).any? do
+          |opt| opt.to_s.include?(topic)
+        end
+        if match
+          found = true
+          puts
+          puts attr.name.to_s.gsub('_', ' ').upcase
+          puts
+          puts "  Config file:   #{attr.name}"
+          cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
+          if cmd_line_forms.any?
+            puts "  Command line:  #{cmd_line_forms.join(', ')}"
+          end
+          puts
+          print_attr_description(attr)
+        end
+      end
+      warn "Unknown help topic #{topic.inspect}" unless found
+    end
+
+    def print_attr_description(attr)
+      attr.description.each { |line| puts "  #{line}" }
+      if attr.default && attr.default != ''
+        puts "  Default: #{attr.default}"
       end
     end
 
