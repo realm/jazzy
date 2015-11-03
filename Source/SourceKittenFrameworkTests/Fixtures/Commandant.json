@@ -423,15 +423,6 @@
             "key.doc.column" : 13,
             "key.parsed_scope.end" : 55,
             "key.usr" : "s:vV10Commandant6Option3keyGSqSS_",
-            "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 1982,
-            "key.annotated_decl" : "<Declaration>public let key: <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
-            "key.accessibility" : "source.lang.swift.accessibility.public",
-            "key.parsed_scope.start" : 55,
-            "key.filepath" : "Commandant\/Option.swift",
-            "key.doc.declaration" : "public let key: String?",
-            "key.typename" : "String?",
-            "key.name" : "key",
             "key.doc.type" : "Other",
             "key.attributes" : [
               {
@@ -439,7 +430,7 @@
               }
             ],
             "key.doc.full_as_xml" : "<Other file=\"Commandant\/Option.swift\" line=\"55\" column=\"13\"><Name>key<\/Name><USR>s:vV10Commandant6Option3keyGSqSS_<\/USR><Declaration>public let key: String?<\/Declaration><Abstract><Para>The key that controls this option. For example, a key of <codeVoice>verbose<\/codeVoice> would be used for a <codeVoice>--verbose<\/codeVoice> option.<\/Para><\/Abstract><Discussion><Para>If this is nil, this option will not have a corresponding flag, and must be specified as a plain value at the end of the argument list.<\/Para><Para>This must be non-nil for a boolean option.<\/Para><\/Discussion><\/Other>",
-            "key.nameoffset" : 1950,
+            "key.nameoffset" : 1982,
             "key.doc.file" : "Commandant\/Option.swift",
             "key.annotated_decl" : "<Declaration>public let key: <Type usr=\"s:SS\">String<\/Type>?<\/Declaration>",
             "key.doc.name" : "key",
@@ -469,15 +460,6 @@
             "key.doc.column" : 13,
             "key.parsed_scope.end" : 61,
             "key.usr" : "s:vV10Commandant6Option12defaultValueGSqq__",
-            "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 2212,
-            "key.annotated_decl" : "<Declaration>public let defaultValue: T?<\/Declaration>",
-            "key.accessibility" : "source.lang.swift.accessibility.public",
-            "key.parsed_scope.start" : 61,
-            "key.filepath" : "Commandant\/Option.swift",
-            "key.doc.declaration" : "public let defaultValue: T?",
-            "key.typename" : "T?",
-            "key.name" : "defaultValue",
             "key.doc.type" : "Other",
             "key.attributes" : [
               {
@@ -485,7 +467,7 @@
               }
             ],
             "key.doc.full_as_xml" : "<Other file=\"Commandant\/Option.swift\" line=\"61\" column=\"13\"><Name>defaultValue<\/Name><USR>s:vV10Commandant6Option12defaultValueGSqq__<\/USR><Declaration>public let defaultValue: T?<\/Declaration><Abstract><Para>The default value for this option. This is the value that will be used if the option is never explicitly specified on the command line.<\/Para><\/Abstract><Discussion><Para>If this is nil, this option is always required.<\/Para><\/Discussion><\/Other>",
-            "key.nameoffset" : 2180,
+            "key.nameoffset" : 2212,
             "key.doc.file" : "Commandant\/Option.swift",
             "key.annotated_decl" : "<Declaration>public let defaultValue: T?<\/Declaration>",
             "key.doc.name" : "defaultValue",
@@ -512,15 +494,6 @@
             "key.doc.column" : 13,
             "key.parsed_scope.end" : 69,
             "key.usr" : "s:vV10Commandant6Option5usageSS",
-            "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 2547,
-            "key.annotated_decl" : "<Declaration>public let usage: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
-            "key.accessibility" : "source.lang.swift.accessibility.public",
-            "key.parsed_scope.start" : 69,
-            "key.filepath" : "Commandant\/Option.swift",
-            "key.doc.declaration" : "public let usage: String",
-            "key.typename" : "String",
-            "key.name" : "usage",
             "key.doc.type" : "Other",
             "key.attributes" : [
               {
@@ -528,7 +501,7 @@
               }
             ],
             "key.doc.full_as_xml" : "<Other file=\"Commandant\/Option.swift\" line=\"69\" column=\"13\"><Name>usage<\/Name><USR>s:vV10Commandant6Option5usageSS<\/USR><Declaration>public let usage: String<\/Declaration><Abstract><Para>A human-readable string describing the purpose of this option. This will be shown in help messages.<\/Para><\/Abstract><Discussion><Para>For boolean operations, this should describe the effect of <emphasis>not<\/emphasis> using the default value (i.e., what will happen if you disable\/enable the flag differently from the default).<\/Para><\/Discussion><\/Other>",
-            "key.nameoffset" : 2515,
+            "key.nameoffset" : 2547,
             "key.doc.file" : "Commandant\/Option.swift",
             "key.annotated_decl" : "<Declaration>public let usage: <Type usr=\"s:SS\">String<\/Type><\/Declaration>",
             "key.doc.name" : "usage",
@@ -734,15 +707,6 @@
             "key.doc.column" : 14,
             "key.parsed_scope.end" : 101,
             "key.usr" : "s:ZFP10Commandant12ArgumentType10fromStringuRq_S0__FMq_FSSGSqq__",
-            "key.doc.file" : "Commandant\/Option.swift",
-            "key.nameoffset" : 3496,
-            "key.annotated_decl" : "<Declaration>static func fromString(string: <Type usr=\"s:SS\">String<\/Type>) -&gt; Self?<\/Declaration>",
-            "key.accessibility" : "source.lang.swift.accessibility.public",
-            "key.parsed_scope.start" : 101,
-            "key.filepath" : "Commandant\/Option.swift",
-            "key.doc.declaration" : "static func fromString(string: String) -> Self?",
-            "key.name" : "fromString(_:)",
-            "key.typename" : "<`Self` : ArgumentType> Self.Type -> (String) -> Self?",
             "key.doc.type" : "Function",
             "key.attributes" : [
               {
@@ -750,7 +714,7 @@
               }
             ],
             "key.doc.full_as_xml" : "<Function file=\"Commandant\/Option.swift\" line=\"101\" column=\"14\"><Name>fromString(_:)<\/Name><USR>s:ZFP10Commandant12ArgumentType10fromStringuRq_S0__FMq_FSSGSqq__<\/USR><Declaration>static func fromString(string: String) -&gt; Self?<\/Declaration><Abstract><Para>Attempts to parse a value from the given command-line argument.<\/Para><\/Abstract><\/Function>",
-            "key.nameoffset" : 3464,
+            "key.nameoffset" : 3496,
             "key.doc.file" : "Commandant\/Option.swift",
             "key.annotated_decl" : "<Declaration>static func fromString(string: <Type usr=\"s:SS\">String<\/Type>) -&gt; Self?<\/Declaration>",
             "key.doc.name" : "fromString(_:)",
@@ -1651,7 +1615,6 @@
         "key.substructure" : [
 
         ]
-        "key.doc.usr" : "s:F10Commandant18combineUsageErrorsurFTGOS_15CommandantErrorq__GS0_q___GS0_q__"
       }
     ],
     "key.offset" : 0,
@@ -2205,7 +2168,6 @@
             "key.substructure" : [
 
             ]
-            "key.doc.usr" : "s:FV10Commandant10AnyCommandcu__Rqd__S_11CommandTypezq_qqd__S1_11ClientError_FMGS0_q__Fqd__GS0_q__"
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
@@ -2234,7 +2196,6 @@
             "key.filepath" : "Commandant\/Command.swift"
           }
         ]
-        "key.doc.usr" : "s:V10Commandant10AnyCommand"
       },
       {
         "key.kind" : "source.lang.swift.decl.enum",
@@ -2402,7 +2363,6 @@
             "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"85\" column=\"9\"><Name>subscript(_:)<\/Name><USR>s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_10AnyCommandq___<\/USR><Declaration>public subscript (verb: String) -&gt; Commandant.AnyCommand&lt;ClientError&gt;? { get }<\/Declaration><Abstract><Para>Returns the command matching the given verb, or nil if no such command is registered.<\/Para><\/Abstract><\/Other>",
             "key.doc.name" : "subscript(_:)",
             "key.annotated_decl" : "<Declaration>public subscript (verb: <Type usr=\"s:SS\">String<\/Type>) -&gt; <Type usr=\"s:V10Commandant10AnyCommand\">AnyCommand<\/Type>&lt;ClientError&gt;? { get }<\/Declaration>",
-            "key.doc.usr" : "s:sC10Commandant15CommandRegistry9subscriptFSSGSqGVS_10AnyCommandq___",
             "key.parsed_scope.start" : 85,
             "key.filepath" : "Commandant\/Command.swift"
           },
@@ -2435,8 +2395,7 @@
               }
             ],
             "key.doc.full_as_xml" : "<Other file=\"Commandant\/Command.swift\" line=\"61\" column=\"13\"><Name>commands<\/Name><USR>s:vC10Commandant15CommandRegistry8commandsGSaGVS_10AnyCommandq___<\/USR><Declaration>public var commands: [Commandant.AnyCommand&lt;ClientError&gt;] { get }<\/Declaration><Abstract><Para>All available commands.<\/Para><\/Abstract><\/Other>",
-            "key.doc.name" : "commands",
-            "key.doc.usr" : "s:vC10Commandant15CommandRegistry8commandsGSaGVS_10AnyCommandq___"
+            "key.doc.name" : "commands"
           },
           {
             "key.kind" : "source.lang.swift.decl.function.method.instance",
@@ -2598,7 +2557,6 @@
             "key.substructure" : [
 
             ],
-            "key.doc.usr" : "s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT11defaultVerbSS12errorHandlerFq_T__T_",
             "key.doc.discussion" : [
               {
                 "Para" : "If the chosen command executes successfully, the process will exit with a successful exit code."
@@ -2652,7 +2610,6 @@
             "key.substructure" : [
 
             ],
-            "key.doc.usr" : "s:FC10Commandant15CommandRegistry4mainurFGS0_q__FT9argumentsGSaSS_11defaultVerbSS12errorHandlerFq_T__T_",
             "key.doc.discussion" : [
               {
                 "Para" : "If the chosen command executes successfully, the process will exit with a successful exit code."
