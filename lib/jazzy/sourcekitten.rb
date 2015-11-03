@@ -397,31 +397,49 @@ module Jazzy
       end.compact
     end
 
-    def self.names_and_urls(docs)
-      docs.flat_map do |doc|
-        # FIXME: autolink more than just top-level items.
-        [{ name: doc.name, url: doc.url }] # + names_and_urls(doc.children)
+    def self.first_autolink_match(name_part, docs)
+      return nil unless name_part
+      wildcard_expansion = Regexp.escape(name_part).gsub('\.\.\.', '[^)]*')
+      whole_name_pat = /\A#{wildcard_expansion}\Z/
+      docs.find do |doc|
+        whole_name_pat =~ doc.name
       end
     end
 
-    def self.autolink_text(text, data, url)
-      regex = /<code>\s*(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\s*<\/code>/
-      text.gsub(regex) do
-        name = Regexp.last_match(1)
-        auto_url = data.find { |d| d[:name] == name }[:url]
-        if auto_url == url # docs shouldn't autolink to themselves
-          Regexp.last_match(0)
+    def self.autolink_text(text, doc, root_decls)
+      text.gsub(/<code>[ \t]*([^\s]+)[ \t]*<\/code>/) do
+        original = Regexp.last_match(0)
+        raw_name = Regexp.last_match(1)
+        parts = raw_name
+          .split(/(?<!\.)\.(?!\.)/)   # dot without a dot on either side
+          .reject(&:empty?)
+
+        # First dot-separated component can match doc or any ancestor
+        first_part = parts.shift
+        target = nil
+        doc.namespace_ancestors.reverse_each do |ancestor|
+          break if target = first_autolink_match(first_part, ancestor.children)
+        end
+        target ||= first_autolink_match(first_part, root_decls)
+
+        while target && !parts.empty?
+          next_part = parts.shift
+          target = first_autolink_match(next_part, target.children)
+        end
+
+        if target && target.url && target.url != doc.url
+          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{target.url}\">#{raw_name}</a></code>"
         else
-          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{name}</a></code>"
+          original
         end
       end
     end
 
-    def self.autolink(docs, data)
+    def self.autolink(docs, root_decls)
       docs.each do |doc|
-        doc.abstract = autolink_text(doc.abstract, data, doc.url)
-        doc.return = autolink_text(doc.return, data, doc.url) if doc.return
-        doc.children = autolink(doc.children, data)
+        doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+        doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
+        doc.children = autolink(doc.children, root_decls)
       end
     end
 
@@ -444,7 +462,7 @@ module Jazzy
       @skip_undocumented = skip_undocumented
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json)
-      docs = deduplicate_declarations(docs)
+      docs = ungrouped_docs = deduplicate_declarations(docs)
       docs = group_docs(docs)
       if Config.instance.objc_mode
         docs = reject_objc_enum_typedefs(docs)
@@ -454,7 +472,7 @@ module Jazzy
         docs = docs.reject { |doc| doc.type.swift_enum_element? }
       end
       make_doc_urls(docs)
-      autolink(docs, names_and_urls(docs.flat_map(&:children)))
+      autolink(docs, ungrouped_docs)
       [docs, doc_coverage, @undocumented_tokens]
     end
   end
