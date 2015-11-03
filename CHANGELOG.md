@@ -2,12 +2,14 @@
 
 ##### Breaking
 
-* None.
+* `--swift-version` now defaults to 2.1 instead of 2.0.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Enhancements
 
 * Mentions of top-level declarations in documentation comments are now
-  automatically hyperlinked to their reference.
+  automatically hyperlinked to their reference.  
+  [JP Simard](https://github.com/jpsim)
 
 * Jazzy can now read options from a configuration file. The command line
   provides comprehensive help for available options via `jazzy -h config`.
@@ -19,6 +21,9 @@
   a complete list.  
   [JP Simard](https://github.com/jpsim)
   [#317](https://github.com/realm/jazzy/issues/317)
+
+* Support for Swift 2.1.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Bug Fixes
 

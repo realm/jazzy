@@ -134,7 +134,7 @@ describe_cli 'jazzy' do
     end
   end if !travis_swift || travis_swift == '1.2'
 
-  describe 'jazzy swift 2.0' do
+  describe 'jazzy swift 2.1' do
     describe 'Creates docs with a module name, author name, project URL, ' \
       'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
@@ -143,8 +143,8 @@ describe_cli 'jazzy' do
                             '-x -project,Alamofire.xcodeproj,-dry-run ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/swift-2.0 ' \
-                            '--module-version swift-2.0 ' \
+                            'Alamofire/Alamofire/blob/3.1.1 ' \
+                            '--module-version 3.1.1 ' \
                             '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
                             '--skip-undocumented'
     end
@@ -153,7 +153,7 @@ describe_cli 'jazzy' do
       realm_version = ''
       Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
         realm_version = `./build.sh get-version`.chomp
-        `REALM_SWIFT_VERSION=2.0 ./build.sh set-swift-version`
+        `REALM_SWIFT_VERSION=2.1 ./build.sh set-swift-version`
       end
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
@@ -175,5 +175,5 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'misc_jazzy_features',
                             '-x -dry-run '
     end
-  end if !travis_swift || travis_swift == '2.0'
+  end if !travis_swift || travis_swift == '2.1'
 end

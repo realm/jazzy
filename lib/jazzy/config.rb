@@ -116,7 +116,7 @@ module Jazzy
 
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
-      default: '2.0'
+      default: '2.1'
 
     # ──────── Metadata ────────
 
@@ -196,11 +196,7 @@ module Jazzy
       description: 'minimum access control level to document',
       default: 'public',
       parse: ->(acl) do
-        case acl
-          when 'public'   then SourceDeclaration::AccessControlLevel.public
-          when 'internal' then SourceDeclaration::AccessControlLevel.internal
-          when 'private'  then SourceDeclaration::AccessControlLevel.private
-        end
+        SourceDeclaration::AccessControlLevel.from_human_string(acl)
       end
 
     config_attr :skip_undocumented,
