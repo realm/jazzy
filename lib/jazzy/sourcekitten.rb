@@ -352,8 +352,11 @@ module Jazzy
       end
 
       decls = typedecls + extensions
-      decls.first.tap do |d|
-        d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+      decls.first.tap do |merged|
+        merged.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+        merged.children.each do |child|
+          child.parent_in_code = merged
+        end
       end
     end
 
