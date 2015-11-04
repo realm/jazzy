@@ -6,17 +6,36 @@
 //  Copyright © 2015 SourceKitten. All rights reserved.
 //
 
+public func insertMarks(declarations: [SourceDeclaration], limitRange: NSRange? = nil) -> [SourceDeclaration] {
+    guard declarations.count > 0 else { return [] }
+    guard let path = declarations.first?.location.file, let file = File(path: path) else {
+        fatalError("can't extract marks without a file.")
+    }
+    let currentMarks = file.contents.pragmaMarks(path, excludeRanges: declarations.map({ $0.range }), limitRange: limitRange)
+    let newDeclarations: [SourceDeclaration] = declarations.map { declaration in
+        var varDeclaration = declaration
+        varDeclaration.children = insertMarks(declaration.children, limitRange: declaration.range)
+        return varDeclaration
+    }
+    return (newDeclarations + currentMarks).sort()
+}
+
 /// Represents a source code declaration.
 public struct SourceDeclaration {
     let type: ObjCDeclarationKind
     let location: SourceLocation
+    let extent: (start: SourceLocation, end: SourceLocation)
     let name: String?
     let usr: String?
     let declaration: String?
-    let mark: String?
     let documentation: Documentation?
     let commentBody: String?
-    let children: [SourceDeclaration]
+    var children: [SourceDeclaration]
+
+    /// Range
+    var range: NSRange {
+        return extent.start.rangeToEndLocation(extent.end)
+    }
 
     /// Returns the USR for the auto-generated getter for this property.
     ///
@@ -65,10 +84,10 @@ extension SourceDeclaration {
         }
         type = cursor.objCKind()
         location = cursor.location()
+        extent = cursor.extent()
         name = cursor.name()
         usr = cursor.usr()
         declaration = cursor.declaration()
-        mark = cursor.mark()
         documentation = Documentation(comment: cursor.parsedComment())
         commentBody = cursor.commentBody()
         children = cursor.flatMap(SourceDeclaration.init).rejectPropertyMethods()

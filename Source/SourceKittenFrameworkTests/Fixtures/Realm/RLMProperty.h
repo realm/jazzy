@@ -44,10 +44,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 @interface RLMProperty : NSObject
 
-/**---------------------------------------------------------------------------------------
- *  @name Properties
- *  ---------------------------------------------------------------------------------------
- */
+#pragma mark - Properties
+
 /**
  Property name.
  */
@@ -77,10 +75,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly) BOOL optional;
 
-/**---------------------------------------------------------------------------------------
- *  @name Methods
- *  ---------------------------------------------------------------------------------------
- */
+#pragma mark - Methods
+
 /**
  Returns YES if property objects are equal.
  */

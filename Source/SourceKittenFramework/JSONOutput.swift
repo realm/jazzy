@@ -10,18 +10,6 @@ public func declarationsToJSON(decl: [String: [SourceDeclaration]]) -> String {
     return toJSON(decl.map({ [$0: toOutputDictionary($1)] }).sort({ $0.keys.first < $1.keys.first }))
 }
 
-private func extractMarks(decl: [SourceDeclaration]) -> [SourceDeclaration] {
-    return decl.flatMap { decl -> [SourceDeclaration] in
-        if let mark = decl.mark {
-            let md = SourceDeclaration(type: .Mark, location: decl.location,
-                name: "MARK: " + mark, usr: nil, declaration: nil, mark: nil,
-                documentation: nil, commentBody: nil, children: [])
-            return [md, decl]
-        }
-        return [decl]
-    }
-}
-
 private func toOutputDictionary(decl: SourceDeclaration) -> [String: AnyObject] {
     var dict = [String: AnyObject]()
     func set(key: SwiftDocKey, _ value: AnyObject?) {
@@ -47,7 +35,7 @@ private func toOutputDictionary(decl: SourceDeclaration) -> [String: AnyObject] 
 
     setA(.DocResultDiscussion, decl.documentation?.returnDiscussion.map(toOutputDictionary))
     setA(.DocParameters, decl.documentation?.parameters.map(toOutputDictionary))
-    setA(.Substructure, extractMarks(decl.children).map(toOutputDictionary))
+    setA(.Substructure, decl.children.map(toOutputDictionary))
 
     if decl.commentBody != nil {
         set(.FullXMLDocs, "")
@@ -57,7 +45,7 @@ private func toOutputDictionary(decl: SourceDeclaration) -> [String: AnyObject] 
 }
 
 private func toOutputDictionary(decl: [SourceDeclaration]) -> [String: AnyObject] {
-    return ["key.substructure": extractMarks(decl).map(toOutputDictionary), "key.diagnostic_stage": ""]
+    return ["key.substructure": decl.map(toOutputDictionary), "key.diagnostic_stage": ""]
 }
 
 private func toOutputDictionary(param: Parameter) -> [String: AnyObject] {

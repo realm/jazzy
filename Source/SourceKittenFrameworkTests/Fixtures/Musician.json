@@ -11,12 +11,20 @@
           "key.doc.line" : "12",
           "key.substructure" : [
             {
+              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.doc.file" : "Musician.h",
+              "key.name" : "MARK: Properties",
+              "key.doc.column" : "1",
+              "key.doc.line" : "14",
+              "key.filepath" : "Musician.h"
+            },
+            {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Musician.h",
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSString *name;",
               "key.doc.comment" : "The name of the musician. i.e. \"John Coltrane\"",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "17",
+              "key.doc.line" : "19",
               "key.name" : "name",
               "key.doc.column" : "44",
               "key.filepath" : "Musician.h",
@@ -28,11 +36,19 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSUInteger birthyear;",
               "key.doc.comment" : "The year the musician was born. i.e. 1926",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "22",
+              "key.doc.line" : "24",
               "key.name" : "birthyear",
               "key.doc.column" : "44",
               "key.filepath" : "Musician.h",
               "key.usr" : "c:objc(cs)JAZMusician(py)birthyear"
+            },
+            {
+              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.doc.file" : "Musician.h",
+              "key.name" : "MARK: Initializers",
+              "key.doc.column" : "1",
+              "key.doc.line" : "26",
+              "key.filepath" : "Musician.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
@@ -59,7 +75,7 @@
                   "name" : "birthyear"
                 }
               ],
-              "key.doc.line" : "36",
+              "key.doc.line" : "40",
               "key.doc.full_as_xml" : "",
               "key.name" : "-initWithName:birthyear:",
               "key.doc.result_discussion" : [

@@ -175,12 +175,37 @@ extension NSString {
     Returns a substring from a start and end SourceLocation.
     */
     public func substringWithSourceRange(start: SourceLocation, end: SourceLocation) -> String? {
-//        assert(start <= end)
         return substringWithByteRange(start: Int(start.offset), length: Int(end.offset - start.offset))
     }
 }
 
 extension String {
+    /// Returns the `#pragma mark`s in the string.
+    /// Just the content; no dashes or leading `#pragma mark`.
+    public func pragmaMarks(filename: String, excludeRanges: [NSRange], limitRange: NSRange?) -> [SourceDeclaration] {
+        let regex = try! NSRegularExpression(pattern: "#pragma\\smark[\\s-]*([^-\\n]+)", options: []) // Safe to force try
+        let range = limitRange ?? NSRange(location: 0, length: utf16.count)
+        let matches = regex.matchesInString(self, options: [], range: range)
+
+        return matches.flatMap { match in
+            let markRange = match.rangeAtIndex(1)
+            for excludedRange in excludeRanges {
+                if NSIntersectionRange(excludedRange, markRange).length > 0 {
+                    return nil
+                }
+            }
+            let markString = (self as NSString).substringWithRange(markRange)
+                .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+            let location = SourceLocation(file: filename,
+                line: UInt32((self as NSString).lineRangeWithByteRange(start: markRange.location, length: 0)!.start),
+                column: 1,
+                offset: UInt32(markRange.location))
+            return SourceDeclaration(type: .Mark, location: location, extent: (location, location),
+                name: "MARK: " + markString, usr: nil, declaration: nil,
+                documentation: nil, commentBody: nil, children: [])
+        }
+    }
+
     /**
     Returns whether or not the `token` can be documented. Either because it is a
     `SyntaxKind.Identifier` or because it is a function treated as a `SyntaxKind.Keyword`:

@@ -33,10 +33,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 @interface RLMObjectSchema : NSObject<NSCopying>
 
-/**---------------------------------------------------------------------------------------
- *  @name Properties
- *  ---------------------------------------------------------------------------------------
- */
+#pragma mark - Properties
+
 /**
  Array of persisted RLMProperty objects for an object.
  
@@ -54,10 +52,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, nullable) RLMProperty *primaryKeyProperty;
 
-/**---------------------------------------------------------------------------------------
- *  @name Methods
- *  ---------------------------------------------------------------------------------------
- */
+#pragma mark - Methods
+
 /**
  Retrieve an RLMProperty object by name.
  

@@ -27,10 +27,9 @@
  */
 // Make sure numbers match those in <realm/data_type.hpp>
 typedef NS_ENUM(int32_t, RLMPropertyType) {
-    /**---------------------------------------------------------------------------------------
-     *  @name Primitive types
-     * ---------------------------------------------------------------------------------------
-     */
+
+#pragma mark - Primitive types
+
     /** Integer type: NSInteger, int, long, Int (Swift) */
     RLMPropertyTypeInt    = 0,
     /** Boolean type: BOOL, bool, Bool (Swift) */
@@ -40,10 +39,8 @@ typedef NS_ENUM(int32_t, RLMPropertyType) {
     /** Double type: double, Double (Swift) */
     RLMPropertyTypeDouble = 10,
 
-    /**---------------------------------------------------------------------------------------
-     *  @name Object types
-     * ---------------------------------------------------------------------------------------
-     */
+#pragma mark - Object types
+
     /** String type: NSString, String (Swift) */
     RLMPropertyTypeString = 2,
     /** Data type: NSData */
@@ -53,10 +50,8 @@ typedef NS_ENUM(int32_t, RLMPropertyType) {
     /** Date type: NSDate */
     RLMPropertyTypeDate   = 7,
 
-    /**---------------------------------------------------------------------------------------
-     *  @name Array/Linked object types
-     * ---------------------------------------------------------------------------------------
-     */
+#pragma mark - Array/Linked object types
+
     /** Object type. See [Realm Models](http://realm.io/docs/objc/latest/#models) */
     RLMPropertyTypeObject = 12,
     /** Array type. See [Realm Models](http://realm.io/docs/objc/latest/#models) */
@@ -86,10 +81,8 @@ typedef NS_ENUM(NSInteger, RLMError) {
 
 #pragma mark - Constants
 
-/**---------------------------------------------------------------------------------------
- *  @name Notification Constants
- * ---------------------------------------------------------------------------------------
- */
+#pragma mark - Notification Constants
+
 /**
  Posted by RLMRealm when the data in the realm has changed.
 
@@ -113,10 +106,8 @@ extern NSString * const RLMRealmRefreshRequiredNotification;
  */
 extern NSString * const RLMRealmDidChangeNotification;
 
-/**---------------------------------------------------------------------------------------
- *  @name Other Constants
- * ---------------------------------------------------------------------------------------
- */
+#pragma mark - Other Constants
+
 /** Schema version used for uninitialized Realms */
 extern const uint64_t RLMNotVersioned;
 

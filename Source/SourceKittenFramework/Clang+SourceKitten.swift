@@ -42,6 +42,13 @@ extension CXCursor {
         return SourceLocation(clangLocation: clang_getCursorLocation(self))
     }
 
+    func extent() -> (start: SourceLocation, end: SourceLocation) {
+        let extent = clang_getCursorExtent(self)
+        let start = SourceLocation(clangLocation: clang_getRangeStart(extent))
+        let end = SourceLocation(clangLocation: clang_getRangeEnd(extent))
+        return (start, end)
+    }
+
     func shouldDocument() -> Bool {
         return clang_isDeclaration(kind) != 0 &&
             kind != CXCursor_ParmDecl &&
@@ -81,11 +88,9 @@ extension CXCursor {
     }
 
     func str() -> String? {
-        let range = clang_getCursorExtent(self)
-        let start = SourceLocation(clangLocation: clang_getRangeStart(range))
-        let end = SourceLocation(clangLocation: clang_getRangeEnd(range))
-        let contents = try! NSString(contentsOfFile: start.file, encoding: NSUTF8StringEncoding)
-        return contents.substringWithSourceRange(start, end: end)
+        let cursorExtent = extent()
+        let contents = try! NSString(contentsOfFile: cursorExtent.start.file, encoding: NSUTF8StringEncoding)
+        return contents.substringWithSourceRange(cursorExtent.start, end: cursorExtent.end)
     }
 
     func name() -> String {

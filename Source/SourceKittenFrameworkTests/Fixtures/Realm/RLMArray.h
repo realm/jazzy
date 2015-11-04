@@ -61,10 +61,8 @@ RLM_ASSUME_NONNULL_BEGIN
 
 @interface RLMArray RLM_GENERIC_COLLECTION : NSObject<RLMCollection, NSFastEnumeration>
 
-/**---------------------------------------------------------------------------------------
- *  @name Properties
- *  ---------------------------------------------------------------------------------------
- */
+#pragma mark - Properties
+ 
 /**
  Number of objects in the array.
  */
@@ -85,12 +83,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly, getter = isInvalidated) BOOL invalidated;
 
-#pragma mark -
+#pragma mark - Accessing Objects from an Array
 
-/**---------------------------------------------------------------------------------------
- *  @name Accessing Objects from an Array
- * ---------------------------------------------------------------------------------------
- */
 /**
  Returns the object at the index specified.
 
@@ -119,13 +113,9 @@ RLM_ASSUME_NONNULL_BEGIN
 - (nullable RLMObjectType)lastObject;
 
 
-#pragma mark -
 
+#pragma mark - Adding, Removing, and Replacing Objects in an Array
 
-/**---------------------------------------------------------------------------------------
- *  @name Adding, Removing, and Replacing Objects in an Array
- *  ---------------------------------------------------------------------------------------
- */
 /**
  Adds an object to the end of the array.
 
@@ -219,13 +209,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 - (void)exchangeObjectAtIndex:(NSUInteger)index1 withObjectAtIndex:(NSUInteger)index2;
 
-#pragma mark -
+#pragma mark - Querying an Array
 
-
-/**---------------------------------------------------------------------------------------
- *  @name Querying an Array
- *  ---------------------------------------------------------------------------------------
- */
 /**
  Gets the index of an object.
 
@@ -290,17 +275,11 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 - (RLMResults RLM_GENERIC_RETURN*)sortedResultsUsingDescriptors:(NSArray *)properties;
 
-#pragma mark -
-
 - (RLMObjectType)objectAtIndexedSubscript:(NSUInteger)index;
 - (void)setObject:(RLMObjectType)newValue atIndexedSubscript:(NSUInteger)index;
 
-#pragma mark -
+#pragma mark - Unavailable Methods
 
-/**---------------------------------------------------------------------------------------
- *  @name Unavailable Methods
- *  ---------------------------------------------------------------------------------------
- */
 /**
  -[RLMArray init] is not available because RLMArrays cannot be created directly.
  RLMArray properties on RLMObjects are lazily created when accessed, or can be obtained by querying a Realm.
@@ -323,10 +302,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 @interface RLMSortDescriptor : NSObject
 
-/**---------------------------------------------------------------------------------------
- *  @name Properties
- *  ---------------------------------------------------------------------------------------
- */
+#pragma mark - Properties
+ 
 /**
  The name of the property which this sort descriptor orders results by.
  */
@@ -337,10 +314,8 @@ RLM_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic, readonly) BOOL ascending;
 
-/**---------------------------------------------------------------------------------------
- *  @name Methods
- *  ---------------------------------------------------------------------------------------
- */
+#pragma mark - Methods
+
 /**
  Returns a new sort descriptor for the given property name and order.
  */

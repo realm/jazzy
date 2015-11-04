@@ -14,17 +14,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "52",
-              "key.doc.line" : "71",
+              "key.doc.column" : "1",
+              "key.doc.line" : "64",
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "@property (readonly, assign, nonatomic) NSUInteger count;",
-              "key.doc.comment" : "\nNumber of objects in the array.",
+              "key.doc.comment" : "Number of objects in the array.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "71",
+              "key.doc.line" : "69",
               "key.name" : "count",
               "key.doc.column" : "52",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -36,7 +36,7 @@
               "key.parsed_declaration" : "@property (readonly, copy, nonatomic) NSString *_Nonnull objectClassName;",
               "key.doc.comment" : "The class name (i.e. type) of the RLMObjects contained in this RLMArray.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "76",
+              "key.doc.line" : "74",
               "key.name" : "objectClassName",
               "key.doc.column" : "49",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -48,7 +48,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic, nullable) RLMRealm *realm;",
               "key.doc.comment" : "The Realm in which this array is persisted. Returns nil for standalone arrays.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "81",
+              "key.doc.line" : "79",
               "key.name" : "realm",
               "key.doc.column" : "53",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -60,7 +60,7 @@
               "key.parsed_declaration" : "@property (readonly, getter=isInvalidated, nonatomic) BOOL invalidated;",
               "key.doc.comment" : "Indicates if an array can no longer be accessed.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "86",
+              "key.doc.line" : "84",
               "key.name" : "invalidated",
               "key.doc.column" : "62",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -70,15 +70,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.name" : "MARK: Accessing Objects from an Array",
-              "key.doc.column" : "18",
-              "key.doc.line" : "101",
+              "key.doc.column" : "1",
+              "key.doc.line" : "86",
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "- (nonnull RLMObjectType)objectAtIndex:(NSUInteger)index;",
-              "key.doc.comment" : "\nReturns the object at the index specified.\n\n- parameter: index   The index to look up.\n\n- returns: An RLMObject of the class contained by this RLMArray.",
+              "key.doc.comment" : "Returns the object at the index specified.\n\n- parameter: index   The index to look up.\n\n- returns: An RLMObject of the class contained by this RLMArray.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -90,7 +90,7 @@
                   "name" : "index"
                 }
               ],
-              "key.doc.line" : "101",
+              "key.doc.line" : "95",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectAtIndex:",
               "key.doc.result_discussion" : [
@@ -109,7 +109,7 @@
               "key.parsed_declaration" : "- (nullable RLMObjectType)firstObject;",
               "key.doc.comment" : "Returns the first object in the array.\n\nReturns `nil` if called on an empty RLMArray.\n\n- returns: An RLMObject of the class contained by this RLMArray.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "110",
+              "key.doc.line" : "104",
               "key.name" : "-firstObject",
               "key.doc.result_discussion" : [
                 {
@@ -127,7 +127,7 @@
               "key.parsed_declaration" : "- (nullable RLMObjectType)lastObject;",
               "key.doc.comment" : "Returns the last object in the array.\n\nReturns `nil` if called on an empty RLMArray.\n\n- returns: An RLMObject of the class contained by this RLMArray.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "119",
+              "key.doc.line" : "113",
               "key.name" : "-lastObject",
               "key.doc.result_discussion" : [
                 {
@@ -143,15 +143,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.name" : "MARK: Adding, Removing, and Replacing Objects in an Array",
-              "key.doc.column" : "9",
-              "key.doc.line" : "136",
+              "key.doc.column" : "1",
+              "key.doc.line" : "117",
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "- (void)addObject:(nonnull RLMObjectType)object;",
-              "key.doc.comment" : "\nAdds an object to the end of the array.\n\n- warning: This method can only be called during a write transaction.\n\n- parameter: object  An RLMObject of the class contained by this RLMArray.",
+              "key.doc.comment" : "Adds an object to the end of the array.\n\n- warning: This method can only be called during a write transaction.\n\n- parameter: object  An RLMObject of the class contained by this RLMArray.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -163,7 +163,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "136",
+              "key.doc.line" : "126",
               "key.doc.full_as_xml" : "",
               "key.name" : "-addObject:",
               "key.doc.column" : "9",
@@ -186,7 +186,7 @@
                   "name" : "objects"
                 }
               ],
-              "key.doc.line" : "146",
+              "key.doc.line" : "136",
               "key.doc.full_as_xml" : "",
               "key.name" : "-addObjects:",
               "key.doc.column" : "9",
@@ -218,7 +218,7 @@
                   "name" : "index"
                 }
               ],
-              "key.doc.line" : "158",
+              "key.doc.line" : "148",
               "key.doc.full_as_xml" : "",
               "key.name" : "-insertObject:atIndex:",
               "key.doc.column" : "9",
@@ -241,7 +241,7 @@
                   "name" : "index"
                 }
               ],
-              "key.doc.line" : "169",
+              "key.doc.line" : "159",
               "key.doc.full_as_xml" : "",
               "key.name" : "-removeObjectAtIndex:",
               "key.doc.column" : "9",
@@ -254,7 +254,7 @@
               "key.parsed_declaration" : "- (void)removeLastObject;",
               "key.doc.comment" : "Removes the last object in an RLMArray.\n\n- warning: This method can only be called during a write transaction.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "176",
+              "key.doc.line" : "166",
               "key.name" : "-removeLastObject",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -266,7 +266,7 @@
               "key.parsed_declaration" : "- (void)removeAllObjects;",
               "key.doc.comment" : "Removes all objects from an RLMArray.\n\n- warning: This method can only be called during a write transaction.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "183",
+              "key.doc.line" : "173",
               "key.name" : "-removeAllObjects",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -297,7 +297,7 @@
                   "name" : "anObject"
                 }
               ],
-              "key.doc.line" : "195",
+              "key.doc.line" : "185",
               "key.doc.full_as_xml" : "",
               "key.name" : "-replaceObjectAtIndex:withObject:",
               "key.doc.column" : "9",
@@ -329,7 +329,7 @@
                   "name" : "destinationIndex"
                 }
               ],
-              "key.doc.line" : "208",
+              "key.doc.line" : "198",
               "key.doc.full_as_xml" : "",
               "key.name" : "-moveObjectAtIndex:toIndex:",
               "key.doc.column" : "9",
@@ -361,7 +361,7 @@
                   "name" : "index2"
                 }
               ],
-              "key.doc.line" : "220",
+              "key.doc.line" : "210",
               "key.doc.full_as_xml" : "",
               "key.name" : "-exchangeObjectAtIndex:withObjectAtIndex:",
               "key.doc.column" : "9",
@@ -372,15 +372,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.name" : "MARK: Querying an Array",
-              "key.doc.column" : "15",
-              "key.doc.line" : "236",
+              "key.doc.column" : "1",
+              "key.doc.line" : "212",
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "- (NSUInteger)indexOfObject:(nonnull RLMObjectType)object;",
-              "key.doc.comment" : "\nGets the index of an object.\n\nReturns NSNotFound if the object is not found in this RLMArray.\n\n- parameter: object  An object (of the same type as returned from the objectClassName selector).",
+              "key.doc.comment" : "Gets the index of an object.\n\nReturns NSNotFound if the object is not found in this RLMArray.\n\n- parameter: object  An object (of the same type as returned from the objectClassName selector).",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -392,7 +392,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "236",
+              "key.doc.line" : "221",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObject:",
               "key.doc.column" : "15",
@@ -415,7 +415,7 @@
                   "name" : "predicateFormat"
                 }
               ],
-              "key.doc.line" : "245",
+              "key.doc.line" : "230",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObjectWhere:",
               "key.doc.result_discussion" : [
@@ -444,7 +444,7 @@
                   "name" : "predicate"
                 }
               ],
-              "key.doc.line" : "254",
+              "key.doc.line" : "239",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObjectWithPredicate:",
               "key.doc.result_discussion" : [
@@ -473,7 +473,7 @@
                   "name" : "predicateFormat"
                 }
               ],
-              "key.doc.line" : "263",
+              "key.doc.line" : "248",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectsWhere:",
               "key.doc.result_discussion" : [
@@ -502,7 +502,7 @@
                   "name" : "predicate"
                 }
               ],
-              "key.doc.line" : "272",
+              "key.doc.line" : "257",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectsWithPredicate:",
               "key.doc.result_discussion" : [
@@ -540,7 +540,7 @@
                   "name" : "ascending"
                 }
               ],
-              "key.doc.line" : "282",
+              "key.doc.line" : "267",
               "key.doc.full_as_xml" : "",
               "key.name" : "-sortedResultsUsingProperty:ascending:",
               "key.doc.result_discussion" : [
@@ -569,7 +569,7 @@
                   "name" : "properties"
                 }
               ],
-              "key.doc.line" : "291",
+              "key.doc.line" : "276",
               "key.doc.full_as_xml" : "",
               "key.name" : "-sortedResultsUsingDescriptors:",
               "key.doc.result_discussion" : [
@@ -586,7 +586,7 @@
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "- (RLMObjectType)objectAtIndexedSubscript:(NSUInteger)index;",
-              "key.doc.line" : "295",
+              "key.doc.line" : "278",
               "key.name" : "-objectAtIndexedSubscript:",
               "key.doc.column" : "18",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -596,7 +596,7 @@
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "- (void)setObject:(RLMObjectType)newValue atIndexedSubscript:(NSUInteger)index;",
-              "key.doc.line" : "296",
+              "key.doc.line" : "279",
               "key.name" : "-setObject:atIndexedSubscript:",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -606,17 +606,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.name" : "MARK: Unavailable Methods",
-              "key.doc.column" : "17",
-              "key.doc.line" : "308",
+              "key.doc.column" : "1",
+              "key.doc.line" : "281",
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "- (nonnull instancetype)init;",
-              "key.doc.comment" : "\n-[RLMArray init] is not available because RLMArrays cannot be created directly.\nRLMArray properties on RLMObjects are lazily created when accessed, or can be obtained by querying a Realm.",
+              "key.doc.comment" : "-[RLMArray init] is not available because RLMArrays cannot be created directly.\nRLMArray properties on RLMObjects are lazily created when accessed, or can be obtained by querying a Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "308",
+              "key.doc.line" : "287",
               "key.name" : "-init",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -628,7 +628,7 @@
               "key.parsed_declaration" : "+ (nonnull instancetype) new;",
               "key.doc.comment" : "+[RLMArray new] is not available because RLMArrays cannot be created directly.\nRLMArray properties on RLMObjects are lazily created when accessed, or can be obtained by querying a Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "314",
+              "key.doc.line" : "293",
               "key.name" : "+new",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -646,23 +646,23 @@
           "key.parsed_declaration" : "@interface RLMSortDescriptor : NSObject",
           "key.doc.comment" : "An RLMSortDescriptor stores a property name and a sort order for use with\n`sortedResultsUsingDescriptors:`. It is similar to NSSortDescriptor, but supports\nonly the subset of functionality which can be efficiently run by the query\nengine. RLMSortDescriptor instances are immutable.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "324",
+          "key.doc.line" : "303",
           "key.substructure" : [
             {
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "43",
-              "key.doc.line" : "333",
+              "key.doc.column" : "1",
+              "key.doc.line" : "305",
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSString *_Nonnull property;",
-              "key.doc.comment" : "\nThe name of the property which this sort descriptor orders results by.",
+              "key.doc.comment" : "The name of the property which this sort descriptor orders results by.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "333",
+              "key.doc.line" : "310",
               "key.name" : "property",
               "key.doc.column" : "43",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -674,7 +674,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) BOOL ascending;",
               "key.doc.comment" : "Whether this descriptor sorts in ascending or descending order.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "338",
+              "key.doc.line" : "315",
               "key.name" : "ascending",
               "key.doc.column" : "38",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -684,17 +684,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.name" : "MARK: Methods",
-              "key.doc.column" : "17",
-              "key.doc.line" : "347",
+              "key.doc.column" : "1",
+              "key.doc.line" : "317",
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.class",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "+ (nonnull instancetype)sortDescriptorWithProperty:\n                            (nonnull NSString *)propertyName\n                                         ascending:(BOOL)ascending;",
-              "key.doc.comment" : "\nReturns a new sort descriptor for the given property name and order.",
+              "key.doc.comment" : "Returns a new sort descriptor for the given property name and order.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "347",
+              "key.doc.line" : "322",
               "key.name" : "+sortDescriptorWithProperty:ascending:",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -706,7 +706,7 @@
               "key.parsed_declaration" : "- (nonnull instancetype)reversedSortDescriptor;",
               "key.doc.comment" : "Returns a copy of the receiver with the sort order reversed.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "352",
+              "key.doc.line" : "327",
               "key.name" : "-reversedSortDescriptor",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -724,13 +724,13 @@
           "key.parsed_declaration" : "@interface RLMArray (Swift)",
           "key.doc.comment" : ":nodoc:",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "357",
+          "key.doc.line" : "332",
           "key.substructure" : [
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.parsed_declaration" : "- (instancetype)initWithObjectClassName:(NSString *)objectClassName;",
-              "key.doc.line" : "359",
+              "key.doc.line" : "334",
               "key.name" : "-initWithObjectClassName:",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMArray.h",
@@ -761,17 +761,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "52",
-              "key.doc.line" : "39",
+              "key.doc.column" : "1",
+              "key.doc.line" : "32",
               "key.filepath" : "Realm\/RLMCollection.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.parsed_declaration" : "@required\n@property (readonly, assign, nonatomic) NSUInteger count;",
-              "key.doc.comment" : "\nNumber of objects in the collection.",
+              "key.doc.comment" : "Number of objects in the collection.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "39",
+              "key.doc.line" : "37",
               "key.name" : "count",
               "key.doc.column" : "52",
               "key.filepath" : "Realm\/RLMCollection.h",
@@ -783,7 +783,7 @@
               "key.parsed_declaration" : "@required\n@property (readonly, copy, nonatomic) NSString *_Nonnull objectClassName;",
               "key.doc.comment" : "The class name (i.e. type) of the RLMObjects contained in this RLMCollection.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "44",
+              "key.doc.line" : "42",
               "key.name" : "objectClassName",
               "key.doc.column" : "49",
               "key.filepath" : "Realm\/RLMCollection.h",
@@ -795,7 +795,7 @@
               "key.parsed_declaration" : "@required\n@property (readonly, nonatomic) RLMRealm *_Nonnull realm;",
               "key.doc.comment" : "The Realm in which this collection is persisted. Returns nil for standalone collections.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "49",
+              "key.doc.line" : "47",
               "key.name" : "realm",
               "key.doc.column" : "43",
               "key.filepath" : "Realm\/RLMCollection.h",
@@ -805,15 +805,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.name" : "MARK: Accessing Objects from a Collection",
-              "key.doc.column" : "7",
-              "key.doc.line" : "64",
+              "key.doc.column" : "1",
+              "key.doc.line" : "49",
               "key.filepath" : "Realm\/RLMCollection.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.parsed_declaration" : "- (nonnull id)objectAtIndex:(NSUInteger)index;",
-              "key.doc.comment" : "\nReturns the object at the index specified.\n\n- parameter: index   The index to look up.\n\n- returns: An RLMObject of the class contained by this RLMCollection.",
+              "key.doc.comment" : "Returns the object at the index specified.\n\n- parameter: index   The index to look up.\n\n- returns: An RLMObject of the class contained by this RLMCollection.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -825,7 +825,7 @@
                   "name" : "index"
                 }
               ],
-              "key.doc.line" : "64",
+              "key.doc.line" : "58",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectAtIndex:",
               "key.doc.result_discussion" : [
@@ -844,7 +844,7 @@
               "key.parsed_declaration" : "- (nullable id)firstObject;",
               "key.doc.comment" : "Returns the first object in the collection.\n\nReturns `nil` if called on an empty RLMCollection.\n\n- returns: An RLMObject of the class contained by this RLMCollection.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "73",
+              "key.doc.line" : "67",
               "key.name" : "-firstObject",
               "key.doc.result_discussion" : [
                 {
@@ -862,7 +862,7 @@
               "key.parsed_declaration" : "- (nullable id)lastObject;",
               "key.doc.comment" : "Returns the last object in the collection.\n\nReturns `nil` if called on an empty RLMCollection.\n\n- returns: An RLMObject of the class contained by this RLMCollection.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "82",
+              "key.doc.line" : "76",
               "key.name" : "-lastObject",
               "key.doc.result_discussion" : [
                 {
@@ -878,15 +878,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.name" : "MARK: Querying a Collection",
-              "key.doc.column" : "15",
-              "key.doc.line" : "97",
+              "key.doc.column" : "1",
+              "key.doc.line" : "78",
               "key.filepath" : "Realm\/RLMCollection.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.parsed_declaration" : "- (NSUInteger)indexOfObject:(nonnull RLMObject *)object;",
-              "key.doc.comment" : "\nGets the index of an object.\n\nReturns NSNotFound if the object is not found in this RLMCollection.\n\n- parameter: object  An object (of the same type as returned from the objectClassName selector).",
+              "key.doc.comment" : "Gets the index of an object.\n\nReturns NSNotFound if the object is not found in this RLMCollection.\n\n- parameter: object  An object (of the same type as returned from the objectClassName selector).",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -898,7 +898,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "97",
+              "key.doc.line" : "87",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObject:",
               "key.doc.column" : "15",
@@ -921,7 +921,7 @@
                   "name" : "predicateFormat"
                 }
               ],
-              "key.doc.line" : "106",
+              "key.doc.line" : "96",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObjectWhere:",
               "key.doc.result_discussion" : [
@@ -950,7 +950,7 @@
                   "name" : "predicate"
                 }
               ],
-              "key.doc.line" : "115",
+              "key.doc.line" : "105",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObjectWithPredicate:",
               "key.doc.result_discussion" : [
@@ -979,7 +979,7 @@
                   "name" : "predicateFormat"
                 }
               ],
-              "key.doc.line" : "124",
+              "key.doc.line" : "114",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectsWhere:",
               "key.doc.result_discussion" : [
@@ -1008,7 +1008,7 @@
                   "name" : "predicate"
                 }
               ],
-              "key.doc.line" : "133",
+              "key.doc.line" : "123",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectsWithPredicate:",
               "key.doc.result_discussion" : [
@@ -1046,7 +1046,7 @@
                   "name" : "ascending"
                 }
               ],
-              "key.doc.line" : "143",
+              "key.doc.line" : "133",
               "key.doc.full_as_xml" : "",
               "key.name" : "-sortedResultsUsingProperty:ascending:",
               "key.doc.result_discussion" : [
@@ -1075,7 +1075,7 @@
                   "name" : "properties"
                 }
               ],
-              "key.doc.line" : "152",
+              "key.doc.line" : "142",
               "key.doc.full_as_xml" : "",
               "key.name" : "-sortedResultsUsingDescriptors:",
               "key.doc.result_discussion" : [
@@ -1092,7 +1092,7 @@
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.parsed_declaration" : "- (id)objectAtIndexedSubscript:(NSUInteger)index;",
-              "key.doc.line" : "156",
+              "key.doc.line" : "144",
               "key.name" : "-objectAtIndexedSubscript:",
               "key.doc.column" : "7",
               "key.filepath" : "Realm\/RLMCollection.h",
@@ -1114,7 +1114,7 @@
                   "name" : "key"
                 }
               ],
-              "key.doc.line" : "167",
+              "key.doc.line" : "153",
               "key.doc.full_as_xml" : "",
               "key.name" : "-valueForKey:",
               "key.doc.result_discussion" : [
@@ -1152,7 +1152,7 @@
                   "name" : "key"
                 }
               ],
-              "key.doc.line" : "177",
+              "key.doc.line" : "163",
               "key.doc.full_as_xml" : "",
               "key.name" : "-setValue:forKey:",
               "key.doc.column" : "9",
@@ -1173,6 +1173,14 @@
     "Realm\/RLMConstants.h" : {
       "key.substructure" : [
         {
+          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.doc.file" : "Realm\/RLMConstants.h",
+          "key.name" : "MARK: Enums",
+          "key.doc.column" : "1",
+          "key.doc.line" : "21",
+          "key.filepath" : "Realm\/RLMConstants.h"
+        },
+        {
           "key.kind" : "sourcekitten.source.lang.objc.decl.enum",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.parsed_declaration" : "enum RLMPropertyType : int32_t {}",
@@ -1184,17 +1192,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.name" : "MARK: Primitive types",
-              "key.doc.column" : "5",
-              "key.doc.line" : "35",
+              "key.doc.column" : "1",
+              "key.doc.line" : "31",
               "key.filepath" : "Realm\/RLMConstants.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.enumcase",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.parsed_declaration" : "RLMPropertyTypeInt = 0",
-              "key.doc.comment" : "\nInteger type: NSInteger, int, long, Int (Swift)",
+              "key.doc.comment" : "Integer type: NSInteger, int, long, Int (Swift)",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "35",
+              "key.doc.line" : "34",
               "key.name" : "RLMPropertyTypeInt",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1206,7 +1214,7 @@
               "key.parsed_declaration" : "RLMPropertyTypeBool = 1",
               "key.doc.comment" : "Boolean type: BOOL, bool, Bool (Swift)",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "37",
+              "key.doc.line" : "36",
               "key.name" : "RLMPropertyTypeBool",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1218,7 +1226,7 @@
               "key.parsed_declaration" : "RLMPropertyTypeFloat = 9",
               "key.doc.comment" : "Float type: float, Float (Swift)",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "39",
+              "key.doc.line" : "38",
               "key.name" : "RLMPropertyTypeFloat",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1230,7 +1238,7 @@
               "key.parsed_declaration" : "RLMPropertyTypeDouble = 10",
               "key.doc.comment" : "Double type: double, Double (Swift)",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "41",
+              "key.doc.line" : "40",
               "key.name" : "RLMPropertyTypeDouble",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1240,17 +1248,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.name" : "MARK: Object types",
-              "key.doc.column" : "5",
-              "key.doc.line" : "48",
+              "key.doc.column" : "1",
+              "key.doc.line" : "42",
               "key.filepath" : "Realm\/RLMConstants.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.enumcase",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.parsed_declaration" : "RLMPropertyTypeString = 2",
-              "key.doc.comment" : "\nString type: NSString, String (Swift)",
+              "key.doc.comment" : "String type: NSString, String (Swift)",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "48",
+              "key.doc.line" : "45",
               "key.name" : "RLMPropertyTypeString",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1262,7 +1270,7 @@
               "key.parsed_declaration" : "RLMPropertyTypeData = 4",
               "key.doc.comment" : "Data type: NSData",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "50",
+              "key.doc.line" : "47",
               "key.name" : "RLMPropertyTypeData",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1274,7 +1282,7 @@
               "key.parsed_declaration" : "RLMPropertyTypeAny = 6",
               "key.doc.comment" : "Any type: id, **not supported in Swift**",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "52",
+              "key.doc.line" : "49",
               "key.name" : "RLMPropertyTypeAny",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1286,7 +1294,7 @@
               "key.parsed_declaration" : "RLMPropertyTypeDate = 7",
               "key.doc.comment" : "Date type: NSDate",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "54",
+              "key.doc.line" : "51",
               "key.name" : "RLMPropertyTypeDate",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1296,17 +1304,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.name" : "MARK: Array\/Linked object types",
-              "key.doc.column" : "5",
-              "key.doc.line" : "61",
+              "key.doc.column" : "1",
+              "key.doc.line" : "53",
               "key.filepath" : "Realm\/RLMConstants.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.enumcase",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.parsed_declaration" : "RLMPropertyTypeObject = 12",
-              "key.doc.comment" : "\nObject type. See [Realm Models](http:\/\/realm.io\/docs\/objc\/latest\/#models)",
+              "key.doc.comment" : "Object type. See [Realm Models](http:\/\/realm.io\/docs\/objc\/latest\/#models)",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "61",
+              "key.doc.line" : "56",
               "key.name" : "RLMPropertyTypeObject",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1318,7 +1326,7 @@
               "key.parsed_declaration" : "RLMPropertyTypeArray = 13",
               "key.doc.comment" : "Array type. See [Realm Models](http:\/\/realm.io\/docs\/objc\/latest\/#models)",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "63",
+              "key.doc.line" : "58",
               "key.name" : "RLMPropertyTypeArray",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1348,7 +1356,7 @@
           "key.parsed_declaration" : "enum RLMError : NSInteger {}",
           "key.doc.comment" : "Enum representing all recoverable errors in Realm.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "69",
+          "key.doc.line" : "64",
           "key.substructure" : [
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.enumcase",
@@ -1356,7 +1364,7 @@
               "key.parsed_declaration" : "RLMErrorFail = 1",
               "key.doc.comment" : "Returned by RLMRealm if no other specific error is returned when a realm is opened.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "71",
+              "key.doc.line" : "66",
               "key.name" : "RLMErrorFail",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1368,7 +1376,7 @@
               "key.parsed_declaration" : "RLMErrorFileAccessError = 2",
               "key.doc.comment" : "Returned by RLMRealm for any I\/O related exception scenarios when a realm is opened.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "73",
+              "key.doc.line" : "68",
               "key.name" : "RLMErrorFileAccessError",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1380,7 +1388,7 @@
               "key.parsed_declaration" : "RLMErrorFilePermissionDenied = 3",
               "key.doc.comment" : "Returned by RLMRealm if the user does not have permission to open or create\n        the specified file in the specified access mode when the realm is opened.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "76",
+              "key.doc.line" : "71",
               "key.name" : "RLMErrorFilePermissionDenied",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1392,7 +1400,7 @@
               "key.parsed_declaration" : "RLMErrorFileExists = 4",
               "key.doc.comment" : "Returned by RLMRealm if no_create was specified and the file did already exist when the realm is opened.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "78",
+              "key.doc.line" : "73",
               "key.name" : "RLMErrorFileExists",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1404,7 +1412,7 @@
               "key.parsed_declaration" : "RLMErrorFileNotFound = 5",
               "key.doc.comment" : "Returned by RLMRealm if no_create was specified and the file was not found when the realm is opened.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "80",
+              "key.doc.line" : "75",
               "key.name" : "RLMErrorFileNotFound",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1416,7 +1424,7 @@
               "key.parsed_declaration" : "RLMErrorIncompatibleLockFile = 8",
               "key.doc.comment" : "Returned by RLMRealm if the database file is currently open in another\n        process which cannot share with the current process due to an\n        architecture mismatch.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "84",
+              "key.doc.line" : "79",
               "key.name" : "RLMErrorIncompatibleLockFile",
               "key.doc.column" : "5",
               "key.filepath" : "Realm\/RLMConstants.h",
@@ -1434,7 +1442,7 @@
           "key.parsed_declaration" : "typedef enum RLMError RLMError",
           "key.doc.comment" : "Enum representing all recoverable errors in Realm.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "69",
+          "key.doc.line" : "64",
           "key.name" : "RLMError",
           "key.doc.column" : "28",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1443,18 +1451,26 @@
         {
           "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
           "key.doc.file" : "Realm\/RLMConstants.h",
+          "key.name" : "MARK: Constants",
+          "key.doc.column" : "1",
+          "key.doc.line" : "82",
+          "key.filepath" : "Realm\/RLMConstants.h"
+        },
+        {
+          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.doc.file" : "Realm\/RLMConstants.h",
           "key.name" : "MARK: Notification Constants",
-          "key.doc.column" : "25",
-          "key.doc.line" : "101",
+          "key.doc.column" : "1",
+          "key.doc.line" : "84",
           "key.filepath" : "Realm\/RLMConstants.h"
         },
         {
           "key.kind" : "sourcekitten.source.lang.objc.decl.constant",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.parsed_declaration" : "extern NSString *const RLMRealmRefreshRequiredNotification",
-          "key.doc.comment" : "\nPosted by RLMRealm when the data in the realm has changed.\n\nDidChange are posted after a realm has been refreshed to reflect a write\ntransaction, i.e. when an autorefresh occurs, `[RLMRealm refresh]` is\ncalled, after an implicit refresh from `[RLMRealm beginWriteTransaction]`,\nand after a local write transaction is committed.",
+          "key.doc.comment" : "Posted by RLMRealm when the data in the realm has changed.\n\nDidChange are posted after a realm has been refreshed to reflect a write\ntransaction, i.e. when an autorefresh occurs, `[RLMRealm refresh]` is\ncalled, after an implicit refresh from `[RLMRealm beginWriteTransaction]`,\nand after a local write transaction is committed.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "101",
+          "key.doc.line" : "94",
           "key.name" : "RLMRealmRefreshRequiredNotification",
           "key.doc.column" : "25",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1466,7 +1482,7 @@
           "key.parsed_declaration" : "extern NSString *const RLMRealmDidChangeNotification",
           "key.doc.comment" : "Posted by RLMRealm when a write transaction has been committed to an RLMRealm on\na different thread for the same file. This is not posted if\n`[RLMRealm autorefresh]` is enabled or if the RLMRealm is\nrefreshed before the notifcation has a chance to run.\n\nRealms with autorefresh disabled should normally have a handler for this\nnotification which calls `[RLMRealm refresh]` after doing some work.\nWhile not refreshing is allowed, it may lead to large Realm files as Realm has\nto keep an extra copy of the data for the un-refreshed RLMRealm.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "114",
+          "key.doc.line" : "107",
           "key.name" : "RLMRealmDidChangeNotification",
           "key.doc.column" : "25",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1476,17 +1492,17 @@
           "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.name" : "MARK: Other Constants",
-          "key.doc.column" : "23",
-          "key.doc.line" : "121",
+          "key.doc.column" : "1",
+          "key.doc.line" : "109",
           "key.filepath" : "Realm\/RLMConstants.h"
         },
         {
           "key.kind" : "sourcekitten.source.lang.objc.decl.constant",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.parsed_declaration" : "extern const uint64_t RLMNotVersioned",
-          "key.doc.comment" : "\nSchema version used for uninitialized Realms",
+          "key.doc.comment" : "Schema version used for uninitialized Realms",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "121",
+          "key.doc.line" : "112",
           "key.name" : "RLMNotVersioned",
           "key.doc.column" : "23",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1498,7 +1514,7 @@
           "key.parsed_declaration" : "extern NSString *const RLMErrorDomain",
           "key.doc.comment" : "Error domain used in Realm.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "124",
+          "key.doc.line" : "115",
           "key.name" : "RLMErrorDomain",
           "key.doc.column" : "25",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1510,7 +1526,7 @@
           "key.parsed_declaration" : "extern NSString *const RLMExceptionName",
           "key.doc.comment" : "Key for name of Realm exceptions.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "127",
+          "key.doc.line" : "118",
           "key.name" : "RLMExceptionName",
           "key.doc.column" : "25",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1522,7 +1538,7 @@
           "key.parsed_declaration" : "extern NSString *const RLMRealmVersionKey",
           "key.doc.comment" : "Key for Realm file version.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "130",
+          "key.doc.line" : "121",
           "key.name" : "RLMRealmVersionKey",
           "key.doc.column" : "25",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1534,7 +1550,7 @@
           "key.parsed_declaration" : "extern NSString *const RLMRealmCoreVersionKey",
           "key.doc.comment" : "Key for Realm core version.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "133",
+          "key.doc.line" : "124",
           "key.name" : "RLMRealmCoreVersionKey",
           "key.doc.column" : "25",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1546,7 +1562,7 @@
           "key.parsed_declaration" : "extern NSString *const RLMInvalidatedKey",
           "key.doc.comment" : "Key for Realm invalidated property name.",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "136",
+          "key.doc.line" : "127",
           "key.name" : "RLMInvalidatedKey",
           "key.doc.column" : "25",
           "key.filepath" : "Realm\/RLMConstants.h",
@@ -1581,17 +1597,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMMigration.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "44",
-              "key.doc.line" : "46",
+              "key.doc.column" : "1",
+              "key.doc.line" : "38",
               "key.filepath" : "Realm\/RLMMigration.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMMigration.h",
               "key.parsed_declaration" : "@property (readonly, nonatomic) RLMSchema *_Nonnull oldSchema;",
-              "key.doc.comment" : "\nGet the old RLMSchema for the migration. This is the schema which describes the RLMRealm before the\nmigration is applied.",
+              "key.doc.comment" : "Get the old RLMSchema for the migration. This is the schema which describes the RLMRealm before the\nmigration is applied.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "46",
+              "key.doc.line" : "44",
               "key.name" : "oldSchema",
               "key.doc.column" : "44",
               "key.filepath" : "Realm\/RLMMigration.h",
@@ -1603,7 +1619,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) RLMSchema *_Nonnull newSchema;",
               "key.doc.comment" : "Get the new RLMSchema for the migration. This is the schema which describes the RLMRealm after applying\na migration.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "52",
+              "key.doc.line" : "50",
               "key.name" : "newSchema",
               "key.doc.column" : "44",
               "key.filepath" : "Realm\/RLMMigration.h",
@@ -1613,15 +1629,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMMigration.h",
               "key.name" : "MARK: Altering Objects during a Migration",
-              "key.doc.column" : "9",
-              "key.doc.line" : "69",
+              "key.doc.column" : "1",
+              "key.doc.line" : "53",
               "key.filepath" : "Realm\/RLMMigration.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMMigration.h",
               "key.parsed_declaration" : "- (void)enumerateObjects:(nonnull NSString *)className\n                   block:(nonnull RLMObjectMigrationBlock)block;",
-              "key.doc.comment" : "\nEnumerates objects of a given type in this Realm, providing both the old and new versions of each object.\nObjects properties can be accessed using keyed subscripting.\n\n- parameter: className   The name of the RLMObject class to enumerate.\n\n- warning:   All objects returned are of a type specific to the current migration and should not be casted\n           to className. Instead you should access them as RLMObjects and use keyed subscripting to access\n           properties.",
+              "key.doc.comment" : "Enumerates objects of a given type in this Realm, providing both the old and new versions of each object.\nObjects properties can be accessed using keyed subscripting.\n\n- parameter: className   The name of the RLMObject class to enumerate.\n\n- warning:   All objects returned are of a type specific to the current migration and should not be casted\n           to className. Instead you should access them as RLMObjects and use keyed subscripting to access\n           properties.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -1633,7 +1649,7 @@
                   "name" : "className"
                 }
               ],
-              "key.doc.line" : "69",
+              "key.doc.line" : "65",
               "key.doc.full_as_xml" : "",
               "key.name" : "-enumerateObjects:block:",
               "key.doc.column" : "9",
@@ -1665,7 +1681,7 @@
                   "name" : "value"
                 }
               ],
-              "key.doc.line" : "82",
+              "key.doc.line" : "78",
               "key.doc.full_as_xml" : "",
               "key.name" : "-createObject:withValue:",
               "key.doc.column" : "15",
@@ -1688,7 +1704,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "89",
+              "key.doc.line" : "85",
               "key.doc.full_as_xml" : "",
               "key.name" : "-deleteObject:",
               "key.doc.column" : "9",
@@ -1711,7 +1727,7 @@
                   "name" : "name"
                 }
               ],
-              "key.doc.line" : "100",
+              "key.doc.line" : "96",
               "key.doc.full_as_xml" : "",
               "key.name" : "-deleteDataForClassName:",
               "key.doc.result_discussion" : [
@@ -1749,17 +1765,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.name" : "MARK: Creating & Initializing Objects",
-              "key.doc.column" : "17",
-              "key.doc.line" : "101",
+              "key.doc.column" : "1",
+              "key.doc.line" : "89",
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "- (nonnull instancetype)init;",
-              "key.doc.comment" : "\nInitialize a standalone RLMObject\n\nInitialize an unpersisted instance of this object.\nCall addObject: on an RLMRealm to add standalone object to a realm.\n\n- see: [RLMRealm addObject:]:",
+              "key.doc.comment" : "Initialize a standalone RLMObject\n\nInitialize an unpersisted instance of this object.\nCall addObject: on an RLMRealm to add standalone object to a realm.\n\n- see: [RLMRealm addObject:]:",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "101",
+              "key.doc.line" : "99",
               "key.name" : "-init",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMObject.h",
@@ -1771,7 +1787,7 @@
               "key.parsed_declaration" : "- (nonnull instancetype)initWithValue:(nonnull id)value;",
               "key.doc.comment" : "Initialize a standalone RLMObject with values from an NSArray or NSDictionary\n\nInitialize an unpersisted instance of this object.\nCall addObject: on an RLMRealm to add standalone object to a realm.\n\n- see: [RLMRealm addObject:]:",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "112",
+              "key.doc.line" : "110",
               "key.name" : "-initWithValue:",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMObject.h",
@@ -1783,7 +1799,7 @@
               "key.parsed_declaration" : "+ (nonnull NSString *)className;",
               "key.doc.comment" : "Helper to return the class name for an RLMObject subclass.\n\n- warning: Do not override. Realm relies on this method returning the exact class\n         name.\n\n- returns:  The class name for the model class.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "123",
+              "key.doc.line" : "121",
               "key.name" : "+className",
               "key.doc.result_discussion" : [
                 {
@@ -1811,7 +1827,7 @@
                   "name" : "value"
                 }
               ],
-              "key.doc.line" : "143",
+              "key.doc.line" : "141",
               "key.doc.full_as_xml" : "",
               "key.name" : "+createInDefaultRealmWithValue:",
               "key.doc.column" : "17",
@@ -1843,7 +1859,7 @@
                   "name" : "value"
                 }
               ],
-              "key.doc.line" : "164",
+              "key.doc.line" : "162",
               "key.doc.full_as_xml" : "",
               "key.name" : "+createInRealm:withValue:",
               "key.doc.column" : "17",
@@ -1866,7 +1882,7 @@
                   "name" : "value"
                 }
               ],
-              "key.doc.line" : "187",
+              "key.doc.line" : "185",
               "key.doc.full_as_xml" : "",
               "key.name" : "+createOrUpdateInDefaultRealmWithValue:",
               "key.doc.column" : "17",
@@ -1898,7 +1914,7 @@
                   "name" : "value"
                 }
               ],
-              "key.doc.line" : "211",
+              "key.doc.line" : "209",
               "key.doc.full_as_xml" : "",
               "key.name" : "+createOrUpdateInRealm:withValue:",
               "key.doc.column" : "17",
@@ -1909,17 +1925,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "53",
-              "key.doc.line" : "222",
+              "key.doc.column" : "1",
+              "key.doc.line" : "211",
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "@property (readonly, nonatomic, nullable) RLMRealm *realm;",
-              "key.doc.comment" : "\nThe Realm in which this object is persisted. Returns nil for standalone objects.",
+              "key.doc.comment" : "The Realm in which this object is persisted. Returns nil for standalone objects.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "222",
+              "key.doc.line" : "216",
               "key.name" : "realm",
               "key.doc.column" : "53",
               "key.filepath" : "Realm\/RLMObject.h",
@@ -1931,7 +1947,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) RLMObjectSchema *_Nonnull objectSchema;",
               "key.doc.comment" : "The ObjectSchema which lists the persisted properties for this object.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "227",
+              "key.doc.line" : "221",
               "key.name" : "objectSchema",
               "key.doc.column" : "50",
               "key.filepath" : "Realm\/RLMObject.h",
@@ -1943,7 +1959,7 @@
               "key.parsed_declaration" : "@property (readonly, getter=isInvalidated, nonatomic) BOOL invalidated;",
               "key.doc.comment" : "Indicates if an object can no longer be accessed.\n\nAn object can no longer be accessed if the object has been deleted from the containing `realm` or\nif `invalidate` is called on the containing `realm`.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "235",
+              "key.doc.line" : "229",
               "key.name" : "invalidated",
               "key.doc.column" : "62",
               "key.filepath" : "Realm\/RLMObject.h",
@@ -1953,17 +1969,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.name" : "MARK: Customizing your Objects",
-              "key.doc.column" : "14",
-              "key.doc.line" : "247",
+              "key.doc.column" : "1",
+              "key.doc.line" : "232",
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.class",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "+ (nonnull NSArray *)indexedProperties;",
-              "key.doc.comment" : "\nReturn an array of property names for properties which should be indexed. Only supported\nfor string and int properties.\n- returns:    NSArray of property names.",
+              "key.doc.comment" : "Return an array of property names for properties which should be indexed. Only supported\nfor string and int properties.\n- returns:    NSArray of property names.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "247",
+              "key.doc.line" : "239",
               "key.name" : "+indexedProperties",
               "key.doc.result_discussion" : [
                 {
@@ -1981,7 +1997,7 @@
               "key.parsed_declaration" : "+ (nullable NSDictionary *)defaultPropertyValues;",
               "key.doc.comment" : "Implement to indicate the default values to be used for each property.\n\n- returns:    NSDictionary mapping property names to their default values.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "254",
+              "key.doc.line" : "246",
               "key.name" : "+defaultPropertyValues",
               "key.doc.result_discussion" : [
                 {
@@ -1999,7 +2015,7 @@
               "key.parsed_declaration" : "+ (nullable NSString *)primaryKey;",
               "key.doc.comment" : "Implement to designate a property as the primary key for an RLMObject subclass. Only properties of\ntype RLMPropertyTypeString and RLMPropertyTypeInt can be designated as the primary key. Primary key \nproperties enforce uniqueness for each value whenever the property is set which incurs some overhead.\nIndexes are created automatically for primary key properties.\n\n- returns:    Name of the property designated as the primary key.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "264",
+              "key.doc.line" : "256",
               "key.name" : "+primaryKey",
               "key.doc.result_discussion" : [
                 {
@@ -2017,7 +2033,7 @@
               "key.parsed_declaration" : "+ (nullable NSArray *)ignoredProperties;",
               "key.doc.comment" : "Implement to return an array of property names to ignore. These properties will not be persisted\nand are treated as transient.\n\n- returns:    NSArray of property names to ignore.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "272",
+              "key.doc.line" : "264",
               "key.name" : "+ignoredProperties",
               "key.doc.result_discussion" : [
                 {
@@ -2035,7 +2051,7 @@
               "key.parsed_declaration" : "+ (nonnull NSArray *)requiredProperties;",
               "key.doc.comment" : "Implement to return an array of property names that should not allow storing nil.\n\nBy default, all properties of a type that support storing nil are considered optional properties.\nTo require that an object in a Realm always have a non-nil value for a property,\nadd the name of the property to the array returned from this method.\n\nCurrently Object properties cannot be required. Array and NSNumber properties\ncan, but it makes little sense to do so: arrays do not support storing nil, and\nif you want a non-optional number you should instead use the primitive type.\n\n- returns:    NSArray of property names that are required.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "287",
+              "key.doc.line" : "279",
               "key.name" : "+requiredProperties",
               "key.doc.result_discussion" : [
                 {
@@ -2051,17 +2067,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.name" : "MARK: Getting & Querying Objects from the Default Realm",
-              "key.doc.column" : "17",
-              "key.doc.line" : "299",
+              "key.doc.column" : "1",
+              "key.doc.line" : "282",
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.class",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "+ (nonnull RLMResults *)allObjects;",
-              "key.doc.comment" : "\nGet all objects of this type from the default Realm.\n\n- returns:    An RLMResults of all objects of this type in the default Realm.",
+              "key.doc.comment" : "Get all objects of this type from the default Realm.\n\n- returns:    An RLMResults of all objects of this type in the default Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "299",
+              "key.doc.line" : "289",
               "key.name" : "+allObjects",
               "key.doc.result_discussion" : [
                 {
@@ -2089,7 +2105,7 @@
                   "name" : "predicateFormat"
                 }
               ],
-              "key.doc.line" : "308",
+              "key.doc.line" : "298",
               "key.doc.full_as_xml" : "",
               "key.name" : "+objectsWhere:",
               "key.doc.result_discussion" : [
@@ -2118,7 +2134,7 @@
                   "name" : "predicate"
                 }
               ],
-              "key.doc.line" : "318",
+              "key.doc.line" : "308",
               "key.doc.full_as_xml" : "",
               "key.name" : "+objectsWithPredicate:",
               "key.doc.result_discussion" : [
@@ -2137,7 +2153,7 @@
               "key.parsed_declaration" : "+ (nullable instancetype)objectForPrimaryKey:(nullable id)primaryKey;",
               "key.doc.comment" : "Get the single object with the given primary key from the default Realm.\n\nReturns the object from the default Realm which has the given primary key, or\n`nil` if the object does not exist. This is slightly faster than the otherwise\nequivalent `[[SubclassName objectsWhere:@\"primaryKeyPropertyName = %@\", key] firstObject]`.\n\nThis method requires that `primaryKey` be overridden on the receiving subclass.\n\n- returns:    An object of the subclass type or nil if an object with the given primary key does not exist.\n- see:       -primaryKey",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "332",
+              "key.doc.line" : "322",
               "key.name" : "+objectForPrimaryKey:",
               "key.doc.result_discussion" : [
                 {
@@ -2153,15 +2169,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.name" : "MARK: Querying Specific Realms",
-              "key.doc.column" : "17",
-              "key.doc.line" : "346",
+              "key.doc.column" : "1",
+              "key.doc.line" : "325",
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.class",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "+ (nonnull RLMResults *)allObjectsInRealm:(nonnull RLMRealm *)realm;",
-              "key.doc.comment" : "\nGet all objects of this type from the specified Realm.\n\n- parameter: realm   The Realm instance to query.\n\n- returns:        An RLMResults of all objects of this type in the specified Realm.",
+              "key.doc.comment" : "Get all objects of this type from the specified Realm.\n\n- parameter: realm   The Realm instance to query.\n\n- returns:        An RLMResults of all objects of this type in the specified Realm.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -2173,7 +2189,7 @@
                   "name" : "realm"
                 }
               ],
-              "key.doc.line" : "346",
+              "key.doc.line" : "334",
               "key.doc.full_as_xml" : "",
               "key.name" : "+allObjectsInRealm:",
               "key.doc.result_discussion" : [
@@ -2211,7 +2227,7 @@
                   "name" : "realm"
                 }
               ],
-              "key.doc.line" : "356",
+              "key.doc.line" : "344",
               "key.doc.full_as_xml" : "",
               "key.name" : "+objectsInRealm:where:",
               "key.doc.result_discussion" : [
@@ -2249,7 +2265,7 @@
                   "name" : "realm"
                 }
               ],
-              "key.doc.line" : "366",
+              "key.doc.line" : "354",
               "key.doc.full_as_xml" : "",
               "key.name" : "+objectsInRealm:withPredicate:",
               "key.doc.result_discussion" : [
@@ -2268,7 +2284,7 @@
               "key.parsed_declaration" : "+ (nullable instancetype)objectInRealm:(nonnull RLMRealm *)realm\n                         forPrimaryKey:(nullable id)primaryKey;",
               "key.doc.comment" : "Get the single object with the given primary key from the specified Realm.\n\nReturns the object from the specified Realm which has the given primary key, or\n`nil` if the object does not exist. This is slightly faster than the otherwise\nequivalent `[[SubclassName objectsInRealm:realm where:@\"primaryKeyPropertyName = %@\", key] firstObject]`.\n\nThis method requires that `primaryKey` be overridden on the receiving subclass.\n\n- returns:    An object of the subclass type or nil if an object with the given primary key does not exist.\n- see:       -primaryKey",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "380",
+              "key.doc.line" : "368",
               "key.name" : "+objectInRealm:forPrimaryKey:",
               "key.doc.result_discussion" : [
                 {
@@ -2284,15 +2300,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.name" : "MARK: Other Instance Methods",
-              "key.doc.column" : "14",
-              "key.doc.line" : "397",
+              "key.doc.column" : "1",
+              "key.doc.line" : "370",
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "- (nonnull NSArray *)linkingObjectsOfClass:(nonnull NSString *)className\n                               forProperty:(nonnull NSString *)property;",
-              "key.doc.comment" : "\nGet an `NSArray` of objects of type `className` which have this object as the given property value. This can\nbe used to get the inverse relatshionship value for `RLMObject` and `RLMArray` properties.\n\n- parameter: className   The type of object on which the relationship to query is defined.\n- parameter: property    The name of the property which defines the relationship.\n\n- returns:    An NSArray of objects of type `className` which have this object as thier value for the `property` property.",
+              "key.doc.comment" : "Get an `NSArray` of objects of type `className` which have this object as the given property value. This can\nbe used to get the inverse relatshionship value for `RLMObject` and `RLMArray` properties.\n\n- parameter: className   The type of object on which the relationship to query is defined.\n- parameter: property    The name of the property which defines the relationship.\n\n- returns:    An NSArray of objects of type `className` which have this object as thier value for the `property` property.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -2313,7 +2329,7 @@
                   "name" : "property"
                 }
               ],
-              "key.doc.line" : "397",
+              "key.doc.line" : "381",
               "key.doc.full_as_xml" : "",
               "key.name" : "-linkingObjectsOfClass:forProperty:",
               "key.doc.result_discussion" : [
@@ -2342,7 +2358,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "408",
+              "key.doc.line" : "392",
               "key.doc.full_as_xml" : "",
               "key.name" : "-isEqualToObject:",
               "key.doc.result_discussion" : [
@@ -2356,10 +2372,18 @@
               "key.usr" : "c:objc(cs)RLMObject(im)isEqualToObject:"
             },
             {
+              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.doc.file" : "Realm\/RLMObject.h",
+              "key.name" : "MARK: Dynamic Accessors",
+              "key.doc.column" : "1",
+              "key.doc.line" : "394",
+              "key.filepath" : "Realm\/RLMObject.h"
+            },
+            {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "- (nullable id)objectForKeyedSubscript:(NSString *)key;",
-              "key.doc.line" : "421",
+              "key.doc.line" : "396",
               "key.name" : "-objectForKeyedSubscript:",
               "key.doc.column" : "16",
               "key.filepath" : "Realm\/RLMObject.h",
@@ -2369,7 +2393,7 @@
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.parsed_declaration" : "- (void)setObject:(nullable id)obj forKeyedSubscript:(NSString *)key;",
-              "key.doc.line" : "422",
+              "key.doc.line" : "397",
               "key.name" : "-setObject:forKeyedSubscript:",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMObject.h",
@@ -2380,6 +2404,14 @@
           "key.doc.column" : "12",
           "key.filepath" : "Realm\/RLMObject.h",
           "key.usr" : "c:objc(cs)RLMObject"
+        },
+        {
+          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.doc.file" : "Realm\/RLMObject.h",
+          "key.name" : "MARK: RLMArray Property Declaration",
+          "key.doc.column" : "1",
+          "key.doc.line" : "401",
+          "key.filepath" : "Realm\/RLMObject.h"
         }
       ],
       "key.diagnostic_stage" : ""
@@ -2403,6 +2435,16 @@
               "key.doc.column" : "62",
               "key.filepath" : "Realm\/RLMObjectBase.h",
               "key.usr" : "c:objc(cs)RLMObjectBase(py)invalidated"
+            },
+            {
+              "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
+              "key.doc.file" : "Realm\/RLMObjectBase.h",
+              "key.parsed_declaration" : "invalidated",
+              "key.doc.line" : "30",
+              "key.name" : "-isInvalidated",
+              "key.doc.column" : "62",
+              "key.filepath" : "Realm\/RLMObjectBase.h",
+              "key.usr" : "c:objc(cs)RLMObjectBase(im)isInvalidated"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
@@ -2433,16 +2475,6 @@
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMObjectBase.h",
               "key.usr" : "c:objc(cs)RLMObjectBase(cm)shouldIncludeInDefaultSchema"
-            },
-            {
-              "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
-              "key.doc.file" : "Realm\/RLMObjectBase.h",
-              "key.parsed_declaration" : "invalidated",
-              "key.doc.line" : "30",
-              "key.name" : "-isInvalidated",
-              "key.doc.column" : "62",
-              "key.filepath" : "Realm\/RLMObjectBase.h",
-              "key.usr" : "c:objc(cs)RLMObjectBase(im)isInvalidated"
             }
           ],
           "key.name" : "RLMObjectBase",
@@ -2469,17 +2501,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObjectSchema.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "48",
-              "key.doc.line" : "45",
+              "key.doc.column" : "1",
+              "key.doc.line" : "36",
               "key.filepath" : "Realm\/RLMObjectSchema.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMObjectSchema.h",
               "key.parsed_declaration" : "@property (readonly, copy, nonatomic) NSArray *_Nonnull properties;",
-              "key.doc.comment" : "\nArray of persisted RLMProperty objects for an object.\n\n- see: RLMProperty",
+              "key.doc.comment" : "Array of persisted RLMProperty objects for an object.\n\n- see: RLMProperty",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "45",
+              "key.doc.line" : "43",
               "key.name" : "properties",
               "key.doc.column" : "48",
               "key.filepath" : "Realm\/RLMObjectSchema.h",
@@ -2491,7 +2523,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSString *_Nonnull className;",
               "key.doc.comment" : "The name of the class this schema describes.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "50",
+              "key.doc.line" : "48",
               "key.name" : "className",
               "key.doc.column" : "43",
               "key.filepath" : "Realm\/RLMObjectSchema.h",
@@ -2503,7 +2535,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic, nullable) RLMProperty *primaryKeyProperty;",
               "key.doc.comment" : "The property which is the primary key for this object (if any).",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "55",
+              "key.doc.line" : "53",
               "key.name" : "primaryKeyProperty",
               "key.doc.column" : "56",
               "key.filepath" : "Realm\/RLMObjectSchema.h",
@@ -2513,15 +2545,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMObjectSchema.h",
               "key.name" : "MARK: Methods",
-              "key.doc.column" : "27",
-              "key.doc.line" : "68",
+              "key.doc.column" : "1",
+              "key.doc.line" : "55",
               "key.filepath" : "Realm\/RLMObjectSchema.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMObjectSchema.h",
               "key.parsed_declaration" : "- (nullable RLMProperty *)objectForKeyedSubscript:\n        (nonnull id<NSCopying>)propertyName;",
-              "key.doc.comment" : "\nRetrieve an RLMProperty object by name.\n\n- parameter: propertyName The property's name.\n\n- returns: RLMProperty object or nil if there is no property with the given name.",
+              "key.doc.comment" : "Retrieve an RLMProperty object by name.\n\n- parameter: propertyName The property's name.\n\n- returns: RLMProperty object or nil if there is no property with the given name.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -2533,7 +2565,7 @@
                   "name" : "propertyName"
                 }
               ],
-              "key.doc.line" : "68",
+              "key.doc.line" : "64",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectForKeyedSubscript:",
               "key.doc.result_discussion" : [
@@ -2552,7 +2584,7 @@
               "key.parsed_declaration" : "- (BOOL)isEqualToObjectSchema:(nonnull RLMObjectSchema *)objectSchema;",
               "key.doc.comment" : "Returns YES if equal to objectSchema",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "73",
+              "key.doc.line" : "69",
               "key.name" : "-isEqualToObjectSchema:",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMObjectSchema.h",
@@ -2633,17 +2665,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMProperty.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "43",
-              "key.doc.line" : "54",
+              "key.doc.column" : "1",
+              "key.doc.line" : "47",
               "key.filepath" : "Realm\/RLMProperty.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMProperty.h",
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSString *_Nonnull name;",
-              "key.doc.comment" : "\nProperty name.",
+              "key.doc.comment" : "Property name.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "54",
+              "key.doc.line" : "52",
               "key.name" : "name",
               "key.doc.column" : "43",
               "key.filepath" : "Realm\/RLMProperty.h",
@@ -2655,7 +2687,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) RLMPropertyType type;",
               "key.doc.comment" : "Property type.\n\n- see: RLMPropertyType",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "61",
+              "key.doc.line" : "59",
               "key.name" : "type",
               "key.doc.column" : "49",
               "key.filepath" : "Realm\/RLMProperty.h",
@@ -2667,7 +2699,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) BOOL indexed;",
               "key.doc.comment" : "Indicates if this property is indexed.\n\n- see: RLMObject",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "68",
+              "key.doc.line" : "66",
               "key.name" : "indexed",
               "key.doc.column" : "38",
               "key.filepath" : "Realm\/RLMProperty.h",
@@ -2679,7 +2711,7 @@
               "key.parsed_declaration" : "@property (readonly, copy, nonatomic, nullable) NSString *objectClassName;",
               "key.doc.comment" : "Object class name - specify object types for RLMObject and RLMArray properties.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "73",
+              "key.doc.line" : "71",
               "key.name" : "objectClassName",
               "key.doc.column" : "59",
               "key.filepath" : "Realm\/RLMProperty.h",
@@ -2691,7 +2723,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) BOOL optional;",
               "key.doc.comment" : "Whether this property is optional.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "78",
+              "key.doc.line" : "76",
               "key.name" : "optional",
               "key.doc.column" : "38",
               "key.filepath" : "Realm\/RLMProperty.h",
@@ -2701,17 +2733,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMProperty.h",
               "key.name" : "MARK: Methods",
-              "key.doc.column" : "9",
-              "key.doc.line" : "87",
+              "key.doc.column" : "1",
+              "key.doc.line" : "78",
               "key.filepath" : "Realm\/RLMProperty.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMProperty.h",
               "key.parsed_declaration" : "- (BOOL)isEqualToProperty:(nonnull RLMProperty *)property;",
-              "key.doc.comment" : "\nReturns YES if property objects are equal.",
+              "key.doc.comment" : "Returns YES if property objects are equal.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "87",
+              "key.doc.line" : "83",
               "key.name" : "-isEqualToProperty:",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMProperty.h",
@@ -2742,17 +2774,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.name" : "MARK: Creating & Initializing a Realm",
-              "key.doc.column" : "17",
-              "key.doc.line" : "68",
+              "key.doc.column" : "1",
+              "key.doc.line" : "51",
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.class",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.parsed_declaration" : "+ (nonnull instancetype)defaultRealm;",
-              "key.doc.comment" : "\nObtains an instance of the default Realm.\n\nThe default Realm is used by the `RLMObject` class methods\nwhich do not take a `RLMRealm` parameter, but is otherwise not special. The\ndefault Realm is persisted as default.realm under the Documents directory of\nyour Application on iOS, and in your application's Application Support\ndirectory on OS X.\n\nThe default Realm is created using the default `RLMRealmConfiguration`, which\ncan be changed via `+[RLMRealmConfiguration setDefaultConfiguration:]`.\n\n- returns: The default `RLMRealm` instance for the current thread.",
+              "key.doc.comment" : "Obtains an instance of the default Realm.\n\nThe default Realm is used by the `RLMObject` class methods\nwhich do not take a `RLMRealm` parameter, but is otherwise not special. The\ndefault Realm is persisted as default.realm under the Documents directory of\nyour Application on iOS, and in your application's Application Support\ndirectory on OS X.\n\nThe default Realm is created using the default `RLMRealmConfiguration`, which\ncan be changed via `+[RLMRealmConfiguration setDefaultConfiguration:]`.\n\n- returns: The default `RLMRealm` instance for the current thread.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "68",
+              "key.doc.line" : "67",
               "key.name" : "+defaultRealm",
               "key.doc.result_discussion" : [
                 {
@@ -2789,7 +2821,7 @@
                   "name" : "error"
                 }
               ],
-              "key.doc.line" : "80",
+              "key.doc.line" : "79",
               "key.doc.full_as_xml" : "",
               "key.name" : "+realmWithConfiguration:error:",
               "key.doc.result_discussion" : [
@@ -2818,7 +2850,7 @@
                   "name" : "path"
                 }
               ],
-              "key.doc.line" : "89",
+              "key.doc.line" : "88",
               "key.doc.full_as_xml" : "",
               "key.name" : "+realmWithPath:",
               "key.doc.result_discussion" : [
@@ -2837,7 +2869,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSString *_Nonnull path;",
               "key.doc.comment" : "Path to the file where this Realm is persisted.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "94",
+              "key.doc.line" : "93",
               "key.name" : "path",
               "key.doc.column" : "43",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -2849,7 +2881,7 @@
               "key.parsed_declaration" : "@property (readonly, getter=isReadOnly, nonatomic) BOOL readOnly;",
               "key.doc.comment" : "Indicates if this Realm was opened in read-only mode.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "99",
+              "key.doc.line" : "98",
               "key.name" : "readOnly",
               "key.doc.column" : "59",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -2861,7 +2893,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic, null_unspecified) RLMSchema *schema;",
               "key.doc.comment" : "The RLMSchema used by this RLMRealm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "104",
+              "key.doc.line" : "103",
               "key.name" : "schema",
               "key.doc.column" : "62",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -2873,7 +2905,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) BOOL inWriteTransaction;",
               "key.doc.comment" : "Indicates if this Realm is currently in a write transaction.\n\n- warning: Wrapping mutating operations in a write transaction if this property returns `NO`\n         may cause a large number of write transactions to be created, which could negatively\n         impact Realm's performance. Always prefer performing multiple mutations in a single\n         transaction when possible.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "114",
+              "key.doc.line" : "113",
               "key.name" : "inWriteTransaction",
               "key.doc.column" : "38",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -2885,7 +2917,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) RLMRealmConfiguration *_Nonnull configuration;",
               "key.doc.comment" : "Returns an `RLMRealmConfiguration` that can be used to create this `RLMRealm` instance.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "119",
+              "key.doc.line" : "118",
               "key.name" : "configuration",
               "key.doc.column" : "56",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -2897,7 +2929,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) BOOL isEmpty;",
               "key.doc.comment" : "Indicates if this Realm contains any objects.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "124",
+              "key.doc.line" : "123",
               "key.name" : "isEmpty",
               "key.doc.column" : "38",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -2906,16 +2938,24 @@
             {
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
+              "key.name" : "MARK: Notifications",
+              "key.doc.column" : "1",
+              "key.doc.line" : "125",
+              "key.filepath" : "Realm\/RLMRealm.h"
+            },
+            {
+              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.doc.file" : "Realm\/RLMRealm.h",
               "key.name" : "MARK: Receiving Notification when a Realm Changes",
-              "key.doc.column" : "27",
-              "key.doc.line" : "153",
+              "key.doc.column" : "1",
+              "key.doc.line" : "130",
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.parsed_declaration" : "- (nonnull RLMNotificationToken *)addNotificationBlock:\n        (nonnull RLMNotificationBlock)block;",
-              "key.doc.comment" : "\nAdd a notification handler for changes in this RLMRealm.\n\nThe block has the following definition:\n\n    typedef void(^RLMNotificationBlock)(NSString *notification, RLMRealm *realm);\n\nIt receives the following parameters:\n\n- `NSString` \\***notification**:    The name of the incoming notification. See\n                                    RLMRealmNotification for information on what\n                                    notifications are sent.\n- `RLMRealm` \\***realm**:           The realm for which this notification occurred\n\n- parameter: block   A block which is called to process RLMRealm notifications.\n\n- returns: A token object which can later be passed to `-removeNotification:`\n        to remove this notification.",
+              "key.doc.comment" : "Add a notification handler for changes in this RLMRealm.\n\nThe block has the following definition:\n\n    typedef void(^RLMNotificationBlock)(NSString *notification, RLMRealm *realm);\n\nIt receives the following parameters:\n\n- `NSString` \\***notification**:    The name of the incoming notification. See\n                                    RLMRealmNotification for information on what\n                                    notifications are sent.\n- `RLMRealm` \\***realm**:           The realm for which this notification occurred\n\n- parameter: block   A block which is called to process RLMRealm notifications.\n\n- returns: A token object which can later be passed to `-removeNotification:`\n        to remove this notification.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -2927,7 +2967,7 @@
                   "name" : "block"
                 }
               ],
-              "key.doc.line" : "153",
+              "key.doc.line" : "151",
               "key.doc.full_as_xml" : "",
               "key.name" : "-addNotificationBlock:",
               "key.doc.result_discussion" : [
@@ -2956,7 +2996,7 @@
                   "name" : "notificationToken"
                 }
               ],
-              "key.doc.line" : "162",
+              "key.doc.line" : "160",
               "key.doc.full_as_xml" : "",
               "key.name" : "-removeNotification:",
               "key.doc.column" : "9",
@@ -2966,18 +3006,26 @@
             {
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
+              "key.name" : "MARK: Transactions",
+              "key.doc.column" : "1",
+              "key.doc.line" : "162",
+              "key.filepath" : "Realm\/RLMRealm.h"
+            },
+            {
+              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.doc.file" : "Realm\/RLMRealm.h",
               "key.name" : "MARK: Writing to a Realm",
-              "key.doc.column" : "9",
-              "key.doc.line" : "189",
+              "key.doc.column" : "1",
+              "key.doc.line" : "165",
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.parsed_declaration" : "- (void)beginWriteTransaction;",
-              "key.doc.comment" : "\nBegins a write transaction in an `RLMRealm`.\n\nOnly one write transaction can be open at a time. Write transactions cannot be\nnested, and trying to begin a write transaction on a `RLMRealm` which is\nalready in a write transaction with throw an exception. Calls to\n`beginWriteTransaction` from `RLMRealm` instances in other threads will block\nuntil the current write transaction completes.\n\nBefore beginning the write transaction, `beginWriteTransaction` updates the\n`RLMRealm` to the latest Realm version, as if refresh was called, and\ngenerates notifications if applicable. This has no effect if the `RLMRealm`\nwas already up to date.\n\nIt is rarely a good idea to have write transactions span multiple cycles of\nthe run loop, but if you do wish to do so you will need to ensure that the\n`RLMRealm` in the write transaction is kept alive until the write transaction\nis committed.",
+              "key.doc.comment" : "Begins a write transaction in an `RLMRealm`.\n\nOnly one write transaction can be open at a time. Write transactions cannot be\nnested, and trying to begin a write transaction on a `RLMRealm` which is\nalready in a write transaction with throw an exception. Calls to\n`beginWriteTransaction` from `RLMRealm` instances in other threads will block\nuntil the current write transaction completes.\n\nBefore beginning the write transaction, `beginWriteTransaction` updates the\n`RLMRealm` to the latest Realm version, as if refresh was called, and\ngenerates notifications if applicable. This has no effect if the `RLMRealm`\nwas already up to date.\n\nIt is rarely a good idea to have write transactions span multiple cycles of\nthe run loop, but if you do wish to do so you will need to ensure that the\n`RLMRealm` in the write transaction is kept alive until the write transaction\nis committed.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "189",
+              "key.doc.line" : "186",
               "key.name" : "-beginWriteTransaction",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -2989,7 +3037,7 @@
               "key.parsed_declaration" : "- (void)commitWriteTransaction;",
               "key.doc.comment" : "Commits all writes operations in the current write transaction.\n\nAfter this is called the `RLMRealm` reverts back to being read-only.\n\nCalling this when not in a write transaction will throw an exception.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "198",
+              "key.doc.line" : "195",
               "key.name" : "-commitWriteTransaction",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -3011,7 +3059,7 @@
                   "name" : "error"
                 }
               ],
-              "key.doc.line" : "213",
+              "key.doc.line" : "210",
               "key.doc.full_as_xml" : "",
               "key.name" : "-commitWriteTransaction:",
               "key.doc.result_discussion" : [
@@ -3030,7 +3078,7 @@
               "key.parsed_declaration" : "- (void)cancelWriteTransaction;",
               "key.doc.comment" : "Revert all writes made in the current write transaction and end the transaction.\n\nThis rolls back all objects in the Realm to the state they were in at the\nbeginning of the write transaction, and then ends the transaction.\n\nThis restores the data for deleted objects, but does not re-validated deleted\naccessor objects. Any `RLMObject`s which were added to the Realm will be\ninvalidated rather than switching back to standalone objects.\nGiven the following code:\n\n    ObjectType *oldObject = [[ObjectType objectsWhere:@\"...\"] firstObject];\n    ObjectType *newObject = [[ObjectType alloc] init];\n\n    [realm beginWriteTransaction];\n    [realm addObject:newObject];\n    [realm deleteObject:oldObject];\n    [realm cancelWriteTransaction];\n\nBoth `oldObject` and `newObject` will return `YES` for `isInvalidated`,\nbut re-running the query which provided `oldObject` will once again return\nthe valid object.\n\nCalling this when not in a write transaction will throw an exception.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "240",
+              "key.doc.line" : "237",
               "key.name" : "-cancelWriteTransaction",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -3042,7 +3090,7 @@
               "key.parsed_declaration" : "- (void)transactionWithBlock:(nonnull void (^)(void))block;",
               "key.doc.comment" : "Helper to perform a block within a transaction.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "245",
+              "key.doc.line" : "242",
               "key.name" : "-transactionWithBlock:",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -3073,7 +3121,7 @@
                   "name" : "error"
                 }
               ],
-              "key.doc.line" : "257",
+              "key.doc.line" : "254",
               "key.doc.full_as_xml" : "",
               "key.name" : "-transactionWithBlock:error:",
               "key.doc.result_discussion" : [
@@ -3092,7 +3140,7 @@
               "key.parsed_declaration" : "- (BOOL)refresh;",
               "key.doc.comment" : "Update an `RLMRealm` and outstanding objects to point to the most recent data for this `RLMRealm`.\n\n- returns:    Whether the realm had any updates. Note that this may return YES even if no data has actually changed.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "264",
+              "key.doc.line" : "261",
               "key.name" : "-refresh",
               "key.doc.result_discussion" : [
                 {
@@ -3110,7 +3158,7 @@
               "key.parsed_declaration" : "@property (assign, readwrite, nonatomic) BOOL autorefresh;",
               "key.doc.comment" : "Set to YES to automatically update this Realm when changes happen in other threads.\n\nIf set to YES (the default), changes made on other threads will be reflected\nin this Realm on the next cycle of the run loop after the changes are\ncommitted.  If set to NO, you must manually call -refresh on the Realm to\nupdate it to get the latest version.\n\nEven with this enabled, you can still call -refresh at any time to update the\nRealm before the automatic refresh would occur.\n\nNotifications are sent when a write transaction is committed whether or not\nthis is enabled.\n\nDisabling this on an `RLMRealm` without any strong references to it will not\nhave any effect, and it will switch back to YES the next time the `RLMRealm`\nobject is created. This is normally irrelevant as it means that there is\nnothing to refresh (as persisted `RLMObject`s, `RLMArray`s, and `RLMResults` have strong\nreferences to the containing `RLMRealm`), but it means that setting\n`RLMRealm.defaultRealm.autorefresh = NO` in\n`application:didFinishLaunchingWithOptions:` and only later storing Realm\nobjects will not work.\n\nDefaults to YES.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "291",
+              "key.doc.line" : "288",
               "key.name" : "autorefresh",
               "key.doc.column" : "28",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -3141,7 +3189,7 @@
                   "name" : "error"
                 }
               ],
-              "key.doc.line" : "305",
+              "key.doc.line" : "302",
               "key.doc.full_as_xml" : "",
               "key.name" : "-writeCopyToPath:error:",
               "key.doc.result_discussion" : [
@@ -3188,7 +3236,7 @@
                   "name" : "error"
                 }
               ],
-              "key.doc.line" : "320",
+              "key.doc.line" : "317",
               "key.doc.full_as_xml" : "",
               "key.name" : "-writeCopyToPath:encryptionKey:error:",
               "key.doc.result_discussion" : [
@@ -3207,7 +3255,7 @@
               "key.parsed_declaration" : "- (void)invalidate;",
               "key.doc.comment" : "Invalidate all RLMObjects and RLMResults read from this Realm.\n\nAn RLMRealm holds a read lock on the version of the data accessed by it, so\nthat changes made to the Realm on different threads do not modify or delete the\ndata seen by this RLMRealm. Calling this method releases the read lock,\nallowing the space used on disk to be reused by later write transactions rather\nthan growing the file. This method should be called before performing long\nblocking operations on a background thread on which you previously read data\nfrom the Realm which you no longer need.\n\nAll `RLMObject`, `RLMResults` and `RLMArray` instances obtained from this\n`RLMRealm` on the current thread are invalidated, and can not longer be used.\nThe `RLMRealm` itself remains valid, and a new read transaction is implicitly\nbegun the next time data is read from the Realm.\n\nCalling this method multiple times in a row without reading any data from the\nRealm, or before ever reading any data from the Realm is a no-op. This method\ncannot be called on a read-only Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "342",
+              "key.doc.line" : "339",
               "key.name" : "-invalidate",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMRealm.h",
@@ -3216,16 +3264,24 @@
             {
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
+              "key.name" : "MARK: Accessing Objects",
+              "key.doc.column" : "1",
+              "key.doc.line" : "341",
+              "key.filepath" : "Realm\/RLMRealm.h"
+            },
+            {
+              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.doc.file" : "Realm\/RLMRealm.h",
               "key.name" : "MARK: Adding and Removing Objects from a Realm",
-              "key.doc.column" : "9",
-              "key.doc.line" : "366",
+              "key.doc.column" : "1",
+              "key.doc.line" : "344",
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.parsed_declaration" : "- (void)addObject:(nonnull RLMObject *)object;",
-              "key.doc.comment" : "\nAdds an object to be persisted it in this Realm.\n\nOnce added, this object can be retrieved using the `objectsWhere:` selectors\non `RLMRealm` and on subclasses of `RLMObject`. When added, all linked (child)\nobjects referenced by this object will also be added to the Realm if they are\nnot already in it. If the object or any linked objects already belong to a\ndifferent Realm an exception will be thrown. Use\n`-[RLMObject createInRealm:withObject]` to insert a copy of a persisted object\ninto a different Realm.\n\nThe object to be added must be valid and cannot have been previously deleted\nfrom a Realm (i.e. `isInvalidated`) must be false.\n\n- parameter: object  Object to be added to this Realm.",
+              "key.doc.comment" : "Adds an object to be persisted it in this Realm.\n\nOnce added, this object can be retrieved using the `objectsWhere:` selectors\non `RLMRealm` and on subclasses of `RLMObject`. When added, all linked (child)\nobjects referenced by this object will also be added to the Realm if they are\nnot already in it. If the object or any linked objects already belong to a\ndifferent Realm an exception will be thrown. Use\n`-[RLMObject createInRealm:withObject]` to insert a copy of a persisted object\ninto a different Realm.\n\nThe object to be added must be valid and cannot have been previously deleted\nfrom a Realm (i.e. `isInvalidated`) must be false.\n\n- parameter: object  Object to be added to this Realm.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -3237,7 +3293,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "366",
+              "key.doc.line" : "362",
               "key.doc.full_as_xml" : "",
               "key.name" : "-addObject:",
               "key.doc.column" : "9",
@@ -3260,7 +3316,7 @@
                   "name" : "array"
                 }
               ],
-              "key.doc.line" : "378",
+              "key.doc.line" : "374",
               "key.doc.full_as_xml" : "",
               "key.name" : "-addObjects:",
               "key.doc.column" : "9",
@@ -3283,7 +3339,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "391",
+              "key.doc.line" : "387",
               "key.doc.full_as_xml" : "",
               "key.name" : "-addOrUpdateObject:",
               "key.doc.column" : "9",
@@ -3306,7 +3362,7 @@
                   "name" : "array"
                 }
               ],
-              "key.doc.line" : "402",
+              "key.doc.line" : "398",
               "key.doc.full_as_xml" : "",
               "key.name" : "-addOrUpdateObjectsFromArray:",
               "key.doc.column" : "9",
@@ -3329,7 +3385,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "409",
+              "key.doc.line" : "405",
               "key.doc.full_as_xml" : "",
               "key.name" : "-deleteObject:",
               "key.doc.column" : "9",
@@ -3352,7 +3408,7 @@
                   "name" : "array"
                 }
               ],
-              "key.doc.line" : "416",
+              "key.doc.line" : "412",
               "key.doc.full_as_xml" : "",
               "key.name" : "-deleteObjects:",
               "key.doc.column" : "9",
@@ -3365,11 +3421,19 @@
               "key.parsed_declaration" : "- (void)deleteAllObjects;",
               "key.doc.comment" : "Deletes all objects in this Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "421",
+              "key.doc.line" : "417",
               "key.name" : "-deleteAllObjects",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMRealm.h",
               "key.usr" : "c:objc(cs)RLMRealm(im)deleteAllObjects"
+            },
+            {
+              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.doc.file" : "Realm\/RLMRealm.h",
+              "key.name" : "MARK: Migrations",
+              "key.doc.column" : "1",
+              "key.doc.line" : "420",
+              "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.class",
@@ -3396,7 +3460,7 @@
                   "name" : "error"
                 }
               ],
-              "key.doc.line" : "447",
+              "key.doc.line" : "443",
               "key.doc.full_as_xml" : "",
               "key.name" : "+schemaVersionAtPath:error:",
               "key.doc.result_discussion" : [
@@ -3443,7 +3507,7 @@
                   "name" : "error"
                 }
               ],
-              "key.doc.line" : "460",
+              "key.doc.line" : "456",
               "key.doc.full_as_xml" : "",
               "key.name" : "+schemaVersionAtPath:encryptionKey:error:",
               "key.doc.result_discussion" : [
@@ -3472,7 +3536,7 @@
                   "name" : "configuration"
                 }
               ],
-              "key.doc.line" : "474",
+              "key.doc.line" : "470",
               "key.doc.full_as_xml" : "",
               "key.name" : "+migrateRealm:",
               "key.doc.result_discussion" : [
@@ -3495,7 +3559,7 @@
           "key.kind" : "sourcekitten.source.lang.objc.decl.typedef",
           "key.doc.file" : "Realm\/RLMRealm.h",
           "key.parsed_declaration" : "typedef void(^RLMNotificationBlock)(NSString *notification, RLMRealm *realm)",
-          "key.doc.line" : "128",
+          "key.doc.line" : "127",
           "key.name" : "RLMNotificationBlock",
           "key.doc.column" : "15",
           "key.filepath" : "Realm\/RLMRealm.h",
@@ -3526,7 +3590,7 @@
               "name" : "oldSchemaVersion"
             }
           ],
-          "key.doc.line" : "435",
+          "key.doc.line" : "431",
           "key.doc.full_as_xml" : "",
           "key.name" : "RLMMigrationBlock",
           "key.doc.column" : "16",
@@ -3536,8 +3600,10 @@
         {
           "key.kind" : "sourcekitten.source.lang.objc.decl.class",
           "key.doc.file" : "Realm\/RLMRealm.h",
-          "key.parsed_declaration" : "@interface RLMNotificationToken : NSObject\n@end",
-          "key.doc.line" : "510",
+          "key.parsed_declaration" : "@interface RLMNotificationToken : NSObject",
+          "key.doc.comment" : "Notification token - holds onto the realm and the notification block",
+          "key.doc.full_as_xml" : "",
+          "key.doc.line" : "477",
           "key.name" : "RLMNotificationToken",
           "key.doc.column" : "12",
           "key.filepath" : "Realm\/RLMRealm.h",
@@ -3562,17 +3628,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMRealmConfiguration.h",
               "key.name" : "MARK: Default Configuration",
-              "key.doc.column" : "17",
-              "key.doc.line" : "40",
+              "key.doc.column" : "1",
+              "key.doc.line" : "30",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.class",
               "key.doc.file" : "Realm\/RLMRealmConfiguration.h",
               "key.parsed_declaration" : "+ (nonnull instancetype)defaultConfiguration;",
-              "key.doc.comment" : "\nReturns the default configuration used to create Realms when no other\nconfiguration is explicitly specified (i.e. `+[RLMRealm defaultRealm]`).\n\n- returns: The default Realm configuration.",
+              "key.doc.comment" : "Returns the default configuration used to create Realms when no other\nconfiguration is explicitly specified (i.e. `+[RLMRealm defaultRealm]`).\n\n- returns: The default Realm configuration.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "40",
+              "key.doc.line" : "38",
               "key.name" : "+defaultConfiguration",
               "key.doc.result_discussion" : [
                 {
@@ -3600,7 +3666,7 @@
                   "name" : "configuration"
                 }
               ],
-              "key.doc.line" : "47",
+              "key.doc.line" : "45",
               "key.doc.full_as_xml" : "",
               "key.name" : "+setDefaultConfiguration:",
               "key.doc.column" : "9",
@@ -3611,17 +3677,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMRealmConfiguration.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "49",
-              "key.doc.line" : "54",
+              "key.doc.column" : "1",
+              "key.doc.line" : "47",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMRealmConfiguration.h",
               "key.parsed_declaration" : "@property (readwrite, copy, nonatomic, nullable) NSString *path;",
-              "key.doc.comment" : "",
+              "key.doc.comment" : "The path to the realm file. Mutually exclusive with `inMemoryIdentifier`.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "54",
+              "key.doc.line" : "50",
               "key.name" : "path",
               "key.doc.column" : "49",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h",
@@ -3633,7 +3699,7 @@
               "key.parsed_declaration" : "@property (readwrite, copy, nonatomic, nullable) NSString *inMemoryIdentifier;",
               "key.doc.comment" : "A string used to identify a particular in-memory Realm. Mutually exclusive with `path`.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "57",
+              "key.doc.line" : "53",
               "key.name" : "inMemoryIdentifier",
               "key.doc.column" : "49",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h",
@@ -3645,7 +3711,7 @@
               "key.parsed_declaration" : "@property (readwrite, copy, nonatomic, nullable) NSData *encryptionKey;",
               "key.doc.comment" : "64-byte key to use to encrypt the data.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "60",
+              "key.doc.line" : "56",
               "key.name" : "encryptionKey",
               "key.doc.column" : "47",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h",
@@ -3657,7 +3723,7 @@
               "key.parsed_declaration" : "@property (assign, readwrite, nonatomic) BOOL readOnly;",
               "key.doc.comment" : "Whether the Realm is read-only (must be YES for read-only files).",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "63",
+              "key.doc.line" : "59",
               "key.name" : "readOnly",
               "key.doc.column" : "28",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h",
@@ -3669,7 +3735,7 @@
               "key.parsed_declaration" : "@property (assign, readwrite, nonatomic) uint64_t schemaVersion;",
               "key.doc.comment" : "The current schema version.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "66",
+              "key.doc.line" : "62",
               "key.name" : "schemaVersion",
               "key.doc.column" : "32",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h",
@@ -3681,7 +3747,7 @@
               "key.parsed_declaration" : "@property (readwrite, copy, nonatomic, nullable)\n    RLMMigrationBlock migrationBlock;",
               "key.doc.comment" : "The block which migrates the Realm to the current version.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "69",
+              "key.doc.line" : "65",
               "key.name" : "migrationBlock",
               "key.doc.column" : "57",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h",
@@ -3693,7 +3759,7 @@
               "key.parsed_declaration" : "@property (readwrite, copy, nonatomic, nullable) NSArray *objectClasses;",
               "key.doc.comment" : "The classes persisted in the Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "72",
+              "key.doc.line" : "68",
               "key.name" : "objectClasses",
               "key.doc.column" : "48",
               "key.filepath" : "Realm\/RLMRealmConfiguration.h",
@@ -3724,17 +3790,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "52",
-              "key.doc.line" : "45",
+              "key.doc.column" : "1",
+              "key.doc.line" : "38",
               "key.filepath" : "Realm\/RLMResults.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.parsed_declaration" : "@property (readonly, assign, nonatomic) NSUInteger count;",
-              "key.doc.comment" : "\nNumber of objects in the results.",
+              "key.doc.comment" : "Number of objects in the results.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "45",
+              "key.doc.line" : "43",
               "key.name" : "count",
               "key.doc.column" : "52",
               "key.filepath" : "Realm\/RLMResults.h",
@@ -3746,7 +3812,7 @@
               "key.parsed_declaration" : "@property (readonly, copy, nonatomic) NSString *_Nonnull objectClassName;",
               "key.doc.comment" : "The class name (i.e. type) of the RLMObjects contained in this RLMResults.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "50",
+              "key.doc.line" : "48",
               "key.name" : "objectClassName",
               "key.doc.column" : "49",
               "key.filepath" : "Realm\/RLMResults.h",
@@ -3758,7 +3824,7 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) RLMRealm *_Nonnull realm;",
               "key.doc.comment" : "The Realm this `RLMResults` is associated with.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "55",
+              "key.doc.line" : "53",
               "key.name" : "realm",
               "key.doc.column" : "43",
               "key.filepath" : "Realm\/RLMResults.h",
@@ -3768,15 +3834,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.name" : "MARK: Accessing Objects from an RLMResults",
-              "key.doc.column" : "18",
-              "key.doc.line" : "70",
+              "key.doc.column" : "1",
+              "key.doc.line" : "55",
               "key.filepath" : "Realm\/RLMResults.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.parsed_declaration" : "- (nonnull RLMObjectType)objectAtIndex:(NSUInteger)index;",
-              "key.doc.comment" : "\nReturns the object at the index specified.\n\n- parameter: index   The index to look up.\n\n- returns: An RLMObject of the class contained by this RLMResults.",
+              "key.doc.comment" : "Returns the object at the index specified.\n\n- parameter: index   The index to look up.\n\n- returns: An RLMObject of the class contained by this RLMResults.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -3788,7 +3854,7 @@
                   "name" : "index"
                 }
               ],
-              "key.doc.line" : "70",
+              "key.doc.line" : "64",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectAtIndex:",
               "key.doc.result_discussion" : [
@@ -3807,7 +3873,7 @@
               "key.parsed_declaration" : "- (nullable RLMObjectType)firstObject;",
               "key.doc.comment" : "Returns the first object in the results.\n\nReturns `nil` if called on an empty RLMResults.\n\n- returns: An RLMObject of the class contained by this RLMResults.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "79",
+              "key.doc.line" : "73",
               "key.name" : "-firstObject",
               "key.doc.result_discussion" : [
                 {
@@ -3825,7 +3891,7 @@
               "key.parsed_declaration" : "- (nullable RLMObjectType)lastObject;",
               "key.doc.comment" : "Returns the last object in the results.\n\nReturns `nil` if called on an empty RLMResults.\n\n- returns: An RLMObject of the class contained by this RLMResults.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "88",
+              "key.doc.line" : "82",
               "key.name" : "-lastObject",
               "key.doc.result_discussion" : [
                 {
@@ -3841,15 +3907,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.name" : "MARK: Querying Results",
-              "key.doc.column" : "15",
-              "key.doc.line" : "106",
+              "key.doc.column" : "1",
+              "key.doc.line" : "87",
               "key.filepath" : "Realm\/RLMResults.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.parsed_declaration" : "- (NSUInteger)indexOfObject:(nonnull RLMObjectType)object;",
-              "key.doc.comment" : "\nGets the index of an object.\n\nReturns NSNotFound if the object is not found in this RLMResults.\n\n- parameter: object  An object (of the same type as returned from the objectClassName selector).",
+              "key.doc.comment" : "Gets the index of an object.\n\nReturns NSNotFound if the object is not found in this RLMResults.\n\n- parameter: object  An object (of the same type as returned from the objectClassName selector).",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -3861,7 +3927,7 @@
                   "name" : "object"
                 }
               ],
-              "key.doc.line" : "106",
+              "key.doc.line" : "96",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObject:",
               "key.doc.column" : "15",
@@ -3884,7 +3950,7 @@
                   "name" : "predicateFormat"
                 }
               ],
-              "key.doc.line" : "115",
+              "key.doc.line" : "105",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObjectWhere:",
               "key.doc.result_discussion" : [
@@ -3913,7 +3979,7 @@
                   "name" : "predicate"
                 }
               ],
-              "key.doc.line" : "124",
+              "key.doc.line" : "114",
               "key.doc.full_as_xml" : "",
               "key.name" : "-indexOfObjectWithPredicate:",
               "key.doc.result_discussion" : [
@@ -3942,7 +4008,7 @@
                   "name" : "predicateFormat"
                 }
               ],
-              "key.doc.line" : "133",
+              "key.doc.line" : "123",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectsWhere:",
               "key.doc.result_discussion" : [
@@ -3971,7 +4037,7 @@
                   "name" : "predicate"
                 }
               ],
-              "key.doc.line" : "142",
+              "key.doc.line" : "132",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectsWithPredicate:",
               "key.doc.result_discussion" : [
@@ -4009,7 +4075,7 @@
                   "name" : "ascending"
                 }
               ],
-              "key.doc.line" : "152",
+              "key.doc.line" : "142",
               "key.doc.full_as_xml" : "",
               "key.name" : "-sortedResultsUsingProperty:ascending:",
               "key.doc.result_discussion" : [
@@ -4038,7 +4104,7 @@
                   "name" : "properties"
                 }
               ],
-              "key.doc.line" : "161",
+              "key.doc.line" : "151",
               "key.doc.full_as_xml" : "",
               "key.name" : "-sortedResultsUsingDescriptors:",
               "key.doc.result_discussion" : [
@@ -4055,15 +4121,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.name" : "MARK: Aggregating Property Values",
-              "key.doc.column" : "15",
-              "key.doc.line" : "181",
+              "key.doc.column" : "1",
+              "key.doc.line" : "154",
               "key.filepath" : "Realm\/RLMResults.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.parsed_declaration" : "- (nullable id)minOfProperty:(nonnull NSString *)property;",
-              "key.doc.comment" : "\nReturns the minimum (lowest) value of the given property\n\n    NSNumber *min = [results minOfProperty:@\"age\"];\n\n- warning: You cannot use this method on RLMObject, RLMArray, and NSData properties.\n\n- parameter: property The property to look for a minimum on. Only properties of type int, float, double and NSDate are supported.\n\n- returns: The minimum value for the property amongst objects in an RLMResults.",
+              "key.doc.comment" : "Returns the minimum (lowest) value of the given property\n\n    NSNumber *min = [results minOfProperty:@\"age\"];\n\n- warning: You cannot use this method on RLMObject, RLMArray, and NSData properties.\n\n- parameter: property The property to look for a minimum on. Only properties of type int, float, double and NSDate are supported.\n\n- returns: The minimum value for the property amongst objects in an RLMResults.",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -4075,7 +4141,7 @@
                   "name" : "property"
                 }
               ],
-              "key.doc.line" : "181",
+              "key.doc.line" : "167",
               "key.doc.full_as_xml" : "",
               "key.name" : "-minOfProperty:",
               "key.doc.result_discussion" : [
@@ -4104,7 +4170,7 @@
                   "name" : "property"
                 }
               ],
-              "key.doc.line" : "194",
+              "key.doc.line" : "180",
               "key.doc.full_as_xml" : "",
               "key.name" : "-maxOfProperty:",
               "key.doc.result_discussion" : [
@@ -4133,7 +4199,7 @@
                   "name" : "property"
                 }
               ],
-              "key.doc.line" : "207",
+              "key.doc.line" : "193",
               "key.doc.full_as_xml" : "",
               "key.name" : "-sumOfProperty:",
               "key.doc.result_discussion" : [
@@ -4162,7 +4228,7 @@
                   "name" : "property"
                 }
               ],
-              "key.doc.line" : "221",
+              "key.doc.line" : "207",
               "key.doc.full_as_xml" : "",
               "key.name" : "-averageOfProperty:",
               "key.doc.result_discussion" : [
@@ -4179,7 +4245,7 @@
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.parsed_declaration" : "- (id)objectAtIndexedSubscript:(NSUInteger)index;",
-              "key.doc.line" : "225",
+              "key.doc.line" : "209",
               "key.name" : "-objectAtIndexedSubscript:",
               "key.doc.column" : "7",
               "key.filepath" : "Realm\/RLMResults.h",
@@ -4189,17 +4255,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.name" : "MARK: Unavailable Methods",
-              "key.doc.column" : "17",
-              "key.doc.line" : "237",
+              "key.doc.column" : "1",
+              "key.doc.line" : "211",
               "key.filepath" : "Realm\/RLMResults.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.parsed_declaration" : "- (nonnull instancetype)init;",
-              "key.doc.comment" : "\n-[RLMResults init] is not available because RLMResults cannot be created directly.\nRLMResults can be obtained by querying a Realm.",
+              "key.doc.comment" : "-[RLMResults init] is not available because RLMResults cannot be created directly.\nRLMResults can be obtained by querying a Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "237",
+              "key.doc.line" : "217",
               "key.name" : "-init",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMResults.h",
@@ -4211,7 +4277,7 @@
               "key.parsed_declaration" : "+ (nonnull instancetype) new;",
               "key.doc.comment" : "+[RLMResults new] is not available because RLMResults cannot be created directly.\nRLMResults can be obtained by querying a Realm.",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "243",
+              "key.doc.line" : "223",
               "key.name" : "+new",
               "key.doc.column" : "17",
               "key.filepath" : "Realm\/RLMResults.h",
@@ -4242,17 +4308,17 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMSchema.h",
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "48",
-              "key.doc.line" : "46",
+              "key.doc.column" : "1",
+              "key.doc.line" : "36",
               "key.filepath" : "Realm\/RLMSchema.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.property",
               "key.doc.file" : "Realm\/RLMSchema.h",
               "key.parsed_declaration" : "@property (readonly, copy, nonatomic) NSArray *_Nonnull objectSchema;",
-              "key.doc.comment" : "\nAn NSArray containing RLMObjectSchema's for all object types in this Realm. Meant\nto be used during migrations for dynamic introspection.\n\n- see: RLMObjectSchema",
+              "key.doc.comment" : "An NSArray containing RLMObjectSchema's for all object types in this Realm. Meant\nto be used during migrations for dynamic introspection.\n\n- see: RLMObjectSchema",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "46",
+              "key.doc.line" : "44",
               "key.name" : "objectSchema",
               "key.doc.column" : "48",
               "key.filepath" : "Realm\/RLMSchema.h",
@@ -4262,15 +4328,15 @@
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Realm\/RLMSchema.h",
               "key.name" : "MARK: Methods",
-              "key.doc.column" : "31",
-              "key.doc.line" : "60",
+              "key.doc.column" : "1",
+              "key.doc.line" : "46",
               "key.filepath" : "Realm\/RLMSchema.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMSchema.h",
               "key.parsed_declaration" : "- (nullable RLMObjectSchema *)schemaForClassName:(nonnull NSString *)className;",
-              "key.doc.comment" : "\nReturns an RLMObjectSchema for the given class name in this RLMSchema.\n\n- parameter: className   The object class name.\n- returns:            RLMObjectSchema for the given class in this RLMSchema.\n\n- see:               RLMObjectSchema",
+              "key.doc.comment" : "Returns an RLMObjectSchema for the given class name in this RLMSchema.\n\n- parameter: className   The object class name.\n- returns:            RLMObjectSchema for the given class in this RLMSchema.\n\n- see:               RLMObjectSchema",
               "key.doc.parameters" : [
                 {
                   "discussion" : [
@@ -4282,7 +4348,7 @@
                   "name" : "className"
                 }
               ],
-              "key.doc.line" : "60",
+              "key.doc.line" : "56",
               "key.doc.full_as_xml" : "",
               "key.name" : "-schemaForClassName:",
               "key.doc.result_discussion" : [
@@ -4311,7 +4377,7 @@
                   "name" : "className"
                 }
               ],
-              "key.doc.line" : "71",
+              "key.doc.line" : "67",
               "key.doc.full_as_xml" : "",
               "key.name" : "-objectForKeyedSubscript:",
               "key.doc.result_discussion" : [
@@ -4330,7 +4396,7 @@
               "key.parsed_declaration" : "- (BOOL)isEqualToSchema:(nonnull RLMSchema *)schema;",
               "key.doc.comment" : "Returns YES if schema are equal",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "76",
+              "key.doc.line" : "72",
               "key.name" : "-isEqualToSchema:",
               "key.doc.column" : "9",
               "key.filepath" : "Realm\/RLMSchema.h",
