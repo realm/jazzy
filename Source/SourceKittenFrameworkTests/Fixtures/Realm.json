@@ -2439,16 +2439,6 @@
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
               "key.doc.file" : "Realm\/RLMObjectBase.h",
-              "key.parsed_declaration" : "invalidated",
-              "key.doc.line" : "30",
-              "key.name" : "-isInvalidated",
-              "key.doc.column" : "62",
-              "key.filepath" : "Realm\/RLMObjectBase.h",
-              "key.usr" : "c:objc(cs)RLMObjectBase(im)isInvalidated"
-            },
-            {
-              "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
-              "key.doc.file" : "Realm\/RLMObjectBase.h",
               "key.parsed_declaration" : "- (instancetype)init;",
               "key.doc.line" : "32",
               "key.name" : "-init",
