@@ -160,7 +160,6 @@
 		E845EFEB1B9941AA00CFA57B /* CodeCompletionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeCompletionTests.swift; sourceTree = "<group>"; };
 		E84763691A5A0651000EAE22 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; usesTabs = 0; };
 		E852418E1A5F4FB3007099FB /* Dictionary+Merge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Dictionary+Merge.swift"; sourceTree = "<group>"; };
-		E854CAA61A5DF71100211501 /* LlamaKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LlamaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86847361A587AF40043DC65 /* SwiftXPC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SwiftXPC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E86847391A587B4D0043DC65 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; usesTabs = 0; };
 		E868473B1A587C6E0043DC65 /* sourcekitd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = sourcekitd.framework; path = Toolchains/XcodeDefault.xctoolchain/usr/lib/sourcekitd.framework; sourceTree = DEVELOPER_DIR; };
@@ -376,7 +375,6 @@
 		D0D1216F19E87B05005E4BAA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E854CAA61A5DF71100211501 /* LlamaKit.framework */,
 				E8AB1A2D1A649F2100452012 /* libclang.dylib */,
 				E868473B1A587C6E0043DC65 /* sourcekitd.framework */,
 				E86847361A587AF40043DC65 /* SwiftXPC.framework */,
