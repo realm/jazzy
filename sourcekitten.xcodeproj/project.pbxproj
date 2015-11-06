@@ -100,6 +100,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E8C0DFCE1AD349E5007EE3D4 /* SWXMLHash.framework in Copy Frameworks */,
+				E86847381A587B0A0043DC65 /* SwiftXPC.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,7 +213,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8AB1A2E1A649F2100452012 /* libclang.dylib in Frameworks */,
-				E834D61E1B2D054B002AA1FE /* Result.framework in Frameworks */,
 				E868473C1A587C6E0043DC65 /* sourcekitd.framework in Frameworks */,
 				E86847371A587AF40043DC65 /* SwiftXPC.framework in Frameworks */,
 				E8C0DFCD1AD349DB007EE3D4 /* SWXMLHash.framework in Frameworks */,
