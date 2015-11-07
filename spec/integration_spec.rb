@@ -105,29 +105,6 @@ describe_cli 'jazzy' do
                             '--swift-version=1.2'
     end
 
-    describe 'Creates Realm Swift docs' do
-      realm_version = ''
-      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
-        realm_version = `./build.sh get-version`.chomp
-        `REALM_SWIFT_VERSION=1.2 ./build.sh set-swift-version`
-      end
-      behaves_like cli_spec 'document_realm_swift1.2',
-                            '--author Realm ' \
-                            '--author_url "https://realm.io" ' \
-                            '--github_url ' \
-                            'https://github.com/realm/realm-cocoa ' \
-                            '--github-file-prefix https://github.com/realm/' \
-                            "realm-cocoa/tree/v#{realm_version} " \
-                            '--module RealmSwift ' \
-                            "--module-version #{realm_version} " \
-                            '--root-url https://realm.io/docs/swift/' \
-                            "#{realm_version}/api/ " \
-                            '--xcodebuild-arguments ' \
-                            '-scheme,RealmSwift ' \
-                            '--template-directory "docs/templates" ' \
-                            '--swift-version=1.2'
-    end
-
     describe 'Creates docs for a podspec with dependencies and subspecs' do
       behaves_like cli_spec 'document_moya_podspec',
                             '--podspec=Moya.podspec --swift-version=1.2'

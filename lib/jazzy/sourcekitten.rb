@@ -342,6 +342,18 @@ module Jazzy
       end
     end
 
+    def self.reject_objc_enum_typedefs(docs)
+      enums = docs.flat_map do |doc|
+        doc.children.select { |child| child.type.objc_enum? }.map(&:name)
+      end
+      docs.map do |doc|
+        doc.children.reject! do |child|
+          child.type.objc_typedef? && enums.include?(child.name)
+        end
+        doc
+      end
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, min_acl, skip_undocumented)
@@ -351,19 +363,12 @@ module Jazzy
       docs = make_source_declarations(sourcekitten_json)
       docs = deduplicate_declarations(docs)
       docs = group_docs(docs)
-      # Remove top-level enum cases because it means they have an ACL lower
-      # than min_acl
-      docs = docs.reject { |doc| doc.type.swift_enum_element? }
       if Config.instance.objc_mode
-        enums = docs.flat_map do |doc|
-          doc.children.select { |doc| doc.type.objc_enum? }.map(&:name)
-        end
-        docs = docs.map do |doc|
-          doc.children.reject! do |doc|
-            doc.type.objc_typedef? && enums.include?(doc.name)
-          end
-          doc
-        end
+        docs = reject_objc_enum_typedefs(docs)
+      else
+        # Remove top-level enum cases because it means they have an ACL lower
+        # than min_acl
+        docs = docs.reject { |doc| doc.type.swift_enum_element? }
       end
       docs = make_doc_urls(docs, [])
       docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
