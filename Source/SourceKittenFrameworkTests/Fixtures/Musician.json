@@ -15,7 +15,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Musician.h",
               "key.doc.line" : 14,
               "key.name" : "Properties",
@@ -53,7 +53,7 @@
               "key.usr" : "c:objc(cs)JAZMusician(py)birthyear"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Musician.h",
               "key.doc.line" : 26,
               "key.name" : "Initializers",

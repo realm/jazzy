@@ -15,7 +15,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.doc.line" : 64,
               "key.name" : "Properties",
@@ -81,7 +81,7 @@
               "key.usr" : "c:objc(cs)RLMArray(py)invalidated"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.doc.line" : 86,
               "key.name" : "Accessing Objects from an Array",
@@ -162,7 +162,7 @@
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.doc.line" : 117,
               "key.name" : "Adding, Removing, and Replacing Objects in an Array",
@@ -411,7 +411,7 @@
               "key.filepath" : "Realm\/RLMArray.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.doc.line" : 212,
               "key.name" : "Querying an Array",
@@ -665,7 +665,7 @@
               "key.usr" : "c:objc(cs)RLMArray(im)setObject:atIndexedSubscript:"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.doc.line" : 281,
               "key.name" : "Unavailable Methods",
@@ -719,7 +719,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.doc.line" : 305,
               "key.name" : "Properties",
@@ -757,7 +757,7 @@
               "key.usr" : "c:objc(cs)RLMSortDescriptor(py)ascending"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMArray.h",
               "key.doc.line" : 317,
               "key.name" : "Methods",
@@ -846,7 +846,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.doc.line" : 32,
               "key.name" : "Properties",
@@ -898,7 +898,7 @@
               "key.usr" : "c:objc(pl)RLMCollection(py)realm"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.doc.line" : 49,
               "key.name" : "Accessing Objects from a Collection",
@@ -979,7 +979,7 @@
               "key.filepath" : "Realm\/RLMCollection.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMCollection.h",
               "key.doc.line" : 78,
               "key.name" : "Querying a Collection",
@@ -1297,7 +1297,7 @@
     "Realm\/RLMConstants.h" : {
       "key.substructure" : [
         {
-          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.kind" : "sourcekitten.source.lang.objc.mark",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.doc.line" : 21,
           "key.name" : "Enums",
@@ -1319,7 +1319,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.doc.line" : 31,
               "key.name" : "Primitive types",
@@ -1385,7 +1385,7 @@
               "key.usr" : "c:@E@RLMPropertyType@RLMPropertyTypeDouble"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.doc.line" : 42,
               "key.name" : "Object types",
@@ -1451,7 +1451,7 @@
               "key.usr" : "c:@E@RLMPropertyType@RLMPropertyTypeDate"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMConstants.h",
               "key.doc.line" : 53,
               "key.name" : "Array\/Linked object types",
@@ -1621,7 +1621,7 @@
           "key.usr" : "c:RLMConstants.h@T@RLMError"
         },
         {
-          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.kind" : "sourcekitten.source.lang.objc.mark",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.doc.line" : 82,
           "key.name" : "Constants",
@@ -1631,7 +1631,7 @@
           "key.filepath" : "Realm\/RLMConstants.h"
         },
         {
-          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.kind" : "sourcekitten.source.lang.objc.mark",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.doc.line" : 84,
           "key.name" : "Notification Constants",
@@ -1669,7 +1669,7 @@
           "key.usr" : "c:@RLMRealmDidChangeNotification"
         },
         {
-          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.kind" : "sourcekitten.source.lang.objc.mark",
           "key.doc.file" : "Realm\/RLMConstants.h",
           "key.doc.line" : 109,
           "key.name" : "Other Constants",
@@ -1794,7 +1794,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMMigration.h",
               "key.doc.line" : 38,
               "key.name" : "Properties",
@@ -1832,7 +1832,7 @@
               "key.usr" : "c:objc(cs)RLMMigration(py)newSchema"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMMigration.h",
               "key.doc.line" : 53,
               "key.name" : "Altering Objects during a Migration",
@@ -1980,7 +1980,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.doc.line" : 89,
               "key.name" : "Creating & Initializing Objects",
@@ -2156,7 +2156,7 @@
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.doc.line" : 211,
               "key.name" : "Properties",
@@ -2208,7 +2208,7 @@
               "key.usr" : "c:objc(cs)RLMObject(py)invalidated"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.doc.line" : 232,
               "key.name" : "Customizing your Objects",
@@ -2318,7 +2318,7 @@
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.doc.line" : 282,
               "key.name" : "Getting & Querying Objects from the Default Realm",
@@ -2430,7 +2430,7 @@
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.doc.line" : 325,
               "key.name" : "Querying Specific Realms",
@@ -2571,7 +2571,7 @@
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.doc.line" : 370,
               "key.name" : "Other Instance Methods",
@@ -2652,7 +2652,7 @@
               "key.filepath" : "Realm\/RLMObject.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObject.h",
               "key.doc.line" : 394,
               "key.name" : "Dynamic Accessors",
@@ -2690,7 +2690,7 @@
           "key.filepath" : "Realm\/RLMObject.h"
         },
         {
-          "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+          "key.kind" : "sourcekitten.source.lang.objc.mark",
           "key.doc.file" : "Realm\/RLMObject.h",
           "key.doc.line" : 401,
           "key.name" : "RLMArray Property Declaration",
@@ -2788,7 +2788,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObjectSchema.h",
               "key.doc.line" : 36,
               "key.name" : "Properties",
@@ -2840,7 +2840,7 @@
               "key.usr" : "c:objc(cs)RLMObjectSchema(py)primaryKeyProperty"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMObjectSchema.h",
               "key.doc.line" : 55,
               "key.name" : "Methods",
@@ -2978,7 +2978,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMProperty.h",
               "key.doc.line" : 47,
               "key.name" : "Properties",
@@ -3058,7 +3058,7 @@
               "key.usr" : "c:objc(cs)RLMProperty(py)optional"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMProperty.h",
               "key.doc.line" : 78,
               "key.name" : "Methods",
@@ -3105,7 +3105,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 51,
               "key.name" : "Creating & Initializing a Realm",
@@ -3290,7 +3290,7 @@
               "key.usr" : "c:objc(cs)RLMRealm(py)isEmpty"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 125,
               "key.name" : "Notifications",
@@ -3300,7 +3300,7 @@
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 130,
               "key.name" : "Receiving Notification when a Realm Changes",
@@ -3366,7 +3366,7 @@
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 162,
               "key.name" : "Transactions",
@@ -3376,7 +3376,7 @@
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 165,
               "key.name" : "Writing to a Realm",
@@ -3650,7 +3650,7 @@
               "key.usr" : "c:objc(cs)RLMRealm(im)invalidate"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 341,
               "key.name" : "Accessing Objects",
@@ -3660,7 +3660,7 @@
               "key.filepath" : "Realm\/RLMRealm.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 344,
               "key.name" : "Adding and Removing Objects from a Realm",
@@ -3834,7 +3834,7 @@
               "key.usr" : "c:objc(cs)RLMRealm(im)deleteAllObjects"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealm.h",
               "key.doc.line" : 420,
               "key.name" : "Migrations",
@@ -4047,7 +4047,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealmConfiguration.h",
               "key.doc.line" : 30,
               "key.name" : "Default Configuration",
@@ -4102,7 +4102,7 @@
               "key.filepath" : "Realm\/RLMRealmConfiguration.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMRealmConfiguration.h",
               "key.doc.line" : 47,
               "key.name" : "Properties",
@@ -4233,7 +4233,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.doc.line" : 38,
               "key.name" : "Properties",
@@ -4285,7 +4285,7 @@
               "key.usr" : "c:objc(cs)RLMResults(py)realm"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.doc.line" : 55,
               "key.name" : "Accessing Objects from an RLMResults",
@@ -4366,7 +4366,7 @@
               "key.filepath" : "Realm\/RLMResults.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.doc.line" : 87,
               "key.name" : "Querying Results",
@@ -4596,7 +4596,7 @@
               "key.filepath" : "Realm\/RLMResults.h"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.doc.line" : 154,
               "key.name" : "Aggregating Property Values",
@@ -4742,7 +4742,7 @@
               "key.usr" : "c:objc(cs)RLMResults(im)objectAtIndexedSubscript:"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMResults.h",
               "key.doc.line" : 211,
               "key.name" : "Unavailable Methods",
@@ -4803,7 +4803,7 @@
           "key.doc.full_as_xml" : "",
           "key.substructure" : [
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMSchema.h",
               "key.doc.line" : 36,
               "key.name" : "Properties",
@@ -4827,7 +4827,7 @@
               "key.usr" : "c:objc(cs)RLMSchema(py)objectSchema"
             },
             {
-              "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
+              "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Realm\/RLMSchema.h",
               "key.doc.line" : 46,
               "key.name" : "Methods",

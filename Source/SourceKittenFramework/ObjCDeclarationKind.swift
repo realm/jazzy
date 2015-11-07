@@ -35,7 +35,7 @@ public enum ObjCDeclarationKind: String {
     /// `typedef`.
     case Typedef = "sourcekitten.source.lang.objc.decl.typedef"
     /// `mark`.
-    case Mark = "source.lang.swift.syntaxtype.comment.mark"
+    case Mark = "sourcekitten.source.lang.objc.mark"
 
     public static func fromClang(kind: CXCursorKind) -> ObjCDeclarationKind {
         switch kind.rawValue {
