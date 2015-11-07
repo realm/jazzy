@@ -4,18 +4,24 @@
       "key.substructure" : [
         {
           "key.kind" : "sourcekitten.source.lang.objc.decl.class",
-          "key.doc.file" : "Musician.h",
           "key.parsed_declaration" : "@interface JAZMusician : NSObject",
           "key.doc.comment" : "JAZMusician models, you guessed it... Jazz Musicians!\nFrom Ellington to Marsalis, this class has you covered.",
+          "key.doc.line" : 12,
+          "key.name" : "JAZMusician",
+          "key.doc.column" : 12,
+          "key.parsed_scope.end" : 42,
+          "key.usr" : "c:objc(cs)JAZMusician",
+          "key.doc.file" : "Musician.h",
           "key.doc.full_as_xml" : "",
-          "key.doc.line" : "12",
           "key.substructure" : [
             {
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Musician.h",
+              "key.doc.line" : 14,
               "key.name" : "MARK: Properties",
-              "key.doc.column" : "1",
-              "key.doc.line" : "14",
+              "key.parsed_scope.start" : 14,
+              "key.doc.column" : 1,
+              "key.parsed_scope.end" : 14,
               "key.filepath" : "Musician.h"
             },
             {
@@ -24,9 +30,11 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSString *name;",
               "key.doc.comment" : "The name of the musician. i.e. \"John Coltrane\"",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "19",
+              "key.doc.line" : 19,
               "key.name" : "name",
-              "key.doc.column" : "44",
+              "key.parsed_scope.start" : 19,
+              "key.doc.column" : 44,
+              "key.parsed_scope.end" : 19,
               "key.filepath" : "Musician.h",
               "key.usr" : "c:objc(cs)JAZMusician(py)name"
             },
@@ -36,23 +44,26 @@
               "key.parsed_declaration" : "@property (readonly, nonatomic) NSUInteger birthyear;",
               "key.doc.comment" : "The year the musician was born. i.e. 1926",
               "key.doc.full_as_xml" : "",
-              "key.doc.line" : "24",
+              "key.doc.line" : 24,
               "key.name" : "birthyear",
-              "key.doc.column" : "44",
+              "key.parsed_scope.start" : 24,
+              "key.doc.column" : 44,
+              "key.parsed_scope.end" : 24,
               "key.filepath" : "Musician.h",
               "key.usr" : "c:objc(cs)JAZMusician(py)birthyear"
             },
             {
               "key.kind" : "source.lang.swift.syntaxtype.comment.mark",
               "key.doc.file" : "Musician.h",
+              "key.doc.line" : 26,
               "key.name" : "MARK: Initializers",
-              "key.doc.column" : "1",
-              "key.doc.line" : "26",
+              "key.parsed_scope.start" : 26,
+              "key.doc.column" : 1,
+              "key.parsed_scope.end" : 26,
               "key.filepath" : "Musician.h"
             },
             {
               "key.kind" : "sourcekitten.source.lang.objc.decl.method.instance",
-              "key.doc.file" : "Musician.h",
               "key.parsed_declaration" : "- (instancetype)initWithName:(NSString *)name birthyear:(NSUInteger)birthyear;",
               "key.doc.comment" : "Initialize a JAZMusician.\nDon't forget to have a name and a birthyear.\n\n- warning: Jazz can be addicting.\nPlease be careful out there.\n\n- parameter: name      The name of the musician.\n- parameter: birthyear The year the musician was born.\n\n- returns:          An initialized JAZMusician instance.",
               "key.doc.parameters" : [
@@ -75,8 +86,7 @@
                   "name" : "birthyear"
                 }
               ],
-              "key.doc.line" : "40",
-              "key.doc.full_as_xml" : "",
+              "key.doc.line" : 40,
               "key.name" : "-initWithName:birthyear:",
               "key.doc.result_discussion" : [
                 {
@@ -84,15 +94,17 @@
                   "kind" : ""
                 }
               ],
-              "key.doc.column" : "17",
-              "key.filepath" : "Musician.h",
-              "key.usr" : "c:objc(cs)JAZMusician(im)initWithName:birthyear:"
+              "key.doc.column" : 17,
+              "key.parsed_scope.end" : 40,
+              "key.usr" : "c:objc(cs)JAZMusician(im)initWithName:birthyear:",
+              "key.doc.file" : "Musician.h",
+              "key.doc.full_as_xml" : "",
+              "key.parsed_scope.start" : 40,
+              "key.filepath" : "Musician.h"
             }
           ],
-          "key.name" : "JAZMusician",
-          "key.doc.column" : "12",
-          "key.filepath" : "Musician.h",
-          "key.usr" : "c:objc(cs)JAZMusician"
+          "key.parsed_scope.start" : 12,
+          "key.filepath" : "Musician.h"
         }
       ],
       "key.diagnostic_stage" : ""
