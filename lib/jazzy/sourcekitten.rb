@@ -207,7 +207,7 @@ module Jazzy
       declaration.column = doc['key.doc.column']
       declaration.declaration = Highlighter.highlight(
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
-        'swift',
+        Config.instance.objc_mode ? 'objc' : 'swift',
       )
       declaration.abstract = comment_from_doc(doc)
       declaration.discussion = ''

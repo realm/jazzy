@@ -26,5 +26,9 @@ module Jazzy
       # Fake version is used to keep integration tests consistent
       ENV['JAZZY_FAKE_VERSION'] || Jazzy::VERSION
     end
+
+    def language
+      Config.instance.objc_mode ? 'Objective-C' : 'Swift'
+    end
   end
 end
