@@ -84,6 +84,11 @@ module Jazzy
                     'delete the ~/Desktop directory.'],
       default: false
 
+    config_attr :objc_mode,
+      command_line: ['--[no-]objc'],
+      description: ['Generate docs for Objective-C.'],
+      default: false
+
     config_attr :config_file,
       command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',
