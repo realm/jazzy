@@ -148,6 +148,33 @@ describe_cli 'jazzy' do
                             '--template-directory "docs/templates" '
     end
 
+    describe 'Creates Realm Objective-C docs' do
+      realm_version = ''
+      relative_path = 'spec/integration_specs/document_realm_objc/before'
+      Dir.chdir(ROOT + relative_path) do
+        realm_version = `./build.sh get-version`.chomp
+        # jazzy will fail if it can't find all public header files
+        `touch Realm/RLMPlatform.h`
+      end
+      behaves_like cli_spec 'document_realm_objc',
+                            '--objc ' \
+                            '--author Realm ' \
+                            '--author_url "https://realm.io" ' \
+                            '--github_url ' \
+                            'https://github.com/realm/realm-cocoa ' \
+                            '--github-file-prefix https://github.com/realm/' \
+                            "realm-cocoa/tree/v#{realm_version} " \
+                            '--module Realm ' \
+                            "--module-version #{realm_version} " \
+                            '--root-url https://realm.io/docs/objc/' \
+                            "#{realm_version}/api/ " \
+                            '--xcodebuild-arguments ' \
+                            '--objc,Realm/Realm.h,-x,objective-c,-isysroot,' \
+                            "#{`xcrun --show-sdk-path`.chomp},-I," \
+                            "#{`pwd`.chomp}/#{relative_path} " \
+                            '--template-directory "docs/templates" '
+    end
+
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',
                             '-x -dry-run '

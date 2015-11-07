@@ -70,9 +70,9 @@ module Jazzy
         if parents.empty? || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
-              subdir_for_doc(doc, parents) +
-              [doc.name + '.html']
-            ).join('/')
+            subdir_for_doc(doc, parents) +
+            [doc.name + '.html']
+          ).join('/')
           doc.children = make_doc_urls(doc.children, parents + [doc])
         else
           # Don't create HTML page for this doc if it doesn't have children
