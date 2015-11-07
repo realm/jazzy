@@ -107,8 +107,7 @@ describe_cli 'jazzy' do
 
     describe 'Creates Realm Swift docs' do
       realm_version = ''
-      dir = ROOT + 'spec/integration_specs/document_realm_swift1.2/before'
-      Dir.chdir(dir) do
+      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
         realm_version = `./build.sh get-version`.chomp
         `REALM_SWIFT_VERSION=1.2 ./build.sh set-swift-version`
       end
@@ -124,7 +123,8 @@ describe_cli 'jazzy' do
                             '--root-url https://realm.io/docs/swift/' \
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
-                            '-project,RealmSwift.xcodeproj,-dry-run ' \
+                            '-scheme,RealmSwift ' \
+                            '--template-directory "docs/templates" ' \
                             '--swift-version=1.2'
     end
 
@@ -167,8 +167,8 @@ describe_cli 'jazzy' do
                             '--root-url https://realm.io/docs/swift/' \
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
-                            '-project,RealmSwift.xcodeproj,-dry-run ' \
-                            '--template-directory "docs/templates/swift" '
+                            '-scheme,RealmSwift ' \
+                            '--template-directory "docs/templates" '
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
