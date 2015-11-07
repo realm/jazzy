@@ -149,6 +149,9 @@ module Jazzy
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
+      # Always document Objective-C declarations.
+      return true if Config.instance.objc_mode
+
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])
       return true if type.swift_enum_element?
