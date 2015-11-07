@@ -353,6 +353,17 @@ module Jazzy
       # Remove top-level enum cases because it means they have an ACL lower
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
+      if Config.instance.objc_mode
+        enums = docs.flat_map do |doc|
+          doc.children.select { |doc| doc.type.objc_enum? }.map(&:name)
+        end
+        docs = docs.map do |doc|
+          doc.children.reject! do |doc|
+            doc.type.objc_typedef? && enums.include?(doc.name)
+          end
+          doc
+        end
+      end
       docs = make_doc_urls(docs, [])
       docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
       [docs, doc_coverage, @undocumented_tokens]
