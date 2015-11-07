@@ -85,8 +85,8 @@ module Jazzy
       default: false
 
     config_attr :objc_mode,
-      command_line: ['--[no-]objc'],
-      description: ['Generate docs for Objective-C.'],
+      command_line: '--[no-]objc',
+      description: 'Generate docs for Objective-C.',
       default: false
 
     config_attr :config_file,
