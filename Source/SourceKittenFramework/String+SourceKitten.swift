@@ -198,11 +198,9 @@ extension String {
                 .stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
             let location = SourceLocation(file: filename,
                 line: UInt32((self as NSString).lineRangeWithByteRange(start: markRange.location, length: 0)!.start),
-                column: 1,
-                offset: UInt32(markRange.location))
-            return SourceDeclaration(type: .Mark, location: location, extent: (location, location),
-                name: "MARK: " + markString, usr: nil, declaration: nil,
-                documentation: nil, commentBody: nil, children: [])
+                column: 1, offset: UInt32(markRange.location))
+            return SourceDeclaration(type: .Mark, location: location, extent: (location, location), name: markString,
+                usr: nil, declaration: nil, documentation: nil, commentBody: nil, children: [])
         }
     }
 
