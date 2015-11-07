@@ -67,7 +67,7 @@ internal enum SwiftDocKey: String {
     /// Parsed scope start (Int64).
     case DocType              = "key.doc.type"
     /// Parsed scope start end (Int64).
-    case DocUSR               = "key.doc.usr"
+    case USR                  = "key.usr"
     /// Result discussion documentation of documented token (XPCArray).
     case ParsedDeclaration    = "key.parsed_declaration"
     /// Type of documented token (String).

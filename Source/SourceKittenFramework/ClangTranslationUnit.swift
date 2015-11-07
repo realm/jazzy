@@ -6,10 +6,44 @@
 //  Copyright (c) 2015 SourceKitten. All rights reserved.
 //
 
+extension SequenceType where Generator.Element: Hashable {
+    func distinct() -> [Generator.Element] {
+        return Array(Set(self))
+    }
+}
+
+extension SequenceType {
+    func groupBy<T: Hashable>(keyFn: (Generator.Element) -> T) -> [T: [Generator.Element]] {
+        var ret = Dictionary<T, [Generator.Element]>()
+        for val in self {
+            let key = keyFn(val)
+            var d = ret[key] ?? []
+            d.append(val)
+            ret[key] = d
+        }
+        return ret
+    }
+}
+
+extension Dictionary {
+    init(_ pairs: [Element]) {
+        self.init()
+        for (k, v) in pairs {
+            self[k] = v
+        }
+    }
+
+    func map<OutValue>(@noescape transform: Value throws -> OutValue) rethrows -> [Key: OutValue] {
+        return Dictionary<Key, OutValue>(try map { (k, v) in (k, try transform(v)) })
+    }
+}
+
 /// Represents a group of CXTranslationUnits.
 public struct ClangTranslationUnit {
     /// Array of CXTranslationUnits.
     private let clangTranslationUnits: [CXTranslationUnit]
+
+    public let declarations: [String: [SourceDeclaration]]
 
     /**
     Create a ClangTranslationUnit by passing Objective-C header files and clang compiler arguments.
@@ -19,15 +53,14 @@ public struct ClangTranslationUnit {
     */
     public init(headerFiles: [String], compilerArguments: [String]) {
         let cStringCompilerArguments = compilerArguments.map { ($0 as NSString).UTF8String }
-        let clangIndex = clang_createIndex(0, 1)
-        clangTranslationUnits = headerFiles.map { file in
-            return clang_createTranslationUnitFromSourceFile(clangIndex,
-                file,
-                Int32(cStringCompilerArguments.count),
-                cStringCompilerArguments,
-                0,
-                nil)
-        }
+        let clangIndex = ClangIndex()
+        clangTranslationUnits = headerFiles.map { clangIndex.open(file: $0, args: cStringCompilerArguments) }
+        declarations = clangTranslationUnits
+            .flatMap { $0.cursor().flatMap(SourceDeclaration.init) }
+            .distinct()
+            .sort()
+            .groupBy { $0.location.file }
+            .map { insertMarks($0) }
     }
 
     /**
@@ -52,29 +85,8 @@ public struct ClangTranslationUnit {
 // MARK: CustomStringConvertible
 
 extension ClangTranslationUnit: CustomStringConvertible {
-    /// A textual XML representation of `ClangTranslationUnit`.
+    /// A textual JSON representation of `ClangTranslationUnit`.
     public var description: String {
-        let commentXMLs = clangTranslationUnits.map({commentXML($0)}).reduce([], combine: +).joinWithSeparator("\n")
-        return "<?xml version=\"1.0\"?>\n<sourcekitten>\n" + commentXMLs + "\n</sourcekitten>"
+        return declarationsToJSON(declarations)
     }
-}
-
-// MARK: Helpers
-
-/**
-Returns an array of XML comments by iterating over a Clang translation unit.
-
-- parameter translationUnit: Clang translation unit created from Clang index, file path and compiler arguments.
-
-- returns: An array of XML comments by iterating over a Clang translation unit.
-*/
-public func commentXML(translationUnit: CXTranslationUnit) -> [String] {
-    var commentXMLs = [String]()
-    clang_visitChildrenWithBlock(clang_getTranslationUnitCursor(translationUnit)) { cursor, _ in
-        if let commentXML = String.fromCString(clang_getCString(clang_FullComment_getAsXML(clang_Cursor_getParsedComment(cursor)))) {
-            commentXMLs.append(commentXML)
-        }
-        return CXChildVisit_Recurse
-    }
-    return commentXMLs
 }

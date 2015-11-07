@@ -55,7 +55,7 @@ class SwiftDocsTests: XCTestCase {
             "key.doc.line": 1,
             "key.doc.column": 2,
             "key.doc.name": "name",
-            "key.doc.usr": "usr",
+            "key.usr": "usr",
             "key.doc.declaration": "declaration",
             "key.doc.parameters": [[
                 "name": "param1",

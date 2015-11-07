@@ -6,7 +6,9 @@ None.
 
 ##### Enhancements
 
-None.
+* Ability to generate Objective-C documentation.  
+  [Thomas Goyne](https://github.com/tgoyne)
+  [JP Simard](https://github.com/jpsim)
 
 ##### Bug Fixes
 

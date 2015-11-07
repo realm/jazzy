@@ -11,6 +11,8 @@
  */
 @interface JAZMusician : NSObject
 
+#pragma mark - Properties
+
 /**
  The name of the musician. i.e. "John Coltrane"
  */
@@ -20,6 +22,8 @@
  The year the musician was born. i.e. 1926
  */
 @property (nonatomic, readonly) NSUInteger birthyear;
+
+#pragma mark - Initializers
 
 /**
  Initialize a JAZMusician.
