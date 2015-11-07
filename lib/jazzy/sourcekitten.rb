@@ -253,9 +253,7 @@ module Jazzy
         declaration = SourceDeclaration.new
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
-          current_mark = SourceMark.new(doc['key.name'])
-        end
+        current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
         if declaration.type.enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(doc['key.substructure'])
