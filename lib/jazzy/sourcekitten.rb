@@ -151,7 +151,7 @@ module Jazzy
 
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])
-      return true if type.enum_element?
+      return true if type.swift_enum_element?
       if type.extension?
         return Array(doc['key.substructure']).any? do |subdoc|
           should_document?(subdoc)
@@ -254,7 +254,7 @@ module Jazzy
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
         current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
-        if declaration.type.enum_case?
+        if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(doc['key.substructure'])
           next
@@ -349,7 +349,7 @@ module Jazzy
       docs = group_docs(docs)
       # Remove top-level enum cases because it means they have an ACL lower
       # than min_acl
-      docs = docs.reject { |doc| doc.type.enum_element? }
+      docs = docs.reject { |doc| doc.type.swift_enum_element? }
       docs = make_doc_urls(docs, [])
       docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
       [docs, doc_coverage, @undocumented_tokens]
