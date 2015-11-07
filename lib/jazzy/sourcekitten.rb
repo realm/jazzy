@@ -113,7 +113,7 @@ module Jazzy
     # Builds SourceKitten arguments based on Jazzy options
     def self.arguments_from_options(options)
       arguments = ['doc']
-      unless options.module_name.empty?
+      unless options.module_name.empty? || Config.instance.objc_mode
         arguments += ['--module-name', options.module_name]
       end
       arguments += options.xcodebuild_arguments
