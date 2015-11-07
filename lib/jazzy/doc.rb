@@ -30,5 +30,9 @@ module Jazzy
     def language
       Config.instance.objc_mode ? 'Objective-C' : 'Swift'
     end
+
+    def language_stub
+      Config.instance.objc_mode ? 'objc' : 'swift'
+    end
   end
 end

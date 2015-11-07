@@ -11,7 +11,7 @@ $white_color: #fff;
 $light_gray_bg_color: #f2f2f2;
 $declaration_bg_color: #f9f9f9;
 $sidebar_bg_color: #f9f9f9;
-$declaration_lang_title_swift_color: #4b8afb;
+$declaration_title_language_color: #4b8afb;
 
 $sidebar_width: 230px;
 $content_wrapper_width: 980px;
@@ -24,7 +24,7 @@ $breadcrumb_padding_top: 17px;
 $code_font: 0.95em Menlo, monospace;
 
 $gray_border: 1px solid #e2e2e2;
-$declaration_swift_border: 5px solid #cde9f4;
+$declaration_language_border: 5px solid #cde9f4;
 
 $aside_color: #aaa;
 $aside_border: 5px solid lighten($aside_color, 20%);
@@ -354,7 +354,7 @@ header {
   }
 }
 
-.aside, .Swift {
+.aside, .language {
   padding: 6px 12px;
   margin: 12px 0;
   border-left: $aside_border;
@@ -373,10 +373,10 @@ header {
   }
 }
 
-.Swift {
-  border-left: $declaration_swift_border;
+.language {
+  border-left: $declaration_language_border;
   .aside-title {
-    color: $declaration_lang_title_swift_color;
+    color: $declaration_title_language_color;
   }
 }
 
