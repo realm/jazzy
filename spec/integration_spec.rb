@@ -60,7 +60,6 @@ CLIntegracon.configure do |c|
   c.ignores '.DS_Store'
   c.ignores '.git'
   c.ignores /^(?!(docs\/|execution_output.txt))/
-  c.ignores 'execution_output.txt'
   c.ignores '*.tgz'
 
   # Transform produced databases to csv
@@ -171,8 +170,8 @@ describe_cli 'jazzy' do
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
                             '--objc,Realm/Realm.h,-x,objective-c,-isysroot,' \
-                            "#{`xcrun --show-sdk-path`.chomp},-I," \
-                            "#{`pwd`.chomp}/#{relative_path} " \
+                            "$(xcrun --show-sdk-path | tr -d '\\n'),-I," \
+                            "$(pwd | tr -d '\\n') " \
                             '--template-directory "docs/templates" '
     end
 
