@@ -60,6 +60,7 @@ CLIntegracon.configure do |c|
   c.ignores '.DS_Store'
   c.ignores '.git'
   c.ignores /^(?!(docs\/|execution_output.txt))/
+  c.ignores 'execution_output.txt'
   c.ignores '*.tgz'
 
   # Transform produced databases to csv
