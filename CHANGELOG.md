@@ -7,6 +7,11 @@
 
 ##### Enhancements
 
+* Support for documenting Objective-C projects! 🎉
+  Pass `--objc`, `--umbrella-header ...` and `-framework-root ...`.  
+  [JP Simard](https://github.com/jpsim)
+  [#56](https://github.com/realm/jazzy/issues/56)
+
 * Mentions of top-level declarations in documentation comments are now
   automatically hyperlinked to their reference.  
   [JP Simard](https://github.com/jpsim)
