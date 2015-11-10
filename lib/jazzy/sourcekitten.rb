@@ -9,6 +9,8 @@ require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 
+ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
+
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
@@ -68,9 +70,9 @@ module Jazzy
         if parents.empty? || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
-              subdir_for_doc(doc, parents) +
-              [doc.name + '.html']
-            ).join('/')
+            subdir_for_doc(doc, parents) +
+            [doc.name + '.html']
+          ).join('/')
           doc.children = make_doc_urls(doc.children, parents + [doc])
         else
           # Don't create HTML page for this doc if it doesn't have children
@@ -108,9 +110,28 @@ module Jazzy
       end
     end
 
+    # Builds SourceKitten arguments based on Jazzy options
+    def self.arguments_from_options(options)
+      arguments = ['doc']
+      if options.objc_mode
+        if options.xcodebuild_arguments.empty?
+          arguments += ['--objc', options.umbrella_header.to_s, '-x',
+                        'objective-c', '-isysroot',
+                        `xcrun --show-sdk-path`.chomp, '-I',
+                        options.framework_root.to_s]
+        end
+      elsif !options.module_name.empty?
+        arguments += ['--module-name', options.module_name]
+      end
+      arguments + options.xcodebuild_arguments
+    end
+
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      xcode = XCInvoke::Xcode.find_swift_version(Config.instance.swift_version)
+      swift_version = Config.instance.swift_version
+      unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
+        raise "Unable to find an Xcode with swift version #{swift_version}."
+      end
       bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
       output, _ = Executable.execute_command(bin_path, arguments, true,
                                              env: xcode.as_env)
@@ -134,9 +155,12 @@ module Jazzy
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
+      # Always document Objective-C declarations.
+      return true if Config.instance.objc_mode
+
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])
-      return true if type.enum_element?
+      return true if type.swift_enum_element?
       if type.extension?
         return Array(doc['key.substructure']).any? do |subdoc|
           should_document?(subdoc)
@@ -149,7 +173,8 @@ module Jazzy
     def self.process_undocumented_token(doc, declaration)
       source_directory = Config.instance.source_directory.to_s
       filepath = doc['key.filepath']
-      if filepath && filepath.start_with?(source_directory)
+      objc = Config.instance.objc_mode
+      if filepath && (filepath.start_with?(source_directory) || objc)
         @undocumented_tokens << doc
       end
       return nil if !documented_child?(doc) && @skip_undocumented
@@ -192,7 +217,7 @@ module Jazzy
       declaration.column = doc['key.doc.column']
       declaration.declaration = Highlighter.highlight(
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
-        'swift',
+        Config.instance.objc_mode ? 'objc' : 'swift',
       )
       declaration.abstract = comment_from_doc(doc)
       declaration.discussion = ''
@@ -230,7 +255,7 @@ module Jazzy
     def self.make_source_declarations(docs)
       declarations = []
       current_mark = SourceMark.new
-      docs.each do |doc|
+      Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
           declarations += make_source_declarations(doc['key.substructure'])
           next
@@ -238,10 +263,8 @@ module Jazzy
         declaration = SourceDeclaration.new
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
-          current_mark = SourceMark.new(doc['key.name'])
-        end
-        if declaration.type.enum_case?
+        current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
+        if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(doc['key.substructure'])
           next
@@ -279,11 +302,73 @@ module Jazzy
         (@undocumented_tokens.count + @documented_count)
     end
 
+    # Merges multiple extensions of the same entity into a single document.
+    #
+    # Merges extensions into the protocol/class/struct/enum they extend, if it
+    # occurs in the same project.
+    #
+    # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
-      duplicates = declarations.group_by { |d| [d.usr, d.type.kind] }.values
-      duplicates.map do |decls|
-        decls.first.tap do |d|
-          d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+      duplicate_groups = declarations
+        .group_by { |d| deduplication_key(d) }
+        .values
+
+      duplicate_groups.map do |group|
+        # Put extended type (if present) before extensions
+        merge_declarations(group)
+      end
+    end
+
+    # Two declarations get merged if they have the same deduplication key.
+    def self.deduplication_key(decl)
+      if decl.type.extensible? || decl.type.extension?
+        [decl.usr]
+      else
+        [decl.usr, decl.type.kind]
+      end
+    end
+
+    # Merges all of the given types and extensions into a single document.
+    def self.merge_declarations(decls)
+      extensions, typedecls = decls.partition { |d| d.type.extension? }
+
+      if typedecls.size > 1
+        warn 'Found conflicting type declarations with the same name, which ' \
+          'may indicate a build issue or a bug in Jazzy: ' +
+          typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }.join(', ')
+      end
+      typedecl = typedecls.first
+
+      if typedecl && typedecl.type.protocol?
+        merge_default_implementations_into_protocol(typedecl, extensions)
+        extensions.reject! { |ext| ext.children.empty? }
+
+        extensions.each do |ext|
+          ext.children.each do |ext_member|
+            ext_member.from_protocol_extension = true
+          end
+        end
+      end
+
+      decls = typedecls + extensions
+      decls.first.tap do |d|
+        d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+      end
+    end
+
+    # If any of the extensions provide default implementations for methods in
+    # the given protocol, merge those members into the protocol doc instead of
+    # keeping them on the extension.
+    def self.merge_default_implementations_into_protocol(protocol, extensions)
+      protocol.children.each do |proto_method|
+        extensions.each do |ext|
+          defaults, ext.children = ext.children.partition do |ext_member|
+            ext_member.name == proto_method.name
+          end
+          unless defaults.empty?
+            proto_method.default_impl_abstract =
+              defaults.flat_map { |d| [d.abstract, d.discussion] }.join("\n\n")
+          end
         end
       end
     end
@@ -296,6 +381,47 @@ module Jazzy
       end.compact
     end
 
+    def self.names_and_urls(docs)
+      docs.flat_map do |doc|
+        # FIXME: autolink more than just top-level items.
+        [{ name: doc.name, url: doc.url }] # + names_and_urls(doc.children)
+      end
+    end
+
+    def self.autolink_text(text, data, url)
+      regex = /\b(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\b/
+      text.gsub(regex) do
+        name = Regexp.last_match(1)
+        auto_url = data.find { |d| d[:name] == name }[:url]
+        if auto_url == url # docs shouldn't autolink to themselves
+          Regexp.last_match(0)
+        else
+          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{name}</a>"
+        end
+      end
+    end
+
+    def self.autolink(docs, data)
+      docs.map do |doc|
+        doc.abstract = autolink_text(doc.abstract, data, doc.url)
+        doc.return = autolink_text(doc.return, data, doc.url) if doc.return
+        doc.children = autolink(doc.children, data)
+        doc
+      end
+    end
+
+    def self.reject_objc_enum_typedefs(docs)
+      enums = docs.flat_map do |doc|
+        doc.children.select { |child| child.type.objc_enum? }.map(&:name)
+      end
+      docs.map do |doc|
+        doc.children.reject! do |child|
+          child.type.objc_typedef? && enums.include?(child.name)
+        end
+        doc
+      end
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, min_acl, skip_undocumented)
@@ -305,10 +431,16 @@ module Jazzy
       docs = make_source_declarations(sourcekitten_json)
       docs = deduplicate_declarations(docs)
       docs = group_docs(docs)
-      # Remove top-level enum cases because it means they have an ACL lower
-      # than min_acl
-      docs = docs.reject { |doc| doc.type.enum_element? }
-      [make_doc_urls(docs, []), doc_coverage, @undocumented_tokens]
+      if Config.instance.objc_mode
+        docs = reject_objc_enum_typedefs(docs)
+      else
+        # Remove top-level enum cases because it means they have an ACL lower
+        # than min_acl
+        docs = docs.reject { |doc| doc.type.swift_enum_element? }
+      end
+      docs = make_doc_urls(docs, [])
+      docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
+      [docs, doc_coverage, @undocumented_tokens]
     end
   end
 end

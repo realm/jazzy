@@ -48,11 +48,11 @@ module Jazzy
       if options.sourcekitten_sourcefile
         stdout = options.sourcekitten_sourcefile.read
       else
-        if podspec = options.podspec
-          stdout = PodspecDocumenter.new(podspec).sourcekitten_output
+        if options.podspec_configured
+          stdout = PodspecDocumenter.new(options.podspec).sourcekitten_output
         else
-          stdout = Dir.chdir(Config.instance.source_directory) do
-            arguments = ['doc'] + options.xcodebuild_arguments
+          stdout = Dir.chdir(options.source_directory) do
+            arguments = SourceKitten.arguments_from_options(options)
             SourceKitten.run_sourcekitten(arguments)
           end
         end
@@ -128,9 +128,19 @@ module Jazzy
 
       DocsetBuilder.new(output_dir, source_module).build!
 
-      puts "jam out ♪♫ to your fresh new docs in `#{output_dir}`"
+      friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
+      puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
 
       source_module
+    end
+
+    def self.relative_path_if_inside(path, base_path)
+      relative = path.relative_path_from(base_path)
+      if relative.to_path =~ /^..(\/|$)/
+        path
+      else
+        relative
+      end
     end
 
     def self.decl_for_token(token)
@@ -183,12 +193,11 @@ module Jazzy
       doc = Doc.new # Mustache model instance
       doc[:name] = source_module.name
       doc[:overview] = ReadmeGenerator.generate(source_module)
-      doc[:doc_coverage] = source_module.doc_coverage
+      doc[:doc_coverage] = source_module.doc_coverage unless
+        Config.instance.hide_documentation_coverage
       doc[:structure] = source_module.doc_structure
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
-      # TODO: Remove shortly (kept for backwards compatibility)
-      doc[:author_website] = source_module.author_url
       doc[:github_url] = source_module.github_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
@@ -225,20 +234,25 @@ module Jazzy
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
       item_render = {
-        name: item.name,
-        abstract: Jazzy.markdown.render(abstract),
-        declaration: item.declaration,
-        usr: item.usr,
-        dash_type: item.type.dash_type,
+        name:                    item.name,
+        abstract:                render_markdown(abstract),
+        declaration:             item.declaration,
+        usr:                     item.usr,
+        dash_type:               item.type.dash_type,
+        github_token_url:        gh_token_url(item, source_module),
+        default_impl_abstract:   render_markdown(item.default_impl_abstract),
+        from_protocol_extension: item.from_protocol_extension,
+        return:                  render_markdown(item.return),
+        parameters:              (item.parameters if item.parameters.any?),
+        url:                     (item.url if item.children.any?),
+        start_line:              item.start_line,
+        end_line:                item.end_line,
       }
-      gh_token_url = gh_token_url(item, source_module)
-      item_render[:github_token_url] = gh_token_url
-      item_render[:return] = Jazzy.markdown.render(item.return) if item.return
-      item_render[:parameters] = item.parameters if item.parameters.any?
-      item_render[:url] = item.url if item.children.any?
-      item_render[:start_line] = item.start_line
-      item_render[:end_line] = item.end_line
       item_render.reject { |_, v| v.nil? }
+    end
+
+    def self.render_markdown(markdown)
+      Jazzy.markdown.render(markdown) if markdown
     end
 
     def self.make_task(mark, uid, items)
@@ -283,7 +297,8 @@ module Jazzy
       end
 
       doc = Doc.new # Mustache model instance
-      doc[:doc_coverage] = source_module.doc_coverage
+      doc[:doc_coverage] = source_module.doc_coverage unless
+        Config.instance.hide_documentation_coverage
       doc[:name] = doc_model.name
       doc[:kind] = doc_model.type.name
       doc[:dash_type] = doc_model.type.dash_type
@@ -293,12 +308,10 @@ module Jazzy
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
-      # TODO: Remove shortly (kept for backwards compatibility)
-      doc[:author_website] = source_module.author_url.to_s
       doc[:github_url] = source_module.github_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
-      doc.render
+      doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
   end
 end

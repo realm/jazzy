@@ -14,6 +14,8 @@ module Jazzy
     attr_accessor :name
     attr_accessor :declaration
     attr_accessor :abstract
+    attr_accessor :default_impl_abstract
+    attr_accessor :from_protocol_extension
     attr_accessor :discussion
     attr_accessor :return
     attr_accessor :children

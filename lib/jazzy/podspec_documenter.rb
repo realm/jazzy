@@ -23,23 +23,39 @@ module Jazzy
       stdout.reduce([]) { |a, s| a + JSON.load(s) }.to_json
     end
 
-    def self.configure(config, podspec)
-      case podspec
+    def self.create_podspec(podspec_path)
+      case podspec_path
       when Pathname, String
         require 'cocoapods'
-        podspec = Pod::Specification.from_file(podspec)
+        Pod::Specification.from_file(podspec_path)
+      else
+        nil
       end
+    end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
+    def self.apply_config_defaults(podspec, config)
       return unless podspec
 
-      config.author_name = author_name(podspec)
-      config.module_name = podspec.module_name
-      config.author_url = podspec.homepage || github_file_prefix(podspec)
-      config.version = podspec.version.to_s
-      config.github_file_prefix = github_file_prefix(podspec)
-
-      podspec
+      unless config.author_name_configured
+        config.author_name = author_name(podspec)
+      end
+      unless config.module_name_configured
+        config.module_name = podspec.module_name
+      end
+      unless config.author_url_configured
+        config.author_url = podspec.homepage || github_file_prefix(podspec)
+      end
+      unless config.version_configured
+        config.version = podspec.version.to_s
+      end
+      unless config.github_file_prefix_configured
+        config.github_file_prefix = github_file_prefix(podspec)
+      end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     private
 

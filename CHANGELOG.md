@@ -2,6 +2,85 @@
 
 ##### Breaking
 
+* `--swift-version` now defaults to 2.1 instead of 2.0.  
+  [JP Simard](https://github.com/jpsim)
+
+##### Enhancements
+
+* Support for documenting Objective-C projects! 🎉
+  Pass `--objc`, `--umbrella-header ...` and `-framework-root ...`.  
+  [JP Simard](https://github.com/jpsim)
+  [#56](https://github.com/realm/jazzy/issues/56)
+
+* Mentions of top-level declarations in documentation comments are now
+  automatically hyperlinked to their reference.  
+  [JP Simard](https://github.com/jpsim)
+
+* Jazzy can now read options from a configuration file. The command line
+  provides comprehensive help for available options via `jazzy -h config`.  
+  [pcantrell](https://github.com/pcantrell)
+  [#310](https://github.com/realm/jazzy/pull/310)
+
+* Render special list items (e.g. Throws, See, etc.). See
+  http://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/ for
+  a complete list.  
+  [JP Simard](https://github.com/jpsim)
+  [#317](https://github.com/realm/jazzy/issues/317)
+
+* Support for Swift 2.1.  
+  [JP Simard](https://github.com/jpsim)
+
+##### Bug Fixes
+
+* None.
+
+
+## 0.3.2
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* Fixed an issue that prevented building projects with different schema & module
+  names.  
+  [JP Simard](https://github.com/jpsim)
+  [#259](https://github.com/realm/jazzy/issues/259)
+
+* Hide documentation coverage from header using `--hide-documentation-coverage`.  
+  [mbogh](https://github.com/mbogh)
+  [#129](https://github.com/realm/jazzy/issues/297)
+
+* Print a more informative error when unable to find an Xcode that has the
+  requested Swift version.  
+  [Samuel Giddins])https://github.com/segiddins
+
+
+## 0.3.1
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* Added missing Swift 2 declaration types.  
+  [JP Simard](https://github.com/jpsim)
+
+
+## 0.3.0
+
+##### Breaking
+
 * `--swift-version` now defaults to 2.0 instead of 1.2.  
   [JP Simard](https://github.com/jpsim)
 
