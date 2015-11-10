@@ -30,6 +30,10 @@
 * Support for Swift 2.1.  
   [JP Simard](https://github.com/jpsim)
 
+* Swift extensions are now merged with their extended type, rendering a note
+  to describe extension default implementations and extension methods.  
+  [pcantrell](https://github.com/pcantrell)
+
 ##### Bug Fixes
 
 * None.
