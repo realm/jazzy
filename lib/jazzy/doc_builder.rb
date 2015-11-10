@@ -234,22 +234,25 @@ module Jazzy
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
       item_render = {
-        name: item.name,
-        abstract: Jazzy.markdown.render(abstract),
-        declaration: item.declaration,
-        usr: item.usr,
-        dash_type: item.type.dash_type,
+        name:                    item.name,
+        abstract:                render_markdown(abstract),
+        declaration:             item.declaration,
+        usr:                     item.usr,
+        dash_type:               item.type.dash_type,
+        github_token_url:        gh_token_url(item, source_module),
+        default_impl_abstract:   render_markdown(item.default_impl_abstract),
+        from_protocol_extension: item.from_protocol_extension,
+        return:                  render_markdown(item.return),
+        parameters:              (item.parameters if item.parameters.any?),
+        url:                     (item.url if item.children.any?),
+        start_line:              item.start_line,
+        end_line:                item.end_line,
       }
-      gh_token_url = gh_token_url(item, source_module)
-      item_render[:github_token_url] = gh_token_url
-      item_render[:default_impl_abstract] = Jazzy.markdown.render(item.default_impl_abstract) if item.default_impl_abstract
-      item_render[:merged_from_protocol_extension] = item.merged_from_protocol_extension
-      item_render[:return] = Jazzy.markdown.render(item.return) if item.return
-      item_render[:parameters] = item.parameters if item.parameters.any?
-      item_render[:url] = item.url if item.children.any?
-      item_render[:start_line] = item.start_line
-      item_render[:end_line] = item.end_line
       item_render.reject { |_, v| v.nil? }
+    end
+
+    def self.render_markdown(markdown)
+      Jazzy.markdown.render(markdown) if markdown
     end
 
     def self.make_task(mark, uid, items)

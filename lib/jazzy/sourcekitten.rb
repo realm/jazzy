@@ -343,7 +343,7 @@ module Jazzy
 
         extensions.each do |ext|
           ext.children.each do |ext_member|
-            ext_member.merged_from_protocol_extension = true
+            ext_member.from_protocol_extension = true
           end
         end
       end
