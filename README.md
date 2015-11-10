@@ -83,6 +83,21 @@ jazzy \
   --template-directory docs/templates
 ```
 
+or AFNetworking:
+
+```shell
+jazzy \
+  --objc \
+  --author AFNetworking \
+  --author_url http://afnetworking.com \
+  --github_url https://github.com/AFNetworking/AFNetworking \
+  --github-file-prefix https://github.com/AFNetworking/AFNetworking/tree/2.6.2 \
+  --module-version 2.6.2 \
+  --umbrella-header AFNetworking/AFNetworking.h \
+  --framework-root . \
+  --module AFNetworking
+```
+
 ### Troubleshooting
 
 #### Swift: Only extensions are listed in the documentation.
