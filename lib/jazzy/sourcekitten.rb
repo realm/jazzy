@@ -341,13 +341,8 @@ module Jazzy
 
       if typedecl && typedecl.type.swift_protocol?
         merge_default_implementations_into_protocol(typedecl, extensions)
+        mark_members_from_protocol_extension(extensions)
         extensions.reject! { |ext| ext.children.empty? }
-
-        extensions.each do |ext|
-          ext.children.each do |ext_member|
-            ext_member.from_protocol_extension = true
-          end
-        end
       end
 
       decls = typedecls + extensions
@@ -358,7 +353,8 @@ module Jazzy
 
     # If any of the extensions provide default implementations for methods in
     # the given protocol, merge those members into the protocol doc instead of
-    # keeping them on the extension.
+    # keeping them on the extension. These get a “Default implementation”
+    # annotation in the generated docs.
     def self.merge_default_implementations_into_protocol(protocol, extensions)
       protocol.children.each do |proto_method|
         extensions.each do |ext|
@@ -369,6 +365,17 @@ module Jazzy
             proto_method.default_impl_abstract =
               defaults.flat_map { |d| [d.abstract, d.discussion] }.join("\n\n")
           end
+        end
+      end
+    end
+
+    # Protocol methods provided only in an extension and not in the protocol
+    # itself are a special beast: they do not use dynamic dispatch. These get an
+    # “Extension method” annotation in the generated docs.
+    def self.mark_members_from_protocol_extension(extensions)
+      extensions.each do |ext|
+        ext.children.each do |ext_member|
+          ext_member.from_protocol_extension = true
         end
       end
     end
