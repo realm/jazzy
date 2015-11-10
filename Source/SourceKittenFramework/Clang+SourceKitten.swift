@@ -74,19 +74,6 @@ extension CXCursor {
         return ObjCDeclarationKind.fromClang(kind)
     }
 
-    func mark() -> String? {
-        if let rawComment = clang_Cursor_getRawCommentText(self).str() where rawComment.containsString("@name") {
-            let nsString = rawComment as NSString
-            let regex = try! NSRegularExpression(pattern: "@name +(.*)", options: [])
-            let range = NSRange(location: 0, length: nsString.length)
-            let matches = regex.matchesInString(rawComment, options: [], range: range)
-            if matches.count > 0 {
-                return nsString.substringWithRange(matches[0].rangeAtIndex(1))
-            }
-        }
-        return nil
-    }
-
     func str() -> String? {
         let cursorExtent = extent()
         let contents = try! NSString(contentsOfFile: cursorExtent.start.file, encoding: NSUTF8StringEncoding)
@@ -96,7 +83,14 @@ extension CXCursor {
     func name() -> String {
         let spelling = clang_getCursorSpelling(self).str()!
         let type = objCKind()
-        if let usrNSString = usr() as NSString? where type == .Category {
+        if let usrString = usr() where spelling.isEmpty && type == .Enum {
+            // libClang considers enums declared like `typedef enum {} name;` rather than `NS_ENUM()`
+            // to have a cursor spelling of "" (empty string). So we parse the USR to extract the actual name.
+            let prefix = "c:@EA@"
+            assert(usrString.hasPrefix(prefix))
+            let index = usrString.startIndex.advancedBy(prefix.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+            return usrString.substringFromIndex(index)
+        } else if let usrNSString = usr() as NSString? where type == .Category {
             let ext = (usrNSString.rangeOfString("c:objc(ext)").location == 0)
             let regex = try! NSRegularExpression(pattern: "(\\w+)@(\\w+)", options: [])
             let range = NSRange(location: 0, length: usrNSString.length)
