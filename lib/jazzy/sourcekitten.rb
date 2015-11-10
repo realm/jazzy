@@ -161,7 +161,7 @@ module Jazzy
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])
       return true if type.swift_enum_element?
-      if type.extension?
+      if type.swift_extension?
         return Array(doc['key.substructure']).any? do |subdoc|
           should_document?(subdoc)
         end
@@ -321,7 +321,7 @@ module Jazzy
 
     # Two declarations get merged if they have the same deduplication key.
     def self.deduplication_key(decl)
-      if decl.type.extensible? || decl.type.extension?
+      if decl.type.swift_extensible? || decl.type.swift_extension?
         [decl.usr]
       else
         [decl.usr, decl.type.kind]
@@ -330,7 +330,7 @@ module Jazzy
 
     # Merges all of the given types and extensions into a single document.
     def self.merge_declarations(decls)
-      extensions, typedecls = decls.partition { |d| d.type.extension? }
+      extensions, typedecls = decls.partition { |d| d.type.swift_extension? }
 
       if typedecls.size > 1
         warn 'Found conflicting type declarations with the same name, which ' \
@@ -339,7 +339,7 @@ module Jazzy
       end
       typedecl = typedecls.first
 
-      if typedecl && typedecl.type.protocol?
+      if typedecl && typedecl.type.swift_protocol?
         merge_default_implementations_into_protocol(typedecl, extensions)
         extensions.reject! { |ext| ext.children.empty? }
 
