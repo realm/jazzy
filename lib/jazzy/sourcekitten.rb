@@ -70,9 +70,9 @@ module Jazzy
         if parents.empty? || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
-              subdir_for_doc(doc, parents) +
-              [doc.name + '.html']
-            ).join('/')
+            subdir_for_doc(doc, parents) +
+            [doc.name + '.html']
+          ).join('/')
           doc.children = make_doc_urls(doc.children, parents + [doc])
         else
           # Don't create HTML page for this doc if it doesn't have children
@@ -113,11 +113,17 @@ module Jazzy
     # Builds SourceKitten arguments based on Jazzy options
     def self.arguments_from_options(options)
       arguments = ['doc']
-      unless options.module_name.empty?
+      if options.objc_mode
+        if options.xcodebuild_arguments.empty?
+          arguments += ['--objc', options.umbrella_header.to_s, '-x',
+                        'objective-c', '-isysroot',
+                        `xcrun --show-sdk-path`.chomp, '-I',
+                        options.framework_root.to_s]
+        end
+      elsif !options.module_name.empty?
         arguments += ['--module-name', options.module_name]
       end
-      arguments += options.xcodebuild_arguments
-      arguments
+      arguments + options.xcodebuild_arguments
     end
 
     # Run sourcekitten with given arguments and return STDOUT
@@ -149,9 +155,12 @@ module Jazzy
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
+      # Always document Objective-C declarations.
+      return true if Config.instance.objc_mode
+
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])
-      return true if type.enum_element?
+      return true if type.swift_enum_element?
       if type.extension?
         return Array(doc['key.substructure']).any? do |subdoc|
           should_document?(subdoc)
@@ -164,7 +173,8 @@ module Jazzy
     def self.process_undocumented_token(doc, declaration)
       source_directory = Config.instance.source_directory.to_s
       filepath = doc['key.filepath']
-      if filepath && filepath.start_with?(source_directory)
+      objc = Config.instance.objc_mode
+      if filepath && (filepath.start_with?(source_directory) || objc)
         @undocumented_tokens << doc
       end
       return nil if !documented_child?(doc) && @skip_undocumented
@@ -207,7 +217,7 @@ module Jazzy
       declaration.column = doc['key.doc.column']
       declaration.declaration = Highlighter.highlight(
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
-        'swift',
+        Config.instance.objc_mode ? 'objc' : 'swift',
       )
       declaration.abstract = comment_from_doc(doc)
       declaration.discussion = ''
@@ -253,10 +263,8 @@ module Jazzy
         declaration = SourceDeclaration.new
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        if declaration.type.mark? && doc['key.name'].start_with?('MARK: ')
-          current_mark = SourceMark.new(doc['key.name'])
-        end
-        if declaration.type.enum_case?
+        current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
+        if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(doc['key.substructure'])
           next
@@ -340,6 +348,18 @@ module Jazzy
       end
     end
 
+    def self.reject_objc_enum_typedefs(docs)
+      enums = docs.flat_map do |doc|
+        doc.children.select { |child| child.type.objc_enum? }.map(&:name)
+      end
+      docs.map do |doc|
+        doc.children.reject! do |child|
+          child.type.objc_typedef? && enums.include?(child.name)
+        end
+        doc
+      end
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, min_acl, skip_undocumented)
@@ -349,9 +369,13 @@ module Jazzy
       docs = make_source_declarations(sourcekitten_json)
       docs = deduplicate_declarations(docs)
       docs = group_docs(docs)
-      # Remove top-level enum cases because it means they have an ACL lower
-      # than min_acl
-      docs = docs.reject { |doc| doc.type.enum_element? }
+      if Config.instance.objc_mode
+        docs = reject_objc_enum_typedefs(docs)
+      else
+        # Remove top-level enum cases because it means they have an ACL lower
+        # than min_acl
+        docs = docs.reject { |doc| doc.type.swift_enum_element? }
+      end
       docs = make_doc_urls(docs, [])
       docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
       [docs, doc_coverage, @undocumented_tokens]

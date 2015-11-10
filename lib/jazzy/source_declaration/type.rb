@@ -28,14 +28,23 @@ module Jazzy
       end
 
       def mark?
-        kind == 'source.lang.swift.syntaxtype.comment.mark'
+        kind == 'source.lang.swift.syntaxtype.comment.mark' ||
+          kind == 'sourcekitten.source.lang.objc.mark'
       end
 
-      def enum_case?
+      def objc_enum?
+        kind == 'sourcekitten.source.lang.objc.decl.enum'
+      end
+
+      def objc_typedef?
+        kind == 'sourcekitten.source.lang.objc.decl.typedef'
+      end
+
+      def swift_enum_case?
         kind == 'source.lang.swift.decl.enumcase'
       end
 
-      def enum_element?
+      def swift_enum_element?
         kind == 'source.lang.swift.decl.enumelement'
       end
 
@@ -44,7 +53,8 @@ module Jazzy
       end
 
       def declaration?
-        kind =~ /^source\.lang\.swift\.decl\..*/
+        kind.start_with?('source.lang.swift.decl') ||
+          kind.start_with?('sourcekitten.source.lang.objc.decl')
       end
 
       def extension?
@@ -72,6 +82,62 @@ module Jazzy
       end
 
       TYPES = {
+        # Objective-C
+
+        'sourcekitten.source.lang.objc.decl.category' => {
+          jazzy: 'Category',
+          dash: 'Extension',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.class' => {
+          jazzy: 'Class',
+          dash: 'Class',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.constant' => {
+          jazzy: 'Constant',
+          dash: 'Constant',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.enum' => {
+          jazzy: 'Enum',
+          dash: 'Enum',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.enumcase' => {
+          jazzy: 'Enum Case',
+          dash: 'Case',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.initializer' => {
+          jazzy: 'Initializer',
+          dash: 'Initializer',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.method.class' => {
+          jazzy: 'Class Method',
+          dash: 'Method',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.method.instance' => {
+          jazzy: 'Instance Method',
+          dash: 'Method',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.property' => {
+          jazzy: 'Property',
+          dash: 'Property',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.protocol' => {
+          jazzy: 'Protocol',
+          dash: 'Protocol',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.typedef' => {
+          jazzy: 'Type Definition',
+          dash: 'Alias',
+        }.freeze,
+        'sourcekitten.source.lang.objc.mark' => {
+          jazzy: 'Mark',
+          dash: 'Mark',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.function' => {
+          jazzy: 'Function',
+          dash: 'Function',
+        }.freeze,
+
+        # Swift
         'source.lang.swift.decl.function.accessor.address' => {
           jazzy: 'Address Accessor',
           dash: 'Function',
