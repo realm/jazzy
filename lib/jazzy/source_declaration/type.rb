@@ -132,6 +132,10 @@ module Jazzy
           jazzy: 'Mark',
           dash: 'Mark',
         }.freeze,
+        'sourcekitten.source.lang.objc.decl.function' => {
+          jazzy: 'Function',
+          dash: 'Function',
+        }.freeze,
 
         # Swift
         'source.lang.swift.decl.function.accessor.address' => {
