@@ -309,7 +309,9 @@ module Jazzy
     #
     # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
-      duplicate_groups = declarations.group_by { |d| deduplication_key(d) }.values
+      duplicate_groups = declarations
+        .group_by { |d| deduplication_key(d) }
+        .values
 
       duplicate_groups.map do |group|
         # Put extended type (if present) before extensions
@@ -331,8 +333,8 @@ module Jazzy
       extensions, typedecls = decls.partition { |d| d.type.extension? }
 
       if typedecls.size > 1
-        warn "Found conflicting type declarations with the same name, which " +
-          "may indicate a build issue or a bug in Jazzy: " +
+        warn 'Found conflicting type declarations with the same name, which ' \
+          'may indicate a build issue or a bug in Jazzy: ' +
           typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }.join(', ')
       end
       typedecl = typedecls.first
@@ -354,9 +356,9 @@ module Jazzy
       end
     end
 
-    # If any of the extensions provide default implementations for methods in the
-    # given protocol, merge those members into the protocol doc instead of keeping
-    # them on the extension.
+    # If any of the extensions provide default implementations for methods in
+    # the given protocol, merge those members into the protocol doc instead of
+    # keeping them on the extension.
     def self.merge_default_implementations_into_protocol(protocol, extensions)
       protocol.children.each do |proto_method|
         extensions.each do |ext|
