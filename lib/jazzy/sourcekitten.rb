@@ -310,8 +310,8 @@ module Jazzy
     # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
       duplicate_groups = declarations
-        .group_by { |d| deduplication_key(d) }
-        .values
+                         .group_by { |d| deduplication_key(d) }
+                         .values
 
       duplicate_groups.map do |group|
         # Put extended type (if present) before extensions
