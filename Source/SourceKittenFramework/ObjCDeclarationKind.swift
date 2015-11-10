@@ -34,6 +34,8 @@ public enum ObjCDeclarationKind: String {
     case Protocol = "sourcekitten.source.lang.objc.decl.protocol"
     /// `typedef`.
     case Typedef = "sourcekitten.source.lang.objc.decl.typedef"
+    /// `function`.
+    case Function = "sourcekitten.source.lang.objc.decl.function"
     /// `mark`.
     case Mark = "sourcekitten.source.lang.objc.mark"
 
@@ -49,6 +51,7 @@ public enum ObjCDeclarationKind: String {
         case CXCursor_ObjCProtocolDecl.rawValue: return .Protocol
         case CXCursor_TypedefDecl.rawValue: return .Typedef
         case CXCursor_VarDecl.rawValue: return .Constant
+        case CXCursor_FunctionDecl.rawValue: return .Function
         default: fatalError("Unsupported CXCursorKind value: \(kind.rawValue)")
         }
     }
