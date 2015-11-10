@@ -161,7 +161,7 @@ module Jazzy
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])
       return true if type.swift_enum_element?
-      if type.extension?
+      if type.swift_extension?
         return Array(doc['key.substructure']).any? do |subdoc|
           should_document?(subdoc)
         end
@@ -302,11 +302,80 @@ module Jazzy
         (@undocumented_tokens.count + @documented_count)
     end
 
+    # Merges multiple extensions of the same entity into a single document.
+    #
+    # Merges extensions into the protocol/class/struct/enum they extend, if it
+    # occurs in the same project.
+    #
+    # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
-      duplicates = declarations.group_by { |d| [d.usr, d.type.kind] }.values
-      duplicates.map do |decls|
-        decls.first.tap do |d|
-          d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+      duplicate_groups = declarations
+                         .group_by { |d| deduplication_key(d) }
+                         .values
+
+      duplicate_groups.map do |group|
+        # Put extended type (if present) before extensions
+        merge_declarations(group)
+      end
+    end
+
+    # Two declarations get merged if they have the same deduplication key.
+    def self.deduplication_key(decl)
+      if decl.type.swift_extensible? || decl.type.swift_extension?
+        [decl.usr]
+      else
+        [decl.usr, decl.type.kind]
+      end
+    end
+
+    # Merges all of the given types and extensions into a single document.
+    def self.merge_declarations(decls)
+      extensions, typedecls = decls.partition { |d| d.type.swift_extension? }
+
+      if typedecls.size > 1
+        warn 'Found conflicting type declarations with the same name, which ' \
+          'may indicate a build issue or a bug in Jazzy: ' +
+          typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }.join(', ')
+      end
+      typedecl = typedecls.first
+
+      if typedecl && typedecl.type.swift_protocol?
+        merge_default_implementations_into_protocol(typedecl, extensions)
+        mark_members_from_protocol_extension(extensions)
+        extensions.reject! { |ext| ext.children.empty? }
+      end
+
+      decls = typedecls + extensions
+      decls.first.tap do |d|
+        d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+      end
+    end
+
+    # If any of the extensions provide default implementations for methods in
+    # the given protocol, merge those members into the protocol doc instead of
+    # keeping them on the extension. These get a “Default implementation”
+    # annotation in the generated docs.
+    def self.merge_default_implementations_into_protocol(protocol, extensions)
+      protocol.children.each do |proto_method|
+        extensions.each do |ext|
+          defaults, ext.children = ext.children.partition do |ext_member|
+            ext_member.name == proto_method.name
+          end
+          unless defaults.empty?
+            proto_method.default_impl_abstract =
+              defaults.flat_map { |d| [d.abstract, d.discussion] }.join("\n\n")
+          end
+        end
+      end
+    end
+
+    # Protocol methods provided only in an extension and not in the protocol
+    # itself are a special beast: they do not use dynamic dispatch. These get an
+    # “Extension method” annotation in the generated docs.
+    def self.mark_members_from_protocol_extension(extensions)
+      extensions.each do |ext|
+        ext.children.each do |ext_member|
+          ext_member.from_protocol_extension = true
         end
       end
     end

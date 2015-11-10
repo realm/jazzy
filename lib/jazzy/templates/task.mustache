@@ -17,6 +17,16 @@
         <a name="//apple_ref/{{language_stub}}/{{dash_type}}/{{name}}" class="dashAnchor"></a>
         <a class="token" href="#/{{usr}}">{{name}}</a>
         </code>
+        {{#default_impl_abstract}}
+          <span class="declaration-note">
+            Default implementation
+          </span>
+        {{/default_impl_abstract}}
+        {{#from_protocol_extension}}
+          <span class="declaration-note">
+            Extension method
+          </span>
+        {{/from_protocol_extension}}
       </div>
       <div class="height-container">
         <div class="pointer-container"></div>
@@ -30,6 +40,12 @@
             {{/url}}
           </div>
           {{/abstract}}
+          {{#default_impl_abstract}}
+          <h4>Default Implementation</h4>
+          <div class="default_impl abstract">
+            {{{default_impl_abstract}}}
+          </div>
+          {{/default_impl_abstract}}
           {{#declaration}}
           <div class="declaration">
             <h4>Declaration</h4>

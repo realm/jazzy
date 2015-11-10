@@ -57,8 +57,16 @@ module Jazzy
           kind.start_with?('sourcekitten.source.lang.objc.decl')
       end
 
-      def extension?
+      def swift_extension?
         kind =~ /^source\.lang\.swift\.decl\.extension.*/
+      end
+
+      def swift_extensible?
+        kind =~ /^source\.lang\.swift\.decl\.(class|struct|protocol|enum)$/
+      end
+
+      def swift_protocol?
+        kind == 'source.lang.swift.decl.protocol'
       end
 
       def param?
