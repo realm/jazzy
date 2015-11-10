@@ -3,6 +3,10 @@ AllCops:
     - ./Rakefile
     - ./Gemfile
     - ./*.gemspec
+  Exclude:
+    - ./spec/integration_specs/**/*
+    - ./vendor/**/*
+    - ./tmp/**/*
 
 # At the moment not ready to be used
 # https://github.com/bbatsov/rubocop/issues/947
@@ -14,6 +18,12 @@ Documentation:
 # 20 lines is more reasonable than rubocop's default of 10
 Metrics/MethodLength:
   Max: 20
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
 
 # We adopted raise instead of fail.
 SignalException:

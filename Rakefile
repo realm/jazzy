@@ -71,9 +71,7 @@ begin
   #-- RuboCop ----------------------------------------------------------------#
 
   require 'rubocop/rake_task'
-  RuboCop::RakeTask.new(:rubocop) do |task|
-    task.patterns = %w(lib spec/*.rb Rakefile Gemfile jazzy.gemspec)
-  end
+  RuboCop::RakeTask.new(:rubocop)
 
   #-- SourceKitten -----------------------------------------------------------#
 

@@ -373,13 +373,13 @@ module Jazzy
     def print_option_help(topic = '')
       found = false
       self.class.all_config_attrs.each do |attr|
-        match = ([attr.name] + attr.command_line).any? do
-          |opt| opt.to_s.include?(topic)
+        match = ([attr.name] + attr.command_line).any? do |opt|
+          opt.to_s.include?(topic)
         end
         if match
           found = true
           puts
-          puts attr.name.to_s.gsub('_', ' ').upcase
+          puts attr.name.to_s.tr('_', ' ').upcase
           puts
           puts "  Config file:   #{attr.name}"
           cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }

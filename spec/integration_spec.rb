@@ -59,7 +59,7 @@ CLIntegracon.configure do |c|
   # Ignore certain OSX files
   c.ignores '.DS_Store'
   c.ignores '.git'
-  c.ignores /^(?!(docs\/|execution_output.txt))/
+  c.ignores %r{^(?!(docs/|execution_output.txt))}
   c.ignores '*.tgz'
 
   # Transform produced databases to csv
@@ -75,7 +75,6 @@ CLIntegracon.configure do |c|
 end
 
 describe_cli 'jazzy' do
-
   subject do |s|
     s.executable = "ruby #{ROOT + 'bin/jazzy'}"
     s.environment_vars = {
