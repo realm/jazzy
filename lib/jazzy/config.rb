@@ -89,6 +89,16 @@ module Jazzy
       description: 'Generate docs for Objective-C.',
       default: false
 
+    config_attr :umbrella_header,
+      command_line: '--umbrella-header PATH',
+      description: 'Umbrella header for your Objective-C framework.',
+      parse: ->(uh) { Pathname(uh) }
+
+    config_attr :framework_root,
+      command_line: '--framework-root PATH',
+      description: 'The root path to your Objective-C framework.',
+      parse: ->(fr) { Pathname(fr) }
+
     config_attr :config_file,
       command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',

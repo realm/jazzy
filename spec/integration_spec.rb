@@ -145,7 +145,7 @@ describe_cli 'jazzy' do
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
                             '-scheme,RealmSwift ' \
-                            '--template-directory "docs/templates" '
+                            '--template-directory docs/templates'
     end
 
     describe 'Creates Realm Objective-C docs' do
@@ -168,16 +168,13 @@ describe_cli 'jazzy' do
                             "--module-version #{realm_version} " \
                             '--root-url https://realm.io/docs/objc/' \
                             "#{realm_version}/api/ " \
-                            '--xcodebuild-arguments ' \
-                            '--objc,Realm/Realm.h,-x,objective-c,-isysroot,' \
-                            "$(xcrun --show-sdk-path | tr -d '\\n'),-I," \
-                            "$(pwd | tr -d '\\n') " \
-                            '--template-directory "docs/templates" '
+                            '--umbrella-header Realm/Realm.h ' \
+                            '--framework-root . ' \
+                            '--template-directory docs/templates'
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
-      behaves_like cli_spec 'misc_jazzy_features',
-                            '-x -dry-run '
+      behaves_like cli_spec 'misc_jazzy_features', '-x -dry-run'
     end
   end if !travis_swift || travis_swift == '2.1'
 end
