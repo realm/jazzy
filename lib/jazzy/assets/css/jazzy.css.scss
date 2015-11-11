@@ -426,6 +426,13 @@ header {
   font-size: 0.9em;
 }
 
+.anchor {
+  display: block;
+  height: 70px;
+  margin-top: -70px;
+  visibility: hidden;
+}
+
 #footer {
   position: absolute;
   bottom: 10px;
