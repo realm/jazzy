@@ -297,6 +297,13 @@ module Jazzy
         return document_index(source_module, path_to_root)
       end
 
+      tasks = render_tasks(source_module, doc_model.children)
+      tasks_list_children = tasks.map do |task|
+        if task[:name]
+          { name: task[:name], url: "#/"+task[:uid] }
+        end
+      end
+
       doc = Doc.new # Mustache model instance
       doc[:doc_coverage] = source_module.doc_coverage unless
         Config.instance.hide_documentation_coverage
@@ -306,7 +313,10 @@ module Jazzy
       doc[:declaration] = doc_model.declaration
       doc[:overview] = Jazzy.markdown.render(doc_model.overview)
       doc[:structure] = source_module.doc_structure
-      doc[:tasks] = render_tasks(source_module, doc_model.children)
+      doc[:tasks] = tasks
+      if tasks_list_children.any?
+        doc[:tasks_list] = [{children: tasks_list_children}]
+      end
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url
