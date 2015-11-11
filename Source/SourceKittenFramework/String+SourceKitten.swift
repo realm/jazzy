@@ -12,6 +12,15 @@ public typealias Line = (index: Int, content: String)
 
 private let whitespaceAndNewlineCharacterSet = NSCharacterSet.whitespaceAndNewlineCharacterSet()
 
+private let commentLinePrefixCharacterSet: NSCharacterSet = {
+  let characterSet = NSMutableCharacterSet.whitespaceAndNewlineCharacterSet()
+  /**
+   * For "wall of asterisk" comment blocks, such as this one.
+   */
+  characterSet.addCharactersInString("*")
+  return characterSet
+}()
+
 extension NSString {
     /**
     Binary search for NSString index equivalent to byte offset.
@@ -301,9 +310,10 @@ extension String {
     /// Returns a copy of `self` with the leading whitespace common in each line removed.
     public func stringByRemovingCommonLeadingWhitespaceFromLines() -> String {
         var minLeadingWhitespace = Int.max
+
         enumerateLines { line, _ in
-            let lineLeadingWhitespace = line.countOfLeadingCharactersInSet(whitespaceAndNewlineCharacterSet)
-            if lineLeadingWhitespace < minLeadingWhitespace && lineLeadingWhitespace != line.characters.count {
+            let lineLeadingWhitespace = line.countOfLeadingCharactersInSet(commentLinePrefixCharacterSet)
+            if lineLeadingWhitespace < minLeadingWhitespace {
                 minLeadingWhitespace = lineLeadingWhitespace
             }
         }
