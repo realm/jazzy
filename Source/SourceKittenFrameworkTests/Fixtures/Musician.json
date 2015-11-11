@@ -56,7 +56,7 @@
               "key.kind" : "sourcekitten.source.lang.objc.mark",
               "key.doc.file" : "Musician.h",
               "key.doc.line" : 26,
-              "key.name" : "Initializers",
+              "key.name" : "Initializers-hyphenated",
               "key.parsed_scope.start" : 26,
               "key.doc.column" : 1,
               "key.parsed_scope.end" : 26,

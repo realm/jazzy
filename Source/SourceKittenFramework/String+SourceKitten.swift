@@ -190,9 +190,9 @@ extension NSString {
 
 extension String {
     /// Returns the `#pragma mark`s in the string.
-    /// Just the content; no dashes or leading `#pragma mark`.
+    /// Just the content; no leading dashes or leading `#pragma mark`.
     public func pragmaMarks(filename: String, excludeRanges: [NSRange], limitRange: NSRange?) -> [SourceDeclaration] {
-        let regex = try! NSRegularExpression(pattern: "(#pragma\\smark|@name)[ -]*([^-\\n]+)", options: []) // Safe to force try
+        let regex = try! NSRegularExpression(pattern: "(#pragma\\smark|@name)[ -]*([^\\n]+)", options: []) // Safe to force try
         let range = limitRange ?? NSRange(location: 0, length: utf16.count)
         let matches = regex.matchesInString(self, options: [], range: range)
 
