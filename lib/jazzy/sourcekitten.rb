@@ -114,9 +114,12 @@ module Jazzy
     def self.arguments_from_options(options)
       arguments = ['doc']
       if options.objc_mode
-        arguments += ['--objc', options.umbrella_header.to_s, '-x',
-                      'objective-c', '-I',
-                      options.framework_root.to_s]
+        if options.xcodebuild_arguments.empty?
+          arguments += ['--objc', options.umbrella_header.to_s, '-x',
+                        'objective-c', '-isysroot',
+                        `xcrun --show-sdk-path`.chomp, '-I',
+                        options.framework_root.to_s]
+        end
       elsif !options.module_name.empty?
         arguments += ['--module-name', options.module_name]
       end
