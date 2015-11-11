@@ -23,7 +23,7 @@
  */
 @property (nonatomic, readonly) NSUInteger birthyear;
 
-#pragma mark - Initializers
+#pragma mark - Initializers-hyphenated
 
 /**
  Initialize a JAZMusician.
