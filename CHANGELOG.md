@@ -1,3 +1,19 @@
+## Master
+
+##### Breaking
+
+None.
+
+##### Enhancements
+
+* Support "wall of asterisk" documentation comments.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+
+##### Bug Fixes
+
+None.
+
+
 ## 0.6.0
 
 ##### Breaking
