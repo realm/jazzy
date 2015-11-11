@@ -10,6 +10,10 @@
   [Jeff Verkoeyen](https://github.com/jverkoey)
   [#347](https://github.com/realm/jazzy/issues/347)
 
+* In-page anchors now appear below the header.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+	[#356](https://github.com/realm/jazzy/pull/356)
+
 ##### Bug Fixes
 
 * None.
