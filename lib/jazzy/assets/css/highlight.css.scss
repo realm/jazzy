@@ -25,7 +25,7 @@
   .kd { color: #000000; font-weight: bold } /* Keyword.Declaration */
   .kp { color: #000000; font-weight: bold } /* Keyword.Pseudo */
   .kr { color: #000000; font-weight: bold } /* Keyword.Reserved */
-  .kt { color: #445588; font-weight: bold } /* Keyword.Type */
+  .kt { color: #445588; } /* Keyword.Type */
   .m { color: #009999 } /* Literal.Number */
   .s { color: #d14 } /* Literal.String */
   .na { color: #008080 } /* Name.Attribute */
@@ -34,7 +34,7 @@
   .no { color: #008080 } /* Name.Constant */
   .ni { color: #800080 } /* Name.Entity */
   .ne { color: #990000; font-weight: bold } /* Name.Exception */
-  .nf { color: #990000; font-weight: bold } /* Name.Function */
+  .nf { color: #990000; } /* Name.Function */
   .nn { color: #555555 } /* Name.Namespace */
   .nt { color: #000080 } /* Name.Tag */
   .nv { color: #008080 } /* Name.Variable */
