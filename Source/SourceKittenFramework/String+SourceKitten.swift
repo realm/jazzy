@@ -309,18 +309,20 @@ extension String {
 
     /// Returns a copy of `self` with the leading whitespace common in each line removed.
     public func stringByRemovingCommonLeadingWhitespaceFromLines() -> String {
-        var minLeadingWhitespace = Int.max
+        var minLeadingCharacters = Int.max
 
         enumerateLines { line, _ in
-            let lineLeadingWhitespace = line.countOfLeadingCharactersInSet(commentLinePrefixCharacterSet)
-            if lineLeadingWhitespace < minLeadingWhitespace {
-                minLeadingWhitespace = lineLeadingWhitespace
+            let lineLeadingWhitespace = line.countOfLeadingCharactersInSet(whitespaceAndNewlineCharacterSet)
+            let lineLeadingCharacters = line.countOfLeadingCharactersInSet(commentLinePrefixCharacterSet)
+            // Is this prefix smaller than our last, not entirely whitespace?
+            if lineLeadingCharacters < minLeadingCharacters && lineLeadingWhitespace != line.characters.count {
+                minLeadingCharacters = lineLeadingCharacters
             }
         }
         var lines = [String]()
         enumerateLines { line, _ in
-            if line.characters.count >= minLeadingWhitespace {
-                lines.append(line[line.startIndex.advancedBy(minLeadingWhitespace)..<line.endIndex])
+            if line.characters.count >= minLeadingCharacters {
+                lines.append(line[line.startIndex.advancedBy(minLeadingCharacters)..<line.endIndex])
             } else {
                 lines.append(line)
             }
