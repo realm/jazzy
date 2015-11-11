@@ -10,13 +10,11 @@
   [Jeff Verkoeyen](https://github.com/jverkoey)
   [#347](https://github.com/realm/jazzy/issues/347)
 
+##### Bug Fixes
+
 * --objc arguments are now joined with provided -x arguments.
   [Jeff Verkoeyen](https://github.com/jverkoey)
   [#351](https://github.com/realm/jazzy/issues/351)
-
-##### Bug Fixes
-
-* None.
 
 ## 0.4.0
 
