@@ -39,7 +39,7 @@ struct CompleteCommand: CommandType {
             }
             if args.indexOf("-sdk") == nil {
                 args.append("-sdk")
-                args.append("\(sdkPath())")
+                args.append(sdkPath())
             }
 
             let request = Request.CodeCompletionRequest(file: path, contents: contents,
