@@ -10,6 +10,10 @@
   [Jeff Verkoeyen](https://github.com/jverkoey)
   [#347](https://github.com/realm/jazzy/issues/347)
 
+* Show the list of Tasks in the sidebar.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+  [#357](https://github.com/realm/jazzy/issues/357)
+
 ##### Bug Fixes
 
 * None.
