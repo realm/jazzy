@@ -1,3 +1,19 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Support "wall of asterisk" documentation comments.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+  [#347](https://github.com/realm/jazzy/issues/347)
+
+##### Bug Fixes
+
+* None.
+
 ## 0.4.0
 
 ##### Breaking
