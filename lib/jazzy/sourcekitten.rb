@@ -443,11 +443,8 @@ module Jazzy
         link_target = name_traversal(parts, name_root)
 
         if link_target && link_target.url && link_target.url != doc.url
-          "<code>
-            <a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">
-              #{raw_name}
-            </a>
-          </code>"
+          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
+            raw_name + '</a></code>'
         else
           original
         end
