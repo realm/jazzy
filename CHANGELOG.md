@@ -24,6 +24,10 @@
 * Miscellaneous minor font size, weight, and color adjustments.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
 
+* In-page anchors now appear below the header.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+  [#356](https://github.com/realm/jazzy/pull/356)
+
 ##### Bug Fixes
 
 * Fix an out-of-bounds exception when generating pragma marks.
