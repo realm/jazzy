@@ -62,6 +62,5 @@ module Jazzy
     def overview
       "#{abstract}\n\n#{discussion}".strip
     end
-
   end
 end

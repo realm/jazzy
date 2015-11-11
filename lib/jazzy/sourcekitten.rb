@@ -247,7 +247,7 @@ module Jazzy
       if doc['key.substructure']
         declaration.children = make_source_declarations(
           doc['key.substructure'],
-          declaration
+          declaration,
         )
       else
         declaration.children = []
@@ -262,7 +262,8 @@ module Jazzy
       current_mark = SourceMark.new
       Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
-          declarations += make_source_declarations(doc['key.substructure'], parent)
+          declarations += make_source_declarations(
+            doc['key.substructure'], parent)
           next
         end
         declaration = SourceDeclaration.new
@@ -272,7 +273,8 @@ module Jazzy
         current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
-          declarations += make_source_declarations(doc['key.substructure'], parent)
+          declarations += make_source_declarations(
+            doc['key.substructure'], parent)
           next
         end
         next unless declaration.type.should_document?
@@ -353,7 +355,8 @@ module Jazzy
 
       decls = typedecls + extensions
       decls.first.tap do |merged|
-        merged.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+        merged.children = deduplicate_declarations(
+          decls.flat_map(&:children).uniq)
         merged.children.each do |child|
           child.parent_in_code = merged
         end
@@ -397,7 +400,7 @@ module Jazzy
       end.compact
     end
 
-    def self.first_autolink_match(name_part, docs)
+    def self.name_match(name_part, docs)
       return nil unless name_part
       wildcard_expansion = Regexp.escape(name_part).gsub('\.\.\.', '[^)]*')
       whole_name_pat = /\A#{wildcard_expansion}\Z/
@@ -406,29 +409,45 @@ module Jazzy
       end
     end
 
+    # Find the first ancestor of doc whose name matches name_part.
+    def self.ancestor_name_match(name_part, doc)
+      doc.namespace_ancestors.reverse_each.first do |ancestor|
+        if match = name_match(name_part, ancestor.children)
+          return match
+        end
+      end
+    end
+
+    def self.name_traversal(name_parts, doc)
+      while doc && !name_parts.empty?
+        next_part = name_parts.shift
+        doc = name_match(next_part, doc.children)
+      end
+      doc
+    end
+
     def self.autolink_text(text, doc, root_decls)
-      text.gsub(/<code>[ \t]*([^\s]+)[ \t]*<\/code>/) do
+      text.gsub(%r{<code>[ \t]*([^\s]+)[ \t]*</code>}) do
         original = Regexp.last_match(0)
         raw_name = Regexp.last_match(1)
         parts = raw_name
-          .split(/(?<!\.)\.(?!\.)/)   # dot without a dot on either side
-          .reject(&:empty?)
+                .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
+                .reject(&:empty?)
 
-        # First dot-separated component can match doc or any ancestor
+        # First dot-separated component can match any ancestor or top-level doc
         first_part = parts.shift
-        target = nil
-        doc.namespace_ancestors.reverse_each do |ancestor|
-          break if target = first_autolink_match(first_part, ancestor.children)
-        end
-        target ||= first_autolink_match(first_part, root_decls)
+        name_root = ancestor_name_match(first_part, doc) ||
+                    name_match(first_part, root_decls)
 
-        while target && !parts.empty?
-          next_part = parts.shift
-          target = first_autolink_match(next_part, target.children)
-        end
+        # Traverse children via subsequence components, if any
+        link_target = name_traversal(parts, name_root)
 
-        if target && target.url && target.url != doc.url
-          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{target.url}\">#{raw_name}</a></code>"
+        if link_target && link_target.url && link_target.url != doc.url
+          "<code>
+            <a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">
+              #{raw_name}
+            </a>
+          </code>"
         else
           original
         end
