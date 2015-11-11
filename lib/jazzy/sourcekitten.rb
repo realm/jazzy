@@ -411,11 +411,12 @@ module Jazzy
 
     # Find the first ancestor of doc whose name matches name_part.
     def self.ancestor_name_match(name_part, doc)
-      doc.namespace_ancestors.reverse_each.first do |ancestor|
+      doc.namespace_ancestors.reverse_each do |ancestor|
         if match = name_match(name_part, ancestor.children)
           return match
         end
       end
+      nil
     end
 
     def self.name_traversal(name_parts, doc)
