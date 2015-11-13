@@ -405,7 +405,6 @@ module Jazzy
       wildcard_expansion = Regexp.escape(name_part)
         .gsub('\.\.\.', '[^)]*')
         .gsub(/&lt;.*&gt;/, '')
-p wildcard_expansion
       whole_name_pat = /\A#{wildcard_expansion}\Z/
       docs.find do |doc|
         whole_name_pat =~ doc.name
