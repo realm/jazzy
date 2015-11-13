@@ -403,8 +403,8 @@ module Jazzy
     def self.name_match(name_part, docs)
       return nil unless name_part
       wildcard_expansion = Regexp.escape(name_part)
-        .gsub('\.\.\.', '[^)]*')
-        .gsub(/&lt;.*&gt;/, '')
+                           .gsub('\.\.\.', '[^)]*')
+                           .gsub(/&lt;.*&gt;/, '')
       whole_name_pat = /\A#{wildcard_expansion}\Z/
       docs.find do |doc|
         whole_name_pat =~ doc.name
