@@ -65,21 +65,21 @@ module Jazzy
     # rubocop:disable Metrics/MethodLength
     # Generate doc URL by prepending its parents URLs
     # @return [Hash] input docs with URLs
-    def self.make_doc_urls(docs, parents)
+    def self.make_doc_urls(docs)
       docs.each do |doc|
-        if parents.empty? || doc.children.count > 0
+        if !doc.parent_in_docs || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
-            subdir_for_doc(doc, parents) +
+            subdir_for_doc(doc) +
             [doc.name + '.html']
           ).join('/')
-          doc.children = make_doc_urls(doc.children, parents + [doc])
+          doc.children = make_doc_urls(doc.children)
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
           if doc.typename == '<<error type>>'
             warn 'A compile error prevented ' +
-              (parents[1..-1] + [doc]).map(&:name).join('.') +
+              doc.fully_qualified_name +
               ' from receiving a unique USR. Documentation may be ' \
               'incomplete. Please check for compile errors by running ' \
               "`xcodebuild #{Config.instance.xcodebuild_arguments.shelljoin}`."
@@ -94,19 +94,23 @@ module Jazzy
               'project. If this token is declared in an `#if` block, please ' \
               'ignore this message.'
           end
-          doc.url = parents.last.url + '#/' + id
+          doc.url = doc.parent_in_docs.url + '#/' + id
         end
       end
     end
     # rubocop:enable Metrics/MethodLength
 
     # Determine the subdirectory in which a doc should be placed
-    def self.subdir_for_doc(doc, parents)
-      parents.map(&:name).tap do |names|
-        # We always want to create top-level subdirs according to type (Struct,
-        # Class, etc), but parents[0] might be a custom category name.
-        top_level_decl = (parents + [doc])[1]
-        names[0] = top_level_decl.type.plural_name if top_level_decl
+    def self.subdir_for_doc(doc)
+      # We always want to create top-level subdirs according to type (Struct,
+      # Class, etc).
+      top_level_decl = doc.namespace_path.first
+      if top_level_decl && top_level_decl.type && top_level_decl.type.name
+        # File program elements under top ancestor’s type (Struct, Class, etc.)
+        [top_level_decl.type.plural_name] + doc.namespace_ancestors.map(&:name)
+      else
+        # Categories live in their own directory
+        []
       end
     end
 
@@ -243,6 +247,7 @@ module Jazzy
       if doc['key.substructure']
         declaration.children = make_source_declarations(
           doc['key.substructure'],
+          declaration,
         )
       else
         declaration.children = []
@@ -252,21 +257,24 @@ module Jazzy
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
-    def self.make_source_declarations(docs)
+    def self.make_source_declarations(docs, parent = nil)
       declarations = []
       current_mark = SourceMark.new
       Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
-          declarations += make_source_declarations(doc['key.substructure'])
+          declarations += make_source_declarations(
+            doc['key.substructure'], parent)
           next
         end
         declaration = SourceDeclaration.new
+        declaration.parent_in_code = parent
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
         current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
-          declarations += make_source_declarations(doc['key.substructure'])
+          declarations += make_source_declarations(
+            doc['key.substructure'], parent)
           next
         end
         next unless declaration.type.should_document?
@@ -346,8 +354,12 @@ module Jazzy
       end
 
       decls = typedecls + extensions
-      decls.first.tap do |d|
-        d.children = deduplicate_declarations(decls.flat_map(&:children).uniq)
+      decls.first.tap do |merged|
+        merged.children = deduplicate_declarations(
+          decls.flat_map(&:children).uniq)
+        merged.children.each do |child|
+          child.parent_in_code = merged
+        end
       end
     end
 
@@ -388,32 +400,65 @@ module Jazzy
       end.compact
     end
 
-    def self.names_and_urls(docs)
-      docs.flat_map do |doc|
-        # FIXME: autolink more than just top-level items.
-        [{ name: doc.name, url: doc.url }] # + names_and_urls(doc.children)
+    def self.name_match(name_part, docs)
+      return nil unless name_part
+      wildcard_expansion = Regexp.escape(name_part)
+                           .gsub('\.\.\.', '[^)]*')
+                           .gsub(/&lt;.*&gt;/, '')
+      whole_name_pat = /\A#{wildcard_expansion}\Z/
+      docs.find do |doc|
+        whole_name_pat =~ doc.name
       end
     end
 
-    def self.autolink_text(text, data, url)
-      regex = /\b(#{data.map { |d| Regexp.escape(d[:name]) }.join('|')})\b/
-      text.gsub(regex) do
-        name = Regexp.last_match(1)
-        auto_url = data.find { |d| d[:name] == name }[:url]
-        if auto_url == url # docs shouldn't autolink to themselves
-          Regexp.last_match(0)
+    # Find the first ancestor of doc whose name matches name_part.
+    def self.ancestor_name_match(name_part, doc)
+      doc.namespace_ancestors.reverse_each do |ancestor|
+        if match = name_match(name_part, ancestor.children)
+          return match
+        end
+      end
+      nil
+    end
+
+    def self.name_traversal(name_parts, doc)
+      while doc && !name_parts.empty?
+        next_part = name_parts.shift
+        doc = name_match(next_part, doc.children)
+      end
+      doc
+    end
+
+    def self.autolink_text(text, doc, root_decls)
+      text.gsub(%r{<code>[ \t]*([^\s]+)[ \t]*</code>}) do
+        original = Regexp.last_match(0)
+        raw_name = Regexp.last_match(1)
+        parts = raw_name
+                .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
+                .reject(&:empty?)
+
+        # First dot-separated component can match any ancestor or top-level doc
+        first_part = parts.shift
+        name_root = ancestor_name_match(first_part, doc) ||
+                    name_match(first_part, root_decls)
+
+        # Traverse children via subsequence components, if any
+        link_target = name_traversal(parts, name_root)
+
+        if link_target && link_target.url && link_target.url != doc.url
+          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
+            raw_name + '</a></code>'
         else
-          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{auto_url}\">#{name}</a>"
+          original
         end
       end
     end
 
-    def self.autolink(docs, data)
-      docs.map do |doc|
-        doc.abstract = autolink_text(doc.abstract, data, doc.url)
-        doc.return = autolink_text(doc.return, data, doc.url) if doc.return
-        doc.children = autolink(doc.children, data)
-        doc
+    def self.autolink(docs, root_decls)
+      docs.each do |doc|
+        doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+        doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
+        doc.children = autolink(doc.children, root_decls)
       end
     end
 
@@ -422,7 +467,7 @@ module Jazzy
         doc.children.select { |child| child.type.objc_enum? }.map(&:name)
       end
       docs.map do |doc|
-        doc.children.reject! do |child|
+        doc.children = doc.children.reject do |child|
           child.type.objc_typedef? && enums.include?(child.name)
         end
         doc
@@ -436,7 +481,7 @@ module Jazzy
       @skip_undocumented = skip_undocumented
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json)
-      docs = deduplicate_declarations(docs)
+      docs = ungrouped_docs = deduplicate_declarations(docs)
       docs = group_docs(docs)
       if Config.instance.objc_mode
         docs = reject_objc_enum_typedefs(docs)
@@ -445,8 +490,8 @@ module Jazzy
         # than min_acl
         docs = docs.reject { |doc| doc.type.swift_enum_element? }
       end
-      docs = make_doc_urls(docs, [])
-      docs = autolink(docs, names_and_urls(docs.flat_map(&:children)))
+      make_doc_urls(docs)
+      autolink(docs, ungrouped_docs)
       [docs, doc_coverage, @undocumented_tokens]
     end
   end

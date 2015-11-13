@@ -10,6 +10,17 @@
   [Jeff Verkoeyen](https://github.com/jverkoey)
   [#347](https://github.com/realm/jazzy/issues/347)
 
+* Autolinking improvements:
+  - Autolinks only match `` `ThingsInBackticks` ``, and must match the entire
+    string. This prevents spurious matching in prose and sample code.
+  - Autolinks supports siblings, ancestors, top-level elements, and
+    dot-separated chains starting with any of the above: `someProperty`,
+    `SomeType.NestedType.someMethod(_:)`.
+  - New `...` wildcard prevents you from having to list all method parameters:
+    `someMethod(...)`
+
+  [pcantrell](https://github.com/pcantrell)
+
 ##### Bug Fixes
 
 * None.
