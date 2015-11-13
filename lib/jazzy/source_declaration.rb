@@ -19,6 +19,7 @@ module Jazzy
     attr_accessor :children
 
     def children=(new_children)
+      # Freeze to ensure that parent_in_docs stays in sync
       @children = new_children.freeze
       @children.each { |c| c.parent_in_docs = self }
     end

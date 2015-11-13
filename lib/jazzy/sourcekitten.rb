@@ -465,7 +465,7 @@ module Jazzy
         doc.children.select { |child| child.type.objc_enum? }.map(&:name)
       end
       docs.map do |doc|
-        doc.children.reject! do |child|
+        doc.children = doc.children.reject do |child|
           child.type.objc_typedef? && enums.include?(child.name)
         end
         doc
