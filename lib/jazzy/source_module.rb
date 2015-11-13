@@ -6,6 +6,7 @@ require 'jazzy/source_declaration'
 module Jazzy
   class SourceModule
     attr_accessor :name
+    attr_accessor :root_path
     attr_accessor :docs
     attr_accessor :doc_coverage
     attr_accessor :doc_structure
@@ -17,6 +18,7 @@ module Jazzy
 
     def initialize(options, docs, doc_structure, doc_coverage)
       self.docs = docs
+      self.root_path = options.source_directory
       self.doc_structure = doc_structure
       self.doc_coverage = doc_coverage
       self.name = options.module_name
