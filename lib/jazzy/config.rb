@@ -126,7 +126,8 @@ module Jazzy
       description: 'Files to be excluded from documentation',
       default: [],
       parse: ->(files) do
-        files.map { |f| File.expand_path(f) }
+        PathnameArray.new(
+          Array(files).map { |f| Pathname(f) })
       end
 
     config_attr :swift_version,
@@ -397,6 +398,12 @@ module Jazzy
       attr.description.each { |line| puts "  #{line}" }
       if attr.default && attr.default != ''
         puts "  Default: #{attr.default}"
+      end
+    end
+
+    class PathnameArray < Array
+      def expand_path(base_path)
+        map { |p| p.expand_path(base_path) }
       end
     end
 
