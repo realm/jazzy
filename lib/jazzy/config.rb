@@ -31,7 +31,7 @@ module Jazzy
       end
 
       def set(config, val, mark_configured: true)
-        set_raw(config, parse.call(val))
+        set_raw(config, config.instance_exec(val, &parse))
         config.method("#{name}_configured=").call(true) if mark_configured
       end
 
@@ -67,6 +67,12 @@ module Jazzy
       attr_reader :all_config_attrs
     end
 
+    attr_accessor :base_path
+
+    def expand_path(path)
+      Pathname(path).expand_path(base_path) # nil means Pathname.pwd
+    end
+
     # ──────── Build ────────
 
     # rubocop:disable Style/AlignParameters
@@ -75,7 +81,7 @@ module Jazzy
       description: 'Folder to output the HTML docs to',
       command_line: ['-o', '--output FOLDER'],
       default: 'docs',
-      parse: ->(o) { Pathname(o) }
+      parse: ->(o) { expand_path(o) }
 
     config_attr :clean,
       command_line: ['-c', '--[no-]clean'],
@@ -92,18 +98,18 @@ module Jazzy
     config_attr :umbrella_header,
       command_line: '--umbrella-header PATH',
       description: 'Umbrella header for your Objective-C framework.',
-      parse: ->(uh) { Pathname(uh) }
+      parse: ->(uh) { expand_path(uh) }
 
     config_attr :framework_root,
       command_line: '--framework-root PATH',
       description: 'The root path to your Objective-C framework.',
-      parse: ->(fr) { Pathname(fr) }
+      parse: ->(fr) { expand_path(fr) }
 
     config_attr :config_file,
       command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',
                     'Default: .jazzy.yaml in source directory or ancestor'],
-      parse: ->(cf) { Pathname(cf) }
+      parse: ->(cf) { expand_path(cf) }
 
     config_attr :xcodebuild_arguments,
       command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
@@ -113,20 +119,20 @@ module Jazzy
     config_attr :sourcekitten_sourcefile,
       command_line: ['-s', '--sourcekitten-sourcefile FILEPATH'],
       description: 'File generated from sourcekitten output to parse',
-      parse: ->(s) { Pathname(s) }
+      parse: ->(s) { expand_path(s) }
 
     config_attr :source_directory,
       command_line: '--source-directory DIRPATH',
       description: 'The directory that contains the source to be documented',
       default: Pathname.pwd,
-      parse: ->(sd) { Pathname(sd) }
+      parse: ->(sd) { expand_path(sd) }
 
     config_attr :excluded_files,
       command_line: ['-e', '--exclude file1,file2,…fileN', Array],
       description: 'Files to be excluded from documentation',
       default: [],
       parse: ->(files) do
-        files.map { |f| File.expand_path(f) }
+        Array(files).map { |f| expand_path(f) }
       end
 
     config_attr :swift_version,
@@ -163,7 +169,7 @@ module Jazzy
     config_attr :readme_path,
       command_line: '--readme FILEPATH',
       description: 'The path to a markdown README file',
-      parse: ->(rp) { Pathname(rp) }
+      parse: ->(rp) { expand_path(rp) }
 
     config_attr :podspec,
       command_line: '--podspec FILEPATH',
@@ -174,7 +180,7 @@ module Jazzy
 
     config_attr :docset_icon,
       command_line: '--docset-icon FILEPATH',
-      parse: ->(di) { Pathname(di) }
+      parse: ->(di) { expand_path(di) }
 
     config_attr :docset_path,
       command_line: '--docset-path DIRPATH',
@@ -236,14 +242,14 @@ module Jazzy
       command_line: ['-t', '--template-directory DIRPATH'],
       description: 'The directory that contains the mustache templates to use',
       default: Pathname(__FILE__).parent + 'templates',
-      parse: ->(td) { Pathname(td) }
+      parse: ->(td) { expand_path(td) }
 
     config_attr :assets_directory,
       command_line: '--assets-directory DIRPATH',
       description: 'The directory that contains the assets (CSS, JS, images) '\
                    'used by the templates',
       default: Pathname(__FILE__).parent + 'assets',
-      parse: ->(ad) { Pathname(ad) }
+      parse: ->(ad) { expand_path(ad) }
 
     # rubocop:enable Style/AlignParameters
 
@@ -304,13 +310,13 @@ module Jazzy
           exit
         end
       end.parse!
-
-      expand_paths(Pathname.pwd)
     end
 
     def parse_config_file
       config_path = locate_config_file
       return unless config_path
+
+      self.base_path = config_path.parent
 
       puts "Using config file #{config_path}"
       config_file = read_config_file(config_path)
@@ -321,7 +327,7 @@ module Jazzy
         end
       end
 
-      expand_paths(config_path.parent)
+      self.base_path = nil
     end
 
     def locate_config_file
@@ -340,15 +346,6 @@ module Jazzy
         when '.json'         then JSON.parse(File.read(file))
         when '.yaml', '.yml' then YAML.load(File.read(file))
         else raise "Config file must be .yaml or .json, but got #{file.inspect}"
-      end
-    end
-
-    def expand_paths(base_path)
-      self.class.all_config_attrs.each do |attr|
-        val = attr.get(self)
-        if val.respond_to?(:expand_path)
-          attr.set_raw(self, val.expand_path(base_path))
-        end
       end
     end
 

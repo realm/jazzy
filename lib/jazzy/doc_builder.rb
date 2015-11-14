@@ -224,7 +224,8 @@ module Jazzy
       else
         gh_line = "#L#{item.line}"
       end
-      relative_file_path = item.file.realpath.relative_path_from(Pathname.pwd)
+      relative_file_path = item.file.realpath.relative_path_from(
+        source_module.root_path)
       "#{github_prefix}/#{relative_file_path}#{gh_line}"
     end
 
