@@ -23,7 +23,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Expanding a token no longer causes the document to 'jump' to the hash.
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+  [#352](https://github.com/realm/jazzy/issues/352)
 
 ## 0.4.0
 
