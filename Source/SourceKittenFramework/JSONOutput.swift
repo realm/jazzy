@@ -18,8 +18,8 @@ private func toOutputDictionary(decl: SourceDeclaration) -> [String: AnyObject] 
         }
     }
     func setA(key: SwiftDocKey, _ value: [AnyObject]?) {
-        if value != nil && value!.count > 0 {
-            dict[key.rawValue] = value!
+        if let value = value where value.count > 0 {
+            dict[key.rawValue] = value
         }
     }
 
