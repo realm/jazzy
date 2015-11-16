@@ -42,6 +42,15 @@
   [JP Simard](https://github.com/jpsim)
   [#374](https://github.com/realm/jazzy/issues/374)
 
+* Links to source files on GitHub are no longer broken when `source_directory`
+  does not point to the current working directory.  
+  [pcantrell](https://github.com/pcantrell)
+
+* When `excluded_files` is specified in a config file, it is now resolved
+  relative to the file (like other options) instead of relative to the working
+  directory.  
+  [pcantrell](https://github.com/pcantrell)
+
 
 ## 0.4.0
 
@@ -81,14 +90,8 @@
 
 ##### Bug Fixes
 
-- Links to source files on GitHub are no longer broken when `source_directory`
-  does not point to the current working directory.  
-  [pcantrell](https://github.com/pcantrell)
+* None.
 
-- When `excluded_files` is specified in a config file, it is now resolved
-  relative to the file (like other options) instead of relative to the working
-  directory.  
-  [pcantrell](https://github.com/pcantrell)
 
 ## 0.3.2
 
