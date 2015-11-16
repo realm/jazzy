@@ -58,7 +58,7 @@ body {
 
 // Headers
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3 {
   margin-top: 0.8em;
   margin-bottom: 0.3em;
   font-weight: 100;
@@ -71,11 +71,10 @@ h2 {
   font-size: 2em;
   border-bottom: $gray_border;
 }
-h3 {
-  font-size: 1.5em;
-}
 h4 {
-  font-size: 1.25em;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 21px;
 }
 h5 {
   font-size: 1.1em;
@@ -83,6 +82,14 @@ h5 {
 h6 {
   font-size: 1.1em;
   color: $code_color;
+}
+.section-name {
+  color: rgba(128,128,128,1);
+  display: block;
+  font-family: Helvetica;
+  font-size: 22px;
+  font-weight: 100;
+  margin-bottom: 15px;
 }
 
 // Code
@@ -310,6 +317,7 @@ header {
   .token {
     padding-left: 3px;
     margin-left: 15px;
+    font-size: 11.9px;
   }
   .declaration-note {
     font-size: .85em;

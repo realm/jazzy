@@ -21,6 +21,9 @@
 
   [pcantrell](https://github.com/pcantrell)
 
+* Miscellaneous minor font size, weight, and color adjustments.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+
 ##### Bug Fixes
 
 * Fix an out-of-bounds exception when generating pragma marks.
