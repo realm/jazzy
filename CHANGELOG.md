@@ -10,6 +10,10 @@
   [Jeff Verkoeyen](https://github.com/jverkoey)
   [#347](https://github.com/realm/jazzy/issues/347)
 
+* Expanding a token no longer causes the document to 'jump' to the hash.
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+  [#352](https://github.com/realm/jazzy/issues/352)
+
 * Autolinking improvements:
   - Autolinks only match `` `ThingsInBackticks` ``, and must match the entire
     string. This prevents spurious matching in prose and sample code.
