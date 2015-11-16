@@ -235,7 +235,7 @@ module Jazzy
       description: ['Custom navigation categories to replace the standard '\
                     '“Classes, Protocols, etc.”', 'Types not explicitly named '\
                     'in a custom category appear in generic groups at the end.',
-                    'Example: http://git.io/vcTZm'],
+                    'Example: http://git.io/v4Bcp'],
       default: []
 
     config_attr :template_directory,
