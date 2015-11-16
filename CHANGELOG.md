@@ -23,7 +23,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix an out-of-bounds exception when generating pragma marks.
+  [JP Simard](https://github.com/jpsim)
+  [#370](https://github.com/realm/jazzy/issues/370)
+
 
 ## 0.4.0
 
