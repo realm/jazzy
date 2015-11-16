@@ -27,6 +27,10 @@
   [JP Simard](https://github.com/jpsim)
   [#370](https://github.com/realm/jazzy/issues/370)
 
+* Add support for C/C++ struct & field types.  
+  [JP Simard](https://github.com/jpsim)
+  [#374](https://github.com/realm/jazzy/issues/374)
+
 
 ## 0.4.0
 
