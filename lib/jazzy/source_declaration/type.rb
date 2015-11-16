@@ -144,6 +144,14 @@ module Jazzy
           jazzy: 'Function',
           dash: 'Function',
         }.freeze,
+        'sourcekitten.source.lang.objc.decl.struct' => {
+          jazzy: 'Struct',
+          dash: 'Struct',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.field' => {
+          jazzy: 'Field',
+          dash: 'Field',
+        }.freeze,
 
         # Swift
         'source.lang.swift.decl.function.accessor.address' => {
