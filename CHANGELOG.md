@@ -1,4 +1,4 @@
-## Master
+## 0.6.1
 
 ##### Breaking
 
@@ -11,7 +11,13 @@ None.
 
 ##### Bug Fixes
 
-None.
+* Fix a string interpolation issue when generating completion options.  
+  [Benedikt Terhechte](https://github.com/terhechte)
+  [#97](https://github.com/jpsim/SourceKitten/issues/97)
+
+* Fix an out-of-bounds exception when generating pragma marks.
+  [JP Simard](https://github.com/jpsim)
+  [jazzy#370](https://github.com/realm/jazzy/issues/370)
 
 
 ## 0.6.0
