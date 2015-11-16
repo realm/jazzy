@@ -298,6 +298,17 @@ header {
   padding-top: 0px;
 }
 
+.task-name-container {
+  a[name] {
+    &:before {
+      content: "";
+      display: block;
+      padding-top: $content_top_offset;
+      margin: -$content_top_offset 0 0;
+    }
+  }
+}
+
 .item {
   padding-top: 8px;
   width: 100%;
