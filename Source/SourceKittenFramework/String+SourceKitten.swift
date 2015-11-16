@@ -193,7 +193,12 @@ extension String {
     /// Just the content; no leading dashes or leading `#pragma mark`.
     public func pragmaMarks(filename: String, excludeRanges: [NSRange], limitRange: NSRange?) -> [SourceDeclaration] {
         let regex = try! NSRegularExpression(pattern: "(#pragma\\smark|@name)[ -]*([^\\n]+)", options: []) // Safe to force try
-        let range = limitRange ?? NSRange(location: 0, length: utf16.count)
+        let range: NSRange
+        if let limitRange = limitRange {
+            range = NSRange(location: limitRange.location, length: min(utf16.count - limitRange.location, limitRange.length))
+        } else {
+            range = NSRange(location: 0, length: utf16.count)
+        }
         let matches = regex.matchesInString(self, options: [], range: range)
 
         return matches.flatMap { match in
