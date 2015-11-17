@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Functions  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a title="Functions  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">Alamofire Docs</a> (87% documented)</p>
+        <p class="header-right"><a href="https://github.com/Alamofire/Alamofire"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://http%3A%2F%2Fstatic%2Erealm%2Eio%2Fjazzy_demo%2FAlamofire%2Fdocsets%2FAlamofire%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">Alamofire Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Functions  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Manager.html">Manager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MultipartFormData.html">MultipartFormData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Request.html">Request</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ServerTrustPolicyManager.html">ServerTrustPolicyManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Global Variables.html#/s:v9Alamofire20AlamofireErrorDomainSS">AlamofireErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums.html#/s:O9Alamofire6Method">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ParameterEncoding.html">ParameterEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ServerTrustPolicy.html">ServerTrustPolicy</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions.html#/c:objc(cs)NSURLRequest">NSURLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions.html#/s:SS">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire8downloadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S3__CS_7Request">download(_:_:headers:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire8downloadFTPS_21URLRequestConvertible_11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(_:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire8downloadFT10resumeDataCSo6NSData11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(resumeData:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire7requestFPS_21URLRequestConvertible_CS_7Request">request(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire7requestFTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding7headersGSqGS2_SSSS___CS_7Request">request(_:_:parameters:encoding:headers:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTOS_6Method9URLStringPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:URLString:headers:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4dataCSo6NSData_CS_7Request">upload(_:_:headers:data:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4fileCSo5NSURL_CS_7Request">upload(_:_:headers:file:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__6streamCSo13NSInputStream_CS_7Request">upload(_:_:headers:stream:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4dataCSo6NSData_CS_7Request">upload(_:data:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4fileCSo5NSURL_CS_7Request">upload(_:file:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_6streamCSo13NSInputStream_CS_7Request">upload(_:stream:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/ResponseSerializer.html">ResponseSerializer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/URLRequestConvertible.html">URLRequestConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/URLStringConvertible.html">URLStringConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/GenericResponseSerializer.html">GenericResponseSerializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:C9Alamofire7Request23DownloadFileDestination">DownloadFileDestination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:C9Alamofire7Request10Validation">Validation</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Functions</h1>
+            <p>The following functions are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Request%20Methods"></a>
+                <a name="//apple_ref/swift/Section/Request Methods" class="dashAnchor"></a>
+                <a href="#/Request%20Methods">
+                  <h3 class="section-name">Request Methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire7requestFTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding7headersGSqGS2_SSSS___CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/request(_:_:parameters:encoding:headers:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire7requestFTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding7headersGSqGS2_SSSS___CS_7Request">request(_:_:parameters:encoding:headers:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a request using the shared manager instance for the specified method, URL string, parameters, and parameter encoding.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">request</span><span class="p">(</span><span class="nv">method</span><span class="p">:</span> <span class="kt">Method</span><span class="p">,</span> <span class="kt">URLString</span><span class="p">:</span> <span class="kt">URLStringConvertible</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="kt">ParameterEncoding</span> <span class="o">=</span> <span class="o">.</span><span class="kt">URL</span><span class="p">,</span> <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP method.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL string.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>parameters</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The parameters. <code>nil</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encoding</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The parameter encoding. <code>.URL</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP headers. <code>nil</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L116-L118">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire7requestFPS_21URLRequestConvertible_CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/request(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire7requestFPS_21URLRequestConvertible_CS_7Request">request(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a request using the shared manager instance for the specified URL request.</p>
+
+<p>If <code>startRequestsImmediately</code> is <code>true</code>, the request will have <code>resume()</code> called before being returned.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">request</span><span class="p">(</span><span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L129-L131">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/File"></a>
+                <a name="//apple_ref/swift/Section/File" class="dashAnchor"></a>
+                <a href="#/File">
+                  <h3 class="section-name">File</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4fileCSo5NSURL_CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:_:headers:file:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4fileCSo5NSURL_CS_7Request">upload(_:_:headers:file:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified method, URL string, and file.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="nv">method</span><span class="p">:</span> <span class="kt">Method</span><span class="p">,</span> <span class="kt">URLString</span><span class="p">:</span> <span class="kt">URLStringConvertible</span><span class="p">,</span> <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">#file</span><span class="p">:</span> <span class="kt">NSURL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP method.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL string.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP headers. <code>nil</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>file</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The file to upload.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created upload request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L147-L149">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4fileCSo5NSURL_CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:file:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4fileCSo5NSURL_CS_7Request">upload(_:file:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified URL request and file.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span> <span class="nv">#file</span><span class="p">:</span> <span class="kt">NSURL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>file</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The file to upload.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created upload request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L159-L161">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Data"></a>
+                <a name="//apple_ref/swift/Section/Data" class="dashAnchor"></a>
+                <a href="#/Data">
+                  <h3 class="section-name">Data</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4dataCSo6NSData_CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:_:headers:data:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4dataCSo6NSData_CS_7Request">upload(_:_:headers:data:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified method, URL string, and data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="nv">method</span><span class="p">:</span> <span class="kt">Method</span><span class="p">,</span> <span class="kt">URLString</span><span class="p">:</span> <span class="kt">URLStringConvertible</span><span class="p">,</span> <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">#data</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP method.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL string.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP headers. <code>nil</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to upload.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created upload request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L175-L177">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4dataCSo6NSData_CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:data:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4dataCSo6NSData_CS_7Request">upload(_:data:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified URL request and data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span> <span class="nv">#data</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to upload.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created upload request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L187-L189">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Stream"></a>
+                <a name="//apple_ref/swift/Section/Stream" class="dashAnchor"></a>
+                <a href="#/Stream">
+                  <h3 class="section-name">Stream</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__6streamCSo13NSInputStream_CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:_:headers:stream:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__6streamCSo13NSInputStream_CS_7Request">upload(_:_:headers:stream:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified method, URL string, and stream.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="nv">method</span><span class="p">:</span> <span class="kt">Method</span><span class="p">,</span> <span class="kt">URLString</span><span class="p">:</span> <span class="kt">URLStringConvertible</span><span class="p">,</span> <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">#stream</span><span class="p">:</span> <span class="kt">NSInputStream</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP method.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL string.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP headers. <code>nil</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stream</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The stream to upload.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created upload request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L203-L205">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_6streamCSo13NSInputStream_CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:stream:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_6streamCSo13NSInputStream_CS_7Request">upload(_:stream:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified URL request and stream.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span><span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span> <span class="nv">#stream</span><span class="p">:</span> <span class="kt">NSInputStream</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stream</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The stream to upload.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created upload request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L215-L217">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/MultipartFormData"></a>
+                <a name="//apple_ref/swift/Section/MultipartFormData" class="dashAnchor"></a>
+                <a href="#/MultipartFormData">
+                  <h3 class="section-name">MultipartFormData</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTOS_6Method9URLStringPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:URLString:headers:multipartFormData:encodingMemoryThreshold:encodingCompletion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTOS_6Method9URLStringPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:URLString:headers:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified method and URL string.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span>
+    <span class="nv">method</span><span class="p">:</span> <span class="kt">Method</span><span class="p">,</span>
+    <span class="cp">#URLString: URLStringConvertible,</span>
+    <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+    <span class="cp">#multipartFormData: MultipartFormData -&gt; Void,</span>
+    <span class="nv">encodingMemoryThreshold</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="o">=</span> <span class="kt">Manager</span><span class="o">.</span><span class="kt">MultipartFormDataEncodingMemoryThreshold</span><span class="p">,</span>
+    <span class="cp">#encodingCompletion: (Manager.MultipartFormDataEncodingResult -&gt; Void)?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP method.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL string.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP headers. <code>nil</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>multipartFormData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure used to append body parts to the <code>MultipartFormData</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encodingMemoryThreshold</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encoding memory threshold in bytes. <code>MultipartFormDataEncodingMemoryThreshold</code> 
+by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encodingCompletion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure called when the <code>MultipartFormData</code> encoding is complete.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L232-L248">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_"></a>
+                    <a name="//apple_ref/swift/Function/upload(_:multipartFormData:encodingMemoryThreshold:encodingCompletion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an upload request using the shared manager instance for the specified method and URL string.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">upload</span><span class="p">(</span>
+    <span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span>
+    <span class="cp">#multipartFormData: MultipartFormData -&gt; Void,</span>
+    <span class="nv">encodingMemoryThreshold</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="o">=</span> <span class="kt">Manager</span><span class="o">.</span><span class="kt">MultipartFormDataEncodingMemoryThreshold</span><span class="p">,</span>
+    <span class="cp">#encodingCompletion: (Manager.MultipartFormDataEncodingResult -&gt; Void)?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>multipartFormData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure used to append body parts to the <code>MultipartFormData</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encodingMemoryThreshold</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The encoding memory threshold in bytes. <code>MultipartFormDataEncodingMemoryThreshold</code>
+by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encodingCompletion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure called when the <code>MultipartFormData</code> encoding is complete.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L259-L271">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/URL%20Request"></a>
+                <a name="//apple_ref/swift/Section/URL Request" class="dashAnchor"></a>
+                <a href="#/URL%20Request">
+                  <h3 class="section-name">URL Request</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire8downloadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S3__CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/download(_:_:headers:destination:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire8downloadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S3__CS_7Request">download(_:_:headers:destination:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a download request using the shared manager instance for the specified method and URL string.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span><span class="nv">method</span><span class="p">:</span> <span class="kt">Method</span><span class="p">,</span> <span class="kt">URLString</span><span class="p">:</span> <span class="kt">URLStringConvertible</span><span class="p">,</span> <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">#destination</span><span class="p">:</span> <span class="kt">Request</span><span class="o">.</span><span class="kt">DownloadFileDestination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>method</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP method.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL string.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP headers. <code>nil</code> by default.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>destination</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure used to determine the destination of the downloaded file.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created download request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L287-L289">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire8downloadFTPS_21URLRequestConvertible_11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/download(_:destination:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire8downloadFTPS_21URLRequestConvertible_11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(_:destination:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a download request using the shared manager instance for the specified URL request.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span><span class="kt">URLRequest</span><span class="p">:</span> <span class="kt">URLRequestConvertible</span><span class="p">,</span> <span class="nv">#destination</span><span class="p">:</span> <span class="kt">Request</span><span class="o">.</span><span class="kt">DownloadFileDestination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>URLRequest</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL request.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>destination</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure used to determine the destination of the downloaded file.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created download request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L299-L301">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Resume%20Data"></a>
+                <a name="//apple_ref/swift/Section/Resume Data" class="dashAnchor"></a>
+                <a href="#/Resume%20Data">
+                  <h3 class="section-name">Resume Data</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F9Alamofire8downloadFT10resumeDataCSo6NSData11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request"></a>
+                    <a name="//apple_ref/swift/Function/download(resumeData:destination:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F9Alamofire8downloadFT10resumeDataCSo6NSData11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(resumeData:destination:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a request using the shared manager instance for downloading from the resume data produced from a previous request cancellation.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">download</span><span class="p">(</span><span class="n">resumeData</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">,</span> <span class="nv">#destination</span><span class="p">:</span> <span class="kt">Request</span><span class="o">.</span><span class="kt">DownloadFileDestination</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Request</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>resumeData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The resume data. This is an opaque data blob produced by <code>NSURLSessionDownloadTask</code> when a task is cancelled. See <code>NSURLSession -downloadTaskWithResumeData:</code> for additional information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>destination</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure used to determine the destination of the downloaded file.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created download request.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Alamofire.swift#L313-L315">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://nshipster.com/alamofire" target="_blank" rel="external">Alamofire</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

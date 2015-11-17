@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MultipartFormData Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/MultipartFormData" class="dashAnchor"></a>
+    <a title="MultipartFormData Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Alamofire Docs</a> (83% documented)</p>
+        <p class="header-right"><a href="https://github.com/Alamofire/Alamofire"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://http%3A%2F%2Fstatic%2Erealm%2Eio%2Fjazzy_demo%2FAlamofire%2Fdocsets%2FAlamofire%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Alamofire Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        MultipartFormData Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Manager.html">Manager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MultipartFormData.html">MultipartFormData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Request.html">Request</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ServerTrustPolicyManager.html">ServerTrustPolicyManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums.html#/s:O9Alamofire6Method">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ParameterEncoding.html">ParameterEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Result.html">Result</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ServerTrustPolicy.html">ServerTrustPolicy</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/c:objc(cs)NSURLRequest">NSURLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions.html#/s:SS">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire8downloadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S3__CS_7Request">download(_:_:headers:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire8downloadFTPS_21URLRequestConvertible_11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(_:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire8downloadFT10resumeDataCSo6NSData11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(resumeData:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire7requestFPS_21URLRequestConvertible_CS_7Request">request(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire7requestFTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding7headersGSqGS2_SSSS___CS_7Request">request(_:_:parameters:encoding:headers:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4dataCSo6NSData_CS_7Request">upload(_:_:headers:data:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4fileCSo5NSURL_CS_7Request">upload(_:_:headers:file:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:_:headers:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__6streamCSo13NSInputStream_CS_7Request">upload(_:_:headers:stream:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4dataCSo6NSData_CS_7Request">upload(_:data:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4fileCSo5NSURL_CS_7Request">upload(_:file:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_6streamCSo13NSInputStream_CS_7Request">upload(_:stream:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ResponseSerializer.html">ResponseSerializer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/URLRequestConvertible.html">URLRequestConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/URLStringConvertible.html">URLStringConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Error.html">Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/GenericResponseSerializer.html">GenericResponseSerializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:C9Alamofire7Request23DownloadFileDestination">DownloadFileDestination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:C9Alamofire7Request10Validation">Validation</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>MultipartFormData</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">MultipartFormData</span></code></pre>
+
+                </div>
+              </div>
+            <p>Constructs <code>multipart/form-data</code> for uploads within an HTTP or HTTPS body. There are currently two ways to encode 
+multipart form data. The first way is to encode the data directly in memory. This is very efficient, but can lead 
+to memory issues if the dataset is too large. The second way is designed for larger datasets and will write all the 
+data to a single file on disk with all the proper boundary segmentation. The second approach MUST be used for 
+larger datasets such as video content, otherwise your app may run out of memory when trying to encode the dataset.</p>
+
+<p>For more information on <code>multipart/form-data</code> in general, please refer to the RFC-2388 and RFC-2045 specs as well
+and the w3 form documentation.</p>
+
+<ul>
+<li><a href="https://www.ietf.org/rfc/rfc2388.txt">https://www.ietf.org/rfc/rfc2388.txt</a></li>
+<li><a href="https://www.ietf.org/rfc/rfc2045.txt">https://www.ietf.org/rfc/rfc2045.txt</a></li>
+<li><a href="https://www.w3.org/TR/html401/interact/forms.html#h-17.13">https://www.w3.org/TR/html401/interact/forms.html#h-17.13</a></li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC9Alamofire17MultipartFormData11contentTypeSS"></a>
+                    <a name="//apple_ref/swift/Property/contentType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC9Alamofire17MultipartFormData11contentTypeSS">contentType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The <code>Content-Type</code> header value containing the boundary used to generate the <code>multipart/form-data</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">contentType</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">return</span> <span class="s">"multipart/form-data; boundary=</span><span class="se">\(</span><span class="n">boundary</span><span class="se">)</span><span class="s">"</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L95">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC9Alamofire17MultipartFormData13contentLengthVSs6UInt64"></a>
+                    <a name="//apple_ref/swift/Property/contentLength" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC9Alamofire17MultipartFormData13contentLengthVSs6UInt64">contentLength</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The content length of all body parts used to generate the <code>multipart/form-data</code> not including the boundaries.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">contentLength</span><span class="p">:</span> <span class="kt">UInt64</span> <span class="p">{</span> <span class="k">return</span> <span class="n">bodyParts</span><span class="o">.</span><span class="nf">reduce</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">+</span> <span class="nv">$1</span><span class="o">.</span><span class="n">bodyContentLength</span> <span class="p">}</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L98">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC9Alamofire17MultipartFormData8boundarySS"></a>
+                    <a name="//apple_ref/swift/Property/boundary" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC9Alamofire17MultipartFormData8boundarySS">boundary</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The boundary used to separate the body parts in the encoded form data.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">boundary</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L101">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Lifecycle"></a>
+                <a name="//apple_ref/swift/Section/Lifecycle" class="dashAnchor"></a>
+                <a href="#/Lifecycle">
+                  <h3 class="section-name">Lifecycle</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormDatacFMS0_FT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormDatacFMS0_FT_S0_">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a multipart form data object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The multipart form data object.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L114-L125">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Body%20Parts"></a>
+                <a name="//apple_ref/swift/Section/Body Parts" class="dashAnchor"></a>
+                <a href="#/Body%20Parts">
+                  <h3 class="section-name">Body Parts</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT4dataCSo6NSData4nameSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/appendBodyPart(data:name:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT4dataCSo6NSData4nameSS_T_">appendBodyPart(data:name:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a body part from the data and appends it to the multipart form data object.</p>
+
+<p>The body part data will be encoded using the following format:</p>
+
+<ul>
+<li><code>Content-Disposition: form-data; name=#{name}</code> (HTTP Header)</li>
+<li>Encoded data</li>
+<li><p>Multipart form boundary</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appendBodyPart</span><span class="p">(</span><span class="n">data</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to encode into the multipart form data.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name to associate with the data in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L141-L147">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT4dataCSo6NSData4nameSS8mimeTypeSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/appendBodyPart(data:name:mimeType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT4dataCSo6NSData4nameSS8mimeTypeSS_T_">appendBodyPart(data:name:mimeType:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a body part from the data and appends it to the multipart form data object.</p>
+
+<p>The body part data will be encoded using the following format:</p>
+
+<ul>
+<li><code>Content-Disposition: form-data; name=#{name}</code> (HTTP Header)</li>
+<li><code>Content-Type: #{generated mimeType}</code> (HTTP Header)</li>
+<li>Encoded data</li>
+<li><p>Multipart form boundary</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appendBodyPart</span><span class="p">(</span><span class="n">data</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mimeType</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to encode into the multipart form data.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name to associate with the data in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mimeType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The MIME type to associate with the data content type in the <code>Content-Type</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L163-L169">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT4dataCSo6NSData4nameSS8fileNameSS8mimeTypeSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/appendBodyPart(data:name:fileName:mimeType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT4dataCSo6NSData4nameSS8fileNameSS8mimeTypeSS_T_">appendBodyPart(data:name:fileName:mimeType:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a body part from the data and appends it to the multipart form data object.</p>
+
+<p>The body part data will be encoded using the following format:</p>
+
+<ul>
+<li><code>Content-Disposition: form-data; name=#{name}; filename=#{filename}</code> (HTTP Header)</li>
+<li><code>Content-Type: #{mimeType}</code> (HTTP Header)</li>
+<li>Encoded file data</li>
+<li><p>Multipart form boundary</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appendBodyPart</span><span class="p">(</span><span class="n">data</span> <span class="nv">data</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mimeType</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>data</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The data to encode into the multipart form data.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name to associate with the data in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filename to associate with the data in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mimeType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The MIME type to associate with the data in the <code>Content-Type</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L186-L192">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT7fileURLCSo5NSURL4nameSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/appendBodyPart(fileURL:name:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT7fileURLCSo5NSURL4nameSS_T_">appendBodyPart(fileURL:name:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a body part from the file and appends it to the multipart form data object.</p>
+
+<p>The body part data will be encoded using the following format:</p>
+
+<ul>
+<li><code>Content-Disposition: form-data; name=#{name}; filename=#{generated filename}</code> (HTTP Header)</li>
+<li><code>Content-Type: #{generated mimeType}</code> (HTTP Header)</li>
+<li>Encoded file data</li>
+<li>Multipart form boundary</li>
+</ul>
+
+<p>The filename in the <code>Content-Disposition</code> HTTP header is generated from the last path component of the
+<code>fileURL</code>. The <code>Content-Type</code> HTTP header MIME type is generated by mapping the <code>fileURL</code> extension to the
+system associated MIME type.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appendBodyPart</span><span class="p">(</span><span class="n">fileURL</span> <span class="nv">fileURL</span><span class="p">:</span> <span class="kt">NSURL</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL of the file whose content will be encoded into the multipart form data.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name to associate with the file content in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L211-L222">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT7fileURLCSo5NSURL4nameSS8fileNameSS8mimeTypeSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/appendBodyPart(fileURL:name:fileName:mimeType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT7fileURLCSo5NSURL4nameSS8fileNameSS8mimeTypeSS_T_">appendBodyPart(fileURL:name:fileName:mimeType:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a body part from the file and appends it to the multipart form data object.</p>
+
+<p>The body part data will be encoded using the following format:</p>
+
+<ul>
+<li>Content-Disposition: form-data; name=#{name}; filename=#{filename} (HTTP Header)</li>
+<li>Content-Type: #{mimeType} (HTTP Header)</li>
+<li>Encoded file data</li>
+<li><p>Multipart form boundary</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appendBodyPart</span><span class="p">(</span><span class="n">fileURL</span> <span class="nv">fileURL</span><span class="p">:</span> <span class="kt">NSURL</span><span class="p">,</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">mimeType</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The URL of the file whose content will be encoded into the multipart form data.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name to associate with the file content in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filename to associate with the file content in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mimeType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The MIME type to associate with the file content in the <code>Content-Type</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L239-L321">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT6streamCSo13NSInputStream6lengthVSs6UInt644nameSS8fileNameSS8mimeTypeSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/appendBodyPart(stream:length:name:fileName:mimeType:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT6streamCSo13NSInputStream6lengthVSs6UInt644nameSS8fileNameSS8mimeTypeSS_T_">appendBodyPart(stream:length:name:fileName:mimeType:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a body part from the stream and appends it to the multipart form data object.</p>
+
+<p>The body part data will be encoded using the following format:</p>
+
+<ul>
+<li><code>Content-Disposition: form-data; name=#{name}; filename=#{filename}</code> (HTTP Header)</li>
+<li><code>Content-Type: #{mimeType}</code> (HTTP Header)</li>
+<li>Encoded stream data</li>
+<li><p>Multipart form boundary</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appendBodyPart</span><span class="p">(</span>
+        <span class="n">stream</span> <span class="nv">stream</span><span class="p">:</span> <span class="kt">NSInputStream</span><span class="p">,</span>
+        <span class="nv">length</span><span class="p">:</span> <span class="kt">UInt64</span><span class="p">,</span>
+        <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+        <span class="nv">fileName</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+        <span class="nv">mimeType</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stream</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input stream to encode in the multipart form data.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>length</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The content length of the stream.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>name</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name to associate with the stream content in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The filename to associate with the stream content in the <code>Content-Disposition</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mimeType</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The MIME type to associate with the stream content in the <code>Content-Type</code> HTTP header.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L339-L348">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT6streamCSo13NSInputStream6lengthVSs6UInt647headersGVSs10DictionarySSSS__T_"></a>
+                    <a name="//apple_ref/swift/Method/appendBodyPart(stream:length:headers:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData14appendBodyPartFS0_FT6streamCSo13NSInputStream6lengthVSs6UInt647headersGVSs10DictionarySSSS__T_">appendBodyPart(stream:length:headers:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a body part with the headers, stream and length and appends it to the multipart form data object.</p>
+
+<p>The body part data will be encoded using the following format:</p>
+
+<ul>
+<li>HTTP headers</li>
+<li>Encoded stream data</li>
+<li><p>Multipart form boundary</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">appendBodyPart</span><span class="p">(</span><span class="n">stream</span> <span class="nv">stream</span><span class="p">:</span> <span class="kt">NSInputStream</span><span class="p">,</span> <span class="nv">length</span><span class="p">:</span> <span class="kt">UInt64</span><span class="p">,</span> <span class="nv">headers</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stream</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input stream to encode in the multipart form data.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>length</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The content length of the stream.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>headers</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The HTTP headers for the body part.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L363-L366">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Data%20Encoding"></a>
+                <a name="//apple_ref/swift/Section/Data Encoding" class="dashAnchor"></a>
+                <a href="#/Data%20Encoding">
+                  <h3 class="section-name">Data Encoding</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData6encodeFS0_FzT_CSo6NSData"></a>
+                    <a name="//apple_ref/swift/Method/encode()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData6encodeFS0_FzT_CSo6NSData">encode()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Encodes all the appended body parts into a single <code>NSData</code> object.</p>
+
+<p>It is important to note that this method will load all the appended body parts into memory all at the same 
+time. This method should only be used when the encoded data will have a small memory footprint. For large data 
+cases, please use the <code>writeEncodedDataToDisk(fileURL:completionHandler:)</code> method.</p>
+
+<div class="aside aside-throws">
+          <p class="aside-title">Throws</p>
+          <p>An <code>NSError</code> if encoding encounters an error.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">encode</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">NSData</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The encoded <code>NSData</code> if encoding is successful.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L381-L397">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC9Alamofire17MultipartFormData22writeEncodedDataToDiskFS0_FzCSo5NSURLT_"></a>
+                    <a name="//apple_ref/swift/Method/writeEncodedDataToDisk(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC9Alamofire17MultipartFormData22writeEncodedDataToDiskFS0_FzCSo5NSURLT_">writeEncodedDataToDisk(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Writes the appended body parts into the given file URL.</p>
+
+<p>This process is facilitated by reading and writing with input and output streams, respectively. Thus,
+this approach is very memory efficient and should be used for large body part data.</p>
+
+<div class="aside aside-throws">
+          <p class="aside-title">Throws</p>
+          <p>An <code>NSError</code> if encoding encounters an error.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">writeEncodedDataToDisk</span><span class="p">(</span><span class="nv">fileURL</span><span class="p">:</span> <span class="kt">NSURL</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fileURL</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The file URL to write the multipart form data into.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/3.1.1/Source/MultipartFormData.swift#L409-L443">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://nshipster.com/alamofire" target="_blank" rel="external">Alamofire</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

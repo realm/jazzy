@@ -1,0 +1,6 @@
+JAZZY_FAKE_DATE=YYYY-MM-DD JAZZY_FAKE_VERSION=X.X.X COCOAPODS_SKIP_UPDATE_MESSAGE=TRUE jazzy -x -dry-run 2>&1
+Using config file ROOT/tmp/misc_jazzy_features/.jazzy.yaml
+Running xcodebuild
+Parsing Classes.swift (1/1)
+building site
+jam out ♪♫ to your fresh new docs in `docs`

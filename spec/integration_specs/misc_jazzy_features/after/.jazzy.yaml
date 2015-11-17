@@ -1,0 +1,17 @@
+module_name: MiscJazzyFeatures
+author_name: Realm
+author_url: https://github.com/realm/jazzy
+github_url: https://github.com/realm/jazzy
+min_acl: private
+hide_documentation_coverage: true
+
+custom_categories:
+  - name: Yin
+    children:
+    - PublicTopLevelClass
+    - PrivateTopLevelClass
+    - documentedGlobal
+  - name: Yang
+    children:
+    - TopLevelObjCSubclass
+    - UndocumentedEnum

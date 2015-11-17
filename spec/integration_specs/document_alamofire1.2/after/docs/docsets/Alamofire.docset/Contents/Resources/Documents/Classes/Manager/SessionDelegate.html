@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SessionDelegate Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/SessionDelegate" class="dashAnchor"></a>
+    <a title="SessionDelegate Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">Alamofire Docs</a> (87% documented)</p>
+        <p class="header-right"><a href="https://github.com/Alamofire/Alamofire"><img src="../../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://http%3A%2F%2Fstatic%2Erealm%2Eio%2Fjazzy_demo%2FAlamofire%2Fdocsets%2FAlamofire%2Exml"><img src="../../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">Alamofire Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        SessionDelegate Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes/Manager.html">Manager</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/MultipartFormData.html">MultipartFormData</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Request.html">Request</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/ServerTrustPolicyManager.html">ServerTrustPolicyManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Global Variables.html#/s:v9Alamofire20AlamofireErrorDomainSS">AlamofireErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums.html#/s:O9Alamofire6Method">Method</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/ParameterEncoding.html">ParameterEncoding</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/ServerTrustPolicy.html">ServerTrustPolicy</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions.html#/c:objc(cs)NSURLRequest">NSURLRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions.html#/s:SS">String</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire8downloadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S3__CS_7Request">download(_:_:headers:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire8downloadFTPS_21URLRequestConvertible_11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(_:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire8downloadFT10resumeDataCSo6NSData11destinationFTCSo5NSURLCSo17NSHTTPURLResponse_S1__CS_7Request">download(resumeData:destination:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire7requestFPS_21URLRequestConvertible_CS_7Request">request(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire7requestFTOS_6MethodPS_20URLStringConvertible_10parametersGSqGVSs10DictionarySSPSs9AnyObject___8encodingOS_17ParameterEncoding7headersGSqGS2_SSSS___CS_7Request">request(_:_:parameters:encoding:headers:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTOS_6Method9URLStringPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:URLString:headers:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4dataCSo6NSData_CS_7Request">upload(_:_:headers:data:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__4fileCSo5NSURL_CS_7Request">upload(_:_:headers:file:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTOS_6MethodPS_20URLStringConvertible_7headersGSqGVSs10DictionarySSSS__6streamCSo13NSInputStream_CS_7Request">upload(_:_:headers:stream:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4dataCSo6NSData_CS_7Request">upload(_:data:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_4fileCSo5NSURL_CS_7Request">upload(_:file:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_17multipartFormDataFCS_17MultipartFormDataT_23encodingMemoryThresholdVSs6UInt6418encodingCompletionGSqFOCS_7Manager31MultipartFormDataEncodingResultT___T_">upload(_:multipartFormData:encodingMemoryThreshold:encodingCompletion:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Functions.html#/s:F9Alamofire6uploadFTPS_21URLRequestConvertible_6streamCSo13NSInputStream_CS_7Request">upload(_:stream:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/ResponseSerializer.html">ResponseSerializer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/URLRequestConvertible.html">URLRequestConvertible</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/URLStringConvertible.html">URLStringConvertible</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Structs/GenericResponseSerializer.html">GenericResponseSerializer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:C9Alamofire7Request23DownloadFileDestination">DownloadFileDestination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:C9Alamofire7Request10Validation">Validation</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SessionDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">SessionDelegate</span><span class="p">:</span> <span class="kt">NSObject</span><span class="p">,</span> <span class="kt">NSURLSessionDelegate</span><span class="p">,</span> <span class="kt">NSURLSessionTaskDelegate</span><span class="p">,</span> <span class="kt">NSURLSessionDataDelegate</span><span class="p">,</span> <span class="kt">NSURLSessionDownloadDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>Responsible for handling all delegate callbacks for the underlying session.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Override%20Closures"></a>
+                <a name="//apple_ref/swift/Section/Override Closures" class="dashAnchor"></a>
+                <a href="#/Override%20Closures">
+                  <h3 class="section-name">Override Closures</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate32sessionDidBecomeInvalidWithErrorGSqFTCSo12NSURLSessionGSqCSo7NSError__T__"></a>
+                    <a name="//apple_ref/swift/Property/sessionDidBecomeInvalidWithError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate32sessionDidBecomeInvalidWithErrorGSqFTCSo12NSURLSessionGSqCSo7NSError__T__">sessionDidBecomeInvalidWithError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>NSURLSessionDelegate override closure for <code>URLSession:didBecomeInvalidWithError:</code> method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sessionDidBecomeInvalidWithError</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L212">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate26sessionDidReceiveChallengeGSqFTCSo12NSURLSessionCSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential___"></a>
+                    <a name="//apple_ref/swift/Property/sessionDidReceiveChallenge" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate26sessionDidReceiveChallengeGSqFTCSo12NSURLSessionCSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential___">sessionDidReceiveChallenge</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>NSURLSessionDelegate override closure for <code>URLSession:didReceiveChallenge:completionHandler:</code> method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sessionDidReceiveChallenge</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLAuthenticationChallenge</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">NSURLSessionAuthChallengeDisposition</span><span class="p">,</span> <span class="kt">NSURLCredential</span><span class="o">!</span><span class="p">))?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L215">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate45sessionDidFinishEventsForBackgroundURLSessionGSqFCSo12NSURLSessionT__"></a>
+                    <a name="//apple_ref/swift/Property/sessionDidFinishEventsForBackgroundURLSession" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate45sessionDidFinishEventsForBackgroundURLSessionGSqFCSo12NSURLSessionT__">sessionDidFinishEventsForBackgroundURLSession</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>NSURLSessionDelegate override closure for <code>URLSessionDidFinishEventsForBackgroundURLSession:</code> method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">sessionDidFinishEventsForBackgroundURLSession</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L218">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Override%20Closures2"></a>
+                <a name="//apple_ref/swift/Section/Override Closures" class="dashAnchor"></a>
+                <a href="#/Override%20Closures2">
+                  <h3 class="section-name">Override Closures</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate30taskWillPerformHTTPRedirectionGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskCSo17NSHTTPURLResponseCSo12NSURLRequest_GSqS5___"></a>
+                    <a name="//apple_ref/swift/Property/taskWillPerformHTTPRedirection" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate30taskWillPerformHTTPRedirectionGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskCSo17NSHTTPURLResponseCSo12NSURLRequest_GSqS5___">taskWillPerformHTTPRedirection</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionTaskDelegate method <code>URLSession:task:willPerformHTTPRedirection:newRequest:completionHandler:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">taskWillPerformHTTPRedirection</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionTask</span><span class="p">,</span> <span class="kt">NSHTTPURLResponse</span><span class="p">,</span> <span class="kt">NSURLRequest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSURLRequest</span><span class="p">?)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L260">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate23taskDidReceiveChallengeGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskCSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential___"></a>
+                    <a name="//apple_ref/swift/Property/taskDidReceiveChallenge" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate23taskDidReceiveChallengeGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskCSo28NSURLAuthenticationChallenge_TOSC36NSURLSessionAuthChallengeDispositionGSQCSo15NSURLCredential___">taskDidReceiveChallenge</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionTaskDelegate method <code>URLSession:task:didReceiveChallenge:completionHandler:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">taskDidReceiveChallenge</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionTask</span><span class="p">,</span> <span class="kt">NSURLAuthenticationChallenge</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">NSURLSessionAuthChallengeDisposition</span><span class="p">,</span> <span class="kt">NSURLCredential</span><span class="o">!</span><span class="p">))?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L263">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate21taskNeedNewBodyStreamGSqFTCSo12NSURLSessionCSo16NSURLSessionTask_GSQCSo13NSInputStream__"></a>
+                    <a name="//apple_ref/swift/Property/taskNeedNewBodyStream" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate21taskNeedNewBodyStreamGSqFTCSo12NSURLSessionCSo16NSURLSessionTask_GSQCSo13NSInputStream__">taskNeedNewBodyStream</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionTaskDelegate method <code>URLSession:session:task:needNewBodyStream:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">taskNeedNewBodyStream</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionTask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSInputStream</span><span class="o">!</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L266">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate19taskDidSendBodyDataGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskVSs5Int64S4_S4__T__"></a>
+                    <a name="//apple_ref/swift/Property/taskDidSendBodyData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate19taskDidSendBodyDataGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskVSs5Int64S4_S4__T__">taskDidSendBodyData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionTaskDelegate method <code>URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">taskDidSendBodyData</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionTask</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L269">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate15taskDidCompleteGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskGSqCSo7NSError__T__"></a>
+                    <a name="//apple_ref/swift/Property/taskDidComplete" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate15taskDidCompleteGSqFTCSo12NSURLSessionCSo16NSURLSessionTaskGSqCSo7NSError__T__">taskDidComplete</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionTaskDelegate method <code>URLSession:task:didCompleteWithError:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">taskDidComplete</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionTask</span><span class="p">,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L272">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Override%20Closures3"></a>
+                <a name="//apple_ref/swift/Section/Override Closures" class="dashAnchor"></a>
+                <a href="#/Override%20Closures3">
+                  <h3 class="section-name">Override Closures</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate26dataTaskDidReceiveResponseGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo13NSURLResponse_OSC31NSURLSessionResponseDisposition_"></a>
+                    <a name="//apple_ref/swift/Property/dataTaskDidReceiveResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate26dataTaskDidReceiveResponseGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo13NSURLResponse_OSC31NSURLSessionResponseDisposition_">dataTaskDidReceiveResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionDataDelegate method <code>URLSession:dataTask:didReceiveResponse:completionHandler:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">dataTaskDidReceiveResponse</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionDataTask</span><span class="p">,</span> <span class="kt">NSURLResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSURLSessionResponseDisposition</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L327">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate29dataTaskDidBecomeDownloadTaskGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo24NSURLSessionDownloadTask_T__"></a>
+                    <a name="//apple_ref/swift/Property/dataTaskDidBecomeDownloadTask" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate29dataTaskDidBecomeDownloadTaskGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo24NSURLSessionDownloadTask_T__">dataTaskDidBecomeDownloadTask</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionDataDelegate method <code>URLSession:dataTask:didBecomeDownloadTask:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">dataTaskDidBecomeDownloadTask</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionDataTask</span><span class="p">,</span> <span class="kt">NSURLSessionDownloadTask</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L330">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate22dataTaskDidReceiveDataGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo6NSData_T__"></a>
+                    <a name="//apple_ref/swift/Property/dataTaskDidReceiveData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate22dataTaskDidReceiveDataGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo6NSData_T__">dataTaskDidReceiveData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionDataDelegate method <code>URLSession:dataTask:didReceiveData:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">dataTaskDidReceiveData</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionDataTask</span><span class="p">,</span> <span class="kt">NSData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L333">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate25dataTaskWillCacheResponseGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo19NSCachedURLResponse_GSQS4___"></a>
+                    <a name="//apple_ref/swift/Property/dataTaskWillCacheResponse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate25dataTaskWillCacheResponseGSqFTCSo12NSURLSessionCSo20NSURLSessionDataTaskCSo19NSCachedURLResponse_GSQS4___">dataTaskWillCacheResponse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionDataDelegate method <code>URLSession:dataTask:willCacheResponse:completionHandler:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">dataTaskWillCacheResponse</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionDataTask</span><span class="p">,</span> <span class="kt">NSCachedURLResponse</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSCachedURLResponse</span><span class="o">!</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L336">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Override%20Closures4"></a>
+                <a name="//apple_ref/swift/Section/Override Closures" class="dashAnchor"></a>
+                <a href="#/Override%20Closures4">
+                  <h3 class="section-name">Override Closures</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate37downloadTaskDidFinishDownloadingToURLGSqFTCSo12NSURLSessionCSo24NSURLSessionDownloadTaskCSo5NSURL_T__"></a>
+                    <a name="//apple_ref/swift/Property/downloadTaskDidFinishDownloadingToURL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate37downloadTaskDidFinishDownloadingToURLGSqFTCSo12NSURLSessionCSo24NSURLSessionDownloadTaskCSo5NSURL_T__">downloadTaskDidFinishDownloadingToURL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionDownloadDelegate method <code>URLSession:downloadTask:didFinishDownloadingToURL:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">downloadTaskDidFinishDownloadingToURL</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionDownloadTask</span><span class="p">,</span> <span class="kt">NSURL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L382">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate24downloadTaskDidWriteDataGSqFTCSo12NSURLSessionCSo24NSURLSessionDownloadTaskVSs5Int64S4_S4__T__"></a>
+                    <a name="//apple_ref/swift/Property/downloadTaskDidWriteData" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate24downloadTaskDidWriteDataGSqFTCSo12NSURLSessionCSo24NSURLSessionDownloadTaskVSs5Int64S4_S4__T__">downloadTaskDidWriteData</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionDownloadDelegate method <code>URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">downloadTaskDidWriteData</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionDownloadTask</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L385">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vCC9Alamofire7Manager15SessionDelegate29downloadTaskDidResumeAtOffsetGSqFTCSo12NSURLSessionCSo24NSURLSessionDownloadTaskVSs5Int64S4__T__"></a>
+                    <a name="//apple_ref/swift/Property/downloadTaskDidResumeAtOffset" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vCC9Alamofire7Manager15SessionDelegate29downloadTaskDidResumeAtOffsetGSqFTCSo12NSURLSessionCSo24NSURLSessionDownloadTaskVSs5Int64S4__T__">downloadTaskDidResumeAtOffset</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Overrides default behavior for NSURLSessionDownloadDelegate method <code>URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">downloadTaskDidResumeAtOffset</span><span class="p">:</span> <span class="p">((</span><span class="kt">NSURLSession</span><span class="p">,</span> <span class="kt">NSURLSessionDownloadTask</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">,</span> <span class="kt">Int64</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/Alamofire/Alamofire/blob/1.3.1/Source/Manager.swift#L388">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://nshipster.com/alamofire" target="_blank" rel="external">Alamofire</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
