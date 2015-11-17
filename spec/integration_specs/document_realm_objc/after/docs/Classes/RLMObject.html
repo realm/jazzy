@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RLMObject Class Reference</title>
+    <link rel="icon" href="https://realm.io/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://realm.io/img/favicon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://realm.io/img/favicon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://realm.io/img/favicon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://realm.io/img/favicon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://realm.io/img/favicon-152x152.png" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    <script defer>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50247013-1', 'realm.io');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <a name="//apple_ref/objc/Class/RLMObject" class="dashAnchor"></a>
+    <a title="RLMObject Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Realm Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/realm/realm-cocoa"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Frealm%2Eio%2Fdocs%2Fobjc%2F0%2E96%2E2%2Fapi%2Fdocsets%2FRealm%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Realm Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RLMObject Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/RLMArray.html">RLMArray</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMMigration.html">RLMMigration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/c:objc(cs)RLMNotificationToken">RLMNotificationToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMObject.html">RLMObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMObjectSchema.html">RLMObjectSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMProperty.html">RLMProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMRealm.html">RLMRealm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMRealmConfiguration.html">RLMRealmConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMResults.html">RLMResults</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMSchema.html">RLMSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMSortDescriptor.html">RLMSortDescriptor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMErrorDomain">RLMErrorDomain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMExceptionName">RLMExceptionName</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMInvalidatedKey">RLMInvalidatedKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMNotVersioned">RLMNotVersioned</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmCoreVersionKey">RLMRealmCoreVersionKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmDidChangeNotification">RLMRealmDidChangeNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmRefreshRequiredNotification">RLMRealmRefreshRequiredNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmVersionKey">RLMRealmVersionKey</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/RLMError.html">RLMError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RLMPropertyType.html">RLMPropertyType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/RLMCollection.html">RLMCollection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMRealm.h@T@RLMMigrationBlock">RLMMigrationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMRealm.h@T@RLMNotificationBlock">RLMNotificationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMMigration.h@T@RLMObjectMigrationBlock">RLMObjectMigrationBlock</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RLMObject</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">RLMObject</span> <span class="p">:</span> <span class="nc">RLMObjectBase</span></code></pre>
+
+                </div>
+              </div>
+            <p>In Realm you define your model classes by subclassing <code>RLMObject</code> and adding properties to be persisted.
+You then instantiate and use your custom subclasses instead of using the <code>RLMObject</code> class directly.</p>
+
+<pre class="highlight objective_c"><code><span class="c1">// Dog.h
+</span><span class="k">@interface</span> <span class="nc">Dog</span> <span class="p">:</span> <span class="nc">RLMObject</span>
+<span class="k">@property</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+<span class="k">@property</span> <span class="n">BOOL</span>      <span class="n">adopted</span><span class="p">;</span>
+<span class="k">@end</span>
+
+<span class="c1">// Dog.m
+</span><span class="k">@implementation</span> <span class="nc">Dog</span>
+<span class="k">@end</span> <span class="c1">//none needed
+</span></code></pre>
+
+<p><a href='#supported_property_types' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='supported_property_types'>Supported property types</h3></p>
+
+<ul>
+<li><code>NSString</code></li>
+<li><code>NSInteger</code>, <code>int</code>, <code>long</code>, <code>float</code>, and <code>double</code></li>
+<li><code>BOOL</code> or <code>bool</code></li>
+<li><code>NSDate</code></li>
+<li><code>NSData</code></li>
+<li><code>NSNumber&lt;X&gt;</code>, where X is one of RLMInt, RLMFloat, RLMDouble or RLMBool, for optional number properties</li>
+<li><code>RLMObject</code> subclasses, so you can have many-to-one relationships.</li>
+<li><code><a href="../Classes/RLMArray.html">RLMArray&lt;X&gt;</a></code>, where X is an <code>RLMObject</code> subclass, so you can have many-to-many relationships.</li>
+</ul>
+
+<p><a href='#querying' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='querying'>Querying</h3></p>
+
+<p>You can query an object directly via the class methods: <code>allObjects</code>, <code>objectsWhere:</code>, and <code>objectsWithPredicate:</code>.
+These methods allow you to easily query a custom subclass for instances of this class in the
+default Realm. To search in a Realm other than the default Realm use the interface on an RLMRealm instance.</p>
+
+<p><a href='#relationships' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='relationships'>Relationships</h3></p>
+
+<p>See our <a href="https://realm.io/docs/objc/latest#relationships">Cocoa guide</a> for more details.</p>
+
+<p><a href='#key_value_observing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='key_value_observing'>Key-Value Observing</h3></p>
+
+<p>All <code>RLMObject</code> properties (including properties you create in subclasses) are
+<a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/KeyValueObserving/KeyValueObserving.html">Key-Value Observing compliant</a>,
+except for <code>realm</code> and <code>objectSchema</code>. There are several Realm-specific things
+to keep in mind when observing Realm objects:</p>
+
+<ol>
+<li>Unlike <code>NSMutableArray</code> properties, <code><a href="../Classes/RLMArray.html">RLMArray</a></code> properties do not require
+using the proxy object returned from <code>-mutableArrayValueForKey:</code>, or defining
+KVC mutation methods on the containing class. You can simply call methods on
+the RLMArray directly and the changes will be observed by the containing
+object.</li>
+<li>Standalone <code>RLMObjects</code> cannot be added to a Realm while they have any
+observed properties.</li>
+<li>Modifying persisted <code>RLMObjects</code> in <code>-observeValueForKeyPath:ofObject:change:context:</code>
+is problematic. Properties may change when the Realm is not in a write
+transaction (for example, when <code>-[RLMRealm refresh]</code> is called after changes
+are made on a different thread), and notifications sent prior to the change
+being applied (when <code>NSKeyValueObservingOptionPrior</code> is used) may be sent at
+times when you <em>cannot</em> begin a write transaction.</li>
+</ol>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Creating%20&amp;%20Initializing%20Objects"></a>
+                <a name="//apple_ref/objc/Section/Creating &amp; Initializing Objects" class="dashAnchor"></a>
+                <a href="#/Creating%20&amp;%20Initializing%20Objects">
+                  <h3 class="section-name">Creating &amp; Initializing Objects</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(im)init"></a>
+                    <a name="//apple_ref/objc/Method/-init" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(im)init">-init</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize a standalone RLMObject</p>
+
+<p>Initialize an unpersisted instance of this object.
+Call addObject: on an RLMRealm to add standalone object to a realm.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          [RLMRealm addObject:]:
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="n">init</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L99">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(im)initWithValue:"></a>
+                    <a name="//apple_ref/objc/Method/-initWithValue:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(im)initWithValue:">-initWithValue:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize a standalone RLMObject with values from an NSArray or NSDictionary</p>
+
+<p>Initialize an unpersisted instance of this object.
+Call addObject: on an RLMRealm to add standalone object to a realm.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          [RLMRealm addObject:]:
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">initWithValue</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">value</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L110">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)className"></a>
+                    <a name="//apple_ref/objc/Method/+className" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)className">+className</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Helper to return the class name for an RLMObject subclass.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Do not override. Realm relies on this method returning the exact class
+     name.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">className</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The class name for the model class.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L121">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)createInDefaultRealmWithValue:"></a>
+                    <a name="//apple_ref/objc/Method/+createInDefaultRealmWithValue:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)createInDefaultRealmWithValue:">+createInDefaultRealmWithValue:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create an RLMObject in the default Realm with a given value.</p>
+
+<p>Creates an instance of this object and adds it to the default Realm populating
+the object with the given value.</p>
+
+<p>If nested objects are included in the argument, <code>createInDefaultRealmWithValue:</code> will be called
+on them.</p>
+
+<p>When passing in an NSArray, all properties must be present, valid and in the same order as the properties defined in the model.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          defaultPropertyValues
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">createInDefaultRealmWithValue</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">value</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value used to populate the object. This can be any key/value coding compliant
+             object, or a JSON object such as those returned from the methods in NSJSONSerialization, or
+             an NSArray with one object for each persisted property. An exception will be
+             thrown if any required properties are not present and no default is set.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L141">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)createInRealm:withValue:"></a>
+                    <a name="//apple_ref/objc/Method/+createInRealm:withValue:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)createInRealm:withValue:">+createInRealm:withValue:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create an RLMObject in a Realm with a given object.</p>
+
+<p>Creates an instance of this object and adds it to the given Realm populating
+the object with the given object.</p>
+
+<p>If nested objects are included in the argument, <code>createInRealm:withValue:</code> will be called
+on them.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          <p>defaultPropertyValues</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">createInRealm</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="p">)</span><span class="nv">realm</span>
+                            <span class="nf">withValue</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">value</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Realm in which this object is persisted.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value used to populate the object. This can be any key/value coding compliant
+             object, or a JSON object such as those returned from the methods in NSJSONSerialization, or
+             an NSArray with one object for each persisted property. An exception will be
+             thrown if any required properties are not present and no default is set.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L162">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)createOrUpdateInDefaultRealmWithValue:"></a>
+                    <a name="//apple_ref/objc/Method/+createOrUpdateInDefaultRealmWithValue:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)createOrUpdateInDefaultRealmWithValue:">+createOrUpdateInDefaultRealmWithValue:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create or update an RLMObject in the default Realm with a given object.</p>
+
+<p>This method can only be called on object types with a primary key defined. If there is already
+an object with the same primary key value in the default RLMRealm its values are updated and the object
+is returned. Otherwise this creates and populates a new instance of this object in the default Realm.</p>
+
+<p>If nested objects are included in the argument, <code>createOrUpdateInDefaultRealmWithValue:</code> will be
+called on them if have a primary key (<code>createInDefaultRealmWithValue:</code> otherwise).</p>
+
+<p>This is a no-op if the argument is an RLMObject of the same type already backed by the target realm.</p>
+
+<p>When passing in an NSArray, all properties must be present, valid and in the same order as the properties defined in the model.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          defaultPropertyValues, primaryKey
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">createOrUpdateInDefaultRealmWithValue</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">value</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value used to populate the object. This can be any key/value coding compliant
+             object, or a JSON object such as those returned from the methods in NSJSONSerialization, or
+             an NSArray with one object for each persisted property. An exception will be
+             thrown if any required properties are not present and no default is set.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L185">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)createOrUpdateInRealm:withValue:"></a>
+                    <a name="//apple_ref/objc/Method/+createOrUpdateInRealm:withValue:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)createOrUpdateInRealm:withValue:">+createOrUpdateInRealm:withValue:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create or update an RLMObject with a given object.</p>
+
+<p>This method can only be called on object types with a primary key defined. If there is already
+an object with the same primary key value in the provided RLMRealm its values are updated and the object
+is returned. Otherwise this creates and populates a new instance of this object in the provided Realm.</p>
+
+<p>If nested objects are included in the argument, <code>createOrUpdateInRealm:withValue:</code> will be
+called on them if have a primary key (<code>createInRealm:withValue:</code> otherwise).</p>
+
+<p>This is a no-op if the argument is an RLMObject of the same type already backed by the target realm.</p>
+
+<p>When passing in an NSArray, all properties must be present, valid and in the same order as the properties defined in the model.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          defaultPropertyValues, primaryKey
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">createOrUpdateInRealm</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="p">)</span><span class="nv">realm</span>
+                                    <span class="nf">withValue</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">value</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Realm in which this object is persisted.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value used to populate the object. This can be any key/value coding compliant
+             object, or a JSON object such as those returned from the methods in NSJSONSerialization, or
+             an NSArray with one object for each persisted property. An exception will be
+             thrown if any required properties are not present and no default is set.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L209">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/objc/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(py)realm"></a>
+                    <a name="//apple_ref/objc/Property/realm" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(py)realm">realm</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Realm in which this object is persisted. Returns nil for standalone objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="n">realm</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L216">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(py)objectSchema"></a>
+                    <a name="//apple_ref/objc/Property/objectSchema" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(py)objectSchema">objectSchema</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The ObjectSchema which lists the persisted properties for this object.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">RLMObjectSchema</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">objectSchema</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L221">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(py)invalidated"></a>
+                    <a name="//apple_ref/objc/Property/invalidated" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(py)invalidated">invalidated</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if an object can no longer be accessed.</p>
+
+<p>An object can no longer be accessed if the object has been deleted from the containing <code><a href="../Classes/RLMObject.html#/c:objc(cs)RLMObject(py)realm">realm</a></code> or
+if <code>invalidate</code> is called on the containing <code><a href="../Classes/RLMObject.html#/c:objc(cs)RLMObject(py)realm">realm</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">isInvalidated</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">invalidated</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L229">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Customizing%20your%20Objects"></a>
+                <a name="//apple_ref/objc/Section/Customizing your Objects" class="dashAnchor"></a>
+                <a href="#/Customizing%20your%20Objects">
+                  <h3 class="section-name">Customizing your Objects</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)indexedProperties"></a>
+                    <a name="//apple_ref/objc/Method/+indexedProperties" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)indexedProperties">+indexedProperties</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return an array of property names for properties which should be indexed. Only supported
+for string and int properties.
+- returns:    NSArray of property names.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">indexedProperties</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>NSArray of property names.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L239">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)defaultPropertyValues"></a>
+                    <a name="//apple_ref/objc/Method/+defaultPropertyValues" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)defaultPropertyValues">+defaultPropertyValues</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement to indicate the default values to be used for each property.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">NSDictionary</span> <span class="o">*</span><span class="p">)</span><span class="n">defaultPropertyValues</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>NSDictionary mapping property names to their default values.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L246">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)primaryKey"></a>
+                    <a name="//apple_ref/objc/Method/+primaryKey" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)primaryKey">+primaryKey</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement to designate a property as the primary key for an RLMObject subclass. Only properties of
+type RLMPropertyTypeString and RLMPropertyTypeInt can be designated as the primary key. Primary key 
+properties enforce uniqueness for each value whenever the property is set which incurs some overhead.
+Indexes are created automatically for primary key properties.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">primaryKey</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Name of the property designated as the primary key.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L256">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)ignoredProperties"></a>
+                    <a name="//apple_ref/objc/Method/+ignoredProperties" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)ignoredProperties">+ignoredProperties</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement to return an array of property names to ignore. These properties will not be persisted
+and are treated as transient.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">ignoredProperties</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>NSArray of property names to ignore.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L264">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)requiredProperties"></a>
+                    <a name="//apple_ref/objc/Method/+requiredProperties" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)requiredProperties">+requiredProperties</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Implement to return an array of property names that should not allow storing nil.</p>
+
+<p>By default, all properties of a type that support storing nil are considered optional properties.
+To require that an object in a Realm always have a non-nil value for a property,
+add the name of the property to the array returned from this method.</p>
+
+<p>Currently Object properties cannot be required. Array and NSNumber properties
+can, but it makes little sense to do so: arrays do not support storing nil, and
+if you want a non-optional number you should instead use the primitive type.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">requiredProperties</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>NSArray of property names that are required.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L279">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Getting%20&amp;%20Querying%20Objects%20from%20the%20Default%20Realm"></a>
+                <a name="//apple_ref/objc/Section/Getting &amp; Querying Objects from the Default Realm" class="dashAnchor"></a>
+                <a href="#/Getting%20&amp;%20Querying%20Objects%20from%20the%20Default%20Realm">
+                  <h3 class="section-name">Getting &amp; Querying Objects from the Default Realm</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)allObjects"></a>
+                    <a name="//apple_ref/objc/Method/+allObjects" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)allObjects">+allObjects</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get all objects of this type from the default Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span> <span class="o">*</span><span class="p">)</span><span class="n">allObjects</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of all objects of this type in the default Realm.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L289">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)objectsWhere:"></a>
+                    <a name="//apple_ref/objc/Method/+objectsWhere:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)objectsWhere:">+objectsWhere:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get objects matching the given predicate for this type from the default Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span> <span class="o">*</span><span class="p">)</span><span class="nf">objectsWhere</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicateFormat</span><span class="p">,</span> <span class="p">...;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicateFormat</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate format string which can accept variable arguments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of objects of the subclass type in the default Realm that match the given predicate</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L298">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)objectsWithPredicate:"></a>
+                    <a name="//apple_ref/objc/Method/+objectsWithPredicate:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)objectsWithPredicate:">+objectsWithPredicate:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get objects matching the given predicate for this type from the default Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span> <span class="o">*</span><span class="p">)</span><span class="nf">objectsWithPredicate</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSPredicate</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicate</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate to filter the objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of objects of the subclass type in the default Realm that match the given predicate</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L308">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)objectForPrimaryKey:"></a>
+                    <a name="//apple_ref/objc/Method/+objectForPrimaryKey:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)objectForPrimaryKey:">+objectForPrimaryKey:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the single object with the given primary key from the default Realm.</p>
+
+<p>Returns the object from the default Realm which has the given primary key, or
+<code>nil</code> if the object does not exist. This is slightly faster than the otherwise
+equivalent <code>[[SubclassName objectsWhere:@&quot;primaryKeyPropertyName = %@&quot;, key] firstObject]</code>.</p>
+
+<p>This method requires that <code>primaryKey</code> be overridden on the receiving subclass.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          -primaryKey
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">objectForPrimaryKey</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nv">primaryKey</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An object of the subclass type or nil if an object with the given primary key does not exist.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L322">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Querying%20Specific%20Realms"></a>
+                <a name="//apple_ref/objc/Section/Querying Specific Realms" class="dashAnchor"></a>
+                <a href="#/Querying%20Specific%20Realms">
+                  <h3 class="section-name">Querying Specific Realms</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)allObjectsInRealm:"></a>
+                    <a name="//apple_ref/objc/Method/+allObjectsInRealm:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)allObjectsInRealm:">+allObjectsInRealm:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get all objects of this type from the specified Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span> <span class="o">*</span><span class="p">)</span><span class="nf">allObjectsInRealm</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="p">)</span><span class="nv">realm</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Realm instance to query.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of all objects of this type in the specified Realm.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L334">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)objectsInRealm:where:"></a>
+                    <a name="//apple_ref/objc/Method/+objectsInRealm:where:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)objectsInRealm:where:">+objectsInRealm:where:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get objects matching the given predicate for this type from the specified Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span> <span class="o">*</span><span class="p">)</span><span class="nf">objectsInRealm</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="p">)</span><span class="nv">realm</span>
+                                 <span class="nf">where</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicateFormat</span><span class="p">,</span> <span class="p">...;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicateFormat</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate format string which can accept variable arguments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Realm instance to query.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of objects of the subclass type in the specified Realm that match the given predicate</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L344">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)objectsInRealm:withPredicate:"></a>
+                    <a name="//apple_ref/objc/Method/+objectsInRealm:withPredicate:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)objectsInRealm:withPredicate:">+objectsInRealm:withPredicate:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get objects matching the given predicate for this type from the specified Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span> <span class="o">*</span><span class="p">)</span><span class="nf">objectsInRealm</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="p">)</span><span class="nv">realm</span>
+                         <span class="nf">withPredicate</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSPredicate</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicate</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate to filter the objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realm</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Realm instance to query.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of objects of the subclass type in the specified Realm that match the given predicate</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L354">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(cm)objectInRealm:forPrimaryKey:"></a>
+                    <a name="//apple_ref/objc/Method/+objectInRealm:forPrimaryKey:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(cm)objectInRealm:forPrimaryKey:">+objectInRealm:forPrimaryKey:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the single object with the given primary key from the specified Realm.</p>
+
+<p>Returns the object from the specified Realm which has the given primary key, or
+<code>nil</code> if the object does not exist. This is slightly faster than the otherwise
+equivalent <code>[[SubclassName objectsInRealm:realm where:@&quot;primaryKeyPropertyName = %@&quot;, key] firstObject]</code>.</p>
+
+<p>This method requires that <code>primaryKey</code> be overridden on the receiving subclass.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          -primaryKey
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">objectInRealm</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="p">)</span><span class="nv">realm</span>
+                         <span class="nf">forPrimaryKey</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">id</span><span class="p">)</span><span class="nv">primaryKey</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An object of the subclass type or nil if an object with the given primary key does not exist.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L368">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Other%20Instance%20Methods"></a>
+                <a name="//apple_ref/objc/Section/Other Instance Methods" class="dashAnchor"></a>
+                <a href="#/Other%20Instance%20Methods">
+                  <h3 class="section-name">Other Instance Methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(im)linkingObjectsOfClass:forProperty:"></a>
+                    <a name="//apple_ref/objc/Method/-linkingObjectsOfClass:forProperty:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(im)linkingObjectsOfClass:forProperty:">-linkingObjectsOfClass:forProperty:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get an <code>NSArray</code> of objects of type <code>className</code> which have this object as the given property value. This can
+be used to get the inverse relatshionship value for <code><a href="../Classes/RLMObject.html">RLMObject</a></code> and <code><a href="../Classes/RLMArray.html">RLMArray</a></code> properties.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nf">linkingObjectsOfClass</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">className</span>
+                               <span class="nf">forProperty</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">property</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>className</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The type of object on which the relationship to query is defined.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>property</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the property which defines the relationship.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An NSArray of objects of type <code>className</code> which have this object as thier value for the <code>property</code> property.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L381">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMObject(im)isEqualToObject:"></a>
+                    <a name="//apple_ref/objc/Method/-isEqualToObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMObject(im)isEqualToObject:">-isEqualToObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns YES if another RLMObject points to the same object in an RLMRealm. For RLMObject types
+with a primary, key, <code>isEqual:</code> is overridden to use this method (along with a corresponding
+implementation for <code>hash</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">isEqualToObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object to compare to.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>YES if the object represents the same object in the same RLMRealm.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMObject.h#L392">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

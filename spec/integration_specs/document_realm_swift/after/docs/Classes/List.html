@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>List Class Reference</title>
+    <link rel="icon" href="https://realm.io/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://realm.io/img/favicon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://realm.io/img/favicon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://realm.io/img/favicon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://realm.io/img/favicon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://realm.io/img/favicon-152x152.png" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    <script defer>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50247013-1', 'realm.io');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/List" class="dashAnchor"></a>
+    <a title="List Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">RealmSwift Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/realm/realm-cocoa"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Frealm%2Eio%2Fdocs%2Fswift%2F0%2E96%2E2%2Fapi%2Fdocsets%2FRealmSwift%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">RealmSwift Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        List Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AnyRealmCollection.html">AnyRealmCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ObjectSchema.html">ObjectSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Property.html">Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMGenerator.html">RLMGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Realm.html">Realm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RealmOptional.html">RealmOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Results.html">Results</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Schema.html">Schema</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Notification.html">Notification</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTVS_14SortDescriptorS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_6SchemaS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_12ObjectSchemaS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_5RealmS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_8PropertyS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F10RealmSwift12migrateRealmFTVCS_5Realm13Configuration_GSqCSo7NSError_">migrateRealm(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F10RealmSwift19schemaVersionAtPathFTSS13encryptionKeyGSqCSo6NSData_5errorGVSs33AutoreleasingUnsafeMutablePointerGSqCSo7NSError___GSqVSs6UInt64_">schemaVersionAtPath(_:encryptionKey:error:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:P10RealmSwift11AddableType">AddableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:P10RealmSwift10MinMaxType">MinMaxType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RealmCollectionType.html">RealmCollectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:P10RealmSwift17RealmOptionalType">RealmOptionalType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/SortDescriptor.html">SortDescriptor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift14MigrationBlock">MigrationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift15MigrationObject">MigrationObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift29MigrationObjectEnumerateBlock">MigrationObjectEnumerateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift17NotificationBlock">NotificationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift17NotificationToken">NotificationToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift12PropertyType">PropertyType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>List</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">List</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Object</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">ListBase</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>List&lt;T&gt;</code> is the container type in Realm used to define to-many relationships.</p>
+
+<p>Lists hold a single <code><a href="../Classes/Object.html">Object</a></code> subclass (<code>T</code>) which defines the <q>type</q> of the List.</p>
+
+<p>Lists can be filtered and sorted with the same predicates as <code><a href="../Classes/Results.html">Results&lt;T&gt;</a></code>.</p>
+
+<p>When added as a property on <code><a href="../Classes/Object.html">Object</a></code> models, the property must be declared as <code>let</code> and cannot be <code>dynamic</code>.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:sC10RealmSwift4List9subscriptFSiq_"></a>
+                    <a name="//apple_ref/swift/Method/subscript(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:sC10RealmSwift4List9subscriptFSiq_">subscript(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the object at the given <code>index</code> on get.
+Replaces the object at the given <code>index</code> on set.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>You can only set an object during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">subscript</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The object at the given <code>index</code>.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L126">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:C10RealmSwift4List7Element"></a>
+                    <a name="//apple_ref/swift/Alias/Element" class="dashAnchor"></a>
+                    <a class="token" href="#/s:C10RealmSwift4List7Element">Element</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Element type contained in this collection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Element</span> <span class="o">=</span> <span class="kt">T</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L55">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift4List5realmGSqCS_5Realm_"></a>
+                    <a name="//apple_ref/swift/Property/realm" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift4List5realmGSqCS_5Realm_">realm</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Realm the objects in this List belong to, or <code>nil</code> if the List&rsquo;s
+owning object does not belong to a Realm (the List is standalone).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">realm</span><span class="p">:</span> <span class="kt">Realm</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L61-L63">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift4List11invalidatedSb"></a>
+                    <a name="//apple_ref/swift/Property/invalidated" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift4List11invalidatedSb">invalidated</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if the List can no longer be accessed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">invalidated</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_rlmArray</span><span class="o">.</span><span class="n">invalidated</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L66">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <a href="#/Initializers">
+                  <h3 class="section-name">Initializers</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4ListcuRdq_CS_6Object_FMGS0_q__FT_GS0_q__"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4ListcuRdq_CS_6Object_FMGS0_q__FT_GS0_q__">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a <code><a href="../Classes/List.html">List</a></code> that holds objects of type <code>T</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">override</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L71-L74">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Index%20Retrieval"></a>
+                <a name="//apple_ref/swift/Section/Index Retrieval" class="dashAnchor"></a>
+                <a href="#/Index%20Retrieval">
+                  <h3 class="section-name">Index Retrieval</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List7indexOfuRdq_CS_6Object_FGS0_q__Fq_GSqSi_"></a>
+                    <a name="//apple_ref/swift/Method/indexOf(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List7indexOfuRdq_CS_6Object_FGS0_q__Fq_GSqSi_">indexOf(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the index of the given object, or <code>nil</code> if the object is not in the List.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">indexOf</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object whose index is being queried.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index of the given object, or <code>nil</code> if the object is not in the List.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L85-L87">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List7indexOfuRdq_CS_6Object_FGS0_q__FCSo11NSPredicateGSqSi_"></a>
+                    <a name="//apple_ref/swift/Method/indexOf(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List7indexOfuRdq_CS_6Object_FGS0_q__FCSo11NSPredicateGSqSi_">indexOf(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the index of the first object matching the given predicate,
+or <code>nil</code> no objects match.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">indexOf</span><span class="p">(</span><span class="nv">predicate</span><span class="p">:</span> <span class="kt">NSPredicate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code>NSPredicate</code> used to filter the objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index of the first matching object, or <code>nil</code> if no objects match.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L97-L99">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List7indexOfuRdq_CS_6Object_FGS0_q__FtSSGSaPSs9AnyObject___GSqSi_"></a>
+                    <a name="//apple_ref/swift/Method/indexOf(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List7indexOfuRdq_CS_6Object_FGS0_q__FtSSGSaPSs9AnyObject___GSqSi_">indexOf(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the index of the first object matching the given predicate,
+or <code>nil</code> if no objects match.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">indexOf</span><span class="p">(</span><span class="nv">predicateFormat</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">args</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicateFormat</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate format string, optionally followed by a variable number of arguments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The index of the first matching object, or <code>nil</code> if no objects match.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L110-L112">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Object%20Retrieval"></a>
+                <a name="//apple_ref/swift/Section/Object Retrieval" class="dashAnchor"></a>
+                <a href="#/Object%20Retrieval">
+                  <h3 class="section-name">Object Retrieval</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift4List5firstGSqq__"></a>
+                    <a name="//apple_ref/swift/Property/first" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift4List5firstGSqq__">first</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the first object in the List, or <code>nil</code> if empty.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">first</span><span class="p">:</span> <span class="kt">T</span><span class="p">?</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_rlmArray</span><span class="o">.</span><span class="nf">firstObject</span><span class="p">()</span> <span class="k">as!</span> <span class="kt">T</span><span class="p">?</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L138">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift4List4lastGSqq__"></a>
+                    <a name="//apple_ref/swift/Property/last" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift4List4lastGSqq__">last</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the last object in the List, or <code>nil</code> if empty.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">last</span><span class="p">:</span> <span class="kt">T</span><span class="p">?</span> <span class="p">{</span> <span class="k">return</span> <span class="n">_rlmArray</span><span class="o">.</span><span class="nf">lastObject</span><span class="p">()</span> <span class="k">as!</span> <span class="kt">T</span><span class="p">?</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L141">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/KVC"></a>
+                <a name="//apple_ref/swift/Section/KVC" class="dashAnchor"></a>
+                <a href="#/KVC">
+                  <h3 class="section-name">KVC</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List11valueForKeyuRdq_CS_6Object_FGS0_q__FSSGSqPSs9AnyObject__"></a>
+                    <a name="//apple_ref/swift/Method/valueForKey(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List11valueForKeyuRdq_CS_6Object_FGS0_q__FSSGSqPSs9AnyObject__">valueForKey(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an Array containing the results of invoking <code>valueForKey(_:)</code> using key on each of the collection&rsquo;s objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">valueForKey</span><span class="p">(</span><span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the property.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Array containing the results of invoking <code>valueForKey(_:)</code> using key on each of the collection&rsquo;s objects.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L152-L154">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List8setValueuRdq_CS_6Object_FGS0_q__FTGSqPSs9AnyObject__6forKeySS_T_"></a>
+                    <a name="//apple_ref/swift/Method/setValue(_:forKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List8setValueuRdq_CS_6Object_FGS0_q__FTGSqPSs9AnyObject__6forKeySS_T_">setValue(_:forKey:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invokes <code>setValue(_:forKey:)</code> on each of the collection&rsquo;s objects using the specified value and key.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">setValue</span><span class="p">(</span><span class="nv">value</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">?,</span> <span class="n">forKey</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object value.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of the property.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L164-L166">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Filtering"></a>
+                <a name="//apple_ref/swift/Section/Filtering" class="dashAnchor"></a>
+                <a href="#/Filtering">
+                  <h3 class="section-name">Filtering</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List6filteruRdq_CS_6Object_FGS0_q__FtSSGSaPSs9AnyObject___GCS_7Resultsq__"></a>
+                    <a name="//apple_ref/swift/Method/filter(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List6filteruRdq_CS_6Object_FGS0_q__FtSSGSaPSs9AnyObject___GCS_7Resultsq__">filter(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code><a href="../Classes/Results.html">Results</a></code> containing elements that match the given predicate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">filter</span><span class="p">(</span><span class="nv">predicateFormat</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">args</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicateFormat</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate format string which can accept variable arguments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code><a href="../Classes/Results.html">Results</a></code> containing elements that match the given predicate.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L177-L179">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List6filteruRdq_CS_6Object_FGS0_q__FCSo11NSPredicateGCS_7Resultsq__"></a>
+                    <a name="//apple_ref/swift/Method/filter(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List6filteruRdq_CS_6Object_FGS0_q__FCSo11NSPredicateGCS_7Resultsq__">filter(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code><a href="../Classes/Results.html">Results</a></code> containing elements that match the given predicate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">filter</span><span class="p">(</span><span class="nv">predicate</span><span class="p">:</span> <span class="kt">NSPredicate</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate to filter the objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code><a href="../Classes/Results.html">Results</a></code> containing elements that match the given predicate.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L188-L190">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Sorting"></a>
+                <a name="//apple_ref/swift/Section/Sorting" class="dashAnchor"></a>
+                <a href="#/Sorting">
+                  <h3 class="section-name">Sorting</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List6sorteduRdq_CS_6Object_FGS0_q__FTSS9ascendingSb_GCS_7Resultsq__"></a>
+                    <a name="//apple_ref/swift/Method/sorted(_:ascending:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List6sorteduRdq_CS_6Object_FGS0_q__FTSS9ascendingSb_GCS_7Resultsq__">sorted(_:ascending:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code><a href="../Classes/Results.html">Results</a></code> containing elements sorted by the given property.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">sorted</span><span class="p">(</span><span class="nv">property</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">as</span><span class="nv">cending</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>property</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The property name to sort by.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ascending</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The direction to sort by.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code><a href="../Classes/Results.html">Results</a></code> containing elements sorted by the given property.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L202-L204">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List6sortedu__Rdq_CS_6Objectqd__Ss12SequenceTypezqqqd__S2_9GeneratorSs13GeneratorType7ElementVS_14SortDescriptor_FGS0_q__Fqd__GCS_7Resultsq__"></a>
+                    <a name="//apple_ref/swift/Method/sorted(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List6sortedu__Rdq_CS_6Objectqd__Ss12SequenceTypezqqqd__S2_9GeneratorSs13GeneratorType7ElementVS_14SortDescriptor_FGS0_q__Fqd__GCS_7Resultsq__">sorted(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns <code><a href="../Classes/Results.html">Results</a></code> with elements sorted by the given sort descriptors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">sorted</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">SortDescriptor</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">sortDescriptors</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sortDescriptors</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>SortDescriptor</code>s to sort by.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code><a href="../Classes/Results.html">Results</a></code> with elements sorted by the given sort descriptors.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L213-L215">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Aggregate%20Operations"></a>
+                <a name="//apple_ref/swift/Section/Aggregate Operations" class="dashAnchor"></a>
+                <a href="#/Aggregate%20Operations">
+                  <h3 class="section-name">Aggregate Operations</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List3minu__Rdq_CS_6Objectqd__S_10MinMaxType_FGS0_q__FSSGSqqd___"></a>
+                    <a name="//apple_ref/swift/Method/min(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List3minu__Rdq_CS_6Objectqd__S_10MinMaxType_FGS0_q__FSSGSqqd___">min(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the minimum value of the given property.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Only names of properties of a type conforming to the <code><a href="../Protocols.html#/s:P10RealmSwift10MinMaxType">MinMaxType</a></code> protocol can be used.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">min</span><span class="o">&lt;</span><span class="kt">U</span><span class="p">:</span> <span class="kt">MinMaxType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">property</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">U</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>property</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of a property conforming to <code>MinMaxType</code> to look for a minimum on.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The minimum value for the property amongst objects in the List, or <code>nil</code> if the List is empty.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L228-L230">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List3maxu__Rdq_CS_6Objectqd__S_10MinMaxType_FGS0_q__FSSGSqqd___"></a>
+                    <a name="//apple_ref/swift/Method/max(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List3maxu__Rdq_CS_6Objectqd__S_10MinMaxType_FGS0_q__FSSGSqqd___">max(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the maximum value of the given property.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Only names of properties of a type conforming to the <code><a href="../Protocols.html#/s:P10RealmSwift10MinMaxType">MinMaxType</a></code> protocol can be used.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">max</span><span class="o">&lt;</span><span class="kt">U</span><span class="p">:</span> <span class="kt">MinMaxType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">property</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">U</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>property</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of a property conforming to <code>MinMaxType</code> to look for a maximum on.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The maximum value for the property amongst objects in the List, or <code>nil</code> if the List is empty.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L241-L243">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List3sumu__Rdq_CS_6Objectqd__S_11AddableType_FGS0_q__FSSqd__"></a>
+                    <a name="//apple_ref/swift/Method/sum(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List3sumu__Rdq_CS_6Objectqd__S_11AddableType_FGS0_q__FSSqd__">sum(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the sum of the given property for objects in the List.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Only names of properties of a type conforming to the <code><a href="../Protocols.html#/s:P10RealmSwift11AddableType">AddableType</a></code> protocol can be used.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">sum</span><span class="o">&lt;</span><span class="kt">U</span><span class="p">:</span> <span class="kt">AddableType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">property</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">U</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>property</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of a property conforming to <code>AddableType</code> to calculate sum on.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The sum of the given property over all objects in the List.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L254-L256">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List7averageu__Rdq_CS_6Objectqd__S_11AddableType_FGS0_q__FSSGSqqd___"></a>
+                    <a name="//apple_ref/swift/Method/average(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List7averageu__Rdq_CS_6Objectqd__S_11AddableType_FGS0_q__FSSGSqqd___">average(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the average of the given property for objects in the List.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Only names of properties of a type conforming to the <code><a href="../Protocols.html#/s:P10RealmSwift11AddableType">AddableType</a></code> protocol can be used.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">average</span><span class="o">&lt;</span><span class="kt">U</span><span class="p">:</span> <span class="kt">AddableType</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">property</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">U</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>property</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The name of a property conforming to <code>AddableType</code> to calculate average on.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The average of the given property over all objects in the List, or <code>nil</code> if the List is empty.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L267-L269">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Mutation"></a>
+                <a name="//apple_ref/swift/Section/Mutation" class="dashAnchor"></a>
+                <a href="#/Mutation">
+                  <h3 class="section-name">Mutation</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List6appenduRdq_CS_6Object_FGS0_q__Fq_T_"></a>
+                    <a name="//apple_ref/swift/Method/append(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List6appenduRdq_CS_6Object_FGS0_q__Fq_T_">append(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Appends the given object to the end of the List. If the object is from a
+different Realm it is copied to the List&rsquo;s Realm.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">append</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L281-L283">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List16appendContentsOfu__Rdq_CS_6Objectqd__Ss12SequenceTypezq_qqqd__S2_9GeneratorSs13GeneratorType7Element_FGS0_q__Fqd__T_"></a>
+                    <a name="//apple_ref/swift/Method/appendContentsOf(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List16appendContentsOfu__Rdq_CS_6Objectqd__Ss12SequenceTypezq_qqqd__S2_9GeneratorSs13GeneratorType7Element_FGS0_q__Fqd__T_">appendContentsOf(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Appends the objects in the given sequence to the end of the List.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">appendContentsOf</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">objects</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>objects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A sequence of objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L292-L296">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List6insertuRdq_CS_6Object_FGS0_q__FTq_7atIndexSi_T_"></a>
+                    <a name="//apple_ref/swift/Method/insert(_:atIndex:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List6insertuRdq_CS_6Object_FGS0_q__FTq_7atIndexSi_T_">insert(_:atIndex:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inserts the given object at the given index.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div><div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Throws an exception when called with an index smaller than zero
+       or greater than or equal to the number of objects in the List.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">atIndex</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index at which to insert the object.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L308-L311">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List13removeAtIndexuRdq_CS_6Object_FGS0_q__FSiT_"></a>
+                    <a name="//apple_ref/swift/Method/removeAtIndex(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List13removeAtIndexuRdq_CS_6Object_FGS0_q__FSiT_">removeAtIndex(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the object at the given index from the List. Does not remove the object from the Realm.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div><div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Throws an exception when called with an index smaller than zero
+       or greater than or equal to the number of objects in the List.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeAtIndex</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index at which to remove the object.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L322-L325">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List10removeLastuRdq_CS_6Object_FGS0_q__FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/removeLast()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List10removeLastuRdq_CS_6Object_FGS0_q__FT_T_">removeLast()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the last object in the List. Does not remove the object from the Realm.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeLast</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L332-L334">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List9removeAlluRdq_CS_6Object_FGS0_q__FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/removeAll()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List9removeAlluRdq_CS_6Object_FGS0_q__FT_T_">removeAll()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes all objects from the List. Does not remove the objects from the Realm.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeAll</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L341-L343">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List7replaceuRdq_CS_6Object_FGS0_q__FTSi6objectq__T_"></a>
+                    <a name="//apple_ref/swift/Method/replace(_:object:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List7replaceuRdq_CS_6Object_FGS0_q__FTSi6objectq__T_">replace(_:object:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Replaces an object at the given index with a new object.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div><div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Throws an exception when called with an index smaller than zero
+       or greater than or equal to the number of objects in the List.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">replace</span><span class="p">(</span><span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">object</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the object to be replaced.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object to replace at the specified index.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L355-L358">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List4moveuRdq_CS_6Object_FGS0_q__FT4fromSi2toSi_T_"></a>
+                    <a name="//apple_ref/swift/Method/move(from:to:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List4moveuRdq_CS_6Object_FGS0_q__FT4fromSi2toSi_T_">move(from:to:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Moves the object at the given source index to the given destination index.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div><div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>Throws an exception when called with an index smaller than zero or greater than
+       or equal to the number of objects in the List.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">move</span><span class="p">(</span><span class="n">from</span> <span class="nv">from</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">to</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>from</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the object to be moved.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>to</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>index to which the object at <code>from</code> should be moved.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L370-L374">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List4swapuRdq_CS_6Object_FGS0_q__FTSiSi_T_"></a>
+                    <a name="//apple_ref/swift/Method/swap(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List4swapuRdq_CS_6Object_FGS0_q__FTSiSi_T_">swap(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Exchanges the objects in the List at given indexes.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          Throws an exception when either index exceeds the bounds of the List.
+
+        </div><div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">swap</span><span class="p">(</span><span class="nv">index1</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">_</span> <span class="nv">index2</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index1</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the object with which to replace the object at index <code>index2</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index2</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the object with which to replace the object at index <code>index1</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L385-L389">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Sequence%20Support"></a>
+                <a name="//apple_ref/swift/Section/Sequence Support" class="dashAnchor"></a>
+                <a href="#/Sequence%20Support">
+                  <h3 class="section-name">Sequence Support</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List8generateuRdq_CS_6Object_FGS0_q__FT_GCS_12RLMGeneratorq__"></a>
+                    <a name="//apple_ref/swift/Method/generate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List8generateuRdq_CS_6Object_FGS0_q__FT_GCS_12RLMGeneratorq__">generate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a <code>GeneratorOf&lt;T&gt;</code> that yields successive elements in the List.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">generate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">RLMGenerator</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L396-L398">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/RangeReplaceableCollection%20Support"></a>
+                <a name="//apple_ref/swift/Section/RangeReplaceableCollection Support" class="dashAnchor"></a>
+                <a href="#/RangeReplaceableCollection%20Support">
+                  <h3 class="section-name">RangeReplaceableCollection Support</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift4List12replaceRangeu__Rdq_CS_6Objectqd__Ss14CollectionTypezq_qqqd__S2_9GeneratorSs13GeneratorType7Element_FGS0_q__FTGVSs5RangeSi_4withqd___T_"></a>
+                    <a name="//apple_ref/swift/Method/replaceRange(_:with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift4List12replaceRangeu__Rdq_CS_6Objectqd__Ss14CollectionTypezq_qqqd__S2_9GeneratorSs13GeneratorType7Element_FGS0_q__FTGVSs5RangeSi_4withqd___T_">replaceRange(_:with:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Replace the given <code>subRange</code> of elements with <code>newElements</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">replaceRange</span><span class="o">&lt;</span><span class="kt">C</span><span class="p">:</span> <span class="kt">CollectionType</span> <span class="k">where</span> <span class="kt">C</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span> <span class="o">==</span> <span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">subRange</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">with</span> <span class="nv">newElements</span><span class="p">:</span> <span class="kt">C</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>subRange</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The range of elements to be replaced.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>newElements</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The new elements to be inserted into the List.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L408-L415">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift4List10startIndexSi"></a>
+                    <a name="//apple_ref/swift/Property/startIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift4List10startIndexSi">startIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The position of the first element in a non-empty collection.
+Identical to endIndex in an empty collection.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">startIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L419">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift4List8endIndexSi"></a>
+                    <a name="//apple_ref/swift/Property/endIndex" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift4List8endIndexSi">endIndex</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The collection&rsquo;s <q>past the end</q> position.
+endIndex is not a valid argument to subscript, and is always reachable from startIndex by zero or more applications of successor().</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">endIndex</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">return</span> <span class="n">count</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/List.swift#L423">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

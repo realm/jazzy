@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Functions  Reference</title>
+    <link rel="icon" href="https://realm.io/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://realm.io/img/favicon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://realm.io/img/favicon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://realm.io/img/favicon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://realm.io/img/favicon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://realm.io/img/favicon-152x152.png" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    <script defer>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50247013-1', 'realm.io');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <a title="Functions  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">RealmSwift Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/realm/realm-cocoa"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Frealm%2Eio%2Fdocs%2Fswift%2F0%2E96%2E2%2Fapi%2Fdocsets%2FRealmSwift%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">RealmSwift Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Functions  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/AnyRealmCollection.html">AnyRealmCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ObjectSchema.html">ObjectSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Property.html">Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/RLMGenerator.html">RLMGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Realm.html">Realm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/RealmOptional.html">RealmOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Results.html">Results</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Schema.html">Schema</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/Notification.html">Notification</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF10RealmSwiftoi2eeFTVS_14SortDescriptorS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_6SchemaS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_12ObjectSchemaS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_5RealmS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_8PropertyS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F10RealmSwift12migrateRealmFTVCS_5Realm13Configuration_GSqCSo7NSError_">migrateRealm(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:F10RealmSwift19schemaVersionAtPathFTSS13encryptionKeyGSqCSo6NSData_5errorGVSs33AutoreleasingUnsafeMutablePointerGSqCSo7NSError___GSqVSs6UInt64_">schemaVersionAtPath(_:encryptionKey:error:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols.html#/s:P10RealmSwift11AddableType">AddableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols.html#/s:P10RealmSwift10MinMaxType">MinMaxType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/RealmCollectionType.html">RealmCollectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols.html#/s:P10RealmSwift17RealmOptionalType">RealmOptionalType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/SortDescriptor.html">SortDescriptor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10RealmSwift14MigrationBlock">MigrationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10RealmSwift15MigrationObject">MigrationObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10RealmSwift29MigrationObjectEnumerateBlock">MigrationObjectEnumerateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10RealmSwift17NotificationBlock">NotificationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10RealmSwift17NotificationToken">NotificationToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:10RealmSwift12PropertyType">PropertyType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Functions</h1>
+            <p>The following functions are available globally.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F10RealmSwift19schemaVersionAtPathFTSS13encryptionKeyGSqCSo6NSData_5errorGVSs33AutoreleasingUnsafeMutablePointerGSqCSo7NSError___GSqVSs6UInt64_"></a>
+                    <a name="//apple_ref/swift/Function/schemaVersionAtPath(_:encryptionKey:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F10RealmSwift19schemaVersionAtPathFTSS13encryptionKeyGSqCSo6NSData_5errorGVSs33AutoreleasingUnsafeMutablePointerGSqCSo7NSError___GSqVSs6UInt64_">schemaVersionAtPath(_:encryptionKey:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the schema version for a Realm at a given path.
+- parameter realmPath:     Path to a Realm file.
+- parameter encryptionKey: Optional 64-byte encryption key for encrypted Realms.
+- parameter error:         If an error occurs, upon return contains an <code>NSError</code> object
+                           that describes the problem. If you are not interested in
+                           possible errors, omit the argument, or pass in <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">schemaVersionAtPath</span><span class="p">(</span><span class="nv">realmPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">encryptionKey</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">NSErrorPointer</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UInt64</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realmPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to a Realm file.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encryptionKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional 64-byte encryption key for encrypted Realms.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If an error occurs, upon return contains an <code>NSError</code> object that describes the problem. If you are not interested in possible errors, omit the argument, or pass in <code>nil</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The version of the Realm at <code>realmPath</code> or <code>nil</code> if the version cannot be read.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Migration.swift#L55-L61">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:F10RealmSwift12migrateRealmFTVCS_5Realm13Configuration_GSqCSo7NSError_"></a>
+                    <a name="//apple_ref/swift/Function/migrateRealm(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:F10RealmSwift12migrateRealmFTVCS_5Realm13Configuration_GSqCSo7NSError_">migrateRealm(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs the configuration&rsquo;s migration block on the Realm created by the given
+configuration.</p>
+
+<p>This method is called automatically when opening a Realm for the first time and does
+not need to be called explicitly. You can choose to call this method to control
+exactly when and how migrations are performed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">migrateRealm</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">Realm</span><span class="o">.</span><span class="kt">Configuration</span> <span class="o">=</span> <span class="kt">Realm</span><span class="o">.</span><span class="kt">Configuration</span><span class="o">.</span><span class="n">defaultConfiguration</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NSError</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Realm.Configuration used to create the Realm to be migrated, and containing the schema version and migration block used to perform the migration.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>nil</code> if the migration was successful, or an <code>NSError</code> object that describes the problem that occurred otherwise.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Migration.swift#L78-L80">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Equatable"></a>
+                <a name="//apple_ref/swift/Section/Equatable" class="dashAnchor"></a>
+                <a href="#/Equatable">
+                  <h3 class="section-name">Equatable</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZF10RealmSwiftoi2eeFTCS_12ObjectSchemaS0__Sb"></a>
+                    <a name="//apple_ref/swift/Function/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZF10RealmSwiftoi2eeFTCS_12ObjectSchemaS0__Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether the two object schemas are equal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">ObjectSchema</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">ObjectSchema</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/ObjectSchema.swift#L77-L79">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Equatable2"></a>
+                <a name="//apple_ref/swift/Section/Equatable" class="dashAnchor"></a>
+                <a href="#/Equatable2">
+                  <h3 class="section-name">Equatable</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZF10RealmSwiftoi2eeFTCS_8PropertyS0__Sb"></a>
+                    <a name="//apple_ref/swift/Function/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZF10RealmSwiftoi2eeFTCS_8PropertyS0__Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether the two properties are equal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Property</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Property</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Property.swift#L66-L68">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Equatable3"></a>
+                <a name="//apple_ref/swift/Section/Equatable" class="dashAnchor"></a>
+                <a href="#/Equatable3">
+                  <h3 class="section-name">Equatable</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZF10RealmSwiftoi2eeFTCS_5RealmS0__Sb"></a>
+                    <a name="//apple_ref/swift/Function/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZF10RealmSwiftoi2eeFTCS_5RealmS0__Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether the two realms are equal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Realm</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Realm</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L575-L577">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Equatable4"></a>
+                <a name="//apple_ref/swift/Section/Equatable" class="dashAnchor"></a>
+                <a href="#/Equatable4">
+                  <h3 class="section-name">Equatable</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZF10RealmSwiftoi2eeFTCS_6SchemaS0__Sb"></a>
+                    <a name="//apple_ref/swift/Function/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZF10RealmSwiftoi2eeFTCS_6SchemaS0__Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether the two schemas are equal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Schema</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Schema</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Schema.swift#L67-L69">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Equatable5"></a>
+                <a name="//apple_ref/swift/Section/Equatable" class="dashAnchor"></a>
+                <a href="#/Equatable5">
+                  <h3 class="section-name">Equatable</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZF10RealmSwiftoi2eeFTVS_14SortDescriptorS0__Sb"></a>
+                    <a name="//apple_ref/swift/Function/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZF10RealmSwiftoi2eeFTVS_14SortDescriptorS0__Sb">==(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns whether the two sort descriptors are equal.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="o">==</span><span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">SortDescriptor</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">SortDescriptor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/SortDescriptor.swift#L79-L82">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

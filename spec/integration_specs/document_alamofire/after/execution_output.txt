@@ -1,0 +1,17 @@
+JAZZY_FAKE_DATE=YYYY-MM-DD JAZZY_FAKE_VERSION=X.X.X COCOAPODS_SKIP_UPDATE_MESSAGE=TRUE jazzy -m Alamofire -a Alamofire -u https://nshipster.com/alamofire -x -project,Alamofire.xcodeproj,-dry-run -g https://github.com/Alamofire/Alamofire --github-file-prefix https://github.com/Alamofire/Alamofire/blob/3.1.1 --module-version 3.1.1 -r http://static.realm.io/jazzy_demo/Alamofire/ --skip-undocumented 2>&1
+Running xcodebuild
+Parsing Upload.swift (1/13)
+Parsing ParameterEncoding.swift (2/13)
+Parsing Request.swift (3/13)
+Parsing ResponseSerialization.swift (4/13)
+Parsing Error.swift (5/13)
+Parsing Manager.swift (6/13)
+Parsing Alamofire.swift (7/13)
+Parsing MultipartFormData.swift (8/13)
+Parsing ServerTrustPolicy.swift (9/13)
+Parsing Stream.swift (10/13)
+Parsing Download.swift (11/13)
+Parsing Validation.swift (12/13)
+Parsing Result.swift (13/13)
+building site
+jam out ♪♫ to your fresh new docs in `docs`

@@ -1,0 +1,62 @@
+JAZZY_FAKE_DATE=YYYY-MM-DD JAZZY_FAKE_VERSION=X.X.X COCOAPODS_SKIP_UPDATE_MESSAGE=TRUE jazzy --podspec=Moya.podspec --swift-version=1.2 2>&1
+Updating local specs repositories
+Analyzing dependencies
+Fetching podspec for `Moya` from `ROOT/tmp/document_moya_podspec`
+Downloading dependencies
+[32mInstalling Alamofire (1.2.3)[0m
+[32mInstalling LlamaKit (0.6.0)[0m
+[32mInstalling Moya (0.6.1)[0m
+[32mInstalling ReactiveCocoa (3.0-alpha.3)[0m
+Generating Pods project
+Running xcodebuild
+Parsing Endpoint.swift (1/2)
+Parsing Moya.swift (2/2)
+Running xcodebuild
+Parsing Endpoint.swift (1/2)
+Parsing Moya.swift (2/2)
+Running xcodebuild
+Parsing Endpoint.swift (1/4)
+Parsing Moya+ReactiveCocoa.swift (2/4)
+Parsing Moya.swift (3/4)
+Parsing RACSignal+Moya.swift (4/4)
+building site
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: enum EndpointSampleResponse, enum EndpointSampleResponse, enum EndpointSampleResponse
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: class Endpoint, class Endpoint, class Endpoint
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable URL, instance variable URL, instance variable URL
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable method, instance variable method, instance variable method
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable sampleResponse, instance variable sampleResponse, instance variable sampleResponse
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable parameters, instance variable parameters, instance variable parameters
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable parameterEncoding, instance variable parameterEncoding, instance variable parameterEncoding
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable httpHeaderFields, instance variable httpHeaderFields, instance variable httpHeaderFields
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method init(URL:sampleResponse:method:parameters:parameterEncoding:httpHeaderFields:), instance method init(URL:sampleResponse:method:parameters:parameterEncoding:httpHeaderFields:), instance method init(URL:sampleResponse:method:parameters:parameterEncoding:httpHeaderFields:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method endpointByAddingParameters(_:), instance method endpointByAddingParameters(_:), instance method endpointByAddingParameters(_:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method endpointByAddingHTTPHeaderFields(_:), instance method endpointByAddingHTTPHeaderFields(_:), instance method endpointByAddingHTTPHeaderFields(_:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable urlRequest, instance variable urlRequest, instance variable urlRequest
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: class Moya, class Moya, class Moya
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: enum Method, enum Method, enum Method
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: enum ParameterEncoding, enum ParameterEncoding, enum ParameterEncoding
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: enum StubbedBehavior, enum StubbedBehavior, enum StubbedBehavior
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: class method DefaultMethod(), class method DefaultMethod(), class method DefaultMethod()
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: class method DefaultParameters(), class method DefaultParameters(), class method DefaultParameters()
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: typealias MoyaCompletion, typealias MoyaCompletion, typealias MoyaCompletion
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: protocol MoyaPath, protocol MoyaPath, protocol MoyaPath
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable path, instance variable path, instance variable path
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: protocol MoyaTarget, protocol MoyaTarget, protocol MoyaTarget
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable baseURL, instance variable baseURL, instance variable baseURL
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable sampleData, instance variable sampleData, instance variable sampleData
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: class MoyaProvider, class MoyaProvider, class MoyaProvider
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable endpointsClosure, instance variable endpointsClosure, instance variable endpointsClosure
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: typealias MoyaEndpointResolution, typealias MoyaEndpointResolution, typealias MoyaEndpointResolution
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: typealias MoyaEndpointsClosure, typealias MoyaEndpointsClosure, typealias MoyaEndpointsClosure
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable endpointResolver, instance variable endpointResolver, instance variable endpointResolver
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable stubResponses, instance variable stubResponses, instance variable stubResponses
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance variable stubBehavior, instance variable stubBehavior, instance variable stubBehavior
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method init(endpointsClosure:endpointResolver:stubResponses:stubBehavior:), instance method init(endpointsClosure:endpointResolver:stubResponses:stubBehavior:), instance method init(endpointsClosure:endpointResolver:stubResponses:stubBehavior:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method endpoint(_:method:parameters:), instance method endpoint(_:method:parameters:), instance method endpoint(_:method:parameters:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method request(_:method:parameters:completion:), instance method request(_:method:parameters:completion:), instance method request(_:method:parameters:completion:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method request(_:parameters:completion:), instance method request(_:parameters:completion:), instance method request(_:parameters:completion:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method request(_:method:completion:), instance method request(_:method:completion:), instance method request(_:method:completion:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: instance method request(_:completion:), instance method request(_:completion:), instance method request(_:completion:)
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: class method DefaultEnpointResolution(), class method DefaultEnpointResolution(), class method DefaultEnpointResolution()
+Found conflicting type declarations with the same name, which may indicate a build issue or a bug in Jazzy: class method DefaultStubBehavior(_:), class method DefaultStubBehavior(_:), class method DefaultStubBehavior(_:)
+jam out ♪♫ to your fresh new docs in `docs`

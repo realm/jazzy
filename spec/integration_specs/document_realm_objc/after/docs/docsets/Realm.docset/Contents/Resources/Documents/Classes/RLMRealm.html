@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RLMRealm Class Reference</title>
+    <link rel="icon" href="https://realm.io/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://realm.io/img/favicon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://realm.io/img/favicon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://realm.io/img/favicon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://realm.io/img/favicon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://realm.io/img/favicon-152x152.png" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    <script defer>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50247013-1', 'realm.io');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <a name="//apple_ref/objc/Class/RLMRealm" class="dashAnchor"></a>
+    <a title="RLMRealm Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Realm Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/realm/realm-cocoa"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Frealm%2Eio%2Fdocs%2Fobjc%2F0%2E96%2E2%2Fapi%2Fdocsets%2FRealm%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Realm Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RLMRealm Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/RLMArray.html">RLMArray</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMMigration.html">RLMMigration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/c:objc(cs)RLMNotificationToken">RLMNotificationToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMObject.html">RLMObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMObjectSchema.html">RLMObjectSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMProperty.html">RLMProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMRealm.html">RLMRealm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMRealmConfiguration.html">RLMRealmConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMResults.html">RLMResults</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMSchema.html">RLMSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMSortDescriptor.html">RLMSortDescriptor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMErrorDomain">RLMErrorDomain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMExceptionName">RLMExceptionName</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMInvalidatedKey">RLMInvalidatedKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMNotVersioned">RLMNotVersioned</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmCoreVersionKey">RLMRealmCoreVersionKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmDidChangeNotification">RLMRealmDidChangeNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmRefreshRequiredNotification">RLMRealmRefreshRequiredNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmVersionKey">RLMRealmVersionKey</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/RLMError.html">RLMError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RLMPropertyType.html">RLMPropertyType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/RLMCollection.html">RLMCollection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMRealm.h@T@RLMMigrationBlock">RLMMigrationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMRealm.h@T@RLMNotificationBlock">RLMNotificationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMMigration.h@T@RLMObjectMigrationBlock">RLMObjectMigrationBlock</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RLMRealm</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">RLMRealm</span> <span class="p">:</span> <span class="nc">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>An RLMRealm instance (also referred to as <q>a realm</q>) represents a Realm
+database.</p>
+
+<p>Realms can either be stored on disk (see +[RLMRealm realmWithPath:]) or in
+memory (see +[RLMRealm inMemoryRealmWithIdentifier:]).</p>
+
+<p>RLMRealm instances are cached internally, and constructing equivalent RLMRealm
+objects (with the same path or identifier) multiple times on a single thread
+within a single iteration of the run loop will normally return the same
+RLMRealm object. If you specifically want to ensure a RLMRealm object is
+destroyed (for example, if you wish to open a realm, check some property, and
+then possibly delete the realm file and re-open it), place the code which uses
+the realm within an <code>@autoreleasepool {}</code> and ensure you have no other
+strong references to it.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          RLMRealm instances are not thread safe and can not be shared across
+threads or dispatch queues. You must call this method on each thread you want
+to interact with the realm on. For dispatch queues, this means that you must
+call it in each block which is dispatched, as a queue is not guaranteed to run
+on a consistent thread.
+
+        </div>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Creating%20&amp;%20Initializing%20a%20Realm"></a>
+                <a name="//apple_ref/objc/Section/Creating &amp; Initializing a Realm" class="dashAnchor"></a>
+                <a href="#/Creating%20&amp;%20Initializing%20a%20Realm">
+                  <h3 class="section-name">Creating &amp; Initializing a Realm</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(cm)defaultRealm"></a>
+                    <a name="//apple_ref/objc/Method/+defaultRealm" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(cm)defaultRealm">+defaultRealm</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Obtains an instance of the default Realm.</p>
+
+<p>The default Realm is used by the <code><a href="../Classes/RLMObject.html">RLMObject</a></code> class methods
+which do not take a <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> parameter, but is otherwise not special. The
+default Realm is persisted as default.realm under the Documents directory of
+your Application on iOS, and in your application&rsquo;s Application Support
+directory on OS X.</p>
+
+<p>The default Realm is created using the default <code><a href="../Classes/RLMRealmConfiguration.html">RLMRealmConfiguration</a></code>, which
+can be changed via <code>+[RLMRealmConfiguration setDefaultConfiguration:]</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="n">defaultRealm</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The default <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> instance for the current thread.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L67">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(cm)realmWithConfiguration:error:"></a>
+                    <a name="//apple_ref/objc/Method/+realmWithConfiguration:error:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(cm)realmWithConfiguration:error:">+realmWithConfiguration:error:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Obtains an <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> instance with the given configuration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">instancetype</span><span class="p">)</span>
+    <span class="nf">realmWithConfiguration</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMRealmConfiguration</span> <span class="o">*</span><span class="p">)</span><span class="nv">configuration</span>
+                     <span class="nf">error</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The configuration for the realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If an error occurs, upon return contains an <code>NSError</code> object
+             that describes the problem. If you are not interested in
+             possible errors, pass in <code>NULL</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> instance.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L79">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(cm)realmWithPath:"></a>
+                    <a name="//apple_ref/objc/Method/+realmWithPath:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(cm)realmWithPath:">+realmWithPath:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Obtains an <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> instance persisted at a specific file path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="nf">realmWithPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">path</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to the file you want the data saved in.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> instance.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L88">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(py)path"></a>
+                    <a name="//apple_ref/objc/Property/path" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(py)path">path</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Path to the file where this Realm is persisted.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">path</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L93">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(py)readOnly"></a>
+                    <a name="//apple_ref/objc/Property/readOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(py)readOnly">readOnly</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if this Realm was opened in read-only mode.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">isReadOnly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">readOnly</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L98">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(py)schema"></a>
+                    <a name="//apple_ref/objc/Property/schema" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(py)schema">schema</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The RLMSchema used by this RLMRealm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">null_unspecified</span><span class="p">)</span> <span class="n">RLMSchema</span> <span class="o">*</span><span class="n">schema</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L103">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(py)inWriteTransaction"></a>
+                    <a name="//apple_ref/objc/Property/inWriteTransaction" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(py)inWriteTransaction">inWriteTransaction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if this Realm is currently in a write transaction.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          Wrapping mutating operations in a write transaction if this property returns <code>NO</code>
+     may cause a large number of write transactions to be created, which could negatively
+     impact Realm&rsquo;s performance. Always prefer performing multiple mutations in a single
+     transaction when possible.
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">inWriteTransaction</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L113">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(py)configuration"></a>
+                    <a name="//apple_ref/objc/Property/configuration" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(py)configuration">configuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns an <code><a href="../Classes/RLMRealmConfiguration.html">RLMRealmConfiguration</a></code> that can be used to create this <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">RLMRealmConfiguration</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">configuration</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L118">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(py)isEmpty"></a>
+                    <a name="//apple_ref/objc/Property/isEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(py)isEmpty">isEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if this Realm contains any objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">isEmpty</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L123">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Receiving%20Notification%20when%20a%20Realm%20Changes"></a>
+                <a name="//apple_ref/objc/Section/Receiving Notification when a Realm Changes" class="dashAnchor"></a>
+                <a href="#/Receiving%20Notification%20when%20a%20Realm%20Changes">
+                  <h3 class="section-name">Receiving Notification when a Realm Changes</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)addNotificationBlock:"></a>
+                    <a name="//apple_ref/objc/Method/-addNotificationBlock:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)addNotificationBlock:">-addNotificationBlock:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add a notification handler for changes in this RLMRealm.</p>
+
+<p>The block has the following definition:</p>
+
+<pre class="highlight plaintext"><code>typedef void(^RLMNotificationBlock)(NSString *notification, RLMRealm *realm);
+</code></pre>
+
+<p>It receives the following parameters:</p>
+
+<ul>
+<li><code>NSString</code> *<strong>notification</strong>:    The name of the incoming notification. See
+                                RLMRealmNotification for information on what
+                                notifications are sent.</li>
+<li><p><code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> *<strong>realm</strong>:           The realm for which this notification occurred</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMNotificationToken</span> <span class="o">*</span><span class="p">)</span><span class="nf">addNotificationBlock</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMNotificationBlock</span><span class="p">)</span><span class="nv">block</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block which is called to process RLMRealm notifications.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A token object which can later be passed to <code><a href="../Classes/RLMRealm.html#/c:objc(cs)RLMRealm(im)removeNotification:">-removeNotification:</a></code>
+        to remove this notification.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L152">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)removeNotification:"></a>
+                    <a name="//apple_ref/objc/Method/-removeNotification:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)removeNotification:">-removeNotification:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove a previously registered notification handler using the token returned
+from <code><a href="../Classes/RLMRealm.html#/c:objc(cs)RLMRealm(im)addNotificationBlock:">-addNotificationBlock:</a></code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeNotification</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMNotificationToken</span> <span class="o">*</span><span class="p">)</span><span class="nv">notificationToken</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>notificationToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The token returned from <code>-addNotificationBlock:</code>
+                         corresponding to the notification block to remove.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L161">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Writing%20to%20a%20Realm"></a>
+                <a name="//apple_ref/objc/Section/Writing to a Realm" class="dashAnchor"></a>
+                <a href="#/Writing%20to%20a%20Realm">
+                  <h3 class="section-name">Writing to a Realm</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)beginWriteTransaction"></a>
+                    <a name="//apple_ref/objc/Method/-beginWriteTransaction" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)beginWriteTransaction">-beginWriteTransaction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Begins a write transaction in an <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code>.</p>
+
+<p>Only one write transaction can be open at a time. Write transactions cannot be
+nested, and trying to begin a write transaction on a <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> which is
+already in a write transaction with throw an exception. Calls to
+<code>beginWriteTransaction</code> from <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> instances in other threads will block
+until the current write transaction completes.</p>
+
+<p>Before beginning the write transaction, <code>beginWriteTransaction</code> updates the
+<code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> to the latest Realm version, as if refresh was called, and
+generates notifications if applicable. This has no effect if the <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code>
+was already up to date.</p>
+
+<p>It is rarely a good idea to have write transactions span multiple cycles of
+the run loop, but if you do wish to do so you will need to ensure that the
+<code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> in the write transaction is kept alive until the write transaction
+is committed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">beginWriteTransaction</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L187">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)commitWriteTransaction"></a>
+                    <a name="//apple_ref/objc/Method/-commitWriteTransaction" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)commitWriteTransaction">-commitWriteTransaction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Commits all writes operations in the current write transaction.</p>
+
+<p>After this is called the <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> reverts back to being read-only.</p>
+
+<p>Calling this when not in a write transaction will throw an exception.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">commitWriteTransaction</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L196">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)commitWriteTransaction:"></a>
+                    <a name="//apple_ref/objc/Method/-commitWriteTransaction:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)commitWriteTransaction:">-commitWriteTransaction:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Commits all writes operations in the current write transaction.</p>
+
+<p>After this is called the <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> reverts back to being read-only.</p>
+
+<p>Calling this when not in a write transaction will throw an exception.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">commitWriteTransaction</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If an error occurs, upon return contains an <code>NSError</code> object
+             that describes the problem. If you are not interested in
+             possible errors, pass in <code>NULL</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Whether the transaction succeeded.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L211">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)cancelWriteTransaction"></a>
+                    <a name="//apple_ref/objc/Method/-cancelWriteTransaction" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)cancelWriteTransaction">-cancelWriteTransaction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Revert all writes made in the current write transaction and end the transaction.</p>
+
+<p>This rolls back all objects in the Realm to the state they were in at the
+beginning of the write transaction, and then ends the transaction.</p>
+
+<p>This restores the data for deleted objects, but does not re-validated deleted
+accessor objects. Any <code><a href="../Classes/RLMObject.html">RLMObject</a></code>s which were added to the Realm will be
+invalidated rather than switching back to standalone objects.
+Given the following code:</p>
+
+<pre class="highlight plaintext"><code>ObjectType *oldObject = [[ObjectType objectsWhere:@"..."] firstObject];
+ObjectType *newObject = [[ObjectType alloc] init];
+
+[realm beginWriteTransaction];
+[realm addObject:newObject];
+[realm deleteObject:oldObject];
+[realm cancelWriteTransaction];
+</code></pre>
+
+<p>Both <code>oldObject</code> and <code>newObject</code> will return <code>YES</code> for <code>isInvalidated</code>,
+but re-running the query which provided <code>oldObject</code> will once again return
+the valid object.</p>
+
+<p>Calling this when not in a write transaction will throw an exception.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">cancelWriteTransaction</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L238">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)transactionWithBlock:"></a>
+                    <a name="//apple_ref/objc/Method/-transactionWithBlock:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)transactionWithBlock:">-transactionWithBlock:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Helper to perform a block within a transaction.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">transactionWithBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">block</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L243">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)transactionWithBlock:error:"></a>
+                    <a name="//apple_ref/objc/Method/-transactionWithBlock:error:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)transactionWithBlock:error:">-transactionWithBlock:error:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Helper to perform a block within a transaction.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">transactionWithBlock</span><span class="p">:(</span><span class="n">nonnull</span> <span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="kt">void</span><span class="p">))</span><span class="nv">block</span>
+                       <span class="nf">error</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to perform.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If an error occurs, upon return contains an <code>NSError</code> object
+             that describes the problem. If you are not interested in
+             possible errors, pass in <code>NULL</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Whether the transaction succeeded.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L255">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)refresh"></a>
+                    <a name="//apple_ref/objc/Method/-refresh" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)refresh">-refresh</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update an <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> and outstanding objects to point to the most recent data for this <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="n">refresh</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Whether the realm had any updates. Note that this may return YES even if no data has actually changed.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L262">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(py)autorefresh"></a>
+                    <a name="//apple_ref/objc/Property/autorefresh" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(py)autorefresh">autorefresh</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Set to YES to automatically update this Realm when changes happen in other threads.</p>
+
+<p>If set to YES (the default), changes made on other threads will be reflected
+in this Realm on the next cycle of the run loop after the changes are
+committed.  If set to NO, you must manually call -refresh on the Realm to
+update it to get the latest version.</p>
+
+<p>Even with this enabled, you can still call -refresh at any time to update the
+Realm before the automatic refresh would occur.</p>
+
+<p>Notifications are sent when a write transaction is committed whether or not
+this is enabled.</p>
+
+<p>Disabling this on an <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> without any strong references to it will not
+have any effect, and it will switch back to YES the next time the <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code>
+object is created. This is normally irrelevant as it means that there is
+nothing to refresh (as persisted <code><a href="../Classes/RLMObject.html">RLMObject</a></code>s, <code><a href="../Classes/RLMArray.html">RLMArray</a></code>s, and <code><a href="../Classes/RLMResults.html">RLMResults</a></code> have strong
+references to the containing <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code>), but it means that setting
+<code>RLMRealm.defaultRealm.autorefresh = NO</code> in
+<code>application:didFinishLaunchingWithOptions:</code> and only later storing Realm
+objects will not work.</p>
+
+<p>Defaults to YES.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">autorefresh</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L289">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)writeCopyToPath:error:"></a>
+                    <a name="//apple_ref/objc/Method/-writeCopyToPath:error:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)writeCopyToPath:error:">-writeCopyToPath:error:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Write a compacted copy of the RLMRealm to the given path.</p>
+
+<p>The destination file cannot already exist.</p>
+
+<p>Note that if this is called from within a write transaction it writes the
+<em>current</em> data, and not data when the last write transaction was committed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">writeCopyToPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">path</span>
+                  <span class="nf">error</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to save the Realm to.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>On input, a pointer to an error object. If an error occurs, this pointer is set to an actual error object containing the error information. You may specify nil for this parameter if you do not want the error information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>YES if the realm was copied successfully. Returns NO if an error occurred.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L303">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)writeCopyToPath:encryptionKey:error:"></a>
+                    <a name="//apple_ref/objc/Method/-writeCopyToPath:encryptionKey:error:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)writeCopyToPath:encryptionKey:error:">-writeCopyToPath:encryptionKey:error:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Write an encrypted and compacted copy of the RLMRealm to the given path.</p>
+
+<p>The destination file cannot already exist.</p>
+
+<p>Note that if this is called from within a write transaction it writes the
+<em>current</em> data, and not data when the last write transaction was committed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">BOOL</span><span class="p">)</span><span class="nf">writeCopyToPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">path</span>
+          <span class="nf">encryptionKey</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span>
+                  <span class="nf">error</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to save the Realm to.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>64-byte encryption key to encrypt the new file with</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>On input, a pointer to an error object. If an error occurs, this pointer is set to an actual error object containing the error information. You may specify nil for this parameter if you do not want the error information.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>YES if the realm was copied successfully. Returns NO if an error occurred.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L318">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)invalidate"></a>
+                    <a name="//apple_ref/objc/Method/-invalidate" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)invalidate">-invalidate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invalidate all RLMObjects and RLMResults read from this Realm.</p>
+
+<p>An RLMRealm holds a read lock on the version of the data accessed by it, so
+that changes made to the Realm on different threads do not modify or delete the
+data seen by this RLMRealm. Calling this method releases the read lock,
+allowing the space used on disk to be reused by later write transactions rather
+than growing the file. This method should be called before performing long
+blocking operations on a background thread on which you previously read data
+from the Realm which you no longer need.</p>
+
+<p>All <code><a href="../Classes/RLMObject.html">RLMObject</a></code>, <code><a href="../Classes/RLMResults.html">RLMResults</a></code> and <code><a href="../Classes/RLMArray.html">RLMArray</a></code> instances obtained from this
+<code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> on the current thread are invalidated, and can not longer be used.
+The <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> itself remains valid, and a new read transaction is implicitly
+begun the next time data is read from the Realm.</p>
+
+<p>Calling this method multiple times in a row without reading any data from the
+Realm, or before ever reading any data from the Realm is a no-op. This method
+cannot be called on a read-only Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">invalidate</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L340">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Adding%20and%20Removing%20Objects%20from%20a%20Realm"></a>
+                <a name="//apple_ref/objc/Section/Adding and Removing Objects from a Realm" class="dashAnchor"></a>
+                <a href="#/Adding%20and%20Removing%20Objects%20from%20a%20Realm">
+                  <h3 class="section-name">Adding and Removing Objects from a Realm</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)addObject:"></a>
+                    <a name="//apple_ref/objc/Method/-addObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)addObject:">-addObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds an object to be persisted it in this Realm.</p>
+
+<p>Once added, this object can be retrieved using the <code>objectsWhere:</code> selectors
+on <code><a href="../Classes/RLMRealm.html">RLMRealm</a></code> and on subclasses of <code><a href="../Classes/RLMObject.html">RLMObject</a></code>. When added, all linked (child)
+objects referenced by this object will also be added to the Realm if they are
+not already in it. If the object or any linked objects already belong to a
+different Realm an exception will be thrown. Use
+<code>-[RLMObject createInRealm:withObject]</code> to insert a copy of a persisted object
+into a different Realm.</p>
+
+<p>The object to be added must be valid and cannot have been previously deleted
+from a Realm (i.e. <code>isInvalidated</code>) must be false.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Object to be added to this Realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L363">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)addObjects:"></a>
+                    <a name="//apple_ref/objc/Method/-addObjects:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)addObjects:">-addObjects:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds objects in the given array to be persisted it in this Realm.</p>
+
+<p>This is the equivalent of <code>addObject:</code> except for an array of objects.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          <p>addObject:</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObjects</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSFastEnumeration</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">array</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>array</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An enumerable object such as NSArray or RLMResults which contains objects to be added to
+             this Realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L375">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)addOrUpdateObject:"></a>
+                    <a name="//apple_ref/objc/Method/-addOrUpdateObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)addOrUpdateObject:">-addOrUpdateObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds or updates an object to be persisted it in this Realm. The object provided must have a designated
+primary key. If no objects exist in the RLMRealm instance with the same primary key value, the object is
+inserted. Otherwise, the existing object is updated with any changed values.</p>
+
+<p>As with <code>addObject:</code>, the object cannot already be persisted in a different
+Realm. Use <code>-[RLMObject createOrUpdateInRealm:withValue:]</code> to copy values to
+a different Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addOrUpdateObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Object to be added or updated.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L388">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)addOrUpdateObjectsFromArray:"></a>
+                    <a name="//apple_ref/objc/Method/-addOrUpdateObjectsFromArray:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)addOrUpdateObjectsFromArray:">-addOrUpdateObjectsFromArray:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds or updates objects in the given array to be persisted it in this Realm.</p>
+
+<p>This is the equivalent of <code>addOrUpdateObject:</code> except for an array of objects.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          <p>addOrUpdateObject:</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addOrUpdateObjectsFromArray</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">array</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>array</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>NSArray</code>, <code>RLMArray</code>, or <code>RLMResults</code> of <code>RLMObject</code>s (or subclasses) to be added to this Realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L399">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)deleteObject:"></a>
+                    <a name="//apple_ref/objc/Method/-deleteObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)deleteObject:">-deleteObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete an object from this Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObject</span> <span class="o">*</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Object to be deleted from this Realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L406">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)deleteObjects:"></a>
+                    <a name="//apple_ref/objc/Method/-deleteObjects:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)deleteObjects:">-deleteObjects:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delete an <code>NSArray</code>, <code><a href="../Classes/RLMArray.html">RLMArray</a></code>, or <code><a href="../Classes/RLMResults.html">RLMResults</a></code> of objects from this Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">deleteObjects</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="p">)</span><span class="nv">array</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>array</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>RLMArray</code>, <code>NSArray</code>, or <code>RLMResults</code> of <code>RLMObject</code>s to be deleted.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L413">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(im)deleteAllObjects"></a>
+                    <a name="//apple_ref/objc/Method/-deleteAllObjects" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(im)deleteAllObjects">-deleteAllObjects</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes all objects in this Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">deleteAllObjects</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L418">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Migrations"></a>
+                <a name="//apple_ref/objc/Section/Migrations" class="dashAnchor"></a>
+                <a href="#/Migrations">
+                  <h3 class="section-name">Migrations</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(cm)schemaVersionAtPath:error:"></a>
+                    <a name="//apple_ref/objc/Method/+schemaVersionAtPath:error:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(cm)schemaVersionAtPath:error:">+schemaVersionAtPath:error:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the schema version for a Realm at a given path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span><span class="nf">schemaVersionAtPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">realmPath</span>
+                          <span class="nf">error</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realmPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to a Realm file</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If an error occurs, upon return contains an <code>NSError</code> object
+             that describes the problem. If you are not interested in
+             possible errors, pass in <code>NULL</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The version of the Realm at <code>realmPath</code> or RLMNotVersioned if the version cannot be read.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L444">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(cm)schemaVersionAtPath:encryptionKey:error:"></a>
+                    <a name="//apple_ref/objc/Method/+schemaVersionAtPath:encryptionKey:error:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(cm)schemaVersionAtPath:encryptionKey:error:">+schemaVersionAtPath:encryptionKey:error:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the schema version for an encrypted Realm at a given path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="kt">uint64_t</span><span class="p">)</span><span class="nf">schemaVersionAtPath</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">realmPath</span>
+                  <span class="nf">encryptionKey</span><span class="p">:(</span><span class="n">nullable</span> <span class="n">NSData</span> <span class="o">*</span><span class="p">)</span><span class="nv">key</span>
+                          <span class="nf">error</span><span class="p">:(</span><span class="n">NSError</span> <span class="o">*</span><span class="n">_Nullable</span> <span class="o">*</span><span class="n">_Nullable</span><span class="p">)</span><span class="nv">error</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>realmPath</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to a Realm file</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>64-byte encryption key.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If an error occurs, upon return contains an <code>NSError</code> object
+             that describes the problem. If you are not interested in
+             possible errors, pass in <code>NULL</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The version of the Realm at <code>realmPath</code> or RLMNotVersioned if the version cannot be read.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L457">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMRealm(cm)migrateRealm:"></a>
+                    <a name="//apple_ref/objc/Method/+migrateRealm:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMRealm(cm)migrateRealm:">+migrateRealm:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs the given Realm configuration&rsquo;s migration block on a Realm at the given path.</p>
+
+<p>This method is called automatically when opening a Realm for the first time and does
+not need to be called explicitly. You can choose to call this method to control
+exactly when and how migrations are performed.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          <p>RLMMigration</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSError</span> <span class="o">*</span><span class="p">)</span><span class="nf">migrateRealm</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMRealmConfiguration</span> <span class="o">*</span><span class="p">)</span><span class="nv">configuration</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The Realm configuration used to open and migrate the Realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The error that occurred while applying the migration, if any.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMRealm.h#L471">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

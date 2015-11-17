@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RLMArray Class Reference</title>
+    <link rel="icon" href="https://realm.io/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://realm.io/img/favicon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://realm.io/img/favicon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://realm.io/img/favicon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://realm.io/img/favicon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://realm.io/img/favicon-152x152.png" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    <script defer>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50247013-1', 'realm.io');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <a name="//apple_ref/objc/Class/RLMArray" class="dashAnchor"></a>
+    <a title="RLMArray Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Realm Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/realm/realm-cocoa"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Frealm%2Eio%2Fdocs%2Fobjc%2F0%2E96%2E2%2Fapi%2Fdocsets%2FRealm%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Realm Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RLMArray Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/RLMArray.html">RLMArray</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMMigration.html">RLMMigration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/c:objc(cs)RLMNotificationToken">RLMNotificationToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMObject.html">RLMObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMObjectSchema.html">RLMObjectSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMProperty.html">RLMProperty</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMRealm.html">RLMRealm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMRealmConfiguration.html">RLMRealmConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMResults.html">RLMResults</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMSchema.html">RLMSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMSortDescriptor.html">RLMSortDescriptor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Constants.html">Constants</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMErrorDomain">RLMErrorDomain</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMExceptionName">RLMExceptionName</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMInvalidatedKey">RLMInvalidatedKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMNotVersioned">RLMNotVersioned</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmCoreVersionKey">RLMRealmCoreVersionKey</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmDidChangeNotification">RLMRealmDidChangeNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmRefreshRequiredNotification">RLMRealmRefreshRequiredNotification</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Constants.html#/c:@RLMRealmVersionKey">RLMRealmVersionKey</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/RLMError.html">RLMError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/RLMPropertyType.html">RLMPropertyType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/RLMCollection.html">RLMCollection</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Type Definitions.html">Type Definitions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMRealm.h@T@RLMMigrationBlock">RLMMigrationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMRealm.h@T@RLMNotificationBlock">RLMNotificationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Type Definitions.html#/c:RLMMigration.h@T@RLMObjectMigrationBlock">RLMObjectMigrationBlock</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RLMArray</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="k">@interface</span> <span class="nc">RLMArray</span> <span class="o">&lt;</span> <span class="n">RLMObjectType</span> <span class="o">:</span> <span class="n">RLMObject</span> <span class="o">*</span> <span class="o">&gt;</span>  <span class="o">:</span> <span class="n">NSObject</span><span class="o">&lt;</span><span class="n">RLMCollection</span><span class="p">,</span><span class="n">NSFastEnumeration</span><span class="o">&gt;</span> </code></pre>
+
+                </div>
+              </div>
+            <p>RLMArray is the container type in Realm used to define to-many relationships.</p>
+
+<p>Unlike an NSArray, RLMArrays hold a single type, specified by the <code>objectClassName</code> property.
+This is referred to in these docs as the “type” of the array.</p>
+
+<p>When declaring an RLMArray property, the type must be marked as conforming to a
+protocol by the same name as the objects it should contain (see the
+<code>RLM_ARRAY_TYPE</code> macro). RLMArray properties can also use Objective-C generics
+if available. For example:</p>
+
+<pre class="highlight objective_c"><code><span class="n">RLM_ARRAY_TYPE</span><span class="p">(</span><span class="n">ObjectType</span><span class="p">)</span>
+<span class="p">...</span>
+<span class="k">@property</span> <span class="n">RLMArray</span><span class="o">&lt;</span><span class="n">ObjectType</span> <span class="o">*&gt;&lt;</span><span class="n">ObjectType</span><span class="o">&gt;</span> <span class="o">*</span><span class="n">arrayOfObjectTypes</span><span class="p">;</span>
+</code></pre>
+
+<p>RLMArrays can be queried with the same predicates as RLMObject and RLMResults.</p>
+
+<p>RLMArrays cannot be created directly. RLMArray properties on RLMObjects are
+lazily created when accessed, or can be obtained by querying a Realm.</p>
+
+<p><a href='#key_value_observing' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='key_value_observing'>Key-Value Observing</h3></p>
+
+<p>RLMArray supports array key-value observing on RLMArray properties on RLMObject
+subclasses, and the <code>invalidated</code> property on RLMArray instances themselves is
+key-value observing compliant when the RLMArray is attached to a persisted
+RLMObject (RLMArrays on standalone RLMObjects will never become invalidated).</p>
+
+<p>Because RLMArrays are attached to the object which they are a property of, they
+do not require using the mutable collection proxy objects from
+<code>-mutableArrayValueForKey:</code> or KVC-compatible mutation methods on the containing
+object. Instead, you can call the mutation methods on the RLMArray directly.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/objc/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(py)count"></a>
+                    <a name="//apple_ref/objc/Property/count" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(py)count">count</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Number of objects in the array.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSUInteger</span> <span class="n">count</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L69">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(py)objectClassName"></a>
+                    <a name="//apple_ref/objc/Property/objectClassName" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(py)objectClassName">objectClassName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The class name (i.e. type) of the RLMObjects contained in this RLMArray.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">copy</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">_Nonnull</span> <span class="n">objectClassName</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L74">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(py)realm"></a>
+                    <a name="//apple_ref/objc/Property/realm" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(py)realm">realm</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Realm in which this array is persisted. Returns nil for standalone arrays.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">,</span> <span class="n">nullable</span><span class="p">)</span> <span class="n">RLMRealm</span> <span class="o">*</span><span class="n">realm</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L79">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(py)invalidated"></a>
+                    <a name="//apple_ref/objc/Property/invalidated" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(py)invalidated">invalidated</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if an array can no longer be accessed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">@property</span> <span class="p">(</span><span class="n">readonly</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">isInvalidated</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">BOOL</span> <span class="n">invalidated</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L84">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Accessing%20Objects%20from%20an%20Array"></a>
+                <a name="//apple_ref/objc/Section/Accessing Objects from an Array" class="dashAnchor"></a>
+                <a href="#/Accessing%20Objects%20from%20an%20Array">
+                  <h3 class="section-name">Accessing Objects from an Array</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)objectAtIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-objectAtIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)objectAtIndex:">-objectAtIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the object at the index specified.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMObjectType</span><span class="p">)</span><span class="nf">objectAtIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index to look up.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMObject of the class contained by this RLMArray.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L95">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)firstObject"></a>
+                    <a name="//apple_ref/objc/Method/-firstObject" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)firstObject">-firstObject</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the first object in the array.</p>
+
+<p>Returns <code>nil</code> if called on an empty RLMArray.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">RLMObjectType</span><span class="p">)</span><span class="n">firstObject</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMObject of the class contained by this RLMArray.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L104">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)lastObject"></a>
+                    <a name="//apple_ref/objc/Method/-lastObject" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)lastObject">-lastObject</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the last object in the array.</p>
+
+<p>Returns <code>nil</code> if called on an empty RLMArray.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nullable</span> <span class="n">RLMObjectType</span><span class="p">)</span><span class="n">lastObject</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMObject of the class contained by this RLMArray.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L113">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Adding,%20Removing,%20and%20Replacing%20Objects%20in%20an%20Array"></a>
+                <a name="//apple_ref/objc/Section/Adding, Removing, and Replacing Objects in an Array" class="dashAnchor"></a>
+                <a href="#/Adding,%20Removing,%20and%20Replacing%20Objects%20in%20an%20Array">
+                  <h3 class="section-name">Adding, Removing, and Replacing Objects in an Array</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)addObject:"></a>
+                    <a name="//apple_ref/objc/Method/-addObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)addObject:">-addObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds an object to the end of the array.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObjectType</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An RLMObject of the class contained by this RLMArray.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L126">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)addObjects:"></a>
+                    <a name="//apple_ref/objc/Method/-addObjects:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)addObjects:">-addObjects:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds an array of objects at the end of the array.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addObjects</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">id</span><span class="o">&lt;</span><span class="n">NSFastEnumeration</span><span class="o">&gt;</span><span class="p">)</span><span class="nv">objects</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>objects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An enumerable object such as NSArray or RLMResults which contains objects of the
+               same class as this RLMArray.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L136">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)insertObject:atIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-insertObject:atIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)insertObject:atIndex:">-insertObject:atIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Inserts an object at the given index.</p>
+
+<p>Throws an exception when called with an index greater than the number of objects in this RLMArray.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObjectType</span><span class="p">)</span><span class="nv">anObject</span> <span class="nf">atIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>anObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object (of the same type as returned from the objectClassName selector).</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The array index at which the object is inserted.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L148">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)removeObjectAtIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-removeObjectAtIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)removeObjectAtIndex:">-removeObjectAtIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes an object at a given index.</p>
+
+<p>Throws an exception when called with an index greater than the number of objects in this RLMArray.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeObjectAtIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The array index identifying the object to be removed.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L159">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)removeLastObject"></a>
+                    <a name="//apple_ref/objc/Method/-removeLastObject" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)removeLastObject">-removeLastObject</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes the last object in an RLMArray.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">removeLastObject</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L166">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)removeAllObjects"></a>
+                    <a name="//apple_ref/objc/Method/-removeAllObjects" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)removeAllObjects">-removeAllObjects</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Removes all objects from an RLMArray.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="n">removeAllObjects</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L173">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)replaceObjectAtIndex:withObject:"></a>
+                    <a name="//apple_ref/objc/Method/-replaceObjectAtIndex:withObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)replaceObjectAtIndex:withObject:">-replaceObjectAtIndex:withObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Replaces an object at the given index with a new object.</p>
+
+<p>Throws an exception when called with an index greater than the number of objects in this RLMArray.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">replaceObjectAtIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">index</span>
+                  <span class="nf">withObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObjectType</span><span class="p">)</span><span class="nv">anObject</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The array index of the object to be replaced.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>anObject</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object (of the same type as returned from the objectClassName selector).</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L185">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)moveObjectAtIndex:toIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-moveObjectAtIndex:toIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)moveObjectAtIndex:toIndex:">-moveObjectAtIndex:toIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Moves the object at the given source index to the given destination index.</p>
+
+<p>Throws an exception when called with an index greater than or equal to the
+number of objects in this RLMArray.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">moveObjectAtIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">sourceIndex</span>
+                  <span class="nf">toIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">destinationIndex</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>sourceIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the object to be moved.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>destinationIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index to which the object at <code>sourceIndex</code> should be moved.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L198">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)exchangeObjectAtIndex:withObjectAtIndex:"></a>
+                    <a name="//apple_ref/objc/Method/-exchangeObjectAtIndex:withObjectAtIndex:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)exchangeObjectAtIndex:withObjectAtIndex:">-exchangeObjectAtIndex:withObjectAtIndex:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Exchanges the objects in the array at given indexes.</p>
+
+<p>Throws an exception when either index exceeds the bounds of this RLMArray.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">exchangeObjectAtIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">index1</span>
+            <span class="nf">withObjectAtIndex</span><span class="p">:(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nv">index2</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index1</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the object with which to replace the object at index <code>index2</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>index2</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the object with which to replace the object at index <code>index1</code>.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L210">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Querying%20an%20Array"></a>
+                <a name="//apple_ref/objc/Section/Querying an Array" class="dashAnchor"></a>
+                <a href="#/Querying%20an%20Array">
+                  <h3 class="section-name">Querying an Array</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)indexOfObject:"></a>
+                    <a name="//apple_ref/objc/Method/-indexOfObject:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)indexOfObject:">-indexOfObject:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets the index of an object.</p>
+
+<p>Returns NSNotFound if the object is not found in this RLMArray.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nf">indexOfObject</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">RLMObjectType</span><span class="p">)</span><span class="nv">object</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An object (of the same type as returned from the objectClassName selector).</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L221">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)indexOfObjectWhere:"></a>
+                    <a name="//apple_ref/objc/Method/-indexOfObjectWhere:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)indexOfObjectWhere:">-indexOfObjectWhere:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets the index of the first object matching the predicate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nf">indexOfObjectWhere</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicateFormat</span><span class="p">,</span> <span class="p">...;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicateFormat</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate format string which can accept variable arguments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Index of object or NSNotFound if the object is not found in this RLMArray.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L230">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)indexOfObjectWithPredicate:"></a>
+                    <a name="//apple_ref/objc/Method/-indexOfObjectWithPredicate:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)indexOfObjectWithPredicate:">-indexOfObjectWithPredicate:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Gets the index of the first object matching the predicate.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">NSUInteger</span><span class="p">)</span><span class="nf">indexOfObjectWithPredicate</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSPredicate</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicate</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate to filter the objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Index of object or NSNotFound if the object is not found in this RLMArray.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L239">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)objectsWhere:"></a>
+                    <a name="//apple_ref/objc/Method/-objectsWhere:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)objectsWhere:">-objectsWhere:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get objects matching the given predicate in the RLMArray.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span><span class="o">&lt;</span><span class="n">RLMObjectType</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">objectsWhere</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicateFormat</span><span class="p">,</span> <span class="p">...;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicateFormat</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate format string which can accept variable arguments.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of objects that match the given predicate</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L248">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)objectsWithPredicate:"></a>
+                    <a name="//apple_ref/objc/Method/-objectsWithPredicate:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)objectsWithPredicate:">-objectsWithPredicate:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get objects matching the given predicate in the RLMArray.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span><span class="o">&lt;</span><span class="n">RLMObjectType</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">objectsWithPredicate</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSPredicate</span> <span class="o">*</span><span class="p">)</span><span class="nv">predicate</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>predicate</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The predicate to filter the objects.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults of objects that match the given predicate</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L257">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)sortedResultsUsingProperty:ascending:"></a>
+                    <a name="//apple_ref/objc/Method/-sortedResultsUsingProperty:ascending:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)sortedResultsUsingProperty:ascending:">-sortedResultsUsingProperty:ascending:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a sorted RLMResults from an RLMArray</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span><span class="o">&lt;</span><span class="n">RLMObjectType</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span>
+    <span class="nf">sortedResultsUsingProperty</span><span class="p">:(</span><span class="n">nonnull</span> <span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">property</span>
+                     <span class="nf">ascending</span><span class="p">:(</span><span class="n">BOOL</span><span class="p">)</span><span class="nv">ascending</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>property</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The property name to sort by.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ascending</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The direction to sort by.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults sorted by the specified property.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L267">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)sortedResultsUsingDescriptors:"></a>
+                    <a name="//apple_ref/objc/Method/-sortedResultsUsingDescriptors:" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)sortedResultsUsingDescriptors:">-sortedResultsUsingDescriptors:</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get a sorted RLMResults from an RLMArray</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">RLMResults</span><span class="o">&lt;</span><span class="n">RLMObjectType</span><span class="o">&gt;</span> <span class="o">*</span><span class="p">)</span><span class="nf">sortedResultsUsingDescriptors</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">nonnull</span> <span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nv">properties</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>properties</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An array of <code>RLMSortDescriptor</code>s to sort by.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An RLMResults sorted by the specified properties.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L276">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Unavailable%20Methods"></a>
+                <a name="//apple_ref/objc/Section/Unavailable Methods" class="dashAnchor"></a>
+                <a href="#/Unavailable%20Methods">
+                  <h3 class="section-name">Unavailable Methods</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(im)init"></a>
+                    <a name="//apple_ref/objc/Method/-init" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(im)init">-init</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>-[RLMArray init] is not available because RLMArrays cannot be created directly.
+RLMArray properties on RLMObjects are lazily created when accessed, or can be obtained by querying a Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">-</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span><span class="n">init</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L290">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:objc(cs)RLMArray(cm)new"></a>
+                    <a name="//apple_ref/objc/Method/+new" class="dashAnchor"></a>
+                    <a class="token" href="#/c:objc(cs)RLMArray(cm)new">+new</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>+[RLMArray new] is not available because RLMArrays cannot be created directly.
+RLMArray properties on RLMObjects are lazily created when accessed, or can be obtained by querying a Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Objective-C</p>
+                          <pre class="highlight"><code><span class="k">+</span> <span class="p">(</span><span class="n">nonnull</span> <span class="n">instancetype</span><span class="p">)</span> <span class="n">new</span><span class="p">;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/Realm/RLMArray.h#L296">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

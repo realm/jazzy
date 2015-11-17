@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Realm Class Reference</title>
+    <link rel="icon" href="https://realm.io/img/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://realm.io/img/favicon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://realm.io/img/favicon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://realm.io/img/favicon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://realm.io/img/favicon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://realm.io/img/favicon-152x152.png" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://realm.io/img/favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    <script defer>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-50247013-1', 'realm.io');
+      ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Realm" class="dashAnchor"></a>
+    <a title="Realm Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">RealmSwift Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/realm/realm-cocoa"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Frealm%2Eio%2Fdocs%2Fswift%2F0%2E96%2E2%2Fapi%2Fdocsets%2FRealmSwift%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">RealmSwift Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Realm Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/AnyRealmCollection.html">AnyRealmCollection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/List.html">List</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Migration.html">Migration</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ObjectSchema.html">ObjectSchema</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Property.html">Property</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RLMGenerator.html">RLMGenerator</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Realm.html">Realm</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RealmOptional.html">RealmOptional</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Results.html">Results</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Schema.html">Schema</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/Notification.html">Notification</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTVS_14SortDescriptorS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_6SchemaS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_12ObjectSchemaS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_5RealmS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF10RealmSwiftoi2eeFTCS_8PropertyS0__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F10RealmSwift12migrateRealmFTVCS_5Realm13Configuration_GSqCSo7NSError_">migrateRealm(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F10RealmSwift19schemaVersionAtPathFTSS13encryptionKeyGSqCSo6NSData_5errorGVSs33AutoreleasingUnsafeMutablePointerGSqCSo7NSError___GSqVSs6UInt64_">schemaVersionAtPath(_:encryptionKey:error:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:P10RealmSwift11AddableType">AddableType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:P10RealmSwift10MinMaxType">MinMaxType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/RealmCollectionType.html">RealmCollectionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:P10RealmSwift17RealmOptionalType">RealmOptionalType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/SortDescriptor.html">SortDescriptor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift14MigrationBlock">MigrationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift15MigrationObject">MigrationObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift29MigrationObjectEnumerateBlock">MigrationObjectEnumerateBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift17NotificationBlock">NotificationBlock</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift17NotificationToken">NotificationToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RealmSwift12PropertyType">PropertyType</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Realm</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Realm</span></code></pre>
+
+                </div>
+              </div>
+            <p>A Realm instance (also referred to as <q>a realm</q>) represents a Realm
+database.</p>
+
+<p>Realms can either be stored on disk (see <code>init(path:)</code>) or in
+memory (see <code>Configuration</code>).</p>
+
+<p>Realm instances are cached internally, and constructing equivalent Realm
+objects (with the same path or identifier) produces limited overhead.</p>
+
+<p>If you specifically want to ensure a Realm object is
+destroyed (for example, if you wish to open a realm, check some property, and
+then possibly delete the realm file and re-open it), place the code which uses
+the realm within an <code>autoreleasepool {}</code> and ensure you have no other
+strong references to it.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          Realm instances are not thread safe and can not be shared across
+       threads or dispatch queues. You must construct a new instance on each thread you want
+       to interact with the realm on. For dispatch queues, this means that you must
+       call it in each block which is dispatched, as a queue is not guaranteed to run
+       on a consistent thread.
+
+        </div>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Properties"></a>
+                <a name="//apple_ref/swift/Section/Properties" class="dashAnchor"></a>
+                <a href="#/Properties">
+                  <h3 class="section-name">Properties</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift5Realm4pathSS"></a>
+                    <a name="//apple_ref/swift/Property/path" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift5Realm4pathSS">path</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Path to the file where this Realm is persisted.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">return</span> <span class="n">rlmRealm</span><span class="o">.</span><span class="n">path</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L50">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift5Realm8readOnlySb"></a>
+                    <a name="//apple_ref/swift/Property/readOnly" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift5Realm8readOnlySb">readOnly</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if this Realm was opened in read-only mode.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">readOnly</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">return</span> <span class="n">rlmRealm</span><span class="o">.</span><span class="n">readOnly</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L53">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift5Realm6schemaCS_6Schema"></a>
+                    <a name="//apple_ref/swift/Property/schema" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift5Realm6schemaCS_6Schema">schema</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Schema used by this realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">schema</span><span class="p">:</span> <span class="kt">Schema</span> <span class="p">{</span> <span class="k">return</span> <span class="kt">Schema</span><span class="p">(</span><span class="n">rlmRealm</span><span class="o">.</span><span class="n">schema</span><span class="p">)</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L56">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift5Realm13configurationVS0_13Configuration"></a>
+                    <a name="//apple_ref/swift/Property/configuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift5Realm13configurationVS0_13Configuration">configuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns the <code><a href="../Classes/Realm/Configuration.html">Configuration</a></code> that was used to create this <code><a href="../Classes/Realm.html">Realm</a></code> instance.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt">Configuration</span> <span class="p">{</span> <span class="k">return</span> <span class="kt">Configuration</span><span class="o">.</span><span class="nf">fromRLMRealmConfiguration</span><span class="p">(</span><span class="n">rlmRealm</span><span class="o">.</span><span class="n">configuration</span><span class="p">)</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L59">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift5Realm7isEmptySb"></a>
+                    <a name="//apple_ref/swift/Property/isEmpty" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift5Realm7isEmptySb">isEmpty</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if this Realm contains any objects.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isEmpty</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">return</span> <span class="n">rlmRealm</span><span class="o">.</span><span class="n">isEmpty</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L62">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Initializers"></a>
+                <a name="//apple_ref/swift/Section/Initializers" class="dashAnchor"></a>
+                <a href="#/Initializers">
+                  <h3 class="section-name">Initializers</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5RealmcFMS0_FzT13configurationVS0_13Configuration_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(configuration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5RealmcFMS0_FzT13configurationVS0_13Configuration_S0_">init(configuration:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Obtains a Realm instance with the given configuration. Defaults to the default Realm configuration,
+which can be changed by setting <code><a href="../Classes/Realm/Configuration.html#/s:ZvVC10RealmSwift5Realm13Configuration20defaultConfigurationS1_">Realm.Configuration.defaultConfiguration</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">configuration</span><span class="p">:</span> <span class="kt">Configuration</span> <span class="o">=</span> <span class="kt">Configuration</span><span class="o">.</span><span class="n">defaultConfiguration</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>configuration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The configuration to use when creating the Realm instance.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L72-L75">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5RealmcFMS0_FzT4pathSS_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(path:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5RealmcFMS0_FzT4pathSS_S0_">init(path:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Obtains a Realm instance persisted at the specified file path.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to the realm file.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L82-L85">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Transactions"></a>
+                <a name="//apple_ref/swift/Section/Transactions" class="dashAnchor"></a>
+                <a href="#/Transactions">
+                  <h3 class="section-name">Transactions</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm5writeFS0_FzFT_T_T_"></a>
+                    <a name="//apple_ref/swift/Method/write(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm5writeFS0_FzFT_T_T_">write(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Performs actions contained within the given block inside a write transation.</p>
+
+<p>Write transactions cannot be nested, and trying to execute a write transaction 
+on a <code><a href="../Classes/Realm.html">Realm</a></code> which is already in a write transaction will throw an exception. 
+Calls to <code>write</code> from <code><a href="../Classes/Realm.html">Realm</a></code> instances in other threads will block
+   until the current write transaction completes.</p>
+
+<p>Before executing the write transaction, <code>write</code> updates the <code><a href="../Classes/Realm.html">Realm</a></code> to the 
+latest Realm version, as if <code><a href="../Classes/Realm.html#/s:FC10RealmSwift5Realm7refreshFS0_FT_Sb">refresh()</a></code> was called, and generates notifications 
+if applicable. This has no effect if the <code><a href="../Classes/Realm.html">Realm</a></code> was already up to date.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">write</span><span class="p">(</span><span class="kd">@noescape</span> <span class="nv">block</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">))</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The block to be executed inside a write transaction.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L103-L105">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm10beginWriteFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/beginWrite()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm10beginWriteFS0_FT_T_">beginWrite()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Begins a write transaction in a <code><a href="../Classes/Realm.html">Realm</a></code>.</p>
+
+<p>Only one write transaction can be open at a time. Write transactions cannot be
+nested, and trying to begin a write transaction on a <code><a href="../Classes/Realm.html">Realm</a></code> which is
+already in a write transaction will throw an exception. Calls to
+<code>beginWrite</code> from <code><a href="../Classes/Realm.html">Realm</a></code> instances in other threads will block
+until the current write transaction completes.</p>
+
+<p>Before beginning the write transaction, <code>beginWrite</code> updates the
+<code><a href="../Classes/Realm.html">Realm</a></code> to the latest Realm version, as if <code><a href="../Classes/Realm.html#/s:FC10RealmSwift5Realm7refreshFS0_FT_Sb">refresh()</a></code> was called, and
+generates notifications if applicable. This has no effect if the <code><a href="../Classes/Realm.html">Realm</a></code>
+was already up to date.</p>
+
+<p>It is rarely a good idea to have write transactions span multiple cycles of
+the run loop, but if you do wish to do so you will need to ensure that the
+<code><a href="../Classes/Realm.html">Realm</a></code> in the write transaction is kept alive until the write transaction
+is committed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">beginWrite</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L126-L128">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm11commitWriteFS0_FzT_T_"></a>
+                    <a name="//apple_ref/swift/Method/commitWrite()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm11commitWriteFS0_FzT_T_">commitWrite()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Commits all writes operations in the current write transaction, and ends
+the transaction.</p>
+
+<p>Calling this when not in a write transaction will throw an exception.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">commitWrite</span><span class="p">()</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L136-L138">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm11cancelWriteFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/cancelWrite()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm11cancelWriteFS0_FT_T_">cancelWrite()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Revert all writes made in the current write transaction and end the transaction.</p>
+
+<p>This rolls back all objects in the Realm to the state they were in at the
+beginning of the write transaction, and then ends the transaction.</p>
+
+<p>This restores the data for deleted objects, but does not revive invalidated
+object instances. Any <code><a href="../Classes/Object.html">Object</a></code>s which were added to the Realm will be
+invalidated rather than switching back to standalone objects.
+Given the following code:</p>
+
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">oldObject</span> <span class="o">=</span> <span class="nf">objects</span><span class="p">(</span><span class="kt">ObjectType</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="o">!</span>
+<span class="k">let</span> <span class="nv">newObject</span> <span class="o">=</span> <span class="kt">ObjectType</span><span class="p">()</span>
+
+<span class="n">realm</span><span class="o">.</span><span class="nf">beginWrite</span><span class="p">()</span>
+<span class="n">realm</span><span class="o">.</span><span class="nf">add</span><span class="p">(</span><span class="n">newObject</span><span class="p">)</span>
+<span class="n">realm</span><span class="o">.</span><span class="nf">delete</span><span class="p">(</span><span class="n">oldObject</span><span class="p">)</span>
+<span class="n">realm</span><span class="o">.</span><span class="nf">cancelWrite</span><span class="p">()</span>
+</code></pre>
+
+<p>Both <code>oldObject</code> and <code>newObject</code> will return <code>true</code> for <code>invalidated</code>,
+but re-running the query which provided <code>oldObject</code> will once again return
+the valid object.</p>
+
+<p>Calling this when not in a write transaction will throw an exception.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cancelWrite</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L167-L169">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift5Realm18inWriteTransactionSb"></a>
+                    <a name="//apple_ref/swift/Property/inWriteTransaction" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift5Realm18inWriteTransactionSb">inWriteTransaction</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Indicates if this Realm is currently in a write transaction.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          Wrapping mutating operations in a write transaction if this property returns <code>false</code>
+       may cause a large number of write transactions to be created, which could negatively
+       impact Realm&rsquo;s performance. Always prefer performing multiple mutations in a single
+       transaction when possible.
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">inWriteTransaction</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L179-L181">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Adding%20and%20Creating%20objects"></a>
+                <a name="//apple_ref/swift/Section/Adding and Creating objects" class="dashAnchor"></a>
+                <a href="#/Adding%20and%20Creating%20objects">
+                  <h3 class="section-name">Adding and Creating objects</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm3addFS0_FTCS_6Object6updateSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/add(_:update:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm3addFS0_FTCS_6Object6updateSb_T_">add(_:update:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds or updates an object to be persisted it in this Realm.</p>
+
+<p>When &lsquo;update&rsquo; is &lsquo;true&rsquo;, the object must have a primary key. If no objects exist in
+the Realm instance with the same primary key value, the object is inserted. Otherwise,
+the existing object is updated with any changed values.</p>
+
+<p>When added, all (child) relationships referenced by this object will also be
+added to the Realm if they are not already in it. If the object or any related
+objects already belong to a different Realm an exception will be thrown. Use one
+of the <code>create</code> functions to insert a copy of a persisted object into a different
+Realm.</p>
+
+<p>The object to be added must be valid and cannot have been previously deleted
+from a Realm (i.e. <code>invalidated</code> must be false).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">Object</span><span class="p">,</span> <span class="nv">update</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Object to be added to this Realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>update</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If true will try to update existing objects with the same primary key.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L204-L209">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm3adduRq_Ss12SequenceTypedqqq_S1_9GeneratorSs13GeneratorType7ElementCS_6Object_FS0_FTq_6updateSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/add(_:update:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm3adduRq_Ss12SequenceTypedqqq_S1_9GeneratorSs13GeneratorType7ElementCS_6Object_FS0_FTq_6updateSb_T_">add(_:update:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Adds or updates objects in the given sequence to be persisted it in this Realm.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          <p>add(_:update:)</p>
+
+        </div><div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">add</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">:</span> <span class="kt">Object</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">objects</span><span class="p">:</span> <span class="kt">S</span><span class="p">,</span> <span class="nv">update</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>objects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A sequence which contains objects to be added to this Realm.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>update</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If true will try to update existing objects with the same primary key.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L221-L225">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm6createuRdq_CS_6Object_FS0_FTMq_5valuePSs9AnyObject_6updateSb_q_"></a>
+                    <a name="//apple_ref/swift/Method/create(_:value:update:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm6createuRdq_CS_6Object_FS0_FTMq_5valuePSs9AnyObject_6updateSb_q_">create(_:value:update:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create an <code><a href="../Classes/Object.html">Object</a></code> with the given value.</p>
+
+<p>Creates or updates an instance of this object and adds it to the <code><a href="../Classes/Realm.html">Realm</a></code> populating
+the object with the given value.</p>
+
+<p>When &lsquo;update&rsquo; is &lsquo;true&rsquo;, the object must have a primary key. If no objects exist in
+the Realm instance with the same primary key value, the object is inserted. Otherwise,
+the existing object is updated with any changed values.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">create</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Object</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">AnyObject</span> <span class="o">=</span> <span class="p">[:],</span> <span class="nv">update</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object type to create.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value used to populate the object. This can be any key/value coding compliant object, or a JSON dictionary such as those returned from the methods in <code>NSJSONSerialization</code>, or an <code>Array</code> with one object for each persisted property. An exception will be thrown if any required properties are not present and no default is set. When passing in an <code>Array</code>, all properties must be present, valid and in the same order as the properties defined in the model.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>update</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If true will try to update existing objects with the same primary key.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created object.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L250-L257">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Deleting%20objects"></a>
+                <a name="//apple_ref/swift/Section/Deleting objects" class="dashAnchor"></a>
+                <a href="#/Deleting%20objects">
+                  <h3 class="section-name">Deleting objects</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm6deleteFS0_FCS_6ObjectT_"></a>
+                    <a name="//apple_ref/swift/Method/delete(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm6deleteFS0_FCS_6ObjectT_">delete(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes the given object from this Realm.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">delete</span><span class="p">(</span><span class="nv">object</span><span class="p">:</span> <span class="kt">Object</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>object</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object to be deleted.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L303-L305">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm6deleteuRq_Ss12SequenceTypedqqq_S1_9GeneratorSs13GeneratorType7ElementCS_6Object_FS0_Fq_T_"></a>
+                    <a name="//apple_ref/swift/Method/delete(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm6deleteuRq_Ss12SequenceTypedqqq_S1_9GeneratorSs13GeneratorType7ElementCS_6Object_FS0_Fq_T_">delete(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes the given objects from this Realm.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          <p>This method can only be called during a write transaction.</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">delete</span><span class="o">&lt;</span><span class="kt">S</span><span class="p">:</span> <span class="kt">SequenceType</span> <span class="k">where</span> <span class="kt">S</span><span class="o">.</span><span class="kt">Generator</span><span class="o">.</span><span class="kt">Element</span><span class="p">:</span> <span class="kt">Object</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">objects</span><span class="p">:</span> <span class="kt">S</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>objects</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The objects to be deleted. This can be a <code>List&lt;Object&gt;</code>, <code>Results&lt;Object&gt;</code>, or any other enumerable SequenceType which generates Object.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L315-L319">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm9deleteAllFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/deleteAll()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm9deleteAllFS0_FT_T_">deleteAll()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Deletes all objects from this Realm.</p>
+
+<div class="aside aside-warning">
+          <p class="aside-title">Warning</p>
+          This method can only be called during a write transaction.
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deleteAll</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L352-L354">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Object%20Retrieval"></a>
+                <a name="//apple_ref/swift/Section/Object Retrieval" class="dashAnchor"></a>
+                <a href="#/Object%20Retrieval">
+                  <h3 class="section-name">Object Retrieval</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm7objectsuRdq_CS_6Object_FS0_FMq_GCS_7Resultsq__"></a>
+                    <a name="//apple_ref/swift/Method/objects(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm7objectsuRdq_CS_6Object_FS0_FMq_GCS_7Resultsq__">objects(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns all objects of the given type in the Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">objects</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Object</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Results</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The type of the objects to be returned.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>All objects of the given type in Realm.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L365-L368">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm19objectForPrimaryKeyuRdq_CS_6Object_FS0_FTMq_3keyPSs9AnyObject__GSqq__"></a>
+                    <a name="//apple_ref/swift/Method/objectForPrimaryKey(_:key:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm19objectForPrimaryKeyuRdq_CS_6Object_FS0_FTMq_3keyPSs9AnyObject__GSqq__">objectForPrimaryKey(_:key:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get an object with the given primary key.</p>
+
+<p>Returns <code>nil</code> if no object exists with the given primary key.</p>
+
+<p>This method requires that <code>primaryKey()</code> be overridden on the given subclass.</p>
+
+<div class="aside aside-see">
+          <p class="aside-title">See</p>
+          <p>Object.primaryKey()</p>
+
+        </div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">objectForPrimaryKey</span><span class="o">&lt;</span><span class="kt">T</span><span class="p">:</span> <span class="kt">Object</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span><span class="p">,</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The type of the objects to be returned.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>key</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The primary key of the desired object.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An object of type <code>type</code> or <code>nil</code> if an object with the given primary key does not exist.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L403-L406">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Notifications"></a>
+                <a name="//apple_ref/swift/Section/Notifications" class="dashAnchor"></a>
+                <a href="#/Notifications">
+                  <h3 class="section-name">Notifications</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm20addNotificationBlockFS0_FFT12notificationOS_12Notification5realmS0__T_CSo20RLMNotificationToken"></a>
+                    <a name="//apple_ref/swift/Method/addNotificationBlock(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm20addNotificationBlockFS0_FFT12notificationOS_12Notification5realmS0__T_CSo20RLMNotificationToken">addNotificationBlock(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add a notification handler for changes in this Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addNotificationBlock</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="kt">NotificationBlock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">NotificationToken</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A block which is called to process Realm notifications. It receives the following parameters:</p>
+<pre class="highlight plaintext"><code></code></pre>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A notification token which can later be passed to <code><a href="../Classes/Realm.html#/s:FC10RealmSwift5Realm18removeNotificationFS0_FCSo20RLMNotificationTokenT_">removeNotification(_:)</a></code> to remove this notification.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L448-L450">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm18removeNotificationFS0_FCSo20RLMNotificationTokenT_"></a>
+                    <a name="//apple_ref/swift/Method/removeNotification(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm18removeNotificationFS0_FCSo20RLMNotificationTokenT_">removeNotification(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Remove a previously registered notification handler using the token returned
+from <code><a href="../Classes/Realm.html#/s:FC10RealmSwift5Realm20addNotificationBlockFS0_FFT12notificationOS_12Notification5realmS0__T_CSo20RLMNotificationToken">addNotificationBlock(_:)</a></code></p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeNotification</span><span class="p">(</span><span class="nv">notificationToken</span><span class="p">:</span> <span class="kt">NotificationToken</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>notificationToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The token returned from <code>addNotificationBlock(_:)</code> corresponding to the notification block to remove.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L459-L461">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Autorefresh%20and%20Refresh"></a>
+                <a name="//apple_ref/swift/Section/Autorefresh and Refresh" class="dashAnchor"></a>
+                <a href="#/Autorefresh%20and%20Refresh">
+                  <h3 class="section-name">Autorefresh and Refresh</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC10RealmSwift5Realm11autorefreshSb"></a>
+                    <a name="//apple_ref/swift/Property/autorefresh" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC10RealmSwift5Realm11autorefreshSb">autorefresh</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Whether this Realm automatically updates when changes happen in other threads.</p>
+
+<p>If set to <code>true</code> (the default), changes made on other threads will be reflected
+   in this Realm on the next cycle of the run loop after the changes are
+   committed.  If set to <code>false</code>, you must manually call <code><a href="../Classes/Realm.html#/s:FC10RealmSwift5Realm7refreshFS0_FT_Sb">refresh()</a></code> on the Realm to
+   update it to get the latest version.</p>
+
+<p>Note that on background threads, the run loop is not run by default and you will 
+will need to manually call <code><a href="../Classes/Realm.html#/s:FC10RealmSwift5Realm7refreshFS0_FT_Sb">refresh()</a></code> in order to update to the latest version,
+even if <code>autorefresh</code> is set to <code>true</code>.</p>
+
+<p>Even with this enabled, you can still call <code><a href="../Classes/Realm.html#/s:FC10RealmSwift5Realm7refreshFS0_FT_Sb">refresh()</a></code> at any time to update the
+   Realm before the automatic refresh would occur.</p>
+
+<p>Notifications are sent when a write transaction is committed whether or not
+   this is enabled.</p>
+
+<p>Disabling this on a <code><a href="../Classes/Realm.html">Realm</a></code> without any strong references to it will not
+   have any effect, and it will switch back to YES the next time the <code><a href="../Classes/Realm.html">Realm</a></code>
+   object is created. This is normally irrelevant as it means that there is
+   nothing to refresh (as persisted <code><a href="../Classes/Object.html">Object</a></code>s, <code><a href="../Classes/List.html">List</a></code>s, and <code><a href="../Classes/Results.html">Results</a></code> have strong
+   references to the containing <code><a href="../Classes/Realm.html">Realm</a></code>), but it means that setting
+   <code>Realm().autorefresh = false</code> in
+   <code>application(_:didFinishLaunchingWithOptions:)</code> and only later storing Realm
+   objects will not work.</p>
+
+<p>Defaults to true.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">autorefresh</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L495-L502">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm7refreshFS0_FT_Sb"></a>
+                    <a name="//apple_ref/swift/Method/refresh()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm7refreshFS0_FT_Sb">refresh()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update a <code><a href="../Classes/Realm.html">Realm</a></code> and outstanding objects to point to the most recent
+data for this <code><a href="../Classes/Realm.html">Realm</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">refresh</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Whether the realm had any updates. Note that this may return true even if no data has actually changed.</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L511-L513">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Invalidation"></a>
+                <a name="//apple_ref/swift/Section/Invalidation" class="dashAnchor"></a>
+                <a href="#/Invalidation">
+                  <h3 class="section-name">Invalidation</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm10invalidateFS0_FT_T_"></a>
+                    <a name="//apple_ref/swift/Method/invalidate()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm10invalidateFS0_FT_T_">invalidate()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Invalidate all <code><a href="../Classes/Object.html">Object</a></code>s and <code><a href="../Classes/Results.html">Results</a></code> read from this Realm.</p>
+
+<p>A Realm holds a read lock on the version of the data accessed by it, so
+that changes made to the Realm on different threads do not modify or delete the
+data seen by this Realm. Calling this method releases the read lock,
+allowing the space used on disk to be reused by later write transactions rather
+than growing the file. This method should be called before performing long
+blocking operations on a background thread on which you previously read data
+from the Realm which you no longer need.</p>
+
+<p>All <code><a href="../Classes/Object.html">Object</a></code>, <code><a href="../Classes/Results.html">Results</a></code> and <code><a href="../Classes/List.html">List</a></code> instances obtained from this
+<code><a href="../Classes/Realm.html">Realm</a></code> on the current thread are invalidated, and can not longer be used.
+The <code><a href="../Classes/Realm.html">Realm</a></code> itself remains valid, and a new read transaction is implicitly
+begun the next time data is read from the Realm.</p>
+
+<p>Calling this method multiple times in a row without reading any data from the
+Realm, or before ever reading any data from the Realm is a no-op. This method
+cannot be called on a read-only Realm.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">invalidate</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L537-L539">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Writing%20a%20Copy"></a>
+                <a name="//apple_ref/swift/Section/Writing a Copy" class="dashAnchor"></a>
+                <a href="#/Writing%20a%20Copy">
+                  <h3 class="section-name">Writing a Copy</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC10RealmSwift5Realm15writeCopyToPathFS0_FzTSS13encryptionKeyGSqCSo6NSData__T_"></a>
+                    <a name="//apple_ref/swift/Method/writeCopyToPath(_:encryptionKey:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC10RealmSwift5Realm15writeCopyToPathFS0_FzTSS13encryptionKeyGSqCSo6NSData__T_">writeCopyToPath(_:encryptionKey:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Write an encrypted and compacted copy of the Realm to the given path.</p>
+
+<p>The destination file cannot already exist.</p>
+
+<p>Note that if this is called from within a write transaction it writes the
+<em>current</em> data, and not data when the last write transaction was committed.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">writeCopyToPath</span><span class="p">(</span><span class="nv">path</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">encryptionKey</span><span class="p">:</span> <span class="kt">NSData</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>path</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Path to save the Realm to.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>encryptionKey</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional 64-byte encryption key to encrypt the new file with.</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/Realm.swift#L554-L560">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:VC10RealmSwift5Realm13Configuration"></a>
+                    <a name="//apple_ref/swift/Struct/Configuration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:VC10RealmSwift5Realm13Configuration">Configuration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>Realm.Configuration</code> is used to describe the different options used to
+create a <code><a href="../Classes/Realm.html">Realm</a></code> instance.</p>
+
+                        <a href="../Classes/Realm/Configuration.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Configuration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/RealmConfiguration.swift#L28-L163">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vVC10RealmSwift5Realm13Configuration11descriptionSS"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vVC10RealmSwift5Realm13Configuration11descriptionSS">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns a human-readable description of the configuration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/realm/realm-cocoa/tree/v0.96.2/RealmSwift-swift2.0/RealmConfiguration.swift#L170-L172">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

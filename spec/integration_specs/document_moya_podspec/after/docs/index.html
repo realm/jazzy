@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Moya  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a title="Moya  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">Moya Docs</a> (47% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">Moya Reference</a>
+        <img id="carat" src="img/carat.png" />
+        Moya  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Endpoint.html">Endpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Moya.html">Moya</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MoyaProvider.html">MoyaProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/MoyaResponse.html">MoyaResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/ReactiveMoyaProvider.html">ReactiveMoyaProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Global Variables.html#/s:v4Moya15MoyaErrorDomainSS">MoyaErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums.html#/s:O4Moya22EndpointSampleResponse">EndpointSampleResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums.html#/s:O4Moya13MoyaErrorCode">MoyaErrorCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/RACSignal.html">RACSignal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Functions.html#/s:ZF4Moyaoi2eeU__FTGCS_8EndpointQ__GS0_Q___Sb">==(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/MoyaPath.html">MoyaPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/MoyaTarget.html">MoyaTarget</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:4Moya14MoyaCompletion">MoyaCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <p><a href="https://travis-ci.org/ashfurrow/Moya"><img src="https://travis-ci.org/ashfurrow/Moya.svg" alt="Build Status"></a></p>
+
+<p><img src="https://raw.github.com/ashfurrow/Moya/master/web/moya_logo_github.png" alt="Moya Logo"></p>
+
+<p>So the basic idea is that we want some network abstraction layer to satisfy
+all of the requirements listed <a href="https://github.com/artsy/eidolon/issues/9">here</a>.
+Mainly:</p>
+
+<ul>
+<li>Treat test stubs as first-class citizens.</li>
+<li>Only endpoints clearly defined through Moya can be accessed through Moya,
+enforced by the compiler.</li>
+<li>Allow iterating through all potential API requests at runtime for API sanity
+checks.</li>
+<li>Keep track of inflight requests and don&rsquo;t support duplicates.</li>
+</ul>
+
+<p>Super-cool. We actually go a bit farther than other network libraries by
+abstracting the API endpoints away, too. Instead of dealing with endpoints
+(URLS) directly, we use <em>targets</em>, which represent actions to be take on the
+API. This is beneficial if one action can hit different endpoints; for example,
+if you want to GET a user profile, but the endpoint differs depending on if that
+user is a friend or not. Hey – I don&rsquo;t write these APIs, I just use &lsquo;em.</p>
+<a href='#sample_project' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='sample_project'>Sample Project</h2>
+
+<p>There&rsquo;s a sample project in the Sample directory. Make sure to run the <a href="#installation">installation
+instructions</a> below, since it relies a pre-release version of CocoaPods. </p>
+<a href='#project_status' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='project_status'>Project Status</h2>
+
+<p>This is nearing a 1.0 release, though it works now. We&rsquo;re using it in <a href="https://github.com/Artsy/eidolon">Artsy&rsquo;s
+new auction app</a>.</p>
+
+<p>Currently, we support Xcode 6.1.1. </p>
+<a href='#installation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='installation'>Installation</h2>
+
+<p>This project has some dependencies, which are currently managed by a pre-release
+version of CocoaPods (0.36 Beta 1). Add the following lines to your Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">pod</span> <span class="s1">'Moya'</span>
+
+<span class="c1"># Include the following only if you want to use ReactiveCocoa extensions with Moya</span>
+<span class="n">pod</span> <span class="s1">'ReactiveCocoa'</span><span class="p">,</span> <span class="s1">'3.0.0-alpha.1'</span>
+<span class="n">pod</span> <span class="s1">'Moya/Reactive'</span>
+</code></pre>
+
+<p>Then run <code>pod install</code>. In any file you&rsquo;d like to use Moya in, don&rsquo;t forget to
+import the framework with <code>import Moya</code>.</p>
+<a href='#use' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='use'>Use</h2>
+
+<p>So how do you use this library? Well, it&rsquo;s pretty easy. Just follow this
+template. First, set up an <code>enum</code> with all of your API targets. Note that you
+can include information as part of your enum. Let&rsquo;s look at a simple example.</p>
+<pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">GitHub</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="kt">Zen</span>
+    <span class="k">case</span> <span class="kt">UserProfile</span><span class="p">(</span><span class="kt">String</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>This enum is used to make sure that you provide implementation details for each
+target (at compile time). The enum <em>must</em> conform to the <code>MoyaTarget</code> protocol,
+and by extension, the <code>MoyaPath</code> one as well. Let&rsquo;s take a look at what that
+might look like.</p>
+<pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">extension</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">URLEscapedString</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">self</span><span class="o">.</span><span class="nf">stringByAddingPercentEncodingWithAllowedCharacters</span><span class="p">(</span><span class="kt">NSCharacterSet</span><span class="o">.</span><span class="kt">URLHostAllowedCharacterSet</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">GitHub</span> <span class="p">:</span> <span class="kt">MoyaPath</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="kt">Zen</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">"/zen"</span>
+        <span class="k">case</span> <span class="o">.</span><span class="kt">UserProfile</span><span class="p">(</span><span class="k">let</span> <span class="nv">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s">"/users/</span><span class="se">\(</span><span class="n">name</span><span class="o">.</span><span class="kt">URLEscapedString</span><span class="se">)</span><span class="s">"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">extension</span> <span class="kt">GitHub</span> <span class="p">:</span> <span class="kt">MoyaTarget</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">baseURL</span><span class="p">:</span> <span class="kt">NSURL</span> <span class="p">{</span> <span class="k">return</span> <span class="kt">NSURL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://api.github.com"</span><span class="p">)</span> <span class="p">}</span>
+    <span class="k">var</span> <span class="nv">sampleData</span><span class="p">:</span> <span class="kt">NSData</span> <span class="p">{</span>
+        <span class="k">switch</span> <span class="k">self</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="o">.</span><span class="kt">Zen</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s">"Half measures are as bad as nothing at all."</span><span class="o">.</span><span class="nf">dataUsingEncoding</span><span class="p">(</span><span class="kt">NSUTF8StringEncoding</span><span class="p">)</span><span class="o">!</span>
+        <span class="k">case</span> <span class="o">.</span><span class="kt">UserProfile</span><span class="p">(</span><span class="k">let</span> <span class="nv">name</span><span class="p">):</span>
+            <span class="k">return</span> <span class="s">"{</span><span class="se">\"</span><span class="s">login</span><span class="se">\"</span><span class="s">: </span><span class="se">\"\(</span><span class="n">name</span><span class="se">)\"</span><span class="s">, </span><span class="se">\"</span><span class="s">id</span><span class="se">\"</span><span class="s">: 100}"</span><span class="o">.</span><span class="nf">dataUsingEncoding</span><span class="p">(</span><span class="kt">NSUTF8StringEncoding</span><span class="p">)</span><span class="o">!</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre>
+
+<p>(The <code>String</code> extension is just for convenience – you don&rsquo;t have to use it.)</p>
+
+<p>You can see that the <code>MoyaPath</code> protocol translates each value of the enum into
+a relative URL, which can use values embedded in the enum. Super cool.
+The <code>MoyaTarget</code> specifies both a base URL for the API and the sample data for
+each enum value. The sample data are <code>NSData</code> instances, and could represent
+JSON, images, text, whatever you&rsquo;re expecting from that endpoint.</p>
+
+<p>Next, we&rsquo;ll set up the endpoints for use with our API.</p>
+<pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">url</span><span class="p">(</span><span class="nv">route</span><span class="p">:</span> <span class="kt">MoyaTarget</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">route</span><span class="o">.</span><span class="n">baseURL</span><span class="o">.</span><span class="kt">URLByAppendingPathComponent</span><span class="p">(</span><span class="n">route</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">absoluteString</span>
+<span class="p">}</span>
+
+<span class="k">let</span> <span class="nv">endpointsClosure</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">GitHub</span><span class="p">,</span> <span class="nv">method</span><span class="p">:</span> <span class="kt">Moya</span><span class="o">.</span><span class="kt">Method</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Endpoint</span><span class="o">&lt;</span><span class="kt">GitHub</span><span class="o">&gt;</span> <span class="k">in</span>
+    <span class="k">return</span> <span class="kt">Endpoint</span><span class="o">&lt;</span><span class="kt">GitHub</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">URL</span><span class="p">:</span> <span class="nf">url</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="nv">method</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">,</span> <span class="nv">sampleResponse</span><span class="p">:</span> <span class="o">.</span><span class="kt">Success</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">sampleData</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>The block you provide will be invoked every time an API call is to be made. Its
+responsibility is to return an <code>Endpoint</code> instance configured for use by Moya.
+The <code>parameters</code> parameter is passed into this block to allow you to configure
+the <code>Endpoint</code> instance – these parameters are <em>not</em> automatically passed onto
+the network request, so add them to the <code>Endpoint</code> if they should be. They could
+be some data internal to the app that help configure the <code>Endpoint</code>. In this
+example, though, they&rsquo;re just passed right through.</p>
+
+<p>Most of the time, this closure is just a straight translation from target,
+method, and parameters, into an <code>Endpoint</code> instance. However, since it&rsquo;s a
+closure, it&rsquo;ll be executed at each invocation of the API, so you could do
+whatever you want. Say you want to test errors, too.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">failureEndpointsClosure</span> <span class="o">=</span> <span class="p">{</span> <span class="p">(</span><span class="nv">target</span><span class="p">:</span> <span class="kt">GitHub</span><span class="p">,</span> <span class="nv">method</span><span class="p">:</span> <span class="kt">Moya</span><span class="o">.</span><span class="kt">Method</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Endpoint</span><span class="o">&lt;</span><span class="kt">GitHub</span><span class="o">&gt;</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="nv">sampleResponse</span> <span class="o">=</span> <span class="p">{</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="kt">EndpointSampleResponse</span><span class="p">)</span> <span class="k">in</span>
+        <span class="k">if</span> <span class="n">sendErrors</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">.</span><span class="kt">Error</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="kt">NSError</span><span class="p">())</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">.</span><span class="kt">Success</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">sampleData</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}()</span>
+    <span class="k">return</span> <span class="kt">Endpoint</span><span class="o">&lt;</span><span class="kt">GitHub</span><span class="o">&gt;</span><span class="p">(</span><span class="kt">URL</span><span class="p">:</span> <span class="nf">url</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="nv">method</span><span class="p">:</span> <span class="n">method</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="n">parameters</span><span class="p">,</span> <span class="nv">sampleResponse</span><span class="p">:</span> <span class="n">sampleResponse</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Notice that returning sample data is <em>required</em>. One of the key benefits of Moya
+is that it makes testing the app or running the app using stubbed responses for
+API calls really easy.</p>
+
+<p>Great, now we&rsquo;re all set. Just need to create our provider.</p>
+<pre class="highlight swift"><code><span class="c1">// Tuck this away somewhere where it'll be visible to anyone who wants to use it</span>
+<span class="k">var</span> <span class="nv">provider</span><span class="p">:</span> <span class="kt">MoyaProvider</span><span class="o">&lt;</span><span class="kt">GitHub</span><span class="o">&gt;!</span>
+
+<span class="c1">// Create this instance at app launch</span>
+<span class="k">let</span> <span class="nv">provider</span> <span class="o">=</span> <span class="kt">MoyaProvider</span><span class="p">(</span><span class="nv">endpointsClosure</span><span class="p">:</span> <span class="n">endpointsClosure</span><span class="p">)</span>
+</code></pre>
+
+<p>Neato. Now how do we make a request?</p>
+<pre class="highlight swift"><code><span class="n">provider</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="o">.</span><span class="kt">Zen</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">statusCode</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="k">in</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="n">data</span> <span class="p">{</span>
+        <span class="c1">// do something with the data</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+
+<p>The <code>request</code> method is given a <code>GitHub</code> value and, optionally, an HTTP method
+and parameters for the endpoint closure.</p>
+<a href='#reactivecocoa_extensions' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='reactivecocoa_extensions'>ReactiveCocoa Extensions</h2>
+
+<p>Even cooler are the ReactiveCocoa extensions. It immediately returns a<br>
+<code>RACSignal</code> that you can subscribe to or bind or map or whatever you want to
+do. To handle errors, for instance, we could do the following:</p>
+<pre class="highlight swift"><code><span class="n">provider</span><span class="o">.</span><span class="nf">request</span><span class="p">(</span><span class="o">.</span><span class="kt">UserProfile</span><span class="p">(</span><span class="s">"ashfurrow"</span><span class="p">))</span><span class="o">.</span><span class="nf">subscribeNext</span><span class="p">({</span> <span class="p">(</span><span class="n">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="kt">UIImage</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="n">object</span> <span class="k">as?</span> <span class="kt">NSData</span><span class="p">)</span>
+<span class="p">},</span> <span class="nv">error</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span> <span class="k">in</span>
+    <span class="nf">println</span><span class="p">(</span><span class="n">error</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre>
+
+<p>In addition to the option of using signals instead of callback blocks, there are
+also a series of signal operators that will attempt to map the data received 
+from the network response into either an image, some JSON, or a string, with 
+<code>mapImage()</code>, <code>mapJSON()</code>, and <code>mapString()</code>, respectively. If the mapping is
+unsuccessful, you&rsquo;ll get an error on the signal. You also get handy methods for
+filtering out certain status codes. This means that you can place your code for 
+handling API errors like 400&rsquo;s in the same places as code for handling invalid 
+responses. </p>
+<a href='#license' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='license'>License</h2>
+
+<p>Moya is released under an MIT license. See LICENSE for more information.</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://github.com/AshFurrow/Moya" target="_blank" rel="external">Ash Furrow</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

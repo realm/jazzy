@@ -1,0 +1,44 @@
+Upload.swift
+	case Success(request: Request, streamingFromDisk: Bool, streamFileURL: NSURL?)
+	case Failure(NSError)
+ParameterEncoding.swift
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case OPTIONS, GET, HEAD, POST, PUT, PATCH, DELETE, TRACE, CONNECT
+	case URL
+	case JSON
+	case PropertyList(NSPropertyListFormat, NSPropertyListWriteOptions)
+	case Custom((URLRequestConvertible, [String: AnyObject]?) -> (NSMutableURLRequest, NSError?))
+Error.swift
+	case InputStreamReadFailed           = -6000
+	case OutputStreamWriteFailed         = -6001
+	case ContentTypeValidationFailed     = -6002
+	case StatusCodeValidationFailed      = -6003
+	case DataSerializationFailed         = -6004
+	case StringSerializationFailed       = -6005
+	case JSONSerializationFailed         = -6006
+	case PropertyListSerializationFailed = -6007
+Alamofire.swift
+	public var URLString: String
+	public var URLString: String
+	public var URLRequest: NSMutableURLRequest
+ServerTrustPolicy.swift
+	case PerformDefaultEvaluation(validateHost: Bool)
+	case PinCertificates(certificates: [SecCertificate], validateCertificateChain: Bool, validateHost: Bool)
+	case PinPublicKeys(publicKeys: [SecKey], validateCertificateChain: Bool, validateHost: Bool)
+	case DisableEvaluation
+	case CustomEvaluation((serverTrust: SecTrust, host: String) -> Bool)
+Validation.swift
+	case Success
+	case Failure(NSError)
+Result.swift
+	case Success(Value)
+	case Failure(NSData?, ErrorType)
+	public var description: String
+	public var debugDescription: String

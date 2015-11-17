@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RACSignal Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Extension/RACSignal" class="dashAnchor"></a>
+    <a title="RACSignal Extension Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Moya Docs</a> (47% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Moya Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        RACSignal Extension Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Endpoint.html">Endpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Moya.html">Moya</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MoyaProvider.html">MoyaProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MoyaResponse.html">MoyaResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ReactiveMoyaProvider.html">ReactiveMoyaProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v4Moya15MoyaErrorDomainSS">MoyaErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums.html#/s:O4Moya22EndpointSampleResponse">EndpointSampleResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums.html#/s:O4Moya13MoyaErrorCode">MoyaErrorCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/RACSignal.html">RACSignal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF4Moyaoi2eeU__FTGCS_8EndpointQ__GS0_Q___Sb">==(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/MoyaPath.html">MoyaPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MoyaTarget.html">MoyaTarget</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:4Moya14MoyaCompletion">MoyaCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>RACSignal</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">@interface</span> <span class="kt">RACSignal</span> <span class="p">:</span> <span class="kt">RACStream</span>
+<span class="kd">@end</span></code></pre>
+
+                </div>
+              </div>
+            
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE4MoyaCSo9RACSignal17filterStatusCodesFS0_FGVSs14ClosedIntervalSi_S0_"></a>
+                    <a name="//apple_ref/swift/Method/filterStatusCodes(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE4MoyaCSo9RACSignal17filterStatusCodesFS0_FGVSs14ClosedIntervalSi_S0_">filterStatusCodes(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Filters out responses that don&rsquo;t fall within the given range, generating errors when others are encountered.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">filterStatusCodes</span><span class="p">(</span><span class="nv">range</span><span class="p">:</span> <span class="kt">ClosedInterval</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">RACSignal</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE4MoyaCSo9RACSignal16filterStatusCodeFS0_FSiS0_"></a>
+                    <a name="//apple_ref/swift/Method/filterStatusCode(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE4MoyaCSo9RACSignal16filterStatusCodeFS0_FSiS0_">filterStatusCode(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@interface</span> <span class="kt">RACSignal</span> <span class="p">:</span> <span class="kt">RACStream</span>
+<span class="kd">@end</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE4MoyaCSo9RACSignal27filterSuccessfulStatusCodesFS0_FT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/filterSuccessfulStatusCodes()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE4MoyaCSo9RACSignal27filterSuccessfulStatusCodesFS0_FT_S0_">filterSuccessfulStatusCodes()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@interface</span> <span class="kt">RACSignal</span> <span class="p">:</span> <span class="kt">RACStream</span>
+<span class="kd">@end</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE4MoyaCSo9RACSignal38filterSuccessfulStatusAndRedirectCodesFS0_FT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/filterSuccessfulStatusAndRedirectCodes()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE4MoyaCSo9RACSignal38filterSuccessfulStatusAndRedirectCodesFS0_FT_S0_">filterSuccessfulStatusAndRedirectCodes()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">@interface</span> <span class="kt">RACSignal</span> <span class="p">:</span> <span class="kt">RACStream</span>
+<span class="kd">@end</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE4MoyaCSo9RACSignal8mapImageFS0_FT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/mapImage()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE4MoyaCSo9RACSignal8mapImageFS0_FT_S0_">mapImage()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Maps data received from the signal into a UIImage. If the conversion fails, the signal errors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapImage</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">RACSignal</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE4MoyaCSo9RACSignal7mapJSONFS0_FT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/mapJSON()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE4MoyaCSo9RACSignal7mapJSONFS0_FT_S0_">mapJSON()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Maps data received from the signal into a JSON object. If the conversion fails, the signal errors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapJSON</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">RACSignal</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FE4MoyaCSo9RACSignal9mapStringFS0_FT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/mapString()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FE4MoyaCSo9RACSignal9mapStringFS0_FT_S0_">mapString()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Maps data received from the signal into a String. If the conversion fails, the signal errors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">mapString</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">RACSignal</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://github.com/AshFurrow/Moya" target="_blank" rel="external">Ash Furrow</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

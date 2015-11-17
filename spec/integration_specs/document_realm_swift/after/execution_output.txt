@@ -1,0 +1,19 @@
+JAZZY_FAKE_DATE=YYYY-MM-DD JAZZY_FAKE_VERSION=X.X.X COCOAPODS_SKIP_UPDATE_MESSAGE=TRUE jazzy --author Realm --author_url "https://realm.io" --github_url https://github.com/realm/realm-cocoa --github-file-prefix https://github.com/realm/realm-cocoa/tree/v0.96.2 --module RealmSwift --module-version 0.96.2 --root-url https://realm.io/docs/swift/0.96.2/api/ --xcodebuild-arguments -scheme,RealmSwift --template-directory docs/templates 2>&1
+Running xcodebuild
+Parsing Aliases.swift (1/14)
+Parsing List.swift (2/14)
+Parsing Migration.swift (3/14)
+Parsing Object.swift (4/14)
+Parsing ObjectSchema.swift (5/14)
+Parsing Optional.swift (6/14)
+Parsing Property.swift (7/14)
+Parsing Realm.swift (8/14)
+Parsing RealmCollectionType.swift (9/14)
+Parsing RealmConfiguration.swift (10/14)
+Parsing Results.swift (11/14)
+Parsing Schema.swift (12/14)
+Parsing SortDescriptor.swift (13/14)
+Parsing Util.swift (14/14)
+building site
+`className` has no USR. First make sure all modules used in your project have been imported. If all used modules are imported, please report this problem by filing an issue at https://github.com/realm/jazzy/issues along with your Xcode project. If this token is declared in an `#if` block, please ignore this message.
+jam out ♪♫ to your fresh new docs in `docs`

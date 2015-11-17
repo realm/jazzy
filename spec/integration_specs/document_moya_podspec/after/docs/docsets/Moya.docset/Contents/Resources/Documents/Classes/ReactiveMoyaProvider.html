@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ReactiveMoyaProvider Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ReactiveMoyaProvider" class="dashAnchor"></a>
+    <a title="ReactiveMoyaProvider Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Moya Docs</a> (47% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Moya Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        ReactiveMoyaProvider Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/Endpoint.html">Endpoint</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Moya.html">Moya</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MoyaProvider.html">MoyaProvider</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/MoyaResponse.html">MoyaResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/ReactiveMoyaProvider.html">ReactiveMoyaProvider</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v4Moya15MoyaErrorDomainSS">MoyaErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums.html#/s:O4Moya22EndpointSampleResponse">EndpointSampleResponse</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums.html#/s:O4Moya13MoyaErrorCode">MoyaErrorCode</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/RACSignal.html">RACSignal</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF4Moyaoi2eeU__FTGCS_8EndpointQ__GS0_Q___Sb">==(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/MoyaPath.html">MoyaPath</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/MoyaTarget.html">MoyaTarget</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:4Moya14MoyaCompletion">MoyaCompletion</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ReactiveMoyaProvider</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ReactiveMoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">MoyaTarget</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">MoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                </div>
+              </div>
+            <p>Subclass of MoyaProvider that returns RACSignal instances when requests are made. Much better than using completion closures.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC4Moya20ReactiveMoyaProvider16inflightRequestsGVSs10DictionaryGCS_8EndpointQ__CSo9RACSignal_"></a>
+                    <a name="//apple_ref/swift/Property/inflightRequests" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC4Moya20ReactiveMoyaProvider16inflightRequestsGVSs10DictionaryGCS_8EndpointQ__CSo9RACSignal_">inflightRequests</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Current requests that have not completed or errored yet.
+Note: Do not access this directly. It is public only for unit-testing purposes (sigh).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">inflightRequests</span> <span class="o">=</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt">Endpoint</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">RACSignal</span><span class="o">&gt;</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC4Moya20ReactiveMoyaProvidercUS_10MoyaTarget__FMGS0_Q__FT16endpointsClosureFTQ_6methodOCS_4Moya6Method10parametersGVSs10DictionarySSPSs9AnyObject___GCS_8EndpointQ__16endpointResolverFT8endpointGS6_Q___CSo12NSURLRequest13stubResponsesSb12stubBehaviorFQ_OS2_15StubbedBehavior_GS0_Q__"></a>
+                    <a name="//apple_ref/swift/Method/init(endpointsClosure:endpointResolver:stubResponses:stubBehavior:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC4Moya20ReactiveMoyaProvidercUS_10MoyaTarget__FMGS0_Q__FT16endpointsClosureFTQ_6methodOCS_4Moya6Method10parametersGVSs10DictionarySSPSs9AnyObject___GCS_8EndpointQ__16endpointResolverFT8endpointGS6_Q___CSo12NSURLRequest13stubResponsesSb12stubBehaviorFQ_OS2_15StubbedBehavior_GS0_Q__">init(endpointsClosure:endpointResolver:stubResponses:stubBehavior:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initializes a reactive provider.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">endpointsClosure</span><span class="p">:</span> <span class="kt">MoyaEndpointsClosure</span><span class="p">,</span> <span class="nv">endpointResolver</span><span class="p">:</span> <span class="kt">MoyaEndpointResolution</span> <span class="o">=</span> <span class="kt">MoyaProvider</span><span class="o">.</span><span class="kt">DefaultEnpointResolution</span><span class="p">(),</span> <span class="nv">stubResponses</span><span class="p">:</span> <span class="kt">Bool</span>  <span class="o">=</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">stubBehavior</span><span class="p">:</span> <span class="kt">MoyaStubbedBehavior</span> <span class="o">=</span> <span class="kt">MoyaProvider</span><span class="o">.</span><span class="kt">DefaultStubBehavior</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FTQ_6methodOCS_4Moya6Method10parametersGVSs10DictionarySSPSs9AnyObject___CSo9RACSignal"></a>
+                    <a name="//apple_ref/swift/Method/request(_:method:parameters:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FTQ_6methodOCS_4Moya6Method10parametersGVSs10DictionarySSPSs9AnyObject___CSo9RACSignal">request(_:method:parameters:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Designated request-making method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">request</span><span class="p">(</span><span class="nv">token</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="nv">method</span><span class="p">:</span> <span class="kt">Moya</span><span class="o">.</span><span class="kt">Method</span><span class="p">,</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">RACSignal</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FTQ_10parametersGVSs10DictionarySSPSs9AnyObject___CSo9RACSignal"></a>
+                    <a name="//apple_ref/swift/Method/request(_:parameters:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FTQ_10parametersGVSs10DictionarySSPSs9AnyObject___CSo9RACSignal">request(_:parameters:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ReactiveMoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">MoyaTarget</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">MoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FTQ_6methodOCS_4Moya6Method_CSo9RACSignal"></a>
+                    <a name="//apple_ref/swift/Method/request(_:method:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FTQ_6methodOCS_4Moya6Method_CSo9RACSignal">request(_:method:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ReactiveMoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">MoyaTarget</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">MoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FQ_CSo9RACSignal"></a>
+                    <a name="//apple_ref/swift/Method/request(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC4Moya20ReactiveMoyaProvider7requestUS_10MoyaTarget__FGS0_Q__FQ_CSo9RACSignal">request(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ReactiveMoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span> <span class="k">where</span> <span class="kt">T</span><span class="p">:</span> <span class="kt">MoyaTarget</span><span class="o">&gt;</span><span class="p">:</span> <span class="kt">MoyaProvider</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; YYYY <a class="link" href="https://github.com/AshFurrow/Moya" target="_blank" rel="external">Ash Furrow</a>. All rights reserved. (Last updated: YYYY-MM-DD)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ vX.X.X</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

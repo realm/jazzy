@@ -1,0 +1,6 @@
+Classes.swift
+	let undocumentedGlobal = false
+	class UndocumentedTopLevelClass {}
+	init(b: Void) {}
+	enum UndocumentedEnum
+	case UndocumentedValue
