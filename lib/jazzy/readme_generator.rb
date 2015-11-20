@@ -26,7 +26,7 @@ module Jazzy
     end
 
     def self.generated_readme(source_module)
-      if config.podspec
+      if podspec = config.podspec
         ### License
 
         # <a href="#{license[:url]}">#{license[:license]}</a>
