@@ -222,7 +222,7 @@ module Jazzy
 
     config_attr :lint,
       command_line: '--[no-]lint',
-      description: "Generate linter output.",
+      description: 'Generate linter output.',
       default: false
 
     config_attr :skip_undocumented,

@@ -108,7 +108,7 @@ module Jazzy
     # @param [Config] options Build options
     def self.lint_docs_for_sourcekitten_output(sourcekitten_output, options)
       skip_undocumented = false
-      (docs, coverage, undocumented) = SourceKitten.parse(
+      (_, _, undocumented) = SourceKitten.parse(
         sourcekitten_output,
         options.min_acl,
         skip_undocumented,
@@ -185,8 +185,8 @@ module Jazzy
       tokens_by_file.each_key do |file|
         tokens_by_file[file].each do |token|
           puts %w(key.filepath key.doc.line key.name key.kind)
-              .map { |key| token[key].to_s }
-              .join("\t")
+            .map { |key| token[key].to_s }
+            .join("\t")
         end
       end
     end
