@@ -223,7 +223,7 @@ module Jazzy
     config_attr :skip_undocumented,
       command_line: '--[no-]skip-undocumented',
       description: "Don't document declarations that have no documentation "\
-                  "comments.",
+                   'comments.',
       default: false
 
     config_attr :hide_documentation_coverage,
