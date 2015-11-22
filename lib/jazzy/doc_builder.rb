@@ -105,7 +105,9 @@ module Jazzy
     # @return [SourceModule] the documented source module
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       output_dir = options.output
-      prepare_output_dir(output_dir, options.clean)
+      if !options.dry_run
+        prepare_output_dir(output_dir, options.clean)
+      end
 
       (docs, coverage, undocumented) = SourceKitten.parse(
         sourcekitten_output,
@@ -121,15 +123,19 @@ module Jazzy
       end
 
       source_module = SourceModule.new(options, docs, structure, coverage)
-      build_docs(output_dir, source_module.docs, source_module)
 
-      write_undocumented_file(undocumented, output_dir)
+      if !options.dry_run
+        build_docs(output_dir, source_module.docs, source_module)
 
-      copy_assets(output_dir)
+        write_undocumented_file(undocumented, output_dir)
 
-      DocsetBuilder.new(output_dir, source_module).build!
+        copy_assets(output_dir)
 
-      friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
+        DocsetBuilder.new(output_dir, source_module).build!
+
+        friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
+      end
+
       puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
 
       source_module

@@ -135,6 +135,11 @@ module Jazzy
         Array(files).map { |f| expand_path(f) }
       end
 
+    config_attr :dry_run,
+      command_line: '--dry-run',
+      description: 'No documentation files will be generated during a dry run.',
+      default: false
+
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
       default: '2.1'
