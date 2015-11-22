@@ -65,7 +65,11 @@ module Jazzy
         end
       end
       warn 'building site'
-      build_docs_for_sourcekitten_output(stdout, options)
+      if options.lint
+        lint_docs_for_sourcekitten_output(stdout, options)
+      else
+        build_docs_for_sourcekitten_output(stdout, options)
+      end
     end
 
     # Build & write HTML docs to disk from structured docs array
@@ -97,6 +101,20 @@ module Jazzy
           &block
         )
       end
+    end
+
+    # Lint docs given sourcekitten output
+    # @param [String] sourcekitten_output Output of sourcekitten command
+    # @param [Config] options Build options
+    def self.lint_docs_for_sourcekitten_output(sourcekitten_output, options)
+      skip_undocumented = false
+      (_, _, undocumented) = SourceKitten.parse(
+        sourcekitten_output,
+        options.min_acl,
+        skip_undocumented,
+      )
+
+      puts_lint(undocumented)
     end
 
     # Build docs given sourcekitten output
@@ -153,6 +171,23 @@ module Jazzy
         token['key.name']
       else
         'unknown declaration'
+      end
+    end
+
+    def self.puts_lint(undocumented)
+      tokens_by_file = undocumented.group_by do |d|
+        if d['key.filepath']
+          Pathname.new(d['key.filepath']).basename.to_s
+        else
+          d['key.modulename'] || ''
+        end
+      end
+      tokens_by_file.each_key do |file|
+        tokens_by_file[file].each do |token|
+          puts %w(key.filepath key.doc.line key.name key.kind)
+            .map { |key| token[key].to_s }
+            .join("\t")
+        end
       end
     end
 

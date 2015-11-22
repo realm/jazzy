@@ -220,6 +220,11 @@ module Jazzy
         SourceDeclaration::AccessControlLevel.from_human_string(acl)
       end
 
+    config_attr :lint,
+      command_line: '--[no-]lint',
+      description: 'Generate linter output.',
+      default: false
+
     config_attr :skip_undocumented,
       command_line: '--[no-]skip-undocumented',
       description: "Don't document declarations that have no documentation "\
@@ -318,7 +323,7 @@ module Jazzy
 
       self.base_path = config_path.parent
 
-      puts "Using config file #{config_path}"
+      warn "Using config file #{config_path}"
       config_file = read_config_file(config_path)
       self.class.all_config_attrs.each do |attr|
         key = attr.name.to_s
