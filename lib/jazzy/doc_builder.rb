@@ -183,7 +183,9 @@ module Jazzy
       end
       tokens_by_file.each_key do |file|
         tokens_by_file[file].each do |token|
-          puts token['key.filepath'] + "\t" + token['key.doc.line'].to_s + "\t" + token['key.kind'] + "\t" + token['key.name']
+          puts %w(key.filepath key.doc.line key.name key.kind)
+              .map { |key| token[key].to_s }
+              .join("\t")
         end
       end
     end
