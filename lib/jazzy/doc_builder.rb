@@ -107,10 +107,11 @@ module Jazzy
     # @param [String] sourcekitten_output Output of sourcekitten command
     # @param [Config] options Build options
     def self.lint_docs_for_sourcekitten_output(sourcekitten_output, options)
+      skip_undocumented = false
       (docs, coverage, undocumented) = SourceKitten.parse(
         sourcekitten_output,
         options.min_acl,
-        options.skip_undocumented,
+        skip_undocumented,
       )
 
       puts_lint(undocumented)
