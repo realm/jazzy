@@ -119,7 +119,7 @@ module Jazzy
 
       source_module = SourceModule.new(options, docs, structure, coverage)
 
-      if !options.skip_documentation
+      unless options.skip_documentation
         warn 'building site'
 
         output_dir = options.output
