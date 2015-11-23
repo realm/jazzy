@@ -64,8 +64,11 @@ module Jazzy
           exit $?.exitstatus || 1
         end
       end
-      warn 'building site'
-      build_docs_for_sourcekitten_output(stdout, options)
+
+      if !options.skip_documentation
+        warn 'building site'
+        build_docs_for_sourcekitten_output(stdout, options)
+      end
     end
 
     # Build & write HTML docs to disk from structured docs array
