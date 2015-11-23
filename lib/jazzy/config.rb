@@ -107,7 +107,7 @@ module Jazzy
 
     config_attr :sdk,
       command_line: '--sdk [iphone|watch|appletv][os|simulator]|macosx',
-      description: 'The SDK to which your code should be built.',
+      description: 'The SDK for which your code should be built.',
       default: 'macosx'
 
     config_attr :config_file,
