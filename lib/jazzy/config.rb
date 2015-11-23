@@ -226,6 +226,19 @@ module Jazzy
                    'comments.',
       default: false
 
+    config_attr :lint_report,
+      description: ['When provided, a tab-separated table of results will be written',
+                    'to the file. If a relative path is provided, the path will be ',
+                    'considered relative to the current working directory.',
+                    'The first column of each row defines the report type.',
+                    'The number of additional columns is dependent on the report type.',
+                    'The contents of each report type are outlined below (commas '\
+                    'represent tabs):',
+                    '<report type>, <columns>',
+                    " undocumented, full_path, line_number, symbol, symbol_type"],
+      command_line: ['--lint-report FILE'],
+      parse: ->(usf) { expand_path(usf) }
+
     config_attr :hide_documentation_coverage,
       command_line: '--[no-]hide-documentation-coverage',
       description: "Hide \"(X\% documented)\" from the generated documents",

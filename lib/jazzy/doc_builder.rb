@@ -113,6 +113,10 @@ module Jazzy
         options.skip_undocumented,
       )
 
+      if options.lint_report
+        write_lint_report(undocumented, options.lint_report)
+      end
+
       structure = doc_structure_for_docs(docs)
 
       docs << SourceDeclaration.new.tap do |sd|
@@ -122,8 +126,6 @@ module Jazzy
 
       source_module = SourceModule.new(options, docs, structure, coverage)
       build_docs(output_dir, source_module.docs, source_module)
-
-      write_undocumented_file(undocumented, output_dir)
 
       copy_assets(output_dir)
 
@@ -156,8 +158,10 @@ module Jazzy
       end
     end
 
-    def self.write_undocumented_file(undocumented, output_dir)
-      (output_dir + 'undocumented.txt').open('w') do |f|
+    def self.write_lint_report(undocumented, output_file)
+      FileUtils.mkdir_p File.dirname(output_file)
+
+      (output_file).open('w') do |f|
         tokens_by_file = undocumented.group_by do |d|
           if d['key.filepath']
             Pathname.new(d['key.filepath']).basename.to_s
@@ -166,9 +170,11 @@ module Jazzy
           end
         end
         tokens_by_file.each_key do |file|
-          f.write(file + "\n")
           tokens_by_file[file].each do |token|
-            f.write("\t" + decl_for_token(token) + "\n")
+            f.write("undocumented\t")
+            f.write(%w(key.filepath key.doc.line key.name key.kind)
+              .map { |key| token[key].to_s }
+              .join("\t"))
           end
         end
       end
