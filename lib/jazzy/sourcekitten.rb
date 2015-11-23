@@ -121,7 +121,7 @@ module Jazzy
         if options.xcodebuild_arguments.empty?
           arguments += ['--objc', options.umbrella_header.to_s, '-x',
                         'objective-c', '-isysroot',
-                        `xcrun --show-sdk-path`.chomp, '-I',
+                        `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp, '-I',
                         options.framework_root.to_s]
         end
       elsif !options.module_name.empty?
