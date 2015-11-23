@@ -114,7 +114,7 @@ module Jazzy
       )
 
       if options.lint_report
-        write_lint_report(undocumented, options.lint_report)
+        write_lint_report(undocumented, options)
       end
 
       structure = doc_structure_for_docs(docs)
@@ -158,7 +158,8 @@ module Jazzy
       end
     end
 
-    def self.write_lint_report(undocumented, output_file)
+    def self.write_lint_report(undocumented, options)
+      output_file = options.lint_report
       FileUtils.mkdir_p File.dirname(output_file)
 
       (output_file).open('w') do |f|
@@ -169,14 +170,25 @@ module Jazzy
             d['key.modulename'] || ''
           end
         end
+        
+        warnings = []
         tokens_by_file.each_key do |file|
           tokens_by_file[file].each do |token|
-            f.write("undocumented\t")
-            f.write(%w(key.filepath key.doc.line key.name key.kind)
-              .map { |key| token[key].to_s }
-              .join("\t"))
+            warnings << {
+              file: token['key.filepath'],
+              line: token['key.doc.line'],
+              symbol: token['key.name'],
+              symbol_kind: token['key.kind'],
+              warning: 'undocumented'
+            }
           end
         end
+
+        lint_report = {
+          warnings: warnings,
+          source_directory: options.source_directory
+        }
+        f.write(lint_report.to_json)
       end
     end
 

@@ -227,15 +227,13 @@ module Jazzy
       default: false
 
     config_attr :lint_report,
-      description: ['When provided, a tab-separated table of results will be written',
-                    'to the file. If a relative path is provided, the path will be ',
-                    'considered relative to the current working directory.',
-                    'The first column of each row defines the report type.',
-                    'The number of additional columns is dependent on the report type.',
-                    'The contents of each report type are outlined below (commas '\
-                    'represent tabs):',
-                    '<report type>, <columns>',
-                    " undocumented, full_path, line_number, symbol, symbol_type"],
+      description: ['Sets the path to which a lint report will be written. If',
+                    'no path is provided, no lint report will be written.',
+                    'The contents of the file will be a json dictionary with two',
+                    'top level properties:',
+                    ' - source_directory: The directory for which this lint report',
+                    '                     was generated.',
+                    ' - warnings: An array of warning objects.'],
       command_line: ['--lint-report FILE'],
       parse: ->(usf) { expand_path(usf) }
 
