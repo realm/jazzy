@@ -65,10 +65,7 @@ module Jazzy
         end
       end
 
-      if !options.skip_documentation
-        warn 'building site'
-        build_docs_for_sourcekitten_output(stdout, options)
-      end
+      build_docs_for_sourcekitten_output(stdout, options)
     end
 
     # Build & write HTML docs to disk from structured docs array
@@ -107,9 +104,6 @@ module Jazzy
     # @param [Config] options Build options
     # @return [SourceModule] the documented source module
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
-      output_dir = options.output
-      prepare_output_dir(output_dir, options.clean)
-
       (docs, coverage, undocumented) = SourceKitten.parse(
         sourcekitten_output,
         options.min_acl,
@@ -124,16 +118,23 @@ module Jazzy
       end
 
       source_module = SourceModule.new(options, docs, structure, coverage)
-      build_docs(output_dir, source_module.docs, source_module)
 
-      write_undocumented_file(undocumented, output_dir)
+      if !options.skip_documentation
+        warn 'building site'
 
-      copy_assets(output_dir)
+        output_dir = options.output
+        prepare_output_dir(output_dir, options.clean)
+        build_docs(output_dir, source_module.docs, source_module)
 
-      DocsetBuilder.new(output_dir, source_module).build!
+        write_undocumented_file(undocumented, output_dir)
 
-      friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
-      puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
+        copy_assets(output_dir)
+
+        DocsetBuilder.new(output_dir, source_module).build!
+
+        friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
+        puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
+      end
 
       source_module
     end
