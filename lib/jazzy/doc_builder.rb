@@ -110,17 +110,17 @@ module Jazzy
         options.skip_undocumented,
       )
 
-      structure = doc_structure_for_docs(docs)
-
-      docs << SourceDeclaration.new.tap do |sd|
-        sd.name = 'index'
-        sd.children = []
-      end
-
-      source_module = SourceModule.new(options, docs, structure, coverage)
-
       unless options.skip_documentation
         warn 'building site'
+
+        structure = doc_structure_for_docs(docs)
+
+        docs << SourceDeclaration.new.tap do |sd|
+          sd.name = 'index'
+          sd.children = []
+        end
+
+        source_module = SourceModule.new(options, docs, structure, coverage)
 
         output_dir = options.output
         prepare_output_dir(output_dir, options.clean)
@@ -134,9 +134,9 @@ module Jazzy
 
         friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
         puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
-      end
 
-      source_module
+        source_module
+      end
     end
 
     def self.relative_path_if_inside(path, base_path)
