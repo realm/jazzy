@@ -110,6 +110,11 @@ module Jazzy
         platform :ios, '8.0'
         [podspec, *podspec.recursive_subspecs].each do |ss|
           ss.available_platforms.each do |p|
+            # Travis builds take too long when building docs for all available
+            # platforms for the Moya integration spec, so we just document OSX.
+            # TODO: remove once jazzy is fast enough.
+            next if ENV['JAZZY_INTEGRATION_SPECS'] &&
+              !p.to_s.start_with?('OS X')
             t = "Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}"
             targets << "Pods-#{t}-#{ss.root.name}"
             target(t) do

@@ -6,6 +6,8 @@
   [Nikita Lutsenko](https://github.com/nlutsenko)
   [#416](https://github.com/realm/jazzy/pull/416)
 
+* Swift 1.x is no longer supported.
+
 ##### Enhancements
 
 * Add `--sdk [iphone|watch|appletv][os|simulator]|macosx` option for Objective-C
