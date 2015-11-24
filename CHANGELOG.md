@@ -1,4 +1,6 @@
-## Master
+## 0.4.1
+
+*Note: this is the last official release of jazzy supporting Swift 1.x.*
 
 ##### Breaking
 
