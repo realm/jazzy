@@ -24,13 +24,15 @@
     `someMethod(...)`
 
   [pcantrell](https://github.com/pcantrell)
+  [#327](https://github.com/realm/jazzy/issues/327)
+  [#329](https://github.com/realm/jazzy/issues/329)
+  [#359](https://github.com/realm/jazzy/issues/359)
 
 * Miscellaneous minor font size, weight, and color adjustments.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
 
 * In-page anchors now appear below the header.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
-  [#356](https://github.com/realm/jazzy/pull/356)
 
 ##### Bug Fixes
 
