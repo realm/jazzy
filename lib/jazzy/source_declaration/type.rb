@@ -152,6 +152,10 @@ module Jazzy
           jazzy: 'Field',
           dash: 'Field',
         }.freeze,
+        'sourcekitten.source.lang.objc.decl.ivar' => {
+          jazzy: 'Ivar',
+          dash: 'Ivar',
+        }.freeze,
 
         # Swift
         'source.lang.swift.decl.function.accessor.address' => {
