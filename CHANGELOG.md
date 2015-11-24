@@ -38,9 +38,10 @@
   [JP Simard](https://github.com/jpsim)
   [#370](https://github.com/realm/jazzy/issues/370)
 
-* Add support for C/C++ struct & field types.  
+* Add support for C/C++ struct, field & ivar types.  
   [JP Simard](https://github.com/jpsim)
   [#374](https://github.com/realm/jazzy/issues/374)
+  [#387](https://github.com/realm/jazzy/issues/387)
 
 * Links to source files on GitHub are no longer broken when `source_directory`
   does not point to the current working directory.  
