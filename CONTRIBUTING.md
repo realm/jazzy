@@ -12,7 +12,7 @@ We follow the same syntax as CocoaPods' CHANGELOG.md:
 3. A list of Markdown hyperlinks to the contributors to the change. One entry
    per line. Usually just one.
 4. A list of Markdown hyperlinks to the issues the change addresses. One entry
-   per line. Usually just one.
+   per line. Usually just one. Don't link to PRs here.
 5. All CHANGELOG.md content is hard-wrapped at 80 characters.
 
 ## Updating the integration specs
@@ -39,6 +39,9 @@ cd ../../
 git commit -a -m "update integration specs"
 git push
 ```
+
+You'll need push access to the integration specs repo to do this. You can
+request access from one of the maintainers when filing your PR.
 
 ## Making changes to SourceKitten
 
