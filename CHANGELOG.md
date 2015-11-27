@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Add `--sdk [iphone|watch|appletv][os|simulator]|macosx` option for Objective-C
+  projects.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+
+##### Bug Fixes
+
+* None.
+
+
 ## 0.4.1
 
 *Note: this is the last official release of jazzy supporting Swift 1.x.*
