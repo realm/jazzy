@@ -71,11 +71,14 @@ jazzy \
 
 ### Objective-C
 
-To generate documentation for Objective-C headers, 
-you must pass the following parameters to jazzy:
+To generate documentation for Objective-C headers, you must pass the following
+parameters to jazzy:
+
 * `--objc`
 * `--umbrella-header ...` 
 * `-framework-root ...`
+* `--sdk [iphone|watch|appletv][os|simulator]|macosx` (optional, default value
+   of `macosx`)
 
 ##### Example
 
