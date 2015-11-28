@@ -113,9 +113,7 @@ module Jazzy
         options.skip_undocumented,
       )
 
-      if options.lint_report
-        write_lint_report(undocumented, options)
-      end
+      write_lint_report(undocumented, options)
 
       structure = doc_structure_for_docs(docs)
 
@@ -159,10 +157,7 @@ module Jazzy
     end
 
     def self.write_lint_report(undocumented, options)
-      output_file = options.lint_report
-      FileUtils.mkdir_p File.dirname(output_file)
-
-      (output_file).open('w') do |f|
+      (output_dir + 'undocumented.txt').open('w') do |f|
         tokens_by_file = undocumented.group_by do |d|
           if d['key.filepath']
             Pathname.new(d['key.filepath']).basename.to_s

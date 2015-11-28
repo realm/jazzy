@@ -226,17 +226,6 @@ module Jazzy
                    'comments.',
       default: false
 
-    config_attr :lint_report,
-      description: ['Sets the path to which a lint report will be written. If',
-                    'no path is provided, no lint report will be written.',
-                    'The contents of the file will be a json dictionary with two',
-                    'top level properties:',
-                    ' - source_directory: The directory for which this lint report',
-                    '                     was generated.',
-                    ' - warnings: An array of warning objects.'],
-      command_line: ['--lint-report FILE'],
-      parse: ->(usf) { expand_path(usf) }
-
     config_attr :hide_documentation_coverage,
       command_line: '--[no-]hide-documentation-coverage',
       description: "Hide \"(X\% documented)\" from the generated documents",
