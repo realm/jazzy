@@ -6,6 +6,25 @@
 
 ##### Enhancements
 
+* Add `--sdk [iphone|watch|appletv][os|simulator]|macosx` option for Objective-C
+  projects.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+
+##### Bug Fixes
+
+* None.
+
+
+## 0.4.1
+
+*Note: this is the last official release of jazzy supporting Swift 1.x.*
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
 * Support "wall of asterisk" documentation comments.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
   [#347](https://github.com/realm/jazzy/issues/347)
@@ -24,13 +43,15 @@
     `someMethod(...)`
 
   [pcantrell](https://github.com/pcantrell)
+  [#327](https://github.com/realm/jazzy/issues/327)
+  [#329](https://github.com/realm/jazzy/issues/329)
+  [#359](https://github.com/realm/jazzy/issues/359)
 
 * Miscellaneous minor font size, weight, and color adjustments.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
 
 * In-page anchors now appear below the header.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
-  [#356](https://github.com/realm/jazzy/pull/356)
 
 ##### Bug Fixes
 
@@ -38,9 +59,10 @@
   [JP Simard](https://github.com/jpsim)
   [#370](https://github.com/realm/jazzy/issues/370)
 
-* Add support for C/C++ struct & field types.  
+* Add support for C/C++ struct, field & ivar types.  
   [JP Simard](https://github.com/jpsim)
   [#374](https://github.com/realm/jazzy/issues/374)
+  [#387](https://github.com/realm/jazzy/issues/387)
 
 * Links to source files on GitHub are no longer broken when `source_directory`
   does not point to the current working directory.  

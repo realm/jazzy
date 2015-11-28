@@ -105,6 +105,11 @@ module Jazzy
       description: 'The root path to your Objective-C framework.',
       parse: ->(fr) { expand_path(fr) }
 
+    config_attr :sdk,
+      command_line: '--sdk [iphone|watch|appletv][os|simulator]|macosx',
+      description: 'The SDK for which your code should be built.',
+      default: 'macosx'
+
     config_attr :config_file,
       command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',
