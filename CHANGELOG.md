@@ -6,6 +6,11 @@
 
 ##### Enhancements
 
+* Jazzy's undocumented.txt has been replaced with undocumented.json. This new
+  format includes contextual information that one might use to lint
+  documentation in an automated fashion.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+
 * Add `--sdk [iphone|watch|appletv][os|simulator]|macosx` option for Objective-C
   projects.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
