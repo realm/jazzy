@@ -157,7 +157,7 @@ module Jazzy
     end
 
     def self.write_lint_report(undocumented, options)
-      (output_dir + 'undocumented.txt').open('w') do |f|
+      (options.output + 'undocumented.json').open('w') do |f|
         tokens_by_file = undocumented.group_by do |d|
           if d['key.filepath']
             Pathname.new(d['key.filepath']).basename.to_s
