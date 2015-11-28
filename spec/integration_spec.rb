@@ -84,6 +84,7 @@ describe_cli 'jazzy' do
     }
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
+    s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$[\n]?/, ''
   end
 
   travis_swift = ENV['TRAVIS_SWIFT_VERSION']

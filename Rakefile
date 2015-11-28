@@ -40,7 +40,7 @@ begin
   task :rebuild_integration_fixtures do
     title 'Running Integration tests'
     sh 'rm -rf spec/integration_specs/tmp'
-    puts `bundle exec bacon spec/integration_spec.rb`
+    sh 'bundle exec bacon spec/integration_spec.rb'
 
     title 'Storing fixtures'
     # Copy the files to the files produced by the specs to the after folders
