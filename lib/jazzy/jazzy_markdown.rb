@@ -68,10 +68,12 @@ module Jazzy
     end
 
     def render_aside(type, text)
-      %(<div class="aside aside-#{type.underscore.tr('_', '-')}">
-          <p class="aside-title">#{type.underscore.humanize}</p>
-          #{text}
-        </div>)
+      <<-HTML
+<div class="aside aside-#{type.underscore.tr('_', '-')}">
+    <p class="aside-title">#{type.underscore.humanize}</p>
+    #{text}
+</div>
+      HTML
     end
 
     def list(text, list_type)
