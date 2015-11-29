@@ -90,6 +90,7 @@ module Jazzy
         c.installation_root.rmtree if c.installation_root.exist?
         c.integrate_targets = false
         c.deduplicate_targets = false
+        c.deterministic_uuids = false
       end
     end
 
