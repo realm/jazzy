@@ -142,7 +142,7 @@ module Jazzy
 
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
-      default: '2.1'
+      default: '2.1.1'
 
     # ──────── Metadata ────────
 
