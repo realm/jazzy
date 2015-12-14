@@ -111,7 +111,7 @@ describe_cli 'jazzy' do
     end
   end if !travis_swift || travis_swift == '1.2'
 
-  describe 'jazzy swift 2.1' do
+  describe 'jazzy swift 2.1.1' do
     describe 'Creates docs with a module name, author name, project URL, ' \
       'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
@@ -176,5 +176,5 @@ describe_cli 'jazzy' do
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features', '-x -dry-run'
     end
-  end if !travis_swift || travis_swift == '2.1'
+  end if !travis_swift || travis_swift == '2.1.1'
 end
