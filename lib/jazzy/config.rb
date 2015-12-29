@@ -73,6 +73,10 @@ module Jazzy
       Pathname(path).expand_path(base_path) # nil means Pathname.pwd
     end
 
+    def glob_path(path)
+      Dir.glob(base_path + path)
+    end
+
     # ──────── Build ────────
 
     # rubocop:disable Style/AlignParameters
@@ -175,6 +179,11 @@ module Jazzy
       command_line: '--readme FILEPATH',
       description: 'The path to a markdown README file',
       parse: ->(rp) { expand_path(rp) }
+
+    config_attr :documentation_glob,
+      command_line: '--documentation GLOB',
+      description: 'Glob that matches available documentation',
+      parse: ->(dg) { glob_path(dg) }
 
     config_attr :podspec,
       command_line: '--podspec FILEPATH',
