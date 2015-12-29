@@ -69,7 +69,22 @@ module Jazzy
     attr_accessor :nav_order
 
     def overview
-      "#{abstract}\n\n#{discussion}".strip
+      alternative_abstract || "#{abstract}\n\n#{discussion}".strip
+    end
+
+    def alternative_abstract
+      if file = alternative_abstract_file
+        Pathname(file).read
+      end
+    end
+
+    def alternative_abstract_file
+      abstract_glob.select { |f| File.basename(f).split('.').first == name }.first
+    end
+
+    def abstract_glob
+      return [] unless Config.instance.abstract_glob_configured && Config.instance.abstract_glob
+      Config.instance.abstract_glob.select { |e| File.file? e }
     end
   end
 end

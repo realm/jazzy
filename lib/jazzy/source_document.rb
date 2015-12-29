@@ -5,6 +5,7 @@ require 'jazzy/jazzy_markdown'
 module Jazzy
 
   class SourceDocument < SourceDeclaration
+    extend Config::Mixin
 
     attr_accessor :overview
     attr_accessor :readme_path
