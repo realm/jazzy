@@ -476,11 +476,11 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    def self.parse(sourcekitten_output, min_acl, skip_undocumented)
+    def self.parse(sourcekitten_output, min_acl, skip_undocumented, inject_docs)
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
-      docs = make_source_declarations(sourcekitten_json)
+      docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = ungrouped_docs = deduplicate_declarations(docs)
       docs = group_docs(docs)
       if Config.instance.objc_mode
