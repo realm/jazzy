@@ -8,6 +8,14 @@ module Jazzy
     # static type of declared element (e.g. String.Type -> ())
     attr_accessor :typename
 
+    def is_type?(type_kind)
+      respond_to?(:type) && type.kind == type_kind
+    end
+
+    def render?
+      is_type?('document.markdown') || children.count != 0
+    end
+
     # Element containing this declaration in the code
     attr_accessor :parent_in_code
 
