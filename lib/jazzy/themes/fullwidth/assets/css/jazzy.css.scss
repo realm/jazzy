@@ -49,7 +49,7 @@ $navigation_max_width: 300px;
 $navigation_bg_color: #fbfbfb;
 $navigation_border_color: #ddd;
 $navigation_title_color: #333;
-$navigation_task_color: #888;
+$navigation_task_color: #808080;
 
 // ----- Content
 
@@ -92,22 +92,22 @@ body {
 
 // ----- Block elements
 
-@mixin heading($font-size: 1rem) {
+@mixin heading($font-size: 1rem, $margin: 1.275em 0 0.85em) {
   font-size: $font-size;
   font-weight: $heading_weight;
   margin: 1.275em 0 0.85em;
 }
 
 h1 {
-  @include heading(2rem);
+  @include heading(2rem, 1.275em 0 0.6em);
 }
 
 h2 {
-  @include heading(1.75rem);
+  @include heading(1.75rem, 1.275em 0 0.3em);
 }
 
 h3 {
-  @include heading(1.5rem);
+  @include heading(1.5rem, 1em 0 0.3em);
 }
 
 h4 {
@@ -323,7 +323,7 @@ pre code {
 }
 
 .nav-group-task {
-  font-size: 0.9em;
+  font-size: 1em;
   list-style-type: none;
 }
 
