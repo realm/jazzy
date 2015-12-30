@@ -95,7 +95,7 @@ body {
 @mixin heading($font-size: 1rem, $margin: 1.275em 0 0.85em) {
   font-size: $font-size;
   font-weight: $heading_weight;
-  margin: 1.275em 0 0.85em;
+  margin: $margin;
 }
 
 h1 {
