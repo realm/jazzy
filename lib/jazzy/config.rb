@@ -253,24 +253,24 @@ module Jazzy
                    'the path to your mustache templates and other assets for '\
                    'a custom theme.',
       default: 'apple',
-      parse: ->(t) {
+      parse: ->(t) do
         return expand_path(t) unless t == 'apple'
         Pathname(__FILE__).parent + 'themes' + t
-      }
+      end
 
     config_attr :template_directory,
       command_line: ['-t', '--template-directory DIRPATH'],
       description: 'DEPRECATED: Use --theme instead.',
-      parse: ->(td) {
+      parse: ->(_) do
         raise '--template-directory (-t) is deprecated: use --theme instead.'
-      }
+      end
 
     config_attr :assets_directory,
       command_line: '--assets-directory DIRPATH',
       description: 'DEPRECATED: Use --theme instead.',
-      parse: ->(ad) {
+      parse: ->(_) do
         raise '--assets-directory is deprecated: use --theme instead.'
-      }
+      end
 
     # rubocop:enable Style/AlignParameters
 
