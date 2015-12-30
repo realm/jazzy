@@ -250,14 +250,14 @@ module Jazzy
     config_attr :template_directory,
       command_line: ['-t', '--template-directory DIRPATH'],
       description: 'The directory that contains the mustache templates to use',
-      default: Pathname(__FILE__).parent + 'templates',
+      default: Pathname(__FILE__).parent + 'themes/apple/templates',
       parse: ->(td) { expand_path(td) }
 
     config_attr :assets_directory,
       command_line: '--assets-directory DIRPATH',
       description: 'The directory that contains the assets (CSS, JS, images) '\
                    'used by the templates',
-      default: Pathname(__FILE__).parent + 'assets',
+      default: Pathname(__FILE__).parent + 'themes/apple/assets',
       parse: ->(ad) { expand_path(ad) }
 
     # rubocop:enable Style/AlignParameters
