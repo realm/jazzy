@@ -143,10 +143,10 @@ module Jazzy
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
       default: '2.1.1',
-      parse: ->(v) {
+      parse: ->(v) do
         raise 'jazzy only supports Swift 2.0 or later.' if v.to_f < 2
         v
-      }
+      end
 
     # ──────── Metadata ────────
 

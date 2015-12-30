@@ -16,7 +16,7 @@ module Jazzy
       stdout = Dir.chdir(sandbox.root) do
         pod_targets.map do |t|
           SourceKitten.run_sourcekitten(
-            %W(doc --module-name #{podspec.module_name} -target #{t}),
+            %W(doc --module-name #{podspec.module_name} -target #{t})
           )
         end
       end
@@ -114,7 +114,7 @@ module Jazzy
             # platforms for the Moya integration spec, so we just document OSX.
             # TODO: remove once jazzy is fast enough.
             next if ENV['JAZZY_INTEGRATION_SPECS'] &&
-              !p.to_s.start_with?('OS X')
+                    !p.to_s.start_with?('OS X')
             t = "Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}"
             targets << "Pods-#{t}-#{ss.root.name}"
             target(t) do
