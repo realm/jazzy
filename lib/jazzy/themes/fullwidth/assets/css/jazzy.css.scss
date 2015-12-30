@@ -542,15 +542,11 @@ pre code {
 
 html.dash {
 
-  header, .breadcrumbs, .navigation {
+  .header, .breadcrumbs, .navigation {
     display: none;
   }
 
   .height-container {
     display: block;
-  }
-
-  .item .token {
-    margin-left: 0;
   }
 }
