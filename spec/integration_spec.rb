@@ -81,6 +81,7 @@ describe_cli 'jazzy' do
       'JAZZY_FAKE_DATE'            => 'YYYY-MM-DD',
       'JAZZY_FAKE_VERSION'         => 'X.X.X',
       'COCOAPODS_SKIP_UPDATE_MESSAGE' => 'TRUE',
+      'JAZZY_INTEGRATION_SPECS' => 'TRUE',
     }
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
@@ -89,65 +90,7 @@ describe_cli 'jazzy' do
 
   travis_swift = ENV['TRAVIS_SWIFT_VERSION']
 
-  describe 'jazzy swift 1.2' do
-    describe 'Creates docs with a module name, author name, project URL, ' \
-      'xcodebuild options, and github info' do
-      behaves_like cli_spec 'document_alamofire1.2',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/1.3.1 ' \
-                            '--module-version 1.3.1 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented ' \
-                            '--swift-version=1.2'
-    end
-
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec --swift-version=1.2'
-    end
-  end if !travis_swift || travis_swift == '1.2'
-
-  describe 'jazzy swift 2.1.1' do
-    describe 'Creates docs with a module name, author name, project URL, ' \
-      'xcodebuild options, and github info' do
-      behaves_like cli_spec 'document_alamofire',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/3.1.1 ' \
-                            '--module-version 3.1.1 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented'
-    end
-
-    describe 'Creates Realm Swift docs' do
-      realm_version = ''
-      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
-        realm_version = `./build.sh get-version`.chomp
-        `REALM_SWIFT_VERSION=2.1 ./build.sh set-swift-version`
-      end
-      behaves_like cli_spec 'document_realm_swift',
-                            '--author Realm ' \
-                            '--author_url "https://realm.io" ' \
-                            '--github_url ' \
-                            'https://github.com/realm/realm-cocoa ' \
-                            '--github-file-prefix https://github.com/realm/' \
-                            "realm-cocoa/tree/v#{realm_version} " \
-                            '--module RealmSwift ' \
-                            "--module-version #{realm_version} " \
-                            '--root-url https://realm.io/docs/swift/' \
-                            "#{realm_version}/api/ " \
-                            '--xcodebuild-arguments ' \
-                            '-scheme,RealmSwift ' \
-                            '--template-directory docs/templates'
-    end
-
+  describe 'jazzy objective-c' do
     describe 'Creates Realm Objective-C docs' do
       realm_version = ''
       relative_path = 'spec/integration_specs/document_realm_objc/before'
@@ -170,6 +113,48 @@ describe_cli 'jazzy' do
                             "#{realm_version}/api/ " \
                             '--umbrella-header Realm/Realm.h ' \
                             '--framework-root . ' \
+                            '--template-directory docs/templates'
+    end
+  end
+
+  describe 'jazzy swift 2.1.1' do
+    describe 'Creates docs for a podspec with dependencies and subspecs' do
+      behaves_like cli_spec 'document_moya_podspec', '--podspec=Moya.podspec'
+    end
+
+    describe 'Creates docs with a module name, author name, project URL, ' \
+      'xcodebuild options, and github info' do
+      behaves_like cli_spec 'document_alamofire',
+                            '-m Alamofire -a Alamofire ' \
+                            '-u https://nshipster.com/alamofire ' \
+                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
+                            '-g https://github.com/Alamofire/Alamofire ' \
+                            '--github-file-prefix https://github.com/' \
+                            'Alamofire/Alamofire/blob/3.1.1 ' \
+                            '--module-version 3.1.1 ' \
+                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
+                            '--skip-undocumented'
+    end
+
+    describe 'Creates Realm Swift docs' do
+      realm_version = ''
+      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
+        realm_version = `./build.sh get-version`.chomp
+        `REALM_SWIFT_VERSION=2.1.1 ./build.sh set-swift-version`
+      end
+      behaves_like cli_spec 'document_realm_swift',
+                            '--author Realm ' \
+                            '--author_url "https://realm.io" ' \
+                            '--github_url ' \
+                            'https://github.com/realm/realm-cocoa ' \
+                            '--github-file-prefix https://github.com/realm/' \
+                            "realm-cocoa/tree/v#{realm_version} " \
+                            '--module RealmSwift ' \
+                            "--module-version #{realm_version} " \
+                            '--root-url https://realm.io/docs/swift/' \
+                            "#{realm_version}/api/ " \
+                            '--xcodebuild-arguments ' \
+                            '-scheme,RealmSwift ' \
                             '--template-directory docs/templates'
     end
 
