@@ -247,18 +247,30 @@ module Jazzy
                     'Example: http://git.io/v4Bcp'],
       default: []
 
+    config_attr :theme_directory,
+      command_line: '--theme [apple | DIRPATH]',
+      description: "Which theme to use. Specify either 'apple' (default) or "\
+                   'the path to your mustache templates and other assets for '\
+                   'a custom theme.',
+      default: 'apple',
+      parse: ->(t) {
+        return expand_path(t) unless t == 'apple'
+        Pathname(__FILE__).parent + 'themes' + t
+      }
+
     config_attr :template_directory,
       command_line: ['-t', '--template-directory DIRPATH'],
-      description: 'The directory that contains the mustache templates to use',
-      default: Pathname(__FILE__).parent + 'templates',
-      parse: ->(td) { expand_path(td) }
+      description: 'DEPRECATED: Use --theme instead.',
+      parse: ->(td) {
+        raise '--template-directory (-t) is deprecated: use --theme instead.'
+      }
 
     config_attr :assets_directory,
       command_line: '--assets-directory DIRPATH',
-      description: 'The directory that contains the assets (CSS, JS, images) '\
-                   'used by the templates',
-      default: Pathname(__FILE__).parent + 'assets',
-      parse: ->(ad) { expand_path(ad) }
+      description: 'DEPRECATED: Use --theme instead.',
+      parse: ->(ad) {
+        raise '--assets-directory is deprecated: use --theme instead.'
+      }
 
     # rubocop:enable Style/AlignParameters
 
@@ -268,9 +280,9 @@ module Jazzy
       end
     end
 
-    def template_directory=(template_directory)
-      @template_directory = template_directory
-      Doc.template_path = template_directory
+    def theme_directory=(theme_directory)
+      @theme_directory = theme_directory
+      Doc.template_path = theme_directory + 'templates'
     end
 
     # rubocop:disable Metrics/MethodLength
