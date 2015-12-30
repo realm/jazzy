@@ -16,7 +16,17 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix an issue where extension documentation would use the original type
+  documentation block rather than the comment immediately preceding the
+  extension.  
+  [JP Simard](https://github.com/jpsim)
+  [#230](https://github.com/realm/jazzy/issues/230)
+  [#313](https://github.com/realm/jazzy/issues/313)
+  [#334](https://github.com/realm/jazzy/issues/334)
+
+* Fix multi-byte documentation issues.  
+  [Norio Nomura](https://github.com/norio-nomura)
+  [#403](https://github.com/realm/jazzy/issues/403)
 
 
 ## 0.4.1
