@@ -16,7 +16,7 @@ module Jazzy
       stdout = Dir.chdir(sandbox.root) do
         pod_targets.map do |t|
           SourceKitten.run_sourcekitten(
-            %W(doc --module-name #{podspec.module_name} -target #{t}),
+            %W(doc --module-name #{podspec.module_name} -target #{t})
           )
         end
       end
