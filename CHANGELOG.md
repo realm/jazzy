@@ -9,8 +9,9 @@
 * Swift 1.x is no longer supported.
 
 * `--templates-directory` and `--assets-directory` have been deprecated in favor
-  of `--theme`. Specify either 'apple' (default) or the path to your mustache
-  templates and other assets for a custom theme.  
+  of `--theme`. Specify either 'apple' (default), 'fullwidth' or the path to
+  your mustache templates and other assets for a custom theme.  
+  [Karl Bowden](https://github.com/agentk)
   [JP Simard](https://github.com/jpsim)
   [#130](https://github.com/realm/jazzy/issues/130)
 
