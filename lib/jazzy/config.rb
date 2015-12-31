@@ -247,6 +247,11 @@ module Jazzy
                     'Example: http://git.io/v4Bcp'],
       default: []
 
+    config_attr :custom_head,
+      command_line: '--head HTML',
+      description: 'Custom HTML to inject into <head></head>.',
+      default: ''
+
     config_attr :theme_directory,
       command_line: '--theme [apple | fullwidth | DIRPATH]',
       description: "Which theme to use. Specify either 'apple' (default), "\

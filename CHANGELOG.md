@@ -21,6 +21,9 @@
   projects.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
 
+* Add `--head` option to inject custom HTML into `<head></head>`.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * Fix an issue where extension documentation would use the original type
