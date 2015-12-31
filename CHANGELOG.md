@@ -2,7 +2,7 @@
 
 ##### Breaking
 
-* `--swift-version` now defaults to 2.1.1 instead of 2.1.
+* `--swift-version` now defaults to 2.1.1 instead of 2.1.  
   [Nikita Lutsenko](https://github.com/nlutsenko)
   [#416](https://github.com/realm/jazzy/pull/416)
 
