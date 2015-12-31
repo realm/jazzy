@@ -157,7 +157,8 @@ describe_cli 'jazzy' do
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
-      behaves_like cli_spec 'misc_jazzy_features', '-x -dry-run'
+      behaves_like cli_spec 'misc_jazzy_features',
+                            '-x -dry-run --theme fullwidth'
     end
   end if !travis_swift || travis_swift == '2.1.1'
 end

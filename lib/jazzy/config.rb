@@ -248,13 +248,13 @@ module Jazzy
       default: []
 
     config_attr :theme_directory,
-      command_line: '--theme [apple | DIRPATH]',
-      description: "Which theme to use. Specify either 'apple' (default) or "\
-                   'the path to your mustache templates and other assets for '\
-                   'a custom theme.',
+      command_line: '--theme [apple | fullwidth | DIRPATH]',
+      description: "Which theme to use. Specify either 'apple' (default), "\
+                   "'fullwidth' or the path to your mustache templates and " \
+                   'other assets for a custom theme.',
       default: 'apple',
       parse: ->(t) do
-        return expand_path(t) unless t == 'apple'
+        return expand_path(t) unless t == 'apple' || t == 'fullwidth'
         Pathname(__FILE__).parent + 'themes' + t
       end
 
