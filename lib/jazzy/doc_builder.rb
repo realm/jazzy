@@ -175,7 +175,8 @@ module Jazzy
     end
 
     def self.copy_assets(destination)
-      FileUtils.cp_r(Config.instance.assets_directory.children, destination)
+      assets_directory = Config.instance.theme_directory + 'assets'
+      FileUtils.cp_r(assets_directory.children, destination)
       Pathname.glob(destination + 'css/**/*.scss').each do |scss|
         contents = scss.read
         css = Sass::Engine.new(contents, syntax: :scss).render

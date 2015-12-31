@@ -112,8 +112,7 @@ describe_cli 'jazzy' do
                             '--root-url https://realm.io/docs/objc/' \
                             "#{realm_version}/api/ " \
                             '--umbrella-header Realm/Realm.h ' \
-                            '--framework-root . ' \
-                            '--template-directory docs/templates'
+                            '--framework-root .'
     end
   end
 
@@ -154,8 +153,7 @@ describe_cli 'jazzy' do
                             '--root-url https://realm.io/docs/swift/' \
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
-                            '-scheme,RealmSwift ' \
-                            '--template-directory docs/templates'
+                            '-scheme,RealmSwift'
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
