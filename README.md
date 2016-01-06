@@ -122,7 +122,7 @@ Two themes are provided with jazzy: `apple` (default) and `fullwidth`.
 
 Here's an example built with `apple`: <https://realm.io/docs/swift/latest/api/>
 
-Here's an example built with `fullwidth`: <http://reduxkit.github.io/ReduxKit/api/>
+Here's an example built with `fullwidth`: <http://reduxkit.github.io/ReduxKit/>
 
 You can specify which theme to use by passing in the `--theme` option. You can
 also provide your own custom theme by passing in the path to your theme
