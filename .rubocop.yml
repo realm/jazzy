@@ -74,6 +74,9 @@ GuardClause:
 Next:
   Enabled: false
 
+RegexpLiteral:
+  EnforcedStyle: mixed
+
 #- Jazzy specs -----------------------------------------------------------#
 
 # Allow for `should.match /regexp/`.

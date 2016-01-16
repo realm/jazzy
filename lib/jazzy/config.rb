@@ -11,7 +11,8 @@ module Jazzy
   class Config
     # rubocop:disable Style/AccessorMethodName
     class Attribute
-      attr_reader :name, :description, :command_line, :config_file_key, :default, :parse
+      attr_reader :name, :description, :command_line, :config_file_key,
+                  :default, :parse
 
       def initialize(name, description: nil, command_line: nil,
                      default: nil, parse: ->(x) { x })
@@ -57,18 +58,18 @@ module Jazzy
 
       private
 
-        def full_command_line_name
-          long_option_names = command_line.map do |opt|
-            $1 if opt =~ %r(
-              ^--           # starts with double dash
-              (?:\[no-\])?  # optional prefix for booleans
-              ([^\s]+)      # long option name
-            )x
-          end
-          if long_option_name = long_option_names.compact.first
-            long_option_name.gsub('-', '_')
-          end
+      def full_command_line_name
+        long_option_names = command_line.map do |opt|
+          Regexp.last_match(1) if opt =~ %r{
+            ^--           # starts with double dash
+            (?:\[no-\])?  # optional prefix for booleans
+            ([^\s]+)      # long option name
+          }x
         end
+        if long_option_name = long_option_names.compact.first
+          long_option_name.tr('-', '_')
+        end
+      end
     end
     # rubocop:enable Style/AccessorMethodName
 
@@ -366,14 +367,14 @@ module Jazzy
       attrs_by_conf_key, attrs_by_name = %i(config_file_key name).map do |prop|
         self.class.all_config_attrs.group_by(&prop)
       end
-        
+
       config_file.each do |key, value|
         unless attr = attrs_by_conf_key[key]
           message = "WARNING: Unknown config file attribute #{key.inspect}"
           if matching_name = attrs_by_name[key]
-            message << " (Did you mean "
+            message << ' (Did you mean '
             message << matching_name.first.config_file_key.inspect
-            message << "?)"
+            message << '?)'
           end
           warn message
           next
