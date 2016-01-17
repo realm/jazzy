@@ -6,7 +6,7 @@
   using one of the keys that has changed in your `.jazzy.yaml`, you will receive
   a warning. See the [pull request](https://github.com/realm/jazzy/pull/456) for
   a complete list of changed options. As always, you can get a list of all
-  options with `jazzy --help config`.
+  options with `jazzy --help config`.  
   [pcantrell](https://github.com/pcantrell)
 
 ## 0.5.0
