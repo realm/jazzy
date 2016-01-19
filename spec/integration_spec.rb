@@ -183,7 +183,7 @@ describe_cli 'jazzy' do
 
     describe 'Creates Siesta docs' do
       behaves_like cli_spec 'document_siesta',
-                            '--output api-docs'  # Siesta already has Docs/
+                            '--output api-docs' # Siesta already has Docs/
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
