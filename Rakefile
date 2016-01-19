@@ -57,7 +57,7 @@ begin
     files_glob = 'spec/integration_specs/*/after/{*,.*}'
     files_to_delete = FileList[files_glob]
       .exclude('**/.', '**/..')
-      .exclude('spec/integration_specs/*/after/docs',
+      .exclude('spec/integration_specs/*/after/*docs',
                'spec/integration_specs/*/after/execution_output.txt')
       .include('**/*.dsidx')
       .include('**/*.tgz')
