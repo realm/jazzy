@@ -54,9 +54,10 @@ begin
 
     # Remove files not used for the comparison
     # To keep the git diff clean
-    files_glob = 'spec/integration_specs/*/after/{*,.git,.gitignore}'
+    files_glob = 'spec/integration_specs/*/after/{*,.*}'
     files_to_delete = FileList[files_glob]
-      .exclude('spec/integration_specs/*/after/docs',
+      .exclude('**/.', '**/..')
+      .exclude('spec/integration_specs/*/after/*docs',
                'spec/integration_specs/*/after/execution_output.txt')
       .include('**/*.dsidx')
       .include('**/*.tgz')

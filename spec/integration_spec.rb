@@ -181,6 +181,11 @@ describe_cli 'jazzy' do
                             "--head #{realm_head.shellescape}"
     end
 
+    describe 'Creates Siesta docs' do
+      behaves_like cli_spec 'document_siesta',
+                            '--output api-docs' # Siesta already has Docs/
+    end
+
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features',
                             '-x -dry-run --theme fullwidth'
