@@ -319,9 +319,9 @@ module Jazzy
     # Two declarations get merged if they have the same deduplication key.
     def self.deduplication_key(decl)
       if decl.type.swift_extensible? || decl.type.swift_extension?
-        [decl.usr]
+        [decl.usr, decl.name]
       else
-        [decl.usr, decl.type.kind]
+        [decl.usr, decl.name, decl.type.kind]
       end
     end
 
