@@ -9,6 +9,14 @@
   options with `jazzy --help config`.  
   [pcantrell](https://github.com/pcantrell)
 
+##### Bug Fixes
+
+* Workaround for an apparent SourceKit bug which sometimes caused extensions
+  to be merged into the wrong type.  
+  [pcantrell](https://github.com/pcantrell)
+  [#459](https://github.com/realm/jazzy/issues/459)
+  [#460](https://github.com/realm/jazzy/issues/460)
+
 ## 0.5.0
 
 ##### Breaking
