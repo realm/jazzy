@@ -30,8 +30,7 @@ module Jazzy
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
         children = doc.children
-                   .sort_by(&:name)
-                   .sort_by(&:nav_order)
+                   .sort_by { |c| [c.nav_order, c.name] }
                    .map do |child|
           { name: child.name, url: child.url }
         end
