@@ -66,7 +66,7 @@ jazzy \
   --module RealmSwift \
   --root-url https://realm.io/docs/swift/0.96.2/api/ \
   --output docs/swift_output \
-  --template-directory docs/templates
+  --theme docs/themes
 ```
 
 ### Objective-C
@@ -98,7 +98,7 @@ jazzy \
   --module Realm \
   --root-url https://realm.io/docs/objc/0.96.2/api/ \
   --output docs/objc_output \
-  --template-directory docs/templates
+  --theme docs/themes
 ```
 
 This is how the AFNetworking docs are generated:
