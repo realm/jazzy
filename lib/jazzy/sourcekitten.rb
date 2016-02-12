@@ -320,14 +320,18 @@ module Jazzy
     def self.deduplication_key(decl)
       if decl.type.swift_extensible? || decl.type.swift_extension?
         [decl.usr, decl.name]
+      elsif decl.type.objc_class? || decl.type.objc_category?
+        name, _ = decl.objc_category_name || decl.name
+        [name, :objc_class_and_categories]
       else
         [decl.usr, decl.name, decl.type.kind]
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     # Merges all of the given types and extensions into a single document.
     def self.merge_declarations(decls)
-      extensions, typedecls = decls.partition { |d| d.type.swift_extension? }
+      extensions, typedecls = decls.partition { |d| d.type.extension? }
 
       if typedecls.size > 1
         warn 'Found conflicting type declarations with the same name, which ' \
@@ -340,6 +344,13 @@ module Jazzy
         merge_default_implementations_into_protocol(typedecl, extensions)
         mark_members_from_protocol_extension(extensions)
         extensions.reject! { |ext| ext.children.empty? }
+      elsif typedecl && typedecl.type.objc_class?
+        # Mark children merged from categories with the name of category
+        # (unless they already have a mark)
+        extensions.each do |ext|
+          _, category_name = ext.objc_category_name
+          ext.children.each { |c| c.mark.name ||= category_name }
+        end
       end
 
       decls = typedecls + extensions
@@ -351,6 +362,7 @@ module Jazzy
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     # If any of the extensions provide default implementations for methods in
     # the given protocol, merge those members into the protocol doc instead of
