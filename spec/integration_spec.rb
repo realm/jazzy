@@ -138,6 +138,11 @@ describe_cli 'jazzy' do
                             '--framework-root . ' \
                             "--head #{realm_head.shellescape}"
     end
+
+    describe 'Creates docs for ObjC project with a variety of contents' do
+      behaves_like cli_spec 'misc_jazzy_objc_features',
+                            '--theme fullwidth'
+    end
   end
 
   describe 'jazzy swift 2.1.1' do
