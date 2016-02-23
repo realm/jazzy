@@ -446,10 +446,20 @@ module Jazzy
       doc
     end
 
-    def self.autolink_text(text, doc, root_decls)
-      text.gsub(%r{<code>[ \t]*([^\s]+)[ \t]*</code>}) do
+    def self.autolink_text(text, doc, root_decls, highlighted = false)
+      opening_tag_re, closing_tag_re = 
+        if highlighted
+          ['<span class="n">','</span>']
+        else
+          ['<code>','</code>']
+        end
+
+      text.gsub(%r{(#{opening_tag_re})[ \t]*([^\s]+)[ \t]*(#{closing_tag_re})}) do
         original = Regexp.last_match(0)
-        raw_name = Regexp.last_match(1)
+        opening_tag = Regexp.last_match(1)
+        raw_name = Regexp.last_match(2)
+        closing_tag = Regexp.last_match(3)
+
         parts = raw_name
                 .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
                 .reject(&:empty?)
@@ -463,8 +473,8 @@ module Jazzy
         link_target = name_traversal(parts, name_root)
 
         if link_target && link_target.url && link_target.url != doc.url
-          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
-            raw_name + '</a></code>'
+          opening_tag + "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
+            raw_name + '</a>' + closing_tag
         else
           original
         end
@@ -476,6 +486,7 @@ module Jazzy
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.children = autolink(doc.children, root_decls)
+        doc.declaration &&= autolink_text(doc.declaration, doc, root_decls, true)
       end
     end
 
