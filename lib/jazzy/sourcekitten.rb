@@ -436,7 +436,7 @@ module Jazzy
     def self.autolink_text(text, doc, root_decls, highlighted = false)
       opening_tag_re, closing_tag_re = 
         if highlighted
-          ['<span class="n">','</span>']
+          [%r{<span class="(?:n|kt)">},'</span>']
         else
           ['<code>','</code>']
         end
