@@ -41,6 +41,13 @@ module Jazzy
       namespace_path.map(&:name).join('.')
     end
 
+    # If this declaration is an objc category, returns an array with the name
+    # of the extended objc class and the category name itself, i.e.
+    # ["NSString", "MyMethods"], nil otherwise.
+    def objc_category_name
+      name.split(/[\(\)]/) if type.objc_category?
+    end
+
     attr_accessor :file
     attr_accessor :line
     attr_accessor :column
