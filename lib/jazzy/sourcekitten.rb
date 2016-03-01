@@ -434,18 +434,16 @@ module Jazzy
     end
 
     def self.autolink_text(text, doc, root_decls, highlighted = false)
-      opening_tag_re, closing_tag_re = 
+      opening_tag_re, closing_tag_re =
         if highlighted
-          [%r{<span class="(?:n|kt)">},'</span>']
+          [/<span class="(?:n|kt)">/, '</span>']
         else
-          ['<code>','</code>']
+          ['<code>', '</code>']
         end
 
-      text.gsub(%r{(#{opening_tag_re})[ \t]*([^\s]+)[ \t]*(#{closing_tag_re})}) do
+      text.gsub(/(#{opening_tag_re})[ \t]*([^\s]+)[ \t]*(#{closing_tag_re})/) do
         original = Regexp.last_match(0)
-        opening_tag = Regexp.last_match(1)
-        raw_name = Regexp.last_match(2)
-        closing_tag = Regexp.last_match(3)
+        opening_tag, raw_name, closing_tag = Regexp.last_match.captures
 
         parts = raw_name
                 .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
@@ -473,7 +471,7 @@ module Jazzy
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.children = autolink(doc.children, root_decls)
-        doc.declaration &&= autolink_text(doc.declaration, doc, root_decls, true)
+        doc.declaration = autolink_text(doc.declaration, doc, root_decls, true) if doc.declaration
       end
     end
 
