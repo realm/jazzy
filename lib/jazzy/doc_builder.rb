@@ -169,8 +169,17 @@ module Jazzy
         tokens_by_file.each_key do |file|
           tokens_by_file[file].each do |token|
             warnings << {
-              file: token['key.filepath'],
-              line: token['key.doc.line'],
+              file: (
+                if ENV['JAZZY_INTEGRATION_SPECS'] then
+                  Pathname.new(token['key.filepath']).basename.to_s
+                else
+                 token['key.filepath']
+               end),
+              line: (if token['key.doc.line'] then
+                token['key.doc.line'] # Objective-C
+              else
+                token['key.parsed_scope.start'] # Swift
+              end),
               symbol: token['key.name'],
               symbol_kind: token['key.kind'],
               warning: 'undocumented'
@@ -180,8 +189,12 @@ module Jazzy
 
         lint_report = {
           warnings: warnings,
-          source_directory:
-            ENV['JAZZY_FAKE_SOURCE_DIRECTORY'] || options.source_directory
+          source_directory: (
+            if ENV['JAZZY_INTEGRATION_SPECS'] then
+              'Specs'
+            else
+              options.source_directory
+            end)
         }
         f.write(lint_report.to_json)
       end
