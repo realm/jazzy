@@ -66,7 +66,7 @@ jazzy \
   --module RealmSwift \
   --root-url https://realm.io/docs/swift/0.96.2/api/ \
   --output docs/swift_output \
-  --template-directory docs/templates
+  --theme docs/themes
 ```
 
 ### Objective-C
@@ -98,7 +98,7 @@ jazzy \
   --module Realm \
   --root-url https://realm.io/docs/objc/0.96.2/api/ \
   --output docs/objc_output \
-  --template-directory docs/templates
+  --theme docs/themes
 ```
 
 This is how the AFNetworking docs are generated:
@@ -115,6 +115,18 @@ jazzy \
   --framework-root . \
   --module AFNetworking
 ```
+
+### Themes
+
+Two themes are provided with jazzy: `apple` (default) and `fullwidth`.
+
+Here's an example built with `apple`: <https://realm.io/docs/swift/latest/api/>
+
+Here's an example built with `fullwidth`: <http://reduxkit.github.io/ReduxKit/>
+
+You can specify which theme to use by passing in the `--theme` option. You can
+also provide your own custom theme by passing in the path to your theme
+directory.
 
 ## Troubleshooting
 

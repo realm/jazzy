@@ -11,15 +11,17 @@ module Jazzy
   class Config
     # rubocop:disable Style/AccessorMethodName
     class Attribute
-      attr_reader :name, :description, :command_line, :default, :parse
+      attr_reader :name, :description, :command_line, :config_file_key,
+                  :default, :parse
 
       def initialize(name, description: nil, command_line: nil,
                      default: nil, parse: ->(x) { x })
-        @name = name
+        @name = name.to_s
         @description = Array(description)
         @command_line = Array(command_line)
         @default = default
         @parse = parse
+        @config_file_key = full_command_line_name || @name
       end
 
       def get(config)
@@ -51,6 +53,21 @@ module Jazzy
         return if command_line.empty?
         opt.on(*command_line, *description) do |val|
           set(config, val)
+        end
+      end
+
+      private
+
+      def full_command_line_name
+        long_option_names = command_line.map do |opt|
+          Regexp.last_match(1) if opt =~ %r{
+            ^--           # starts with double dash
+            (?:\[no-\])?  # optional prefix for booleans
+            ([^\s]+)      # long option name
+          }x
+        end
+        if long_option_name = long_option_names.compact.first
+          long_option_name.tr('-', '_')
         end
       end
     end
@@ -142,7 +159,11 @@ module Jazzy
 
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
-      default: '2.1'
+      default: '2.1.1',
+      parse: ->(v) do
+        raise 'jazzy only supports Swift 2.0 or later.' if v.to_f < 2
+        v
+      end
 
     # ──────── Metadata ────────
 
@@ -243,18 +264,35 @@ module Jazzy
                     'Example: http://git.io/v4Bcp'],
       default: []
 
+    config_attr :custom_head,
+      command_line: '--head HTML',
+      description: 'Custom HTML to inject into <head></head>.',
+      default: ''
+
+    config_attr :theme_directory,
+      command_line: '--theme [apple | fullwidth | DIRPATH]',
+      description: "Which theme to use. Specify either 'apple' (default), "\
+                   "'fullwidth' or the path to your mustache templates and " \
+                   'other assets for a custom theme.',
+      default: 'apple',
+      parse: ->(t) do
+        return expand_path(t) unless t == 'apple' || t == 'fullwidth'
+        Pathname(__FILE__).parent + 'themes' + t
+      end
+
     config_attr :template_directory,
       command_line: ['-t', '--template-directory DIRPATH'],
-      description: 'The directory that contains the mustache templates to use',
-      default: Pathname(__FILE__).parent + 'templates',
-      parse: ->(td) { expand_path(td) }
+      description: 'DEPRECATED: Use --theme instead.',
+      parse: ->(_) do
+        raise '--template-directory (-t) is deprecated: use --theme instead.'
+      end
 
     config_attr :assets_directory,
       command_line: '--assets-directory DIRPATH',
-      description: 'The directory that contains the assets (CSS, JS, images) '\
-                   'used by the templates',
-      default: Pathname(__FILE__).parent + 'assets',
-      parse: ->(ad) { expand_path(ad) }
+      description: 'DEPRECATED: Use --theme instead.',
+      parse: ->(_) do
+        raise '--assets-directory is deprecated: use --theme instead.'
+      end
 
     # rubocop:enable Style/AlignParameters
 
@@ -264,9 +302,9 @@ module Jazzy
       end
     end
 
-    def template_directory=(template_directory)
-      @template_directory = template_directory
-      Doc.template_path = template_directory
+    def theme_directory=(theme_directory)
+      @theme_directory = theme_directory
+      Doc.template_path = theme_directory + 'templates'
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -325,11 +363,24 @@ module Jazzy
 
       puts "Using config file #{config_path}"
       config_file = read_config_file(config_path)
-      self.class.all_config_attrs.each do |attr|
-        key = attr.name.to_s
-        if config_file.key?(key)
-          attr.set_if_unconfigured(self, config_file[key])
+
+      attrs_by_conf_key, attrs_by_name = %i(config_file_key name).map do |prop|
+        self.class.all_config_attrs.group_by(&prop)
+      end
+
+      config_file.each do |key, value|
+        unless attr = attrs_by_conf_key[key]
+          message = "WARNING: Unknown config file attribute #{key.inspect}"
+          if matching_name = attrs_by_name[key]
+            message << ' (Did you mean '
+            message << matching_name.first.config_file_key.inspect
+            message << '?)'
+          end
+          warn message
+          next
         end
+
+        attr.first.set_if_unconfigured(self, value)
       end
 
       self.base_path = nil
@@ -383,7 +434,7 @@ module Jazzy
           puts
           puts attr.name.to_s.tr('_', ' ').upcase
           puts
-          puts "  Config file:   #{attr.name}"
+          puts "  Config file:   #{attr.config_file_key}"
           cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
           if cmd_line_forms.any?
             puts "  Command line:  #{cmd_line_forms.join(', ')}"
