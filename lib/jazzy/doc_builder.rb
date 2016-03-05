@@ -180,7 +180,8 @@ module Jazzy
 
         lint_report = {
           warnings: warnings,
-          source_directory: options.source_directory
+          source_directory:
+            ENV['JAZZY_FAKE_SOURCE_DIRECTORY'] || options.source_directory
         }
         f.write(lint_report.to_json)
       end
