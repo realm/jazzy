@@ -40,6 +40,14 @@ module Jazzy
         kind == 'sourcekitten.source.lang.objc.decl.typedef'
       end
 
+      def objc_category?
+        kind == 'sourcekitten.source.lang.objc.decl.category'
+      end
+
+      def objc_class?
+        kind == 'sourcekitten.source.lang.objc.decl.class'
+      end
+
       def swift_enum_case?
         kind == 'source.lang.swift.decl.enumcase'
       end
@@ -55,6 +63,10 @@ module Jazzy
       def declaration?
         kind.start_with?('source.lang.swift.decl') ||
           kind.start_with?('sourcekitten.source.lang.objc.decl')
+      end
+
+      def extension?
+        swift_extension? || objc_category?
       end
 
       def swift_extension?
@@ -151,6 +163,10 @@ module Jazzy
         'sourcekitten.source.lang.objc.decl.field' => {
           jazzy: 'Field',
           dash: 'Field',
+        }.freeze,
+        'sourcekitten.source.lang.objc.decl.ivar' => {
+          jazzy: 'Ivar',
+          dash: 'Ivar',
         }.freeze,
 
         # Swift

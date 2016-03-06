@@ -81,72 +81,39 @@ describe_cli 'jazzy' do
       'JAZZY_FAKE_DATE'            => 'YYYY-MM-DD',
       'JAZZY_FAKE_VERSION'         => 'X.X.X',
       'COCOAPODS_SKIP_UPDATE_MESSAGE' => 'TRUE',
+      'JAZZY_INTEGRATION_SPECS' => 'TRUE',
     }
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
+    s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$[\n]?/, ''
   end
 
   travis_swift = ENV['TRAVIS_SWIFT_VERSION']
 
-  describe 'jazzy swift 1.2' do
-    describe 'Creates docs with a module name, author name, project URL, ' \
-      'xcodebuild options, and github info' do
-      behaves_like cli_spec 'document_alamofire1.2',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/1.3.1 ' \
-                            '--module-version 1.3.1 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented ' \
-                            '--swift-version=1.2'
-    end
+  require 'shellwords'
+  # rubocop:disable Metrics/LineLength
+  realm_head = <<-HTML
+<link rel="icon" href="https://realm.io/img/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://realm.io/img/favicon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://realm.io/img/favicon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://realm.io/img/favicon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://realm.io/img/favicon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://realm.io/img/favicon-152x152.png" />
+<link rel="icon" type="image/png" href="https://realm.io/img/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="https://realm.io/img/favicon-16x16.png" sizes="16x16" />
+<script defer>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-50247013-1', 'realm.io');
+  ga('send', 'pageview');
+</script>
+  HTML
+  # rubocop:enable Metrics/LineLength
 
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec --swift-version=1.2'
-    end
-  end if !travis_swift || travis_swift == '1.2'
-
-  describe 'jazzy swift 2.1' do
-    describe 'Creates docs with a module name, author name, project URL, ' \
-      'xcodebuild options, and github info' do
-      behaves_like cli_spec 'document_alamofire',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/3.1.1 ' \
-                            '--module-version 3.1.1 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented'
-    end
-
-    describe 'Creates Realm Swift docs' do
-      realm_version = ''
-      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
-        realm_version = `./build.sh get-version`.chomp
-        `REALM_SWIFT_VERSION=2.1 ./build.sh set-swift-version`
-      end
-      behaves_like cli_spec 'document_realm_swift',
-                            '--author Realm ' \
-                            '--author_url "https://realm.io" ' \
-                            '--github_url ' \
-                            'https://github.com/realm/realm-cocoa ' \
-                            '--github-file-prefix https://github.com/realm/' \
-                            "realm-cocoa/tree/v#{realm_version} " \
-                            '--module RealmSwift ' \
-                            "--module-version #{realm_version} " \
-                            '--root-url https://realm.io/docs/swift/' \
-                            "#{realm_version}/api/ " \
-                            '--xcodebuild-arguments ' \
-                            '-scheme,RealmSwift ' \
-                            '--template-directory docs/templates'
-    end
-
+  describe 'jazzy objective-c' do
     describe 'Creates Realm Objective-C docs' do
       realm_version = ''
       relative_path = 'spec/integration_specs/document_realm_objc/before'
@@ -169,11 +136,64 @@ describe_cli 'jazzy' do
                             "#{realm_version}/api/ " \
                             '--umbrella-header Realm/Realm.h ' \
                             '--framework-root . ' \
-                            '--template-directory docs/templates'
+                            "--head #{realm_head.shellescape}"
+    end
+
+    describe 'Creates docs for ObjC project with a variety of contents' do
+      behaves_like cli_spec 'misc_jazzy_objc_features',
+                            '--theme fullwidth'
+    end
+  end
+
+  describe 'jazzy swift 2.1.1' do
+    describe 'Creates docs for a podspec with dependencies and subspecs' do
+      behaves_like cli_spec 'document_moya_podspec', '--podspec=Moya.podspec'
+    end
+
+    describe 'Creates docs with a module name, author name, project URL, ' \
+      'xcodebuild options, and github info' do
+      behaves_like cli_spec 'document_alamofire',
+                            '-m Alamofire -a Alamofire ' \
+                            '-u https://nshipster.com/alamofire ' \
+                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
+                            '-g https://github.com/Alamofire/Alamofire ' \
+                            '--github-file-prefix https://github.com/' \
+                            'Alamofire/Alamofire/blob/3.1.1 ' \
+                            '--module-version 3.1.1 ' \
+                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
+                            '--skip-undocumented'
+    end
+
+    describe 'Creates Realm Swift docs' do
+      realm_version = ''
+      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
+        realm_version = `./build.sh get-version`.chomp
+        `REALM_SWIFT_VERSION=2.1.1 ./build.sh set-swift-version`
+      end
+      behaves_like cli_spec 'document_realm_swift',
+                            '--author Realm ' \
+                            '--author_url "https://realm.io" ' \
+                            '--github_url ' \
+                            'https://github.com/realm/realm-cocoa ' \
+                            '--github-file-prefix https://github.com/realm/' \
+                            "realm-cocoa/tree/v#{realm_version} " \
+                            '--module RealmSwift ' \
+                            "--module-version #{realm_version} " \
+                            '--root-url https://realm.io/docs/swift/' \
+                            "#{realm_version}/api/ " \
+                            '--xcodebuild-arguments ' \
+                            '-scheme,RealmSwift ' \
+                            "--head #{realm_head.shellescape}"
+    end
+
+    describe 'Creates Siesta docs' do
+      behaves_like cli_spec 'document_siesta',
+                            '--output api-docs' # Siesta already has Docs/
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
-      behaves_like cli_spec 'misc_jazzy_features', '-x -dry-run'
+      behaves_like cli_spec 'misc_jazzy_features',
+                            '-x -dry-run --theme fullwidth'
     end
-  end if !travis_swift || travis_swift == '2.1'
+  end if !travis_swift || travis_swift == '2.1.1'
 end

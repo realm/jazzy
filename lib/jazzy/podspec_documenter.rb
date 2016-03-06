@@ -16,7 +16,7 @@ module Jazzy
       stdout = Dir.chdir(sandbox.root) do
         pod_targets.map do |t|
           SourceKitten.run_sourcekitten(
-            %W(doc --module-name #{podspec.module_name} -target #{t}),
+            %W(doc --module-name #{podspec.module_name} -target #{t})
           )
         end
       end
@@ -90,6 +90,7 @@ module Jazzy
         c.installation_root.rmtree if c.installation_root.exist?
         c.integrate_targets = false
         c.deduplicate_targets = false
+        c.deterministic_uuids = false
       end
     end
 
@@ -109,6 +110,11 @@ module Jazzy
         platform :ios, '8.0'
         [podspec, *podspec.recursive_subspecs].each do |ss|
           ss.available_platforms.each do |p|
+            # Travis builds take too long when building docs for all available
+            # platforms for the Moya integration spec, so we just document OSX.
+            # TODO: remove once jazzy is fast enough.
+            next if ENV['JAZZY_INTEGRATION_SPECS'] &&
+                    !p.to_s.start_with?('OS X')
             t = "Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}"
             targets << "Pods-#{t}-#{ss.root.name}"
             target(t) do

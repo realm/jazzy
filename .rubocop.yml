@@ -57,6 +57,10 @@ TrailingComma:
 Style/SpecialGlobalVars:
   Enabled: false
 
+# We prefer explicit `a, _ = arr` to `a, = arr` (which could be misread as a stray comma)
+Style/TrailingUnderscoreVariable:
+  Enabled: false
+
 # For lambdas nested within certain expressions, this rule forces either ugly
 # parens or curly braces that violate the "do/end for multiline blocks" rule.
 Lambda:
@@ -73,6 +77,9 @@ GuardClause:
   Enabled: false
 Next:
   Enabled: false
+
+RegexpLiteral:
+  EnforcedStyle: mixed
 
 #- Jazzy specs -----------------------------------------------------------#
 
