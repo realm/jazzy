@@ -98,6 +98,34 @@ module Jazzy
       end
     end
 
+    def self.build_site(docs, coverage, undocumented, options)
+      warn 'building site'
+
+      structure = doc_structure_for_docs(docs)
+
+      docs << SourceDeclaration.new.tap do |sd|
+        sd.name = 'index'
+        sd.children = []
+      end
+
+      source_module = SourceModule.new(options, docs, structure, coverage)
+
+      output_dir = options.output
+      prepare_output_dir(output_dir, options.clean)
+      build_docs(output_dir, source_module.docs, source_module)
+
+      write_undocumented_file(undocumented, output_dir)
+
+      copy_assets(output_dir)
+
+      DocsetBuilder.new(output_dir, source_module).build!
+
+      friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
+      puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
+
+      source_module
+    end
+
     # Build docs given sourcekitten output
     # @param [String] sourcekitten_output Output of sourcekitten command
     # @param [Config] options Build options
@@ -110,31 +138,7 @@ module Jazzy
       )
 
       unless options.skip_documentation
-        warn 'building site'
-
-        structure = doc_structure_for_docs(docs)
-
-        docs << SourceDeclaration.new.tap do |sd|
-          sd.name = 'index'
-          sd.children = []
-        end
-
-        source_module = SourceModule.new(options, docs, structure, coverage)
-
-        output_dir = options.output
-        prepare_output_dir(output_dir, options.clean)
-        build_docs(output_dir, source_module.docs, source_module)
-
-        write_undocumented_file(undocumented, output_dir)
-
-        copy_assets(output_dir)
-
-        DocsetBuilder.new(output_dir, source_module).build!
-
-        friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
-        puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
-
-        source_module
+        build_site(docs, coverage, undocumented, options)
       end
     end
 
