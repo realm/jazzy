@@ -155,6 +155,31 @@ module Jazzy
       end
     end
 
+    def self.warnings_for_tokens(tokens_by_file)
+      warnings = []
+      tokens_by_file.each_key do |file|
+        tokens_by_file[file].each do |token|
+          warnings << {
+            file: (
+              if ENV['JAZZY_INTEGRATION_SPECS'] then
+                Pathname.new(token['key.filepath']).basename.to_s
+              else
+                token['key.filepath']
+              end),
+            line: (if token['key.doc.line']
+              token['key.doc.line'] # Objective-C
+            else
+              token['key.parsed_scope.start'] # Swift
+            end),
+            symbol: token['key.name'],
+            symbol_kind: token['key.kind'],
+            warning: 'undocumented',
+          }
+        end
+      end
+      warnings
+    end
+
     def self.write_lint_report(undocumented, options)
       (options.output + 'undocumented.json').open('w') do |f|
         tokens_by_file = undocumented.group_by do |d|
@@ -164,37 +189,17 @@ module Jazzy
             d['key.modulename'] || ''
           end
         end
-        
-        warnings = []
-        tokens_by_file.each_key do |file|
-          tokens_by_file[file].each do |token|
-            warnings << {
-              file: (
-                if ENV['JAZZY_INTEGRATION_SPECS'] then
-                  Pathname.new(token['key.filepath']).basename.to_s
-                else
-                 token['key.filepath']
-               end),
-              line: (if token['key.doc.line'] then
-                token['key.doc.line'] # Objective-C
-              else
-                token['key.parsed_scope.start'] # Swift
-              end),
-              symbol: token['key.name'],
-              symbol_kind: token['key.kind'],
-              warning: 'undocumented'
-            }
-          end
-        end
+
+        warnings = self.warnings_for_tokens(tokens_by_file)
 
         lint_report = {
           warnings: warnings,
           source_directory: (
-            if ENV['JAZZY_INTEGRATION_SPECS'] then
+            if ENV['JAZZY_INTEGRATION_SPECS']
               'Specs'
             else
               options.source_directory
-            end)
+            end),
         }
         f.write(lint_report.to_json)
       end
