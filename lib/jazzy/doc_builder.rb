@@ -155,22 +155,29 @@ module Jazzy
       end
     end
 
+    def self.filepath_for_token(token)
+      if ENV['JAZZY_INTEGRATION_SPECS']
+        Pathname.new(token['key.filepath']).basename.to_s
+      else
+        token['key.filepath']
+      end
+    end
+
+    def self.line_number_for_token(token)
+      if token['key.doc.line']
+        token['key.doc.line'] # Objective-C
+      else
+        token['key.parsed_scope.start'] # Swift
+      end
+    end
+
     def self.warnings_for_tokens(tokens_by_file)
       warnings = []
       tokens_by_file.each_key do |file|
         tokens_by_file[file].each do |token|
           warnings << {
-            file: (
-              if ENV['JAZZY_INTEGRATION_SPECS'] then
-                Pathname.new(token['key.filepath']).basename.to_s
-              else
-                token['key.filepath']
-              end),
-            line: (if token['key.doc.line']
-              token['key.doc.line'] # Objective-C
-            else
-              token['key.parsed_scope.start'] # Swift
-            end),
+            file: filepath_for_token(token),
+            line: line_number_for_token(token),
             symbol: token['key.name'],
             symbol_kind: token['key.kind'],
             warning: 'undocumented',
@@ -190,7 +197,7 @@ module Jazzy
           end
         end
 
-        warnings = self.warnings_for_tokens(tokens_by_file)
+        warnings = warnings_for_tokens(tokens_by_file)
 
         lint_report = {
           warnings: warnings,
