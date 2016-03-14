@@ -8,6 +8,10 @@
   a complete list of changed options. As always, you can get a list of all
   options with `jazzy --help config`.  
   [Paul Cantrell](https://github.com/pcantrell)
+* Jazzy's undocumented.txt has been replaced with undocumented.json. This new
+  format includes contextual information that one might use to lint
+  documentation in an automated fashion.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
 
 ##### Bug Fixes
 
