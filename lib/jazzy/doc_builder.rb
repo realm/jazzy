@@ -63,7 +63,7 @@ module Jazzy
           exit $?.exitstatus || 1
         end
       end
-      warn 'building site'
+
       build_docs_for_sourcekitten_output(stdout, options)
     end
 
@@ -98,21 +98,8 @@ module Jazzy
       end
     end
 
-    # Build docs given sourcekitten output
-    # @param [String] sourcekitten_output Output of sourcekitten command
-    # @param [Config] options Build options
-    # @return [SourceModule] the documented source module
-    def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
-      output_dir = options.output
-      prepare_output_dir(output_dir, options.clean)
-
-      (docs, coverage, undocumented) = SourceKitten.parse(
-        sourcekitten_output,
-        options.min_acl,
-        options.skip_undocumented,
-      )
-
-      write_lint_report(undocumented, options)
+    def self.build_site(docs, coverage, options)
+      warn 'building site'
 
       structure = doc_structure_for_docs(docs)
 
@@ -122,6 +109,8 @@ module Jazzy
       end
 
       source_module = SourceModule.new(options, docs, structure, coverage)
+
+      output_dir = options.output
       build_docs(output_dir, source_module.docs, source_module)
 
       copy_assets(output_dir)
@@ -132,6 +121,25 @@ module Jazzy
       puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
 
       source_module
+    end
+
+    # Build docs given sourcekitten output
+    # @param [String] sourcekitten_output Output of sourcekitten command
+    # @param [Config] options Build options
+    # @return [SourceModule] the documented source module
+    def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
+      (docs, coverage, undocumented) = SourceKitten.parse(
+        sourcekitten_output,
+        options.min_acl,
+        options.skip_undocumented,
+      )
+
+      prepare_output_dir(options.output, options.clean)
+      write_lint_report(undocumented, options)
+
+      unless options.skip_documentation
+        build_site(docs, coverage, options)
+      end
     end
 
     def self.relative_path_if_inside(path, base_path)

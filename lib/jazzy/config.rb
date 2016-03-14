@@ -238,6 +238,11 @@ module Jazzy
 
     # ──────── Doc generation options ────────
 
+    config_attr :skip_documentation,
+      command_line: '--skip-documentation',
+      description: 'Will skip the documentation generation phase.',
+      default: false
+
     config_attr :min_acl,
       command_line: '--min-acl [private | internal | public]',
       description: 'minimum access control level to document',
