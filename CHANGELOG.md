@@ -13,6 +13,12 @@
   documentation in an automated fashion.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
 
+##### Enhancements
+
+* Add `--skip-documentation` flag. Skips site generation phase. `undocumented.json`
+  is still generated.  
+  [Jeff Verkoeyen](https://github.com/jverkoey)
+
 ##### Bug Fixes
 
 * Workaround for an apparent SourceKit bug which sometimes caused extensions
