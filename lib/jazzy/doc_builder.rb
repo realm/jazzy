@@ -98,7 +98,7 @@ module Jazzy
       end
     end
 
-    def self.build_site(docs, coverage, undocumented, options)
+    def self.build_site(docs, coverage, options)
       warn 'building site'
 
       structure = doc_structure_for_docs(docs)
@@ -138,7 +138,7 @@ module Jazzy
       write_lint_report(undocumented, options)
 
       unless options.skip_documentation
-        build_site(docs, coverage, undocumented, options)
+        build_site(docs, coverage, options)
       end
     end
 
