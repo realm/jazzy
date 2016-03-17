@@ -168,7 +168,6 @@ describe_cli 'jazzy' do
       realm_version = ''
       Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
         realm_version = `./build.sh get-version`.chomp
-        `REALM_SWIFT_VERSION=2.1.1 ./build.sh set-swift-version`
       end
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
