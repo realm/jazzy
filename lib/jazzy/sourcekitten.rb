@@ -119,13 +119,15 @@ module Jazzy
       arguments = ['doc']
       if options.objc_mode
         if options.xcodebuild_arguments.empty?
-          arguments += ['--objc', options.umbrella_header.to_s, '-x',
+          arguments += ['--objc', options.umbrella_header.to_s, '--', '-x',
                         'objective-c', '-isysroot',
                         `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,
                         '-I', options.framework_root.to_s]
         end
       elsif !options.module_name.empty?
-        arguments += ['--module-name', options.module_name]
+        arguments += ['--module-name', options.module_name, '--']
+      else
+        arguments += ['--']
       end
       arguments + options.xcodebuild_arguments
     end
