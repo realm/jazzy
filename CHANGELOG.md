@@ -21,6 +21,10 @@
 
 ##### Bug Fixes
 
+* Add support for Objective-C module imports.  
+  [JP Simard](https://github.com/jpsim)
+  [#452](https://github.com/realm/jazzy/issues/452)
+
 * Workaround for an apparent SourceKit bug which sometimes caused extensions
   to be merged into the wrong type.  
   [Paul Cantrell](https://github.com/pcantrell)

@@ -168,6 +168,10 @@ module Jazzy
           jazzy: 'Ivar',
           dash: 'Ivar',
         }.freeze,
+        'sourcekitten.source.lang.objc.module.import' => {
+          jazzy: 'Module',
+          dash: 'Module',
+        }.freeze,
 
         # Swift
         'source.lang.swift.decl.function.accessor.address' => {
