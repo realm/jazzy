@@ -2,6 +2,14 @@
 
 ##### Breaking
 
+##### Enhancements
+
+##### Bug Fixes
+
+## 0.6.0
+
+##### Breaking
+
 * Config files now use the same option names as the command line. If you are
   using one of the keys that has changed in your `.jazzy.yaml`, you will receive
   a warning. See the [pull request](https://github.com/realm/jazzy/pull/456) for
@@ -140,7 +148,7 @@
 
 ##### Enhancements
 
-* Support for documenting Objective-C projects! 🎉
+* Support for documenting Objective-C projects! 
   Pass `--objc`, `--umbrella-header ...` and `-framework-root ...`.  
   [JP Simard](https://github.com/jpsim)
   [#56](https://github.com/realm/jazzy/issues/56)
