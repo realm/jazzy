@@ -148,7 +148,7 @@
 
 ##### Enhancements
 
-* Support for documenting Objective-C projects! 
+* Support for documenting Objective-C projects! 🎉
   Pass `--objc`, `--umbrella-header ...` and `-framework-root ...`.  
   [JP Simard](https://github.com/jpsim)
   [#56](https://github.com/realm/jazzy/issues/56)
