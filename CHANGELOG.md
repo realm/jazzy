@@ -18,6 +18,10 @@
 * Add `--skip-documentation` flag. Skips site generation phase. `undocumented.json`
   is still generated.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
+* Merge Objective-C categories into their parent type documentation to match
+  Swift behavior.  
+  [Esad Hajdarevic](https://github.com/esad)
+  [#457](https://github.com/realm/jazzy/issues/457)
 
 ##### Bug Fixes
 
