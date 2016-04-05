@@ -16,7 +16,7 @@ module Jazzy
       stdout = Dir.chdir(sandbox.root) do
         pod_targets.map do |t|
           SourceKitten.run_sourcekitten(
-            %W(doc --module-name #{podspec.module_name} -- -target #{t})
+            %W(doc --module-name #{podspec.module_name} -- -target #{t}),
           )
         end
       end
@@ -62,14 +62,12 @@ module Jazzy
     def self.author_name(podspec)
       if podspec.authors.respond_to? :to_hash
         podspec.authors.keys.to_sentence || ''
-      else
-        if podspec.authors.respond_to? :to_ary
-          podspec.authors.to_sentence
-        else
-          podspec.authors
-        end
-      end || ''
+      elsif podspec.authors.respond_to? :to_ary
+        podspec.authors.to_sentence
+      end || podspec.authors || ''
     end
+
+    private_class_method :author_name
 
     def self.github_file_prefix(podspec)
       return unless podspec.source[:url] =~ %r{github.com[:/]+(.+)/(.+)}
@@ -79,6 +77,8 @@ module Jazzy
       return unless rev = podspec.source[:tag] || podspec.source[:commit]
       "https://github.com/#{org}/#{repo}/blob/#{rev}"
     end
+
+    private_class_method :github_file_prefix
 
     # @!group SourceKitten output helper methods
 
