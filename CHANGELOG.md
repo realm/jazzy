@@ -12,6 +12,8 @@
   format includes contextual information that one might use to lint
   documentation in an automated fashion.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
+* Add Swift 2.2 support.  
+[Tamar Nachmany](https://github.com/tamarnachmany)
 
 ##### Enhancements
 
