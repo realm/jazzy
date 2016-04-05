@@ -10,7 +10,7 @@ module Jazzy
       # Format: 'MARK: - NAME -' with dashes optional
       mark_string.sub!(/^MARK: /, '')
 
-      if mark_string.length == 0
+      if mark_string.empty?
         # Empty
         return
       elsif mark_string == '-'

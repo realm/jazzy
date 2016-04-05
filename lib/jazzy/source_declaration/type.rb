@@ -61,8 +61,8 @@ module Jazzy
       end
 
       def declaration?
-        kind.start_with?('source.lang.swift.decl') ||
-          kind.start_with?('sourcekitten.source.lang.objc.decl')
+        kind.start_with?('source.lang.swift.decl',
+                         'sourcekitten.source.lang.objc.decl')
       end
 
       def extension?
@@ -96,7 +96,7 @@ module Jazzy
         kind.hash
       end
 
-      alias_method :equals, :==
+      alias equals ==
       def ==(other)
         other && kind == other.kind
       end
