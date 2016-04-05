@@ -91,7 +91,6 @@ describe_cli 'jazzy' do
   travis_swift = ENV['TRAVIS_SWIFT_VERSION']
 
   require 'shellwords'
-  # rubocop:disable Metrics/LineLength
   realm_head = <<-HTML
 <link rel="icon" href="https://realm.io/img/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="57x57" href="https://realm.io/img/favicon-57x57.png" />
@@ -111,7 +110,6 @@ describe_cli 'jazzy' do
   ga('send', 'pageview');
 </script>
   HTML
-  # rubocop:enable Metrics/LineLength
 
   describe 'jazzy objective-c' do
     describe 'Creates Realm Objective-C docs' do

@@ -51,7 +51,10 @@ Encoding:
 
 # Having these make it easier to *not* forget to add one when adding a new
 # value and you can simply copy the previous line.
-TrailingComma:
+TrailingCommaInLiteral:
+  EnforcedStyleForMultiline: comma
+
+TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 
 Style/SpecialGlobalVars:

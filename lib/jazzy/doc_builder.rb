@@ -30,8 +30,8 @@ module Jazzy
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
         children = doc.children
-                   .sort_by { |c| [c.nav_order, c.name] }
-                   .map do |child|
+                      .sort_by { |c| [c.nav_order, c.name] }
+                      .map do |child|
           { name: child.name, url: child.url }
         end
         {
@@ -267,11 +267,11 @@ module Jazzy
     def self.gh_token_url(item, source_module)
       return unless github_prefix = source_module.github_file_prefix
       return unless should_link_to_github(item.file)
-      if item.start_line && (item.start_line != item.end_line)
-        gh_line = "#L#{item.start_line}-L#{item.end_line}"
-      else
-        gh_line = "#L#{item.line}"
-      end
+      gh_line = if item.start_line && (item.start_line != item.end_line)
+                  "#L#{item.start_line}-L#{item.end_line}"
+                else
+                  "#L#{item.line}"
+                end
       relative_file_path = item.file.realpath.relative_path_from(
         source_module.root_path)
       "#{github_prefix}/#{relative_file_path}#{gh_line}"
@@ -324,10 +324,10 @@ module Jazzy
       marks.map do |mark|
         mark_children = children.select { |child| child.mark == mark }
         items = mark_children.map { |child| render_item(child, source_module) }
-        uid = "#{mark.name || 'Unnamed'}"
+        uid = (mark.name || 'Unnamed').to_s
         if mark_names_counts.key?(uid)
           mark_names_counts[uid] += 1
-          uid += "#{mark_names_counts[uid]}"
+          uid += (mark_names_counts[uid]).to_s
         else
           mark_names_counts[uid] = 1
         end

@@ -259,7 +259,7 @@ module Jazzy
 
     config_attr :hide_documentation_coverage,
       command_line: '--[no-]hide-documentation-coverage',
-      description: "Hide \"(X\% documented)\" from the generated documents",
+      description: 'Hide "(X% documented)" from the generated documents',
       default: false
 
     config_attr :custom_categories,

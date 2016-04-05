@@ -78,11 +78,11 @@ module Jazzy
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
           if doc.typename == '<<error type>>'
-            warn 'A compile error prevented ' +
-              doc.fully_qualified_name +
-              ' from receiving a unique USR. Documentation may be ' \
-              'incomplete. Please check for compile errors by running ' \
-              "`xcodebuild #{Config.instance.xcodebuild_arguments.shelljoin}`."
+            warn 'A compile error prevented ' + doc.fully_qualified_name +
+                 ' from receiving a unique USR. Documentation may be ' \
+                 'incomplete. Please check for compile errors by running ' \
+                 '`xcodebuild ' \
+                 "#{Config.instance.xcodebuild_arguments.shelljoin}`."
           end
           id = doc.usr
           unless id
@@ -347,7 +347,8 @@ module Jazzy
       if typedecls.size > 1
         warn 'Found conflicting type declarations with the same name, which ' \
           'may indicate a build issue or a bug in Jazzy: ' +
-          typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }.join(', ')
+             typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }
+             .join(', ')
       end
       typedecl = typedecls.first
 
@@ -415,8 +416,8 @@ module Jazzy
     def self.name_match(name_part, docs)
       return nil unless name_part
       wildcard_expansion = Regexp.escape(name_part)
-                           .gsub('\.\.\.', '[^)]*')
-                           .gsub(/&lt;.*&gt;/, '')
+                                 .gsub('\.\.\.', '[^)]*')
+                                 .gsub(/&lt;.*&gt;/, '')
       whole_name_pat = /\A#{wildcard_expansion}\Z/
       docs.find do |doc|
         whole_name_pat =~ doc.name
