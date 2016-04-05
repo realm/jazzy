@@ -24,7 +24,7 @@ GEM
     ast (2.2.0)
     bacon (1.2.0)
     claide (0.9.1)
-    clintegracon (0.8.1)
+    clintegracon (0.7.0)
       colored (~> 1.2)
       diffy
     cocoapods (0.39.0)
