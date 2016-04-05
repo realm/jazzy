@@ -145,7 +145,7 @@ describe_cli 'jazzy' do
     end
   end
 
-  describe 'jazzy swift 2.1.1' do
+  describe 'jazzy swift 2.2' do
     describe 'Creates docs for a podspec with dependencies and subspecs' do
       behaves_like cli_spec 'document_moya_podspec', '--podspec=Moya.podspec'
     end
@@ -194,5 +194,5 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'misc_jazzy_features',
                             '-x -dry-run --theme fullwidth'
     end
-  end if !travis_swift || travis_swift == '2.1.1'
+  end if !travis_swift || travis_swift == '2.2'
 end
