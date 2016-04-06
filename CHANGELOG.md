@@ -24,6 +24,9 @@
   Swift behavior.  
   [Esad Hajdarevic](https://github.com/esad)
   [#457](https://github.com/realm/jazzy/issues/457)
+* Add support for documenting Swift 2.2 `associatedtype`s and infix, postfix &
+  prefix operators.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Bug Fixes
 

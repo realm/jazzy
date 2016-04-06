@@ -202,6 +202,18 @@ module Jazzy
           jazzy: 'Operator',
           dash: 'Function',
         }.freeze,
+        'source.lang.swift.decl.function.operator.infix' => {
+          jazzy: 'Infix Operator',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.operator.postfix' => {
+          jazzy: 'Postfix Operator',
+          dash: 'Function',
+        }.freeze,
+        'source.lang.swift.decl.function.operator.prefix' => {
+          jazzy: 'Prefix Operator',
+          dash: 'Function',
+        }.freeze,
         'source.lang.swift.decl.function.method.class' => {
           jazzy: 'Class Method',
           dash: 'Method',
@@ -305,6 +317,10 @@ module Jazzy
         'source.lang.swift.decl.generic_type_param' => {
           jazzy: 'Generic Type Parameter',
           dash: 'Parameter',
+        }.freeze,
+        'source.lang.swift.decl.associatedtype' => {
+          jazzy: 'Associated Type',
+          dash: 'Alias',
         }.freeze,
       }.freeze
     end
