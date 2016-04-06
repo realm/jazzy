@@ -482,14 +482,15 @@ module Jazzy
     end
 
     def self.reject_objc_enum_typedefs(docs)
-      enums = docs.flat_map do |doc|
-        doc.children.select { |child| child.type.objc_enum? }.map(&:name)
-      end
-      docs.map do |doc|
+      enums = docs.map do |doc|
+        [doc, doc.children]
+      end.flatten.select { |child| child.type.objc_enum? }.map(&:name)
+      docs.each do |doc|
         doc.children = doc.children.reject do |child|
           child.type.objc_typedef? && enums.include?(child.name)
         end
-        doc
+      end.reject do |doc|
+        doc.type.objc_typedef? && enums.include?(doc.name)
       end
     end
 
@@ -500,8 +501,7 @@ module Jazzy
       @skip_undocumented = skip_undocumented
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json)
-      docs = ungrouped_docs = deduplicate_declarations(docs)
-      docs = group_docs(docs)
+      docs = deduplicate_declarations(docs)
       if Config.instance.objc_mode
         docs = reject_objc_enum_typedefs(docs)
       else
@@ -509,6 +509,8 @@ module Jazzy
         # than min_acl
         docs = docs.reject { |doc| doc.type.swift_enum_element? }
       end
+      ungrouped_docs = docs
+      docs = group_docs(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, doc_coverage, @undocumented_tokens]
