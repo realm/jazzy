@@ -213,19 +213,18 @@ module Jazzy
       end
     end
 
+    def self.recursively_undocumented?(doc)
+      return false if doc['key.doc.full_as_xml']
+      substructure = doc['key.substructure']
+      return true unless substructure
+      substructure.none? { |item| !item['key.doc.full_as_xml'].nil? }
+    end
+
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
-      if !doc['key.doc.full_as_xml'] && !doc['key.substructure']
+      if recursively_undocumented?(doc)
         return process_undocumented_token(doc, declaration)
-      end
-
-      if !doc['key.doc.full_as_xml'] && doc['key.substructure']
-        subDocs = doc['key.substructure'].select { |item| !item['key.doc.full_as_xml'].nil? }
-
-        unless subDocs.count > 0
-          return process_undocumented_token(doc, declaration)
-        end
       end
 
       declaration.line = doc['key.doc.line']
