@@ -433,17 +433,22 @@ module Jazzy
       doc
     end
 
+    # Links recognized top-level declarations within
+    # - inlined code within docs
+    # - method signatures after they've been processed by the highlighter
+    #
+    # The `highlighted` flag is used to differentiate between the two modes.
     def self.autolink_text(text, doc, root_decls, highlighted = false)
-      opening_tag_re, closing_tag_re =
+      start_tag_re, end_tag_re =
         if highlighted
           [/<span class="(?:n|kt)">/, '</span>']
         else
           ['<code>', '</code>']
         end
 
-      text.gsub(/(#{opening_tag_re})[ \t]*([^\s]+)[ \t]*(#{closing_tag_re})/) do
+      text.gsub(/(#{start_tag_re})[ \t]*([^\s]+)[ \t]*(#{end_tag_re})/) do
         original = Regexp.last_match(0)
-        opening_tag, raw_name, closing_tag = Regexp.last_match.captures
+        start_tag, raw_name, end_tag = Regexp.last_match.captures
 
         parts = raw_name
                 .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
@@ -458,8 +463,9 @@ module Jazzy
         link_target = name_traversal(parts, name_root)
 
         if link_target && link_target.url && link_target.url != doc.url
-          opening_tag + "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
-            raw_name + '</a>' + closing_tag
+          start_tag +
+            "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
+            raw_name + '</a>' + end_tag
         else
           original
         end
