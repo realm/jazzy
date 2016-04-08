@@ -99,7 +99,8 @@
 
 ##### Enhancements
 
-* None.
+* By default, docs are now searchable. A new option, `--unsearchable`, lets you
+  turn this off.
 
 ##### Bug Fixes
 
