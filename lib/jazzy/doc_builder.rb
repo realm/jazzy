@@ -7,6 +7,7 @@ require 'sass'
 require 'jazzy/config'
 require 'jazzy/doc'
 require 'jazzy/docset_builder'
+require 'jazzy/search_builder'
 require 'jazzy/jazzy_markdown'
 require 'jazzy/podspec_documenter'
 require 'jazzy/readme_generator'
@@ -112,6 +113,11 @@ module Jazzy
 
       output_dir = options.output
       build_docs(output_dir, source_module.docs, source_module)
+
+      if options.searchable
+        warn 'building search index'
+        SearchBuilder.build(source_module, output_dir)
+      end
 
       copy_assets(output_dir)
 
