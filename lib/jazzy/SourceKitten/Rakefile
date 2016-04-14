@@ -6,6 +6,8 @@ task :prepare do
     Dir.chdir(fw) do
       basename = File.basename(fw, '.framework')
       FileUtils.rm_f(basename)
+      FileUtils.rm_f('Versions/Current')
+      FileUtils.rm_f('Resources')
 
       File.symlink('A',                            'Versions/Current')
       File.symlink("Versions/Current/#{basename}", "#{basename}")
