@@ -1,3 +1,11 @@
+## Master
+
+##### Bug Fixes
+
+* Uses GitHub-Flavored Markdown syntax for anchors when rendering README pages.  
+  [Zachary Waldowski](https://github.com/zwaldowski)
+  [#524](https://github.com/realm/jazzy/issues/524)
+
 ## 0.6.0
 
 ##### Breaking
