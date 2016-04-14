@@ -433,10 +433,23 @@ module Jazzy
       doc
     end
 
-    def self.autolink_text(text, doc, root_decls)
-      text.gsub(%r{<code>[ \t]*([^\s]+)[ \t]*</code>}) do
+    # Links recognized top-level declarations within
+    # - inlined code within docs
+    # - method signatures after they've been processed by the highlighter
+    #
+    # The `highlighted` flag is used to differentiate between the two modes.
+    def self.autolink_text(text, doc, root_decls, highlighted = false)
+      start_tag_re, end_tag_re =
+        if highlighted
+          [/<span class="(?:n|kt)">/, '</span>']
+        else
+          ['<code>', '</code>']
+        end
+
+      text.gsub(/(#{start_tag_re})[ \t]*([^\s]+)[ \t]*(#{end_tag_re})/) do
         original = Regexp.last_match(0)
-        raw_name = Regexp.last_match(1)
+        start_tag, raw_name, end_tag = Regexp.last_match.captures
+
         parts = raw_name
                 .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
                 .reject(&:empty?)
@@ -450,8 +463,9 @@ module Jazzy
         link_target = name_traversal(parts, name_root)
 
         if link_target && link_target.url && link_target.url != doc.url
-          "<code><a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
-            raw_name + '</a></code>'
+          start_tag +
+            "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
+            raw_name + '</a>' + end_tag
         else
           original
         end
@@ -463,18 +477,20 @@ module Jazzy
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.children = autolink(doc.children, root_decls)
+        doc.declaration = autolink_text(doc.declaration, doc, root_decls, true) if doc.declaration
       end
     end
 
     def self.reject_objc_enum_typedefs(docs)
-      enums = docs.flat_map do |doc|
-        doc.children.select { |child| child.type.objc_enum? }.map(&:name)
-      end
-      docs.map do |doc|
+      enums = docs.map do |doc|
+        [doc, doc.children]
+      end.flatten.select { |child| child.type.objc_enum? }.map(&:name)
+      docs.each do |doc|
         doc.children = doc.children.reject do |child|
           child.type.objc_typedef? && enums.include?(child.name)
         end
-        doc
+      end.reject do |doc|
+        doc.type.objc_typedef? && enums.include?(doc.name)
       end
     end
 
@@ -485,8 +501,7 @@ module Jazzy
       @skip_undocumented = skip_undocumented
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json)
-      docs = ungrouped_docs = deduplicate_declarations(docs)
-      docs = group_docs(docs)
+      docs = deduplicate_declarations(docs)
       if Config.instance.objc_mode
         docs = reject_objc_enum_typedefs(docs)
       else
@@ -494,6 +509,8 @@ module Jazzy
         # than min_acl
         docs = docs.reject { |doc| doc.type.swift_enum_element? }
       end
+      ungrouped_docs = docs
+      docs = group_docs(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, doc_coverage, @undocumented_tokens]
