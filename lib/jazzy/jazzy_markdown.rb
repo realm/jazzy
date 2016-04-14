@@ -8,10 +8,10 @@ module Jazzy
     include Rouge::Plugins::Redcarpet
 
     def header(text, header_level)
-      text_slug = text.gsub(/[^a-zA-Z0-9]+/, '_')
+      text_slug = text.gsub(/[^\w]+/, '-')
                       .downcase
-                      .sub(/^_/, '')
-                      .sub(/_$/, '')
+                      .sub(/^-/, '')
+                      .sub(/-$/, '')
 
       "<a href='##{text_slug}' class='anchor' aria-hidden=true>" \
         '<span class="header-anchor"></span>' \
