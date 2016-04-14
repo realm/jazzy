@@ -1,3 +1,12 @@
+## Master
+
+##### Bug Fixes
+
+* Fix issue where jazzy could not be installed from Gemfile due to
+  SourceKitten symlinks already being present.
+  [William Meleyal](https://github.com/meleyal)
+  [#438](https://github.com/realm/jazzy/issues/438)
+
 ## 0.7.0
 
 ##### Breaking
