@@ -54,6 +54,7 @@ module Jazzy
     attr_accessor :usr
     attr_accessor :name
     attr_accessor :declaration
+    attr_accessor :other_language_declaration
     attr_accessor :abstract
     attr_accessor :default_impl_abstract
     attr_accessor :from_protocol_extension

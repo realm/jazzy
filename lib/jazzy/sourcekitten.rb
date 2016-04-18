@@ -225,6 +225,11 @@ module Jazzy
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
         Config.instance.objc_mode ? 'objc' : 'swift',
       )
+      if Config.instance.objc_mode && doc['key.swift_declaration']
+        declaration.other_language_declaration = Highlighter.highlight(
+          doc['key.swift_declaration'], 'swift',
+        )
+      end
       declaration.abstract = Jazzy.markdown.render(doc['key.doc.comment'] || '')
       declaration.discussion = ''
       declaration.return = make_paragraphs(doc, 'key.doc.result_discussion')
