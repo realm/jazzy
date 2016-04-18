@@ -213,6 +213,8 @@ module Jazzy
       end
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
       unless doc['key.doc.full_as_xml']
@@ -227,7 +229,7 @@ module Jazzy
       )
       if Config.instance.objc_mode && doc['key.swift_declaration']
         declaration.other_language_declaration = Highlighter.highlight(
-          doc['key.swift_declaration'], 'swift',
+          doc['key.swift_declaration'], 'swift'
         )
       end
       declaration.abstract = Jazzy.markdown.render(doc['key.doc.comment'] || '')
@@ -238,6 +240,8 @@ module Jazzy
 
       @documented_count += 1
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.make_substructure(doc, declaration)
       if doc['key.substructure']
