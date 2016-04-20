@@ -1,5 +1,15 @@
 ## Master
 
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Objective-C documentation now also includes Swift declarations.  
+  [JP Simard](https://github.com/jpsim)
+  [#136](https://github.com/realm/jazzy/issues/136)
+
 ##### Bug Fixes
 
 * Uses GitHub-Flavored Markdown syntax for anchors when rendering README pages.  
