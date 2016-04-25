@@ -409,7 +409,7 @@ module Jazzy
       excluded_files = Config.instance.excluded_files
       json.map do |doc|
         key = doc.keys.first
-        doc[key] unless excluded_files.include?(Pathname(key))
+        doc[key] unless excluded_files.detect{|file| key.include? file.to_s}
       end.compact
     end
 
