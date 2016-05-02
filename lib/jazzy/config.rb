@@ -197,6 +197,16 @@ module Jazzy
       description: 'The path to a markdown README file',
       parse: ->(rp) { expand_path(rp) }
 
+    config_attr :documentation_glob,
+      command_line: '--documentation GLOB',
+      description: 'Glob that matches available documentation',
+      parse: ->(dg) { Pathname.glob(dg) }
+
+    config_attr :abstract_glob,
+      command_line: '--abstract GLOB',
+      description: 'Glob that matches available abstracts for categories',
+      parse: ->(ag) { Pathname.glob(ag) }
+
     config_attr :podspec,
       command_line: '--podspec FILEPATH',
       parse: ->(ps) { PodspecDocumenter.create_podspec(Pathname(ps)) if ps },

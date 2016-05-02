@@ -136,6 +136,38 @@ You can specify which theme to use by passing in the `--theme` option. You can
 also provide your own custom theme by passing in the path to your theme
 directory.
 
+### Guides
+
+| -- | -- |
+| Command line option | `--documentation={file pattern}` |
+| Example             | `--documentation=Docs/*.md` |
+| jazzy.yaml example  | `documentation: Docs/*.md` |
+
+Using the `--documentation` option, extra markdown files can be integrated into the generated docs and sidebar navigation.
+
+Any files found matching the file pattern will be parsed and included as a document with the type 'Guide' when generated. If the files are not included using the `custom_categories` config option, they will be grouped under 'Other Guides' in the sidebar navigation.
+
+There are a few limitations:
+- File names must be unique from source files.
+- Readme should be specified separately using the `readme_path` option.
+
+### Section description abstracts
+
+| -- | -- |
+| Command line option | `--abstract={file pattern}` |
+| Example             | `--abstract=Docs/Sections/*.md` |
+| jazzy.yaml example  | `abstract: Docs/Sections/*.md` |
+
+Using the `--abstract` options, extra markdown can be included after the heading of section overview pages. Think of it as a template include.
+
+The list of files matching the pattern is compared against the list of sections generated and if a match is found, it's contents will be included in that section before listing source output.
+
+Unlike the `--documentation` option, these files are not included in navigation and if a file does not match a section title, it is not included at all.
+
+This is very helpful when using `custom_categories` for grouping types and including relevant documentation in those sections.
+
+For an example of a project using both `--documentation` and `--abstract` see: [http://reswift.github.io/ReSwift/](http://reswift.github.io/ReSwift/)
+
 ## Troubleshooting
 
 #### Swift

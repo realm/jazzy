@@ -7,10 +7,12 @@ require 'sass'
 require 'jazzy/config'
 require 'jazzy/doc'
 require 'jazzy/docset_builder'
+require 'jazzy/documentation_generator'
 require 'jazzy/jazzy_markdown'
 require 'jazzy/podspec_documenter'
 require 'jazzy/readme_generator'
 require 'jazzy/source_declaration'
+require 'jazzy/source_document'
 require 'jazzy/source_module'
 require 'jazzy/sourcekitten'
 
@@ -91,7 +93,7 @@ module Jazzy
 
     def self.each_doc(output_dir, docs, &block)
       docs.each do |doc|
-        next if doc.name != 'index' && doc.children.count == 0
+        next unless doc.render?
         # Assuming URL is relative to documentation root:
         path = output_dir + (doc.url || "#{doc.name}.html")
         block.call(doc, path)
@@ -109,9 +111,11 @@ module Jazzy
 
       structure = doc_structure_for_docs(docs)
 
-      docs << SourceDeclaration.new.tap do |sd|
+      docs << SourceDocument.new.tap do |sd|
         sd.name = 'index'
         sd.children = []
+        sd.type = SourceDeclaration::Type.new 'document.markdown'
+        sd.readme_path = options.readme_path
       end
 
       source_module = SourceModule.new(options, docs, structure, coverage)
@@ -138,7 +142,7 @@ module Jazzy
         sourcekitten_output,
         options.min_acl,
         options.skip_undocumented,
-      )
+        DocumentationGenerator.source_docs)
 
       prepare_output_dir(options.output, options.clean)
       write_lint_report(undocumented, options)
@@ -238,15 +242,17 @@ module Jazzy
       end
     end
 
-    # Build index Mustache document
+    # Build Mustache document from a markdown source file
     # @param [Config] options Build options
+    # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
     # @param [String] path_to_root
     # @param [Array] doc_structure doc structure comprised of section names and
     #        child names and URLs. @see doc_structure_for_docs
-    def self.document_index(source_module, path_to_root)
+    def self.document_markdown(source_module, doc_model, path_to_root)
       doc = Doc.new # Mustache model instance
-      doc[:name] = source_module.name
-      doc[:overview] = ReadmeGenerator.generate(source_module)
+      name = doc_model.name == 'index' ? source_module.name : doc_model.name
+      doc[:name] = name
+      doc[:overview] = Jazzy.markdown.render(doc_model.content(source_module))
       doc[:custom_head] = Config.instance.custom_head
       doc[:doc_coverage] = source_module.doc_coverage unless
         Config.instance.hide_documentation_coverage
@@ -326,7 +332,7 @@ module Jazzy
     # @param [Config] options Build options
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
     def self.render_tasks(source_module, children)
-      marks = children.map(&:mark).uniq
+      marks = children.map(&:mark).uniq.compact
       mark_names_counts = {}
       marks.map do |mark|
         mark_children = children.select { |child| child.mark == mark }
@@ -349,8 +355,8 @@ module Jazzy
     # @param [Array] doc_structure doc structure comprised of section names and
     #        child names and URLs. @see doc_structure_for_docs
     def self.document(source_module, doc_model, path_to_root)
-      if doc_model.name == 'index'
-        return document_index(source_module, path_to_root)
+      if doc_model.type.kind == 'document.markdown'
+        return document_markdown(source_module, doc_model, path_to_root)
       end
 
       doc = Doc.new # Mustache model instance
