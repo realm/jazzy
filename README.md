@@ -35,7 +35,7 @@ you wish to document. It must be installed in a location indexed by Spotlight.
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional options.
 
 If your Swift module is the first thing to build, and it builds fine when running
-`xcodebuild` without any arguments from the root of your project, than just running
+`xcodebuild` without any arguments from the root of your project, then just running
 `jazzy` (without any arguments) from the root of your project should succeed too!
 
 You can set options for your project’s documentation in a configuration file,
