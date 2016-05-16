@@ -12,6 +12,9 @@
 
 ##### Bug Fixes
 
+* Escape ? in URLs.    
+  [Paul Taykalo](https://github.com/PaulTaykalo)
+  [#547](https://github.com/realm/jazzy/issues/547)
 * Uses GitHub-Flavored Markdown syntax for anchors when rendering README pages.  
   [Zachary Waldowski](https://github.com/zwaldowski)
   [#524](https://github.com/realm/jazzy/issues/524)
