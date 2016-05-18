@@ -134,9 +134,12 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      swift_version = Config.instance.swift_version
-      unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
-        raise "Unable to find an Xcode with swift version #{swift_version}."
+      if swift_version = Config.instance.swift_version
+        unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
+          raise "Unable to find an Xcode with swift version #{swift_version}."
+        end
+      else
+        xcode = XCInvoke::Xcode.selected
       end
       bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
       output, = Executable.execute_command(bin_path, arguments, true,
