@@ -18,6 +18,10 @@
 * Fix crash when using unexposed declarations in Objective-C.  
   [JP Simard](https://github.com/jpsim)
   [#543](https://github.com/realm/jazzy/issues/543)
+* No longer document Swift extensions on types with an ACL lower than `min-acl`
+  when they contain `MARK`s.  
+  [JP Simard](https://github.com/jpsim)
+  [#544](https://github.com/realm/jazzy/issues/544)
 
 ## 0.6.0
 

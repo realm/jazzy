@@ -169,7 +169,8 @@ module Jazzy
       return true if type.swift_enum_element?
       if type.swift_extension?
         return Array(doc['key.substructure']).any? do |subdoc|
-          should_document?(subdoc)
+          subtype = SourceDeclaration::Type.new(subdoc['key.kind'])
+          !subtype.mark? && should_document?(subdoc)
         end
       end
 
