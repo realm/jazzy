@@ -9,6 +9,10 @@
 * Objective-C documentation now also includes Swift declarations.  
   [JP Simard](https://github.com/jpsim)
   [#136](https://github.com/realm/jazzy/issues/136)
+* Default to the Xcode version selected in `xcode-select` if no Swift version is
+  specified.  
+  [Samuel Giddins](https://github.com/segiddins)
+  [#427](https://github.com/realm/jazzy/issues/427)
 
 ##### Bug Fixes
 
@@ -229,7 +233,7 @@
 
 * Print a more informative error when unable to find an Xcode that has the
   requested Swift version.  
-  [Samuel Giddins])https://github.com/segiddins
+  [Samuel Giddins](https://github.com/segiddins)
 
 
 ## 0.3.1
