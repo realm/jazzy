@@ -104,6 +104,10 @@ module Jazzy
       TYPES = {
         # Objective-C
 
+        'sourcekitten.source.lang.objc.decl.unexposed' => {
+          jazzy: 'Unexposed',
+          dash: 'Unexposed',
+        }.freeze,
         'sourcekitten.source.lang.objc.decl.category' => {
           jazzy: 'Category',
           dash: 'Extension',
