@@ -15,6 +15,9 @@
 * Uses GitHub-Flavored Markdown syntax for anchors when rendering README pages.  
   [Zachary Waldowski](https://github.com/zwaldowski)
   [#524](https://github.com/realm/jazzy/issues/524)
+* Fix crash when using unexposed declarations in Objective-C.  
+  [JP Simard](https://github.com/jpsim)
+  [#543](https://github.com/realm/jazzy/issues/543)
 
 ## 0.6.0
 
