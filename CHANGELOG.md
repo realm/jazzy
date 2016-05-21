@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Include one level of nested classes, structs, protocols and enums in the
+  navigation bar.  
+  [JP Simard](https://github.com/jpsim)
+  [#64](https://github.com/realm/jazzy/issues/64)
+
+##### Bug Fixes
+
+* None.
+
 ## 0.6.1
 
 ##### Breaking
