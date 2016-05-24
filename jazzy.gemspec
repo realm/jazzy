@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.extensions    = ['lib/jazzy/SourceKitten/Rakefile']
 
-  spec.add_runtime_dependency 'cocoapods', '~> 0.39'
+  spec.add_runtime_dependency 'cocoapods', '~> 1.0'
   spec.add_runtime_dependency 'mustache', '~> 0.99'
   spec.add_runtime_dependency 'open4'
   spec.add_runtime_dependency 'redcarpet', '~> 3.2'
