@@ -1,3 +1,32 @@
+## 0.6.1
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Objective-C documentation now also includes Swift declarations.  
+  [JP Simard](https://github.com/jpsim)
+  [#136](https://github.com/realm/jazzy/issues/136)
+* Default to the Xcode version selected in `xcode-select` if no Swift version is
+  specified.  
+  [Samuel Giddins](https://github.com/segiddins)
+  [#427](https://github.com/realm/jazzy/issues/427)
+
+##### Bug Fixes
+
+* Uses GitHub-Flavored Markdown syntax for anchors when rendering README pages.  
+  [Zachary Waldowski](https://github.com/zwaldowski)
+  [#524](https://github.com/realm/jazzy/issues/524)
+* Fix crash when using unexposed declarations in Objective-C.  
+  [JP Simard](https://github.com/jpsim)
+  [#543](https://github.com/realm/jazzy/issues/543)
+* No longer document Swift extensions on types with an ACL lower than `min-acl`
+  when they contain `MARK`s.  
+  [JP Simard](https://github.com/jpsim)
+  [#544](https://github.com/realm/jazzy/issues/544)
+
 ## 0.6.0
 
 ##### Breaking
@@ -204,7 +233,7 @@
 
 * Print a more informative error when unable to find an Xcode that has the
   requested Swift version.  
-  [Samuel Giddins])https://github.com/segiddins
+  [Samuel Giddins](https://github.com/segiddins)
 
 
 ## 0.3.1

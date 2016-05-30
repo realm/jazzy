@@ -134,9 +134,12 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      swift_version = Config.instance.swift_version
-      unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
-        raise "Unable to find an Xcode with swift version #{swift_version}."
+      if swift_version = Config.instance.swift_version
+        unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
+          raise "Unable to find an Xcode with swift version #{swift_version}."
+        end
+      else
+        xcode = XCInvoke::Xcode.selected
       end
       bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
       output, = Executable.execute_command(bin_path, arguments, true,
@@ -169,7 +172,8 @@ module Jazzy
       return true if type.swift_enum_element?
       if type.swift_extension?
         return Array(doc['key.substructure']).any? do |subdoc|
-          should_document?(subdoc)
+          subtype = SourceDeclaration::Type.new(subdoc['key.kind'])
+          !subtype.mark? && should_document?(subdoc)
         end
       end
 
@@ -213,6 +217,8 @@ module Jazzy
       end
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
       unless doc['key.doc.full_as_xml']
@@ -225,6 +231,11 @@ module Jazzy
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
         Config.instance.objc_mode ? 'objc' : 'swift',
       )
+      if Config.instance.objc_mode && doc['key.swift_declaration']
+        declaration.other_language_declaration = Highlighter.highlight(
+          doc['key.swift_declaration'], 'swift'
+        )
+      end
       declaration.abstract = Jazzy.markdown.render(doc['key.doc.comment'] || '')
       declaration.discussion = ''
       declaration.return = make_paragraphs(doc, 'key.doc.result_discussion')
@@ -233,6 +244,8 @@ module Jazzy
 
       @documented_count += 1
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.make_substructure(doc, declaration)
       if doc['key.substructure']

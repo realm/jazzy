@@ -284,19 +284,20 @@ module Jazzy
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
       item_render = {
-        name:                    item.name,
-        abstract:                render_markdown(abstract),
-        declaration:             item.declaration,
-        usr:                     item.usr,
-        dash_type:               item.type.dash_type,
-        github_token_url:        gh_token_url(item, source_module),
-        default_impl_abstract:   render_markdown(item.default_impl_abstract),
-        from_protocol_extension: item.from_protocol_extension,
-        return:                  render_markdown(item.return),
-        parameters:              (item.parameters if item.parameters.any?),
-        url:                     (item.url if item.children.any?),
-        start_line:              item.start_line,
-        end_line:                item.end_line,
+        name:                       item.name,
+        abstract:                   render_markdown(abstract),
+        declaration:                item.declaration,
+        other_language_declaration: item.other_language_declaration,
+        usr:                        item.usr,
+        dash_type:                  item.type.dash_type,
+        github_token_url:           gh_token_url(item, source_module),
+        default_impl_abstract:      render_markdown(item.default_impl_abstract),
+        from_protocol_extension:    item.from_protocol_extension,
+        return:                     render_markdown(item.return),
+        parameters:                 (item.parameters if item.parameters.any?),
+        url:                        (item.url if item.children.any?),
+        start_line:                 item.start_line,
+        end_line:                   item.end_line,
       }
       item_render.reject { |_, v| v.nil? }
     end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jazzy (0.6.0)
+    jazzy (0.6.1)
       cocoapods (~> 0.39)
       mustache (~> 0.99)
       open4
@@ -71,7 +71,7 @@ GEM
       metaclass (~> 0.0.1)
     mocha-on-bacon (0.2.2)
       mocha (>= 0.13.0)
-    molinillo (0.4.4)
+    molinillo (0.4.5)
     mustache (0.99.8)
     nap (1.1.0)
     netrc (0.7.8)
