@@ -450,10 +450,12 @@ module Jazzy
     # - inlined code within docs
     # - method signatures after they've been processed by the highlighter
     #
-    # The `highlighted` flag is used to differentiate between the two modes.
-    def self.autolink_text(text, doc, root_decls, highlighted = false)
+    # The `after_highlight` flag is used to differentiate between the two modes.
+    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
+    def self.autolink_text(text, doc, root_decls, after_highlight = false)
       start_tag_re, end_tag_re =
-        if highlighted
+        if after_highlight
           [/<span class="(?:n|kt)">/, '</span>']
         else
           ['<code>', '</code>']
@@ -484,13 +486,23 @@ module Jazzy
         end
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/MethodLength
 
     def self.autolink(docs, root_decls)
       docs.each do |doc|
-        doc.abstract = autolink_text(doc.abstract, doc, root_decls)
-        doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.children = autolink(doc.children, root_decls)
-        doc.declaration = autolink_text(doc.declaration, doc, root_decls, true) if doc.declaration
+
+        doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
+        doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+
+        doc.declaration = autolink_text(
+          doc.declaration, doc, root_decls, true
+        ) if doc.declaration
+
+        doc.other_language_declaration = autolink_text(
+          doc.other_language_declaration, doc, root_decls, true
+        ) if doc.other_language_declaration
       end
     end
 
