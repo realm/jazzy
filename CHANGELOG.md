@@ -23,7 +23,11 @@
 
 ##### Enhancements
 
-* Objective-C documentation now also includes Swift declarations.  
+* `--exclude` flag now supports excluding directories in addition to files.  
+  [Gurrinder](https://github.com/gurrinder)
+  [#503](https://github.com/realm/jazzy/issues/503)
+
+* Objective-C documentation now also includes Swift declarations.
   [JP Simard](https://github.com/jpsim)
   [#136](https://github.com/realm/jazzy/issues/136)
 * Default to the Xcode version selected in `xcode-select` if no Swift version is
