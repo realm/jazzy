@@ -209,6 +209,18 @@ Instructions to build SourceKitten from source can be found at
 
 This project is released under the [MIT license](https://github.com/realm/jazzy/blob/master/LICENSE).
 
+## About
+
+<img src="realm.png" width="184" />
+
+Jazzy is maintained and funded by Realm Inc. The names and logos for
+Realm are trademarks of Realm Inc.
+
+We :heart: open source software!
+See [our other open source projects](https://github.com/realm),
+read [our blog](https://realm.io/news) or say hi on twitter
+([@realm](https://twitter.com/realm)).
+
 [clang]: http://clang.llvm.org "Clang"
 [sourcekit]: http://www.jpsim.com/uncovering-sourcekit "Uncovering SourceKit"
 [ast]: http://clang.llvm.org/docs/IntroductionToTheClangAST.html "Introduction To The Clang AST"
