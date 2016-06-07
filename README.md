@@ -19,6 +19,10 @@ of Apple’s official reference documentation, post WWDC 2014.
 
 ![Screenshot](screenshot.jpg)
 
+This project adheres to the [Contributor Covenant Code of Conduct](https://realm.io/conduct).
+By participating, you are expected to uphold this code. Please report
+unacceptable behavior to [info@realm.io](mailto:info@realm.io).
+
 ## Requirements
 
 * A version of [Xcode][xcode] (6.x or 7.x) capable of building the project 

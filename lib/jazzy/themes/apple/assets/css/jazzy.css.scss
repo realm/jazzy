@@ -224,6 +224,7 @@ header {
 .nav-group-task {
   font-size: 0.9em;
   list-style-type: none;
+  white-space: nowrap;
   a {
     color: #888;
   }

@@ -1,3 +1,3 @@
 module Jazzy
-  VERSION = '0.6.1'.freeze unless defined? Jazzy::VERSION
+  VERSION = '0.6.2'.freeze unless defined? Jazzy::VERSION
 end

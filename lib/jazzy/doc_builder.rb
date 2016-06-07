@@ -31,8 +31,14 @@ module Jazzy
       docs.map do |doc|
         children = doc.children
                       .sort_by { |c| [c.nav_order, c.name] }
-                      .map do |child|
-          { name: child.name, url: child.url }
+                      .flat_map do |child|
+          # FIXME: include arbitrarily nested extensible types
+          [{ name: child.name, url: child.url }] +
+            Array(child.children.select do |sub_child|
+              sub_child.type.swift_extensible?
+            end).map do |sub_child|
+              { name: "– #{sub_child.name}", url: sub_child.url }
+            end
         end
         {
           section: doc.name,
