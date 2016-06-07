@@ -1,3 +1,19 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* `--exclude` flag now supports excluding directories in addition to files.  
+  [Gurrinder](https://github.com/gurrinder)
+  [#503](https://github.com/realm/jazzy/issues/503)
+
+##### Bug Fixes
+
+* None.
+
 ## 0.6.2
 
 ##### Breaking
@@ -10,6 +26,17 @@
   navigation bar.  
   [JP Simard](https://github.com/jpsim)
   [#64](https://github.com/realm/jazzy/issues/64)
+
+* Extra markdown documentation can now be included as their own pages in the
+  sidebar using the `--documentation` option and in the generated Dash docset
+  as Guides.  
+  [Karl Bowden](https://github.com/agentk)
+  [#435](https://github.com/realm/jazzy/issues/435)
+
+* Section headings can now include additional markdown content using the
+  `--abstract` option.  
+  [Karl Bowden](https://github.com/agentk)
+  [#435](https://github.com/realm/jazzy/issues/435)
 
 ##### Bug Fixes
 

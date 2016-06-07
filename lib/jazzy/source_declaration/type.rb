@@ -102,8 +102,13 @@ module Jazzy
       end
 
       TYPES = {
-        # Objective-C
+        # Markdown
+        'document.markdown' => {
+          jazzy: 'Guide',
+          dash: 'Guide',
+        }.freeze,
 
+        # Objective-C
         'sourcekitten.source.lang.objc.decl.unexposed' => {
           jazzy: 'Unexposed',
           dash: 'Unexposed',

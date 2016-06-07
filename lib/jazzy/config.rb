@@ -150,8 +150,8 @@ module Jazzy
       parse: ->(sd) { expand_path(sd) }
 
     config_attr :excluded_files,
-      command_line: ['-e', '--exclude file1,file2,…fileN', Array],
-      description: 'Files to be excluded from documentation',
+      command_line: ['-e', '--exclude file1,file2,directory3,…fileN', Array],
+      description: 'Files/directories to be excluded from documentation',
       default: [],
       parse: ->(files) do
         Array(files).map { |f| expand_path(f) }
@@ -196,6 +196,16 @@ module Jazzy
       command_line: '--readme FILEPATH',
       description: 'The path to a markdown README file',
       parse: ->(rp) { expand_path(rp) }
+
+    config_attr :documentation_glob,
+      command_line: '--documentation GLOB',
+      description: 'Glob that matches available documentation',
+      parse: ->(dg) { Pathname.glob(dg) }
+
+    config_attr :abstract_glob,
+      command_line: '--abstract GLOB',
+      description: 'Glob that matches available abstracts for categories',
+      parse: ->(ag) { Pathname.glob(ag) }
 
     config_attr :podspec,
       command_line: '--podspec FILEPATH',

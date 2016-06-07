@@ -413,7 +413,7 @@ module Jazzy
       excluded_files = Config.instance.excluded_files
       json.map do |doc|
         key = doc.keys.first
-        doc[key] unless excluded_files.include?(Pathname(key))
+        doc[key] unless excluded_files.detect { |f| File.fnmatch?(key, f) }
       end.compact
     end
 
@@ -524,11 +524,11 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    def self.parse(sourcekitten_output, min_acl, skip_undocumented)
+    def self.parse(sourcekitten_output, min_acl, skip_undocumented, inject_docs)
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
-      docs = make_source_declarations(sourcekitten_json)
+      docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = deduplicate_declarations(docs)
       if Config.instance.objc_mode
         docs = reject_objc_enum_typedefs(docs)
