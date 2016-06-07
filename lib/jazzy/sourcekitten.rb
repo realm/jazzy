@@ -477,7 +477,9 @@ module Jazzy
         # Traverse children via subsequence components, if any
         link_target = name_traversal(parts, name_root)
 
-        if link_target && link_target.url && link_target.url != doc.url
+        if link_target && 
+           !link_target.type.extension? &&
+           link_target.url && link_target.url != doc.url
           start_tag +
             "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
             raw_name + '</a>' + end_tag
