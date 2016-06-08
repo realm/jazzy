@@ -453,6 +453,7 @@ module Jazzy
     # The `after_highlight` flag is used to differentiate between the two modes.
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
     def self.autolink_text(text, doc, root_decls, after_highlight = false)
       start_tag_re, end_tag_re =
         if after_highlight
@@ -477,9 +478,9 @@ module Jazzy
         # Traverse children via subsequence components, if any
         link_target = name_traversal(parts, name_root)
 
-        if link_target && 
+        if link_target &&
            !link_target.type.extension? &&
-           link_target.url && 
+           link_target.url &&
            link_target.url != doc.url.split('#').first
           start_tag +
             "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
@@ -489,6 +490,7 @@ module Jazzy
         end
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength
 
