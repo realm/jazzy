@@ -49,8 +49,15 @@ require 'colored'
 require 'CLIntegracon'
 
 require 'cocoapods'
-Pod::Config.instance.silent = true
-Pod::Command::Setup.invoke
+Pod::Config.instance.with_changes(silent: true) do
+  config = Pod::Config.instance
+  # working around a bug where `pod setup --silent` isn't silent
+  if config.sources_manager.master_repo_functional?
+    Pod::Command::Repo::Update.invoke(%w(master))
+  else
+    Pod::Command::Setup.invoke
+  end
+end
 
 CLIntegracon.configure do |c|
   c.spec_path = ROOT + 'spec/integration_specs'
