@@ -10,6 +10,9 @@
   [Gurrinder](https://github.com/gurrinder)
   [#503](https://github.com/realm/jazzy/issues/503)
 
+* The `cocoapods` gem was updated to 1.0.1 and `rouge` to 1.11.0.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * None.
