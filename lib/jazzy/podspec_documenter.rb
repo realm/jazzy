@@ -10,17 +10,25 @@ module Jazzy
     end
 
     def sourcekitten_output
-      sandbox = Pod::Sandbox.new(pod_config.sandbox_root)
-      installer = Pod::Installer.new(sandbox, podfile)
-      installer.install!
-      stdout = Dir.chdir(sandbox.root) do
-        pod_targets.map do |t|
-          SourceKitten.run_sourcekitten(
-            %W(doc --module-name #{podspec.module_name} -- -target #{t}),
-          )
+      installation_root = Pathname(Dir.mktmpdir(['jazzy', podspec.name]))
+      installation_root.rmtree if installation_root.exist?
+      Pod::Config.instance.with_changes(installation_root: installation_root) do
+        sandbox = Pod::Sandbox.new(Pod::Config.instance.sandbox_root)
+        installer = Pod::Installer.new(sandbox, podfile)
+        installer.install!
+        stdout = Dir.chdir(sandbox.root) do
+          targets = installer.pod_targets
+            .select { |pt| pt.pod_name == podspec.root.name}
+            .map(&:label)
+
+          targets.map do |t|
+            SourceKitten.run_sourcekitten(
+              %W(doc --module-name #{podspec.module_name} -- -target #{t}),
+            )
+          end
         end
+        stdout.reduce([]) { |a, s| a + JSON.load(s) }.to_json
       end
-      stdout.reduce([]) { |a, s| a + JSON.load(s) }.to_json
     end
 
     def self.create_podspec(podspec_path)
@@ -82,18 +90,6 @@ module Jazzy
 
     # @!group SourceKitten output helper methods
 
-    attr_reader :pod_targets
-
-    def pod_config
-      Pod::Config.instance.tap do |c|
-        c.installation_root = Pathname(Dir.mktmpdir)
-        c.installation_root.rmtree if c.installation_root.exist?
-        c.integrate_targets = false
-        c.deduplicate_targets = false
-        c.deterministic_uuids = false
-      end
-    end
-
     def pod_path
       if podspec.defined_in_file
         podspec.defined_in_file.parent
@@ -105,19 +101,18 @@ module Jazzy
     def podfile
       podspec = @podspec
       path = pod_path
-      targets = (@pod_targets ||= [])
       @podfile ||= Pod::Podfile.new do
-        platform :ios, '8.0'
+        install! 'cocoapods',
+          integrate_targets: false,
+          deterministic_uuids: false
+
         [podspec, *podspec.recursive_subspecs].each do |ss|
           ss.available_platforms.each do |p|
             # Travis builds take too long when building docs for all available
             # platforms for the Moya integration spec, so we just document OSX.
             # TODO: remove once jazzy is fast enough.
-            next if ENV['JAZZY_INTEGRATION_SPECS'] &&
-                    !p.to_s.start_with?('OS X')
-            t = "Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}"
-            targets << "Pods-#{t}-#{ss.root.name}"
-            target(t) do
+            next if ENV['JAZZY_INTEGRATION_SPECS'] && p.name != :osx
+            target("Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}") do
               use_frameworks!
               platform p.name, p.deployment_target
               pod ss.name, path: path.realpath.to_s
