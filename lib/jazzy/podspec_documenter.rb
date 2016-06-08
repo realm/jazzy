@@ -18,8 +18,8 @@ module Jazzy
         installer.install!
         stdout = Dir.chdir(sandbox.root) do
           targets = installer.pod_targets
-            .select { |pt| pt.pod_name == podspec.root.name}
-            .map(&:label)
+                             .select { |pt| pt.pod_name == podspec.root.name }
+                             .map(&:label)
 
           targets.map do |t|
             SourceKitten.run_sourcekitten(
@@ -103,8 +103,8 @@ module Jazzy
       path = pod_path
       @podfile ||= Pod::Podfile.new do
         install! 'cocoapods',
-          integrate_targets: false,
-          deterministic_uuids: false
+                 integrate_targets: false,
+                 deterministic_uuids: false
 
         [podspec, *podspec.recursive_subspecs].each do |ss|
           ss.available_platforms.each do |p|
