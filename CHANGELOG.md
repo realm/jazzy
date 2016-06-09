@@ -11,7 +11,19 @@
   [#503](https://github.com/realm/jazzy/issues/503)
 
 * The `cocoapods` gem was updated to 1.0.1 and `rouge` to 1.11.0.  
-  [JP Simard](https://github.com/jpsim)
+  [Samuel Giddins](https://github.com/segiddins)
+  [#568](https://github.com/realm/jazzy/issues/568)
+
+* Extra markdown documentation can now be included as their own pages in the
+  sidebar using the `--documentation` option and in the generated Dash docset
+  as Guides.  
+  [Karl Bowden](https://github.com/agentk)
+  [#435](https://github.com/realm/jazzy/issues/435)
+
+* Section headings can now include additional markdown content using the
+  `--abstract` option.  
+  [Karl Bowden](https://github.com/agentk)
+  [#435](https://github.com/realm/jazzy/issues/435)
 
 ##### Bug Fixes
 
@@ -30,17 +42,6 @@
   [JP Simard](https://github.com/jpsim)
   [#64](https://github.com/realm/jazzy/issues/64)
 
-* Extra markdown documentation can now be included as their own pages in the
-  sidebar using the `--documentation` option and in the generated Dash docset
-  as Guides.  
-  [Karl Bowden](https://github.com/agentk)
-  [#435](https://github.com/realm/jazzy/issues/435)
-
-* Section headings can now include additional markdown content using the
-  `--abstract` option.  
-  [Karl Bowden](https://github.com/agentk)
-  [#435](https://github.com/realm/jazzy/issues/435)
-
 ##### Bug Fixes
 
 * None.
@@ -56,6 +57,7 @@
 * Objective-C documentation now also includes Swift declarations.  
   [JP Simard](https://github.com/jpsim)
   [#136](https://github.com/realm/jazzy/issues/136)
+
 * Default to the Xcode version selected in `xcode-select` if no Swift version is
   specified.  
   [Samuel Giddins](https://github.com/segiddins)
@@ -66,9 +68,11 @@
 * Uses GitHub-Flavored Markdown syntax for anchors when rendering README pages.  
   [Zachary Waldowski](https://github.com/zwaldowski)
   [#524](https://github.com/realm/jazzy/issues/524)
+
 * Fix crash when using unexposed declarations in Objective-C.  
   [JP Simard](https://github.com/jpsim)
   [#543](https://github.com/realm/jazzy/issues/543)
+
 * No longer document Swift extensions on types with an ACL lower than `min-acl`
   when they contain `MARK`s.  
   [JP Simard](https://github.com/jpsim)
@@ -84,10 +88,12 @@
   a complete list of changed options. As always, you can get a list of all
   options with `jazzy --help config`.  
   [Paul Cantrell](https://github.com/pcantrell)
+
 * Jazzy's undocumented.txt has been replaced with undocumented.json. This new
   format includes contextual information that one might use to lint
   documentation in an automated fashion.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
+
 * `--swift-version` now defaults to 2.2 instead of 2.1.1.  
   [Tamar Nachmany](https://github.com/tamarnachmany)
 
@@ -96,10 +102,12 @@
 * Add `--skip-documentation` flag. Skips site generation phase. `undocumented.json`
   is still generated.  
   [Jeff Verkoeyen](https://github.com/jverkoey)
+
 * Merge Objective-C categories into their parent type documentation to match
   Swift behavior.  
   [Esad Hajdarevic](https://github.com/esad)
   [#457](https://github.com/realm/jazzy/issues/457)
+
 * Add support for documenting Swift 2.2 `associatedtype`s and infix, postfix &
   prefix operators.  
   [JP Simard](https://github.com/jpsim)
