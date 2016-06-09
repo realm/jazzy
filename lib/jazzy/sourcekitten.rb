@@ -138,12 +138,12 @@ module Jazzy
         unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
           raise "Unable to find an Xcode with swift version #{swift_version}."
         end
+        env = xcode.as_env
       else
-        xcode = XCInvoke::Xcode.selected
+        env = ENV
       end
       bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
-      output, = Executable.execute_command(bin_path, arguments, true,
-                                           env: xcode.as_env)
+      output, = Executable.execute_command(bin_path, arguments, true, env: env)
       output
     end
 

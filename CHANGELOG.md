@@ -25,6 +25,21 @@
   [Karl Bowden](https://github.com/agentk)
   [#435](https://github.com/realm/jazzy/issues/435)
 
+* If Swift version is not specified, look for Swift toolchain or clang location
+  in the following order:
+
+    * `$XCODE_DEFAULT_TOOLCHAIN_OVERRIDE`
+    * `$TOOLCHAIN_DIR`
+    * `xcrun -find swift`
+    * `/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain`
+    * `/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain`
+    * `~/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain`
+    * `~/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain`
+
+  This will be especially useful once jazzy supports generating docs for
+  Swift Package Manager modules with a toolchain not tied to an Xcode release.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * Don't document clang-unexposed Objective-C declarations.  
