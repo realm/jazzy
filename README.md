@@ -138,7 +138,8 @@ directory.
 
 ### Guides
 
-| -- | -- |
+| Description | Command |
+| ---         | ---     |
 | Command line option | `--documentation={file pattern}` |
 | Example             | `--documentation=Docs/*.md` |
 | jazzy.yaml example  | `documentation: Docs/*.md` |
@@ -153,7 +154,8 @@ There are a few limitations:
 
 ### Section description abstracts
 
-| -- | -- |
+| Description | Command |
+| ---         | ---     |
 | Command line option | `--abstract={file pattern}` |
 | Example             | `--abstract=Docs/Sections/*.md` |
 | jazzy.yaml example  | `abstract: Docs/Sections/*.md` |
