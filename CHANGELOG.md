@@ -27,7 +27,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Don't document clang-unexposed Objective-C declarations.  
+  [JP Simard](https://github.com/jpsim)
+  [#573](https://github.com/realm/jazzy/issues/573)
 
 ## 0.6.2
 

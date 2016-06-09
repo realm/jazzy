@@ -88,6 +88,10 @@ module Jazzy
           kind == 'source.lang.swift.decl.var.local'
       end
 
+      def objc_unexposed?
+        kind == 'sourcekitten.source.lang.objc.decl.unexposed'
+      end
+
       def self.overview
         Type.new('Overview')
       end

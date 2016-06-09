@@ -479,7 +479,7 @@ module Jazzy
       end
     end
 
-    def self.reject_objc_enum_typedefs(docs)
+    def self.reject_objc_types(docs)
       enums = docs.flat_map do |doc|
         doc.children.select { |child| child.type.objc_enum? }.map(&:name)
       end
@@ -489,6 +489,7 @@ module Jazzy
         end
         doc
       end
+      docs.reject { |doc| doc.type.objc_unexposed? }
     end
 
     # Parse sourcekitten STDOUT output as JSON
@@ -501,7 +502,7 @@ module Jazzy
       docs = ungrouped_docs = deduplicate_declarations(docs)
       docs = group_docs(docs)
       if Config.instance.objc_mode
-        docs = reject_objc_enum_typedefs(docs)
+        docs = reject_objc_types(docs)
       else
         # Remove top-level enum cases because it means they have an ACL lower
         # than min_acl
