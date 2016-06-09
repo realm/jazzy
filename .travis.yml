@@ -7,7 +7,7 @@ git:
 before_install: git submodule update --init --recursive
 script: 
   - bundle exec rake spec
-  - bundle exec danger
+  - bundle exec danger || true
 notifications:
   email: false
   slack: realmio:vPdpsG9NLDo2DNlbqtcMAQuE
