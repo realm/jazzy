@@ -41,9 +41,8 @@ module Jazzy
           template = Pathname(__dir__) + 'docset_builder/info_plist.mustache'
           plist << Mustache.render(
             template.read,
-            bundle_identifier: source_module.name.downcase,
+            lowercase_name: source_module.name.downcase,
             name: source_module.name,
-            platform_family: config.docset_platform,
           )
         end
       end
