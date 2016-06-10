@@ -37,7 +37,7 @@ module Jazzy
           # FIXME: include arbitrarily nested extensible types
           [{ name: child.name, url: child.url }] +
             Array(child.children.select do |sub_child|
-              sub_child.type.swift_extensible?
+              sub_child.type.swift_extensible? || child.type.overview?
             end).map do |sub_child|
               { name: "– #{sub_child.name}", url: sub_child.url }
             end

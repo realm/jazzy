@@ -54,12 +54,27 @@ module Jazzy
     end
 
     def self.make_group(group, name, abstract)
+      return if group.empty?
+      group = group.group_by(&:name).flat_map do |sub_name, children|
+        if children.size == 1
+          children
+        elsif !children.empty?
+          children = children.each do |c|
+            c.name = "#{c.name}: #{c.typename}" if c.typename
+          end
+          overview_declaration(children, sub_name, "`#{sub_name}`: #{abstract}")
+        end
+      end.compact
+      overview_declaration(group, name, abstract)
+    end
+
+    def self.overview_declaration(children, name, abstract)
       SourceDeclaration.new.tap do |sd|
         sd.type     = SourceDeclaration::Type.overview
         sd.name     = name
         sd.abstract = abstract
-        sd.children = group
-      end unless group.empty?
+        sd.children = children
+      end
     end
 
     # rubocop:disable Metrics/MethodLength
