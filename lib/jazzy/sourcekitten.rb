@@ -516,10 +516,11 @@ module Jazzy
       enums = docs.map do |doc|
         [doc, doc.children]
       end.flatten.select { |child| child.type.objc_enum? }.map(&:name)
-      docs.each do |doc|
+      docs.map do |doc|
         doc.children = doc.children.reject do |child|
           child.type.objc_typedef? && enums.include?(child.name)
         end
+        doc
       end.reject do |doc|
         doc.type.objc_unexposed? ||
           (doc.type.objc_typedef? && enums.include?(doc.name))
