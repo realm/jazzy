@@ -96,6 +96,10 @@ module Jazzy
         Type.new('Overview')
       end
 
+      def overview?
+        kind == 'Overview'
+      end
+
       def hash
         kind.hash
       end
