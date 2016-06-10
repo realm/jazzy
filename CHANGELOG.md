@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+* The `docset_platform` option is no longer available. The module name will
+  now be used instead of `jazzy`.  
+  [JP Simard](https://github.com/jpsim)
+  [#423](https://github.com/realm/jazzy/issues/423)
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* None.
+
 ## 0.6.3
 
 ##### Breaking
