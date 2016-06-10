@@ -163,8 +163,8 @@ describe_cli 'jazzy' do
                             '-x -project,Alamofire.xcodeproj,-dry-run ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/3.1.1 ' \
-                            '--module-version 3.1.1 ' \
+                            'Alamofire/Alamofire/blob/3.4.0 ' \
+                            '--module-version 3.4.0 ' \
                             '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
                             '--skip-undocumented'
     end
@@ -196,8 +196,7 @@ describe_cli 'jazzy' do
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
-      behaves_like cli_spec 'misc_jazzy_features',
-                            '-x -dry-run --theme fullwidth'
+      behaves_like cli_spec 'misc_jazzy_features'
     end
   end if !travis_swift || travis_swift == '2.2'
 end

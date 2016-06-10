@@ -138,12 +138,12 @@ module Jazzy
         unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
           raise "Unable to find an Xcode with swift version #{swift_version}."
         end
+        env = xcode.as_env
       else
-        xcode = XCInvoke::Xcode.selected
+        env = ENV
       end
       bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
-      output, = Executable.execute_command(bin_path, arguments, true,
-                                           env: xcode.as_env)
+      output, = Executable.execute_command(bin_path, arguments, true, env: env)
       output
     end
 
@@ -512,7 +512,7 @@ module Jazzy
       end
     end
 
-    def self.reject_objc_enum_typedefs(docs)
+    def self.reject_objc_types(docs)
       enums = docs.map do |doc|
         [doc, doc.children]
       end.flatten.select { |child| child.type.objc_enum? }.map(&:name)
@@ -521,7 +521,8 @@ module Jazzy
           child.type.objc_typedef? && enums.include?(child.name)
         end
       end.reject do |doc|
-        doc.type.objc_typedef? && enums.include?(doc.name)
+        doc.type.objc_unexposed? ||
+          (doc.type.objc_typedef? && enums.include?(doc.name))
       end
     end
 
@@ -534,7 +535,7 @@ module Jazzy
       docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = deduplicate_declarations(docs)
       if Config.instance.objc_mode
-        docs = reject_objc_enum_typedefs(docs)
+        docs = reject_objc_types(docs)
       else
         # Remove top-level enum cases because it means they have an ACL lower
         # than min_acl

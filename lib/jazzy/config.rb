@@ -212,8 +212,6 @@ module Jazzy
       parse: ->(ps) { PodspecDocumenter.create_podspec(Pathname(ps)) if ps },
       default: Dir['*.podspec{,.json}'].first
 
-    config_attr :docset_platform, default: 'jazzy'
-
     config_attr :docset_icon,
       command_line: '--docset-icon FILEPATH',
       parse: ->(di) { expand_path(di) }

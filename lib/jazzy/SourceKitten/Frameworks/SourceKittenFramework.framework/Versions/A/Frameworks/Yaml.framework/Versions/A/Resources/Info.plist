@@ -7,13 +7,13 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
-	<string>SWXMLHash</string>
+	<string>Yaml</string>
 	<key>CFBundleIdentifier</key>
-	<string>drmohundro.SWXMLHash</string>
+	<string>behrang.Yaml</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>SWXMLHash</string>
+	<string>Yaml</string>
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
@@ -40,10 +40,5 @@
 	<string>0731</string>
 	<key>DTXcodeBuild</key>
 	<string>7D1014</string>
-	<key>UIDeviceFamily</key>
-	<array>
-		<integer>1</integer>
-		<integer>2</integer>
-	</array>
 </dict>
 </plist>
