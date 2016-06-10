@@ -482,7 +482,7 @@ module Jazzy
            !link_target.type.extension? &&
            link_target.url &&
            link_target.url != doc.url.split('#').first && # Don't link to parent
-           link_target.url != doc.url # Do not link to self
+           link_target.url != doc.url # Don't link to self
           start_tag +
             "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
             raw_name + '</a>' + end_tag
