@@ -9,7 +9,10 @@
 
 ##### Enhancements
 
-* None.
+* Improved auto-linking behavior to link declarations within declarations and
+  fix cases where declarations would link to themselves or their current page.  
+  [Esad Hajdarevic](https://github.com/esad)
+  [#483](https://github.com/realm/jazzy/issues/483)
 
 ##### Bug Fixes
 

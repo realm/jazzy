@@ -60,6 +60,9 @@ TrailingCommaInArguments:
 Style/SpecialGlobalVars:
   Enabled: false
 
+Style/MultilineBlockChain:
+  Enabled: false
+
 # We prefer explicit `a, _ = arr` to `a, = arr` (which could be misread as a stray comma)
 Style/TrailingUnderscoreVariable:
   Enabled: false
