@@ -16,11 +16,19 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix issue where single-line declaration + bodies in Swift would include the
+  body in the parsed declaration.  
+  [JP Simard](https://github.com/jpsim)
+  [#226](https://github.com/realm/jazzy/issues/226)
 
 * Fix issue where some sections would become empty when using custom groups.  
   [JP Simard](https://github.com/jpsim)
   [#475](https://github.com/realm/jazzy/issues/475)
+
+* Fix issue where directories ending with `.swift` would be considered Swift
+  source files.  
+  [JP Simard](https://github.com/jpsim)
+  [#586](https://github.com/realm/jazzy/issues/586)
 
 ## 0.6.3
 
