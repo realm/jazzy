@@ -18,6 +18,10 @@
 
 * None.
 
+* Fix issue where some sections would become empty when using custom groups.  
+  [JP Simard](https://github.com/jpsim)
+  [#475](https://github.com/realm/jazzy/issues/475)
+
 ## 0.6.3
 
 ##### Breaking

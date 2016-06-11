@@ -54,6 +54,7 @@ module Jazzy
     end
 
     def self.make_group(group, name, abstract)
+      group.reject! { |doc| doc.name.empty? }
       SourceDeclaration.new.tap do |sd|
         sd.type     = SourceDeclaration::Type.overview
         sd.name     = name
