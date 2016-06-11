@@ -16,7 +16,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix issue where directories ending with `.swift` would be considered Swift
+  source files.  
+  [JP Simard](https://github.com/jpsim)
+  [#586](https://github.com/realm/jazzy/issues/586)
 
 * Fix issue where some sections would become empty when using custom groups.  
   [JP Simard](https://github.com/jpsim)
