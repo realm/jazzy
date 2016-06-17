@@ -159,7 +159,7 @@ module Jazzy
         }.freeze,
         'sourcekitten.source.lang.objc.decl.typedef' => {
           jazzy: 'Type Definition',
-          dash: 'Alias',
+          dash: 'Type',
         }.freeze,
         'sourcekitten.source.lang.objc.mark' => {
           jazzy: 'Mark',
