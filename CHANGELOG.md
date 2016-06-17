@@ -7,6 +7,8 @@
   [William Meleyal](https://github.com/meleyal)
   [#438](https://github.com/realm/jazzy/issues/438)
 
+* Renamed Dash typedef type from "Alias" to "Type"
+
 ## 0.7.0
 
 ##### Breaking
