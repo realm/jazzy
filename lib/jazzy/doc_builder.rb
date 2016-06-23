@@ -182,7 +182,7 @@ module Jazzy
           warnings: warnings.sort_by do |w|
             [w[:file], w[:line] || 0]
           end,
-          source_directory: options.source_directory
+          source_directory: options.source_directory,
         }
         f.write(JSON.pretty_generate(lint_report))
       end

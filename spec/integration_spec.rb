@@ -71,7 +71,8 @@ CLIntegracon.configure do |c|
 
   # Remove absolute paths from output
   c.transform_produced '**/undocumented.json' do |path|
-    File.write(path,
+    File.write(
+      path,
       File.read(path).gsub(
         (ROOT + 'tmp').to_s,
         '<TMP>'))
