@@ -161,43 +161,15 @@ module Jazzy
       end
     end
 
-    def self.decl_for_token(token)
-      if token['key.parsed_declaration']
-        token['key.parsed_declaration']
-      elsif token['key.annotated_decl']
-        token['key.annotated_decl'].gsub(/<[^>]+>/, '')
-      elsif token['key.name']
-        token['key.name']
-      else
-        'unknown declaration'
-      end
-    end
-
-    def self.filepath_for_token(token)
-      if ENV['JAZZY_INTEGRATION_SPECS']
-        Pathname.new(token['key.filepath']).basename.to_s
-      else
-        token['key.filepath']
-      end
-    end
-
-    def self.line_number_for_token(token)
-      if token['key.doc.line']
-        token['key.doc.line'] # Objective-C
-      else
-        token['key.parsed_scope.start'] # Swift
-      end
-    end
-
-    def self.warnings_for_tokens(tokens_by_file)
+    def self.warnings_for_declarations(decls_by_file)
       warnings = []
-      tokens_by_file.each_key do |file|
-        tokens_by_file[file].each do |token|
+      decls_by_file.each_key do |file|
+        decls_by_file[file].each do |decl|
           warnings << {
-            file: filepath_for_token(token),
-            line: line_number_for_token(token),
-            symbol: token['key.name'],
-            symbol_kind: token['key.kind'],
+            file: decl.file.basename,
+            line: decl.line || decl.start_line,
+            symbol: decl.name,
+            symbol_kind: decl.type.kind,
             warning: 'undocumented',
           }
         end
@@ -207,15 +179,11 @@ module Jazzy
 
     def self.write_lint_report(undocumented, options)
       (options.output + 'undocumented.json').open('w') do |f|
-        tokens_by_file = undocumented.group_by do |d|
-          if d['key.filepath']
-            Pathname.new(d['key.filepath']).basename.to_s
-          else
-            d['key.modulename'] || ''
-          end
+        decls_by_file = undocumented.group_by do |d|
+          d.file.basename
         end
 
-        warnings = warnings_for_tokens(tokens_by_file)
+        warnings = warnings_for_declarations(decls_by_file)
 
         lint_report = {
           warnings: warnings,

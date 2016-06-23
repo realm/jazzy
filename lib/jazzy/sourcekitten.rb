@@ -15,7 +15,7 @@ module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
     @documented_count = 0
-    @undocumented_tokens = []
+    @undocumented_decls = []
 
     # Group root-level docs by custom categories (if any) and type
     def self.group_docs(docs)
@@ -150,8 +150,8 @@ module Jazzy
 
     def self.make_default_doc_info(declaration)
       # @todo: Fix these
-      declaration.line = 0
-      declaration.column = 0
+      declaration.line = nil
+      declaration.column = nil
       declaration.abstract = 'Undocumented'
       declaration.parameters = []
       declaration.children = []
@@ -186,7 +186,7 @@ module Jazzy
       filepath = doc['key.filepath']
       objc = Config.instance.objc_mode
       if filepath && (filepath.start_with?(source_directory) || objc)
-        @undocumented_tokens << doc
+        @undocumented_decls << declaration
       end
       return nil if !documented_child?(doc) && @skip_undocumented
       make_default_doc_info(declaration)
@@ -222,12 +222,11 @@ module Jazzy
     # rubocop:disable Metrics/PerceivedComplexity
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
+
       unless doc['key.doc.full_as_xml']
         return process_undocumented_token(doc, declaration)
       end
 
-      declaration.line = doc['key.doc.line']
-      declaration.column = doc['key.doc.column']
       declaration.declaration = Highlighter.highlight(
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
         Config.instance.objc_mode ? 'objc' : 'swift',
@@ -237,6 +236,7 @@ module Jazzy
           doc['key.swift_declaration'], 'swift'
         )
       end
+
       declaration.abstract = Jazzy.markdown.render(doc['key.doc.comment'] || '')
       declaration.discussion = ''
       declaration.return = make_paragraphs(doc, 'key.doc.result_discussion')
@@ -291,11 +291,14 @@ module Jazzy
         end
 
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
-        declaration.usr  = doc['key.usr']
+        declaration.usr = doc['key.usr']
+        declaration.modulename = doc['key.modulename']
         declaration.name = doc['key.name']
         declaration.mark = current_mark
         declaration.access_control_level =
           SourceDeclaration::AccessControlLevel.from_doc(doc)
+        declaration.line = doc['key.doc.line']
+        declaration.column = doc['key.doc.column']
         declaration.start_line = doc['key.parsed_scope.start']
         declaration.end_line = doc['key.parsed_scope.end']
 
@@ -310,9 +313,9 @@ module Jazzy
     # rubocop:enable Metrics/MethodLength
 
     def self.doc_coverage
-      return 0 if @documented_count == 0 && @undocumented_tokens.count == 0
+      return 0 if @documented_count == 0 && @undocumented_decls.count == 0
       (100 * @documented_count) /
-        (@undocumented_tokens.count + @documented_count)
+        (@undocumented_decls.count + @documented_count)
     end
 
     # Merges multiple extensions of the same entity into a single document.
@@ -547,7 +550,7 @@ module Jazzy
       docs = group_docs(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
-      [docs, doc_coverage, @undocumented_tokens]
+      [docs, doc_coverage, @undocumented_decls]
     end
   end
 end
