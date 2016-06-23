@@ -180,7 +180,7 @@ module Jazzy
 
         lint_report = {
           warnings: warnings.sort_by do |w|
-            [w[:file], w[:line] || 0]
+            [w[:file], w[:line] || 0, w[:symbol_qualified]]
           end,
           source_directory: options.source_directory,
         }
