@@ -166,7 +166,7 @@ module Jazzy
       decls_by_file.each_key do |file|
         decls_by_file[file].each do |decl|
           warnings << {
-            file: decl.file.basename,
+            file: decl.file,
             line: decl.line || decl.start_line,
             symbol: decl.name,
             symbol_kind: decl.type.kind,
@@ -187,12 +187,7 @@ module Jazzy
 
         lint_report = {
           warnings: warnings,
-          source_directory: (
-            if ENV['JAZZY_INTEGRATION_SPECS']
-              'Specs'
-            else
-              options.source_directory
-            end),
+          source_directory: options.source_directory
         }
         f.write(lint_report.to_json)
       end
