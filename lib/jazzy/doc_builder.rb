@@ -169,6 +169,7 @@ module Jazzy
             file: decl.file,
             line: decl.line || decl.start_line,
             symbol: decl.name,
+            symbol_qualified: decl.fully_qualified_name,
             symbol_kind: decl.type.kind,
             warning: 'undocumented',
           }
