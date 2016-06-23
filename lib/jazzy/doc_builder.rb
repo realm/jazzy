@@ -161,33 +161,27 @@ module Jazzy
       end
     end
 
-    def self.warnings_for_declarations(decls_by_file)
-      warnings = []
-      decls_by_file.each_key do |file|
-        decls_by_file[file].each do |decl|
-          warnings << {
-            file: decl.file,
-            line: decl.line || decl.start_line,
-            symbol: decl.name,
-            symbol_qualified: decl.fully_qualified_name,
-            symbol_kind: decl.type.kind,
-            warning: 'undocumented',
-          }
-        end
+    def self.undocumented_warnings(decls)
+      decls.map do |decl|
+        {
+          file: decl.file,
+          line: decl.line || decl.start_line,
+          symbol: decl.name,
+          symbol_qualified: decl.fully_qualified_name,
+          symbol_kind: decl.type.kind,
+          warning: 'undocumented',
+        }
       end
-      warnings
     end
 
     def self.write_lint_report(undocumented, options)
       (options.output + 'undocumented.json').open('w') do |f|
-        decls_by_file = undocumented.group_by do |d|
-          d.file.basename
-        end
-
-        warnings = warnings_for_declarations(decls_by_file)
+        warnings = undocumented_warnings(undocumented)
 
         lint_report = {
-          warnings: warnings,
+          warnings: warnings.sort_by do |w|
+            [w[:file], w[:line] || 0]
+          end,
           source_directory: options.source_directory
         }
         f.write(JSON.pretty_generate(lint_report))
