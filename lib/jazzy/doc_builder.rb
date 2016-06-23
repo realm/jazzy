@@ -189,7 +189,7 @@ module Jazzy
           warnings: warnings,
           source_directory: options.source_directory
         }
-        f.write(lint_report.to_json)
+        f.write(JSON.pretty_generate(lint_report))
       end
     end
 
