@@ -32,7 +32,7 @@ module Jazzy
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
         children = doc.children
-                      .sort_by { |c| [c.nav_order, c.name] }
+                      .sort_by { |c| [c.nav_order, c.name, c.usr] }
                       .flat_map do |child|
           # FIXME: include arbitrarily nested extensible types
           [{ name: child.name, url: child.url }] +
@@ -180,7 +180,7 @@ module Jazzy
 
         lint_report = {
           warnings: warnings.sort_by do |w|
-            [w[:file], w[:line] || 0, w[:symbol_qualified]]
+            [w[:file], w[:line] || 0, w[:symbol_qualified], w[:symbol_kind]]
           end,
           source_directory: options.source_directory,
         }
