@@ -7,6 +7,11 @@
   [William Meleyal](https://github.com/meleyal)
   [#438](https://github.com/realm/jazzy/issues/438)
 
+* The lint report in `undocumented.json` is more human-readable: includes fully
+  qualified symbol names, pretty printed.  
+  [Paul Cantrell](https://github.com/pcantrell)
+  [#598](https://github.com/realm/jazzy/issues/598)
+
 ## 0.7.0
 
 ##### Breaking
