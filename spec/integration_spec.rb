@@ -69,6 +69,15 @@ CLIntegracon.configure do |c|
   c.ignores %r{^(?!(docs/|execution_output.txt))}
   c.ignores '*.tgz'
 
+  # Remove absolute paths from output
+  c.transform_produced '**/undocumented.json' do |path|
+    File.write(
+      path,
+      File.read(path).gsub(
+        (ROOT + 'tmp').to_s,
+        '<TMP>'))
+  end
+
   # Transform produced databases to csv
   c.transform_produced '**/*.dsidx' do |path|
     File.open("#{path}.csv", 'w') do |file|

@@ -32,7 +32,7 @@ module Jazzy
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
         children = doc.children
-                      .sort_by { |c| [c.nav_order, c.name] }
+                      .sort_by { |c| [c.nav_order, c.name, c.usr] }
                       .flat_map do |child|
           # FIXME: include arbitrarily nested extensible types
           [{ name: child.name, url: child.url }] +
@@ -161,72 +161,29 @@ module Jazzy
       end
     end
 
-    def self.decl_for_token(token)
-      if token['key.parsed_declaration']
-        token['key.parsed_declaration']
-      elsif token['key.annotated_decl']
-        token['key.annotated_decl'].gsub(/<[^>]+>/, '')
-      elsif token['key.name']
-        token['key.name']
-      else
-        'unknown declaration'
+    def self.undocumented_warnings(decls)
+      decls.map do |decl|
+        {
+          file: decl.file,
+          line: decl.line || decl.start_line,
+          symbol: decl.fully_qualified_name,
+          symbol_kind: decl.type.kind,
+          warning: 'undocumented',
+        }
       end
-    end
-
-    def self.filepath_for_token(token)
-      if ENV['JAZZY_INTEGRATION_SPECS']
-        Pathname.new(token['key.filepath']).basename.to_s
-      else
-        token['key.filepath']
-      end
-    end
-
-    def self.line_number_for_token(token)
-      if token['key.doc.line']
-        token['key.doc.line'] # Objective-C
-      else
-        token['key.parsed_scope.start'] # Swift
-      end
-    end
-
-    def self.warnings_for_tokens(tokens_by_file)
-      warnings = []
-      tokens_by_file.each_key do |file|
-        tokens_by_file[file].each do |token|
-          warnings << {
-            file: filepath_for_token(token),
-            line: line_number_for_token(token),
-            symbol: token['key.name'],
-            symbol_kind: token['key.kind'],
-            warning: 'undocumented',
-          }
-        end
-      end
-      warnings
     end
 
     def self.write_lint_report(undocumented, options)
       (options.output + 'undocumented.json').open('w') do |f|
-        tokens_by_file = undocumented.group_by do |d|
-          if d['key.filepath']
-            Pathname.new(d['key.filepath']).basename.to_s
-          else
-            d['key.modulename'] || ''
-          end
-        end
-
-        warnings = warnings_for_tokens(tokens_by_file)
+        warnings = undocumented_warnings(undocumented)
 
         lint_report = {
-          warnings: warnings,
-          source_directory: (
-            if ENV['JAZZY_INTEGRATION_SPECS']
-              'Specs'
-            else
-              options.source_directory
-            end),
+          warnings: warnings.sort_by do |w|
+            [w[:file], w[:line] || 0, w[:symbol], w[:symbol_kind]]
+          end,
+          source_directory: options.source_directory,
         }
-        f.write(lint_report.to_json)
+        f.write(JSON.pretty_generate(lint_report))
       end
     end
 

@@ -60,6 +60,7 @@ module Jazzy
     attr_accessor :line
     attr_accessor :column
     attr_accessor :usr
+    attr_accessor :modulename
     attr_accessor :name
     attr_accessor :declaration
     attr_accessor :other_language_declaration
