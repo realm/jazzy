@@ -166,8 +166,7 @@ module Jazzy
         {
           file: decl.file,
           line: decl.line || decl.start_line,
-          symbol: decl.name,
-          symbol_qualified: decl.fully_qualified_name,
+          symbol: decl.fully_qualified_name,
           symbol_kind: decl.type.kind,
           warning: 'undocumented',
         }
@@ -180,7 +179,7 @@ module Jazzy
 
         lint_report = {
           warnings: warnings.sort_by do |w|
-            [w[:file], w[:line] || 0, w[:symbol_qualified], w[:symbol_kind]]
+            [w[:file], w[:line] || 0, w[:symbol], w[:symbol_kind]]
           end,
           source_directory: options.source_directory,
         }
