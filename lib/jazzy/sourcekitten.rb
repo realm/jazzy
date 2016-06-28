@@ -170,6 +170,12 @@ module Jazzy
                         'objective-c', '-isysroot',
                         `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,
                         '-I', options.framework_root.to_s]
+          # add additional -I arguments for each subdirectory of framework_root
+          Pathname.new(options.framework_root.to_s).children.collect do |child|
+            if child.directory?
+              arguments += ['-I', child.to_s]
+            end
+          end
         end
       elsif !options.module_name.empty?
         arguments += ['--module-name', options.module_name, '--']
