@@ -2,6 +2,11 @@
 
 ##### Bug Fixes
 
+* Fix issue where header files are not found if inside subdirectories of the 
+  framework_root specified folder.
+  [Christopher Gretzki](https://github.com/gretzki)
+  [#518](https://github.com/realm/jazzy/issues/518)
+
 * Fix issue where jazzy could not be installed from Gemfile due to
   SourceKitten symlinks already being present.  
   [William Meleyal](https://github.com/meleyal)
