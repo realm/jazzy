@@ -115,6 +115,15 @@ module Jazzy
       end
     end
 
+    # returns all subdirectories of specified path
+    def self.rec_path(path)
+      path.children.collect do |child|
+        if child.directory?
+          rec_path(child) + [child]
+        end
+      end.select { |x| x }.flatten(1)
+    end
+
     # Builds SourceKitten arguments based on Jazzy options
     def self.arguments_from_options(options)
       arguments = ['doc']
@@ -125,7 +134,9 @@ module Jazzy
                         `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,
                         '-I', options.framework_root.to_s]
           # add additional -I arguments for each subdirectory of framework_root
-          Pathname.new(options.framework_root.to_s).children.collect do |child|
+        end
+        unless options.framework_root.nil?
+          rec_path(Pathname.new(options.framework_root.to_s)).collect do |child|
             if child.directory?
               arguments += ['-I', child.to_s]
             end
