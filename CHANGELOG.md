@@ -10,13 +10,18 @@
 
 ##### Bug Fixes
 
-* Fix issue where using a custom theme would crash jazzy when using Ruby 2.4.
+* Fix issue where using a custom theme would crash jazzy when using Ruby 2.4.  
   [Jason Wray](https://github.com/friedbunny)
   [#752](https://github.com/realm/jazzy/issues/752)
 
-* Fix support for Ruby 2.0.0.
+* Fix support for Ruby 2.0.0.  
   [Jason Wray](https://github.com/friedbunny)
   [#747](https://github.com/realm/jazzy/issues/747)
+
+* Fix issue where header files are not found if inside subdirectories of the
+  framework_root specified folder.  
+  [Christopher Gretzki](https://github.com/gretzki)
+  [#518](https://github.com/realm/jazzy/issues/518)
 
 ## 0.7.4
 
@@ -171,7 +176,7 @@
   [Shmuel Kallner](https://github.com/shmuelk)
   [#645](https://github.com/realm/jazzy/issues/645)
   [#646](https://github.com/realm/jazzy/issues/646)
- 
+
 ##### Bug Fixes
 
 * Fix issue where jazzy could not be installed from Gemfile due to
