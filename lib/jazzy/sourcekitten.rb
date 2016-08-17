@@ -417,7 +417,7 @@ module Jazzy
       excluded_files = Config.instance.excluded_files
       json.map do |doc|
         key = doc.keys.first
-        doc[key] unless excluded_files.detect { |f| File.fnmatch?(key, f) }
+        doc[key] unless excluded_files.detect { |exclude| File.fnmatch?(exclude, key) }
       end.compact
     end
 

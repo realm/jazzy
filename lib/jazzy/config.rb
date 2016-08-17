@@ -154,7 +154,7 @@ module Jazzy
       description: 'Files/directories to be excluded from documentation',
       default: [],
       parse: ->(files) do
-        Array(files).map { |f| expand_path(f) }
+        Array(files).map { |f| expand_path(f).to_s }
       end
 
     config_attr :swift_version,
