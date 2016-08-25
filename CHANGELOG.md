@@ -12,6 +12,10 @@
   [Paul Cantrell](https://github.com/pcantrell)
   [#598](https://github.com/realm/jazzy/issues/598)
 
+* The `exclude` option now properly supports wildcards.  
+  [Paul Cantrell](https://github.com/pcantrell)
+  [#640](https://github.com/realm/jazzy/issues/640)
+
 ## 0.7.0
 
 ##### Breaking

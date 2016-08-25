@@ -151,10 +151,11 @@ module Jazzy
 
     config_attr :excluded_files,
       command_line: ['-e', '--exclude file1,file2,directory3,…fileN', Array],
-      description: 'Files/directories to be excluded from documentation',
+      description: 'Files/directories to be excluded from documentation. '\
+                   'Supports wildcards.',
       default: [],
       parse: ->(files) do
-        Array(files).map { |f| expand_path(f) }
+        Array(files).map { |f| expand_path(f).to_s }
       end
 
     config_attr :swift_version,
