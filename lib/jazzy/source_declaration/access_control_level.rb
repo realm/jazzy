@@ -6,14 +6,18 @@ module Jazzy
       attr_reader :level
 
       ACCESSIBILITY_PRIVATE  = 'source.lang.swift.accessibility.private'.freeze
+      ACCESSIBILITY_FILEPRIVATE  = 'source.lang.swift.accessibility.fileprivate'.freeze
       ACCESSIBILITY_INTERNAL = 'source.lang.swift.accessibility.internal'.freeze
       ACCESSIBILITY_PUBLIC   = 'source.lang.swift.accessibility.public'.freeze
+      ACCESSIBILITY_OPEN   = 'source.lang.swift.accessibility.open'.freeze
 
       def initialize(accessibility)
         @level = case accessibility
                  when ACCESSIBILITY_PRIVATE then :private
+                 when ACCESSIBILITY_FILEPRIVATE then :fileprivate
                  when ACCESSIBILITY_INTERNAL then :internal
                  when ACCESSIBILITY_PUBLIC then :public
+                 when ACCESSIBILITY_OPEN then :open
                  else
                    raise 'cannot initialize AccessControlLevel with ' \
                      "'#{accessibility}'"
@@ -35,7 +39,9 @@ module Jazzy
       def self.from_explicit_declaration(declaration_string)
         case declaration_string
         when /private\ / then private
+        when /fileprivate\ / then fileprivate
         when /public\ / then public
+        when /open\ / then open
         when /internal\ / then internal
         end
       end
@@ -43,14 +49,20 @@ module Jazzy
       def self.from_human_string(string)
         case string.to_s.downcase
         when 'private' then private
+        when 'fileprivate' then fileprivate
         when 'internal' then internal
         when 'public' then public
+        when 'open' then open
         else raise "cannot initialize AccessControlLevel with '#{string}'"
         end
       end
 
       def self.private
         new(ACCESSIBILITY_PRIVATE)
+      end
+
+      def self.fileprivate
+        new(ACCESSIBILITY_FILEPRIVATE)
       end
 
       def self.internal
@@ -61,10 +73,16 @@ module Jazzy
         new(ACCESSIBILITY_PUBLIC)
       end
 
+      def self.open
+        new(ACCESSIBILITY_OPEN)
+      end
+
       LEVELS = {
         private: 0,
-        internal: 1,
-        public: 2,
+        fileprivate: 1,
+        internal: 2,
+        open: 3,
+        public: 4
       }.freeze
 
       def <=>(other)
