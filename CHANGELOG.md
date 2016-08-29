@@ -2,7 +2,7 @@
 
 ##### Enhancements
 
-* Added support for the new access control specifiers of fileprivate and open.
+* Added support for the new access control specifiers of fileprivate and open.  
  
 ##### Bug Fixes
 
