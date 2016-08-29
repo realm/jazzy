@@ -1,5 +1,9 @@
 ## Master
 
+##### Enhancements
+
+* Added support for the new access control specifiers of fileprivate and open.
+ 
 ##### Bug Fixes
 
 * Fix issue where jazzy could not be installed from Gemfile due to
