@@ -5,11 +5,12 @@ module Jazzy
 
       attr_reader :level
 
-      ACCESSIBILITY_PRIVATE  = 'source.lang.swift.accessibility.private'.freeze
-      ACCESSIBILITY_FILEPRIVATE  = 'source.lang.swift.accessibility.fileprivate'.freeze
+      ACCESSIBILITY_PRIVATE = 'source.lang.swift.accessibility.private'.freeze
+      ACCESSIBILITY_FILEPRIVATE =
+                     'source.lang.swift.accessibility.fileprivate'.freeze
       ACCESSIBILITY_INTERNAL = 'source.lang.swift.accessibility.internal'.freeze
-      ACCESSIBILITY_PUBLIC   = 'source.lang.swift.accessibility.public'.freeze
-      ACCESSIBILITY_OPEN   = 'source.lang.swift.accessibility.open'.freeze
+      ACCESSIBILITY_PUBLIC = 'source.lang.swift.accessibility.public'.freeze
+      ACCESSIBILITY_OPEN = 'source.lang.swift.accessibility.open'.freeze
 
       def initialize(accessibility)
         @level = case accessibility
