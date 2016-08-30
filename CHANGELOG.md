@@ -3,6 +3,9 @@
 ##### Enhancements
 
 * Added support for the new access control specifiers of fileprivate and open.  
+  [Shmuel Kallner](https://github.com/shmuelk)
+  [#645](https://github.com/realm/jazzy/issues/645)
+  [#646](https://github.com/realm/jazzy/issues/646)
  
 ##### Bug Fixes
 
