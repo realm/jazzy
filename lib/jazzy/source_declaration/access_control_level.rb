@@ -6,7 +6,7 @@ module Jazzy
       attr_reader :level
 
       ACCESSIBILITY_PRIVATE = 'source.lang.swift.accessibility.private'.freeze
-      ACCESSIBILITY_FILEPRIVATE =
+      ACCESSIBILITY_FILEPRIVATE = 
                      'source.lang.swift.accessibility.fileprivate'.freeze
       ACCESSIBILITY_INTERNAL = 'source.lang.swift.accessibility.internal'.freeze
       ACCESSIBILITY_PUBLIC = 'source.lang.swift.accessibility.public'.freeze
@@ -83,7 +83,7 @@ module Jazzy
         fileprivate: 1,
         internal: 2,
         open: 3,
-        public: 4
+        public: 4,
       }.freeze
 
       def <=>(other)
