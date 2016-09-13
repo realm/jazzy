@@ -1,4 +1,8 @@
-## Master
+## 0.7.1
+
+##### Breaking
+
+* None.
 
 ##### Enhancements
 
