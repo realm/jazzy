@@ -162,13 +162,15 @@ module Jazzy
       doc['key.substructure'].any? { |child| documented_child?(child) }
     end
 
-    def self.has_availability_attribute?(doc)
+    def self.availability_attribute?(doc)
       return false unless doc['key.attributes']
-      return doc['key.attributes'].select do |attribute|
+      !doc['key.attributes'].select do |attribute|
         attribute.values.first == 'source.decl.attribute.available'
-      end.length > 0
+      end.empty?
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
@@ -177,7 +179,7 @@ module Jazzy
 
       # Don't document @available declarations with no USR, since it means
       # they're unavailable.
-      if has_availability_attribute?(doc) && !doc['key.usr']
+      if availability_attribute?(doc) && !doc['key.usr']
         return false
       end
 
@@ -193,6 +195,8 @@ module Jazzy
 
       SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.process_undocumented_token(doc, declaration)
       source_directory = Config.instance.source_directory.to_s
