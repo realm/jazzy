@@ -162,11 +162,24 @@ module Jazzy
       doc['key.substructure'].any? { |child| documented_child?(child) }
     end
 
+    def self.has_availability_attribute?(doc)
+      return false unless doc['key.attributes']
+      return doc['key.attributes'].select do |attribute|
+        attribute.values.first == 'source.decl.attribute.available'
+      end.length > 0
+    end
+
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
       # Always document Objective-C declarations.
       return true if Config.instance.objc_mode
+
+      # Don't document @available declarations with no USR, since it means
+      # they're unavailable.
+      if has_availability_attribute?(doc) && !doc['key.usr']
+        return false
+      end
 
       # Document extensions & enum elements, since we can't tell their ACL.
       type = SourceDeclaration::Type.new(doc['key.kind'])

@@ -1,3 +1,20 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* Declarations marked `@available(..., unavailable, ...)` are no longer
+  documented.  
+  [JP Simard](https://github.com/jpsim)
+  [#654](https://github.com/realm/jazzy/issues/654)
+
 ## 0.7.1
 
 ##### Breaking
