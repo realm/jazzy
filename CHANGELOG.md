@@ -15,6 +15,9 @@
   [JP Simard](https://github.com/jpsim)
   [#654](https://github.com/realm/jazzy/issues/654)
 
+* Treat the `open` ACL as more public than `public`.  
+  [JP Simard](https://github.com/jpsim)
+
 ## 0.7.1
 
 ##### Breaking

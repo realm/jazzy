@@ -82,8 +82,8 @@ module Jazzy
         private: 0,
         fileprivate: 1,
         internal: 2,
-        open: 3,
-        public: 4,
+        public: 3,
+        open: 4,
       }.freeze
 
       def <=>(other)
