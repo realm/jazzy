@@ -57,7 +57,8 @@ module Jazzy
         stdout = options.sourcekitten_sourcefile.read
       else
         if options.podspec_configured
-          stdout = PodspecDocumenter.new(options.podspec).sourcekitten_output
+          pod_documenter = PodspecDocumenter.new(options.podspec)
+          stdout = pod_documenter.sourcekitten_output(options)
         else
           stdout = Dir.chdir(options.source_directory) do
             arguments = SourceKitten.arguments_from_options(options)
