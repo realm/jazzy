@@ -1,3 +1,14 @@
+## Master
+
+##### Enhancements
+
+* Podspec-based documentation will take trunk's `pushed_with_swift_version`
+  attribute into account when generating documentation by default.  
+  [Orta Therox](https://github.com/orta)
+
+* Podspec-based documentation respects the `swift-version` config option.  
+  [Orta Therox](https://github.com/orta)
+
 ## 0.7.2
 
 ##### Breaking
