@@ -1,19 +1,5 @@
 ## Master
 
-## 0.7.3
-
-##### Breaking
-
-* None.
-
-##### Enhancements
-
-* Updated Logo
-
-##### Bug Fixes
-
-* None.
-
 ##### Enhancements
 
 * Podspec-based documentation will take trunk's `pushed_with_swift_version`
