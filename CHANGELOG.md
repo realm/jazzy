@@ -13,10 +13,6 @@
 * Podspec-based documentation respects the `swift-version` config option.  
   [Orta Therox](https://github.com/orta)
 
-##### Enhancements
-
-* None.
-
 ##### Bug Fixes
 
 * Rename Dash typedef type from "Alias" to "Type".  
@@ -27,6 +23,22 @@
   platforms.  
   [JP Simard](https://github.com/jpsim)
   [#661](https://github.com/realm/jazzy/issues/661)
+
+
+## 0.7.23
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* Updated SourceKitten to 0.15.0.
+
+##### Bug Fixes
+
+* None.
+
 
 ## 0.7.2
 
@@ -60,7 +72,7 @@
   [Shmuel Kallner](https://github.com/shmuelk)
   [#645](https://github.com/realm/jazzy/issues/645)
   [#646](https://github.com/realm/jazzy/issues/646)
- 
+
 ##### Bug Fixes
 
 * Fix issue where jazzy could not be installed from Gemfile due to
