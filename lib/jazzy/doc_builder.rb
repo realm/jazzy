@@ -32,7 +32,7 @@ module Jazzy
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
         children = doc.children
-                      .sort_by { |c| [c.nav_order, c.name, c.usr] }
+                      .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
                       .flat_map do |child|
           # FIXME: include arbitrarily nested extensible types
           [{ name: child.name, url: child.url }] +

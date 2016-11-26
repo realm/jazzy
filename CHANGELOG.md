@@ -1,5 +1,9 @@
 ## Master
 
+##### Breaking
+
+* None.
+
 ##### Enhancements
 
 * Podspec-based documentation will take trunk's `pushed_with_swift_version`
@@ -17,6 +21,12 @@
 
 * Rename Dash typedef type from "Alias" to "Type".  
   [Bogdan Popescu](https://github.com/Kapeli)
+
+* Fix crash when sorting multiple identically named declarations with no USR,
+  which is very common when generating docs for podspecs supporting multiple
+  platforms.  
+  [JP Simard](https://github.com/jpsim)
+  [#661](https://github.com/realm/jazzy/issues/661)
 
 ## 0.7.2
 
