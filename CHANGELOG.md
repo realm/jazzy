@@ -9,6 +9,15 @@
 * Podspec-based documentation respects the `swift-version` config option.  
   [Orta Therox](https://github.com/orta)
 
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* Rename Dash typedef type from "Alias" to "Type".  
+  [Bogdan Popescu](https://github.com/Kapeli)
+
 ## 0.7.2
 
 ##### Breaking
