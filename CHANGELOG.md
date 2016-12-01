@@ -28,6 +28,12 @@
   [JP Simard](https://github.com/jpsim)
   [#661](https://github.com/realm/jazzy/issues/661)
 
+* Fix Xcode not being found when specifying a custom Swift version
+  (`--swift-version`).  
+  [Samuel Giddins](https://github.com/segiddins)
+  [Paul Cantrell](https://github.com/pcantrell)
+  [#656](https://github.com/realm/jazzy/issues/656)
+
 ## 0.7.2
 
 ##### Breaking
