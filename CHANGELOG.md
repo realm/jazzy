@@ -13,10 +13,6 @@
 * Podspec-based documentation respects the `swift-version` config option.  
   [Orta Therox](https://github.com/orta)
 
-##### Enhancements
-
-* None.
-
 ##### Bug Fixes
 
 * Rename Dash typedef type from "Alias" to "Type".  
@@ -27,6 +23,11 @@
   platforms.  
   [JP Simard](https://github.com/jpsim)
   [#661](https://github.com/realm/jazzy/issues/661)
+
+* Fix issue where existing abstracts for non custom sections would be
+  completely overwritten when using extra abstract injection with --abstract.  
+  [Thibaud Robelain](https://github.com/thibaudrobelain)
+  [#600](https://github.com/realm/jazzy/issues/600)
 
 ## 0.7.2
 
