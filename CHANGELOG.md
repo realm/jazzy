@@ -15,7 +15,12 @@
 
 ##### Enhancements
 
-* None.
+* Support Objective-C class properties.  
+  [Jérémie Girault](https://github.com/jeremiegirault)
+  [JP Simard](https://github.com/jpsim)
+
+* Support documenting Swift 3 operator precedence groups.  
+  [JP Simard](https://github.com/jpsim)
 
 ##### Bug Fixes
 
@@ -33,6 +38,10 @@
   [Samuel Giddins](https://github.com/segiddins)
   [Paul Cantrell](https://github.com/pcantrell)
   [#656](https://github.com/realm/jazzy/issues/656)
+
+* Fix crash when generating Objective-C docs for projects with "@" directives in
+  documentation comments with Xcode 8.1 or later.  
+  [Jérémie Girault](https://github.com/jeremiegirault)
 
 ## 0.7.2
 
