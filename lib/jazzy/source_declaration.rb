@@ -78,7 +78,7 @@ module Jazzy
     attr_accessor :nav_order
 
     def overview
-      alternative_abstract || "#{abstract}\n\n#{discussion}".strip
+      "#{alternative_abstract}\n\n#{abstract}\n\n#{discussion}".strip
     end
 
     def alternative_abstract

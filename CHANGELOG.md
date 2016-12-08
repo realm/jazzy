@@ -10,7 +10,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix issue where existing abstracts for non custom sections would be completely
+  overwritten when using extra abstract injection with --abstract.  
+  [Thibaud Robelain](https://github.com/thibaudrobelain)
+  [#600](https://github.com/realm/jazzy/issues/600)
 
 ## 0.7.3
 
