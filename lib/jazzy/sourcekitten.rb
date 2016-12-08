@@ -72,7 +72,7 @@ module Jazzy
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
             subdir_for_doc(doc) +
-            [doc.name + '.html']
+            [sanitize_doc_name(doc.name) + '.html']
           ).join('/')
           doc.children = make_doc_urls(doc.children)
         else
@@ -100,6 +100,13 @@ module Jazzy
       end
     end
     # rubocop:enable Metrics/MethodLength
+
+    # Sanitizes document name for using in URLS
+    def self.sanitize_doc_name(name)
+      # Replace question mark wich can be used as valid character in Swift operator
+      # to sequence which can't be used in  Swift functions
+      name.gsub("?", "q-")
+    end
 
     # Determine the subdirectory in which a doc should be placed
     def self.subdir_for_doc(doc)
