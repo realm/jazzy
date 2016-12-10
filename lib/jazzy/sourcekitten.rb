@@ -203,7 +203,9 @@ module Jazzy
       filepath = doc['key.filepath']
       objc = Config.instance.objc_mode
       if filepath && (filepath.start_with?(source_directory) || objc)
-        @undocumented_decls << declaration
+        if doc['key.kind'] != 'source.lang.swift.decl.generic_type_param'
+          @undocumented_decls << declaration
+        end
       end
       return nil if !documented_child?(doc) && @skip_undocumented
       make_default_doc_info(declaration)
