@@ -17,7 +17,7 @@
 
 * Fix issue where parameter and return callouts where duplicated in documentation.  
   [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
-  [#673]
+  [#673](https://github.com/realm/jazzy/issues/673)
 
 ## 0.7.3
 
