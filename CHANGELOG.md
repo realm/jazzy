@@ -15,6 +15,10 @@
   [Thibaud Robelain](https://github.com/thibaudrobelain)
   [#600](https://github.com/realm/jazzy/issues/600)
 
+* Fix issue where generic type parameters registered as undocumented symbols.  
+  [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
+  [#429](https://github.com/realm/jazzy/issues/429)
+
 ## 0.7.3
 
 ##### Breaking
