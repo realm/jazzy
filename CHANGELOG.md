@@ -15,6 +15,10 @@
   [Thibaud Robelain](https://github.com/thibaudrobelain)
   [#600](https://github.com/realm/jazzy/issues/600)
 
+* Fix issue where parameter and return callouts where duplicated in documentation.  
+  [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
+  [#673]
+
 ## 0.7.3
 
 ##### Breaking
