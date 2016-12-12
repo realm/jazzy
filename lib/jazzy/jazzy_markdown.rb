@@ -19,30 +19,32 @@ module Jazzy
       "<h#{header_level} id='#{text_slug}'>#{text}</h#{header_level}>\n"
     end
 
-    SPECIAL_LIST_TYPES = %w(Attention
-                            Author
-                            Authors
-                            Bug
-                            Complexity
-                            Copyright
-                            Date
-                            Experiment
-                            Important
-                            Invariant
-                            Note
-                            Parameter
-                            Postcondition
-                            Precondition
-                            Remark
-                            Requires
-                            Returns
-                            See
-                            SeeAlso
-                            Since
-                            TODO
-                            Throws
-                            Version
-                            Warning).freeze
+    UNIQUELY_HANDLED_CALLOUTS = %w(Parameters
+                                   Parameter
+                                   Returns).freeze
+    GENERAL_CALLOUTS = %w(Attention
+                          Author
+                          Authors
+                          Bug
+                          Complexity
+                          Copyright
+                          Date
+                          Experiment
+                          Important
+                          Invariant
+                          Note
+                          Postcondition
+                          Precondition
+                          Remark
+                          Requires
+                          See
+                          SeeAlso
+                          Since
+                          TODO
+                          Throws
+                          Version
+                          Warning).freeze
+    SPECIAL_LIST_TYPES = (UNIQUELY_HANDLED_CALLOUTS + GENERAL_CALLOUTS).freeze
 
     SPECIAL_LIST_TYPE_REGEX = %r{
       \A\s* # optional leading spaces
@@ -57,7 +59,9 @@ module Jazzy
     def list_item(text, _list_type)
       if text =~ SPECIAL_LIST_TYPE_REGEX
         type = Regexp.last_match(2)
-        return ELIDED_LI_TOKEN if type =~ /parameter|returns/
+        if UNIQUELY_HANDLED_CALLOUTS.include? type.capitalize
+          return ELIDED_LI_TOKEN
+        end
         return render_aside(type, text.sub(/#{Regexp.escape(type)}:\s+/, ''))
       end
       str = '<li>'
