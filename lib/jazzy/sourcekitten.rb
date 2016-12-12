@@ -70,9 +70,10 @@ module Jazzy
       docs.each do |doc|
         if !doc.parent_in_docs || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
+          filename_base = CGI.escape(doc.name).gsub('%', '_') # Make URL-safe
           doc.url = (
             subdir_for_doc(doc) +
-            [doc.name + '.html']
+            [filename_base + '.html']
           ).join('/')
           doc.children = make_doc_urls(doc.children)
         else
