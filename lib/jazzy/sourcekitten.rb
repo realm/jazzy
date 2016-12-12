@@ -198,14 +198,17 @@ module Jazzy
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
 
-    def self.process_undocumented_token(doc, declaration)
+    def self.should_mark_undocumented(kind, filepath)
       source_directory = Config.instance.source_directory.to_s
+      (filepath || '').start_with?(source_directory) &&
+        kind != 'source.lang.swift.decl.generic_type_param'
+    end
+
+    def self.process_undocumented_token(doc, declaration)
       filepath = doc['key.filepath']
       objc = Config.instance.objc_mode
-      if filepath && (filepath.start_with?(source_directory) || objc)
-        if doc['key.kind'] != 'source.lang.swift.decl.generic_type_param'
-          @undocumented_decls << declaration
-        end
+      if objc || should_mark_undocumented(doc['key.kind'], filepath)
+        @undocumented_decls << declaration
       end
       return nil if !documented_child?(doc) && @skip_undocumented
       make_default_doc_info(declaration)
