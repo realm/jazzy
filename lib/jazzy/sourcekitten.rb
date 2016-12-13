@@ -70,7 +70,12 @@ module Jazzy
       docs.each do |doc|
         if !doc.parent_in_docs || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
-          filename_base = CGI.escape(doc.name).gsub('%', '_') # Make URL-safe
+          if Config.instance.use_safe_filenames
+            normalized = doc.name.unicode_normalize(:nfc)
+            filename_base = CGI.escape(normalized).gsub('%', '_')
+          else
+            filename_base = doc.name
+          end
           doc.url = (
             subdir_for_doc(doc) +
             [filename_base + '.html']
