@@ -15,6 +15,10 @@
   [Thibaud Robelain](https://github.com/thibaudrobelain)
   [#600](https://github.com/realm/jazzy/issues/600)
 
+* Fix issue where generic type parameters registered as undocumented symbols.  
+  [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
+  [#429](https://github.com/realm/jazzy/issues/429)
+
 * Fix issue where parameter and return callouts were duplicated in documentation.  
   [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
   [#673](https://github.com/realm/jazzy/issues/673)
