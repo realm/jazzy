@@ -66,7 +66,7 @@ module Jazzy
     def self.sanitize_filename(unsafe_filename)
       if Config.instance.use_safe_filenames
         normalized = unsafe_filename.unicode_normalize(:nfc)
-        return CGI.escape(normalized).tr('_', '%5F').tr('%', '_')
+        return CGI.escape(normalized).gsub('_', '%5F').tr('%', '_')
       else
         return unsafe_filename
       end
