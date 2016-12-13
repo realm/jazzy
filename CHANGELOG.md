@@ -9,7 +9,7 @@
 * New config option "use_safe_filenames" encodes unsafe characters when
   generating filenames. By default, documentation may receive filenames like
   "/(_:_:).html". With "use_safe_filenames", the same file will receive the name
-  "_2F_28__3A__3A_29.html" instead.  
+  "_2F_28_5F_3A_5F_3A_29.html" instead.  
   [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
   [#699](https://github.com/realm/jazzy/issues/699)
   [#146](https://github.com/realm/jazzy/issues/146)
