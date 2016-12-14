@@ -23,6 +23,13 @@ module Jazzy
         @type && @type[:jazzy]
       end
 
+      def name_controlled_manually?
+        return !kind.start_with?('source')
+        # "'source'.lang..." for Swift
+        # or "'source'kitten.source..." for Objective-C
+        # but not "Overview" for navigation groups.
+      end
+
       def plural_name
         name.pluralize
       end

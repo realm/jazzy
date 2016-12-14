@@ -63,8 +63,9 @@ module Jazzy
       end unless group.empty?
     end
 
-    def self.sanitize_filename(unsafe_filename)
-      if Config.instance.use_safe_filenames
+    def self.sanitize_filename(doc)
+      unsafe_filename = doc.name
+      if Config.instance.use_safe_filenames and !doc.type.name_controlled_manually?
         normalized = unsafe_filename.unicode_normalize(:nfc)
         return CGI.escape(normalized).gsub('_', '%5F').tr('%', '_')
       else
@@ -81,7 +82,7 @@ module Jazzy
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
             subdir_for_doc(doc) +
-            [sanitize_filename(doc.name) + '.html']
+            [sanitize_filename(doc) + '.html']
           ).join('/')
           doc.children = make_doc_urls(doc.children)
         else
