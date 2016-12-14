@@ -294,6 +294,14 @@ module Jazzy
         Pathname(__FILE__).parent + 'themes' + t
       end
 
+    config_attr :use_safe_filenames,
+      command_line: '--use-safe-filenames',
+      description: 'Replace unsafe characters in filenames with an encoded '\
+                   'representation. This will reduce human readability of '\
+                   'some URLs, but may be necessary for projects that '\
+                   'expose filename-unfriendly functions such as /(_:_:)',
+      default: false
+
     config_attr :template_directory,
       command_line: ['-t', '--template-directory DIRPATH'],
       description: 'DEPRECATED: Use --theme instead.',
