@@ -35,6 +35,7 @@ git checkout master
 git pull
 git checkout -
 git rebase master
+git submodule update --init --recursive
 bundle install
 bundle exec rake rebuild_integration_fixtures
 cd spec/integration_specs
