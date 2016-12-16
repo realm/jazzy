@@ -19,31 +19,39 @@ module Jazzy
       "<h#{header_level} id='#{text_slug}'>#{text}</h#{header_level}>\n"
     end
 
-    UNIQUELY_HANDLED_CALLOUTS = %w(Parameters
-                                   Parameter
-                                   Returns).freeze
-    GENERAL_CALLOUTS = %w(Attention
-                          Author
-                          Authors
-                          Bug
-                          Complexity
-                          Copyright
-                          Date
-                          Experiment
-                          Important
-                          Invariant
-                          Note
-                          Postcondition
-                          Precondition
-                          Remark
-                          Requires
-                          See
-                          SeeAlso
-                          Since
-                          TODO
-                          Throws
-                          Version
-                          Warning).freeze
+    # List from
+    # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
+    UNIQUELY_HANDLED_CALLOUTS = %w(parameters
+                                   parameter
+                                   returns).freeze
+    GENERAL_CALLOUTS = %w(attention
+                          author
+                          authors
+                          bug
+                          complexity
+                          copyright
+                          date
+                          experiment
+                          important
+                          invariant
+                          keyword
+                          mutatingvariant
+                          nonmutatingvariant
+                          note
+                          postcondition
+                          precondition
+                          recommended
+                          recommendedover
+                          remark
+                          remarks
+                          requires
+                          see
+                          seealso
+                          since
+                          todo
+                          throws
+                          version
+                          warning).freeze
     SPECIAL_LIST_TYPES = (UNIQUELY_HANDLED_CALLOUTS + GENERAL_CALLOUTS).freeze
 
     SPECIAL_LIST_TYPE_REGEX = %r{
@@ -59,7 +67,7 @@ module Jazzy
     def list_item(text, _list_type)
       if text =~ SPECIAL_LIST_TYPE_REGEX
         type = Regexp.last_match(2)
-        if UNIQUELY_HANDLED_CALLOUTS.include? type.capitalize
+        if UNIQUELY_HANDLED_CALLOUTS.include? type.downcase
           return ELIDED_LI_TOKEN
         end
         return render_aside(type, text.sub(/#{Regexp.escape(type)}:\s+/, ''))
