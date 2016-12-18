@@ -490,7 +490,7 @@ module Jazzy
           ['<code>', '</code>']
         end
 
-      text.gsub(/(#{start_tag_re})[ \t]*([^\s]+)[ \t]*(#{end_tag_re})/) do
+      text = text.gsub(/(#{start_tag_re})[ \t]*([^\s]+)[ \t]*(#{end_tag_re})/) do
         original = Regexp.last_match(0)
         start_tag, raw_name, end_tag = Regexp.last_match.captures
 
@@ -505,6 +505,37 @@ module Jazzy
 
         # Traverse children via subsequence components, if any
         link_target = name_traversal(parts, name_root)
+
+        if link_target &&
+           !link_target.type.extension? &&
+           link_target.url &&
+           link_target.url != doc.url.split('#').first && # Don't link to parent
+           link_target.url != doc.url # Don't link to self
+          start_tag +
+            "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
+            raw_name + '</a>' + end_tag
+        else
+          original
+        end
+      end
+
+      text.gsub(/(#{start_tag_re})[ \t]*([+-]\[\w+ [\w:]+\])[ \t]*(#{end_tag_re})/) do
+        original = Regexp.last_match(0)
+        start_tag, raw_name, end_tag = Regexp.last_match.captures
+
+        match = raw_name
+                .match(/([+-])\[(\w+) ([\w:]+)\]/)
+
+        # Subject component can match any ancestor or top-level doc
+        subject = match[2]
+        name_root = ancestor_name_match(subject, doc) ||
+                    name_match(subject, root_decls)
+
+        # Look up the verb in the subject’s children
+        if name_root
+          verb = match[1] + match[3]
+          link_target = name_match(verb, name_root.children)
+        end
 
         if link_target &&
            !link_target.type.extension? &&
