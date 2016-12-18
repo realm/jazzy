@@ -63,6 +63,15 @@ module Jazzy
       end unless group.empty?
     end
 
+    def self.sanitize_filename(unsafe_filename)
+      if Config.instance.use_safe_filenames
+        normalized = unsafe_filename.unicode_normalize(:nfc)
+        return CGI.escape(normalized).gsub('_', '%5F').tr('%', '_')
+      else
+        return unsafe_filename
+      end
+    end
+
     # rubocop:disable Metrics/MethodLength
     # Generate doc URL by prepending its parents URLs
     # @return [Hash] input docs with URLs
@@ -72,7 +81,7 @@ module Jazzy
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
             subdir_for_doc(doc) +
-            [doc.name + '.html']
+            [sanitize_filename(doc.name) + '.html']
           ).join('/')
           doc.children = make_doc_urls(doc.children)
         else
