@@ -14,7 +14,7 @@ ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
 def autolink_regex(middle_regex, after_highlight)
   start_tag_re, end_tag_re =
     if after_highlight
-      [/<span class="(?:n|kt)">/, '</span>']
+      [/<span class="(?:n|kt|nc)">/, '</span>']
     else
       ['<code>', '</code>']
     end
