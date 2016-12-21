@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Fully qualified references to Objective-C methods are now autolinked.  
+  [Minh Nguyễn](https://github.com/1ec5)
+  [#362](https://github.com/realm/jazzy/issues/362)
 
 ##### Bug Fixes
 

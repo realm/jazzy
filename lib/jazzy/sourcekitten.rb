@@ -11,6 +11,38 @@ require 'jazzy/source_mark'
 
 ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
 
+def autolink_regex(middle_regex, after_highlight)
+  start_tag_re, end_tag_re =
+    if after_highlight
+      [/<span class="(?:n|kt)">/, '</span>']
+    else
+      ['<code>', '</code>']
+    end
+  /(#{start_tag_re})[ \t]*(#{middle_regex})[ \t]*(#{end_tag_re})/
+end
+
+class String
+  def autolink_block(doc_url, middle_regex, after_highlight)
+    gsub(autolink_regex(middle_regex, after_highlight)) do
+      original = Regexp.last_match(0)
+      start_tag, raw_name, end_tag = Regexp.last_match.captures
+      link_target = yield(raw_name)
+
+      if link_target &&
+         !link_target.type.extension? &&
+         link_target.url &&
+         link_target.url != doc_url.split('#').first && # Don't link to parent
+         link_target.url != doc_url # Don't link to self
+        start_tag +
+          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
+          raw_name + '</a>' + end_tag
+      else
+        original
+      end
+    end
+  end
+end
+
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
@@ -479,21 +511,8 @@ module Jazzy
     # - method signatures after they've been processed by the highlighter
     #
     # The `after_highlight` flag is used to differentiate between the two modes.
-    # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/CyclomaticComplexity
     def self.autolink_text(text, doc, root_decls, after_highlight = false)
-      start_tag_re, end_tag_re =
-        if after_highlight
-          [/<span class="(?:n|kt)">/, '</span>']
-        else
-          ['<code>', '</code>']
-        end
-
-      text.gsub(/(#{start_tag_re})[ \t]*([^\s]+)[ \t]*(#{end_tag_re})/) do
-        original = Regexp.last_match(0)
-        start_tag, raw_name, end_tag = Regexp.last_match.captures
-
+      text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
         parts = raw_name
                 .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
                 .reject(&:empty?)
@@ -504,24 +523,22 @@ module Jazzy
                     name_match(first_part, root_decls)
 
         # Traverse children via subsequence components, if any
-        link_target = name_traversal(parts, name_root)
+        name_traversal(parts, name_root)
+      end.autolink_block(doc.url, '[+-]\[\w+ [\w:]+\]',
+                         after_highlight) do |raw_name|
+        match = raw_name.match(/([+-])\[(\w+) ([\w:]+)\]/)
 
-        if link_target &&
-           !link_target.type.extension? &&
-           link_target.url &&
-           link_target.url != doc.url.split('#').first && # Don't link to parent
-           link_target.url != doc.url # Don't link to self
-          start_tag +
-            "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
-            raw_name + '</a>' + end_tag
-        else
-          original
-        end
+        # Subject component can match any ancestor or top-level doc
+        subject = match[2]
+        name_root = ancestor_name_match(subject, doc) ||
+                    name_match(subject, root_decls)
+
+        return [nil, raw_name] unless name_root
+        # Look up the verb in the subject’s children
+        verb = match[1] + match[3]
+        name_match(verb, name_root.children)
       end
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/MethodLength
 
     def self.autolink(docs, root_decls)
       docs.each do |doc|
