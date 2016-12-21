@@ -15,7 +15,11 @@
   [#146](https://github.com/realm/jazzy/issues/146)
   [#361](https://github.com/realm/jazzy/issues/361)
   [#547](https://github.com/realm/jazzy/issues/547)
-  [#558](https://github.com/realm/jazzy/issues/558)
+
+* Fully qualified references to Objective-C methods are now autolinked.  
+  [Minh Nguyễn](https://github.com/1ec5)
+  [#362](https://github.com/realm/jazzy/issues/362)
+
 
 ##### Bug Fixes
 
@@ -31,6 +35,10 @@
 * Fix issue where parameter and return callouts were duplicated in documentation.  
   [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
   [#673](https://github.com/realm/jazzy/issues/673)
+
+* Fix issue where Objective-C superclass in declaration was unlinked.  
+  [Minh Nguyễn](https://github.com/1ec5)
+  [#706](https://github.com/realm/jazzy/issues/706)
 
 ## 0.7.3
 
