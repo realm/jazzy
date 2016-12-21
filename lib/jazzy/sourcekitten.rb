@@ -533,10 +533,11 @@ module Jazzy
         name_root = ancestor_name_match(subject, doc) ||
                     name_match(subject, root_decls)
 
-        return [nil, raw_name] unless name_root
-        # Look up the verb in the subject’s children
-        verb = match[1] + match[3]
-        name_match(verb, name_root.children)
+        if name_root
+          # Look up the verb in the subject’s children
+          verb = match[1] + match[3]
+          name_match(verb, name_root.children)
+        end
       end
     end
 
