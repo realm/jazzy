@@ -99,8 +99,7 @@ module Jazzy
       unsafe_filename = doc.name
       sanitzation_enabled = Config.instance.use_safe_filenames
       if sanitzation_enabled && !doc.type.name_controlled_manually?
-        normalized = unsafe_filename.unicode_normalize(:nfc)
-        return CGI.escape(normalized).gsub('_', '%5F').tr('%', '_')
+        return CGI.escape(unsafe_filename).gsub('_', '%5F').tr('%', '_')
       else
         return unsafe_filename
       end
