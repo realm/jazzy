@@ -539,21 +539,16 @@ module Jazzy
         match = raw_name.match(/([+-])\[(\w+(?: ?\(\w+\))?) ([\w:]+)\]/)
 
         # Subject component can match any ancestor or top-level doc
-        subject = match[2].gsub(' ', '')
+        subject = match[2].delete(' ')
         name_root = ancestor_name_match(subject, doc) ||
                     name_match(subject, root_decls)
 
         if name_root
           # Look up the verb in the subject’s children
-          verb = match[1] + match[3]
-          name_match(verb, name_root.children)
+          name_match(match[1] + match[3], name_root.children)
         end
-      end.autolink_block(doc.url, '[+-]\w[\w:]*',
-                         after_highlight) do |raw_name|
-        match = raw_name.match(/([+-])(\w[\w:]*)/)
-
-        verb = match[1] + match[2]
-        name_match(verb, doc.children)
+      end.autolink_block(doc.url, '[+-]\w[\w:]*', after_highlight) do |raw_name|
+        name_match(raw_name, doc.children)
       end
     end
 
