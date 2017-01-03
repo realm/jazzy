@@ -40,6 +40,12 @@
   [Minh Nguyễn](https://github.com/1ec5)
   [#706](https://github.com/realm/jazzy/issues/706)
 
+* Fix issue where multiple Objective-C categories of the same external class
+  in different files were merged into one and named after the first category
+  found.  
+  [Minh Nguyễn](https://github.com/1ec5)
+  [#539](https://github.com/realm/jazzy/issues/539)
+
 ## 0.7.3
 
 ##### Breaking

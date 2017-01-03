@@ -390,7 +390,7 @@ module Jazzy
     # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
       duplicate_groups = declarations
-                         .group_by { |d| deduplication_key(d) }
+                         .group_by { |d| deduplication_key(d, declarations) }
                          .values
 
       duplicate_groups.map do |group|
@@ -399,11 +399,18 @@ module Jazzy
       end
     end
 
+    # Returns true if an Objective-C declaration is mergeable.
+    def self.mergeable_objc?(decl, root_decls)
+      decl.type.objc_class? \
+        || (decl.type.objc_category? \
+            && name_match(decl.objc_category_name[0], root_decls))
+    end
+
     # Two declarations get merged if they have the same deduplication key.
-    def self.deduplication_key(decl)
+    def self.deduplication_key(decl, root_decls)
       if decl.type.swift_extensible? || decl.type.swift_extension?
         [decl.usr, decl.name]
-      elsif decl.type.objc_class? || decl.type.objc_category?
+      elsif mergeable_objc?(decl, root_decls)
         name, _ = decl.objc_category_name || decl.name
         [name, :objc_class_and_categories]
       else
