@@ -534,12 +534,12 @@ module Jazzy
 
         # Traverse children via subsequence components, if any
         name_traversal(parts, name_root)
-      end.autolink_block(doc.url, '[+-]\[\w+ [\w:]+\]',
+      end.autolink_block(doc.url, '[+-]\[\w+(?: ?\(\w+\))? [\w:]+\]',
                          after_highlight) do |raw_name|
-        match = raw_name.match(/([+-])\[(\w+) ([\w:]+)\]/)
+        match = raw_name.match(/([+-])\[(\w+(?: ?\(\w+\))?) ([\w:]+)\]/)
 
         # Subject component can match any ancestor or top-level doc
-        subject = match[2]
+        subject = match[2].gsub(' ', '')
         name_root = ancestor_name_match(subject, doc) ||
                     name_match(subject, root_decls)
 
@@ -548,6 +548,12 @@ module Jazzy
           verb = match[1] + match[3]
           name_match(verb, name_root.children)
         end
+      end.autolink_block(doc.url, '[+-]\w[\w:]*',
+                         after_highlight) do |raw_name|
+        match = raw_name.match(/([+-])(\w[\w:]*)/)
+
+        verb = match[1] + match[2]
+        name_match(verb, doc.children)
       end
     end
 
