@@ -125,7 +125,7 @@ module Jazzy
       output_dir = options.output
       build_docs(output_dir, source_module.docs, source_module)
 
-      unless options.unsearchable
+      unless options.disable_search
         warn 'building search index'
         SearchBuilder.build(source_module, output_dir)
       end
@@ -218,7 +218,7 @@ module Jazzy
       doc[:name] = name
       doc[:overview] = Jazzy.markdown.render(doc_model.content(source_module))
       doc[:custom_head] = Config.instance.custom_head
-      doc[:unsearchable] = Config.instance.unsearchable
+      doc[:disable_search] = Config.instance.disable_search
       doc[:doc_coverage] = source_module.doc_coverage unless
         Config.instance.hide_documentation_coverage
       doc[:structure] = source_module.doc_structure
@@ -326,7 +326,7 @@ module Jazzy
 
       doc = Doc.new # Mustache model instance
       doc[:custom_head] = Config.instance.custom_head
-      doc[:unsearchable] = Config.instance.unsearchable
+      doc[:disable_search] = Config.instance.disable_search
       doc[:doc_coverage] = source_module.doc_coverage unless
         Config.instance.hide_documentation_coverage
       doc[:name] = doc_model.name

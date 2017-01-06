@@ -6,13 +6,13 @@
     {{#doc_coverage}} ({{doc_coverage}}% documented){{/doc_coverage}}
   </p>
 
-  {{^unsearchable}}
+  {{^disable_search}}
   <p class="header-col--secondary">
     <form role="search" action="{{path_to_root}}search.json">
       <input type="text" placeholder="Search documentation" data-typeahead>
     </form>
   </p>
-  {{/unsearchable}}
+  {{/disable_search}}
 
   {{#github_url}}
     <p class="header-col header-col--secondary">
