@@ -35,8 +35,7 @@ git checkout master
 git pull
 git checkout -
 git rebase master
-git submodule update --init --recursive
-bundle install
+rake bootstrap
 bundle exec rake rebuild_integration_fixtures
 cd spec/integration_specs
 git checkout -b $jazzy_branch_name
