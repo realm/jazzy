@@ -246,6 +246,11 @@ module Jazzy
                    'https://github.com/realm/realm-cocoa/tree/v0.87.1)'
 
     # ──────── Doc generation options ────────
+    config_attr :searchable,
+      command_line: '--searchable',
+      description: ['Generate search index. '\
+                    'Search should be supported by the theme used.'],
+      default: false
 
     config_attr :skip_documentation,
       command_line: '--skip-documentation',
