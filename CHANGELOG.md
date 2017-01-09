@@ -99,7 +99,12 @@
 
 ##### Enhancements
 
-* None.
+* Added support for searching docs when using the `fullwidth` theme. A new 
+  option, `--disable-search`, lets you turn this off.  
+  [Esad Hajdarevic](https://github.com/esad)
+  [Tom MacWright](https://github.com/tmcw)
+  [Nadia Barbosa](https://github.com/captainbarbosa)
+  [#14](https://github.com/realm/jazzy/issues/14)
 
 ##### Bug Fixes
 

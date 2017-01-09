@@ -8,6 +8,7 @@ require 'jazzy/config'
 require 'jazzy/doc'
 require 'jazzy/docset_builder'
 require 'jazzy/documentation_generator'
+require 'jazzy/search_builder'
 require 'jazzy/jazzy_markdown'
 require 'jazzy/podspec_documenter'
 require 'jazzy/readme_generator'
@@ -124,6 +125,11 @@ module Jazzy
       output_dir = options.output
       build_docs(output_dir, source_module.docs, source_module)
 
+      unless options.disable_search
+        warn 'building search index'
+        SearchBuilder.build(source_module, output_dir)
+      end
+
       copy_assets(output_dir)
 
       DocsetBuilder.new(output_dir, source_module).build!
@@ -212,6 +218,7 @@ module Jazzy
       doc[:name] = name
       doc[:overview] = Jazzy.markdown.render(doc_model.content(source_module))
       doc[:custom_head] = Config.instance.custom_head
+      doc[:disable_search] = Config.instance.disable_search
       doc[:doc_coverage] = source_module.doc_coverage unless
         Config.instance.hide_documentation_coverage
       doc[:structure] = source_module.doc_structure
@@ -306,6 +313,7 @@ module Jazzy
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     # Build Mustache document from single parsed doc
     # @param [Config] options Build options
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
@@ -319,6 +327,7 @@ module Jazzy
 
       doc = Doc.new # Mustache model instance
       doc[:custom_head] = Config.instance.custom_head
+      doc[:disable_search] = Config.instance.disable_search
       doc[:doc_coverage] = source_module.doc_coverage unless
         Config.instance.hide_documentation_coverage
       doc[:name] = doc_model.name
@@ -335,5 +344,6 @@ module Jazzy
       doc[:path_to_root] = path_to_root
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
