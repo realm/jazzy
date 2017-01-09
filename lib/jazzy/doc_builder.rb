@@ -154,6 +154,10 @@ module Jazzy
       prepare_output_dir(options.output, options.clean)
       write_lint_report(undocumented, options)
 
+      puts "#{coverage}\% documentation coverage " \
+        "with #{undocumented.count} undocumented symbol" \
+        "#{undocumented.count == 1 ? '' : 's'}"
+
       unless options.skip_documentation
         build_site(docs, coverage, options)
       end
