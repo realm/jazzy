@@ -313,6 +313,7 @@ module Jazzy
       end
     end
 
+    # rubocop:disable Metrics/MethodLength
     # Build Mustache document from single parsed doc
     # @param [Config] options Build options
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
@@ -343,5 +344,6 @@ module Jazzy
       doc[:path_to_root] = path_to_root
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
