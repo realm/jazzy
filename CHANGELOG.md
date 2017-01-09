@@ -20,6 +20,11 @@
   [Minh Nguyễn](https://github.com/1ec5)
   [#362](https://github.com/realm/jazzy/issues/362)
 
+* Print documentation coverage percentage and the number of undocumented
+  methods to the command line when running jazzy.  
+  [Jason Wray](https://github.com/friedbunny)
+  [#724](https://github.com/realm/jazzy/issues/724)
+
 
 ##### Bug Fixes
 
