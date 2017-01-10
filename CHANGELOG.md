@@ -6,6 +6,13 @@
 
 ##### Enhancements
 
+* Add support for searching docs when using the `fullwidth` theme. A new option,
+  `--disable-search`, lets you turn this off.  
+  [Esad Hajdarevic](https://github.com/esad)
+  [Tom MacWright](https://github.com/tmcw)
+  [Nadia Barbosa](https://github.com/captainbarbosa)
+  [#14](https://github.com/realm/jazzy/issues/14)
+
 * New config option `use_safe_filenames` encodes unsafe characters when
   generating filenames. By default, documentation may receive filenames like
   `/(_:_:).html`. With `use_safe_filenames`, the same file will receive the name
@@ -19,7 +26,6 @@
 * References to Objective-C methods are now autolinked.  
   [Minh Nguyễn](https://github.com/1ec5)
   [#362](https://github.com/realm/jazzy/issues/362)
-
 
 ##### Bug Fixes
 

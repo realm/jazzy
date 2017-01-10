@@ -8,6 +8,11 @@
     <script src="{{path_to_root}}js/jquery.min.js" defer></script>
     <script src="{{path_to_root}}js/jazzy.js" defer></script>
     {{{custom_head}}}
+    {{^disable_search}}
+    <script src="{{path_to_root}}js/lunr.min.js" defer></script>
+    <script src="{{path_to_root}}js/typeahead.jquery.js" defer></script>
+    <script src="{{path_to_root}}js/jazzy.search.js" defer></script>
+    {{/disable_search}}
   </head>
   <body>
 

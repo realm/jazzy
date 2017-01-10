@@ -551,3 +551,65 @@ html.dash {
     display: block;
   }
 }
+
+// ===========================================================================
+//
+//  Search
+//
+// ===========================================================================
+form[role=search] {
+  input {
+    font: $body_font;
+    font-size: 14px;
+    line-height: 24px;
+    padding: 0 10px;
+    margin: 0;
+    border: none;
+    border-radius: 1em;
+    .loading & {
+      background: white url(../img/spinner.gif) center right 4px no-repeat;
+    }
+  }
+
+  // Typeahead elements
+
+  .tt-menu {
+    margin: 0;
+    min-width: 300px;
+    background: $navigation_bg_color;
+    color: $text_color;
+    border: 1px solid $navigation_border_color;
+  }
+
+  .tt-highlight {
+    font-weight: bold;
+  }
+
+  .tt-suggestion {
+    font: $body_font;
+    padding: 0 $gutter/2;
+    span {
+      display: table-cell;
+      white-space: nowrap;
+    }
+    .doc-parent-name {
+      width: 100%;
+      text-align: right;
+      font-weight: normal;
+      font-size: 0.9em;
+      padding-left: $gutter;
+    }
+  }
+
+  .tt-suggestion:hover,
+  .tt-suggestion.tt-cursor {
+    cursor: pointer;
+    background-color: $link_color;
+    color: #fff;
+  }
+
+  .tt-suggestion:hover .doc-parent-name,
+  .tt-suggestion.tt-cursor .doc-parent-name {
+    color: #fff;
+  }
+}
