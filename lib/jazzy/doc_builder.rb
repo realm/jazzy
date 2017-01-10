@@ -1,6 +1,7 @@
 require 'fileutils'
 require 'mustache'
 require 'uri'
+require 'net/http'
 require 'pathname'
 require 'sass'
 
@@ -134,6 +135,8 @@ module Jazzy
 
       DocsetBuilder.new(output_dir, source_module).build!
 
+      download_badge(source_module, options)
+
       friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
       puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
 
@@ -233,6 +236,45 @@ module Jazzy
       doc[:path_to_root] = path_to_root
       doc[:hide_name] = true
       doc.render
+    end
+
+    # Returns the appropriate color for the provided percentage,
+    # used for generating a badge on shields.io
+    # @param [Number] coverage The documentation percentage
+    def self.color_for_coverage(coverage)
+      if coverage < 10
+        return 'red'
+      elsif coverage < 30
+        return 'orange'
+      elsif coverage < 60
+        return 'yellow'
+      elsif coverage < 85
+        return 'yellowgreen'
+      elsif coverage < 90
+        return 'green'
+      else
+        return 'brightgreen'
+      end
+    end
+
+    # Downloads an SVG from shields.io displaying the documentation percentage
+    # @param [SourceModule] source_module The source module from SourceKitten
+    # @param [Config] options Build options
+    def self.download_badge(source_module, options)
+      if options.hide_documentation_coverage then
+        return
+      end
+      color = self.color_for_coverage(source_module.doc_coverage)
+      uri = URI.parse("https://img.shields.io")
+      url_path = "/badge/documentation-" +
+                 "#{source_module.doc_coverage}%25-#{color}.svg"
+      Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+        resp = http.get url_path
+        File.open(options.output + "badge.svg", "wb") do |file|
+          file.write resp.body
+        end
+      end
+      warn 'downloaded badge'
     end
 
     def self.should_link_to_github(file)

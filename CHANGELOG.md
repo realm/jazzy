@@ -6,6 +6,11 @@
 
 ##### Enhancements
 
+* Generate shields.io badge for documentation coverage, unless
+  `hide_documentation_coverage` is set.  
+  [Harlan Haskins](https://github.com/harlanhaskins)
+  [#723](https://github.com/realm/jazzy/issues/723)
+
 * Add support for searching docs when using the `fullwidth` theme. A new option,
   `--disable-search`, lets you turn this off.  
   [Esad Hajdarevic](https://github.com/esad)
