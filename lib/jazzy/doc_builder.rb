@@ -135,7 +135,7 @@ module Jazzy
 
       DocsetBuilder.new(output_dir, source_module).build!
 
-      download_badge(source_module, options)
+      download_badge(source_module.doc_coverage, options)
 
       friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
       puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
@@ -240,7 +240,7 @@ module Jazzy
 
     # Returns the appropriate color for the provided percentage,
     # used for generating a badge on shields.io
-    # @param [Number] coverage The documentation percentage
+    # @param [Number] coverage The documentation coverage percentage
     def self.color_for_coverage(coverage)
       if coverage < 10
         return 'red'
@@ -258,23 +258,22 @@ module Jazzy
     end
 
     # Downloads an SVG from shields.io displaying the documentation percentage
-    # @param [SourceModule] source_module The source module from SourceKitten
+    # @param [Number] coverage The documentation coverage percentage
     # @param [Config] options Build options
-    def self.download_badge(source_module, options)
-      if options.hide_documentation_coverage then
+    def self.download_badge(coverage, options)
+      if options.hide_documentation_coverage
         return
       end
-      color = self.color_for_coverage(source_module.doc_coverage)
-      uri = URI.parse("https://img.shields.io")
-      url_path = "/badge/documentation-" +
-                 "#{source_module.doc_coverage}%25-#{color}.svg"
+      warn 'downloading coverage badge'
+      color = color_for_coverage(coverage)
+      uri = URI.parse('https://img.shields.io')
+      url_path = "/badge/documentation-#{coverage}%25-#{color}.svg"
       Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
         resp = http.get url_path
-        File.open(options.output + "badge.svg", "wb") do |file|
+        File.open(options.output + 'badge.svg', 'wb') do |file|
           file.write resp.body
         end
       end
-      warn 'downloaded badge'
     end
 
     def self.should_link_to_github(file)
