@@ -49,6 +49,10 @@
 * Fix issue where Objective-C superclass in declaration was unlinked.  
   [Minh Nguyễn](https://github.com/1ec5)
   [#706](https://github.com/realm/jazzy/issues/706)
+  
+* Fix issue where TODO: comments are unnecessarily added to the generated documentation
+  [bgalamb](https://github.com/bgalamb)
+  [#658](https://github.com/realm/jazzy/issues/658)
 
 * Fix issue where multiple Objective-C categories of the same external class
   in different files were merged into one and named after the first category
