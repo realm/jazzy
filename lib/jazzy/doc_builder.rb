@@ -268,7 +268,7 @@ module Jazzy
       color = color_for_coverage(coverage)
       uri = URI.parse('https://img.shields.io')
       url_path = "/badge/documentation-#{coverage}%25-#{color}.svg"
-      Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
+      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         resp = http.get url_path
         File.open(options.output + 'badge.svg', 'wb') do |file|
           file.write resp.body
