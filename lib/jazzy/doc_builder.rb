@@ -1,6 +1,7 @@
 require 'fileutils'
 require 'mustache'
 require 'uri'
+require 'net/http'
 require 'pathname'
 require 'sass'
 
@@ -113,12 +114,7 @@ module Jazzy
 
       structure = doc_structure_for_docs(docs)
 
-      docs << SourceDocument.new.tap do |sd|
-        sd.name = 'index'
-        sd.children = []
-        sd.type = SourceDeclaration::Type.new 'document.markdown'
-        sd.readme_path = options.readme_path
-      end
+      docs << SourceDocument.make_index(options.readme_path)
 
       source_module = SourceModule.new(options, docs, structure, coverage)
 
@@ -133,6 +129,8 @@ module Jazzy
       copy_assets(output_dir)
 
       DocsetBuilder.new(output_dir, source_module).build!
+
+      download_badge(source_module.doc_coverage, options)
 
       friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
       puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
@@ -233,6 +231,44 @@ module Jazzy
       doc[:path_to_root] = path_to_root
       doc[:hide_name] = true
       doc.render
+    end
+
+    # Returns the appropriate color for the provided percentage,
+    # used for generating a badge on shields.io
+    # @param [Number] coverage The documentation coverage percentage
+    def self.color_for_coverage(coverage)
+      if coverage < 10
+        return 'red'
+      elsif coverage < 30
+        return 'orange'
+      elsif coverage < 60
+        return 'yellow'
+      elsif coverage < 85
+        return 'yellowgreen'
+      elsif coverage < 90
+        return 'green'
+      else
+        return 'brightgreen'
+      end
+    end
+
+    # Downloads an SVG from shields.io displaying the documentation percentage
+    # @param [Number] coverage The documentation coverage percentage
+    # @param [Config] options Build options
+    def self.download_badge(coverage, options)
+      if options.hide_documentation_coverage
+        return
+      end
+      warn 'downloading coverage badge'
+      color = color_for_coverage(coverage)
+      uri = URI.parse('https://img.shields.io')
+      url_path = "/badge/documentation-#{coverage}%25-#{color}.svg"
+      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
+        resp = http.get url_path
+        File.open(options.output + 'badge.svg', 'wb') do |file|
+          file.write resp.body
+        end
+      end
     end
 
     def self.should_link_to_github(file)
