@@ -114,12 +114,7 @@ module Jazzy
 
       structure = doc_structure_for_docs(docs)
 
-      docs << SourceDocument.new.tap do |sd|
-        sd.name = 'index'
-        sd.children = []
-        sd.type = SourceDeclaration::Type.new 'document.markdown'
-        sd.readme_path = options.readme_path
-      end
+      docs << SourceDocument.make_index(options.readme_path)
 
       source_module = SourceModule.new(options, docs, structure, coverage)
 
