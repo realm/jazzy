@@ -99,14 +99,13 @@ jazzy \
   --author Realm \
   --author_url https://realm.io \
   --github_url https://github.com/realm/realm-cocoa \
-  --github-file-prefix https://github.com/realm/realm-cocoa/tree/v0.96.2 \
-  --module-version 0.96.2 \
-  --umbrella-header Realm/Realm.h \
-  --framework-root . \
+  --github-file-prefix https://github.com/realm/realm-cocoa/tree/v2.2.0 \
+  --module-version 2.2.0 \
+  --xcodebuild-arguments --objc,Realm/Realm.h,--,-x,objective-c,-isysroot,$(xcrun --show-sdk-path),-I,$(pwd) \
   --module Realm \
-  --root-url https://realm.io/docs/objc/0.96.2/api/ \
+  --root-url https://realm.io/docs/objc/2.2.0/api/ \
   --output docs/objc_output \
-  --theme docs/themes
+  --head "$(cat docs/custom_head.html)"
 ```
 
 This is how the AFNetworking docs are generated:
