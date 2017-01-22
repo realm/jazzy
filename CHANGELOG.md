@@ -61,6 +61,11 @@
   [Minh Nguyễn](https://github.com/1ec5)
   [#539](https://github.com/realm/jazzy/issues/539)
 
+* String literals in code listings are no longer wrapped in `<q>` tags (`apple`
+  and `fullwidth` themes only).
+  [Minh Nguyễn](https://github.com/1ec5)
+  [#714](https://github.com/realm/jazzy/issues/714)
+
 ## 0.7.3
 
 ##### Breaking
