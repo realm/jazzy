@@ -344,7 +344,8 @@ module Jazzy
       if config.root_url
         config.dash_url ||= URI.join(
           config.root_url,
-          "docsets/#{config.module_name}.xml")
+          "docsets/#{config.module_name}.xml",
+        )
       end
 
       config
@@ -427,7 +428,7 @@ module Jazzy
     def read_config_file(file)
       case File.extname(file)
         when '.json'         then JSON.parse(File.read(file))
-        when '.yaml', '.yml' then YAML.load(File.read(file))
+        when '.yaml', '.yml' then YAML.safe_load(File.read(file))
         else raise "Config file must be .yaml or .json, but got #{file.inspect}"
       end
     end

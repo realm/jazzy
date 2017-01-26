@@ -31,7 +31,7 @@ module Jazzy
             SourceKitten.run_sourcekitten(args)
           end
         end
-        stdout.reduce([]) { |a, s| a + JSON.load(s) }.to_json
+        stdout.reduce([]) { |a, s| a + JSON.parse(s) }.to_json
       end
     end
 

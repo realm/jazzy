@@ -25,6 +25,12 @@ Metrics/AbcSize:
 Metrics/ModuleLength:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
 # We adopted raise instead of fail.
 SignalException:
   EnforcedStyle: only_raise

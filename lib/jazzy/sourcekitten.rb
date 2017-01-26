@@ -53,7 +53,8 @@ module Jazzy
     def self.group_docs(docs)
       custom_categories, docs = group_custom_categories(docs)
       type_categories, uncategorized = group_type_categories(
-        docs, custom_categories.any? ? 'Other ' : '')
+        docs, custom_categories.any? ? 'Other ' : ''
+      )
       custom_categories + type_categories + uncategorized
     end
 
@@ -80,19 +81,22 @@ module Jazzy
         make_group(
           children,
           type_category_prefix + type.plural_name,
-          "The following #{type.plural_name.downcase} are available globally.")
+          "The following #{type.plural_name.downcase} are available globally.",
+        )
       end
       [group.compact, docs]
     end
 
     def self.make_group(group, name, abstract)
       group.reject! { |doc| doc.name.empty? }
-      SourceDeclaration.new.tap do |sd|
-        sd.type     = SourceDeclaration::Type.overview
-        sd.name     = name
-        sd.abstract = abstract
-        sd.children = group
-      end unless group.empty?
+      unless group.empty?
+        SourceDeclaration.new.tap do |sd|
+          sd.type     = SourceDeclaration::Type.overview
+          sd.name     = name
+          sd.abstract = abstract
+          sd.children = group
+        end
+      end
     end
 
     def self.sanitize_filename(doc)
@@ -313,14 +317,14 @@ module Jazzy
     # rubocop:enable Metrics/PerceivedComplexity
 
     def self.make_substructure(doc, declaration)
-      if doc['key.substructure']
-        declaration.children = make_source_declarations(
-          doc['key.substructure'],
-          declaration,
-        )
-      else
-        declaration.children = []
-      end
+      declaration.children = if doc['key.substructure']
+                               make_source_declarations(
+                                 doc['key.substructure'],
+                                 declaration,
+                               )
+                             else
+                               []
+                             end
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -332,7 +336,8 @@ module Jazzy
       Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
           declarations += make_source_declarations(
-            doc['key.substructure'], parent)
+            doc['key.substructure'], parent
+          )
           next
         end
         declaration = SourceDeclaration.new
@@ -343,7 +348,8 @@ module Jazzy
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(
-            doc['key.substructure'], parent)
+            doc['key.substructure'], parent
+          )
           next
         end
         next unless declaration.type.should_document?
@@ -447,7 +453,8 @@ module Jazzy
       decls = typedecls + extensions
       decls.first.tap do |merged|
         merged.children = deduplicate_declarations(
-          decls.flat_map(&:children).uniq)
+          decls.flat_map(&:children).uniq,
+        )
         merged.children.each do |child|
           child.parent_in_code = merged
         end
@@ -566,13 +573,17 @@ module Jazzy
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
 
-        doc.declaration = autolink_text(
-          doc.declaration, doc, root_decls, true
-        ) if doc.declaration
+        if doc.declaration
+          doc.declaration = autolink_text(
+            doc.declaration, doc, root_decls, true
+          )
+        end
 
-        doc.other_language_declaration = autolink_text(
-          doc.other_language_declaration, doc, root_decls, true
-        ) if doc.other_language_declaration
+        if doc.other_language_declaration
+          doc.other_language_declaration = autolink_text(
+            doc.other_language_declaration, doc, root_decls, true
+          )
+        end
       end
     end
 
