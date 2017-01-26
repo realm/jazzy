@@ -75,7 +75,9 @@ CLIntegracon.configure do |c|
       path,
       File.read(path).gsub(
         (ROOT + 'tmp').to_s,
-        '<TMP>'))
+        '<TMP>',
+      ),
+    )
   end
 
   # Transform produced databases to csv

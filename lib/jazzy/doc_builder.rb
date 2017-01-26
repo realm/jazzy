@@ -147,7 +147,8 @@ module Jazzy
         sourcekitten_output,
         options.min_acl,
         options.skip_undocumented,
-        DocumentationGenerator.source_docs)
+        DocumentationGenerator.source_docs,
+      )
 
       prepare_output_dir(options.output, options.clean)
       write_lint_report(undocumented, options)
@@ -238,17 +239,17 @@ module Jazzy
     # @param [Number] coverage The documentation coverage percentage
     def self.color_for_coverage(coverage)
       if coverage < 10
-        return 'red'
+        'red'
       elsif coverage < 30
-        return 'orange'
+        'orange'
       elsif coverage < 60
-        return 'yellow'
+        'yellow'
       elsif coverage < 85
-        return 'yellowgreen'
+        'yellowgreen'
       elsif coverage < 90
-        return 'green'
+        'green'
       else
-        return 'brightgreen'
+        'brightgreen'
       end
     end
 
@@ -290,7 +291,8 @@ module Jazzy
                   "#L#{item.line}"
                 end
       relative_file_path = item.file.realpath.relative_path_from(
-        source_module.root_path)
+        source_module.root_path,
+      )
       "#{github_prefix}/#{relative_file_path}#{gh_line}"
     end
 
