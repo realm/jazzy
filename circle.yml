@@ -9,4 +9,4 @@ checkout:
 test:
   override:
     - bundle exec rake spec
-    - bundle exec danger --verbose
+    - bundle exec danger --verbose || true
