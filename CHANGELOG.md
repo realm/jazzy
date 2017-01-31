@@ -66,9 +66,13 @@
   [#539](https://github.com/realm/jazzy/issues/539)
 
 * String literals in code listings are no longer wrapped in `<q>` tags (`apple`
-  and `fullwidth` themes only).
+  and `fullwidth` themes only).  
   [Minh Nguyễn](https://github.com/1ec5)
   [#714](https://github.com/realm/jazzy/issues/714)
+
+* Fix issue where passing a `--podspec` argument would use a malformed
+  `SWIFT_VERSION` value, causing compilation to fail.  
+  [JP Simard](https://github.com/jpsim)
 
 ## 0.7.3
 
