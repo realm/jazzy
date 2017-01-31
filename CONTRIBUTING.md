@@ -49,6 +49,8 @@ git push
 You'll need push access to the integration specs repo to do this. You can
 request access from one of the maintainers when filing your PR.
 
+You must have Xcode 8.2 installed to build the integration specs.
+
 ## Making changes to SourceKitten
 
 When changes are landed in the https://github.com/jpsim/SourceKitten repo the

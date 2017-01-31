@@ -75,7 +75,9 @@ CLIntegracon.configure do |c|
       path,
       File.read(path).gsub(
         (ROOT + 'tmp').to_s,
-        '<TMP>'))
+        '<TMP>',
+      ),
+    )
   end
 
   # Transform produced databases to csv
@@ -103,8 +105,6 @@ describe_cli 'jazzy' do
     s.replace_path ROOT.to_s, 'ROOT'
     s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$[\n]?/, ''
   end
-
-  travis_swift = ENV['TRAVIS_SWIFT_VERSION']
 
   require 'shellwords'
   realm_head = <<-HTML
@@ -159,9 +159,10 @@ describe_cli 'jazzy' do
     end
   end
 
-  describe 'jazzy swift 2.2' do
+  describe 'jazzy swift' do
     describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec', '--podspec=Moya.podspec'
+      behaves_like cli_spec 'document_moya_podspec',
+                            '--podspec=Moya.podspec'
     end
 
     describe 'Creates docs with a module name, author name, project URL, ' \
@@ -172,9 +173,10 @@ describe_cli 'jazzy' do
                             '-x -project,Alamofire.xcodeproj,-dry-run ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/3.4.0 ' \
-                            '--module-version 3.4.0 ' \
-                            '-r http://static.realm.io/jazzy_demo/Alamofire/ ' \
+                            'Alamofire/Alamofire/blob/4.3.0 ' \
+                            '--module-version 4.3.0 ' \
+                            '--root-url ' \
+                            'https://static.realm.io/jazzy_demo/Alamofire/ ' \
                             '--skip-undocumented'
     end
 
@@ -207,5 +209,5 @@ describe_cli 'jazzy' do
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features'
     end
-  end if !travis_swift || travis_swift == '2.2'
+  end
 end

@@ -10,8 +10,7 @@ module Jazzy
            name: d.name,
            abstract: d.abstract && d.abstract.split(/\n/).map(&:strip).first,
            parent_name: d.parent_in_code && d.parent_in_code.name,
-         }.reject { |_, v| v.nil? || v.empty? },
-        ]
+         }.reject { |_, v| v.nil? || v.empty? }]
       end
       ]
       File.open(File.join(output_dir, 'search.json'), 'w') do |f|

@@ -1,0 +1,12 @@
+machine:
+  xcode:
+    version: "8.2"
+
+checkout:
+  post:
+    - git submodule update --init --recursive
+
+test:
+  override:
+    - bundle exec rake spec
+    - bundle exec danger --verbose || true

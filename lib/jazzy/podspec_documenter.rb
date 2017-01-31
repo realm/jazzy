@@ -25,13 +25,12 @@ module Jazzy
 
           targets.map do |t|
             args = %W(doc --module-name #{podspec.module_name} -- -target #{t})
-            if config.swift_version
-              args << "SWIFT_VERSION=\"#{config.swift_version}\""
-            end
+            swift_version = (config.swift_version || '3')[0] + '.0'
+            args << "SWIFT_VERSION=\"#{swift_version}\""
             SourceKitten.run_sourcekitten(args)
           end
         end
-        stdout.reduce([]) { |a, s| a + JSON.load(s) }.to_json
+        stdout.reduce([]) { |a, s| a + JSON.parse(s) }.to_json
       end
     end
 
