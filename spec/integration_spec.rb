@@ -162,8 +162,7 @@ describe_cli 'jazzy' do
   describe 'jazzy swift' do
     describe 'Creates docs for a podspec with dependencies and subspecs' do
       behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec',
-                            '--swift-version=3.0'
+                            '--podspec=Moya.podspec'
     end
 
     describe 'Creates docs with a module name, author name, project URL, ' \
