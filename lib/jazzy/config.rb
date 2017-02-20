@@ -431,7 +431,12 @@ module Jazzy
     def read_config_file(file)
       case File.extname(file)
         when '.json'         then JSON.parse(File.read(file))
-        when '.yaml', '.yml' then YAML.safe_load(File.read(file))
+        when '.yaml', '.yml' then
+          if YAML.respond_to?('safe_load') # ruby >= 2.1.0
+            YAML.safe_load(File.read(file))
+          else
+            YAML.load(File.read(file))
+          end
         else raise "Config file must be .yaml or .json, but got #{file.inspect}"
       end
     end
