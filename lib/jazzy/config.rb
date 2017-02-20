@@ -435,7 +435,9 @@ module Jazzy
           if YAML.respond_to?('safe_load') # ruby >= 2.1.0
             YAML.safe_load(File.read(file))
           else
+            # rubocop:disable Security/YAMLLoad
             YAML.load(File.read(file))
+            # rubocop:enable Security/YAMLLoad
           end
         else raise "Config file must be .yaml or .json, but got #{file.inspect}"
       end
