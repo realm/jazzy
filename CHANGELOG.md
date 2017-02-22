@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix issue where using a custom theme would crash jazzy when using Ruby 2.4.
+  [Jason Wray](https://github.com/friedbunny)
+  [#752](https://github.com/realm/jazzy/issues/752)
 
 ## 0.7.4
 
