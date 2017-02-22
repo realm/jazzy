@@ -295,8 +295,11 @@ module Jazzy
                    'other assets for a custom theme.',
       default: 'apple',
       parse: ->(t) do
-        return expand_path(t) unless t == 'apple' || t == 'fullwidth'
-        Pathname(__FILE__).parent + 'themes' + t
+        if t == 'apple' || t == 'fullwidth'
+          Pathname(__FILE__).parent + 'themes' + t
+        else
+          expand_path(t)
+        end
       end
 
     config_attr :use_safe_filenames,
