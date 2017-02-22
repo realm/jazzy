@@ -339,7 +339,7 @@ module Jazzy
         declaration.parent_in_code = parent
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        current_mark = SourceMark.new(doc['key.name']) if (declaration.type.mark? && (doc['key.name'].start_with?('MARK: ')))
+        current_mark = SourceMark.new(doc['key.name']) if (declaration.type.mark? && !(doc['key.name'].start_with?('TODO: ')))
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(
