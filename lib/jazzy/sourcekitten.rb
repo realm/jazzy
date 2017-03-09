@@ -161,22 +161,45 @@ module Jazzy
       end
     end
 
+    # returns all subdirectories of specified path
+    def self.rec_path(path)
+      path.children.collect do |child|
+        if child.directory?
+          rec_path(child) + [child]
+        end
+      end.select { |x| x }.flatten(1)
+    end
+
     # Builds SourceKitten arguments based on Jazzy options
     def self.arguments_from_options(options)
       arguments = ['doc']
-      if options.objc_mode
-        if options.xcodebuild_arguments.empty?
-          arguments += ['--objc', options.umbrella_header.to_s, '--', '-x',
-                        'objective-c', '-isysroot',
-                        `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,
-                        '-I', options.framework_root.to_s]
-        end
-      elsif !options.module_name.empty?
-        arguments += ['--module-name', options.module_name, '--']
-      else
-        arguments += ['--']
-      end
+      arguments += if options.objc_mode
+                     objc_arguments_from_options(options)
+                   elsif !options.module_name.empty?
+                     ['--module-name', options.module_name, '--']
+                   else
+                     ['--']
+                   end
       arguments + options.xcodebuild_arguments
+    end
+
+    def self.objc_arguments_from_options(options)
+      arguments = []
+      if options.xcodebuild_arguments.empty?
+        arguments += ['--objc', options.umbrella_header.to_s, '--', '-x',
+                      'objective-c', '-isysroot',
+                      `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,
+                      '-I', options.framework_root.to_s]
+      end
+      # add additional -I arguments for each subdirectory of framework_root
+      unless options.framework_root.nil?
+        rec_path(Pathname.new(options.framework_root.to_s)).collect do |child|
+          if child.directory?
+            arguments += ['-I', child.to_s]
+          end
+        end
+      end
+      arguments
     end
 
     # Run sourcekitten with given arguments and return STDOUT
