@@ -151,7 +151,6 @@ module Jazzy
       )
 
       prepare_output_dir(options.output, options.clean)
-      write_lint_report(undocumented, options)
 
       puts "#{coverage}\% documentation coverage " \
         "with #{undocumented.count} undocumented symbol" \
@@ -160,6 +159,8 @@ module Jazzy
       unless options.skip_documentation
         build_site(docs, coverage, options)
       end
+
+      write_lint_report(undocumented, options)
     end
 
     def self.relative_path_if_inside(path, base_path)

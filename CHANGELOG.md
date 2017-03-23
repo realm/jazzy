@@ -2,7 +2,10 @@
 
 ##### Breaking
 
-* None.
+* `undocumented.json` is now only in the output directory and is no longer
+  copied into docsets.  
+  [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
+  [#754](https://github.com/realm/jazzy/issues/754)
 
 ##### Enhancements
 
