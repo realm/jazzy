@@ -13,10 +13,9 @@ module Jazzy
                       .sub(/^-/, '')
                       .sub(/-$/, '')
 
-      "<a href='##{text_slug}' class='anchor' aria-hidden=true>" \
-        '<span class="header-anchor"></span>' \
-      '</a>' \
-      "<h#{header_level} id='#{text_slug}'>#{text}</h#{header_level}>\n"
+      "<h#{header_level} id='#{text_slug}' class='heading'>" \
+        "#{text}" \
+      "</h#{header_level}>\n"
     end
 
     # List from
