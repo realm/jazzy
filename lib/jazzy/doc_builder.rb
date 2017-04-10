@@ -305,25 +305,21 @@ module Jazzy
       abstract = (item.abstract || '') + (item.discussion || '')
       item_render = {
         name:                       item.name,
-        abstract:                   render_markdown(abstract),
+        abstract:                   abstract,
         declaration:                item.declaration,
         other_language_declaration: item.other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,
         github_token_url:           gh_token_url(item, source_module),
-        default_impl_abstract:      render_markdown(item.default_impl_abstract),
+        default_impl_abstract:      item.default_impl_abstract,
         from_protocol_extension:    item.from_protocol_extension,
-        return:                     render_markdown(item.return),
+        return:                     item.return,
         parameters:                 (item.parameters if item.parameters.any?),
         url:                        (item.url if item.children.any?),
         start_line:                 item.start_line,
         end_line:                   item.end_line,
       }
       item_render.reject { |_, v| v.nil? }
-    end
-
-    def self.render_markdown(markdown)
-      Jazzy.markdown.render(markdown) if markdown
     end
 
     def self.make_task(mark, uid, items)
@@ -368,6 +364,12 @@ module Jazzy
         return document_markdown(source_module, doc_model, path_to_root)
       end
 
+      overview = (doc_model.abstract || '') + (doc_model.discussion || '')
+      alternative_abstract = doc_model.alternative_abstract
+      if alternative_abstract
+        overview = Jazzy.markdown.render(alternative_abstract) + overview
+      end
+
       doc = Doc.new # Mustache model instance
       doc[:custom_head] = Config.instance.custom_head
       doc[:disable_search] = Config.instance.disable_search
@@ -377,7 +379,7 @@ module Jazzy
       doc[:kind] = doc_model.type.name
       doc[:dash_type] = doc_model.type.dash_type
       doc[:declaration] = doc_model.declaration
-      doc[:overview] = Jazzy.markdown.render(doc_model.overview)
+      doc[:overview] = overview
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
