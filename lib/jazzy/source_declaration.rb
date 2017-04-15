@@ -77,10 +77,6 @@ module Jazzy
     attr_accessor :end_line
     attr_accessor :nav_order
 
-    def overview
-      "#{alternative_abstract}\n\n#{abstract}\n\n#{discussion}".strip
-    end
-
     def alternative_abstract
       if file = alternative_abstract_file
         Pathname(file).read

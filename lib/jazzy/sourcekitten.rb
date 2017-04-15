@@ -48,6 +48,7 @@ module Jazzy
   module SourceKitten
     @documented_count = 0
     @undocumented_decls = []
+    @default_abstract = Jazzy.markdown.render('Undocumented').freeze
 
     # Group root-level docs by custom categories (if any) and type
     def self.group_docs(docs)
@@ -93,7 +94,7 @@ module Jazzy
         SourceDeclaration.new.tap do |sd|
           sd.type     = SourceDeclaration::Type.overview
           sd.name     = name
-          sd.abstract = abstract
+          sd.abstract = Jazzy.markdown.render(abstract)
           sd.children = group
         end
       end
@@ -221,7 +222,7 @@ module Jazzy
       # @todo: Fix these
       declaration.line = nil
       declaration.column = nil
-      declaration.abstract = 'Undocumented'
+      declaration.abstract = @default_abstract
       declaration.parameters = []
       declaration.children = []
     end
@@ -497,7 +498,7 @@ module Jazzy
           end
           unless defaults.empty?
             proto_method.default_impl_abstract =
-              defaults.flat_map { |d| [d.abstract, d.discussion] }.join("\n\n")
+              defaults.flat_map { |d| [d.abstract, d.discussion] }.join
           end
         end
       end
