@@ -262,6 +262,13 @@ header {
         padding-top: 15px;
       }
     }
+
+    .heading:before {
+      content: "";
+      display: block;
+      padding-top: $content_top_offset;
+      margin: -$content_top_offset 0 0;
+    }
   }
 }
 
