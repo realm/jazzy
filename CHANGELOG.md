@@ -13,6 +13,9 @@
 
 ##### Bug Fixes
 
+* Linking to headers in apple theme gives correct vertical alignment.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 * Headers in source code markdown no longer cause corruption.  
   [John Fairhurst](https://github.com/johnfairh)
   [#628](https://github.com/realm/jazzy/issues/628)
