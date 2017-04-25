@@ -13,6 +13,10 @@
 
 ##### Bug Fixes
 
+* Blank line no longer needed before lists or code blocks.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#546](https://github.com/realm/jazzy/issues/546)
+
 * Linking to headers in apple theme gives correct vertical alignment.  
   [John Fairhurst](https://github.com/johnfairh)
 
