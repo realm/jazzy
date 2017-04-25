@@ -103,6 +103,7 @@ module Jazzy
       strikethrough: true,
       space_after_headers: false,
       tables: true,
+      lax_spacing: true,
     }.freeze
   end
 
