@@ -324,6 +324,11 @@ module Jazzy
         raise '--assets-directory is deprecated: use --theme instead.'
       end
 
+    config_attr :download_badge,
+      command_line: '--[no-]download-badge',
+      description: 'Download documentation coverage badge from shields.io.',
+      default: true
+
     # rubocop:enable Style/AlignParameters
 
     def initialize
