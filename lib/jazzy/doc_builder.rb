@@ -258,9 +258,8 @@ module Jazzy
     # @param [Number] coverage The documentation coverage percentage
     # @param [Config] options Build options
     def self.download_badge(coverage, options)
-      if options.hide_documentation_coverage
-        return
-      end
+      return if options.hide_documentation_coverage || !options.download_badge
+
       warn 'downloading coverage badge'
       color = color_for_coverage(coverage)
       uri = URI.parse('https://img.shields.io')
