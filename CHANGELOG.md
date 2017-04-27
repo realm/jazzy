@@ -9,7 +9,10 @@
 
 ##### Enhancements
 
-* None.
+* Add `--[no-]download-badge` flag to skip downloading the documentation
+  coverage badge from shields.io. Useful if generating docs offline.  
+  [JP Simard](https://github.com/jpsim)
+  [#765](https://github.com/realm/jazzy/issues/765)
 
 ##### Bug Fixes
 
