@@ -66,7 +66,7 @@ CLIntegracon.configure do |c|
   # Ignore certain OSX files
   c.ignores '.DS_Store'
   c.ignores '.git'
-  c.ignores %r{^(?!(docs/|execution_output.txt))}
+  c.ignores %r{^(?!((api-)?docs/|execution_output.txt))}
   c.ignores '*.tgz'
 
   # Remove absolute paths from output
