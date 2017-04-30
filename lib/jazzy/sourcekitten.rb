@@ -301,11 +301,12 @@ module Jazzy
       end.join
     end
 
-    def self.parameters(doc)
+    def self.parameters(doc, discovered)
       (doc['key.doc.parameters'] || []).map do |p|
+        name = p['name']
         {
-          name: p['name'],
-          discussion: make_paragraphs(p, 'discussion'),
+          name: name,
+          discussion: discovered[name],
         }
       end
     end
@@ -329,11 +330,11 @@ module Jazzy
         )
       end
 
-      declaration.abstract = Jazzy.markdown.render(doc['key.doc.comment'] || '')
+      declaration.abstract =
+        Jazzy.render_declaration(doc['key.doc.comment'] || '')
       declaration.discussion = ''
-      declaration.return = make_paragraphs(doc, 'key.doc.result_discussion')
-
-      declaration.parameters = parameters(doc)
+      declaration.return = Jazzy.declaration_returns
+      declaration.parameters = parameters(doc, Jazzy.declaration_parameters)
 
       @documented_count += 1
     end
