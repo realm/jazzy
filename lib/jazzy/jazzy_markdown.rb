@@ -107,8 +107,68 @@ module Jazzy
     }.freeze
   end
 
+  # Spot and capture returns & param HTML for separate display.
+  class JazzyDeclarationHTML < JazzyHTML
+    attr_reader :returns, :parameters
+
+    def reset
+      @returns = nil
+      @parameters = {}
+    end
+
+    INTRO_PAT = '\A(?<intro>\s*(<p>\s*)?)'.freeze
+    OUTRO_PAT = '(?<outro>.*)\z'.freeze
+
+    RETURNS_REGEX = /#{INTRO_PAT}returns:#{OUTRO_PAT}/im
+
+    IDENT_PAT = '(?<param>\S+)'.freeze
+
+    # Param formats: normal swift, objc via sourcekitten, and
+    # possibly inside 'Parameters:'
+    PARAM_PAT1 = "(parameter +#{IDENT_PAT}\\s*:)".freeze
+    PARAM_PAT2 = "(parameter:\\s*#{IDENT_PAT}\\s+)".freeze
+    PARAM_PAT3 = "(#{IDENT_PAT}\\s*:)".freeze
+
+    PARAM_PAT = "(?:#{PARAM_PAT1}|#{PARAM_PAT2}|#{PARAM_PAT3})".freeze
+
+    PARAM_REGEX = /#{INTRO_PAT}#{PARAM_PAT}#{OUTRO_PAT}/im
+
+    def list_item(text, _list_type)
+      if text =~ RETURNS_REGEX
+        @returns = render_param_returns(Regexp.last_match)
+      elsif text =~ PARAM_REGEX
+        @parameters[Regexp.last_match(:param)] =
+          render_param_returns(Regexp.last_match)
+      end
+      super
+    end
+
+    def render_param_returns(matches)
+      body = matches[:intro].strip + matches[:outro].strip
+      body = "<p>#{body}</p>" unless body.start_with?('<p>')
+      Redcarpet::Render::SmartyPants.render(body)
+    end
+  end
+
+  def self.markdown_renderer
+    @renderer ||= JazzyDeclarationHTML.new
+  end
+
   def self.markdown
-    @markdown ||= Redcarpet::Markdown.new(JazzyHTML, JazzyHTML::OPTIONS)
+    @markdown ||= Redcarpet::Markdown.new(markdown_renderer, JazzyHTML::OPTIONS)
+  end
+
+  def self.render_declaration(body_markdown)
+    markdown_renderer.reset
+    markdown.render(body_markdown)
+  end
+
+  def self.declaration_returns
+    markdown_renderer.returns
+  end
+
+  def self.declaration_parameters
+    markdown_renderer.parameters
   end
 
   class JazzyCopyright < Redcarpet::Render::HTML
