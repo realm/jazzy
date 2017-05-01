@@ -19,7 +19,7 @@ module Jazzy
         "&copy; #{year} [#{config.author_name}](#{config.author_url}). " \
         "All rights reserved. (Last updated: #{date})"
       )
-      Jazzy.copyright_markdown.render(copyright).chomp
+      Markdown.render_copyright(copyright).chomp
     end
 
     def jazzy_version

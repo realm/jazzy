@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Allow all markdown in returns and parameter description callouts.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#476](https://github.com/realm/jazzy/issues/476)
 
 ##### Bug Fixes
 

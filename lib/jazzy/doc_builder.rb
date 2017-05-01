@@ -220,7 +220,7 @@ module Jazzy
       doc = Doc.new # Mustache model instance
       name = doc_model.name == 'index' ? source_module.name : doc_model.name
       doc[:name] = name
-      doc[:overview] = Jazzy.markdown.render(doc_model.content(source_module))
+      doc[:overview] = Markdown.render(doc_model.content(source_module))
       doc[:custom_head] = Config.instance.custom_head
       doc[:disable_search] = Config.instance.disable_search
       doc[:doc_coverage] = source_module.doc_coverage unless
@@ -366,7 +366,7 @@ module Jazzy
       overview = (doc_model.abstract || '') + (doc_model.discussion || '')
       alternative_abstract = doc_model.alternative_abstract
       if alternative_abstract
-        overview = Jazzy.markdown.render(alternative_abstract) + overview
+        overview = Markdown.render(alternative_abstract) + overview
       end
 
       doc = Doc.new # Mustache model instance

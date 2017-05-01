@@ -48,7 +48,7 @@ module Jazzy
   module SourceKitten
     @documented_count = 0
     @undocumented_decls = []
-    @default_abstract = Jazzy.markdown.render('Undocumented').freeze
+    @default_abstract = Markdown.render('Undocumented').freeze
 
     # Group root-level docs by custom categories (if any) and type
     def self.group_docs(docs)
@@ -94,7 +94,7 @@ module Jazzy
         SourceDeclaration.new.tap do |sd|
           sd.type     = SourceDeclaration::Type.overview
           sd.name     = name
-          sd.abstract = Jazzy.markdown.render(abstract)
+          sd.abstract = Markdown.render(abstract)
           sd.children = group
         end
       end
@@ -284,23 +284,6 @@ module Jazzy
       make_default_doc_info(declaration)
     end
 
-    def self.make_paragraphs(doc, key)
-      return nil unless doc[key]
-      doc[key].map do |p|
-        if para = p['Para']
-          Jazzy.markdown.render(para)
-        elsif code = p['Verbatim'] || p['CodeListing']
-          Jazzy.markdown.render("```\n#{code}```\n")
-        else
-          warn "Jazzy could not recognize the `#{p.keys.first}` tag. " \
-               'Please report this by filing an issue at ' \
-               'https://github.com/realm/jazzy/issues along with the comment ' \
-               'including this tag.'
-          Jazzy.markdown.render(p.values.first)
-        end
-      end.join
-    end
-
     def self.parameters(doc, discovered)
       (doc['key.doc.parameters'] || []).map do |p|
         name = p['name']
@@ -330,11 +313,10 @@ module Jazzy
         )
       end
 
-      declaration.abstract =
-        Jazzy.render_declaration(doc['key.doc.comment'] || '')
+      declaration.abstract = Markdown.render(doc['key.doc.comment'] || '')
       declaration.discussion = ''
-      declaration.return = Jazzy.declaration_returns
-      declaration.parameters = parameters(doc, Jazzy.declaration_parameters)
+      declaration.return = Markdown.rendered_returns
+      declaration.parameters = parameters(doc, Markdown.rendered_parameters)
 
       @documented_count += 1
     end
