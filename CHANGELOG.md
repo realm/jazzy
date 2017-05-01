@@ -12,7 +12,11 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix a crash that occurred when a documentation comment ended with an extended
+  grapheme cluster.  
+  [Lukas Stührk](https://github.com/Lukas-Stuehrk)
+  [#794](https://github.com/realm/jazzy/issues/794)
+  [SourceKitten#350](https://github.com/jpsim/SourceKitten/issues/350)
 
 ## 0.8.0
 
