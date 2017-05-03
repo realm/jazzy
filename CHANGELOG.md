@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Add `-fmodules` flag for default Objective-C options list.  
+  [Maksym Grebenets](https://github.com/mgrebenets)
+  [#636](https://github.com/realm/jazzy/issues/636)
 
 ## 0.8.1
 
