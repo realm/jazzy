@@ -190,7 +190,8 @@ module Jazzy
         arguments += ['--objc', options.umbrella_header.to_s, '--', '-x',
                       'objective-c', '-isysroot',
                       `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,
-                      '-I', options.framework_root.to_s]
+                      '-I', options.framework_root.to_s,
+                      '-fmodules']
       end
       # add additional -I arguments for each subdirectory of framework_root
       unless options.framework_root.nil?
