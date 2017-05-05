@@ -2,7 +2,9 @@
 
 ##### Breaking
 
-* None.
+* Fix an issue when additional xcodebuild arguments are ignored in Objective-C mode.
+  [Maksym Grebenets](https://github.com/mgrebenets)
+  [#797](https://github.com/realm/jazzy/issues/797)
 
 ##### Enhancements
 
