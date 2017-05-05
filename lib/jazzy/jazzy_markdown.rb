@@ -148,7 +148,8 @@ module Jazzy
       def render_param_returns(matches)
         body = matches[:intro].strip + matches[:outro].strip
         body = "<p>#{body}</p>" unless body.start_with?('<p>')
-        Redcarpet::Render::SmartyPants.render(body)
+        # call smartypants for pretty quotes etc.
+        postprocess(body)
       end
     end
 
