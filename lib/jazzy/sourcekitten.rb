@@ -313,7 +313,7 @@ module Jazzy
         )
       end
 
-      declaration.abstract = Markdown.render(doc['key.doc.comment'] || '')
+      declaration.abstract = Markdown.render((doc['key.doc.comment'] || '').gsub("\u001F","").strip)
       declaration.discussion = ''
       declaration.return = Markdown.rendered_returns
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
