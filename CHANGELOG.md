@@ -9,8 +9,9 @@
 * None.
 
 ##### Bug Fixes
-
-* None.
+  
+* Removes a gap before the first character in the abstract of a parameter.  
+  [Nick Brook](https://github.com/nrbrook)
 
 ## 0.8.1
 
