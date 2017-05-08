@@ -14,6 +14,10 @@
   [Maksym Grebenets](https://github.com/mgrebenets)
   [#636](https://github.com/realm/jazzy/issues/636)
 
+* Fix support for Ruby 2.2.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#801](https://github.com/realm/jazzy/issues/801)
+
 ## 0.8.1
 
 ##### Breaking
