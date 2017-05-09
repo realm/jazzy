@@ -58,6 +58,10 @@ OpenSSL.
 declarations.  
 [John Fairhurst](https://github.com/johnfairh)
 
+* Fix many cases of incorrect, missing or superfluous docs on Swift
+  declarations.
+  [John Fairhurst](https://github.com/johnfairh)
+
 ## 0.8.1
 
 ##### Breaking
