@@ -2,7 +2,9 @@
 
 ##### Breaking
 
-* None.
+* Report number of included and skipped declarations in CLI output.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#238](https://github.com/realm/jazzy/issues/238)
 
 ##### Enhancements
 
