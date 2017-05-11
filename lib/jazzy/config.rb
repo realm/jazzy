@@ -258,7 +258,8 @@ module Jazzy
       default: false
 
     config_attr :min_acl,
-      command_line: '--min-acl [private | internal | public]',
+      command_line:
+         '--min-acl [private | fileprivate | internal | public | open]',
       description: 'minimum access control level to document',
       default: 'public',
       parse: ->(acl) do
