@@ -143,7 +143,7 @@ module Jazzy
     # @param [Config] options Build options
     # @return [SourceModule] the documented source module
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
-      (docs, coverage, undocumented) = SourceKitten.parse(
+      (docs, stats) = SourceKitten.parse(
         sourcekitten_output,
         options.min_acl,
         options.skip_undocumented,
@@ -152,15 +152,13 @@ module Jazzy
 
       prepare_output_dir(options.output, options.clean)
 
-      puts "#{coverage}\% documentation coverage " \
-        "with #{undocumented.count} undocumented symbol" \
-        "#{undocumented.count == 1 ? '' : 's'}"
+      stats.report
 
       unless options.skip_documentation
-        build_site(docs, coverage, options)
+        build_site(docs, stats.doc_coverage, options)
       end
 
-      write_lint_report(undocumented, options)
+      write_lint_report(stats.undocumented_decls, options)
     end
 
     def self.relative_path_if_inside(path, base_path)
