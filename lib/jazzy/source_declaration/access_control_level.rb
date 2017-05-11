@@ -89,6 +89,14 @@ module Jazzy
       def <=>(other)
         LEVELS[level] <=> LEVELS[other.level]
       end
+
+      def included_levels
+        LEVELS.select { |_, v| v >= LEVELS[level] }.keys
+      end
+
+      def excluded_levels
+        LEVELS.select { |_, v| v < LEVELS[level] }.keys
+      end
     end
   end
 end

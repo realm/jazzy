@@ -8,6 +8,7 @@ require 'jazzy/executable'
 require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
+require 'jazzy/stats'
 
 ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
 
@@ -46,8 +47,6 @@ end
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
-    @documented_count = 0
-    @undocumented_decls = []
     @default_abstract = Markdown.render('Undocumented').freeze
 
     # Group root-level docs by custom categories (if any) and type
@@ -264,7 +263,8 @@ module Jazzy
         end
       end
 
-      SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
+      acl_ok = SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
+      acl_ok.tap { @stats.add_acl_skipped unless acl_ok }
     end
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
@@ -279,7 +279,7 @@ module Jazzy
       filepath = doc['key.filepath']
       objc = Config.instance.objc_mode
       if objc || should_mark_undocumented(doc['key.kind'], filepath)
-        @undocumented_decls << declaration
+        @stats.add_undocumented(declaration)
       end
       return nil if !documented_child?(doc) && @skip_undocumented
       make_default_doc_info(declaration)
@@ -319,7 +319,7 @@ module Jazzy
       declaration.return = Markdown.rendered_returns
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
 
-      @documented_count += 1
+      @stats.add_documented
     end
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
@@ -389,12 +389,6 @@ module Jazzy
     # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength
-
-    def self.doc_coverage
-      return 0 if @documented_count == 0 && @undocumented_decls.count == 0
-      (100 * @documented_count) /
-        (@undocumented_decls.count + @documented_count)
-    end
 
     # Merges multiple extensions of the same entity into a single document.
     #
@@ -615,6 +609,7 @@ module Jazzy
     def self.parse(sourcekitten_output, min_acl, skip_undocumented, inject_docs)
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
+      @stats = Stats.new
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = deduplicate_declarations(docs)
@@ -629,7 +624,7 @@ module Jazzy
       docs = group_docs(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
-      [docs, doc_coverage, @undocumented_decls]
+      [docs, @stats]
     end
   end
 end
