@@ -19,7 +19,7 @@ module Jazzy
     end
 
     def acl_included
-      documented + undocumented_decls.count
+      documented + undocumented
     end
 
     def undocumented
@@ -47,7 +47,7 @@ module Jazzy
         puts "skipped #{acl_skipped} " \
           "#{comma_list(config.min_acl.excluded_levels)} " \
           "#{symbol_or_symbols(acl_skipped)} " \
-          '(use `--min_acl` to see)'
+          '(use `--min-acl` to specify a different minimum ACL)'
       end
     end
 
