@@ -2,19 +2,19 @@
 
 ##### Breaking
 
+* None.
+
+##### Enhancements
+
 * Report number of included and skipped declarations in CLI output.  
   [John Fairhurst](https://github.com/johnfairh)
   [#238](https://github.com/realm/jazzy/issues/238)
 
-##### Enhancements
-
-* None.
-
-##### Bug Fixes
-
-* Add `-fmodules` flag for default Objective-C options list.  
+* Build ObjC docs with clang modules enabled by default (`-fmodules` flag).  
   [Maksym Grebenets](https://github.com/mgrebenets)
   [#636](https://github.com/realm/jazzy/issues/636)
+
+##### Bug Fixes
 
 * Fix support for Ruby 2.2.  
   [John Fairhurst](https://github.com/johnfairh)
