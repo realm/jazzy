@@ -78,17 +78,19 @@ begin
 
   desc 'Vendors SourceKitten'
   task :sourcekitten do
-    Dir.chdir('SourceKitten') do
-      `make installables`
+    sk_dir = 'SourceKitten'
+    Dir.chdir(sk_dir) do
+      `swift build -c release -Xswiftc -static-stdlib`
     end
-
-    destination = 'lib/jazzy/sourcekitten'
-    rakefile = File.read("#{destination}/Rakefile")
-    source = '/tmp/SourceKitten.dst/usr/local/.'
-    FileUtils.rm_rf destination
-    FileUtils.mkdir_p destination
-    FileUtils.cp_r source, destination
-    File.open("#{destination}/Rakefile", 'w') { |f| f.write rakefile }
+    build_dir = "#{sk_dir}/.build/release"
+    FileUtils.cp_r Dir["#{build_dir}/{sourcekitten,*.dylib}"], 'bin'
+    Dir["#{build_dir}/*.dylib"].each do |file|
+      system 'install_name_tool', '-change', File.expand_path(file),
+             "@loader_path/#{File.basename(file)}", 'bin/sourcekitten'
+    end
+    system 'install_name_tool', '-delete_rpath',
+           (Pathname(`xcrun -find swift`) + '../../lib/swift/macosx').to_s,
+           'bin/sourcekitten'
   end
 
 rescue LoadError, NameError => e

@@ -48,6 +48,9 @@ OpenSSL.
 * Shave ~1MB from jazzy's gem distribution.  
 [JP Simard](https://github.com/jpsim)
 
+* Shave ~1MB from jazzy's gem distribution.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * Fix support for Ruby 2.2.  
