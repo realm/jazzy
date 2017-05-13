@@ -1,4 +1,4 @@
-## Master
+## 0.8.2
 
 ##### Breaking
 
@@ -24,7 +24,7 @@
   [#801](https://github.com/realm/jazzy/issues/801)
 
 * Fix many cases of incorrect, missing or superfluous docs on Swift
-  declarations.
+  declarations.  
   [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.8.1
