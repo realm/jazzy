@@ -213,7 +213,7 @@ module Jazzy
       else
         env = ENV
       end
-      bin_path = Pathname(__FILE__).parent + 'SourceKitten/bin/sourcekitten'
+      bin_path = Pathname(__FILE__) + '../../../bin/sourcekitten'
       output, = Executable.execute_command(bin_path, arguments, true, env: env)
       output
     end

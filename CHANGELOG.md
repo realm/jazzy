@@ -14,6 +14,9 @@
   [Maksym Grebenets](https://github.com/mgrebenets)
   [#636](https://github.com/realm/jazzy/issues/636)
 
+* Shave ~1MB from jazzy's gem distribution.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * Fix support for Ruby 2.2.  
