@@ -1,4 +1,4 @@
-## Master
+## 0.8.2
 
 ##### Breaking
 
@@ -62,7 +62,7 @@ declarations.
 [John Fairhurst](https://github.com/johnfairh)
 
 * Fix many cases of incorrect, missing or superfluous docs on Swift
-  declarations.
+  declarations.  
   [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.8.1
