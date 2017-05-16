@@ -281,8 +281,15 @@ module Jazzy
       if objc || should_mark_undocumented(doc['key.kind'], filepath)
         @stats.add_undocumented(declaration)
       end
+
       return nil if !documented_child?(doc) && @skip_undocumented
+
       make_default_doc_info(declaration)
+      if doc.key?('key.doc.comment')
+        # eg. swift extension of a type from a non-swift module
+        declaration.abstract = Markdown.render(doc['key.doc.comment'])
+      end
+      declaration
     end
 
     def self.parameters(doc, discovered)
