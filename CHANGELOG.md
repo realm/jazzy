@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix missing doc comments on some extensions.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#454](https://github.com/realm/jazzy/issues/454)
 
 ## 0.8.2
 
