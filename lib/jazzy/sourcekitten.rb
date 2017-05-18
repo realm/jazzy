@@ -47,7 +47,7 @@ end
 module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
-    @default_abstract = Markdown.render('Undocumented').freeze
+    @undocumented_abstract = Markdown.render('Undocumented').freeze
 
     # Group root-level docs by custom categories (if any) and type
     def self.group_docs(docs)
@@ -222,7 +222,7 @@ module Jazzy
       # @todo: Fix these
       declaration.line = nil
       declaration.column = nil
-      declaration.abstract = @default_abstract
+      declaration.abstract = ''
       declaration.parameters = []
       declaration.children = []
     end
@@ -276,13 +276,20 @@ module Jazzy
     end
 
     def self.process_undocumented_token(doc, declaration)
+      make_default_doc_info(declaration)
+
       filepath = doc['key.filepath']
       objc = Config.instance.objc_mode
       if objc || should_mark_undocumented(doc['key.kind'], filepath)
         @stats.add_undocumented(declaration)
+        declaration.abstract = @undocumented_abstract
+      else
+        comment = doc['key.doc.comment']
+        declaration.abstract = Markdown.render(comment) if comment
       end
+
       return nil if !documented_child?(doc) && @skip_undocumented
-      make_default_doc_info(declaration)
+      declaration
     end
 
     def self.parameters(doc, discovered)
