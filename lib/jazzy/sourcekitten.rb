@@ -229,7 +229,10 @@ module Jazzy
 
     def self.documented_child?(doc)
       return false unless doc['key.substructure']
-      doc['key.substructure'].any? { |child| documented_child?(child) }
+      doc['key.substructure'].any? do |child|
+        should_document?(child) &&
+          (can_document?(child) || documented_child?(child))
+      end
     end
 
     def self.availability_attribute?(doc)
@@ -302,12 +305,16 @@ module Jazzy
       end
     end
 
+    def self.can_document?(doc)
+      doc.key?('key.doc.full_as_xml')
+    end
+
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
-      unless doc['key.doc.full_as_xml']
+      unless can_document?(doc)
         return process_undocumented_token(doc, declaration)
       end
 
