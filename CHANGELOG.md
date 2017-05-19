@@ -6,7 +6,8 @@
 
 ##### Enhancements
 
-* None.
+* Generate Swift declaration for more Objective-C declarations.  
+  [Zheng Li](https://github.com/ainopara)
 
 ##### Bug Fixes
 
