@@ -25,6 +25,11 @@
   [JP Simard](https://github.com/jpsim)
   [#824](https://github.com/realm/jazzy/issues/824)
 
+* Stop --skip-undocumented from skipping documented items nested
+  inside undocumented items.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#732](https://github.com/realm/jazzy/issues/732)
+
 ## 0.8.2
 
 ##### Breaking
