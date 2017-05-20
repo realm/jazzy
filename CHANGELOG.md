@@ -9,6 +9,10 @@
 * Generate Swift declaration for more Objective-C declarations.  
   [Zheng Li](https://github.com/ainopara)
 
+* Improve quality & accuracy of Swift interfaces for Objective-C declarations
+  when generating Objective-C docs.  
+  [Norio Nomura](https://github.com/norio-nomura)
+
 ##### Bug Fixes
 
 * Fix missing doc comments on some extensions.  
