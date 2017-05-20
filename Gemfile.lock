@@ -158,7 +158,7 @@ PLATFORMS
 DEPENDENCIES
   bacon
   bundler (~> 1.7)
-  clintegracon
+  clintegracon (= 0.7.0)
   danger
   diffy
   jazzy!
