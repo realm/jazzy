@@ -38,7 +38,7 @@ module Jazzy
     end
 
     def fallback_readme
-      %w(README.md README.markdown README.mdown README).each do |potential_name|
+      %w[README.md README.markdown README.mdown README].each do |potential_name|
         file = config.source_directory + potential_name
         return file.read if file.exist?
       end
