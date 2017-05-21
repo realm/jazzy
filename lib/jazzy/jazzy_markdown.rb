@@ -21,10 +21,10 @@ module Jazzy
 
       # List from
       # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
-      UNIQUELY_HANDLED_CALLOUTS = %w(parameters
+      UNIQUELY_HANDLED_CALLOUTS = %w[parameters
                                      parameter
-                                     returns).freeze
-      GENERAL_CALLOUTS = %w(attention
+                                     returns].freeze
+      GENERAL_CALLOUTS = %w[attention
                             author
                             authors
                             bug
@@ -51,7 +51,7 @@ module Jazzy
                             todo
                             throws
                             version
-                            warning).freeze
+                            warning].freeze
       SPECIAL_LIST_TYPES = (UNIQUELY_HANDLED_CALLOUTS + GENERAL_CALLOUTS).freeze
 
       SPECIAL_LIST_TYPE_REGEX = %r{

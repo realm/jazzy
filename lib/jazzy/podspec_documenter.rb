@@ -24,7 +24,7 @@ module Jazzy
                              .map(&:label)
 
           targets.map do |t|
-            args = %W(doc --module-name #{podspec.module_name} -- -target #{t})
+            args = %W[doc --module-name #{podspec.module_name} -- -target #{t}]
             swift_version = (config.swift_version || '3')[0] + '.0'
             args << "SWIFT_VERSION=\"#{swift_version}\""
             SourceKitten.run_sourcekitten(args)

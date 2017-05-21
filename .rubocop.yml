@@ -31,6 +31,9 @@ Metrics/BlockLength:
 Style/NumericPredicate:
   Enabled: false
 
+Style/IndentHeredoc:
+  Enabled: false
+
 # We adopted raise instead of fail.
 SignalException:
   EnforcedStyle: only_raise
