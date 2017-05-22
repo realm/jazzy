@@ -37,7 +37,7 @@ module Jazzy
         d.map(&:children).each { |c| visitor[c] }
       end
       visitor[docs]
-      all_declarations.select { |doc| doc.name != 'index' }
+      all_declarations.reject { |doc| doc.name == 'index' }
     end
   end
 end

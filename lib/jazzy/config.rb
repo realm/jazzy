@@ -402,7 +402,7 @@ module Jazzy
       puts "Using config file #{config_path}"
       config_file = read_config_file(config_path)
 
-      attrs_by_conf_key, attrs_by_name = %i(config_file_key name).map do |prop|
+      attrs_by_conf_key, attrs_by_name = %i[config_file_key name].map do |prop|
         self.class.all_config_attrs.group_by(&prop)
       end
 

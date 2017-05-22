@@ -71,8 +71,10 @@ begin
 
   #-- RuboCop ----------------------------------------------------------------#
 
-  require 'rubocop/rake_task'
-  RuboCop::RakeTask.new(:rubocop)
+  desc 'Runs RuboCop linter on Ruby files'
+  task :rubocop do
+    sh 'bundle exec rubocop lib spec'
+  end
 
   #-- SourceKitten -----------------------------------------------------------#
 

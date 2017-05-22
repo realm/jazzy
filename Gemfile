@@ -15,7 +15,7 @@ group :development do
 
   # Integration tests
   gem 'diffy'
-  gem 'clintegracon'
+  gem 'clintegracon', '0.7.0'
   
   # Code Review
   gem 'danger'
