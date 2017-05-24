@@ -26,9 +26,9 @@
   [#824](https://github.com/realm/jazzy/issues/824)
 
 * Stop --skip-undocumented from skipping documented items nested
-  inside undocumented items.  
+  inside extensions of types from other modules.  
   [John Fairhurst](https://github.com/johnfairh)
-  [#732](https://github.com/realm/jazzy/issues/732)
+  [#502](https://github.com/realm/jazzy/issues/502)
 
 ## 0.8.2
 
