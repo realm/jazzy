@@ -19,6 +19,12 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#454](https://github.com/realm/jazzy/issues/454)
 
+* Fix failure when attempting to download documentation coverage badge with
+  jazzy using macOS system Ruby, or a Ruby built with outdated versions of
+  OpenSSL.  
+  [JP Simard](https://github.com/jpsim)
+  [#824](https://github.com/realm/jazzy/issues/824)
+
 ## 0.8.2
 
 ##### Breaking
