@@ -259,14 +259,15 @@ module Jazzy
       return if options.hide_documentation_coverage || !options.download_badge
 
       warn 'downloading coverage badge'
-      color = color_for_coverage(coverage)
-      uri = URI.parse('https://img.shields.io')
-      url_path = "/badge/documentation-#{coverage}%25-#{color}.svg"
-      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        resp = http.get url_path
-        File.open(options.output + 'badge.svg', 'wb') do |file|
-          file.write resp.body
-        end
+      badge_url = 'https://img.shields.io/badge/documentation-' \
+        "#{coverage}%25-#{color_for_coverage(coverage)}.svg"
+      badge_output = options.output + 'badge.svg'
+      system('curl', '-s', badge_url, '-o', badge_output.to_s)
+      unless $?.success?
+        warn 'Downloading documentation coverage badge failed.'
+        warn 'Please try again when connected to the Internet, or skip the ' \
+             'download by passing the `--no-download-badge` command flag.'
+        exit $?.exitstatus || 1
       end
     end
 
