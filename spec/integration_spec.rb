@@ -165,21 +165,6 @@ describe_cli 'jazzy' do
                             '--podspec=Moya.podspec'
     end
 
-    describe 'Creates docs with a module name, author name, project URL, ' \
-      'xcodebuild options, and github info' do
-      behaves_like cli_spec 'document_alamofire',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/4.3.0 ' \
-                            '--module-version 4.3.0 ' \
-                            '--root-url ' \
-                            'https://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented'
-    end
-
     describe 'Creates Realm Swift docs' do
       realm_version = ''
       Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
