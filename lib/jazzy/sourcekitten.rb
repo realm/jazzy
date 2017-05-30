@@ -227,11 +227,6 @@ module Jazzy
       declaration.children = []
     end
 
-    def self.documented_child?(doc)
-      return false unless doc['key.substructure']
-      doc['key.substructure'].any? { |child| documented_child?(child) }
-    end
-
     def self.availability_attribute?(doc)
       return false unless doc['key.attributes']
       !doc['key.attributes'].select do |attribute|
@@ -282,13 +277,13 @@ module Jazzy
       objc = Config.instance.objc_mode
       if objc || should_mark_undocumented(doc['key.kind'], filepath)
         @stats.add_undocumented(declaration)
+        return nil if @skip_undocumented
         declaration.abstract = @undocumented_abstract
       else
         comment = doc['key.doc.comment']
         declaration.abstract = Markdown.render(comment) if comment
       end
 
-      return nil if !documented_child?(doc) && @skip_undocumented
       declaration
     end
 
@@ -389,6 +384,7 @@ module Jazzy
 
         next unless make_doc_info(doc, declaration)
         make_substructure(doc, declaration)
+        next if declaration.type.extension? && declaration.children.empty?
         declarations << declaration
       end
       declarations
