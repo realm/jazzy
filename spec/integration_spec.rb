@@ -212,5 +212,13 @@ describe_cli 'jazzy' do
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features'
     end
+    describe 'Checks evolution of behavior involving ' \
+             '--skip-undocumented and undocumented.json' \
+             'against project goals.' do
+      behaves_like cli_spec 'behaviors_for_undocumented',
+                            '--xcodebuild-arguments ' \
+                            '-target,Behaviors ' \
+                            '--skip-undocumented'
+    end
   end
 end
