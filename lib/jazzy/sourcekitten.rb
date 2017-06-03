@@ -360,9 +360,11 @@ module Jazzy
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
         if doc['key.kind'] == 'source.lang.swift.syntaxtype.comment.mark'
-          current_mark = SourceMark.new(doc['key.name']) if (declaration.type.mark? && (doc['key.name'].start_with?('MARK: ')))
+          current_mark = SourceMark.new(doc['key.name']) 
+            if (declaration.type.mark? && (doc['key.name'].start_with?('MARK: ')))
         else
-          current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
+          current_mark = SourceMark.new(doc['key.name']) 
+            if declaration.type.mark?
         end
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
