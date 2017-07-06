@@ -86,7 +86,7 @@ parameters to jazzy:
 
 * `--objc`
 * `--umbrella-header ...`
-* `-framework-root ...`
+* `--framework-root ...`
 * `--sdk [iphone|watch|appletv][os|simulator]|macosx` (optional, default value
    of `macosx`)
 
