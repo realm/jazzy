@@ -55,14 +55,23 @@ begin
     # Remove files not used for the comparison
     # To keep the git diff clean
     files_glob = 'spec/integration_specs/*/after/{*,.*}'
+    exec_output_glob = 'spec/integration_specs/*/after/execution_output.txt'
     files_to_delete = FileList[files_glob]
       .exclude('**/.', '**/..')
       .exclude('spec/integration_specs/*/after/*docs',
-               'spec/integration_specs/*/after/execution_output.txt')
+               exec_output_glob)
       .include('**/*.dsidx')
       .include('**/*.tgz')
     files_to_delete.each do |file_to_delete|
       sh "rm -rf '#{file_to_delete}'"
+    end
+
+    # Remove version numbers from CocoaPods dependencies
+    # to make specs resilient against dependecy updates.
+    FileList[exec_output_glob].each do |file|
+      sanitized = File.open(file, &:read)
+                      .gsub(/(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)')
+      File.write(file, sanitized)
     end
 
     puts
