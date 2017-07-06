@@ -104,6 +104,9 @@ describe_cli 'jazzy' do
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
     s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$[\n]?/, ''
+    # Remove version numbers from CocoaPods dependencies
+    # to make specs resilient against dependecy updates.
+    s.replace_pattern /(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)'
   end
 
   require 'shellwords'
