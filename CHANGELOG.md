@@ -13,6 +13,9 @@
   when generating Objective-C docs.  
   [Norio Nomura](https://github.com/norio-nomura)
 
+* Process Swift 3.2/4 doc comments.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Fix missing doc comments on some extensions.  
