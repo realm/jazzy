@@ -393,6 +393,36 @@ module Jazzy
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength
 
+    # Expands extensions of nested types declared at the top level into
+    # a tree so they can be deduplicated properly
+    def self.expand_extensions(decls)
+      decls.map do |decl|
+        next decl unless decl.type.extension? && decl.name.include?('.')
+
+        name_parts = decl.name.split('.')
+        decl.name = name_parts.pop
+        expand_extension(decl, name_parts, decls)
+      end
+    end
+
+    def self.expand_extension(extension, name_parts, decls)
+      return extension if name_parts.empty?
+      name = name_parts.shift
+      candidates = decls.select { |decl| decl.name == name }
+      SourceDeclaration.new.tap do |decl|
+        make_default_doc_info(decl)
+        decl.name = name
+        decl.type = extension.type
+        decl.mark = extension.mark
+        decl.usr = candidates.first.usr unless candidates.empty?
+        child = expand_extension(extension,
+                                 name_parts,
+                                 candidates.flat_map(&:children).uniq)
+        child.parent_in_code = decl
+        decl.children = [child]
+      end
+    end
+
     # Merges multiple extensions of the same entity into a single document.
     #
     # Merges extensions into the protocol/class/struct/enum they extend, if it
@@ -615,6 +645,7 @@ module Jazzy
       @stats = Stats.new
       sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json).concat inject_docs
+      docs = expand_extensions(docs)
       docs = deduplicate_declarations(docs)
       if Config.instance.objc_mode
         docs = reject_objc_types(docs)
