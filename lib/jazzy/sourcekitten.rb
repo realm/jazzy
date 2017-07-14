@@ -294,7 +294,7 @@ module Jazzy
           name: name,
           discussion: discovered[name],
         }
-      end
+      end.reject { |param| param[:discussion].nil? }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -607,6 +607,10 @@ module Jazzy
 
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+        (doc.parameters || []).each do |param|
+          param[:discussion] =
+            autolink_text(param[:discussion], doc, root_decls)
+        end
 
         if doc.declaration
           doc.declaration = autolink_text(
