@@ -2,6 +2,7 @@ require 'json'
 require 'pathname'
 require 'shellwords'
 require 'xcinvoke'
+require 'CGI'
 
 require 'jazzy/config'
 require 'jazzy/executable'
@@ -27,7 +28,7 @@ class String
     gsub(autolink_regex(middle_regex, after_highlight)) do
       original = Regexp.last_match(0)
       start_tag, raw_name, end_tag = Regexp.last_match.captures
-      link_target = yield(raw_name)
+      link_target = yield(CGI.unescape_html(raw_name))
 
       if link_target &&
          !link_target.type.extension? &&
@@ -540,7 +541,7 @@ module Jazzy
       return nil unless name_part
       wildcard_expansion = Regexp.escape(name_part)
                                  .gsub('\.\.\.', '[^)]*')
-                                 .gsub(/&lt;.*&gt;/, '')
+                                 .gsub(/<.*>/, '')
       whole_name_pat = /\A#{wildcard_expansion}\Z/
       docs.find do |doc|
         whole_name_pat =~ doc.name
