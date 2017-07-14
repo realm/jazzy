@@ -603,6 +603,7 @@ module Jazzy
     end
 
     def self.autolink(docs, root_decls)
+      @autolink_root_decls = root_decls
       docs.each do |doc|
         doc.children = autolink(doc.children, root_decls)
 
@@ -625,6 +626,11 @@ module Jazzy
           )
         end
       end
+    end
+
+    # For autolinking external markdown documents
+    def self.autolink_document(html, doc)
+      autolink_text(html, doc, @autolink_root_decls || [])
     end
 
     def self.reject_objc_types(docs)

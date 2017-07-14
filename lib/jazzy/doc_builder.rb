@@ -208,6 +208,11 @@ module Jazzy
       end
     end
 
+    def self.render(doc_model, markdown)
+      html = Markdown.render(markdown)
+      SourceKitten.autolink_document(html, doc_model)
+    end
+
     # Build Mustache document from a markdown source file
     # @param [Config] options Build options
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
@@ -218,7 +223,7 @@ module Jazzy
       doc = Doc.new # Mustache model instance
       name = doc_model.name == 'index' ? source_module.name : doc_model.name
       doc[:name] = name
-      doc[:overview] = Markdown.render(doc_model.content(source_module))
+      doc[:overview] = render(doc_model, doc_model.content(source_module))
       doc[:custom_head] = Config.instance.custom_head
       doc[:disable_search] = Config.instance.disable_search
       doc[:doc_coverage] = source_module.doc_coverage unless
@@ -230,7 +235,7 @@ module Jazzy
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:hide_name] = true
-      doc.render
+      doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
 
     # Returns the appropriate color for the provided percentage,
@@ -365,7 +370,7 @@ module Jazzy
       overview = (doc_model.abstract || '') + (doc_model.discussion || '')
       alternative_abstract = doc_model.alternative_abstract
       if alternative_abstract
-        overview = Markdown.render(alternative_abstract) + overview
+        overview = render(doc_model, alternative_abstract) + overview
       end
 
       doc = Doc.new # Mustache model instance
