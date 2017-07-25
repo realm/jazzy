@@ -10,7 +10,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix crash when specifying `swift_version` as a floating point value in
+  `.jazzy.yaml` rather than a string.  
+  [JP Simard](https://github.com/jpsim)
+  [#860](https://github.com/realm/jazzy/issues/860)
 
 ## 0.8.3
 
