@@ -2,6 +2,7 @@ require 'json'
 require 'pathname'
 require 'shellwords'
 require 'xcinvoke'
+require 'CGI'
 
 require 'jazzy/config'
 require 'jazzy/executable'
@@ -27,7 +28,7 @@ class String
     gsub(autolink_regex(middle_regex, after_highlight)) do
       original = Regexp.last_match(0)
       start_tag, raw_name, end_tag = Regexp.last_match.captures
-      link_target = yield(raw_name)
+      link_target = yield(CGI.unescape_html(raw_name))
 
       if link_target &&
          !link_target.type.extension? &&
@@ -294,7 +295,7 @@ module Jazzy
           name: name,
           discussion: discovered[name],
         }
-      end
+      end.reject { |param| param[:discussion].nil? }
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
@@ -540,7 +541,7 @@ module Jazzy
       return nil unless name_part
       wildcard_expansion = Regexp.escape(name_part)
                                  .gsub('\.\.\.', '[^)]*')
-                                 .gsub(/&lt;.*&gt;/, '')
+                                 .gsub(/<.*>/, '')
       whole_name_pat = /\A#{wildcard_expansion}\Z/
       docs.find do |doc|
         whole_name_pat =~ doc.name
@@ -602,11 +603,16 @@ module Jazzy
     end
 
     def self.autolink(docs, root_decls)
+      @autolink_root_decls = root_decls
       docs.each do |doc|
         doc.children = autolink(doc.children, root_decls)
 
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+        (doc.parameters || []).each do |param|
+          param[:discussion] =
+            autolink_text(param[:discussion], doc, root_decls)
+        end
 
         if doc.declaration
           doc.declaration = autolink_text(
@@ -620,6 +626,11 @@ module Jazzy
           )
         end
       end
+    end
+
+    # For autolinking external markdown documents
+    def self.autolink_document(html, doc)
+      autolink_text(html, doc, @autolink_root_decls || [])
     end
 
     def self.reject_objc_types(docs)
