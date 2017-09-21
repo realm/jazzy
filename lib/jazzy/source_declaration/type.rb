@@ -185,7 +185,7 @@ module Jazzy
           dash: 'Field',
         }.freeze,
         'sourcekitten.source.lang.objc.decl.ivar' => {
-          jazzy: 'Ivar',
+          jazzy: 'Instance Variable',
           dash: 'Ivar',
         }.freeze,
         'sourcekitten.source.lang.objc.module.import' => {
