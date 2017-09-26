@@ -155,7 +155,8 @@ module Jazzy
       top_level_decl = doc.namespace_path.first
       if top_level_decl && top_level_decl.type && top_level_decl.type.name
         # File program elements under top ancestor’s type (Struct, Class, etc.)
-        [top_level_decl.type.plural_name] + doc.namespace_ancestors.map(&:name)
+        [top_level_decl.type.plural_url_name] +
+          doc.namespace_ancestors.map(&:name)
       else
         # Categories live in their own directory
         []

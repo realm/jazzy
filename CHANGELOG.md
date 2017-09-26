@@ -8,6 +8,7 @@
 
 * Align jazzy terminology with Apple usage.  
   [Xiaodi Wu](https://github.com/xwu)
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 

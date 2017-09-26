@@ -23,6 +23,11 @@ module Jazzy
         @type && @type[:jazzy]
       end
 
+      # name to use for type subdirectory in URLs for back-compatibility
+      def url_name
+        @type && (@type[:url] || @type[:jazzy])
+      end
+
       def name_controlled_manually?
         !kind.start_with?('source')
         # "'source'.lang..." for Swift
@@ -32,6 +37,10 @@ module Jazzy
 
       def plural_name
         name.pluralize
+      end
+
+      def plural_url_name
+        url_name.pluralize
       end
 
       def mark?
@@ -138,6 +147,7 @@ module Jazzy
         }.freeze,
         'sourcekitten.source.lang.objc.decl.enum' => {
           jazzy: 'Enumeration',
+          url: 'Enum',
           dash: 'Enum',
         }.freeze,
         'sourcekitten.source.lang.objc.decl.enumcase' => {
@@ -178,6 +188,7 @@ module Jazzy
         }.freeze,
         'sourcekitten.source.lang.objc.decl.struct' => {
           jazzy: 'Structure',
+          url: 'Struct',
           dash: 'Struct',
         }.freeze,
         'sourcekitten.source.lang.objc.decl.field' => {
@@ -268,6 +279,7 @@ module Jazzy
         }.freeze,
         'source.lang.swift.decl.enum' => {
           jazzy: 'Enumeration',
+          url: 'Enum',
           dash: 'Enum',
         }.freeze,
         'source.lang.swift.decl.extension' => {
@@ -324,6 +336,7 @@ module Jazzy
         }.freeze,
         'source.lang.swift.decl.struct' => {
           jazzy: 'Structure',
+          url: 'Struct',
           dash: 'Struct',
         }.freeze,
         'source.lang.swift.decl.function.subscript' => {
@@ -332,6 +345,7 @@ module Jazzy
         }.freeze,
         'source.lang.swift.decl.typealias' => {
           jazzy: 'Type Alias',
+          url: 'Typealias',
           dash: 'Alias',
         }.freeze,
         'source.lang.swift.decl.generic_type_param' => {
