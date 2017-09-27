@@ -2,6 +2,7 @@ require 'tmpdir'
 require 'json'
 
 module Jazzy
+  # rubocop:disable Metrics/ClassLength
   class PodspecDocumenter
     attr_reader :podspec
 
@@ -14,7 +15,8 @@ module Jazzy
     def sourcekitten_output(config)
       installation_root = Pathname(Dir.mktmpdir(['jazzy', podspec.name]))
       installation_root.rmtree if installation_root.exist?
-      Pod::Config.instance.with_changes(installation_root: installation_root) do
+      Pod::Config.instance.with_changes(installation_root: installation_root,
+                                        verbose: false) do
         sandbox = Pod::Sandbox.new(Pod::Config.instance.sandbox_root)
         installer = Pod::Installer.new(sandbox, podfile)
         installer.install!
