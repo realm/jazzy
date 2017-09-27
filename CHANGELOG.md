@@ -53,6 +53,10 @@
   OpenSSL.  
   [JP Simard](https://github.com/jpsim)
   [#824](https://github.com/realm/jazzy/issues/824)
+  
+ * Fix issue where TODO: comments are unnecessarily added to the generated documentation
+  [bgalamb](https://github.com/bgalamb)
+  [#658](https://github.com/realm/jazzy/issues/658)
 
 * Stop `--skip-undocumented` from skipping documented items nested
   inside extensions of types from other modules.  
