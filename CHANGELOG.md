@@ -28,6 +28,9 @@
   [#789](https://github.com/realm/jazzy/issues/789)
   [#805](https://github.com/realm/jazzy/issues/805)
 
+* Fix Swift 4 declarations containing ampersands (`&`) being truncated.  
+  [JP Simard](https://github.com/jpsim)
+
 ## 0.8.3
 
 ##### Breaking
