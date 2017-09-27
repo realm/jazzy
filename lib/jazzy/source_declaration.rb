@@ -76,6 +76,7 @@ module Jazzy
     attr_accessor :start_line
     attr_accessor :end_line
     attr_accessor :nav_order
+    attr_accessor :url_name
 
     def alternative_abstract
       if file = alternative_abstract_file
@@ -85,7 +86,8 @@ module Jazzy
 
     def alternative_abstract_file
       abstract_glob.select do |f|
-        File.basename(f).split('.').first == name
+        # allow Structs.md or Structures.md
+        [name, url_name].include?(File.basename(f).split('.').first)
       end.first
     end
 

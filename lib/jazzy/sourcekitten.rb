@@ -83,17 +83,19 @@ module Jazzy
           children,
           type_category_prefix + type.plural_name,
           "The following #{type.plural_name.downcase} are available globally.",
+          type_category_prefix + type.plural_url_name,
         )
       end
       [group.compact, docs]
     end
 
-    def self.make_group(group, name, abstract)
+    def self.make_group(group, name, abstract, url_name = nil)
       group.reject! { |doc| doc.name.empty? }
       unless group.empty?
         SourceDeclaration.new.tap do |sd|
           sd.type     = SourceDeclaration::Type.overview
           sd.name     = name
+          sd.url_name = url_name
           sd.abstract = Markdown.render(abstract)
           sd.children = group
         end
@@ -101,7 +103,7 @@ module Jazzy
     end
 
     def self.sanitize_filename(doc)
-      unsafe_filename = doc.name
+      unsafe_filename = doc.url_name || doc.name
       sanitzation_enabled = Config.instance.use_safe_filenames
       if sanitzation_enabled && !doc.type.name_controlled_manually?
         return CGI.escape(unsafe_filename).gsub('_', '%5F').tr('%', '_')

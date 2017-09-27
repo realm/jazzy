@@ -46,6 +46,7 @@ module Jazzy
         end
         {
           section: doc.name,
+          url: doc.url,
           children: children,
         }
       end
