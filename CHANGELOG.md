@@ -10,6 +10,10 @@
   [Xiaodi Wu](https://github.com/xwu)
   [John Fairhurst](https://github.com/johnfairh)
 
+* Add `url` attribute that can be more accurate than `{{section}}.html` as a URL
+  in custom templates.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Fix crash when specifying `swift_version` as a floating point value in
