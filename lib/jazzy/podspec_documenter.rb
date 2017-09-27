@@ -2,6 +2,7 @@ require 'tmpdir'
 require 'json'
 
 module Jazzy
+  # rubocop:disable Metrics/ClassLength
   class PodspecDocumenter
     attr_reader :podspec
 
@@ -14,7 +15,8 @@ module Jazzy
     def sourcekitten_output(config)
       installation_root = Pathname(Dir.mktmpdir(['jazzy', podspec.name]))
       installation_root.rmtree if installation_root.exist?
-      Pod::Config.instance.with_changes(installation_root: installation_root) do
+      Pod::Config.instance.with_changes(installation_root: installation_root,
+                                        verbose: false) do
         sandbox = Pod::Sandbox.new(Pod::Config.instance.sandbox_root)
         installer = Pod::Installer.new(sandbox, podfile)
         installer.install!
@@ -25,7 +27,7 @@ module Jazzy
 
           targets.map do |t|
             args = %W[doc --module-name #{podspec.module_name} -- -target #{t}]
-            swift_version = (config.swift_version || '3')[0] + '.0'
+            swift_version = (config.swift_version || '4')[0] + '.0'
             args << "SWIFT_VERSION=\"#{swift_version}\""
             SourceKitten.run_sourcekitten(args)
           end
@@ -117,8 +119,12 @@ module Jazzy
           ss.available_platforms.each do |p|
             # Travis builds take too long when building docs for all available
             # platforms for the Moya integration spec, so we just document OSX.
+            # Also Moya's RxSwift subspec doesn't yet support Swift 4, so skip
+            # that too while we're at it.
             # TODO: remove once jazzy is fast enough.
-            next if ENV['JAZZY_INTEGRATION_SPECS'] && p.name != :osx
+            if ENV['JAZZY_INTEGRATION_SPECS']
+              next if (p.name != :osx) || (ss.name == 'Moya/RxSwift')
+            end
             target("Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}") do
               use_frameworks!
               platform p.name, p.deployment_target
