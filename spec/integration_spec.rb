@@ -106,7 +106,7 @@ describe_cli 'jazzy' do
     s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$[\n]?/, ''
     # Remove version numbers from CocoaPods dependencies
     # to make specs resilient against dependecy updates.
-    s.replace_pattern /(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)'
+    s.replace_pattern(/(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)')
   end
 
   require 'shellwords'
