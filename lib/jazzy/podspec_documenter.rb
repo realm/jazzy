@@ -117,8 +117,12 @@ module Jazzy
           ss.available_platforms.each do |p|
             # Travis builds take too long when building docs for all available
             # platforms for the Moya integration spec, so we just document OSX.
+            # Also Moya's RxSwift subspec doesn't yet support Swift 4, so skip
+            # that too while we're at it.
             # TODO: remove once jazzy is fast enough.
-            next if ENV['JAZZY_INTEGRATION_SPECS'] && p.name != :osx
+            if ENV['JAZZY_INTEGRATION_SPECS']
+              next if (p.name != :osx) || (ss.name == 'Moya/RxSwift')
+            end
             target("Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}") do
               use_frameworks!
               platform p.name, p.deployment_target
