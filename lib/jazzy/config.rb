@@ -150,8 +150,8 @@ module Jazzy
       parse: ->(sd) { expand_path(sd) }
 
     config_attr :excluded_files,
-      command_line: ['-e', '--exclude file1,file2,directory3,…fileN', Array],
-      description: 'Files/directories to be excluded from documentation. '\
+      command_line: ['-e', '--exclude filepath1,filepath2,…filepathN', Array],
+      description: 'Source file pathnames to be excluded from documentation. '\
                    'Supports wildcards.',
       default: [],
       parse: ->(files) do
