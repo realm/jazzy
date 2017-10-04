@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fixed issue that prevented Jazzy from running on case sensitive file systems.  
+  [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
+  [#891](https://github.com/realm/jazzy/issues/891)
 
 ## 0.8.4
 
