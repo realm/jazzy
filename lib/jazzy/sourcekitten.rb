@@ -2,7 +2,7 @@ require 'json'
 require 'pathname'
 require 'shellwords'
 require 'xcinvoke'
-require 'CGI'
+require 'cgi'
 
 require 'jazzy/config'
 require 'jazzy/executable'
