@@ -56,7 +56,7 @@ her [book on Swift Documentation Markup](https://itunes.apple.com/us/book/swift-
 For Objective-C documentation the same keywords are supported, but note that the format
 is slightly different. In Swift you would write `- returns:`, but in Objective-C you write `@return`. See Apple's [*HeaderDoc User Guide*](https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/HeaderDoc/tags/tags.html) for more details. **Note: `jazzy` currently does not support _all_ Objective-C keywords listed in this document, only @param, @return, @warning, @see, and @note.**
 
-Jazzy can also generate cross-references within your documentation. A symbol name in
+Jazzy can generate cross-references within your documentation. A symbol name in
 backticks generates a link, for example:
 * \`MyClass\` - a link to documentation for `MyClass`.
 * \`MyClass.method(param1:)\` - a link to documentation for that method.
@@ -65,6 +65,20 @@ backticks generates a link, for example:
   method or property in the same class.
 * \`[MyClass method1]\` - a link to an Objective-C method.
 * \`-[MyClass method2:param1]\` - a link to another Objective-C method.
+
+Markdown code blocks can have syntax highlighting.  The default language for
+code blocks in documentation comments is Swift or Objective-C depending on the
+symbol being documented.  Code blocks in other markdown files such as
+`README.md` default to plain text without any highlighting.  You can always
+override the default like this:
+````markdown
+```shell
+$ jazzy --clean
+```
+````
+Jazzy uses [Rouge](https://github.com/jneen/rouge) for syntax highlighting.  The
+list of supported languages is
+[here](https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers).
 
 ### Swift
 
