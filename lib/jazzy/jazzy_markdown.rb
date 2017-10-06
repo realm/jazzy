@@ -8,6 +8,8 @@ module Jazzy
       include Redcarpet::Render::SmartyPants
       include Rouge::Plugins::Redcarpet
 
+      attr_accessor :default_language
+
       def header(text, header_level)
         text_slug = text.gsub(/[^\w]+/, '-')
                         .downcase
@@ -96,6 +98,14 @@ module Jazzy
         str << text
         str << (list_type == :ordered ? "</ol>\n" : "</ul>\n")
       end
+
+      def block_code(code, language)
+        super(code, language || default_language)
+      end
+
+      def rouge_formatter(lexer)
+        Highlighter::Formatter.new(lexer.tag)
+      end
     end
 
     REDCARPET_OPTIONS = {
@@ -161,8 +171,9 @@ module Jazzy
       @markdown ||= Redcarpet::Markdown.new(renderer, REDCARPET_OPTIONS)
     end
 
-    def self.render(markdown_text)
+    def self.render(markdown_text, default_language = nil)
       renderer.reset
+      renderer.default_language = default_language
       markdown.render(markdown_text)
     end
 

@@ -287,8 +287,8 @@ module Jazzy
         return nil if @skip_undocumented
         declaration.abstract = undocumented_abstract
       else
-        comment = doc['key.doc.comment']
-        declaration.abstract = Markdown.render(comment) if comment
+        declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
+                                               Highlighter.default_language)
       end
 
       declaration
@@ -305,13 +305,11 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
       declaration.declaration = Highlighter.highlight(
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
-        Config.instance.objc_mode ? 'objc' : 'swift',
       )
       if Config.instance.objc_mode && doc['key.swift_declaration']
         declaration.other_language_declaration = Highlighter.highlight(
@@ -323,7 +321,8 @@ module Jazzy
         return process_undocumented_token(doc, declaration)
       end
 
-      declaration.abstract = Markdown.render(doc['key.doc.comment'] || '')
+      declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
+                                             Highlighter.default_language)
       declaration.discussion = ''
       declaration.return = Markdown.rendered_returns
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
@@ -331,7 +330,6 @@ module Jazzy
       @stats.add_documented
     end
     # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.make_substructure(doc, declaration)
       declaration.children = if doc['key.substructure']
