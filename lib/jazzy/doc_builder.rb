@@ -307,7 +307,7 @@ module Jazzy
     def self.render_item(item, source_module)
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
-      item_render = {
+      {
         name:                       item.name,
         abstract:                   abstract,
         declaration:                item.declaration,
@@ -323,7 +323,6 @@ module Jazzy
         start_line:                 item.start_line,
         end_line:                   item.end_line,
       }
-      item_render.reject { |_, v| v.nil? }
     end
 
     def self.make_task(mark, uid, items)
