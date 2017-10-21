@@ -14,6 +14,10 @@
   [Jeremy David Giesbrecht](https://github.com/SDGGiesbrecht)
   [#891](https://github.com/realm/jazzy/issues/891)
 
+* Fixed issue preventing `--podspec` from working with `test_spec`s.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#894](https://github.com/realm/jazzy/issues/894)
+
 ## 0.8.4
 
 ##### Breaking

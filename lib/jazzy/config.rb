@@ -211,6 +211,8 @@ module Jazzy
 
     config_attr :podspec,
       command_line: '--podspec FILEPATH',
+      description: 'A CocoaPods Podspec that describes the Swift library to '\
+                   'document',
       parse: ->(ps) { PodspecDocumenter.create_podspec(Pathname(ps)) if ps },
       default: Dir['*.podspec{,.json}'].first
 

@@ -116,6 +116,9 @@ module Jazzy
                  deterministic_uuids: false
 
         [podspec, *podspec.recursive_subspecs].each do |ss|
+          # test_specification exists from CocoaPods 1.3.0
+          next if ss.respond_to?('test_specification') && ss.test_specification
+
           ss.available_platforms.each do |p|
             # Travis builds take too long when building docs for all available
             # platforms for the Moya integration spec, so we just document OSX.
