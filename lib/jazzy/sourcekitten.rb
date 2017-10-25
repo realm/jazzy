@@ -306,10 +306,6 @@ module Jazzy
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
-      unless doc['key.doc.full_as_xml']
-        return process_undocumented_token(doc, declaration)
-      end
-
       declaration.declaration = Highlighter.highlight(
         doc['key.parsed_declaration'] || doc['key.doc.declaration'],
         Config.instance.objc_mode ? 'objc' : 'swift',
@@ -318,6 +314,10 @@ module Jazzy
         declaration.other_language_declaration = Highlighter.highlight(
           doc['key.swift_declaration'], 'swift'
         )
+      end
+
+      unless doc['key.doc.full_as_xml']
+        return process_undocumented_token(doc, declaration)
       end
 
       declaration.abstract = Markdown.render(doc['key.doc.comment'] || '')
