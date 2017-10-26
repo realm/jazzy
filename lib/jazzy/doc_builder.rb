@@ -131,7 +131,7 @@ module Jazzy
 
       DocsetBuilder.new(output_dir, source_module).build!
 
-      download_badge(source_module.doc_coverage, options)
+      generate_badge(source_module.doc_coverage, options)
 
       friendly_path = relative_path_if_inside(output_dir, Pathname.pwd)
       puts "jam out ♪♫ to your fresh new docs in `#{friendly_path}`"
@@ -244,38 +244,67 @@ module Jazzy
     # @param [Number] coverage The documentation coverage percentage
     def self.color_for_coverage(coverage)
       if coverage < 10
-        'red'
+        'e05d44'
       elsif coverage < 30
-        'orange'
+        'fe7d37'
       elsif coverage < 60
-        'yellow'
+        'dfb317'
       elsif coverage < 85
-        'yellowgreen'
+        'a4a61d'
       elsif coverage < 90
-        'green'
+        '97CA00'
       else
-        'brightgreen'
+        '4c1'
       end
     end
+
+    # rubocop:disable Metrics/MethodLength
 
     # Downloads an SVG from shields.io displaying the documentation percentage
     # @param [Number] coverage The documentation coverage percentage
     # @param [Config] options Build options
-    def self.download_badge(coverage, options)
+    def self.generate_badge(coverage, options)
       return if options.hide_documentation_coverage || !options.download_badge
 
-      warn 'downloading coverage badge'
-      badge_url = 'https://img.shields.io/badge/documentation-' \
-        "#{coverage}%25-#{color_for_coverage(coverage)}.svg"
+      coverage_length = coverage.to_s.size.succ
+      percent_string_length = coverage_length * 80 + 10
+      percent_string_offset = coverage_length * 40 + 975
+      width = coverage_length * 8 + 104
+      svg = <<-SVG.gsub(/^ {8}/, '')
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="#{width}" height="20">
+          <linearGradient id="b" x2="0" y2="100%">
+            <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+            <stop offset="1" stop-opacity=".1"/>
+          </linearGradient>
+          <clipPath id="a">
+            <rect width="#{width}" height="20" rx="3" fill="#fff"/>
+          </clipPath>
+          <g clip-path="url(#a)">
+            <path fill="#555" d="M0 0h93v20H0z"/>
+            <path fill="##{color_for_coverage(coverage)}" d="M93 0h#{percent_string_length / 10 + 10}v20H93z"/>
+            <path fill="url(#b)" d="M0 0h#{width}v20H0z"/>
+          </g>
+          <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
+            <text x="475" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="830">
+              documentation
+            </text>
+            <text x="475" y="140" transform="scale(.1)" textLength="830">
+              documentation
+            </text>
+            <text x="#{percent_string_offset}" y="150" fill="#010101" fill-opacity=".3" transform="scale(.1)" textLength="#{percent_string_length}">
+              #{coverage}%
+            </text>
+            <text x="#{percent_string_offset}" y="140" transform="scale(.1)" textLength="#{percent_string_length}">
+              #{coverage}%
+            </text>
+          </g>
+        </svg>
+      SVG
+
       badge_output = options.output + 'badge.svg'
-      system('curl', '-s', badge_url, '-o', badge_output.to_s)
-      unless $?.success?
-        warn 'Downloading documentation coverage badge failed.'
-        warn 'Please try again when connected to the Internet, or skip the ' \
-             'download by passing the `--no-download-badge` command flag.'
-        exit $?.exitstatus || 1
-      end
+      File.open(badge_output, 'w') { |f| f << svg }
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.should_link_to_github(file)
       return unless file
