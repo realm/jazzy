@@ -472,7 +472,7 @@ module Jazzy
         warn 'Found conflicting type declarations with the same name, which ' \
           'may indicate a build issue or a bug in Jazzy: ' +
              typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }
-             .join(', ')
+                      .join(', ')
       end
       typedecl = typedecls.first
 
