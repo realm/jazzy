@@ -26,6 +26,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#864](https://github.com/realm/jazzy/issues/864)
 
+* Trim common indentation in multiline declarations.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#836](https://github.com/realm/jazzy/issues/836)
+
 ## 0.8.4
 
 ##### Breaking
