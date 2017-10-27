@@ -2,7 +2,11 @@
 
 ##### Breaking
 
-* None.
+* Generate documentation coverage badge locally. Since this avoids the failable
+  HTTP request to shields.io previously used to obtain the badge, we've removed
+  the `--[no-]download-badge` flag and the corresponding `download_badge`
+  YAML configuration key.  
+  [Samuel Giddins](https://github.com/segiddins)
 
 ##### Enhancements
 
