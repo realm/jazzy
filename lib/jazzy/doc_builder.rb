@@ -263,7 +263,7 @@ module Jazzy
     # @param [Number] coverage The documentation coverage percentage
     # @param [Config] options Build options
     def self.generate_badge(coverage, options)
-      return if options.hide_documentation_coverage || !options.download_badge
+      return if options.hide_documentation_coverage
 
       coverage_length = coverage.to_s.size.succ
       percent_string_length = coverage_length * 80 + 10
