@@ -258,7 +258,8 @@ module Jazzy
 
     # rubocop:disable Metrics/MethodLength
 
-    # Downloads an SVG from shields.io displaying the documentation percentage
+    # Generates an SVG similar to those from shields.io displaying the
+    # documentation percentage
     # @param [Number] coverage The documentation coverage percentage
     # @param [Config] options Build options
     def self.generate_badge(coverage, options)
