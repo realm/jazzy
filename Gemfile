@@ -4,7 +4,7 @@ gemspec
 
 group :development do
   # Code style
-  gem 'rubocop'
+  gem 'rubocop', '0.49.0'
 
   # Tests
   gem 'bacon'
@@ -14,9 +14,9 @@ group :development do
   gem 'webmock'
 
   # Integration tests
-  gem 'diffy'
   gem 'clintegracon', '0.7.0'
-  
+  gem 'diffy'
+
   # Code Review
   gem 'danger'
 end
