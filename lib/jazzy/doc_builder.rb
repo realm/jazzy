@@ -1,7 +1,5 @@
 require 'fileutils'
 require 'mustache'
-require 'uri'
-require 'net/http'
 require 'pathname'
 require 'sass'
 
