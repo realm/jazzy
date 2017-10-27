@@ -244,17 +244,17 @@ module Jazzy
     # @param [Number] coverage The documentation coverage percentage
     def self.color_for_coverage(coverage)
       if coverage < 10
-        'e05d44'
+        'e05d44' # red
       elsif coverage < 30
-        'fe7d37'
+        'fe7d37' # orange
       elsif coverage < 60
-        'dfb317'
+        'dfb317' # yellow
       elsif coverage < 85
-        'a4a61d'
+        'a4a61d' # yellowgreen
       elsif coverage < 90
-        '97CA00'
+        '97CA00' # green
       else
-        '4c1'
+        '4c1' # brightgreen
       end
     end
 
