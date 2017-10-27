@@ -49,6 +49,14 @@ module Jazzy
       namespace_path.map(&:name).join('.')
     end
 
+    # :name doesn't include any generic type params.
+    # This regexp matches any generic type params in parent names.
+    def fully_qualified_name_regexp
+      Regexp.new(namespace_path.map(&:name)
+                               .map { |n| Regexp.escape(n) }
+                               .join('(?:<.*?>)?\.'))
+    end
+
     # If this declaration is an objc category, returns an array with the name
     # of the extended objc class and the category name itself, i.e.
     # ["NSString", "MyMethods"], nil otherwise.
