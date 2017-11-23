@@ -4,7 +4,7 @@ require 'mustache'
 
 require 'jazzy/config'
 require 'jazzy/gem_version'
-require 'jazzy/jazzy_markdown'
+require 'jazzy/markdown'
 
 module Jazzy
   class Doc < Mustache

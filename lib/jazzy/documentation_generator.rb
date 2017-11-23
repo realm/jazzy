@@ -1,6 +1,5 @@
 require 'pathname'
 
-require 'jazzy/jazzy_markdown'
 require 'jazzy/source_document'
 
 module Jazzy

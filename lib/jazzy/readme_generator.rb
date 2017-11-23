@@ -1,6 +1,6 @@
 require 'pathname'
 
-require 'jazzy/jazzy_markdown'
+require 'jazzy/markdown'
 
 module Jazzy
   module ReadmeGenerator

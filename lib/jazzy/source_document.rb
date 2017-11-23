@@ -1,7 +1,5 @@
 require 'pathname'
 
-require 'jazzy/jazzy_markdown'
-
 module Jazzy
   class SourceDocument < SourceDeclaration
     attr_accessor :overview
