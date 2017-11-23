@@ -51,7 +51,7 @@ module Jazzy
     def self.undocumented_abstract
       @undocumented_abstract ||= Markdown.render(
         Config.instance.undocumented_text,
-      ).freeze
+      )
     end
 
     # Group root-level docs by custom categories (if any) and type
