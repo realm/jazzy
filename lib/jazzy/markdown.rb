@@ -2,20 +2,35 @@ require 'commonmarker'
 
 module Jazzy
   module Markdown
-
     class Renderer < CommonMarker::HtmlRenderer
+
+      # Headers - add slug for linking and CSS class
+      def header(node)
+        text_slug = node.to_plaintext.gsub(/[^\w]+/, '-')
+                        .downcase
+                        .sub(/^-/, '')
+                        .sub(/-$/, '')
+        block do
+          out('<h', node.header_level, ' ',
+              'id="', text_slug, '" ',
+              'class="heading">',
+              :children,
+              '</h', node.header_level, '>')
+        end
+      end
     end
 
     # In the copyright statement make links open in a new tab.
     class CopyrightRenderer < CommonMarker::HtmlRenderer
       def link(node)
         out('<a class="link" target="_blank" rel="external" href="',
-            node.url.nil? ? '' : escape_href(node.url),
-            '">',
+            node.url.nil? ? '' : escape_href(node.url), '">',
             :children,
             '</a>')
       end
     end
+
+    # @!group CommonMark config
 
     OPTIONS = [:SMART,                   # Smart quotes/dashes/dots
                :VALIDATE_UTF8,           # Filter invalid characters
@@ -28,6 +43,8 @@ module Jazzy
     def self.render_doc(markdown)
       CommonMarker.render_doc(markdown, OPTIONS, EXTENSIONS)
     end
+
+    # @!group Public APIs
 
     def self.render(markdown)
       Renderer.new.render(render_doc(markdown))
