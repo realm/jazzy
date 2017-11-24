@@ -1,4 +1,5 @@
 require 'commonmarker'
+require 'jazzy/markdown/callout_scanner'
 
 module Jazzy
   module Markdown
@@ -44,57 +45,38 @@ module Jazzy
       CommonMarker.render_doc(markdown, OPTIONS, EXTENSIONS)
     end
 
-    def self.check_callouts(doc_node, list_node)
-      list_node.each do |list_item_node|
-        next unless list_item_node.type == :list_item
-        para_node = list_item_node.first_child
-        next unless para_node && para_node.type == :paragraph
-        text_node = para_node.first_child
-        next unless text_node && text_node.type == :text
-        maybe_callout_line = text_node.string_content
-        next unless maybe_callout_line =~ /^\s*Attention\s*:/
-        text_node.string_content =
-          maybe_callout_line.sub(/Attention\s*:\s*/, '')
-
-        # Set up html intro to callout
-        html_in_node = CommonMarker::Node.new(:html)
-        html_in_node.string_content =
-          "<div class='aside aside-attention'>\n" +
-          "<p class='aside-title'>Attention</p>"
-        list_node.insert_before(html_in_node)
-
-        # Body of the callout
-        while node = list_item_node.first_child do
-          list_node.insert_before(node)
-        end
-        list_item_node.delete
-
-        # HTML outro
-        html_out_node = CommonMarker::Node.new(:html)
-        html_out_node.string_content = '</div>'
-        list_node.insert_before(html_out_node)
-      end
-
-      # Finally chuck the list if nothing left inside
-      list_node.delete unless list_node.first_child 
+    def self.docHashToHtml(docHash)
+      Hash[docHash.map { |key, doc| [key, Renderer.new.render(doc)]}]
     end
 
     # @!group Public APIs
 
     def self.render(markdown)
       doc = render_doc(markdown)
-      doc.each do |child|
-        check_callouts(doc, child) if child.type == :list
-      end
+      CalloutScanner.new(:normal).scan(doc)
       Renderer.new.render(doc)
     end
 
-    def self.rendered_returns
-      nil
+    class << self
+      attr_reader :rendered_returns, :rendered_parameters, :rendered_enum_cases
     end
 
-    def self.rendered_parameters
-      {}
+    def self.render_func(markdown)
+      doc = render_doc(markdown)
+      scanner = CalloutScanner.new(:func)
+      scanner.scan(doc)
+      @rendered_returns = Renderer.new.render(scanner.returns_doc)
+      @rendered_parameters = docHashToHtml(scanner.parameters_docs)
+      Renderer.new.render(doc)
+    end
+
+    def self.render_enum(markdown)
+      doc = render_doc(markdown)
+      scanner = CalloutScanner.new(:enum)
+      scanner.scan(doc)
+      body_html = Renderer.new.render(doc)
+      @rendered_enum_cases = docHashToHtml(scanner.enum_cases_docs)
+      body_html
     end
 
     def self.render_copyright(markdown)
