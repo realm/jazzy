@@ -21,6 +21,15 @@ module Jazzy
       end
     end
 
+    def self.renderer
+      # Cannot reuse these .. need commonmarker PR
+      Renderer.new
+    end
+
+    def self.copyright_renderer
+      CopyrightRenderer.new
+    end
+
     # In the copyright statement make links open in a new tab.
     class CopyrightRenderer < CommonMarker::HtmlRenderer
       def link(node)
@@ -46,7 +55,7 @@ module Jazzy
     end
 
     def self.docHashToHtml(docHash)
-      Hash[docHash.map { |key, doc| [key, Renderer.new.render(doc)]}]
+      Hash[docHash.map { |key, doc| [key, renderer.render(doc)]}]
     end
 
     # @!group Public APIs
@@ -54,7 +63,7 @@ module Jazzy
     def self.render(markdown)
       doc = render_doc(markdown)
       CalloutScanner.new(:normal).scan(doc)
-      Renderer.new.render(doc)
+      renderer.render(doc)
     end
 
     class << self
@@ -65,22 +74,22 @@ module Jazzy
       doc = render_doc(markdown)
       scanner = CalloutScanner.new(:func)
       scanner.scan(doc)
-      @rendered_returns = Renderer.new.render(scanner.returns_doc)
+      @rendered_returns = renderer.render(scanner.returns_doc)
       @rendered_parameters = docHashToHtml(scanner.parameters_docs)
-      Renderer.new.render(doc)
+      renderer.render(doc)
     end
 
     def self.render_enum(markdown)
       doc = render_doc(markdown)
       scanner = CalloutScanner.new(:enum)
       scanner.scan(doc)
-      body_html = Renderer.new.render(doc)
+      body_html = renderer.render(doc)
       @rendered_enum_cases = docHashToHtml(scanner.enum_cases_docs)
       body_html
     end
 
     def self.render_copyright(markdown)
-      CopyrightRenderer.new.render(render_doc(markdown))
+      copyright_renderer.render(render_doc(markdown))
     end
   end
 end
