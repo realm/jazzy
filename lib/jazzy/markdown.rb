@@ -54,38 +54,33 @@ module Jazzy
       CommonMarker.render_doc(markdown, OPTIONS, EXTENSIONS)
     end
 
-    def self.docHashToHtml(docHash)
+    def self.renderDocHash(docHash)
       Hash[docHash.map { |key, doc| [key, renderer.render(doc)]}]
     end
 
     # @!group Public APIs
 
+    class << self
+      attr_reader :rendered_returns, :rendered_parameters
+    end
+
     def self.render(markdown)
       doc = render_doc(markdown)
-      CalloutScanner.new(:normal).scan(doc)
+      scanner = CalloutScanner.new
+      scanner.scan(doc)
+      @rendered_returns =
+        if scanner.returns_doc
+          renderer.render(scanner.returns_doc)
+        else
+          nil
+        end
+      @rendered_parameters = renderDocHash(scanner.parameters_docs)
       renderer.render(doc)
     end
 
-    class << self
-      attr_reader :rendered_returns, :rendered_parameters, :rendered_enum_cases
-    end
-
-    def self.render_func(markdown)
-      doc = render_doc(markdown)
-      scanner = CalloutScanner.new(:func)
-      scanner.scan(doc)
-      @rendered_returns = renderer.render(scanner.returns_doc)
-      @rendered_parameters = docHashToHtml(scanner.parameters_docs)
-      renderer.render(doc)
-    end
-
-    def self.render_enum(markdown)
-      doc = render_doc(markdown)
-      scanner = CalloutScanner.new(:enum)
-      scanner.scan(doc)
-      body_html = renderer.render(doc)
-      @rendered_enum_cases = docHashToHtml(scanner.enum_cases_docs)
-      body_html
+    def self.render_enum_case(enumcase)
+      # something something munge munge
+      nil
     end
 
     def self.render_copyright(markdown)
