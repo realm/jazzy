@@ -44,7 +44,7 @@ module Jazzy::Markdown
 
     # Edit the node to leave just the callout body
     def remove_callout_type!
-      string_content = @callout_rest
+      self.string_content = @callout_rest
     end
 
     # Iterator vending |list_item_node, text_node| for callout-looking children
@@ -60,6 +60,39 @@ module Jazzy::Markdown
       end
     end
   end
+
+  # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
+  # Plus 'example' from playgrounds.
+  NORMAL_CALLOUTS = %w[attention
+                       author
+                       authors
+                       bug
+                       complexity
+                       copyright
+                       date
+                       experiment
+                       important
+                       invariant
+                       localizationkey
+                       mutatingvariant
+                       nonmutatingvariant
+                       note
+                       postcondition
+                       precondition
+                       remark
+                       remarks
+                       throws
+                       requires
+                       seealso
+                       since
+                       tag
+                       todo
+                       version
+                       warning
+                       keyword
+                       recommended
+                       recommendedover
+                       example].freeze
 
   class CalloutScanner
     attr_reader :returns_doc, :parameters_docs, :enum_cases_docs
