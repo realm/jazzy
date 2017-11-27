@@ -39,7 +39,15 @@ module Jazzy::Markdown
     end
 
     def callout_param?
-      !@callout_param_name.nil?
+      @callout_param_name
+    end
+
+    def callout_parameters?
+      callout_type.downcase == 'parameters'
+    end
+
+    def callout_returns?
+      callout_type.downcase == 'returns'
     end
 
     # Edit the node to leave just the callout body
@@ -108,68 +116,52 @@ module Jazzy::Markdown
         child.each_callout do |list_item_node, text_node|
           callout = text_node.callout_type
 
-          if callout == 'Parameters'
+          if text_node.callout_param?
+            puts('param')
+          elsif text_node.callout_parameters?
             params_list_node = text_node.parent.next
             next unless params_list_node
+            puts('parameters')
             params_list_node.each_callout do |param_list_item_node, param_text_node|
-              puts("Found param #{param_text_node.callout_type}")
+              puts(" param #{param_text_node.callout_type}")
             end
             next
+          elsif text_node.callout_returns?
+            puts('returns')
+          elsif text_node.callout_custom?
+            create_callout(child, list_item_node, text_node)
+          elsif NORMAL_CALLOUTS.include?(text_node.callout_type.downcase)
+            create_callout(child, list_item_node, text_node)
+          else
+            puts('remember for enum')
           end
-
-          # Only do this part if decide to process callout...
-          text_node.remove_callout_type!
-
-        # Callout on exclude list: throw away list_item_node
-            # if config.exclude_callouts.includes(callout)
-            #   list_item_node.delete
-            #   next
-            # end
-
-        # Normal callout: reparent stuff
-        # Custom callout: reparent stuff
-            # if is_custom || normal_callouts.includes(callout)
-            #   intro/body/outro dance as below
-            #   list_item_node.delete
-            #   next
-            # end
-
-        # Returns callout: reparent stuff to new :doc and stash, discard
-            # @returns_doc = CommonMarker::Node.new(:document)
-            # while node = list_item_node.first_child do
-            #   @returns_doc_node.prepend_child(node)
-            # end
-            # list_item_node.delete
-
-        # Parameter callout: reparent stuff to new :doc and stash, discard
-            # Special regexp because 'parameter foo:'
-            # @params_docs[param] = doc
-            # list_item_node.delete
-
-        # Parameters special callout: dig one layer down, stash each, discard
-
-        # Set up html intro to callout
-          html_in_node = CommonMarker::Node.new(:html)
-          html_in_node.string_content =
-            "<div class='aside aside-attention'>\n" +
-            "<p class='aside-title'>#{callout}</p>"
-          child.insert_before(html_in_node)
-
-        # Body of the callout
-          while node = list_item_node.first_child do
-            child.insert_before(node)
-          end
-          list_item_node.delete
-
-          # HTML outro
-          html_out_node = CommonMarker::Node.new(:html)
-          html_out_node.string_content = '</div>'
-          child.insert_before(html_out_node)
         end
 
         # Finally chuck the list if nothing left inside
         child.delete unless child.first_child 
       end
+    end
+
+    def create_callout(list_node, list_item_node, text_node)
+      # Set up html intro to callout
+      html_in_node = CommonMarker::Node.new(:html)
+      # XXX need to slugify callout type
+      html_in_node.string_content =
+        "<div class='aside aside-#{text_node.callout_type}'>\n" +
+        "<p class='aside-title'>#{text_node.callout_type}</p>"
+      list_node.insert_before(html_in_node)
+
+      # Body of the callout
+      text_node.remove_callout_type!
+      while node = list_item_node.first_child do
+        list_node.insert_before(node)
+      end
+      list_item_node.delete
+
+      # HTML outro
+      html_out_node = CommonMarker::Node.new(:html)
+      html_out_node.string_content = '</div>'
+      list_node.insert_before(html_out_node)
     end
   end
 end
