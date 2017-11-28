@@ -4,7 +4,6 @@ require 'jazzy/markdown/callout_scanner'
 module Jazzy
   module Markdown
     class Renderer < CommonMarker::HtmlRenderer
-
       # Headers - add slug for linking and CSS class
       def header(node)
         text_slug = node.to_plaintext.gsub(/[^\w]+/, '-')
@@ -54,8 +53,8 @@ module Jazzy
       CommonMarker.render_doc(markdown, OPTIONS, EXTENSIONS)
     end
 
-    def self.renderDocHash(docHash)
-      Hash[docHash.map { |key, doc| [key, renderer.render(doc)]}]
+    def self.render_doc_hash(doc_hash)
+      Hash[doc_hash.map { |key, doc| [key, renderer.render(doc)] }]
     end
 
     # @!group Public APIs
@@ -71,16 +70,9 @@ module Jazzy
       @rendered_returns =
         if scanner.returns_doc
           renderer.render(scanner.returns_doc)
-        else
-          nil
         end
-      @rendered_parameters = renderDocHash(scanner.parameters_docs)
+      @rendered_parameters = render_doc_hash(scanner.parameters_docs)
       renderer.render(doc)
-    end
-
-    def self.render_enum_case(enumcase)
-      # something something munge munge
-      nil
     end
 
     def self.render_copyright(markdown)

@@ -1,6 +1,6 @@
 module Jazzy::Markdown
   # This code manipulates the markdown AST before it is turned into HTML to
-  # change eg. `- warning:` from list-items to box-outs, and to separate returns
+  # change eg. `- warning:` from list-items to box-outs and to separate returns
   # and parameters documentation.
 
   class CommonMarker::Node
@@ -16,18 +16,15 @@ module Jazzy::Markdown
     #   Parameter: XXXX YYYY   (ObjC via SourceKitten)
     #   XXXX:YYYYY
     def callout_parts
-      if string_content =~ /\A\s*Callout\((.+)\)\s*:\s*(.*)\Z/mi
-        @callout_custom = $1
-        @callout_rest = $2
-      elsif string_content =~ /\A\s*Parameter\s+(\S+)\s*:\s*(.*)\Z/mi ||
-        string_content =~ /A\s*Parameter\s*:\s*(\S+)\s*(.*)\Z/mi
-        @callout_param_name = $1
-        @callout_rest = $2
+      if string_content =~ /\A\s*callout\((.+)\)\s*:\s*(.*)\Z/mi
+        @callout_custom = Regexp.last_match(1)
+      elsif string_content =~ /\A\s*parameter\s+(\S+)\s*:\s*(.*)\Z/mi ||
+            string_content =~ /A\s*parameter\s*:\s*(\S+)\s*(.*)\Z/mi
+        @callout_param_name = Regexp.last_match(1)
       elsif string_content =~ /\A\s*(\S+)\s*:\s*(.*)\Z/mi
-        @callout_type = $1
-        @callout_rest = $2
+        @callout_type = Regexp.last_match(1)
       end
-      @callout_rest
+      @callout_rest = Regexp.last_match(2)
     end
 
     def callout_custom?
@@ -35,7 +32,7 @@ module Jazzy::Markdown
     end
 
     def callout_type
-      @callout_type || @callout_custom
+      @callout_type || @callout_custom || ('parameter' if callout_param?)
     end
 
     def callout_param?
@@ -43,11 +40,11 @@ module Jazzy::Markdown
     end
 
     def callout_parameters?
-      callout_type.downcase == 'parameters'
+      callout_type.casecmp('parameters') == 0
     end
 
     def callout_returns?
-      callout_type.downcase == 'returns'
+      callout_type.casecmp('returns') == 0
     end
 
     # Edit the node to leave just the callout body
@@ -56,6 +53,9 @@ module Jazzy::Markdown
     end
 
     # Iterator vending |list_item_node, text_node| for callout-looking children
+    #
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def each_callout
       return unless type == :list && list_type == :bullet_list
       each do |child_node|
@@ -67,6 +67,8 @@ module Jazzy::Markdown
         yield child_node, text_node if text_node.callout_parts
       end
     end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
   end
 
   # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
@@ -103,47 +105,59 @@ module Jazzy::Markdown
                        example].freeze
 
   class CalloutScanner
-    attr_reader :returns_doc, :parameters_docs, :enum_cases_docs
+    attr_reader :returns_doc, :parameters_docs
 
     def initialize
       @returns_doc = nil
       @parameters_docs = {}
-      @enum_cases_docs = {}
     end
 
+    # Deal with callouts on a top-level markdown doc
     def scan(doc)
       doc.each do |child|
-        child.each_callout do |list_item_node, text_node|
-          callout = text_node.callout_type
-
-          if text_node.callout_param?
-            puts('param')
-          elsif text_node.callout_parameters?
-            params_list_node = text_node.parent.next
-            next unless params_list_node
-            puts('parameters')
-            params_list_node.each_callout do |param_list_item_node, param_text_node|
-              puts(" param #{param_text_node.callout_type}")
-            end
-            next
-          elsif text_node.callout_returns?
-            puts('returns')
-          elsif text_node.callout_custom?
-            create_callout(child, list_item_node, text_node)
-          elsif NORMAL_CALLOUTS.include?(text_node.callout_type.downcase)
-            create_callout(child, list_item_node, text_node)
-          else
-            puts('remember for enum')
-          end
-        end
-
-        # Finally chuck the list if nothing left inside
-        child.delete unless child.first_child 
+        child.each_callout { |li, t| scan_callout(child, li, t) }
+        # Chuck the list if nothing left inside
+        child.delete unless child.first_child
       end
     end
 
+    private
+
+    # Deal with any top-level callout-looking thing
+    #
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
+    def scan_callout(list_node, list_item_node, text_node)
+      if text_node.callout_param?
+        @parameters_docs[text_node.callout_param_name] =
+          extract_callout(list_item_node, text_node)
+      elsif text_node.callout_parameters?
+        params_list_node = text_node.parent.next
+        scan_parameters(list_item_node, params_list_node) if params_list_node
+      elsif text_node.callout_returns?
+        @returns_doc = extract_callout(list_item_node, text_node)
+      elsif text_node.callout_custom?
+        create_callout(list_node, list_item_node, text_node)
+      elsif NORMAL_CALLOUTS.include?(text_node.callout_type.downcase)
+        create_callout(list_node, list_item_node, text_node)
+      end
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
+
+    # Deal with parameters: nesting - all children are param callouts
+    def scan_parameters(list_item_node, params_list_node)
+      params_list_node.each_callout do |param_list_item_node, param_text_node|
+        @parameters_docs[param_text_node.callout_type] =
+          extract_callout(param_list_item_node, param_text_node)
+      end
+      list_item_node.delete
+    end
+
+    # Create a normal callout by adding html nodes for the div
+    # and moving the content up before the list.
     def create_callout(list_node, list_item_node, text_node)
-      # Set up html intro to callout
+      # HTML intro
       html_in_node = CommonMarker::Node.new(:html)
       # XXX need to slugify callout type
       html_in_node.string_content =
@@ -153,7 +167,7 @@ module Jazzy::Markdown
 
       # Body of the callout
       text_node.remove_callout_type!
-      while node = list_item_node.first_child do
+      while node = list_item_node.first_child
         list_node.insert_before(node)
       end
       list_item_node.delete
@@ -162,6 +176,17 @@ module Jazzy::Markdown
       html_out_node = CommonMarker::Node.new(:html)
       html_out_node.string_content = '</div>'
       list_node.insert_before(html_out_node)
+    end
+
+    # Create a separate markdown doc for returns/param docs
+    def extract_callout(list_item_node, text_node)
+      doc_node = CommonMarker::Node.new(:document)
+      text_node.remove_callout_type!
+      while node = list_item_node.first_child
+        doc_node.append_child(node)
+      end
+      list_item_node.delete
+      doc_node
     end
   end
 end
