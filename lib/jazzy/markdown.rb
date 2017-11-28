@@ -6,7 +6,7 @@ module Jazzy
     class Renderer < CommonMarker::HtmlRenderer
       # Headers - add slug for linking and CSS class
       def header(node)
-        text_slug = node.to_plaintext.gsub(/[^\w]+/, '-')
+        text_slug = node.to_plaintext.gsub(/\W+/, '-')
                         .downcase
                         .sub(/^-/, '')
                         .sub(/-$/, '')
@@ -39,7 +39,7 @@ module Jazzy
       end
     end
 
-    # @!group CommonMark config
+    # CommonMark config
 
     OPTIONS = [:SMART,                   # Smart quotes/dashes/dots
                :VALIDATE_UTF8,           # Filter invalid characters
@@ -57,7 +57,7 @@ module Jazzy
       Hash[doc_hash.map { |key, doc| [key, renderer.render(doc)] }]
     end
 
-    # @!group Public APIs
+    # Interface
 
     class << self
       attr_reader :rendered_returns, :rendered_parameters

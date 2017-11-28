@@ -55,9 +55,7 @@ module Jazzy::Markdown
     # Iterator vending |list_item_node, text_node| for callout-looking children
     #
     # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
     def each_callout
-      return unless type == :list && list_type == :bullet_list
       each do |child_node|
         next unless child_node.type == :list_item
         para_node = child_node.first_child
@@ -68,7 +66,6 @@ module Jazzy::Markdown
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
   end
 
   # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
@@ -115,8 +112,9 @@ module Jazzy::Markdown
     # Deal with callouts on a top-level markdown doc
     def scan(doc)
       doc.each do |child|
+        next unless child.type == :list && child.list_type == :bullet_list
+
         child.each_callout { |li, t| scan_callout(child, li, t) }
-        # Chuck the list if nothing left inside
         child.delete unless child.first_child
       end
     end
@@ -145,7 +143,7 @@ module Jazzy::Markdown
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
 
-    # Deal with parameters: nesting - all children are param callouts
+    # Deal with 'parameters:' nesting - all children are param callouts
     def scan_parameters(list_item_node, params_list_node)
       params_list_node.each_callout do |param_list_item_node, param_text_node|
         @parameters_docs[param_text_node.callout_type] =
@@ -159,10 +157,12 @@ module Jazzy::Markdown
     def create_callout(list_node, list_item_node, text_node)
       # HTML intro
       html_in_node = CommonMarker::Node.new(:html)
-      # XXX need to slugify callout type
+
+      css_class = text_node.callout_type.downcase.gsub(/\W+/, '-')
+      title = text_node.callout_type.humanize
       html_in_node.string_content =
-        "<div class='aside aside-#{text_node.callout_type}'>\n" +
-        "<p class='aside-title'>#{text_node.callout_type}</p>"
+        "<div class='aside aside-#{css_class}'>\n" \
+        "<p class='aside-title'>#{title}</p>"
       list_node.insert_before(html_in_node)
 
       # Body of the callout
