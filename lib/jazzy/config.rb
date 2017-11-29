@@ -330,8 +330,8 @@ module Jazzy
 
     config_attr :undocumented_text,
       command_line: '--undocumented-text UNDOCUMENTED_TEXT',
-      description: 'Default text for undocumented functions and  properties. '\
-                   'If you want no text, put "", default is "Undocumented"',
+      description: 'Default text for undocumented symbols. The default '\
+                   'is "Undocumented", put "" if no text is required',
       default: 'Undocumented'
 
     # rubocop:enable Style/AlignParameter
