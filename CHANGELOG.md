@@ -11,6 +11,7 @@
   [Akhil Batra](https://github.com/akhillies)
   [#913](https://github.com/realm/jazzy/issues/913)
 
+
 ##### Bug Fixes
 
 * None.
