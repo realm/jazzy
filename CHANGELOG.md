@@ -6,7 +6,11 @@
 
 ##### Enhancements
 
-* None.
+* Added a config option (`--undocumented-text UNDOCUMENTED_TEXT`) to set the
+  default text for undocumented symbols.  
+  [Akhil Batra](https://github.com/akhillies)
+  [#913](https://github.com/realm/jazzy/issues/913)
+
 
 ##### Bug Fixes
 
