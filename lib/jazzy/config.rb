@@ -328,7 +328,13 @@ module Jazzy
         raise '--assets-directory is deprecated: use --theme instead.'
       end
 
-    # rubocop:enable Style/AlignParameters
+    config_attr :undocumented_text,
+      command_line: '--undocumented-text UNDOCUMENTED_TEXT',
+      description: 'Default text for undocumented functions and  properties. '\
+                   'If you want no text, put "", default is "Undocumented"',
+      default: 'Undocumented'
+
+    # rubocop:enable Style/AlignParameter
 
     def initialize
       self.class.all_config_attrs.each do |attr|
