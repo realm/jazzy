@@ -49,7 +49,7 @@ module Jazzy
   # This module interacts with the sourcekitten command-line executable
   module SourceKitten
     @undocumented_abstract = Markdown.render(Config.instance.undocumented_text)
-	    .freeze
+                                     .freeze
 
     # Group root-level docs by custom categories (if any) and type
     def self.group_docs(docs)
@@ -287,7 +287,7 @@ module Jazzy
           declaration.abstract = Config.instance.undocumented_text
         else
           declaration.abstract = @undocumented_abstract
-	end
+        end
       else
         comment = doc['key.doc.comment']
         declaration.abstract = Markdown.render(comment) if comment
