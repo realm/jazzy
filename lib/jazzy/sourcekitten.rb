@@ -283,11 +283,9 @@ module Jazzy
       if objc || should_mark_undocumented(doc['key.kind'], filepath)
         @stats.add_undocumented(declaration)
         return nil if @skip_undocumented
-        if Config.instance.undocumented_text_configured
-          declaration.abstract = Config.instance.undocumented_text
-        else
-          declaration.abstract = @undocumented_abstract
-        end
+        declaration.abstract = Config.instance.undocumented_text_configured ? 
+                               Config.instance.undocumented_text :
+                               @undocumented_abstract
       else
         comment = doc['key.doc.comment']
         declaration.abstract = Markdown.render(comment) if comment
