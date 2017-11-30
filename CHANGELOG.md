@@ -14,7 +14,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix Swift declarations when generating Objective-C docs for generic types.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#910](https://github.com/realm/jazzy/issues/910)
 
 ## 0.9.0
 
