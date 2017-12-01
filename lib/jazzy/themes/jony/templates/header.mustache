@@ -1,0 +1,26 @@
+<header>
+  <div class="content-wrapper">
+    <p>
+      <a href="{{path_to_root}}index.html">{{module_name}} Docs</a>
+      <span class="no-mobile">{{#doc_coverage}} ({{doc_coverage}}% documented){{/doc_coverage}}</span>
+    </p>
+
+    {{#github_url}}
+    <p class="header-right">
+      <a href="{{github_url}}">
+        <img src="{{path_to_root}}img/gh.png"/>
+        <span class="no-mobile">View on GitHub</span>
+      </a>
+    </p>
+    {{/github_url}}
+
+    {{#dash_url}}
+    <p class="header-right">
+      <a href="{{dash_url}}">
+        <img src="{{path_to_root}}img/dash.png"/>
+        <span class="no-mobile">Install in Dash</span>
+      </a>
+    </p>
+    {{/dash_url}}
+  </div>
+</header>
