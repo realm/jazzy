@@ -294,16 +294,6 @@ module Jazzy
       declaration
     end
 
-    def self.parameters(doc, discovered)
-      (doc['key.doc.parameters'] || []).map do |p|
-        name = p['name']
-        {
-          name: name,
-          discussion: discovered[name],
-        }
-      end.reject { |param| param[:discussion].nil? }
-    end
-
     # rubocop:disable Metrics/CyclomaticComplexity
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
@@ -325,7 +315,7 @@ module Jazzy
                                              Highlighter.default_language)
       declaration.discussion = ''
       declaration.return = Markdown.rendered_returns
-      declaration.parameters = parameters(doc, Markdown.rendered_parameters)
+      declaration.parameters = Markdown.rendered_parameters
 
       @stats.add_documented
     end

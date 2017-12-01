@@ -53,10 +53,6 @@ module Jazzy
       CommonMarker.render_doc(markdown, OPTIONS, EXTENSIONS)
     end
 
-    def self.render_doc_hash(doc_hash)
-      Hash[doc_hash.map { |key, doc| [key, renderer.render(doc)] }]
-    end
-
     # Interface
 
     class << self
@@ -71,7 +67,12 @@ module Jazzy
         if scanner.returns_doc
           renderer.render(scanner.returns_doc)
         end
-      @rendered_parameters = render_doc_hash(scanner.parameters_docs)
+      @rendered_parameters = scanner.parameters_docs.map do |name, param_doc|
+        {
+          name: name,
+          discussion: renderer.render(param_doc),
+        }
+      end
       renderer.render(doc)
     end
 
