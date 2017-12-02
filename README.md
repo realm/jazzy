@@ -155,6 +155,7 @@ directory.
 | Example             | `--documentation=Docs/*.md` |
 | jazzy.yaml example  | `documentation: Docs/*.md` |
 
+By default, jazzy looks for one of README.md, README.markdown, README.mdown or README (in that order) in the directory from where it runs to render the index page at the root of the docs output directory.
 Using the `--documentation` option, extra markdown files can be integrated into the generated docs and sidebar navigation.
 
 Any files found matching the file pattern will be parsed and included as a document with the type 'Guide' when generated. If the files are not included using the `custom_categories` config option, they will be grouped under 'Other Guides' in the sidebar navigation.
