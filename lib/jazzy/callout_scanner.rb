@@ -1,9 +1,8 @@
 module CommonMarker
+  # Extensions to help identify and process callouts.
+  # A callout may exist when there is a List->ListItem->Para->Text node
+  # hierarchy and the text matches a certain format.
   class Node
-    # Extensions to help identify and process callouts.
-    # A callout may exist when there is a List->ListItem->Para->Text node
-    # hierarchy and the text matches a certain format.
-
     # List of Swift callouts, excluding param/returns.
     # Plus 'example' from playgrounds.
     # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
@@ -103,11 +102,10 @@ module CommonMarker
   end
 end
 
-module Jazzy::Markdown
+module Jazzy
   # This class manipulates the markdown AST before it is turned into HTML to
   # change eg. `- warning:` from list-items to box-outs and to separate returns
   # and parameters documentation.
-
   class CalloutScanner
     attr_reader :returns_doc, :parameters_docs
 

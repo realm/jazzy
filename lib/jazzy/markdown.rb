@@ -1,5 +1,5 @@
 require 'commonmarker'
-require 'jazzy/markdown/callout_scanner'
+require 'jazzy/callout_scanner'
 
 module Jazzy
   module Markdown
