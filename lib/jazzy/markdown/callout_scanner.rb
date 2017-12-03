@@ -8,6 +8,40 @@ module Jazzy::Markdown
     # A callout may exist when there is a List->ListItem->Para->Text node
     # hierarchy and the text matches a certain format.
 
+    # List of Swift callouts, excluding param/returns.
+    # Plus 'example' from playgrounds.
+    # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
+    NORMAL_CALLOUTS = %w[attention
+                         author
+                         authors
+                         bug
+                         complexity
+                         copyright
+                         date
+                         experiment
+                         important
+                         invariant
+                         localizationkey
+                         mutatingvariant
+                         nonmutatingvariant
+                         note
+                         postcondition
+                         precondition
+                         remark
+                         remarks
+                         throws
+                         requires
+                         seealso
+                         since
+                         tag
+                         todo
+                         version
+                         warning
+                         keyword
+                         recommended
+                         recommendedover
+                         example].freeze
+
     attr_reader :callout_param_name
 
     # Four slightly different formats wrapped up here:
@@ -29,6 +63,10 @@ module Jazzy::Markdown
 
     def callout_custom?
       @callout_custom
+    end
+
+    def callout_normal?
+      @callout_type && NORMAL_CALLOUTS.include?(@callout_type.downcase)
     end
 
     def callout_type
@@ -68,39 +106,6 @@ module Jazzy::Markdown
     # rubocop:enable Metrics/CyclomaticComplexity
   end
 
-  # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
-  # Plus 'example' from playgrounds.
-  NORMAL_CALLOUTS = %w[attention
-                       author
-                       authors
-                       bug
-                       complexity
-                       copyright
-                       date
-                       experiment
-                       important
-                       invariant
-                       localizationkey
-                       mutatingvariant
-                       nonmutatingvariant
-                       note
-                       postcondition
-                       precondition
-                       remark
-                       remarks
-                       throws
-                       requires
-                       seealso
-                       since
-                       tag
-                       todo
-                       version
-                       warning
-                       keyword
-                       recommended
-                       recommendedover
-                       example].freeze
-
   class CalloutScanner
     attr_reader :returns_doc, :parameters_docs
 
@@ -134,9 +139,7 @@ module Jazzy::Markdown
         scan_parameters(list_item_node, params_list_node) if params_list_node
       elsif text_node.callout_returns?
         @returns_doc = extract_callout(list_item_node, text_node)
-      elsif text_node.callout_custom?
-        create_callout(list_node, list_item_node, text_node)
-      elsif NORMAL_CALLOUTS.include?(text_node.callout_type.downcase)
+      elsif text_node.callout_custom? || text_node.callout_normal?
         create_callout(list_node, list_item_node, text_node)
       end
     end
