@@ -347,7 +347,7 @@ module Jazzy
                    'is "Undocumented", put "" if no text is required',
       default: 'Undocumented'
 
-    # rubocop:enable Style/AlignParameter
+    # rubocop:enable Layout/AlignParameters
 
     def initialize
       self.class.all_config_attrs.each do |attr|
