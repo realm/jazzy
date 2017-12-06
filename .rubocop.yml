@@ -31,7 +31,7 @@ Metrics/BlockLength:
 Style/NumericPredicate:
   Enabled: false
 
-Style/IndentHeredoc:
+Layout/IndentHeredoc:
   Enabled: false
 
 # We adopted raise instead of fail.

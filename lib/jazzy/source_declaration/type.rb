@@ -73,7 +73,7 @@ module Jazzy
       end
 
       def should_document?
-        declaration? && !param?
+        declaration? && !param? && !generic_type_param?
       end
 
       def declaration?
@@ -102,6 +102,10 @@ module Jazzy
         # variables, so both kinds represent a parameter in jazzy.
         kind == 'source.lang.swift.decl.var.parameter' ||
           kind == 'source.lang.swift.decl.var.local'
+      end
+
+      def generic_type_param?
+        kind == 'source.lang.swift.decl.generic_type_param'
       end
 
       def objc_unexposed?
