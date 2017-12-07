@@ -354,7 +354,6 @@ module Jazzy
     def self.make_source_declarations(docs, parent = nil)
       declarations = []
       current_mark = SourceMark.new
-      documented_name = Config.instance.hide_declarations == 'objc' ? doc['key.swift_name'] : doc['key.name']
       Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
           declarations += make_source_declarations(
@@ -366,6 +365,7 @@ module Jazzy
         declaration.parent_in_code = parent
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
+        documented_name = Config.instance.hide_declarations == 'objc' ? doc['key.swift_name'] : doc['key.name']
         current_mark = SourceMark.new(documented_name) if declaration.type.mark?
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
