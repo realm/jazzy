@@ -309,14 +309,18 @@ module Jazzy
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
+      primary_declaration = (Config.instance.objc_mode && Config.instance.hide_declarations == 'objc') ?
+          doc['key.swift_declaration'] : (doc['key.parsed_declaration'] || doc['key.doc.declaration'])
+
+
       declaration.declaration = Highlighter.highlight(
-        doc['key.parsed_declaration'] || doc['key.doc.declaration'],
-        Config.instance.objc_mode ? 'objc' : 'swift',
+          primary_declaration,
+          (Config.instance.objc_mode && Config.instance.hide_declarations != 'swift') ? 'objc' : 'swift',
       )
       if Config.instance.objc_mode && doc['key.swift_declaration']
         declaration.other_language_declaration = Highlighter.highlight(
-          doc['key.swift_declaration'], 'swift'
-        )
+            doc['key.swift_declaration'], 'swift'
+        ) unless Config.instance.hide_declarations == 'swift'
       end
 
       unless doc['key.doc.full_as_xml']
@@ -350,6 +354,7 @@ module Jazzy
     def self.make_source_declarations(docs, parent = nil)
       declarations = []
       current_mark = SourceMark.new
+      documented_name = Config.instance.hide_declarations == 'objc' ? doc['key.swift_name'] : doc['key.name']
       Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
           declarations += make_source_declarations(
@@ -361,7 +366,7 @@ module Jazzy
         declaration.parent_in_code = parent
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
+        current_mark = SourceMark.new(documented_name) if declaration.type.mark?
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(
@@ -380,7 +385,7 @@ module Jazzy
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
         declaration.usr = doc['key.usr']
         declaration.modulename = doc['key.modulename']
-        declaration.name = doc['key.name']
+        declaration.name = documented_name
         declaration.mark = current_mark
         declaration.access_control_level =
           SourceDeclaration::AccessControlLevel.from_doc(doc)
