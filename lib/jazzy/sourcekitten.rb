@@ -361,7 +361,14 @@ module Jazzy
         declaration.parent_in_code = parent
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        current_mark = SourceMark.new(doc['key.name']) if declaration.type.mark?
+        declaration.objc_name = doc['key.name']
+        documented_name = if Config.instance.hide_declarations == 'objc' &&
+                             doc['key.swift_name']
+                            doc['key.swift_name']
+                          else
+                            declaration.objc_name
+                          end
+        current_mark = SourceMark.new(documented_name) if declaration.type.mark?
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(
@@ -380,7 +387,7 @@ module Jazzy
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
         declaration.usr = doc['key.usr']
         declaration.modulename = doc['key.modulename']
-        declaration.name = doc['key.name']
+        declaration.name = documented_name
         declaration.mark = current_mark
         declaration.access_control_level =
           SourceDeclaration::AccessControlLevel.from_doc(doc)
@@ -642,7 +649,7 @@ module Jazzy
     def self.reject_objc_types(docs)
       enums = docs.map do |doc|
         [doc, doc.children]
-      end.flatten.select { |child| child.type.objc_enum? }.map(&:name)
+      end.flatten.select { |child| child.type.objc_enum? }.map(&:objc_name)
       docs.map do |doc|
         doc.children = doc.children.reject do |child|
           child.type.objc_typedef? && enums.include?(child.name)

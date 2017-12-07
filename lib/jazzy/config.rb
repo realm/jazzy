@@ -127,6 +127,15 @@ module Jazzy
       description: 'The SDK for which your code should be built.',
       default: 'macosx'
 
+    config_attr :hide_declarations,
+      command_line: '--hide-declarations [objc|swift] ',
+      description: 'Hide declarations in the specified language. Given that ' \
+                   'generating Swift docs only generates Swift declarations, ' \
+                   'this is only really useful to display just the Swift ' \
+                   'declarations & names when generating docs for an ' \
+                   'Objective-C framework.',
+      default: ''
+
     config_attr :config_file,
       command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',

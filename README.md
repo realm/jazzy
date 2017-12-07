@@ -99,6 +99,8 @@ parameters to jazzy:
 * `--framework-root ...`
 * `--sdk [iphone|watch|appletv][os|simulator]|macosx` (optional, default value
    of `macosx`)
+* `--hide-declarations [objc|swift]` (optional, hides the selected language
+   declarations)
 
 ##### Example
 

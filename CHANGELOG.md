@@ -11,6 +11,10 @@
   [Akhil Batra](https://github.com/akhillies)
   [#913](https://github.com/realm/jazzy/issues/913)
 
+* Added a config option to hide Objective-C or Swift declarations:
+  `--hide-declarations [objc|swift]`.  
+  [Ibrahim Ulukaya](https://github.com/ulukaya)
+  [#828](https://github.com/realm/jazzy/issues/828)
 
 ##### Bug Fixes
 
