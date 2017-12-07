@@ -18,6 +18,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#910](https://github.com/realm/jazzy/issues/910)
 
+* Don't create documentation nodes for generic type parameters.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#878](https://github.com/realm/jazzy/issues/878)
+
 ## 0.9.0
 
 ##### Breaking
