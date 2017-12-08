@@ -329,6 +329,10 @@ module Jazzy
       "#{github_prefix}/#{relative_file_path}#{gh_line}"
     end
 
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/MethodLength
+
     # Build mustache item for a top-level doc
     # @param [Hash] item Parsed doc child item
     # @param [Config] options Build options
@@ -340,12 +344,13 @@ module Jazzy
                     else
                       item.declaration
                     end
+      other_language_declaration = item.other_language_declaration if
+          Config.instance.hide_declarations == ''
       {
         name:                       item.name,
         abstract:                   abstract,
         declaration:                declaration,
-        other_language_declaration: (item.other_language_declaration if
-            Config.instance.hide_declarations == ''),
+        other_language_declaration: other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,
         github_token_url:           gh_token_url(item, source_module),
@@ -358,6 +363,9 @@ module Jazzy
         end_line:                   item.end_line,
       }
     end
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/MethodLength
 
     def self.make_task(mark, uid, items)
       {
