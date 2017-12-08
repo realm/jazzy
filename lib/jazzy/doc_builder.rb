@@ -335,11 +335,18 @@ module Jazzy
     def self.render_item(item, source_module)
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
+      declaration = if Config.instance.hide_declarations == 'objc'
+                      item.other_language_declaration
+                    else
+                      item.declaration
+                    end
+      other_language_declaration = item.other_language_declaration if
+          Config.instance.hide_declarations == ''
       {
         name:                       item.name,
         abstract:                   abstract,
-        declaration:                item.declaration,
-        other_language_declaration: item.other_language_declaration,
+        declaration:                declaration,
+        other_language_declaration: other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,
         github_token_url:           gh_token_url(item, source_module),

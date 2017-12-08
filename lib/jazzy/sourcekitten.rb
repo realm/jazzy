@@ -309,18 +309,14 @@ module Jazzy
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
-      primary_declaration = (Config.instance.objc_mode && Config.instance.hide_declarations == 'objc') ?
-          doc['key.swift_declaration'] : (doc['key.parsed_declaration'] || doc['key.doc.declaration'])
-
-
       declaration.declaration = Highlighter.highlight(
-          primary_declaration,
-          (Config.instance.objc_mode && Config.instance.hide_declarations != 'swift') ? 'objc' : 'swift',
+          doc['key.parsed_declaration'] || doc['key.doc.declaration'],
+          Config.instance.objc_mode ? 'objc' : 'swift',
       )
       if Config.instance.objc_mode && doc['key.swift_declaration']
         declaration.other_language_declaration = Highlighter.highlight(
             doc['key.swift_declaration'], 'swift'
-        ) unless Config.instance.hide_declarations == 'swift'
+        )
       end
 
       unless doc['key.doc.full_as_xml']
@@ -365,7 +361,11 @@ module Jazzy
         declaration.parent_in_code = parent
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        documented_name = Config.instance.hide_declarations == 'objc' ? doc['key.swift_name'] : doc['key.name']
+        documented_name = if Config.instance.hide_declarations == 'objc'
+                            doc['key.swift_name']
+                          else
+                            doc['key.name']
+                          end
         current_mark = SourceMark.new(documented_name) if declaration.type.mark?
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
