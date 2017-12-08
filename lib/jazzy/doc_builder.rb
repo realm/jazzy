@@ -340,13 +340,12 @@ module Jazzy
                     else
                       item.declaration
                     end
-      other_language_declaration = item.other_language_declaration if
-          Config.instance.hide_declarations == ''
       {
         name:                       item.name,
         abstract:                   abstract,
         declaration:                declaration,
-        other_language_declaration: other_language_declaration,
+        other_language_declaration: (item.other_language_declaration if
+            Config.instance.hide_declarations == ''),
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,
         github_token_url:           gh_token_url(item, source_module),

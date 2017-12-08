@@ -310,12 +310,12 @@ module Jazzy
       return unless should_document?(doc)
 
       declaration.declaration = Highlighter.highlight(
-          doc['key.parsed_declaration'] || doc['key.doc.declaration'],
-          Config.instance.objc_mode ? 'objc' : 'swift',
+        doc['key.parsed_declaration'] || doc['key.doc.declaration'],
+        Config.instance.objc_mode ? 'objc' : 'swift',
       )
       if Config.instance.objc_mode && doc['key.swift_declaration']
         declaration.other_language_declaration = Highlighter.highlight(
-            doc['key.swift_declaration'], 'swift'
+          doc['key.swift_declaration'], 'swift'
         )
       end
 
