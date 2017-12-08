@@ -4,6 +4,8 @@ require 'jazzy/callout_scanner'
 module Jazzy
   module Markdown
     class Renderer < CommonMarker::HtmlRenderer
+      attr_accessor :default_language
+
       # Headers - add slug for linking and CSS class
       def header(node)
         text_slug = node.to_plaintext.gsub(/\W+/, '-')
@@ -18,11 +20,31 @@ module Jazzy
               '</h', node.header_level, '>')
         end
       end
+
+      # Code blocks - add syntax highlighting
+      def code_block(node)
+        language = if node.fence_info && !node.fence_info.empty?
+                     node.fence_info
+                   else
+                     default_language
+                   end
+        out(Highlighter.highlight_code_block(node.string_content, language))
+      end
+    end
+
+    # Work around CMr renderers not being reusable
+    class RendererWrapper
+      attr_accessor :default_language
+
+      def render(doc)
+        cm_renderer = Renderer.new
+        cm_renderer.default_language = default_language
+        cm_renderer.render(doc)
+      end
     end
 
     def self.renderer
-      # Cannot reuse these .. need commonmarker PR
-      Renderer.new
+      @renderer ||= RendererWrapper.new
     end
 
     def self.copyright_renderer
@@ -59,20 +81,25 @@ module Jazzy
       attr_reader :rendered_returns, :rendered_parameters
     end
 
-    def self.render(markdown)
+    def self.render(markdown, default_language = nil)
       doc = render_doc(markdown)
       scanner = CalloutScanner.new
       scanner.scan(doc)
+
+      renderer.default_language = default_language
+
       @rendered_returns =
         if scanner.returns_doc
           renderer.render(scanner.returns_doc)
         end
+
       @rendered_parameters = scanner.parameters_docs.map do |name, param_doc|
         {
           name: name,
           discussion: renderer.render(param_doc),
         }
       end
+
       renderer.render(doc)
     end
 

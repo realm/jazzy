@@ -21,6 +21,11 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#218](https://github.com/realm/jazzy/issues/218)
 
+* Use CommonMark instead of Redcarpet to generate HTML from Markdown.  This
+  is more compatible with Xcode's rendering and resolves many small issues.  
+  [John Fairhurst](https://github.com/johnfairh)
+  write me list of issues :(
+
 ##### Bug Fixes
 
 * Fix Swift declarations when generating Objective-C docs for generic types.  

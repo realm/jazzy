@@ -28,5 +28,12 @@ module Jazzy
     def self.highlight(source, language = default_language)
       source && Rouge.highlight(source, language, Formatter.new(language))
     end
+
+    # 'language' can be nil, use Rouge to guess at the right one from source
+    def self.highlight_code_block(source, language)
+      lexer = Rouge::Lexer.find_fancy(language, source) ||
+              Rouge::Lexers::PlainText
+      Rouge.highlight(source, lexer, Formatter.new(lexer.tag))
+    end
   end
 end
