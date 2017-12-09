@@ -338,8 +338,8 @@ module Jazzy
       {
         name:                       item.name,
         abstract:                   abstract,
-        declaration:                display_declaration,
-        other_language_declaration: display_other_language_declaration,
+        declaration:                item.display_declaration,
+        other_language_declaration: item.display_other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,
         github_token_url:           gh_token_url(item, source_module),
