@@ -329,28 +329,17 @@ module Jazzy
       "#{github_prefix}/#{relative_file_path}#{gh_line}"
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
-    # rubocop:disable Metrics/MethodLength
-
     # Build mustache item for a top-level doc
     # @param [Hash] item Parsed doc child item
     # @param [Config] options Build options
     def self.render_item(item, source_module)
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
-      declaration = if Config.instance.hide_declarations == 'objc'
-                      item.other_language_declaration
-                    else
-                      item.declaration
-                    end
-      other_language_declaration = item.other_language_declaration if
-          Config.instance.hide_declarations == ''
       {
         name:                       item.name,
         abstract:                   abstract,
-        declaration:                declaration,
-        other_language_declaration: other_language_declaration,
+        declaration:                display_declaration,
+        other_language_declaration: display_other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,
         github_token_url:           gh_token_url(item, source_module),
@@ -363,9 +352,6 @@ module Jazzy
         end_line:                   item.end_line,
       }
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/MethodLength
 
     def self.make_task(mark, uid, items)
       {

@@ -361,7 +361,8 @@ module Jazzy
         declaration.parent_in_code = parent
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
-        documented_name = if Config.instance.hide_declarations == 'objc'
+        documented_name = if Config.instance.hide_declarations == 'objc' &&
+            doc['key.swift_name']
                             doc['key.swift_name']
                           else
                             doc['key.name']

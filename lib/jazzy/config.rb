@@ -129,8 +129,8 @@ module Jazzy
 
     config_attr :hide_declarations,
       command_line: '--hide-declarations [swift|objc] ',
-      description: 'Hide language declarations when generating Objective-C '\
-                   'framework.',
+      description: 'Hide language declarations when generating docs for an '\
+                   'Objective-C framework.',
       default: ''
 
     config_attr :config_file,
