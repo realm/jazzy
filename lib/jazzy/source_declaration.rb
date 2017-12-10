@@ -66,7 +66,7 @@ module Jazzy
 
     def display_other_language_declaration
       other_language_declaration unless
-        %w(swift objc).include? Config.instance.hide_declarations
+        %w[swift objc].include? Config.instance.hide_declarations
     end
 
     attr_accessor :file
