@@ -75,6 +75,7 @@ module Jazzy
     attr_accessor :usr
     attr_accessor :modulename
     attr_accessor :name
+    attr_accessor :objc_name
     attr_accessor :declaration
     attr_accessor :other_language_declaration
     attr_accessor :abstract
