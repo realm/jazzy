@@ -27,12 +27,16 @@ module Jazzy
       ENV['JAZZY_FAKE_VERSION'] || Jazzy::VERSION
     end
 
+    def objc_first?
+      Config.instance.objc_mode && Config.instance.hide_declarations != 'objc'
+    end
+
     def language
-      Config.instance.objc_mode ? 'Objective-C' : 'Swift'
+      objc_first? ? 'Objective-C' : 'Swift'
     end
 
     def language_stub
-      Config.instance.objc_mode ? 'objc' : 'swift'
+      objc_first? ? 'objc' : 'swift'
     end
   end
 end

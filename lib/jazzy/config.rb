@@ -127,6 +127,12 @@ module Jazzy
       description: 'The SDK for which your code should be built.',
       default: 'macosx'
 
+    config_attr :hide_declarations,
+      command_line: '--hide-declarations [swift|objc] ',
+      description: 'Hide language declarations when generating docs for an '\
+                   'Objective-C framework.',
+      default: ''
+
     config_attr :config_file,
       command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',

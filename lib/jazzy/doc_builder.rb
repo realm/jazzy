@@ -338,8 +338,8 @@ module Jazzy
       {
         name:                       item.name,
         abstract:                   abstract,
-        declaration:                item.declaration,
-        other_language_declaration: item.other_language_declaration,
+        declaration:                item.display_declaration,
+        other_language_declaration: item.display_other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,
         github_token_url:           gh_token_url(item, source_module),
@@ -409,7 +409,7 @@ module Jazzy
       doc[:name] = doc_model.name
       doc[:kind] = doc_model.type.name
       doc[:dash_type] = doc_model.type.dash_type
-      doc[:declaration] = doc_model.declaration
+      doc[:declaration] = doc_model.display_declaration
       doc[:overview] = overview
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)

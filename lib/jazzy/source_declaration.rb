@@ -56,12 +56,26 @@ module Jazzy
       name.split(/[\(\)]/) if type.objc_category?
     end
 
+    def display_declaration
+      if Config.instance.hide_declarations == 'objc'
+        other_language_declaration
+      else
+        declaration
+      end
+    end
+
+    def display_other_language_declaration
+      other_language_declaration unless
+        %w[swift objc].include? Config.instance.hide_declarations
+    end
+
     attr_accessor :file
     attr_accessor :line
     attr_accessor :column
     attr_accessor :usr
     attr_accessor :modulename
     attr_accessor :name
+    attr_accessor :objc_name
     attr_accessor :declaration
     attr_accessor :other_language_declaration
     attr_accessor :abstract
