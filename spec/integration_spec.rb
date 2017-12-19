@@ -49,13 +49,16 @@ require 'colored'
 require 'CLIntegracon'
 
 require 'cocoapods'
-Pod::Config.instance.with_changes(silent: true) do
-  config = Pod::Config.instance
-  # working around a bug where `pod setup --silent` isn't silent
-  if config.sources_manager.master_repo_functional?
-    Pod::Command::Repo::Update.invoke(%w[master])
-  else
-    Pod::Command::Setup.invoke
+
+def configure_cocoapods
+  Pod::Config.instance.with_changes(silent: true) do
+    config = Pod::Config.instance
+    # working around a bug where `pod setup --silent` isn't silent
+    if config.sources_manager.master_repo_functional?
+      Pod::Command::Repo::Update.invoke(%w[master])
+    else
+      Pod::Command::Setup.invoke
+    end
   end
 end
 
@@ -215,6 +218,7 @@ describe_cli 'jazzy' do
   end if !spec_subset || spec_subset == 'swift'
 
   describe 'jazzy cocoapods' do
+    configure_cocoapods
     describe 'Creates docs for a podspec with dependencies and subspecs' do
       behaves_like cli_spec 'document_moya_podspec',
                             '--podspec=Moya.podspec'
