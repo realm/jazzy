@@ -27,13 +27,34 @@ begin
 
   desc 'Run specs'
   task :spec do
-    title 'Running Unit Tests'
+    title 'Running Tests'
+    Rake::Task['unit_spec'].invoke
+    Rake::Task['objc_spec'].invoke
+    Rake::Task['swift_spec'].invoke
+    Rake::Task['cocoapods_spec'].invoke
+    Rake::Task['rubocop'].invoke
+  end
+
+  desc 'Run unit specs'
+  task :unit_spec do
     files = FileList['spec/*_spec.rb']
       .exclude('spec/integration_spec.rb').shuffle.join(' ')
     sh "bundle exec bacon #{files}"
-    sh 'bundle exec bacon spec/integration_spec.rb'
+  end
 
-    Rake::Task['rubocop'].invoke
+  desc 'Run objc integration specs'
+  task :objc_spec do
+    sh 'JAZZY_SPEC_SUBSET=objc bundle exec bacon spec/integration_spec.rb'
+  end
+
+  desc 'Run swift integration specs'
+  task :swift_spec do
+    sh 'JAZZY_SPEC_SUBSET=swift bundle exec bacon spec/integration_spec.rb'
+  end
+
+  desc 'Run cocoapods integration specs'
+  task :cocoapods_spec do
+    sh 'JAZZY_SPEC_SUBSET=cocoapods bundle exec bacon spec/integration_spec.rb'
   end
 
   desc 'Rebuilds integration fixtures'

@@ -49,13 +49,16 @@ require 'colored'
 require 'CLIntegracon'
 
 require 'cocoapods'
-Pod::Config.instance.with_changes(silent: true) do
-  config = Pod::Config.instance
-  # working around a bug where `pod setup --silent` isn't silent
-  if config.sources_manager.master_repo_functional?
-    Pod::Command::Repo::Update.invoke(%w[master])
-  else
-    Pod::Command::Setup.invoke
+
+def configure_cocoapods
+  Pod::Config.instance.with_changes(silent: true) do
+    config = Pod::Config.instance
+    # working around a bug where `pod setup --silent` isn't silent
+    if config.sources_manager.master_repo_functional?
+      Pod::Command::Repo::Update.invoke(%w[master])
+    else
+      Pod::Command::Setup.invoke
+    end
   end
 end
 
@@ -130,6 +133,10 @@ describe_cli 'jazzy' do
 </script>
   HTML
 
+  spec_subset = ENV['JAZZY_SPEC_SUBSET']
+
+  # rubocop:disable Style/MultilineIfModifier
+
   describe 'jazzy objective-c' do
     describe 'Creates Realm Objective-C docs' do
       realm_version = ''
@@ -160,14 +167,9 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'misc_jazzy_objc_features',
                             '--theme fullwidth'
     end
-  end
+  end if !spec_subset || spec_subset == 'objc'
 
   describe 'jazzy swift' do
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec'
-    end
-
     describe 'Creates docs with a module name, author name, project URL, ' \
       'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
@@ -209,11 +211,19 @@ describe_cli 'jazzy' do
                             # Siesta already has Docs/
                             '--output api-docs',
                             # Use Swift 4.0.2 rather than the specified 3.0.2
-                            '--swift-version=4.0.2'
+                            '--swift-version=4.0.3'
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features'
     end
-  end
+  end if !spec_subset || spec_subset == 'swift'
+
+  describe 'jazzy cocoapods' do
+    configure_cocoapods
+    describe 'Creates docs for a podspec with dependencies and subspecs' do
+      behaves_like cli_spec 'document_moya_podspec',
+                            '--podspec=Moya.podspec'
+    end
+  end if !spec_subset || spec_subset == 'cocoapods'
 end
