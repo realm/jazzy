@@ -84,12 +84,7 @@ begin
     Dir.chdir(sk_dir) do
       `swift build -c release -Xswiftc -static-stdlib`
     end
-    build_dir = "#{sk_dir}/.build/release"
-    FileUtils.cp_r Dir["#{build_dir}/{sourcekitten,*.dylib}"], 'bin'
-    Dir["#{build_dir}/*.dylib"].each do |file|
-      system 'install_name_tool', '-change', File.expand_path(file),
-             "@loader_path/#{File.basename(file)}", 'bin/sourcekitten'
-    end
+    FileUtils.cp_r "#{sk_dir}/.build/release/sourcekitten", 'bin'
     system 'install_name_tool', '-delete_rpath',
            (Pathname(`xcrun -find swift`) + '../../lib/swift/macosx').to_s,
            'bin/sourcekitten'
