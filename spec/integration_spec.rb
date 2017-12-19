@@ -135,6 +135,8 @@ describe_cli 'jazzy' do
 
   spec_subset = ENV['JAZZY_SPEC_SUBSET']
 
+  # rubocop:disable Style/MultilineIfModifier
+
   describe 'jazzy objective-c' do
     describe 'Creates Realm Objective-C docs' do
       realm_version = ''

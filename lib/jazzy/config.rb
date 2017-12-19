@@ -92,7 +92,7 @@ module Jazzy
 
     # ──────── Build ────────
 
-    # rubocop:disable Style/AlignParameters
+    # rubocop:disable Layout/AlignParameters
 
     config_attr :output,
       description: 'Folder to output the HTML docs to',
