@@ -82,11 +82,11 @@ module Jazzy
     end
 
     def self.render(markdown, default_language = nil)
+      renderer.default_language = default_language
+
       doc = render_doc(markdown)
       scanner = CalloutScanner.new
       scanner.scan(doc)
-
-      renderer.default_language = default_language
 
       @rendered_returns =
         if scanner.returns_doc

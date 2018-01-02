@@ -44,7 +44,7 @@ module CommonMarker
     #   Parameter XXXX: YYYY   (Swift)
     #   Parameter: XXXX YYYY   (ObjC via SourceKitten)
     #   XXXX:YYYYY
-    def callout_parts
+    def init_as_callout
       if string_content =~ /\A\s*callout\((.+)\)\s*:\s*(.*)\Z/mi
         @callout_custom = Regexp.last_match(1)
       elsif string_content =~ /\A\s*parameter\s+(\S+)\s*:\s*(.*)\Z/mi ||
@@ -85,7 +85,7 @@ module CommonMarker
       self.string_content = @callout_rest
     end
 
-    # Iterator vending |list_item_node, text_node| for callout-looking children
+    # Iterator vending |list_item_node, text_node| for callout-looking children.
     #
     # rubocop:disable Metrics/CyclomaticComplexity
     def each_callout
@@ -95,7 +95,7 @@ module CommonMarker
         next unless para_node && para_node.type == :paragraph
         text_node = para_node.first_child
         next unless text_node && text_node.type == :text
-        yield child_node, text_node if text_node.callout_parts
+        yield child_node, text_node if text_node.init_as_callout
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity
@@ -116,11 +116,11 @@ module Jazzy
 
     # Deal with callouts on a top-level markdown doc
     def scan(doc)
-      doc.each do |child|
-        next unless child.type == :list && child.list_type == :bullet_list
+      doc.each do |node|
+        next unless node.type == :list && node.list_type == :bullet_list
 
-        child.each_callout { |li, t| scan_callout(child, li, t) }
-        child.delete unless child.first_child
+        node.each_callout { |li, t| scan_callout(node, li, t) }
+        node.delete unless node.first_child
       end
     end
 
@@ -152,7 +152,7 @@ module Jazzy
         @parameters_docs[param_text_node.callout_type] =
           extract_callout(param_list_item_node, param_text_node)
       end
-      list_item_node.delete
+      list_item_node.delete # delete the '- parameters:' part
     end
 
     # Create a normal callout by adding html nodes for the div
