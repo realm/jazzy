@@ -90,10 +90,6 @@ module Jazzy
       Pathname(path).expand_path(base_path) # nil means Pathname.pwd
     end
 
-    def default_language
-      objc_mode ? 'objc' : 'swift'
-    end
-
     # ──────── Build ────────
 
     # rubocop:disable Layout/AlignParameters

@@ -45,7 +45,6 @@ module CommonMarker
     #   Parameter: XXXX YYYY   (ObjC via SourceKitten)
     #   XXXX:YYYYY
     def callout_parts
-      puts(string_content)
       if string_content =~ /\A\s*callout\((.+)\)\s*:\s*(.*)\Z/mi
         @callout_custom = Regexp.last_match(1)
       elsif string_content =~ /\A\s*parameter\s+(\S+)\s*:\s*(.*)\Z/mi ||
