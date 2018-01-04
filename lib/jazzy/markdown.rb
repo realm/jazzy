@@ -14,8 +14,8 @@ module Jazzy
                         .sub(/-$/, '')
         block do
           out('<h', node.header_level, ' ',
-              'id="', text_slug, '" ',
-              'class="heading">',
+              'id=\'', text_slug, '\' ',
+              'class=\'heading\'>',
               :children,
               '</h', node.header_level, '>')
         end
@@ -39,7 +39,7 @@ module Jazzy
       def render(doc)
         cm_renderer = Renderer.new
         cm_renderer.default_language = default_language
-        cm_renderer.render(doc)
+        cm_renderer.render(doc).chomp
       end
     end
 

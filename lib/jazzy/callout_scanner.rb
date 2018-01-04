@@ -5,6 +5,7 @@ module CommonMarker
   class Node
     # List of Swift callouts, excluding param/returns.
     # Plus 'example' from playgrounds.
+    # Plus 'see' from Objective-C.
     # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
     NORMAL_CALLOUTS = %w[attention
                          author
@@ -35,7 +36,8 @@ module CommonMarker
                          keyword
                          recommended
                          recommendedover
-                         example].freeze
+                         example
+                         see].freeze
 
     attr_reader :callout_param_name
 
@@ -164,8 +166,8 @@ module Jazzy
       css_class = text_node.callout_type.downcase.gsub(/\W+/, '-')
       title = text_node.callout_type.humanize
       html_in_node.string_content =
-        "<div class='aside aside-#{css_class}'>\n" \
-        "<p class='aside-title'>#{title}</p>"
+        "<div class=\"aside aside-#{css_class}\">\n" \
+        "<p class=\"aside-title\">#{title}</p>"
       list_node.insert_before(html_in_node)
 
       # Body of the callout
