@@ -8,7 +8,8 @@ module Jazzy
 
       # Headers - add slug for linking and CSS class
       def header(node)
-        text_slug = node.to_plaintext.gsub(/\W+/, '-')
+        text = escape_html(node.to_plaintext)
+        text_slug = text.gsub(/\W+/, '-')
                         .downcase
                         .sub(/^-/, '')
                         .sub(/-$/, '')
@@ -54,8 +55,9 @@ module Jazzy
     # In the copyright statement make links open in a new tab.
     class CopyrightRenderer < CommonMarker::HtmlRenderer
       def link(node)
-        out('<a class="link" target="_blank" rel="external" href="',
-            node.url.nil? ? '' : escape_href(node.url), '">',
+        out('<a class="link" href="',
+            node.url.nil? ? '' : escape_href(node.url),
+            ' target="_blank" rel="external">',
             :children,
             '</a>')
       end
