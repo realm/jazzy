@@ -24,7 +24,11 @@
 * Use CommonMark instead of Redcarpet to generate HTML from Markdown.  This
   is more compatible with Xcode's rendering and resolves many small issues.  
   [John Fairhurst](https://github.com/johnfairh)
-  write me list of issues :(
+  [#785](https://github.com/realm/jazzy/issues/785)
+  [#813](https://github.com/realm/jazzy/issues/813)
+  [#909](https://github.com/realm/jazzy/issues/909)
+  [#784](https://github.com/realm/jazzy/issues/784)
+  [#430](https://github.com/realm/jazzy/issues/430)
 
 ##### Bug Fixes
 
