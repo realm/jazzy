@@ -56,6 +56,9 @@ her [book on Swift Documentation Markup](https://itunes.apple.com/us/book/swift-
 For Objective-C documentation the same keywords are supported, but note that the format
 is slightly different. In Swift you would write `- returns:`, but in Objective-C you write `@return`. See Apple's [*HeaderDoc User Guide*](https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/HeaderDoc/tags/tags.html) for more details. **Note: `jazzy` currently does not support _all_ Objective-C keywords listed in this document, only @param, @return, @warning, @see, and @note.**
 
+Jazzy supports [GitHub Flavored Markdown](https://github.github.com/gfm/)
+including the table, strikethrough, and autolink extensions.
+
 Jazzy can generate cross-references within your documentation. A symbol name in
 backticks generates a link, for example:
 * \`MyClass\` - a link to documentation for `MyClass`.
