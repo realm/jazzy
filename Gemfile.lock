@@ -3,6 +3,7 @@ PATH
   specs:
     jazzy (0.9.1)
       cocoapods (~> 1.0)
+      ffi (= 1.9.18)
       mustache (~> 0.99)
       open4
       redcarpet (~> 3.2)
@@ -186,4 +187,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   1.16.0
+   1.16.1

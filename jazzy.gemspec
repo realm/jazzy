@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.executables   << 'jazzy'
 
   spec.add_runtime_dependency 'cocoapods', '~> 1.0'
+  spec.add_runtime_dependency 'ffi', '= 1.9.18'
   spec.add_runtime_dependency 'mustache', '~> 0.99'
   spec.add_runtime_dependency 'open4'
   spec.add_runtime_dependency 'redcarpet', '~> 3.2'
