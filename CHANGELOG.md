@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Temporarily force ffi to 1.9.18 to avoid macOS build failures.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#941](https://github.com/realm/jazzy/issues/941)
 
 ## 0.9.1
 
