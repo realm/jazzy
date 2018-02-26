@@ -35,6 +35,10 @@ document. It must be installed in a location indexed by Spotlight for the
 [sudo] gem install jazzy
 ```
 
+The Xcode command-line developer tools must be installed to successfully build
+the gems that `jazzy` depends on: try `xcode-select --install` if you see build
+errors.
+
 ## Usage
 
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional options.
