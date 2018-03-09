@@ -754,6 +754,8 @@ module Jazzy
 
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+        doc.unavailable_message = autolink_text(doc.unavailable_message, doc, root_decls) if doc.unavailable_message
+        doc.deprecation_message = autolink_text(doc.deprecation_message, doc, root_decls) if doc.deprecation_message
         (doc.parameters || []).each do |param|
           param[:discussion] =
             autolink_text(param[:discussion], doc, root_decls)
