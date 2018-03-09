@@ -20,7 +20,12 @@
         </code>
         {{/direct_link}}
         {{^direct_link}}
+        {{^usage_discouraged}}
         <a class="token" href="#/{{usr}}">{{name}}</a>
+        {{/usage_discouraged}}
+        {{#usage_discouraged}}
+        <a class="token" href="#/{{usr}}"><strike>{{name}}</strike></a>
+        {{/usage_discouraged}}
         </code>
         {{#default_impl_abstract}}
           <span class="declaration-note">
@@ -37,6 +42,18 @@
         <div class="pointer-container"></div>
         <section class="section">
           <div class="pointer"></div>
+          {{#deprecation_message}}
+          <div class="aside">
+            <p class="aside-title">Deprecated</p>
+            {{{deprecation_message}}}
+          </div>
+          {{/deprecation_message}}
+          {{#unavailable_message}}
+          <div class="aside">
+            <p class="aside-title">Unavailable</p>
+            {{{unavailable_message}}}
+          </div>
+          {{/unavailable_message}}
           {{#abstract}}
           <div class="abstract">
             {{{abstract}}}
