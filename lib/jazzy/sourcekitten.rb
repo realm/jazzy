@@ -332,6 +332,9 @@ module Jazzy
       declaration.return = Markdown.rendered_returns
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
 
+      declaration.deprecation_message = Markdown.render(doc['key.deprecation_message'] || '', Highlighter.default_language)
+      declaration.unavailable_message = Markdown.render(doc['key.unavailable_message'] || '', Highlighter.default_language)
+
       @stats.add_documented
     end
 
@@ -482,6 +485,8 @@ module Jazzy
         declaration.column = doc['key.doc.column']
         declaration.start_line = doc['key.parsed_scope.start']
         declaration.end_line = doc['key.parsed_scope.end']
+        declaration.deprecated = doc['key.always_deprecated']
+        declaration.unavailable = doc['key.always_unavailable']
 
         next unless make_doc_info(doc, declaration)
         make_substructure(doc, declaration)
@@ -749,6 +754,8 @@ module Jazzy
 
         doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
         doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+        doc.unavailable_message = autolink_text(doc.unavailable_message, doc, root_decls) if doc.unavailable_message
+        doc.deprecation_message = autolink_text(doc.deprecation_message, doc, root_decls) if doc.deprecation_message
         (doc.parameters || []).each do |param|
           param[:discussion] =
             autolink_text(param[:discussion], doc, root_decls)

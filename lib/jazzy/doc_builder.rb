@@ -350,6 +350,9 @@ module Jazzy
         start_line:                 item.start_line,
         end_line:                   item.end_line,
         direct_link:                item.omit_content_from_parent?,
+        deprecation_message:        (item.deprecation_message if item.deprecated),
+        unavailable_message:        (item.unavailable_message if item.unavailable),
+        usage_discouraged:          item.deprecated || item.unavailable,
       }
     end
 
