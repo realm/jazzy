@@ -366,7 +366,9 @@ module Jazzy
                           else
                             declaration.objc_name
                           end
-        current_mark = SourceMark.new(documented_name) if declaration.type.mark?
+        if declaration.type.task_mark?(documented_name)
+          current_mark = SourceMark.new(documented_name)
+        end
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(
