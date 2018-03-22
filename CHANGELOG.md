@@ -13,7 +13,8 @@
 
 ##### Bug Fixes
 
-* None.
+* Preserve `MARK` comment headings associated with extensions and enum cases.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.9.1
 

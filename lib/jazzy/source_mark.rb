@@ -27,5 +27,15 @@ module Jazzy
 
       self.name = mark_string[start_index..end_index]
     end
+
+    def empty?
+      !name && !has_start_dash && !has_end_dash
+    end
+
+    def copy(other)
+      self.name = other.name
+      self.has_start_dash = other.has_start_dash
+      self.has_end_dash = other.has_end_dash
+    end
   end
 end
