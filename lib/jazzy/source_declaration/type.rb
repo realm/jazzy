@@ -5,7 +5,7 @@ module Jazzy
     # rubocop:disable Metrics/ClassLength
     class Type
       def self.all
-        TYPES.keys.map { |k| new(k) }
+        TYPES.keys.map { |k| new(k) }.reject { |t| t.name.nil? }
       end
 
       attr_reader :kind
@@ -130,6 +130,11 @@ module Jazzy
         'document.markdown' => {
           jazzy: 'Guide',
           dash: 'Guide',
+        }.freeze,
+
+        'Overview' => {
+          jazzy: nil,
+          dash: 'Section',
         }.freeze,
 
         # Objective-C
