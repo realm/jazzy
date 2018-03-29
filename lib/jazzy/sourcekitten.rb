@@ -538,11 +538,33 @@ module Jazzy
       end
     end
 
+    # Apply filtering based on the "included" and "excluded" flags.
+    def self.filter_files(json)
+      json = filter_included_files(json) if Config.instance.included_files.any?
+      json = filter_excluded_files(json) if Config.instance.excluded_files.any?
+      json.map do |doc|
+        key = doc.keys.first
+        doc[key]
+      end.compact
+    end
+
+    # Filter based on the "included" flag.
+    def self.filter_included_files(json)
+      included_files = Config.instance.included_files
+      json.map do |doc|
+        key = doc.keys.first
+        doc if included_files.detect do |include|
+          File.fnmatch?(include, key)
+        end
+      end.compact
+    end
+
+    # Filter based on the "excluded" flag.
     def self.filter_excluded_files(json)
       excluded_files = Config.instance.excluded_files
       json.map do |doc|
         key = doc.keys.first
-        doc[key] unless excluded_files.detect do |exclude|
+        doc unless excluded_files.detect do |exclude|
           File.fnmatch?(exclude, key)
         end
       end.compact
@@ -665,7 +687,7 @@ module Jazzy
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
       @stats = Stats.new
-      sourcekitten_json = filter_excluded_files(JSON.parse(sourcekitten_output))
+      sourcekitten_json = filter_files(JSON.parse(sourcekitten_output))
       docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = expand_extensions(docs)
       docs = deduplicate_declarations(docs)

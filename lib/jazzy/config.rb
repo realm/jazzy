@@ -167,6 +167,15 @@ module Jazzy
         Array(files).map { |f| expand_path(f).to_s }
       end
 
+    config_attr :included_files,
+      command_line: ['-i', '--include filepath1,filepath2,…filepathN', Array],
+      description: 'Source file pathnames to be included in documentation. '\
+                   'Supports wildcards.',
+      default: [],
+      parse: ->(files) do
+        Array(files).map { |f| expand_path(f).to_s }
+      end
+
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
       default: nil,

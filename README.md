@@ -197,20 +197,27 @@ include declarations with a lower access level, set the `--min-acl` flag to `int
 In Objective-C mode, Jazzy documents all declarations found in the `--umbrella-header`
 header file and any other header files included by it.
 
-You can then prevent some of these declarations from being documented using `--exclude`
-or `:nodoc:`.
+You can control exactly which declarations should be documented using `--exclude`,
+`--include`, or `:nodoc:`.
 
-The `--exclude` flag lists source files to omit from the documentation. Entries in the
-list can be absolute pathnames beginning with `/` or relative pathnames. Relative
-pathnames are interpreted relative to the directory from where you run `jazzy` or, if the
-exclude flag is set in the config file, relative to the directory containing the config
-file. Entries in the list can match multiple files using `*` to match any number of
-characters including `/`.  For example:
-* `jazzy --exclude=/Users/fred/project/Sources/Secret.swift` -- exclude a specific file
+The `--include` and `--exclude` flags list source files that should be included/excluded
+respectively in the documentation. Entries in the list can be absolute pathnames beginning
+with `/` or relative pathnames. Relative pathnames are interpreted relative to the
+directory from where you run `jazzy` or, if the flags are set in the config file, relative
+to the directory containing the config file. Entries in the list can match multiple files
+using `*` to match any number of characters including `/`.  For example:
+* `jazzy --include=/Users/fred/project/Sources/Secret.swift` -- include a specific file
 * `jazzy --exclude=/*/Internal*` -- exclude all files with names that begin with *Internal*
   and any files under any directory with a name beginning *Internal*.
 * `jazzy --exclude=Impl1/*,Impl2/*` -- exclude all files under the directories *Impl1* and
   *Impl2* found in the current directory.
+
+Note that the `--include` option is applied before the `--exclude` option. For example:
+
+* `jazzy --include=/*/Internal* --exclude=Impl1/*,Impl2/*` -- include all files with names
+  that begin with *Internal* and any files under any directory with a name beginning
+  *Internal*, **except** for those under the directories *Impl1* and *Impl2* found in the
+  current directory
 
 Declarations with a documentation comment containing `:nodoc:` are excluded from the
 documentation.
