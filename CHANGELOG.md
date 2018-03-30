@@ -6,7 +6,10 @@
 
 ##### Enhancements
 
-* None.
+* Added the ability to limit documentation to certain files by passing in an
+  `-i`/`--include` argument.  
+  [Nick Fox](https://github.com/nicholasffox)
+  [#949](https://github.com/realm/jazzy/issues/949)
 
 ##### Bug Fixes
 
