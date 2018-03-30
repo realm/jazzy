@@ -5,7 +5,7 @@ module Jazzy
     # rubocop:disable Metrics/ClassLength
     class Type
       def self.all
-        TYPES.keys.reject { |k| k == 'Overview' }.map { |k| new(k) }
+        TYPES.reject { |_, v| v[:jazzy].nil? }.map { |k, _| new(k) }
       end
 
       attr_reader :kind
