@@ -345,9 +345,9 @@ module Jazzy
     # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
-    def self.make_source_declarations(docs, parent = nil)
+    def self.make_source_declarations(docs, parent = nil, mark = SourceMark.new)
       declarations = []
-      current_mark = SourceMark.new
+      current_mark = mark
       Array(docs).each do |doc|
         if doc.key?('key.diagnostic_stage')
           declarations += make_source_declarations(
@@ -370,7 +370,7 @@ module Jazzy
         if declaration.type.swift_enum_case?
           # Enum "cases" are thin wrappers around enum "elements".
           declarations += make_source_declarations(
-            doc['key.substructure'], parent
+            doc['key.substructure'], parent, current_mark
           )
           next
         end
@@ -484,17 +484,14 @@ module Jazzy
       end
       typedecl = typedecls.first
 
-      if typedecl && typedecl.type.swift_protocol?
-        merge_default_implementations_into_protocol(typedecl, extensions)
-        mark_members_from_protocol_extension(extensions)
-        extensions.reject! { |ext| ext.children.empty? }
-      elsif typedecl && typedecl.type.objc_class?
-        # Mark children merged from categories with the name of category
-        # (unless they already have a mark)
-        extensions.each do |ext|
-          _, category_name = ext.objc_category_name
-          ext.children.each { |c| c.mark.name ||= category_name }
+      if typedecl
+        if typedecl.type.swift_protocol?
+          merge_default_implementations_into_protocol(typedecl, extensions)
+          mark_members_from_protocol_extension(extensions)
+          extensions.reject! { |ext| ext.children.empty? }
         end
+
+        merge_declaration_marks(typedecl, extensions)
       end
 
       decls = typedecls + extensions
@@ -534,6 +531,27 @@ module Jazzy
       extensions.each do |ext|
         ext.children.each do |ext_member|
           ext_member.from_protocol_extension = true
+        end
+      end
+    end
+
+    # Customize marks associated with to-be-merged declarations
+    def self.merge_declaration_marks(typedecl, extensions)
+      if typedecl.type.objc_class?
+        # Mark children merged from categories with the name of category
+        # (unless they already have a mark)
+        extensions.each do |ext|
+          _, category_name = ext.objc_category_name
+          ext.children.each { |c| c.mark.name ||= category_name }
+        end
+      else
+        # If the Swift extension has a mark and the first child doesn't
+        # then copy the mark contents down so it still shows up.
+        extensions.each do |ext|
+          child = ext.children.first
+          if child && child.mark.empty?
+            child.mark.copy(ext.mark)
+          end
         end
       end
     end
