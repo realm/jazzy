@@ -10,7 +10,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix issue where Overview items were invalidly being referenced with NULL
+  types in the generated Dash docset index.
+  [Andrew De Ponte](https://github.com/cyphactor)
+  [#951](https://github.com/realm/jazzy/pull/951)
 
 ## 0.9.1
 
