@@ -16,6 +16,10 @@
 * Preserve `MARK` comment headings associated with extensions and enum cases.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Fix issue where Overview items were invalidly being referenced with NULL
+  types in the generated Dash docset index.  
+  [Andrew De Ponte](https://github.com/cyphactor)
+
 ## 0.9.1
 
 ##### Breaking
