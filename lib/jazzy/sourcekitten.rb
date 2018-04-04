@@ -3,6 +3,7 @@ require 'pathname'
 require 'shellwords'
 require 'xcinvoke'
 require 'cgi'
+require 'rexml/document'
 
 require 'jazzy/config'
 require 'jazzy/executable'
@@ -42,6 +43,10 @@ class String
         original
       end
     end
+  end
+
+  def unindent(count)
+    gsub(/^#{' ' * count}/, '')
   end
 end
 
@@ -304,17 +309,17 @@ module Jazzy
       end.reject { |param| param[:discussion].nil? }
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
-      declaration.declaration = Highlighter.highlight(
-        doc['key.parsed_declaration'] || doc['key.doc.declaration'],
-      )
-      if Config.instance.objc_mode && doc['key.swift_declaration']
-        declaration.other_language_declaration = Highlighter.highlight(
-          doc['key.swift_declaration'], 'swift'
-        )
+      if Config.instance.objc_mode
+        declaration.declaration =
+          Highlighter.highlight(doc['key.parsed_declaration'])
+        declaration.other_language_declaration =
+          Highlighter.highlight(doc['key.swift_declaration'], 'swift')
+      else
+        declaration.declaration =
+          Highlighter.highlight(make_swift_declaration(doc, declaration))
       end
 
       unless doc['key.doc.full_as_xml']
@@ -329,7 +334,86 @@ module Jazzy
 
       @stats.add_documented
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
+
+    # Strip tags and convert entities
+    def self.xml_to_text(xml)
+      document = REXML::Document.new(xml)
+      REXML::XPath.match(document.root, '//text()').map(&:value).join
+    end
+
+    # Regexp to match an @attribute.  Complex to handle @available().
+    def self.attribute_regexp(name)
+      qstring = /"(?:[^"\\]*|\\.)*"/
+      %r{@#{name}      # @attr name
+        (?:\s*\(       # optionally followed by spaces + parens,
+          (?:          # containing any number of either..
+            [^")]*|    # normal characters or...
+            #{qstring} # quoted strings.
+          )*           # (end parens content)
+        \))?           # (end optional parens)
+      }x
+    end
+
+    # Get all attributes of some name
+    def self.extract_attributes(declaration, name = '\w+')
+      attrs = declaration.scan(attribute_regexp(name))
+      # Rouge #806 workaround, use unicode lookalike for ')' inside attributes.
+      attrs.map { |str| str.gsub(/\)(?!\s*$)/, "\ufe5a") }
+    end
+
+    def self.extract_availability(declaration)
+      extract_attributes(declaration, 'available')
+    end
+
+    # Split leading attributes from a decl, returning both parts.
+    def self.split_decl_attributes(declaration)
+      declaration =~ /^((?:#{attribute_regexp('\w+')}\s*)*)(.*)$/m
+      Regexp.last_match.captures
+    end
+
+    def self.prefer_parsed_decl?(parsed, annotated)
+      parsed &&
+        (annotated.include?(' = default') || # SR-2608
+         parsed.match('@autoclosure|@escaping') || # SR-6321
+         parsed.include?("\n"))
+    end
+
+    # Replace the fully qualified name of a type with its base name
+    def self.unqualify_name(annotated_decl, declaration)
+      annotated_decl.gsub(declaration.fully_qualified_name_regexp,
+                          declaration.name)
+    end
+
+    # Find the best Swift declaration
+    def self.make_swift_declaration(doc, declaration)
+      # From compiler 'quick help' style
+      annotated_decl_xml = doc['key.annotated_decl']
+
+      return nil unless annotated_decl_xml
+
+      annotated_decl_attrs, annotated_decl_body =
+        split_decl_attributes(xml_to_text(annotated_decl_xml))
+
+      # From source code
+      parsed_decl = doc['key.parsed_declaration']
+
+      decl =
+        if prefer_parsed_decl?(parsed_decl, annotated_decl_body)
+          # Strip any attrs captured by parsed version
+          inline_attrs, parsed_decl_body = split_decl_attributes(parsed_decl)
+          parsed_decl_body.unindent(inline_attrs.length)
+        else
+          # Strip ugly references to decl type name
+          unqualify_name(annotated_decl_body, declaration)
+        end
+
+      # @available attrs only in compiler 'interface' style
+      available_attrs = extract_availability(doc['key.doc.declaration'] || '')
+
+      available_attrs.concat(extract_attributes(annotated_decl_attrs))
+                     .push(decl)
+                     .join("\n")
+    end
 
     def self.make_substructure(doc, declaration)
       declaration.children = if doc['key.substructure']

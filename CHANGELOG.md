@@ -11,6 +11,12 @@
   [Nick Fox](https://github.com/nicholasffox)
   [#949](https://github.com/realm/jazzy/issues/949)
 
+* Improve Swift declarations to look more like the Xcode Quick Help version,
+  for example including { get set }, and include all attributes.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#768](https://github.com/realm/jazzy/issues/768)
+  [#591](https://github.com/realm/jazzy/issues/591)
+
 ##### Bug Fixes
 
 * Preserve `MARK` comment headings associated with extensions and enum cases.  
