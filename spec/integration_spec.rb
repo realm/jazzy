@@ -210,8 +210,8 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'document_siesta',
                             # Siesta already has Docs/
                             '--output api-docs',
-                            # Use Swift 4.0.2 rather than the specified 3.0.2
-                            '--swift-version=4.0.3'
+                            # Use Swift 4.1 rather than the specified 3.0.2
+                            '--swift-version=4.1'
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
