@@ -43,9 +43,22 @@ module Jazzy
         url_name.pluralize
       end
 
+      def objc_mark?
+        kind == 'sourcekitten.source.lang.objc.mark'
+      end
+
+      # covers MARK: TODO: FIXME: comments
+      def swift_mark?
+        kind == 'source.lang.swift.syntaxtype.comment.mark'
+      end
+
       def mark?
-        kind == 'source.lang.swift.syntaxtype.comment.mark' ||
-          kind == 'sourcekitten.source.lang.objc.mark'
+        objc_mark? || swift_mark?
+      end
+
+      # mark that should start a new task section
+      def task_mark?(name)
+        objc_mark? || (swift_mark? && name.start_with?('MARK: '))
       end
 
       def objc_enum?

@@ -20,6 +20,10 @@
   types in the generated Dash docset index.  
   [Andrew De Ponte](https://github.com/cyphactor)
 
+* Don't display FIXME or TODO comments as section markers.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#658](https://github.com/realm/jazzy/issues/658)
+
 ## 0.9.1
 
 ##### Breaking
