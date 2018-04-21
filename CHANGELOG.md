@@ -6,13 +6,16 @@
 
 ##### Enhancements
 
-* Added the ability to limit documentation to certain files by passing in an
+* Add a new 'jony' theme similar to the 2017 Apple documentation style.  
+  [Harshil Shah](https://github.com/HarshilShah)
+
+* Add the ability to limit documentation to certain files by passing in an
   `-i`/`--include` argument.  
   [Nick Fox](https://github.com/nicholasffox)
   [#949](https://github.com/realm/jazzy/issues/949)
 
 * Improve Swift declarations to look more like the Xcode Quick Help version,
-  for example including { get set }, and include all attributes.  
+  for example including `{ get set }`, and include all attributes.  
   [John Fairhurst](https://github.com/johnfairh)
   [#768](https://github.com/realm/jazzy/issues/768)
   [#591](https://github.com/realm/jazzy/issues/591)
