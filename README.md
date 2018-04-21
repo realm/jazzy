@@ -143,11 +143,11 @@ jazzy \
 
 ### Themes
 
-Two themes are provided with jazzy: `apple` (default) and `fullwidth`.
+Three themes are provided with jazzy: `apple` (default), `fullwidth` and `jony`.
 
-Here's an example built with `apple`: <https://realm.io/docs/swift/latest/api/>
-
-Here's an example built with `fullwidth`: <http://reduxkit.github.io/ReduxKit/>
+* `apple` example: <https://realm.io/docs/swift/latest/api/>
+* `fullwidth` example: <https://reduxkit.github.io/ReduxKit/>
+* `jony` example: <https://harshilshah.github.io/IGListKit/>
 
 You can specify which theme to use by passing in the `--theme` option. You can
 also provide your own custom theme by passing in the path to your theme
