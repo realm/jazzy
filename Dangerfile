@@ -24,5 +24,5 @@ end
 
 # Non-trivial amounts of app changes without tests
 if git.lines_of_code > 50 && has_app_changes && !has_test_changes
-    warn "This PR may need tests."    
+    warn "This PR may need tests."
 end
