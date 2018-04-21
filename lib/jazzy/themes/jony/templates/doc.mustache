@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{name}} {{kind}} Reference</title>
+    <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="{{path_to_root}}js/jquery.min.js" defer></script>
+    <script src="{{path_to_root}}js/jazzy.js" defer></script>
+    {{{custom_head}}}
+  </head>
+  <body>
+    {{#dash_type}}
+    <a name="//apple_ref/{{language_stub}}/{{dash_type}}/{{name}}" class="dashAnchor"></a>
+    {{/dash_type}}
+    <a title="{{name}} {{kind}} Reference"></a>
+    {{> header}}
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="{{path_to_root}}index.html">{{module_name}} Reference</a>
+            <img id="carat" src="{{path_to_root}}img/carat.png" />
+          </span>
+          {{name}} {{kind}} Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              {{^hide_name}}<h1>{{name}}</h1>{{/hide_name}}
+              {{#declaration}}
+                <div class="declaration">
+                  <div class="language">
+                    {{{declaration}}}
+                  </div>
+                </div>
+              {{/declaration}}
+              {{{overview}}}
+            </section>
+            {{> tasks}}
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        {{> nav}}
+      </div>
+      <div class="footer-wrapper">
+        {{> footer}}
+      </div>
+    </div>
+  </body>
+</div>
+</html>
