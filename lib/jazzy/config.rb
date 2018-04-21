@@ -311,10 +311,10 @@ module Jazzy
       default: ''
 
     config_attr :theme_directory,
-      command_line: '--theme [apple | fullwidth | DIRPATH]',
+      command_line: '--theme [apple | fullwidth | jony | DIRPATH]',
       description: "Which theme to use. Specify either 'apple' (default), "\
-                   "'fullwidth' or the path to your mustache templates and " \
-                   'other assets for a custom theme.',
+                   "'fullwidth', 'jony' or the path to your mustache " \
+                   'templates and other assets for a custom theme.',
       default: 'apple',
       parse: ->(t) do
         if %w[apple fullwidth].include?(t)
