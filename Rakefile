@@ -106,9 +106,6 @@ begin
       `swift build -c release -Xswiftc -static-stdlib`
     end
     FileUtils.cp_r "#{sk_dir}/.build/release/sourcekitten", 'bin'
-    system 'install_name_tool', '-delete_rpath',
-           (Pathname(`xcrun -find swift`) + '../../lib/swift/macosx').to_s,
-           'bin/sourcekitten'
   end
 
 rescue LoadError, NameError => e
