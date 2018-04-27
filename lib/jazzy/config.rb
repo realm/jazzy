@@ -180,9 +180,12 @@ module Jazzy
       command_line: '--swift-version VERSION',
       default: nil,
       parse: ->(v) do
-        return nil if v.to_s.empty?
-        raise 'jazzy only supports Swift 2.0 or later.' if v.to_f < 2
-        v
+        if v.to_s.empty?
+          nil
+        else
+          raise 'jazzy only supports Swift 2.0 or later.' if v.to_f < 2
+          v
+        end
       end
 
     # ──────── Metadata ────────
