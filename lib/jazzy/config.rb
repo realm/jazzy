@@ -194,7 +194,7 @@ module Jazzy
 
     config_attr :author_url,
       command_line: ['-u', '--author_url URL'],
-      description: 'Author URL of this project (e.g. http://realm.io)',
+      description: 'Author URL of this project (e.g. https://realm.io)',
       default: '',
       parse: ->(u) { URI(u) }
 
@@ -252,7 +252,7 @@ module Jazzy
     config_attr :dash_url,
       command_line: ['-d', '--dash_url URL'],
       description: 'Location of the dash XML feed '\
-                    'e.g. http://realm.io/docsets/realm.xml)',
+                    'e.g. https://realm.io/docsets/realm.xml)',
       parse: ->(d) { URI(d) }
 
     config_attr :github_url,
@@ -302,7 +302,7 @@ module Jazzy
       description: ['Custom navigation categories to replace the standard '\
                     '“Classes, Protocols, etc.”', 'Types not explicitly named '\
                     'in a custom category appear in generic groups at the end.',
-                    'Example: http://git.io/v4Bcp'],
+                    'Example: https://git.io/v4Bcp'],
       default: []
 
     config_attr :custom_head,

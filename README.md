@@ -54,7 +54,7 @@ all available options, run `jazzy --help config`.
 ### Supported keywords
 
 Swift documentation is written in markdown and supports a number of special keywords.
-For a complete list and examples, see Erica Sadun's post on [*Swift header documentation in Xcode 7*](http://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/),
+For a complete list and examples, see Erica Sadun's post on [*Swift header documentation in Xcode 7*](https://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/),
 her [book on Swift Documentation Markup](https://itunes.apple.com/us/book/swift-documentation-markup/id1049010423), and the [Xcode Markup Formatting Reference](https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_markup_formatting_ref/).
 
 For Objective-C documentation the same keywords are supported, but note that the format
@@ -186,7 +186,7 @@ Unlike the `--documentation` option, these files are not included in navigation 
 
 This is very helpful when using `custom_categories` for grouping types and including relevant documentation in those sections.
 
-For an example of a project using both `--documentation` and `--abstract` see: [http://reswift.github.io/ReSwift/](http://reswift.github.io/ReSwift/)
+For an example of a project using both `--documentation` and `--abstract` see: [https://reswift.github.io/ReSwift/](https://reswift.github.io/ReSwift/)
 
 ### Controlling what is documented
 
@@ -273,10 +273,10 @@ See [our other open source projects](https://github.com/realm),
 read [our blog](https://realm.io/news) or say hi on twitter
 ([@realm](https://twitter.com/realm)).
 
-[clang]: http://clang.llvm.org "Clang"
-[sourcekit]: http://www.jpsim.com/uncovering-sourcekit "Uncovering SourceKit"
-[ast]: http://clang.llvm.org/docs/IntroductionToTheClangAST.html "Introduction To The Clang AST"
+[clang]: https://clang.llvm.org "Clang"
+[sourcekit]: https://www.jpsim.com/uncovering-sourcekit "Uncovering SourceKit"
+[ast]: https://clang.llvm.org/docs/IntroductionToTheClangAST.html "Introduction To The Clang AST"
 [xcode]: https://developer.apple.com/xcode "Xcode"
 [SourceKitten]: https://github.com/jpsim/SourceKitten "SourceKitten"
-[bundler]: http://rubygems.org/gems/bundler
-[mustache]: http://mustache.github.io "Mustache"
+[bundler]: https://rubygems.org/gems/bundler
+[mustache]: https://mustache.github.io "Mustache"
