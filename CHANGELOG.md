@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix crash when specifying empty Swift version. Now correctly uses the default
+  Swift version.  
+  [JP Simard](https://github.com/jpsim)
 
 ## 0.9.2
 
