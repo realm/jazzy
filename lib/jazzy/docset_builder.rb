@@ -3,7 +3,7 @@ require 'sqlite3'
 
 module Jazzy
   module DocBuilder
-    # Follows the instructions found at http://kapeli.com/docsets#dashDocset.
+    # Follows the instructions found at https://kapeli.com/docsets#dashDocset.
     class DocsetBuilder
       include Config::Mixin
 

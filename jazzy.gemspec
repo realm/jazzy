@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Soulful docs for Swift & Objective-C. ' \
                        "Run in your Xcode project's root directory for " \
                        'instant HTML docs.'
-  spec.homepage      = 'http://github.com/realm/jazzy'
+  spec.homepage      = 'https://github.com/realm/jazzy'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)

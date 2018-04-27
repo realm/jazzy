@@ -752,7 +752,7 @@
   [#310](https://github.com/realm/jazzy/pull/310)
 
 * Render special list items (e.g. Throws, See, etc.). See
-  http://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/ for
+  https://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/ for
   a complete list.  
   [JP Simard](https://github.com/jpsim)
   [#317](https://github.com/realm/jazzy/issues/317)
