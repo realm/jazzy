@@ -313,15 +313,19 @@ module Jazzy
       description: 'Custom HTML to inject into <head></head>.',
       default: ''
 
+    BUILTIN_THEME_DIR = Pathname(__FILE__).parent + 'themes'
+    BUILTIN_THEMES = BUILTIN_THEME_DIR.children(false).map(&:to_s)
+
     config_attr :theme_directory,
-      command_line: '--theme [apple | fullwidth | jony | DIRPATH]',
+      command_line: "--theme [#{BUILTIN_THEMES.join(' | ')} | DIRPATH]",
       description: "Which theme to use. Specify either 'apple' (default), "\
-                   "'fullwidth', 'jony' or the path to your mustache " \
-                   'templates and other assets for a custom theme.',
+                   'one of the other built-in theme names, or the path to '\
+                   'your mustache templates and other assets for a custom '\
+                   'theme.',
       default: 'apple',
       parse: ->(t) do
-        if %w[apple fullwidth].include?(t)
-          Pathname(__FILE__).parent + 'themes' + t
+        if BUILTIN_THEMES.include?(t)
+          BUILTIN_THEME_DIR + t
         else
           expand_path(t)
         end
