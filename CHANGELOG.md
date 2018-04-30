@@ -14,6 +14,10 @@
   Swift version.  
   [JP Simard](https://github.com/jpsim)
 
+* Fix jony theme selection.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#962](https://github.com/realm/jazzy/issues/962)
+
 ## 0.9.2
 
 ##### Breaking
