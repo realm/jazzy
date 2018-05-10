@@ -87,7 +87,8 @@ module Jazzy
     attr_accessor :base_path
 
     def expand_path(path)
-      Pathname(path).expand_path(base_path) # nil means Pathname.pwd
+      abs_path = Pathname(path).expand_path(base_path) # nil means Pathname.pwd
+      Pathname(Dir[abs_path][0] || abs_path) # Use existing filesystem spelling
     end
 
     # ──────── Build ────────

@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix crash with pre-existing `Docs` directory.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#965](https://github.com/realm/jazzy/issues/965)
 
 ## 0.9.3
 
