@@ -86,8 +86,12 @@ module Jazzy
 
     attr_accessor :base_path
 
+    def expand_glob_path(path)
+      Pathname(path).expand_path(base_path) # nil means Pathname.pwd
+    end
+
     def expand_path(path)
-      abs_path = Pathname(path).expand_path(base_path) # nil means Pathname.pwd
+      abs_path = expand_glob_path(path)
       Pathname(Dir[abs_path][0] || abs_path) # Use existing filesystem spelling
     end
 
@@ -165,7 +169,7 @@ module Jazzy
                    'Supports wildcards.',
       default: [],
       parse: ->(files) do
-        Array(files).map { |f| expand_path(f).to_s }
+        Array(files).map { |f| expand_glob_path(f).to_s }
       end
 
     config_attr :included_files,
@@ -174,7 +178,7 @@ module Jazzy
                    'Supports wildcards.',
       default: [],
       parse: ->(files) do
-        Array(files).map { |f| expand_path(f).to_s }
+        Array(files).map { |f| expand_glob_path(f).to_s }
       end
 
     config_attr :swift_version,
