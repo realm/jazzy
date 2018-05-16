@@ -14,6 +14,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#965](https://github.com/realm/jazzy/issues/965)
 
+* Fix crash with unicode scalars in string literals.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#972](https://github.com/realm/jazzy/issues/972)
+
 ## 0.9.3
 
 ##### Breaking

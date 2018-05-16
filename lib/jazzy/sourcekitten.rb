@@ -339,6 +339,8 @@ module Jazzy
     def self.xml_to_text(xml)
       document = REXML::Document.new(xml)
       REXML::XPath.match(document.root, '//text()').map(&:value).join
+    rescue
+      ''
     end
 
     # Regexp to match an @attribute.  Complex to handle @available().
@@ -372,10 +374,11 @@ module Jazzy
     end
 
     def self.prefer_parsed_decl?(parsed, annotated)
-      parsed &&
-        (annotated.include?(' = default') || # SR-2608
-         parsed.match('@autoclosure|@escaping') || # SR-6321
-         parsed.include?("\n"))
+      annotated.empty? ||
+        parsed &&
+          (annotated.include?(' = default') || # SR-2608
+           parsed.match('@autoclosure|@escaping') || # SR-6321
+           parsed.include?("\n"))
     end
 
     # Replace the fully qualified name of a type with its base name
