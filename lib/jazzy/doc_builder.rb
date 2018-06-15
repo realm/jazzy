@@ -31,6 +31,7 @@ module Jazzy
     #                     section names & child names & URLs
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
+        puts doc.url
         children = doc.children
                       .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
                       .flat_map do |child|
@@ -42,10 +43,14 @@ module Jazzy
               { name: "– #{sub_child.name}", url: sub_child.url }
             end
         end
+
+        subsections = doc_structure_for_docs(doc.subsections.sort_by { |c| [c.nav_order, c.name, c.usr || ''] })
         {
           section: doc.name,
           url: doc.url,
           children: children,
+          subsections: subsections,
+          level: doc.level,
         }
       end
     end
@@ -105,6 +110,13 @@ module Jazzy
           doc.children,
           &block
         )
+        if doc.subsections != nil
+          each_doc(
+            output_dir,
+            doc.subsections,
+            &block
+          )
+        end
       end
     end
 
@@ -383,6 +395,26 @@ module Jazzy
       end
     end
 
+    def self.render_subsections(subsections)
+      subsections.map do |subsection|
+        overview = (subsection.abstract || '') + (subsection.discussion || '')
+        alternative_abstract = subsection.alternative_abstract
+        if alternative_abstract
+          overview = render(subsection, alternative_abstract) + overview
+        end
+        subsubsections = []
+        if subsection.subsections != nil
+          subsubsections = render_subsections(subsection.subsections)
+        end
+        {
+          name: subsection.name,
+          overview: overview,
+          subsections: subsubsections,
+          level: subsection.level,
+        }
+      end
+    end
+
     # rubocop:disable Metrics/MethodLength
     # Build Mustache document from single parsed doc
     # @param [Config] options Build options
@@ -413,6 +445,9 @@ module Jazzy
       doc[:overview] = overview
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)
+      if doc_model.subsections != nil
+        doc[:subsections] = render_subsections(doc_model.subsections)
+      end
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url

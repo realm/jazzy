@@ -68,19 +68,26 @@ module Jazzy
       custom_categories + type_categories + uncategorized
     end
 
-    def self.group_custom_categories(docs)
-      group = Config.instance.custom_categories.map do |category|
-        children = category['children'].flat_map do |name|
-          docs_with_name, docs = docs.partition { |doc| doc.name == name }
-          if docs_with_name.empty?
-            STDERR.puts 'WARNING: No documented top-level declarations match ' \
-                        "name \"#{name}\" specified in categories file"
+    def self.group_custom_categories(docs, categories = nil, level = 1)
+      categories ||= Config.instance.custom_categories
+      group = categories.map do |category|
+        children = category['children'].flat_map do |child|
+          if child.is_a?(Hash)
+            docs_with_name, docs = group_custom_categories(docs, [child], level + 1)
+            docs_with_name
+          else
+            docs_with_name, docs = docs.partition { |doc| doc.name == child }
+            if docs_with_name.empty?
+              STDERR.puts 'WARNING: No documented top-level declarations match ' \
+                          "name \"#{child}\" specified in categories file"
+            end
+            docs_with_name
           end
-          docs_with_name
         end
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }
-        make_group(children, category['name'], '')
+        subsections, children = children.partition { |c| c.type == SourceDeclaration::Type.overview }
+        make_group(children, category['name'], '', nil, level, subsections)
       end
       [group.compact, docs]
     end
@@ -98,7 +105,7 @@ module Jazzy
       [group.compact, docs]
     end
 
-    def self.make_group(group, name, abstract, url_name = nil)
+    def self.make_group(group, name, abstract, url_name = nil, level = nil, subsections = nil)
       group.reject! { |doc| doc.name.empty? }
       unless group.empty?
         SourceDeclaration.new.tap do |sd|
@@ -107,6 +114,8 @@ module Jazzy
           sd.url_name = url_name
           sd.abstract = Markdown.render(abstract)
           sd.children = group
+          sd.level    = level
+          sd.subsections = subsections
         end
       end
     end
@@ -126,13 +135,18 @@ module Jazzy
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs)
       docs.each do |doc|
-        if !doc.parent_in_docs || doc.children.count > 0
+        if !doc.parent_in_docs || doc.children.count > 0 || (doc.subsections != nil && doc.subsections.count > 0)
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
             subdir_for_doc(doc) +
             [sanitize_filename(doc) + '.html']
           ).join('/')
-          doc.children = make_doc_urls(doc.children)
+          if doc.children.count > 0
+            doc.children = make_doc_urls(doc.children)
+          end
+          if (doc.subsections != nil && doc.subsections.count > 0)
+            doc.subsections = make_doc_urls(doc.subsections)
+          end
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
