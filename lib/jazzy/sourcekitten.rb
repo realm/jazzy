@@ -11,6 +11,7 @@ require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/stats'
+require 'jazzy/external_refs'
 
 ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
 
@@ -29,7 +30,8 @@ class String
     gsub(autolink_regex(middle_regex, after_highlight)) do
       original = Regexp.last_match(0)
       start_tag, raw_name, end_tag = Regexp.last_match.captures
-      link_target = yield(CGI.unescape_html(raw_name))
+      unescaped_raw_name = CGI.unescape_html(raw_name)
+      link_target = yield(unescaped_raw_name)
 
       if link_target &&
          !link_target.type.extension? &&
@@ -40,7 +42,14 @@ class String
           "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
           raw_name + '</a>' + end_tag
       else
-        original
+        ext_url = Jazzy::ExternalRefs::resolve(unescaped_raw_name)
+        if ext_url
+          start_tag +
+            "<a href=\"#{ext_url}\">" +
+            raw_name + '</a>' + end_tag
+        else
+          original
+        end
       end
     end
   end
