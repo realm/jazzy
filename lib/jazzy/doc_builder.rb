@@ -10,7 +10,6 @@ require 'jazzy/documentation_generator'
 require 'jazzy/search_builder'
 require 'jazzy/jazzy_markdown'
 require 'jazzy/podspec_documenter'
-require 'jazzy/readme_generator'
 require 'jazzy/source_declaration'
 require 'jazzy/source_document'
 require 'jazzy/source_module'
@@ -95,7 +94,7 @@ module Jazzy
 
     def self.each_doc(output_dir, docs, &block)
       docs.each do |doc|
-        next unless doc.render?
+        next unless doc.render_as_page?
         # Assuming URL is relative to documentation root:
         path = output_dir + (doc.url || "#{doc.name}.html")
         block.call(doc, path)
@@ -391,7 +390,7 @@ module Jazzy
     # @param [Array] doc_structure doc structure comprised of section names and
     #        child names and URLs. @see doc_structure_for_docs
     def self.document(source_module, doc_model, path_to_root)
-      if doc_model.type.kind == 'document.markdown'
+      if doc_model.type.markdown?
         return document_markdown(source_module, doc_model, path_to_root)
       end
 

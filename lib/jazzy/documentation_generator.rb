@@ -11,15 +11,8 @@ module Jazzy
       documentation_entries.map do |file_path|
         SourceDocument.new.tap do |sd|
           sd.name = File.basename(file_path, '.md')
-          sd.url = sd.name.downcase.strip
-                     .tr(' ', '-').gsub(/[^\w-]/, '') + '.html'
-          sd.type = SourceDeclaration::Type.new 'document.markdown'
-          sd.children = []
           sd.overview = overview Pathname(file_path)
           sd.usr = 'documentation.' + sd.name
-          sd.abstract = ''
-          sd.return = ''
-          sd.parameters = []
         end
       end
     end

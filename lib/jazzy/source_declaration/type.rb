@@ -129,6 +129,16 @@ module Jazzy
         Type.new('Overview')
       end
 
+      MARKDOWN_KIND = 'document.markdown'.freeze
+
+      def self.markdown
+        Type.new(MARKDOWN_KIND)
+      end
+
+      def markdown?
+        kind == MARKDOWN_KIND
+      end
+
       def hash
         kind.hash
       end
@@ -140,7 +150,7 @@ module Jazzy
 
       TYPES = {
         # Markdown
-        'document.markdown' => {
+        MARKDOWN_KIND => {
           jazzy: 'Guide',
           dash: 'Guide',
         }.freeze,
