@@ -346,9 +346,10 @@ module Jazzy
         from_protocol_extension:    item.from_protocol_extension,
         return:                     item.return,
         parameters:                 (item.parameters if item.parameters.any?),
-        url:                        (item.url if item.children.any?),
+        url:                        (item.url if item.render_as_page?),
         start_line:                 item.start_line,
         end_line:                   item.end_line,
+        direct_link:                item.omit_content_from_parent?,
       }
     end
 
