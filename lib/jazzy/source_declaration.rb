@@ -13,6 +13,12 @@ module Jazzy
       children.any?
     end
 
+    # When referencing this item from its parent category,
+    # include the content or just link to it directly?
+    def omit_content_from_parent?
+      false
+    end
+
     # Element containing this declaration in the code
     attr_accessor :parent_in_code
 

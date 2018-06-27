@@ -14,6 +14,7 @@ module Jazzy
       self.parameters = []
       self.abstract = ''
       self.type = SourceDeclaration::Type.markdown
+      self.mark = SourceMark.new
     end
 
     def self.make_index(readme_path)
@@ -24,6 +25,10 @@ module Jazzy
     end
 
     def render_as_page?
+      true
+    end
+
+    def omit_content_from_parent?
       true
     end
 
