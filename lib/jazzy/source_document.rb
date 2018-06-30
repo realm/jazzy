@@ -32,6 +32,10 @@ module Jazzy
       true
     end
 
+    def show_in_sidebar?
+      true
+    end
+
     def config
       Config.instance
     end
