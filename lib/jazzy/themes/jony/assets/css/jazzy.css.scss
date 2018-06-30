@@ -259,6 +259,12 @@ header {
   margin-top: 5px;
 }
 
+.nav-group-tasks .nav-group-tasks {
+  column-count: 1;
+  margin-top: 0px;
+  padding-left: 20px;
+}
+
 .nav-group-task {
   font-size: 1.1rem;
   font-weight: 400;

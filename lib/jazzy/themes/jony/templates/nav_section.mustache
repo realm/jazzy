@@ -1,0 +1,10 @@
+<ul class="nav-group-tasks">
+  {{#children}}
+  <li class="nav-group-task">
+    <a href="{{path_to_root}}{{url}}">{{name}}</a>
+  </li>
+  {{#children.count}}
+  {{> nav_section}}
+  {{/children.count}}
+  {{/children}}
+</ul>

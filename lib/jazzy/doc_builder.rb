@@ -25,24 +25,32 @@ module Jazzy
       FileUtils.mkdir_p output_dir
     end
 
+    # Generate 2nd level nav structure {name,url,children}
+    # TODO: more explanation, less horrorshow, limit recursion?
+    def self.build_nav_group_tasks(docs)
+      docs.sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
+          .flat_map do |child|
+        [{ name: child.name,
+           url: child.url,
+           children: nil }] +
+          child.sidebar_children.map do |sub_child|
+            tasks = build_nav_group_tasks(sub_child.sidebar_children)
+            { name: "– #{sub_child.name}",
+              url: sub_child.url,
+              children: tasks.any? ? tasks : nil }
+          end
+      end
+    end
+
     # Generate doc structure to be used in sidebar navigation
     # @return [Array] doc structure comprised of
     #                     section names & child names & URLs
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
-        children = doc.children
-                      .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
-                      .flat_map do |child|
-          # FIXME: include arbitrarily nested extensible types
-          [{ name: child.name, url: child.url }] +
-            Array(child.children.select(&:show_in_sidebar?)).map do |sub_child|
-              { name: "– #{sub_child.name}", url: sub_child.url }
-            end
-        end
         {
           section: doc.name,
           url: doc.url,
-          children: children,
+          children: build_nav_group_tasks(doc.children),
         }
       end
     end
