@@ -35,22 +35,26 @@ module Jazzy
         children = doc.children
                       .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
                       .flat_map do |child|
-          # FIXME: include arbitrarily nested extensible types
-          [{ name: child.name, url: child.url }] +
-            Array(child.children.select do |sub_child|
-              sub_child.type.swift_extensible? || sub_child.type.extension?
-            end).map do |sub_child|
-              { name: "– #{sub_child.name}", url: sub_child.url }
-            end
+          if child.type == SourceDeclaration::Type.overview
+            doc_structure_for_docs([child])
+          else
+            # FIXME: include arbitrarily nested extensible types
+            [{ name: child.name, url: child.url, child: true }] +
+              Array(child.children.select do |sub_child|
+                sub_child.type.swift_extensible? || sub_child.type.extension?
+              end).map do |sub_child|
+                { name: "– #{sub_child.name}", url: sub_child.url, child: true }
+              end
+          end
         end
 
-        subsections = doc_structure_for_docs(doc.subsections.sort_by { |c| [c.nav_order, c.name, c.usr || ''] })
+        #subsections = doc_structure_for_docs(doc.subsections.sort_by { |c| [c.nav_order, c.name, c.usr || ''] })
         {
           section: doc.name,
           url: doc.url,
           children: children,
-          subsections: subsections,
-          level: doc.level,
+          #subsections: subsections,
+          level: doc.level || 1,
         }
       end
     end
@@ -409,7 +413,8 @@ module Jazzy
         {
           name: subsection.name,
           overview: overview,
-          subsections: subsubsections,
+          uid: URI.encode(subsection.name),
+          url: subsection.url,
           level: subsection.level,
         }
       end
@@ -445,9 +450,7 @@ module Jazzy
       doc[:overview] = overview
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)
-      if doc_model.subsections != nil
-        doc[:subsections] = render_subsections(doc_model.subsections)
-      end
+      doc[:subsections] = render_subsections(doc_model.children.select { |c| c.type == SourceDeclaration::Type.overview })
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url

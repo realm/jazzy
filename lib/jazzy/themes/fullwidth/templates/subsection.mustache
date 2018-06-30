@@ -1,5 +1,27 @@
-<h{{level}}>{{name}}</h{{level}}>
-{{{overview}}}
-{{#subsections}}
-  {{> subsection}}
-{{/subsections}}
+<div class="task-group">
+  <div class="task-name-container">
+    <a name="/{{uid}}"></a>
+    <a name="//apple_ref/{{language_stub}}/Section/{{name}}" class="dashAnchor"></a>
+    <span>
+      <a class="token" href="#/{{uid}}">
+        <h3 class="section-name">{{name}}</h3>
+      </a>
+    </span>
+  </div>
+
+  <div class="height-container">
+    <div class="pointer-container"></div>
+    <section class="section">
+      <div class="pointer"></div>
+      {{#overview}}
+      <div class="abstract">
+        {{{overview}}}
+        {{#url}}
+        <a href="{{{path_to_root}}}{{{url}}}" class="slightly-smaller">See more</a>
+        {{/url}}
+      </div>
+      {{/overview}}
+    </section>
+
+  </div>
+</div>

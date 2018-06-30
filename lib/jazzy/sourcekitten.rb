@@ -86,8 +86,8 @@ module Jazzy
         end
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }
-        subsections, children = children.partition { |c| c.type == SourceDeclaration::Type.overview }
-        make_group(children, category['name'], '', nil, level, subsections)
+        #subsections, children = children.partition { |c| c.type == SourceDeclaration::Type.overview }
+        make_group(children, category['name'], '', nil, level)
       end
       [group.compact, docs]
     end
@@ -105,7 +105,7 @@ module Jazzy
       [group.compact, docs]
     end
 
-    def self.make_group(group, name, abstract, url_name = nil, level = nil, subsections = nil)
+    def self.make_group(group, name, abstract, url_name = nil, level = nil)
       group.reject! { |doc| doc.name.empty? }
       unless group.empty?
         SourceDeclaration.new.tap do |sd|
@@ -115,7 +115,6 @@ module Jazzy
           sd.abstract = Markdown.render(abstract)
           sd.children = group
           sd.level    = level
-          sd.subsections = subsections
         end
       end
     end
