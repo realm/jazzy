@@ -23,6 +23,10 @@ module Jazzy
       true
     end
 
+    def show_in_sidebar?
+      true
+    end
+
     # Group root-level docs into custom categories or by type
     def self.group_docs(docs)
       custom_categories, docs =
