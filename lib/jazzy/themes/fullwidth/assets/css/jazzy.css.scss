@@ -330,6 +330,11 @@ pre code {
   padding: 0 0 0 $gutter/2;
 }
 
+.nav-group-tasks .nav-group-tasks {
+  margin: 0;
+  padding: 0 0 0 $gutter;
+}
+
 .nav-group-task {
   font-size: 1em;
   list-style-type: none;
