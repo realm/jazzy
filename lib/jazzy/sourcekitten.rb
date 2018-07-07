@@ -75,7 +75,7 @@ module Jazzy
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs)
       docs.each do |doc|
-        if !doc.parent_in_docs || doc.children.count > 0 || (doc.subsections != nil && doc.subsections.count > 0)
+        if !doc.parent_in_docs || doc.children.count > 0
           # Create HTML page for this doc if it has children or is root-level
           doc.url = (
             subdir_for_doc(doc) +
@@ -83,9 +83,6 @@ module Jazzy
           ).join('/')
           if doc.children.count > 0
             doc.children = make_doc_urls(doc.children)
-          end
-          if (doc.subsections != nil && doc.subsections.count > 0)
-            doc.subsections = make_doc_urls(doc.subsections)
           end
         else
           # Don't create HTML page for this doc if it doesn't have children
