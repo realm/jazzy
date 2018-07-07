@@ -129,6 +129,10 @@ module Jazzy
         Type.new('Overview')
       end
 
+      def self.category
+        Type.new('Category')
+      end
+
       def hash
         kind.hash
       end
@@ -146,6 +150,11 @@ module Jazzy
         }.freeze,
 
         'Overview' => {
+          jazzy: nil,
+          dash: 'Section',
+        }.freeze,
+
+        'Category' => {
           jazzy: nil,
           dash: 'Section',
         }.freeze,

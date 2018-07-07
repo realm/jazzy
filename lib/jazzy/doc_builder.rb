@@ -31,30 +31,27 @@ module Jazzy
     #                     section names & child names & URLs
     def self.doc_structure_for_docs(docs)
       docs.map do |doc|
-        puts doc.url
         children = doc.children
                       .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
                       .flat_map do |child|
-          if child.type == SourceDeclaration::Type.overview
+          if child.type == SourceDeclaration::Type.category
             doc_structure_for_docs([child])
           else
             # FIXME: include arbitrarily nested extensible types
-            [{ name: child.name, url: child.url, child: true }] +
+            [{ name: child.name, url: child.url, children: nil}] +
               Array(child.children.select do |sub_child|
                 sub_child.type.swift_extensible? || sub_child.type.extension?
               end).map do |sub_child|
-                { name: "– #{sub_child.name}", url: sub_child.url, child: true }
+                { name: "– #{sub_child.name}", url: sub_child.url, children: nil }
               end
           end
         end
 
-        #subsections = doc_structure_for_docs(doc.subsections.sort_by { |c| [c.nav_order, c.name, c.usr || ''] })
         {
           section: doc.name,
           url: doc.url,
           children: children,
-          #subsections: subsections,
-          level: doc.level || 1,
+          level: doc.level,
         }
       end
     end
@@ -399,23 +396,22 @@ module Jazzy
       end
     end
 
-    def self.render_subsections(subsections)
+    def self.render_subsections(subsections, source_module)
       subsections.map do |subsection|
         overview = (subsection.abstract || '') + (subsection.discussion || '')
         alternative_abstract = subsection.alternative_abstract
         if alternative_abstract
           overview = render(subsection, alternative_abstract) + overview
         end
-        subsubsections = []
-        if subsection.subsections != nil
-          subsubsections = render_subsections(subsection.subsections)
-        end
+        tasks = render_tasks(source_module, subsection.children.select { |c| c.type != SourceDeclaration::Type.category })
+
         {
           name: subsection.name,
           overview: overview,
           uid: URI.encode(subsection.name),
           url: subsection.url,
           level: subsection.level,
+          tasks: tasks,
         }
       end
     end
@@ -449,8 +445,9 @@ module Jazzy
       doc[:declaration] = doc_model.display_declaration
       doc[:overview] = overview
       doc[:structure] = source_module.doc_structure
-      doc[:tasks] = render_tasks(source_module, doc_model.children)
-      doc[:subsections] = render_subsections(doc_model.children.select { |c| c.type == SourceDeclaration::Type.overview })
+      categories, children = doc_model.children.partition { |c| c.type == SourceDeclaration::Type.category }
+      doc[:tasks] = render_tasks(source_module, children)
+      doc[:subsections] = render_subsections(categories, source_module)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url

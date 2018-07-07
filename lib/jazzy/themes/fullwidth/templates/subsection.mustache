@@ -21,6 +21,14 @@
         {{/url}}
       </div>
       {{/overview}}
+      {{#tasks.count}}
+      <hr class="nested-tasks-line">
+      <div class="nested-tasks">
+        {{#tasks}}
+        {{> task}}
+        {{/tasks}}
+      </div>
+      {{/tasks.count}}
     </section>
 
   </div>
