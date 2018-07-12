@@ -117,7 +117,7 @@ module Jazzy
         # File program elements under top ancestor’s type (Struct, Class, etc.)
         [top_level_decl.type.plural_url_name] +
           doc.namespace_ancestors.map(&:name)
-      elsif doc.type == SourceDeclaration::Type.overview
+      elsif doc.type.overview?
         # Categories live in their own directory
         # But subcategories live in a directory named after their parent
         doc.documentation_ancestors.map(&:name)
