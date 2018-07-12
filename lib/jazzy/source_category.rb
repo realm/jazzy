@@ -10,14 +10,13 @@ module Jazzy
 
     def initialize(group, name, abstract, url_name, level = 1)
       super()
-      self.type     = SourceDeclaration::Type.category
+      self.type     = SourceDeclaration::Type.overview
       self.name     = name
       self.url_name = url_name
       self.abstract = Markdown.render(abstract)
       self.children = group
       self.parameters = []
-      self.mark       = SourceMark.new
-      self.level    = level
+      self.level      = level
     end
 
     # Group root-level docs into custom categories or by type
@@ -35,18 +34,18 @@ module Jazzy
         children = category['children'].flat_map do |child|
           if child.is_a?(Hash)
             # Nested category, recurse
-            docs_with_name, docs = group_custom_categories(docs, [child], level + 1)
+            children, docs = group_custom_categories(docs, [child], level + 1)
           else
             # Doc name, find it
-            docs_with_name, docs = docs.partition { |doc| doc.name == child }
-            if docs_with_name.empty?
+            children, docs = docs.partition { |doc| doc.name == child }
+            if children.empty?
               STDERR.puts(
                 'WARNING: No documented top-level declarations match ' \
                 "name \"#{child}\" specified in categories file",
               )
             end
           end
-          docs_with_name
+          children
         end
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }

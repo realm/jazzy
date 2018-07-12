@@ -125,12 +125,12 @@ module Jazzy
         kind == 'sourcekitten.source.lang.objc.decl.unexposed'
       end
 
-      def self.overview
-        Type.new('Overview')
+      def overview?
+        Type.overview == self
       end
 
-      def self.category
-        Type.new('Category')
+      def self.overview
+        Type.new('Overview')
       end
 
       def hash
@@ -150,11 +150,6 @@ module Jazzy
         }.freeze,
 
         'Overview' => {
-          jazzy: nil,
-          dash: 'Section',
-        }.freeze,
-
-        'Category' => {
           jazzy: nil,
           dash: 'Section',
         }.freeze,

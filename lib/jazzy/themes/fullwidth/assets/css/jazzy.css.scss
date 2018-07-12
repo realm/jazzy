@@ -338,21 +338,21 @@ pre code {
   color: $navigation_task_color;
 }
 
-@mixin nav_heading($font-size: 1.5rem, $margin: 1.0rem 0px 0px 0px) {
+@mixin nav_heading($font-size: 1.5rem, $font-weight: 400, $margin: 1.0rem 0px 0px 0px) {
   font-size: $font-size;
-  font-weight: $heading_weight;
+  font-weight: $font-weight;
   margin: $margin;
 }
 
 .nav-groups {
   h1 {
-    @include nav_heading(1.75rem);
+    @include nav_heading(1.15em, 600);
   }
   h2 {
-    @include nav_heading(1.5rem);
+    @include nav_heading(1.1em, 500);
   }
   h3 {
-    @include nav_heading(1.25rem);
+    @include nav_heading(1em);
   }
 }
 
@@ -382,7 +382,7 @@ pre code {
   padding: $gutter 0;
 }
 
-.section-name {
+.section-name, .subsection-name {
   color: #666;
   display: block;
 }
@@ -415,7 +415,7 @@ pre code {
   margin-top: 15px;
 }
 
-.task-name-container {
+.task-name-container, .subsection-name-container {
   a[name] {
     &:before {
       content: "";

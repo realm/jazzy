@@ -45,6 +45,19 @@ module Jazzy
       end
     end
 
+    # Chain of parent_in_docs from top level to self. (Includes self.)
+    def documentation_path
+      documentation_ancestors + [self]
+    end
+
+    def documentation_ancestors
+      if parent_in_docs
+        parent_in_docs.documentation_path
+      else
+        []
+      end
+    end
+
     def fully_qualified_name
       namespace_path.map(&:name).join('.')
     end
@@ -100,7 +113,6 @@ module Jazzy
     attr_accessor :nav_order
     attr_accessor :url_name
     attr_accessor :level
-    attr_accessor :subsections
 
     def alternative_abstract
       if file = alternative_abstract_file

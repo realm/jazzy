@@ -81,9 +81,7 @@ module Jazzy
             subdir_for_doc(doc) +
             [sanitize_filename(doc) + '.html']
           ).join('/')
-          if doc.children.count > 0
-            doc.children = make_doc_urls(doc.children)
-          end
+          doc.children = make_doc_urls(doc.children)
         else
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
@@ -119,8 +117,12 @@ module Jazzy
         # File program elements under top ancestor’s type (Struct, Class, etc.)
         [top_level_decl.type.plural_url_name] +
           doc.namespace_ancestors.map(&:name)
-      else
+      elsif doc.type == SourceDeclaration::Type.overview
         # Categories live in their own directory
+        # But subcategories live in a directory named after their parent
+        doc.documentation_ancestors.map(&:name)
+      else
+        # Anything else
         []
       end
     end
