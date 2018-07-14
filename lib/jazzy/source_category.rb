@@ -8,7 +8,7 @@ module Jazzy
   class SourceCategory < SourceDeclaration
     extend Config::Mixin
 
-    def initialize(group, name, abstract, url_name, level = 1)
+    def initialize(group, name, abstract, url_name)
       super()
       self.type     = SourceDeclaration::Type.overview
       self.name     = name
@@ -16,7 +16,6 @@ module Jazzy
       self.abstract = Markdown.render(abstract)
       self.children = group
       self.parameters = []
-      self.level      = level
     end
 
     # Group root-level docs into custom categories or by type
@@ -29,12 +28,12 @@ module Jazzy
       custom_categories + type_categories + uncategorized
     end
 
-    def self.group_custom_categories(docs, categories, level = 1)
+    def self.group_custom_categories(docs, categories)
       group = categories.map do |category|
         children = category['children'].flat_map do |child|
           if child.is_a?(Hash)
             # Nested category, recurse
-            children, docs = group_custom_categories(docs, [child], level + 1)
+            children, docs = group_custom_categories(docs, [child])
           else
             # Doc name, find it
             children, docs = docs.partition { |doc| doc.name == child }
@@ -49,7 +48,7 @@ module Jazzy
         end
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }
-        make_group(children, category['name'], '', nil, level)
+        make_group(children, category['name'], '')
       end
       [group.compact, docs]
     end
@@ -67,11 +66,15 @@ module Jazzy
       [group.compact, docs]
     end
 
-    def self.make_group(group, name, abstract, url_name = nil, level = 1)
+    def self.make_group(group, name, abstract, url_name = nil)
       group.reject! { |doc| doc.name.empty? }
       unless group.empty?
-        SourceCategory.new(group, name, abstract, url_name, level)
+        SourceCategory.new(group, name, abstract, url_name)
       end
+    end
+
+    def level
+      return self.documentation_path.length
     end
   end
 end
