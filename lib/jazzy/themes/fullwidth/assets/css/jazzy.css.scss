@@ -338,7 +338,7 @@ pre code {
   color: $navigation_task_color;
 }
 
-@mixin nav_heading($font-size: 1.5rem, $font-weight: 400, $margin: 1.0rem 0px 0px 0px) {
+@mixin nav_heading($font-size: 16px, $font-weight: 400, $margin: 12px 0px 0px 0px) {
   font-size: $font-size;
   font-weight: $font-weight;
   margin: $margin;
@@ -346,13 +346,13 @@ pre code {
 
 .nav-groups {
   h1 {
-    @include nav_heading(1.15em, 600);
+    @include nav_heading(16px, 400, 0px);
   }
   h2 {
-    @include nav_heading(1.1em, 500);
+    @include nav_heading();
   }
   h3 {
-    @include nav_heading(1em);
+    @include nav_heading();
   }
 }
 
