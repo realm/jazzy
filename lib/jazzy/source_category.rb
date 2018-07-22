@@ -74,7 +74,7 @@ module Jazzy
     end
 
     def level
-      return self.documentation_path.length
+      documentation_path.length
     end
   end
 end
