@@ -222,6 +222,40 @@ Note that the `--include` option is applied before the `--exclude` option. For e
 Declarations with a documentation comment containing `:nodoc:` are excluded from the
 documentation.
 
+### Custom Categories
+
+By default, jazzy categorizes everything according to their types.
+
+Using `custom_categories` inside a jazzy config file, you can specify how symbols are
+categorized. This is really useful for larger projects, to keep a clean navigation area.
+
+A custom category is defined by a dictionary (or hash) containing the following keys:
+* `name` (string): The name of the category as it will be displayed.
+* `children` (array): The names of the symbols to include in this category.
+  Additionally, the array can also contain another dictionary
+  specifying a custom category. This allows for infinite subcategories.
+
+The `custom_categories` config file option accepts an array of
+custom category dictionaries and an example looks like this:
+
+```yaml
+custom_categories:
+  - name: My awesome Category
+    children:
+      - MyClass
+      - MyEnum
+      - name: My awesome Subcategory
+        children:
+          - MyStruct
+  - name: My other Category
+    children:
+      - MyGlobalFunction(_:)
+```
+
+A more concrete example can be found under [Siesta Nested Categories Example](https://git.io/fNvGB).
+
+**Note:** Currently the builtin themes only support up to three levels of nesting with the css. However, that can easily be adjusted.
+
 ## Troubleshooting
 
 #### Swift
