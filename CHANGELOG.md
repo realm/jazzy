@@ -6,8 +6,8 @@
 
 ##### Enhancements
 
-* Add the ability to specify nested categories and create recursive
-  navigation for all templates.
+* Add the ability to specify nested categories and create recursive navigation
+  for all templates.  
   [Leonardo Galli](https://github.com/galli-leo)
   [#624](https://github.com/realm/jazzy/issues/624)
 
