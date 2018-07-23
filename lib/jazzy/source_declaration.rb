@@ -112,7 +112,6 @@ module Jazzy
     attr_accessor :end_line
     attr_accessor :nav_order
     attr_accessor :url_name
-    attr_accessor :level
 
     def alternative_abstract
       if file = alternative_abstract_file
