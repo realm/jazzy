@@ -21,8 +21,13 @@ module Jazzy
         installer = Pod::Installer.new(sandbox, podfile)
         installer.install!
         stdout = Dir.chdir(sandbox.root) do
+          specs_being_built = []
           targets = installer.pod_targets
-                             .select { |pt| pt.pod_name == podspec.root.name }
+                             .select do |pt|
+                               select = pt.specs[0].root == podspec.root && pt.specs.any? { |spec| !specs_being_built.include?(spec) }
+                               specs_being_built.push(*pt.specs)
+                               select
+                             end
                              .map(&:label)
 
           targets.map do |t|
