@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Shows unavailable and deprecated symbols in the generated documentation via a strikethrough text attribute.
+  [Stefan Kieleithner](https://github.com/steviki)
+  [#843](https://github.com/realm/jazzy/issues/843)
 
 ##### Bug Fixes
 
