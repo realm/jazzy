@@ -18,6 +18,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#972](https://github.com/realm/jazzy/issues/972)
 
+* Fix error compiling a Swift podspec in Xcode 10.  
+  [Minh Nguyễn](https://github.com/1ec5)
+  [#970](https://github.com/realm/jazzy/issues/970)
+
 ## 0.9.3
 
 ##### Breaking
