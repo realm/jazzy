@@ -175,7 +175,7 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'document_alamofire',
                             '-m Alamofire -a Alamofire ' \
                             '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj,-dry-run ' \
+                            '-x -project,Alamofire.xcodeproj ' \
                             '-g https://github.com/Alamofire/Alamofire ' \
                             '--github-file-prefix https://github.com/' \
                             'Alamofire/Alamofire/blob/4.3.0 ' \
