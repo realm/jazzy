@@ -240,7 +240,7 @@ header {
   margin-left: $content_body_left_offset;
   position: absolute;
   overflow: hidden;
-  padding-bottom: 60px;
+  padding-bottom: 10px;
   top: $content_top_offset;
   width: $content_wrapper_width - $content_body_left_offset;
   p, a, code, em, ul, table, blockquote {
@@ -446,8 +446,8 @@ header {
 }
 
 #footer {
-  position: absolute;
-  bottom: 10px;
+  position: relative;
+  bottom: 0px;
   margin-left: 25px;
   p {
     margin: 0;
