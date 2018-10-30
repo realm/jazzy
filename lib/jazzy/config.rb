@@ -183,10 +183,10 @@ module Jazzy
 
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
-      default: nil,
+      default: "4.0",
       parse: ->(v) do
         if v.to_s.empty?
-          nil
+          default
         else
           raise 'jazzy only supports Swift 2.0 or later.' if v.to_f < 2
           v
