@@ -183,7 +183,7 @@ module Jazzy
 
     config_attr :swift_version,
       command_line: '--swift-version VERSION',
-      default: "4.0",
+      default: '4.0',
       parse: ->(v) do
         if v.to_s.empty?
           default
