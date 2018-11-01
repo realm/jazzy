@@ -17,13 +17,13 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files`.split($/)
   spec.executables   << 'jazzy'
 
-  spec.add_runtime_dependency 'cocoapods', '~> 1.0'
-  spec.add_runtime_dependency 'mustache', '~> 0.99'
+  spec.add_runtime_dependency 'cocoapods', '~> 1.5.3'
+  spec.add_runtime_dependency 'mustache', '~> 1.1.0'
   spec.add_runtime_dependency 'open4'
-  spec.add_runtime_dependency 'redcarpet', '~> 3.2'
+  spec.add_runtime_dependency 'redcarpet', '~> 3.4.0'
   spec.add_runtime_dependency 'rouge', ['>= 2.0.6', '< 4.0']
-  spec.add_runtime_dependency 'sass', '~> 3.4'
-  spec.add_runtime_dependency 'sqlite3', '~> 1.3'
+  spec.add_runtime_dependency 'sass', '~> 3.6.0'
+  spec.add_runtime_dependency 'sqlite3', '~> 1.3.13'
   spec.add_runtime_dependency 'xcinvoke', '~> 0.3.0'
 
   spec.add_development_dependency 'bundler', '~> 1.7'
