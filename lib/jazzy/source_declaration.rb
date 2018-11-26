@@ -19,6 +19,16 @@ module Jazzy
       false
     end
 
+    # Include the item in the left nav sidebar when optional
+    def show_in_sidebar?
+      type.swift_extensible? || type.extension? || !nav_order.nil?
+    end
+
+    # Children of this item to show in the sidebar
+    def sidebar_children
+      children.select(&:show_in_sidebar?)
+    end
+
     # Element containing this declaration in the code
     attr_accessor :parent_in_code
 

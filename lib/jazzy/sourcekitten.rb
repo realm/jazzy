@@ -9,6 +9,7 @@ require 'jazzy/config'
 require 'jazzy/executable'
 require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
+require 'jazzy/source_category'
 require 'jazzy/source_mark'
 require 'jazzy/stats'
 
@@ -57,58 +58,6 @@ module Jazzy
       @undocumented_abstract ||= Markdown.render(
         Config.instance.undocumented_text,
       ).freeze
-    end
-
-    # Group root-level docs by custom categories (if any) and type
-    def self.group_docs(docs)
-      custom_categories, docs = group_custom_categories(docs)
-      type_categories, uncategorized = group_type_categories(
-        docs, custom_categories.any? ? 'Other ' : ''
-      )
-      custom_categories + type_categories + uncategorized
-    end
-
-    def self.group_custom_categories(docs)
-      group = Config.instance.custom_categories.map do |category|
-        children = category['children'].flat_map do |name|
-          docs_with_name, docs = docs.partition { |doc| doc.name == name }
-          if docs_with_name.empty?
-            STDERR.puts 'WARNING: No documented top-level declarations match ' \
-                        "name \"#{name}\" specified in categories file"
-          end
-          docs_with_name
-        end
-        # Category config overrides alphabetization
-        children.each.with_index { |child, i| child.nav_order = i }
-        make_group(children, category['name'], '')
-      end
-      [group.compact, docs]
-    end
-
-    def self.group_type_categories(docs, type_category_prefix)
-      group = SourceDeclaration::Type.all.map do |type|
-        children, docs = docs.partition { |doc| doc.type == type }
-        make_group(
-          children,
-          type_category_prefix + type.plural_name,
-          "The following #{type.plural_name.downcase} are available globally.",
-          type_category_prefix + type.plural_url_name,
-        )
-      end
-      [group.compact, docs]
-    end
-
-    def self.make_group(group, name, abstract, url_name = nil)
-      group.reject! { |doc| doc.name.empty? }
-      unless group.empty?
-        SourceDeclaration.new.tap do |sd|
-          sd.type     = SourceDeclaration::Type.overview
-          sd.name     = name
-          sd.url_name = url_name
-          sd.abstract = Markdown.render(abstract)
-          sd.children = group
-        end
-      end
     end
 
     def self.sanitize_filename(doc)
@@ -806,7 +755,7 @@ module Jazzy
         docs = docs.reject { |doc| doc.type.swift_enum_element? }
       end
       ungrouped_docs = docs
-      docs = group_docs(docs)
+      docs = SourceCategory.group_docs(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, @stats]
