@@ -166,7 +166,7 @@ Any files found matching the file pattern will be parsed and included as a docum
 
 There are a few limitations:
 - File names must be unique from source files.
-- Readme should be specified separately using the `readme_path` option.
+- Readme should be specified separately using the `readme` option.
 
 ### Section description abstracts
 
