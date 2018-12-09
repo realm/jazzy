@@ -310,7 +310,13 @@ module Jazzy
       description: ['Custom navigation categories to replace the standard '\
                     '“Classes, Protocols, etc.”', 'Types not explicitly named '\
                     'in a custom category appear in generic groups at the end.',
-                    'Example: https://git.io/v4Bcp'],
+                    'You can add another category in the children array '\
+                    'instead of using a type name, to create ',
+                    'subcategories. This can be repeated ad infinitum, '\
+                    'provided your theme supports it.',
+                    'Currently all integrated themes support a maximum ',
+                    'of 3 levels.',
+                    'Example: https://git.io/fNvGB'],
       default: []
 
     config_attr :custom_head,

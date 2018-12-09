@@ -320,6 +320,12 @@ pre code {
 .nav-group-tasks {
   margin: $gutter/2 0;
   padding: 0 0 0 $gutter/2;
+
+  .nav-group-name {
+    list-style-type: none;
+    border: 0px;
+    padding: 0px;
+  }
 }
 
 .nav-group-task {
@@ -330,6 +336,24 @@ pre code {
 
 .nav-group-task-link {
   color: $navigation_task_color;
+}
+
+@mixin nav_heading($font-size: 16px, $font-weight: 400, $margin: 12px 0px 0px 0px) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  margin: $margin;
+}
+
+.nav-groups {
+  h1 {
+    @include nav_heading(16px, 400, 0px);
+  }
+  h2 {
+    @include nav_heading();
+  }
+  h3 {
+    @include nav_heading();
+  }
 }
 
 // ===========================================================================
@@ -358,7 +382,7 @@ pre code {
   padding: $gutter 0;
 }
 
-.section-name {
+.section-name, .subsection-name {
   color: #666;
   display: block;
 }
@@ -379,7 +403,19 @@ pre code {
   padding-top: 0px;
 }
 
-.task-name-container {
+.nested-tasks {
+  .task-group {
+    margin-top: 10px;
+  }
+}
+
+.nested-tasks-line {
+  border: none;
+  border-top: $gray_border;
+  margin-top: 15px;
+}
+
+.task-name-container, .subsection-name-container {
   a[name] {
     &:before {
       content: "";

@@ -34,20 +34,34 @@ module Jazzy
         children = doc.children
                       .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
                       .flat_map do |child|
-          # FIXME: include arbitrarily nested extensible types
-          [{ name: child.name, url: child.url }] +
-            Array(child.children.select do |sub_child|
-              sub_child.type.swift_extensible? || sub_child.type.extension?
-            end).map do |sub_child|
-              { name: "– #{sub_child.name}", url: sub_child.url }
-            end
+          if child.type.overview?
+            doc_structure_for_docs([child])
+          else
+            doc_structure_for_child(child)
+          end
         end
+
         {
           section: doc.name,
           url: doc.url,
           children: children,
+          level: doc.level,
         }
       end
+    end
+
+    # Generate structure for children of a category in sidebar navigation.
+    # @return [Array] doc structure compromised of
+    #                     name and url of the child as well as
+    #                     any possible nested children.
+    def self.doc_structure_for_child(child)
+      # FIXME: include arbitrarily nested extensible types
+      [{ name: child.name, url: child.url, children: nil }] +
+        Array(child.children.select do |sub_child|
+          sub_child.type.swift_extensible? || sub_child.type.extension?
+        end).map do |sub_child|
+          { name: "– #{sub_child.name}", url: sub_child.url, children: nil }
+        end
     end
 
     # Build documentation from the given options
@@ -383,6 +397,34 @@ module Jazzy
       end
     end
 
+    def self.render_subsections(subsections, source_module)
+      subsections.map do |subsection|
+        overview = render_overview(subsection)
+        tasks = render_tasks(
+          source_module,
+          subsection.children.reject { |c| c.type.overview? },
+        )
+
+        {
+          name: subsection.name,
+          overview: overview,
+          uid: URI.encode(subsection.name),
+          url: subsection.url,
+          level: subsection.level,
+          tasks: tasks,
+        }
+      end
+    end
+
+    def self.render_overview(doc)
+      overview = (doc.abstract || '') + (doc.discussion || '')
+      alternative_abstract = doc.alternative_abstract
+      if alternative_abstract
+        overview = render(doc, alternative_abstract) + overview
+      end
+      overview
+    end
+
     # rubocop:disable Metrics/MethodLength
     # Build Mustache document from single parsed doc
     # @param [Config] options Build options
@@ -395,11 +437,7 @@ module Jazzy
         return document_markdown(source_module, doc_model, path_to_root)
       end
 
-      overview = (doc_model.abstract || '') + (doc_model.discussion || '')
-      alternative_abstract = doc_model.alternative_abstract
-      if alternative_abstract
-        overview = render(doc_model, alternative_abstract) + overview
-      end
+      overview = render_overview(doc_model)
 
       doc = Doc.new # Mustache model instance
       doc[:custom_head] = Config.instance.custom_head
@@ -412,7 +450,10 @@ module Jazzy
       doc[:declaration] = doc_model.display_declaration
       doc[:overview] = overview
       doc[:structure] = source_module.doc_structure
-      doc[:tasks] = render_tasks(source_module, doc_model.children)
+      categories, children =
+        doc_model.children.partition { |c| c.type.overview? }
+      doc[:tasks] = render_tasks(source_module, children)
+      doc[:subsections] = render_subsections(categories, source_module)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url
