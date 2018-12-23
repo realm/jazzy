@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Link to documentation pages from contents pages.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#730](https://github.com/realm/jazzy/issues/730)
 
 ##### Bug Fixes
 

@@ -8,12 +8,15 @@ module Jazzy
     # static type of declared element (e.g. String.Type -> ())
     attr_accessor :typename
 
-    def type?(type_kind)
-      respond_to?(:type) && type.kind == type_kind
+    # Give the item its own page or just inline into parent?
+    def render_as_page?
+      children.any?
     end
 
-    def render?
-      type?('document.markdown') || children.count != 0
+    # When referencing this item from its parent category,
+    # include the content or just link to it directly?
+    def omit_content_from_parent?
+      false
     end
 
     # Element containing this declaration in the code
