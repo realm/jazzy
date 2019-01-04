@@ -33,9 +33,8 @@ document. It must be installed in a location indexed by Spotlight for the
 [sudo] gem install jazzy
 ```
 
-The Xcode command-line developer tools must be installed to successfully build
-the gems that `jazzy` depends on: try `xcode-select --install` if you see build
-errors.
+See [Installation Problems](#installation-problems) for solutions to some
+common problems.
 
 ## Usage
 
@@ -227,6 +226,21 @@ documentation.
 **Only extensions are listed in the documentation?**
 
 Check the `--min-acl` setting -- see [above](#controlling-what-is-documented).
+
+#### Installation Problems
+
+**Can't find header files / clang**
+
+Some of the Ruby gems that Jazzy depends on have native C extensions.  This
+means you need the Xcode command-line developer tools installed to build
+them: run `xcode-select --install` to install the tools.
+
+**/Applications/Xcode: No such file or directory**
+
+The path of your active Xcode installation must not contain spaces.  So
+`/Applications/Xcode.app/` is fine, `/Applications/Xcode-10.2.app/` is fine,
+but `/Applications/Xcode 10.2.app/` is not.  This restriction applies only
+when *installing* Jazzy, not running it.
 
 ## Development
 
