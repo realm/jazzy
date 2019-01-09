@@ -12,7 +12,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Support Swift 4.2 with `--podspec`.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1015](https://github.com/realm/jazzy/issues/1015)
 
 ## 0.9.4
 

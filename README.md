@@ -219,6 +219,20 @@ Note that the `--include` option is applied before the `--exclude` option. For e
 Declarations with a documentation comment containing `:nodoc:` are excluded from the
 documentation.
 
+### Choosing the Swift language version
+
+Jazzy normally uses the Swift compiler from the Xcode currently configured by
+`xcode-select`.  Use the `--swift-version` flag to compile with a different
+Xcode.
+
+The value you pass to `--swift-version` must be the Swift language version given
+by `swift --version` in the Xcode you want to use.
+
+For example to use Xcode 9.4:
+```shell
+jazzy --swift-version 4.1.2
+```
+
 ## Troubleshooting
 
 #### Swift
@@ -226,6 +240,18 @@ documentation.
 **Only extensions are listed in the documentation?**
 
 Check the `--min-acl` setting -- see [above](#controlling-what-is-documented).
+
+**Unable to find an Xcode with swift version X**
+
+1. The value passed with `--swift-version` must exactly match the version
+   number from `swiftc --version`.  For example Xcode 10.1 needs
+   `--swift-version 4.2.1`.  See [the flag documentation](#choosing-the-swift-language-version).
+2. The Xcode you want to use must be in the Spotlight index.  You can check
+   this using `mdfind 'kMDItemCFBundleIdentifier == com.apple.dt.Xcode'`.
+   Some users have reported this issue being fixed by a reboot; `mdutil -E`
+   may also help.  If none of these work then you can set the `DEVELOPER_DIR`
+   environment variable to point to the Xcode you want before running Jazzy
+   without the `--swift-version` flag.
 
 #### Installation Problems
 
