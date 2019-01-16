@@ -27,7 +27,7 @@ module Jazzy
 
           targets.map do |t|
             args = %W[doc --module-name #{podspec.module_name} -- -target #{t}]
-            swift_version = (config.swift_version || '4')[0] + '.0'
+            swift_version = compiler_swift_version(config.swift_version)
             args << "SWIFT_VERSION=#{swift_version}"
             SourceKitten.run_sourcekitten(args)
           end
@@ -96,6 +96,23 @@ module Jazzy
     end
 
     private_class_method :github_file_prefix
+
+    # Latest valid value for SWIFT_VERSION.
+    LATEST_SWIFT_VERSION = '4.2'.freeze
+
+    # All valid values for SWIFT_VERSION that are longer
+    # than a major version number.  Ordered ascending.
+    LONG_SWIFT_VERSIONS = ['4.2'].freeze
+
+    # Go from a full Swift version like 4.2.1 to
+    # something valid for SWIFT_VERSION.
+    def compiler_swift_version(user_version)
+      return LATEST_SWIFT_VERSION unless user_version
+
+      LONG_SWIFT_VERSIONS.select do |version|
+        user_version.start_with?(version)
+      end.last || "#{user_version[0]}.0"
+    end
 
     # @!group SourceKitten output helper methods
 
