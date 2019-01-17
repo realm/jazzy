@@ -16,6 +16,11 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1015](https://github.com/realm/jazzy/issues/1015)
 
+* Fix multiline copyright for `apple` theme.  
+  [Fabien Lydoire](https://github.com/fabienlydoire)
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1016](https://github.com/realm/jazzy/issues/1016)
+
 ## 0.9.4
 
 ##### Breaking
