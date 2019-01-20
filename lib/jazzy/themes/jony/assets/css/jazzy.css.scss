@@ -376,6 +376,9 @@ header {
     padding-left: 3px;
     margin-left: 35px;
   }
+  .discouraged {
+    text-decoration: line-through;
+  }
   .declaration-note {
     font-size: .85em;
     color: rgba(128,128,128,1);

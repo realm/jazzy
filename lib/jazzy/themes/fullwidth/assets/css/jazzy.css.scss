@@ -154,8 +154,14 @@ a {
     outline: 0;
     text-decoration: underline;
   }
-}
 
+  &.discouraged {
+    text-decoration: line-through;
+    &:hover, &:focus {
+      text-decoration: underline line-through;
+    }
+  }
+}
 
 // ----- Tables
 
