@@ -107,6 +107,10 @@ module Jazzy
     attr_accessor :unavailable
     attr_accessor :unavailable_message
 
+    def usage_discouraged?
+      unavailable || deprecated
+    end
+
     def alternative_abstract
       if file = alternative_abstract_file
         Pathname(file).read
