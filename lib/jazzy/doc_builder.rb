@@ -423,6 +423,9 @@ module Jazzy
       doc[:github_url] = source_module.github_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
+      doc[:deprecation_message] = doc_model.deprecation_message
+      doc[:unavailable_message] = doc_model.unavailable_message
+      doc[:usage_discouraged] = doc_model.usage_discouraged?
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
     # rubocop:enable Metrics/MethodLength
