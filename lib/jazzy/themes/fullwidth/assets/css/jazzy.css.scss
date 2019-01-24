@@ -154,8 +154,14 @@ a {
     outline: 0;
     text-decoration: underline;
   }
-}
 
+  &.discouraged {
+    text-decoration: line-through;
+    &:hover, &:focus {
+      text-decoration: underline line-through;
+    }
+  }
+}
 
 // ----- Tables
 
@@ -479,7 +485,7 @@ pre code {
   }
 }
 
-.aside-warning {
+.aside-warning, .aside-deprecated, .aside-unavailable {
   border-left: $aside_warning_border;
   .aside-title {
     color: $aside_warning_color;

@@ -338,6 +338,9 @@ header {
     margin-left: 15px;
     font-size: 11.9px;
   }
+  .discouraged {
+    text-decoration: line-through;
+  }
   .declaration-note {
     font-size: .85em;
     color: rgba(128,128,128,1);
@@ -412,7 +415,7 @@ header {
   }
 }
 
-.aside-warning {
+.aside-warning, .aside-deprecated, .aside-unavailable {
   border-left: $aside_warning_border;
   .aside-title {
     color: $aside_warning_color;

@@ -322,6 +322,8 @@ module Jazzy
           Highlighter.highlight(make_swift_declaration(doc, declaration))
       end
 
+      make_deprecation_info(doc, declaration)
+
       unless doc['key.doc.full_as_xml']
         return process_undocumented_token(doc, declaration)
       end
@@ -333,6 +335,17 @@ module Jazzy
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
 
       @stats.add_documented
+    end
+
+    def self.make_deprecation_info(doc, declaration)
+      if declaration.deprecated
+        declaration.deprecation_message =
+          Markdown.render(doc['key.deprecation_message'] || '')
+      end
+      if declaration.unavailable
+        declaration.unavailable_message =
+          Markdown.render(doc['key.unavailable_message'] || '')
+      end
     end
 
     # Strip tags and convert entities
@@ -482,6 +495,8 @@ module Jazzy
         declaration.column = doc['key.doc.column']
         declaration.start_line = doc['key.parsed_scope.start']
         declaration.end_line = doc['key.parsed_scope.end']
+        declaration.deprecated = doc['key.always_deprecated']
+        declaration.unavailable = doc['key.always_unavailable']
 
         next unless make_doc_info(doc, declaration)
         make_substructure(doc, declaration)
@@ -742,28 +757,34 @@ module Jazzy
       end
     end
 
+    AUTOLINK_TEXT_FIELDS = %w[return
+                              abstract
+                              unavailable_message
+                              deprecation_message].freeze
+
+    AUTOLINK_HIGHLIGHT_FIELDS = %w[declaration
+                                   other_language_declaration].freeze
+
     def self.autolink(docs, root_decls)
       @autolink_root_decls = root_decls
       docs.each do |doc|
         doc.children = autolink(doc.children, root_decls)
 
-        doc.return = autolink_text(doc.return, doc, root_decls) if doc.return
-        doc.abstract = autolink_text(doc.abstract, doc, root_decls)
+        AUTOLINK_TEXT_FIELDS.each do |field|
+          if text = doc.send(field)
+            doc.send(field + '=', autolink_text(text, doc, root_decls))
+          end
+        end
+
+        AUTOLINK_HIGHLIGHT_FIELDS.each do |field|
+          if text = doc.send(field)
+            doc.send(field + '=', autolink_text(text, doc, root_decls, true))
+          end
+        end
+
         (doc.parameters || []).each do |param|
           param[:discussion] =
             autolink_text(param[:discussion], doc, root_decls)
-        end
-
-        if doc.declaration
-          doc.declaration = autolink_text(
-            doc.declaration, doc, root_decls, true
-          )
-        end
-
-        if doc.other_language_declaration
-          doc.other_language_declaration = autolink_text(
-            doc.other_language_declaration, doc, root_decls, true
-          )
         end
       end
     end

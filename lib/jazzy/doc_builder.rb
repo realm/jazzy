@@ -331,6 +331,7 @@ module Jazzy
     # Build mustache item for a top-level doc
     # @param [Hash] item Parsed doc child item
     # @param [Config] options Build options
+    # rubocop:disable Metrics/MethodLength
     def self.render_item(item, source_module)
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
@@ -350,8 +351,12 @@ module Jazzy
         start_line:                 item.start_line,
         end_line:                   item.end_line,
         direct_link:                item.omit_content_from_parent?,
+        deprecation_message:        item.deprecation_message,
+        unavailable_message:        item.unavailable_message,
+        usage_discouraged:          item.usage_discouraged?,
       }
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.make_task(mark, uid, items)
       {
@@ -418,6 +423,9 @@ module Jazzy
       doc[:github_url] = source_module.github_url
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
+      doc[:deprecation_message] = doc_model.deprecation_message
+      doc[:unavailable_message] = doc_model.unavailable_message
+      doc[:usage_discouraged] = doc_model.usage_discouraged?
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
     # rubocop:enable Metrics/MethodLength

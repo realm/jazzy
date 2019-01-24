@@ -10,6 +10,11 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#730](https://github.com/realm/jazzy/issues/730)
 
+* Call out unavailable and deprecated Objective-C declarations.  
+  [Stefan Kieleithner](https://github.com/steviki)
+  [John Fairhurst](https://github.com/johnfairh)
+  [#843](https://github.com/realm/jazzy/issues/843)
+
 ##### Bug Fixes
 
 * Support Swift 4.2 with `--podspec`.  
