@@ -173,16 +173,9 @@ describe_cli 'jazzy' do
     describe 'Creates docs with a module name, author name, project URL, ' \
       'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
-                            '-m Alamofire -a Alamofire ' \
-                            '-u https://nshipster.com/alamofire ' \
-                            '-x -project,Alamofire.xcodeproj ' \
-                            '-g https://github.com/Alamofire/Alamofire ' \
-                            '--github-file-prefix https://github.com/' \
-                            'Alamofire/Alamofire/blob/4.3.0 ' \
-                            '--module-version 4.3.0 ' \
-                            '--root-url ' \
-                            'https://static.realm.io/jazzy_demo/Alamofire/ ' \
-                            '--skip-undocumented'
+                            '--skip-undocumented',
+                            # Ignore existing docs output
+                            '--clean'
     end
 
     describe 'Creates Realm Swift docs' do
