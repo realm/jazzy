@@ -21,8 +21,13 @@ module Jazzy
         installer = Pod::Installer.new(sandbox, podfile)
         installer.install!
         stdout = Dir.chdir(sandbox.root) do
+          specs_being_built = []
           targets = installer.pod_targets
-                             .select { |pt| pt.pod_name == podspec.root.name }
+                             .select do |pt|
+                               select = pt.specs[0].root == podspec.root && pt.specs.any? { |spec| !specs_being_built.include?(spec) }
+                               specs_being_built.push(*pt.specs)
+                               select
+                             end
                              .map(&:label)
 
           targets.map do |t|
@@ -131,23 +136,23 @@ module Jazzy
         install! 'cocoapods',
                  integrate_targets: false,
                  deterministic_uuids: false
-
-        [podspec, *podspec.recursive_subspecs].each do |ss|
-          # test_specification exists from CocoaPods 1.3.0
-          next if ss.respond_to?('test_specification') && ss.test_specification
-
-          ss.available_platforms.each do |p|
-            # Travis builds take too long when building docs for all available
-            # platforms for the Moya integration spec, so we just document OSX.
-            # Also Moya's RxSwift subspec doesn't yet support Swift 4, so skip
-            # that too while we're at it.
-            # TODO: remove once jazzy is fast enough.
-            if ENV['JAZZY_INTEGRATION_SPECS']
-              next if (p.name != :osx) || (ss.name == 'Moya/RxSwift')
-            end
-            target("Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}") do
-              use_frameworks!
-              platform p.name, p.deployment_target
+        specs_to_build = [podspec, *podspec.recursive_subspecs]
+        platforms_to_build = specs_to_build.flat_map(&:available_platforms).uniq
+        platforms_to_build.each do |p|
+          target("Jazzy-#{podspec.name}-#{p.name}") do
+            use_frameworks!
+            platform p.name, p.deployment_target
+            specs_to_build.select { |ss| ss.available_platforms.include?(p) }.each do |ss|
+              # test_specification exists from CocoaPods 1.3.0
+              next if ss.respond_to?('test_specification') && ss.test_specification
+              # Travis builds take too long when building docs for all available
+              # platforms for the Moya integration spec, so we just document OSX
+              # Also Moya's RxSwift subspec doesn't yet support Swift 4, so skip
+              # that too while we're at it.
+              # TODO: remove once jazzy is fast enough.
+              if ENV['JAZZY_INTEGRATION_SPECS']
+                next if (p.name != :osx) || (ss.name == 'Moya/RxSwift')
+              end
               pod ss.name, path: path.realpath.to_s
             end
           end
