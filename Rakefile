@@ -75,13 +75,14 @@ begin
 
     # Remove files not used for the comparison
     # To keep the git diff clean
-    files_glob = 'spec/integration_specs/*/after/{*,.*}'
+    specs_root = 'spec/integration_specs/*/after'
+    files_glob = "#{specs_root}/{*,.*}"
     files_to_delete = FileList[files_glob]
       .exclude('**/.', '**/..')
-      .exclude('spec/integration_specs/*/after/*docs',
-               'spec/integration_specs/*/after/execution_output.txt')
-      .include('**/*.dsidx')
-      .include('**/*.tgz')
+      .exclude("#{specs_root}/*docs",
+               "#{specs_root}/execution_output.txt")
+      .include("#{specs_root}/**/*.dsidx")
+      .include("#{specs_root}/**/*.tgz")
     files_to_delete.each do |file_to_delete|
       sh "rm -rf '#{file_to_delete}'"
     end
