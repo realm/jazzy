@@ -6,7 +6,10 @@
 
 ##### Enhancements
 
-* None.
+* Update JavaScript libraries: jQuery 3.3.1 (all themes), Lunr 2.3.5,
+  typeahead.js 1.2.1 (`fullwidth` theme only).  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#901](https://github.com/realm/jazzy/issues/901)
 
 ##### Bug Fixes
 
