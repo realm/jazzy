@@ -375,9 +375,13 @@ header {
   .token, .direct-link {
     padding-left: 3px;
     margin-left: 35px;
+    transition: all 300ms;
   }
   .discouraged {
     text-decoration: line-through;
+  }
+  .token-open {
+    margin-left: 25px;
   }
   .declaration-note {
     font-size: .85em;

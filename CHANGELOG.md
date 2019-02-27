@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Unfold member documentation when linked to from current web page.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#788](https://github.com/realm/jazzy/issues/788)
 
 ## 0.9.6
 
