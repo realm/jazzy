@@ -98,7 +98,7 @@ module Jazzy
     private_class_method :github_file_prefix
 
     # Latest valid value for SWIFT_VERSION.
-    LATEST_SWIFT_VERSION = '4.2'.freeze
+    LATEST_SWIFT_VERSION = '5'.freeze
 
     # All valid values for SWIFT_VERSION that are longer
     # than a major version number.  Ordered ascending.
