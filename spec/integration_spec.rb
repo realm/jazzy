@@ -195,7 +195,7 @@ describe_cli 'jazzy' do
                             '--root-url https://realm.io/docs/swift/' \
                             "#{realm_version}/api/ " \
                             '--xcodebuild-arguments ' \
-                            '-scheme,RealmSwift ' \
+                            '-scheme,RealmSwift,SWIFT_VERSION=4.2 ' \
                             "--head #{realm_head.shellescape}"
     end
 
