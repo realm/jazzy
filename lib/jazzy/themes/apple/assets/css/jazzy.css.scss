@@ -152,7 +152,7 @@ header {
   background-color: $bg_color;
   position: fixed;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   img {
     padding-right: 6px;
     vertical-align: -4px;
@@ -177,7 +177,7 @@ header {
   padding-top: $breadcrumb_padding_top;
   position: fixed;
   width: 100%;
-  z-index: 1;
+  z-index: 2;
   margin-top: $header_height;
   #carat {
     height: 10px;
@@ -270,6 +270,17 @@ header {
       margin: -$content_top_offset 0 0;
     }
   }
+  .section-name {
+    p {
+       margin-bottom: inherit;
+       line-height: inherit;
+    }
+    code {
+      background-color: inherit;
+      padding: inherit;
+      color: inherit;
+    }
+  }
 }
 
 .section {
@@ -313,6 +324,29 @@ header {
       display: block;
       padding-top: $content_top_offset;
       margin: -$content_top_offset 0 0;
+    }
+  }
+}
+
+.section-name-container {
+  position: relative;
+  display: inline-block;
+
+  .section-name-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+  }
+
+  .section-name {
+    position: relative;
+    pointer-events: none;
+    z-index: 1;
+    a {
+      pointer-events: auto;
     }
   }
 }
