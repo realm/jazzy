@@ -6,6 +6,9 @@
 
 ##### Enhancements
 
+* Swift 5 support: suppress unwanted newlines and `deinit` declarations.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 * Update JavaScript libraries: jQuery 3.3.1 (all themes), Lunr 2.3.5,
   typeahead.js 1.2.1 (`fullwidth` theme only).  
   [John Fairhurst](https://github.com/johnfairh)

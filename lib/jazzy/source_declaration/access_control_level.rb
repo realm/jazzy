@@ -26,6 +26,8 @@ module Jazzy
       end
 
       def self.from_doc(doc)
+        return AccessControlLevel.internal if implicit_deinit?(doc)
+
         accessibility = doc['key.accessibility']
         if accessibility
           acl = new(accessibility)
@@ -33,12 +35,17 @@ module Jazzy
             return acl
           end
         end
-        acl = from_explicit_declaration(doc['key.parsed_declaration'])
+        acl = from_doc_explicit_declaration(doc)
         acl || AccessControlLevel.public # fallback on public ACL
       end
 
-      def self.from_explicit_declaration(declaration_string)
-        case declaration_string
+      def self.implicit_deinit?(doc)
+        doc['key.name'] == 'deinit' &&
+          from_doc_explicit_declaration(doc).nil?
+      end
+
+      def self.from_doc_explicit_declaration(doc)
+        case doc['key.parsed_declaration']
         when /private\ / then private
         when /fileprivate\ / then fileprivate
         when /public\ / then public

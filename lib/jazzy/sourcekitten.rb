@@ -420,7 +420,9 @@ module Jazzy
           parsed_decl_body.unindent(inline_attrs.length)
         else
           # Strip ugly references to decl type name
-          unqualify_name(annotated_decl_body, declaration)
+          unqualified = unqualify_name(annotated_decl_body, declaration)
+          # Workaround for SR-9816
+          unqualified.gsub(" {\n  get\n  }", '')
         end
 
       # @available attrs only in compiler 'interface' style
