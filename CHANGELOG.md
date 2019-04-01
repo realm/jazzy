@@ -14,6 +14,9 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#901](https://github.com/realm/jazzy/issues/901)
 
+* Avoid `clean build` when using the new Xcode build system.  
+  [Norio Nomura](https://github.com/norio-nomura)
+
 ##### Bug Fixes
 
 * None.
