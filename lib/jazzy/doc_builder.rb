@@ -1,7 +1,7 @@
 require 'fileutils'
 require 'mustache'
 require 'pathname'
-require 'sass'
+require 'sassc'
 
 require 'jazzy/config'
 require 'jazzy/doc'
@@ -198,8 +198,7 @@ module Jazzy
       assets_directory = Config.instance.theme_directory + 'assets'
       FileUtils.cp_r(assets_directory.children, destination)
       Pathname.glob(destination + 'css/**/*.scss').each do |scss|
-        contents = scss.read
-        css = Sass::Engine.new(contents, syntax: :scss).render
+        css = SassC::Engine.new(scss.read).render
         css_filename = scss.sub(/\.scss$/, '')
         css_filename.open('w') { |f| f.write(css) }
         FileUtils.rm scss
