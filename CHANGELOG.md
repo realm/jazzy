@@ -1,4 +1,11 @@
-## Master
+## 0.9.6
+
+This is (probably) the last release to support Ruby earlier than 2.3.
+This is due to a change in a dependency.
+
+This is (probably) the last release to support macOS earlier than 10.14.4
+without the *Swift 5 Runtime Support for Command Line Tools* package installed.
+This is a consequence of Swift 5 ABI stability.
 
 ##### Breaking
 
@@ -13,6 +20,9 @@
   typeahead.js 1.2.1 (`fullwidth` theme only).  
   [John Fairhurst](https://github.com/johnfairh)
   [#901](https://github.com/realm/jazzy/issues/901)
+
+* Avoid `clean build` when using the new Xcode build system.  
+  [Norio Nomura](https://github.com/norio-nomura)
 
 ##### Bug Fixes
 
