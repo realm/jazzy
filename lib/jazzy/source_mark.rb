@@ -37,5 +37,10 @@ module Jazzy
       self.has_start_dash = other.has_start_dash
       self.has_end_dash = other.has_end_dash
     end
+
+    # Can we merge the contents of another mark into our own?
+    def can_merge?(other)
+      other.empty? || other.name == name
+    end
   end
 end

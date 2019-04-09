@@ -124,6 +124,18 @@ module Jazzy
       end
     end
 
+    # Merge consecutive sections with the same mark into one section
+    def self.merge_consecutive_marks(docs)
+      prev_mark = nil
+      docs.each do |doc|
+        if prev_mark && prev_mark.can_merge?(doc.mark)
+          doc.mark = prev_mark
+        end
+        prev_mark = doc.mark
+        merge_consecutive_marks(doc.children)
+      end
+    end
+
     def self.sanitize_filename(doc)
       unsafe_filename = doc.url_name || doc.name
       sanitzation_enabled = Config.instance.use_safe_filenames
@@ -870,6 +882,7 @@ module Jazzy
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
       docs = group_docs(docs)
+      merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, @stats]
