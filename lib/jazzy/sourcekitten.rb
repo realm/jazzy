@@ -652,10 +652,13 @@ module Jazzy
           extensions.reject! { |ext| ext.children.empty? }
         end
 
-        merge_declaration_marks(typedecl, extensions)
+        merge_objc_declaration_marks(typedecl, extensions)
       end
 
       decls = typedecls + extensions
+
+      move_merged_extension_marks(decls)
+
       decls.first.tap do |merged|
         merged.children = deduplicate_declarations(
           decls.flat_map(&:children).uniq,
@@ -696,23 +699,24 @@ module Jazzy
       end
     end
 
-    # Customize marks associated with to-be-merged declarations
-    def self.merge_declaration_marks(typedecl, extensions)
-      if typedecl.type.objc_class?
-        # Mark children merged from categories with the name of category
-        # (unless they already have a mark)
-        extensions.each do |ext|
-          _, category_name = ext.objc_category_name
-          ext.children.each { |c| c.mark.name ||= category_name }
-        end
-      else
-        # If the Swift extension has a mark and the first child doesn't
-        # then copy the mark contents down so it still shows up.
-        extensions.each do |ext|
-          child = ext.children.first
-          if child && child.mark.empty?
-            child.mark.copy(ext.mark)
-          end
+    # Mark children merged from categories with the name of category
+    # (unless they already have a mark)
+    def self.merge_objc_declaration_marks(typedecl, extensions)
+      return unless typedecl.type.objc_class?
+      extensions.each do |ext|
+        _, category_name = ext.objc_category_name
+        ext.children.each { |c| c.mark.name ||= category_name }
+      end
+    end
+
+    # For each extension to be merged, move any MARK from the extension
+    # declaration down to the extension contents so it still shows up.
+    def self.move_merged_extension_marks(decls)
+      return unless to_be_merged = decls[1..-1]
+      to_be_merged.each do |ext|
+        child = ext.children.first
+        if child && child.mark.empty?
+          child.mark.copy(ext.mark)
         end
       end
     end
