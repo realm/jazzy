@@ -28,6 +28,12 @@ module Jazzy
       self.name = mark_string[start_index..end_index]
     end
 
+    def self.new_generic_requirements(requirements)
+      marked_up = requirements.gsub(/\b([^=:]\S*)\b/, '`\1`')
+      text = "Available where #{marked_up}"
+      new(text)
+    end
+
     def empty?
       !name && !has_start_dash && !has_end_dash
     end

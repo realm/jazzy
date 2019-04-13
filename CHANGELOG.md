@@ -26,6 +26,14 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#447](https://github.com/realm/jazzy/issues/447)
 
+* Add section headings for members added by Swift conditional conformances.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#717](https://github.com/realm/jazzy/issues/717)
+
+* Parse markdown in MARK comments, make the html available to themes via
+  `name_html` mustache tag key for section headings.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Stop displaying type attributes on extension declarations.  
