@@ -38,5 +38,9 @@ module Jazzy
     def language_stub
       objc_first? ? 'objc' : 'swift'
     end
+
+    def module_version
+      Config.instance.version
+    end
   end
 end
