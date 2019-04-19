@@ -337,6 +337,10 @@ header {
     padding-left: 3px;
     margin-left: 15px;
     font-size: 11.9px;
+    transition: all 300ms;
+  }
+  .token-open {
+    margin-left: 0px;
   }
   .discouraged {
     text-decoration: line-through;
