@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Support CocoaPods 1.6+.  Use the `swift_version[s]` dsl in `--podspec` mode
+  to set the Swift language version.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 

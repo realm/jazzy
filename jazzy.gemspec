@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files`.split($/)
   spec.executables   << 'jazzy'
 
-  spec.add_runtime_dependency 'cocoapods', '~> 1.5.3'
+  spec.add_runtime_dependency 'cocoapods', '~> 1.5'
   spec.add_runtime_dependency 'mustache', '~> 1.1.0'
   spec.add_runtime_dependency 'open4'
   spec.add_runtime_dependency 'redcarpet', '~> 3.4.0'

@@ -18,7 +18,8 @@ module Jazzy
       Pod::Config.instance.with_changes(installation_root: installation_root,
                                         verbose: false) do
         sandbox = Pod::Sandbox.new(Pod::Config.instance.sandbox_root)
-        installer = Pod::Installer.new(sandbox, podfile)
+        swift_version = compiler_swift_version(config.swift_version)
+        installer = Pod::Installer.new(sandbox, podfile(swift_version))
         installer.install!
         stdout = Dir.chdir(sandbox.root) do
           targets = installer.pod_targets
@@ -27,8 +28,6 @@ module Jazzy
 
           targets.map do |t|
             args = %W[doc --module-name #{podspec.module_name} -- -target #{t}]
-            swift_version = compiler_swift_version(config.swift_version)
-            args << "SWIFT_VERSION=#{swift_version}"
             SourceKitten.run_sourcekitten(args)
           end
         end
@@ -107,11 +106,22 @@ module Jazzy
     # Go from a full Swift version like 4.2.1 to
     # something valid for SWIFT_VERSION.
     def compiler_swift_version(user_version)
-      return LATEST_SWIFT_VERSION unless user_version
+      unless user_version
+        return podspec_swift_version || LATEST_SWIFT_VERSION
+      end
 
       LONG_SWIFT_VERSIONS.select do |version|
         user_version.start_with?(version)
       end.last || "#{user_version[0]}.0"
+    end
+
+    def podspec_swift_version
+      # `swift_versions` exists from CocoaPods 1.7
+      if podspec.respond_to?('swift_versions')
+        podspec.swift_versions.max
+      else
+        podspec.swift_version
+      end
     end
 
     # @!group SourceKitten output helper methods
@@ -124,7 +134,8 @@ module Jazzy
       end
     end
 
-    def podfile
+    # rubocop:disable Metrics/MethodLength
+    def podfile(swift_version)
       podspec = @podspec
       path = pod_path
       @podfile ||= Pod::Podfile.new do
@@ -133,8 +144,7 @@ module Jazzy
                  deterministic_uuids: false
 
         [podspec, *podspec.recursive_subspecs].each do |ss|
-          # test_specification exists from CocoaPods 1.3.0
-          next if ss.respond_to?('test_specification') && ss.test_specification
+          next if ss.test_specification
 
           ss.available_platforms.each do |p|
             # Travis builds take too long when building docs for all available
@@ -147,10 +157,12 @@ module Jazzy
               use_frameworks!
               platform p.name, p.deployment_target
               pod ss.name, path: path.realpath.to_s
+              current_target_definition.swift_version = swift_version
             end
           end
         end
       end
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
