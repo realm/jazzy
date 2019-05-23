@@ -235,7 +235,7 @@ jazzy --swift-version 4.1.2
 
 ## Troubleshooting
 
-#### Swift
+### Swift
 
 **Only extensions are listed in the documentation?**
 
@@ -253,7 +253,7 @@ Check the `--min-acl` setting -- see [above](#controlling-what-is-documented).
    environment variable to point to the Xcode you want before running Jazzy
    without the `--swift-version` flag.
 
-#### Installation Problems
+### Installation Problems
 
 **Can't find header files / clang**
 
@@ -267,6 +267,14 @@ The path of your active Xcode installation must not contain spaces.  So
 `/Applications/Xcode.app/` is fine, `/Applications/Xcode-10.2.app/` is fine,
 but `/Applications/Xcode 10.2.app/` is not.  This restriction applies only
 when *installing* Jazzy, not running it.
+
+### MacOS Before 10.14.4
+
+Starting with Jazzy 0.10.0, if you see an error similar to `dyld: Symbol not found: _$s11SubSequenceSlTl` then you need to install the [Swift 5 Runtime Support for Command Line Tools](https://support.apple.com/kb/DL1998).
+
+Alternatively, you can:
+* Update to macOS 10.14.4 or later; or
+* Install Xcode 10.2 or later at `/Applications/Xcode.app`.
 
 ## Development
 

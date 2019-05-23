@@ -2,7 +2,10 @@
 
 ##### Breaking
 
-* None.
+* The included `sourcekitten` binary is built with Xcode 10.2.  This means
+  it does not run on macOS earlier than 10.14.4 without the *Swift 5 Runtime
+  Support for Command Line Tools* being installed.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Enhancements
 
@@ -10,11 +13,26 @@
   to set the Swift language version.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Show the extension declaration when documenting Swift extensions.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Unfold member documentation when linked to from current web page.  
   [John Fairhurst](https://github.com/johnfairh)
   [#788](https://github.com/realm/jazzy/issues/788)
+
+* Generate docs when there are unusual characters in source pathnames.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1049](https://github.com/realm/jazzy/issues/1049)
+
+* Generate docs for signed modules with Xcode 10.2.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1057](https://github.com/realm/jazzy/issues/1057)
+
+* Use correct module name when only target name is supplied.  
+  [Chris Zielinski](https://github.com/chriszielinski)
+  [#422](https://github.com/realm/jazzy/issues/422)
 
 ## 0.9.6
 
