@@ -104,7 +104,7 @@ begin
   task :sourcekitten do
     sk_dir = 'SourceKitten'
     Dir.chdir(sk_dir) do
-      `swift build -c release -Xswiftc -static-stdlib`
+      `swift build -c release`
     end
     FileUtils.cp_r "#{sk_dir}/.build/release/sourcekitten", 'bin'
   end

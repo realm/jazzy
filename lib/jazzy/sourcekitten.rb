@@ -391,7 +391,8 @@ module Jazzy
         parsed &&
           (annotated.include?(' = default') || # SR-2608
            parsed.match('@autoclosure|@escaping') || # SR-6321
-           parsed.include?("\n"))
+           parsed.include?("\n") ||
+           parsed.include?('extension '))
     end
 
     # Replace the fully qualified name of a type with its base name
