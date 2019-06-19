@@ -16,6 +16,14 @@
 * Show the extension declaration when documenting Swift extensions.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Allow docs title customization.  Include `--module-version` when it is set
+  and support `--title` to fully customize the title.  Pass `{{module_version}}`
+  and `{{docs_title}}` to templates.  
+  [Maximilian Alexander](https://github.com/mbalex99)
+  [John Fairhurst](https://github.com/johnfairh)
+  [#666](https://github.com/realm/jazzy/issues/666)
+  [#411](https://github.com/realm/jazzy/issues/411)
+
 ##### Bug Fixes
 
 * Unfold member documentation when linked to from current web page.  

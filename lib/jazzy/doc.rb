@@ -8,10 +8,11 @@ require 'jazzy/jazzy_markdown'
 
 module Jazzy
   class Doc < Mustache
+    include Config::Mixin
+
     self.template_name = 'doc'
 
     def copyright
-      config = Config.instance
       copyright = config.copyright || (
         # Fake date is used to keep integration tests consistent
         date = ENV['JAZZY_FAKE_DATE'] || DateTime.now.strftime('%Y-%m-%d')
@@ -28,7 +29,7 @@ module Jazzy
     end
 
     def objc_first?
-      Config.instance.objc_mode && Config.instance.hide_declarations != 'objc'
+      config.objc_mode && config.hide_declarations != 'objc'
     end
 
     def language
@@ -40,7 +41,19 @@ module Jazzy
     end
 
     def module_version
-      Config.instance.version
+      config.version_configured ? config.version : nil
+    end
+
+    def docs_title
+      if config.title_configured
+        config.title
+      elsif config.version_configured
+        # Fake version for integration tests
+        version = ENV['JAZZY_FAKE_MODULE_VERSION'] || config.version
+        "#{config.module_name} #{version} Docs"
+      else
+        "#{config.module_name} Docs"
+      end
     end
   end
 end
