@@ -2,7 +2,6 @@ require 'optparse'
 require 'pathname'
 require 'uri'
 
-require 'jazzy/doc'
 require 'jazzy/podspec_documenter'
 require 'jazzy/source_declaration/access_control_level'
 
@@ -213,8 +212,15 @@ module Jazzy
 
     config_attr :version,
       command_line: '--module-version VERSION',
-      description: 'module version. will be used when generating docset',
+      description: 'Version string to use as part of the the default docs '\
+                   'title and inside the docset.',
       default: '1.0'
+
+    config_attr :title,
+      command_line: '--title TITLE',
+      description: 'Title to display at the top of each page, overriding the '\
+                   'default generated from module name and version.',
+      default: ''
 
     config_attr :copyright,
       command_line: '--copyright COPYRIGHT_MARKDOWN',
