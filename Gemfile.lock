@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jazzy (0.9.6)
+    jazzy (0.10.0)
       cocoapods (~> 1.5)
       mustache (~> 1.1)
       open4
@@ -93,7 +93,7 @@ GEM
     faraday-http-cache (2.0.0)
       faraday (~> 0.8)
     ffi (1.11.1)
-    fourflusher (2.3.0)
+    fourflusher (2.3.1)
     fuzzy_match (2.0.4)
     gh_inspector (1.1.3)
     git (1.5.0)
@@ -106,7 +106,7 @@ GEM
     liferaft (0.0.6)
     metaclass (0.0.4)
     minitest (5.11.3)
-    mocha (1.8.0)
+    mocha (1.9.0)
       metaclass (~> 0.0.1)
     mocha-on-bacon (0.2.3)
       mocha (>= 0.13.0)
