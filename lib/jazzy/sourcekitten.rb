@@ -182,16 +182,25 @@ module Jazzy
       end.select { |x| x }.flatten(1)
     end
 
+    def self.use_spm?(options)
+      options.swift_build_tool == :spm ||
+        (!options.swift_build_tool_configured &&
+         Dir['*.xcodeproj'].empty?)
+    end
+
     # Builds SourceKitten arguments based on Jazzy options
     def self.arguments_from_options(options)
       arguments = ['doc']
-      arguments += if options.objc_mode
-                     objc_arguments_from_options(options)
-                   elsif !options.module_name.empty?
-                     ['--module-name', options.module_name, '--']
-                   else
-                     ['--']
-                   end
+      if options.objc_mode
+        arguments += objc_arguments_from_options(options)
+      else
+        arguments += ['--spm'] if use_spm?(options)
+        if options.module_name_configured
+          arguments += ['--module-name', options.module_name]
+        end
+        arguments += ['--']
+      end
+
       arguments + options.xcodebuild_arguments
     end
 
