@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Sass support now provided by `libsass` via `sassc` instead of the
+  deprecated Ruby Sass gem.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 
