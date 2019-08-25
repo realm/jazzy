@@ -12,7 +12,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Preserve non-latin characters in guide filenames and heading IDs.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1091](https://github.com/realm/jazzy/issues/1091)
 
 ## 0.10.0
 
