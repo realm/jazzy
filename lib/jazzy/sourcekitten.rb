@@ -126,12 +126,11 @@ module Jazzy
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs)
       docs.each do |doc|
-        if !doc.parent_in_docs || doc.children.count > 0
-          # Create HTML page for this doc if it has children or is root-level
+        if doc.render_as_page?
           doc.url = (
             subdir_for_doc(doc) +
             [sanitize_filename(doc) + '.html']
-          ).join('/')
+          ).map { |path| ERB::Util.url_encode(path) }.join('/')
           doc.children = make_doc_urls(doc.children)
         else
           # Don't create HTML page for this doc if it doesn't have children
@@ -159,17 +158,17 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
 
-    # Determine the subdirectory in which a doc should be placed
+    # Determine the subdirectory in which a doc should be placed.
+    # Guides in the root for back-compatibility.
+    # Declarations under outer namespace type (Structures, Classes, etc.)
     def self.subdir_for_doc(doc)
-      # We always want to create top-level subdirs according to type (Struct,
-      # Class, etc).
+      return [] if doc.type.markdown?
       top_level_decl = doc.namespace_path.first
-      if top_level_decl && top_level_decl.type && top_level_decl.type.name
-        # File program elements under top ancestor’s type (Struct, Class, etc.)
+      if top_level_decl.type.name
         [top_level_decl.type.plural_url_name] +
           doc.namespace_ancestors.map(&:name)
       else
-        # Categories live in their own directory
+        # Category - in the root
         []
       end
     end
