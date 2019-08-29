@@ -37,7 +37,7 @@ module Jazzy
     end
 
     def url
-      name.downcase.strip.tr(' ', '-').gsub(/[^\w-]/, '') + '.html'
+      name.downcase.strip.tr(' ', '-').gsub(/[^[[:word:]]-]/, '') + '.html'
     end
 
     def content(source_module)

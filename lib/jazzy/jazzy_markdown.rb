@@ -11,7 +11,7 @@ module Jazzy
       attr_accessor :default_language
 
       def header(text, header_level)
-        text_slug = text.gsub(/[^\w]+/, '-')
+        text_slug = text.gsub(/[^[[:word:]]]+/, '-')
                         .downcase
                         .sub(/^-/, '')
                         .sub(/-$/, '')
