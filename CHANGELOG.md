@@ -10,6 +10,9 @@
   deprecated Ruby Sass gem.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Update bundled jQuery to 3.4.1 (all themes).  
+  [Paul Idstein](https://github.com/idstein)
+
 ##### Bug Fixes
 
 * Preserve non-latin characters in guide filenames and heading IDs.  
