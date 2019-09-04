@@ -78,7 +78,7 @@ module Jazzy
             'searchIndex (name, type, path);')
           source_module.all_declarations.select(&:type).each do |doc|
             db.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) ' \
-              'VALUES (?, ?, ?);', [doc.name, doc.type.dash_type, doc.url])
+              'VALUES (?, ?, ?);', [doc.name, doc.type.dash_type, doc.filepath])
           end
         end
       end

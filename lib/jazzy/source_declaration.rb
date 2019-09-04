@@ -111,6 +111,10 @@ module Jazzy
       unavailable || deprecated
     end
 
+    def filepath
+      CGI.unescape(url)
+    end
+
     def alternative_abstract
       if file = alternative_abstract_file
         Pathname(file).read

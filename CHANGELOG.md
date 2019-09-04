@@ -16,6 +16,11 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1091](https://github.com/realm/jazzy/issues/1091)
 
+* Generate correct html for custom categories containing special
+  characters.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#945](https://github.com/realm/jazzy/issues/945)
+
 ## 0.10.0
 
 ##### Breaking

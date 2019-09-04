@@ -95,10 +95,9 @@ module Jazzy
     def self.each_doc(output_dir, docs, &block)
       docs.each do |doc|
         next unless doc.render_as_page?
-        # Assuming URL is relative to documentation root:
-        path = output_dir + (doc.url || "#{doc.name}.html")
+        # Filepath is relative to documentation root:
+        path = output_dir + doc.filepath
         block.call(doc, path)
-        next if doc.name == 'index'
         each_doc(
           output_dir,
           doc.children,
