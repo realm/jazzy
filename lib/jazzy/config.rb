@@ -79,6 +79,14 @@ module Jazzy
       @all_config_attrs << Attribute.new(name, **opts)
     end
 
+    def self.alias_config_attr(name, forward, **opts)
+      alias_method name.to_s, forward.to_s
+      alias_method "#{name}=", "#{forward}="
+      alias_method "#{name}_configured", "#{forward}_configured"
+      alias_method "#{name}_configured=", "#{forward}_configured="
+      @all_config_attrs << Attribute.new(name, **opts)
+    end
+
     class << self
       attr_reader :all_config_attrs
     end
@@ -146,10 +154,15 @@ module Jazzy
                     'Default: .jazzy.yaml in source directory or ancestor'],
       parse: ->(cf) { expand_path(cf) }
 
-    config_attr :xcodebuild_arguments,
-      command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
-      description: 'Arguments to forward to xcodebuild',
+    config_attr :build_tool_arguments,
+      command_line: ['-b', '--build-tool-arguments arg1,arg2,…argN', Array],
+      description: 'Arguments to forward to xcodebuild, swift build, or ' \
+                   'sourcekitten.',
       default: []
+
+    alias_config_attr :xcodebuild_arguments, :build_tool_arguments,
+      command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
+      description: 'Back-compatibility alias for build_tool_arguments.'
 
     config_attr :sourcekitten_sourcefile,
       command_line: ['-s', '--sourcekitten-sourcefile FILEPATH'],

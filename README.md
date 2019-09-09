@@ -23,9 +23,8 @@ unacceptable behavior to [info@realm.io](mailto:info@realm.io).
 
 ## Requirements
 
-* A version of [Xcode][xcode] capable of building the project you wish to
-document. It must be installed in a location indexed by Spotlight for the
-`--swift-version` configuration option to succeed.
+* Development tools that can build the project you wish to document.  Jazzy supports
+  both [Xcode][xcode] and [Swift Package Manager][spm] projects.
 
 ## Installation
 
@@ -41,8 +40,9 @@ common problems.
 Run `jazzy` from your command line. Run `jazzy -h` for a list of additional options.
 
 If your Swift module is the first thing to build, and it builds fine when running
-`xcodebuild` without any arguments from the root of your project, then just running
-`jazzy` (without any arguments) from the root of your project should succeed too!
+`xcodebuild` or `swift build` without any arguments from the root of your project, then
+just running `jazzy` (without any arguments) from the root of your project should
+succeed too!
 
 You can set options for your project’s documentation in a configuration file,
 `.jazzy.yaml` by default. For a detailed explanation and an exhaustive list of
@@ -83,11 +83,20 @@ jazzy \
   --github_url https://github.com/realm/realm-cocoa \
   --github-file-prefix https://github.com/realm/realm-cocoa/tree/v0.96.2 \
   --module-version 0.96.2 \
-  --xcodebuild-arguments -scheme,RealmSwift \
+  --build-tool-arguments -scheme,RealmSwift \
   --module RealmSwift \
   --root-url https://realm.io/docs/swift/0.96.2/api/ \
   --output docs/swift_output \
   --theme docs/themes
+```
+
+This is how docs are generated for a project that uses the Swift Package Manager:
+
+```shell
+jazzy \
+  --module DeckOfPlayingCards \
+  --swift-build-tool spm \
+  --build-tool-arguments -Xswiftc,-swift-version,-Xswiftc,5
 ```
 
 ### Objective-C
@@ -116,7 +125,7 @@ jazzy \
   --github_url https://github.com/realm/realm-cocoa \
   --github-file-prefix https://github.com/realm/realm-cocoa/tree/v2.2.0 \
   --module-version 2.2.0 \
-  --xcodebuild-arguments --objc,Realm/Realm.h,--,-x,objective-c,-isysroot,$(xcrun --show-sdk-path),-I,$(pwd) \
+  --build-tool-arguments --objc,Realm/Realm.h,--,-x,objective-c,-isysroot,$(xcrun --show-sdk-path),-I,$(pwd) \
   --module Realm \
   --root-url https://realm.io/docs/objc/2.2.0/api/ \
   --output docs/objc_output \
@@ -326,3 +335,4 @@ read [our blog](https://realm.io/news) or say hi on twitter
 [SourceKitten]: https://github.com/jpsim/SourceKitten "SourceKitten"
 [bundler]: https://rubygems.org/gems/bundler
 [mustache]: https://mustache.github.io "Mustache"
+[spm]: https://swift.org/package-manager/ "Swift Package Manager"

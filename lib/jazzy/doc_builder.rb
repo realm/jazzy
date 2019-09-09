@@ -65,12 +65,6 @@ module Jazzy
             SourceKitten.run_sourcekitten(arguments)
           end
         end
-        unless $?.success?
-          warn 'Please pass in xcodebuild arguments using -x'
-          warn 'If build arguments are correct, please file an issue on ' \
-            'https://github.com/realm/jazzy/issues'
-          exit $?.exitstatus || 1
-        end
       end
 
       build_docs_for_sourcekitten_output(stdout, options)
