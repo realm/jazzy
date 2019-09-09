@@ -55,15 +55,13 @@ module Jazzy
     def self.build(options)
       if options.sourcekitten_sourcefile
         stdout = options.sourcekitten_sourcefile.read
+      elsif options.podspec_configured
+        pod_documenter = PodspecDocumenter.new(options.podspec)
+        stdout = pod_documenter.sourcekitten_output(options)
       else
-        if options.podspec_configured
-          pod_documenter = PodspecDocumenter.new(options.podspec)
-          stdout = pod_documenter.sourcekitten_output(options)
-        else
-          stdout = Dir.chdir(options.source_directory) do
-            arguments = SourceKitten.arguments_from_options(options)
-            SourceKitten.run_sourcekitten(arguments)
-          end
+        stdout = Dir.chdir(options.source_directory) do
+          arguments = SourceKitten.arguments_from_options(options)
+          SourceKitten.run_sourcekitten(arguments)
         end
       end
 

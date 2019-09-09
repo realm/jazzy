@@ -8,7 +8,7 @@
 
 Both Swift and Objective-C projects are supported.
 
-*Objective-C support was recently added, so please report any issues you find.*
+*SwiftPM support was recently added, so please report any issues you find.*
 
 Instead of parsing your source files, `jazzy` hooks into [Clang][clang] and
 [SourceKit][sourcekit] to use the [AST][ast] representation of your code and
