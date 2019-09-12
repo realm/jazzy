@@ -139,8 +139,8 @@ module Jazzy
             warn 'A compile error prevented ' + doc.fully_qualified_name +
                  ' from receiving a unique USR. Documentation may be ' \
                  'incomplete. Please check for compile errors by running ' \
-                 '`xcodebuild ' \
-                 "#{Config.instance.xcodebuild_arguments.shelljoin}`."
+                 '`xcodebuild` or `swift build` with arguments ' \
+                 "`#{Config.instance.build_tool_arguments.shelljoin}`."
           end
           id = doc.usr
           unless id
@@ -182,22 +182,31 @@ module Jazzy
       end.select { |x| x }.flatten(1)
     end
 
+    def self.use_spm?(options)
+      options.swift_build_tool == :spm ||
+        (!options.swift_build_tool_configured &&
+         Dir['*.xcodeproj'].empty?)
+    end
+
     # Builds SourceKitten arguments based on Jazzy options
     def self.arguments_from_options(options)
       arguments = ['doc']
-      arguments += if options.objc_mode
-                     objc_arguments_from_options(options)
-                   elsif !options.module_name.empty?
-                     ['--module-name', options.module_name, '--']
-                   else
-                     ['--']
-                   end
-      arguments + options.xcodebuild_arguments
+      if options.objc_mode
+        arguments += objc_arguments_from_options(options)
+      else
+        arguments += ['--spm'] if use_spm?(options)
+        if options.module_name_configured
+          arguments += ['--module-name', options.module_name]
+        end
+        arguments += ['--']
+      end
+
+      arguments + options.build_tool_arguments
     end
 
     def self.objc_arguments_from_options(options)
       arguments = []
-      if options.xcodebuild_arguments.empty?
+      if options.build_tool_arguments.empty?
         arguments += ['--objc', options.umbrella_header.to_s, '--', '-x',
                       'objective-c', '-isysroot',
                       `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,

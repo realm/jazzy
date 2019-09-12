@@ -13,6 +13,19 @@
 * Update bundled jQuery to 3.4.1 (all themes).  
   [Paul Idstein](https://github.com/idstein)
 
+* Support Xcode 11 Swift projects that pass a response file to the Swift
+  compiler.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1087](https://github.com/realm/jazzy/issues/1087)
+
+* Generate Swift docs from a Swift Package Manager package without
+  requiring an Xcode project file.  Add `--swift-build-tool` to choose
+  the build method if both `.xcodeproj` and `Package.swift` files are
+  present.  Add `--build-tool-flags` as a preferred alias for
+  `--xcodebuild-flags`.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#487](https://github.com/realm/jazzy/issues/487)
+
 ##### Bug Fixes
 
 * Preserve non-latin characters in guide filenames and heading IDs.  
@@ -23,6 +36,10 @@
   characters.  
   [John Fairhurst](https://github.com/johnfairh)
   [#945](https://github.com/realm/jazzy/issues/945)
+
+* Fix crash on files with misplaced documentation comments.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1083](https://github.com/realm/jazzy/issues/1083)
 
 ## 0.10.0
 
