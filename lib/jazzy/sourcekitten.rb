@@ -185,7 +185,9 @@ module Jazzy
     def self.use_spm?(options)
       options.swift_build_tool == :spm ||
         (!options.swift_build_tool_configured &&
-         Dir['*.xcodeproj'].empty?)
+         Dir['*.xcodeproj', '*.xcworkspace'].empty? &&
+         !options.build_tool_arguments.include?('-project') &&
+         !options.build_tool_arguments.include?('-workspace'))
     end
 
     # Builds SourceKitten arguments based on Jazzy options
