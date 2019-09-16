@@ -23,8 +23,11 @@ unacceptable behavior to [info@realm.io](mailto:info@realm.io).
 
 ## Requirements
 
-* Development tools that can build the project you wish to document.  Jazzy supports
-  both [Xcode][xcode] and [Swift Package Manager][spm] projects.
+You need development tools to build the project you wish to document.  Jazzy supports
+both [Xcode][xcode] and [Swift Package Manager][spm] projects.
+
+Jazzy expects to be running on __macOS__.  See [below](#linux) for tips to run Jazzy
+on Linux.
 
 ## Installation
 
@@ -241,6 +244,24 @@ For example to use Xcode 9.4:
 ```shell
 jazzy --swift-version 4.1.2
 ```
+
+## Linux
+
+Jazzy uses [SourceKitten][sourcekitten] to communicate with the Swift build
+environment and compiler.  The `sourcekitten` binary included in the Jazzy gem
+is built for macOS and so does not run on other operating systems.
+
+To use Jazzy on Linux you first need to install and build `sourcekitten`
+following instructions from [SourceKitten's GitHub repository][sourcekitten].
+
+Then to generate documentation for a SwiftPM project, instead of running just
+`jazzy` do:
+```shell
+sourcekitten doc --spm > doc.json
+jazzy --sourcekitten-sourcefile doc.json
+```
+
+We hope to improve this process in the future.
 
 ## Troubleshooting
 
