@@ -10,7 +10,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Don't use SwiftPM if there is an Xcode workspace or project in a non-root
+  directory.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1103](https://github.com/realm/jazzy/issues/1103)
 
 ## 0.11.0
 
