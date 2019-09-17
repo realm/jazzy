@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jazzy (0.11.0)
+    jazzy (0.11.1)
       cocoapods (~> 1.5)
       mustache (~> 1.1)
       open4
