@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Generate Swift docs with Xcode 11 and paths with spaces.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1108](https://github.com/realm/jazzy/issues/1108)
 
 ## 0.11.1
 
