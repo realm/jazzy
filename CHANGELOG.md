@@ -14,6 +14,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1108](https://github.com/realm/jazzy/issues/1108)
 
+* Reinstate guessing of module name from podspec, broken in 0.11.0.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1109](https://github.com/realm/jazzy/issues/1109)
+
 ## 0.11.1
 
 ##### Breaking

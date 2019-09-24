@@ -197,7 +197,7 @@ module Jazzy
         arguments += objc_arguments_from_options(options)
       else
         arguments += ['--spm'] if use_spm?(options)
-        if options.module_name_configured
+        unless options.module_name.empty?
           arguments += ['--module-name', options.module_name]
         end
         arguments += ['--']
