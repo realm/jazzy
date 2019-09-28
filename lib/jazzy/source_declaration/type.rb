@@ -77,7 +77,7 @@ module Jazzy
         kind == 'sourcekitten.source.lang.objc.decl.class'
       end
 
-      def is_swift_type?
+      def swift_type?
         kind.include? 'swift'
       end
 

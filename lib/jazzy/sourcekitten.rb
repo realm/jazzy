@@ -265,7 +265,7 @@ module Jazzy
       type = SourceDeclaration::Type.new(doc['key.kind'])
 
       # Always document Objective-C declarations.
-      return true if !type.is_swift_type?
+      return true unless type.swift_type?
 
       # Don't document @available declarations with no USR, since it means
       # they're unavailable.
@@ -298,7 +298,7 @@ module Jazzy
 
       filepath = doc['key.filepath']
 
-      if !declaration.is_swift? || should_mark_undocumented(filepath)
+      if !declaration.swift? || should_mark_undocumented(filepath)
         @stats.add_undocumented(declaration)
         return nil if @skip_undocumented
         declaration.abstract = undocumented_abstract
@@ -323,12 +323,14 @@ module Jazzy
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
-      if declaration.is_swift?
+      if declaration.swift?
         declaration.declaration =
-          Highlighter.highlight(make_swift_declaration(doc, declaration), declaration.highlight_language)
+          Highlighter.highlight(make_swift_declaration(doc, declaration),
+                                                       declaration.highlight_language)
       else
         declaration.declaration =
-          Highlighter.highlight(doc['key.parsed_declaration'], declaration.highlight_language)
+          Highlighter.highlight(doc['key.parsed_declaration'],
+                                declaration.highlight_language)
         declaration.other_language_declaration =
           Highlighter.highlight(doc['key.swift_declaration'], 'swift')
       end
