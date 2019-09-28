@@ -320,13 +320,14 @@ module Jazzy
       end.reject { |param| param[:discussion].nil? }
     end
 
+    # rubocop:disable Metrics/MethodLength
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
       if declaration.swift?
         declaration.declaration =
           Highlighter.highlight(make_swift_declaration(doc, declaration),
-                                                       declaration.highlight_language)
+                                declaration.highlight_language)
       else
         declaration.declaration =
           Highlighter.highlight(doc['key.parsed_declaration'],
@@ -349,6 +350,7 @@ module Jazzy
 
       @stats.add_documented
     end
+    # rubocop:enable Metrics/MethodLength
 
     def self.make_deprecation_info(doc, declaration)
       if declaration.deprecated
