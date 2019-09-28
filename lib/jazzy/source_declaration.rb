@@ -13,6 +13,20 @@ module Jazzy
       children.any?
     end
 
+    def language
+      type.is_swift_type? ? 'Swift' : 'Objective-C'
+    end
+
+    def is_swift?
+      type.is_swift_type?
+    end
+
+    # Magic strings for use by the specific syntax highlighting library
+    # Might be better to have this mapping take place in Highlighter.rb
+    def highlight_language
+      type.is_swift_type? ? 'swift' : 'objective_c'
+    end
+
     # When referencing this item from its parent category,
     # include the content or just link to it directly?
     def omit_content_from_parent?

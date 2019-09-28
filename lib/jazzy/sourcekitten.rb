@@ -262,8 +262,10 @@ module Jazzy
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
+      type = SourceDeclaration::Type.new(doc['key.kind'])
+
       # Always document Objective-C declarations.
-      return true if Config.instance.objc_mode
+      return true if !type.is_swift_type?
 
       # Don't document @available declarations with no USR, since it means
       # they're unavailable.
@@ -272,7 +274,6 @@ module Jazzy
       end
 
       # Document extensions & enum elements, since we can't tell their ACL.
-      type = SourceDeclaration::Type.new(doc['key.kind'])
       return true if type.swift_enum_element?
       if type.swift_extension?
         return Array(doc['key.substructure']).any? do |subdoc|
@@ -296,14 +297,14 @@ module Jazzy
       make_default_doc_info(declaration)
 
       filepath = doc['key.filepath']
-      objc = Config.instance.objc_mode
-      if objc || should_mark_undocumented(filepath)
+
+      if !declaration.is_swift? || should_mark_undocumented(filepath)
         @stats.add_undocumented(declaration)
         return nil if @skip_undocumented
         declaration.abstract = undocumented_abstract
       else
         declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
-                                               Highlighter.default_language)
+                                               declaration.highlight_language)
       end
 
       declaration
@@ -322,14 +323,14 @@ module Jazzy
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
-      if Config.instance.objc_mode
+      if declaration.is_swift?
         declaration.declaration =
-          Highlighter.highlight(doc['key.parsed_declaration'])
-        declaration.other_language_declaration =
-          Highlighter.highlight(doc['key.swift_declaration'], 'swift')
+          Highlighter.highlight(make_swift_declaration(doc, declaration), declaration.highlight_language)
       else
         declaration.declaration =
-          Highlighter.highlight(make_swift_declaration(doc, declaration))
+          Highlighter.highlight(doc['key.parsed_declaration'], declaration.highlight_language)
+        declaration.other_language_declaration =
+          Highlighter.highlight(doc['key.swift_declaration'], 'swift')
       end
 
       make_deprecation_info(doc, declaration)
@@ -339,7 +340,7 @@ module Jazzy
       end
 
       declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
-                                             Highlighter.default_language)
+                                             declaration.highlight_language)
       declaration.discussion = ''
       declaration.return = Markdown.rendered_returns
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
@@ -832,13 +833,10 @@ module Jazzy
       docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = expand_extensions(docs)
       docs = deduplicate_declarations(docs)
-      if Config.instance.objc_mode
-        docs = reject_objc_types(docs)
-      else
-        # Remove top-level enum cases because it means they have an ACL lower
-        # than min_acl
-        docs = docs.reject { |doc| doc.type.swift_enum_element? }
-      end
+      docs = reject_objc_types(docs)
+      # Remove top-level enum cases because it means they have an ACL lower
+      # than min_acl
+      docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
       docs = group_docs(docs)
       make_doc_urls(docs)

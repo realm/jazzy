@@ -16,16 +16,7 @@ module Jazzy
       end
     end
 
-    # What Rouge calls the language
-    def self.default_language
-      if Config.instance.objc_mode
-        'objective_c'
-      else
-        'swift'
-      end
-    end
-
-    def self.highlight(source, language = default_language)
+    def self.highlight(source, language)
       source && Rouge.highlight(source, language, Formatter.new(language))
     end
   end

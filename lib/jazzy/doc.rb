@@ -32,10 +32,8 @@ module Jazzy
       config.objc_mode && config.hide_declarations != 'objc'
     end
 
-    def language
-      objc_first? ? 'Objective-C' : 'Swift'
-    end
-
+    # TODO: use same process to refactor this
+    # also test that haven't broken hiding
     def language_stub
       objc_first? ? 'objc' : 'swift'
     end
