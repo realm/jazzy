@@ -352,7 +352,6 @@ module Jazzy
 
       @stats.add_documented
     end
-    # rubocop:enable Metrics/MethodLength
 
     def self.make_deprecation_info(doc, declaration)
       if declaration.deprecated
