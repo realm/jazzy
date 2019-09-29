@@ -304,7 +304,7 @@ module Jazzy
         declaration.abstract = undocumented_abstract
       else
         declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
-                                               declaration.highlight_language)
+                                               declaration.language)
       end
 
       declaration
@@ -320,22 +320,24 @@ module Jazzy
       end.reject { |param| param[:discussion].nil? }
     end
 
-    # rubocop:disable Metrics/MethodLength
-    def self.make_doc_info(doc, declaration)
-      return unless should_document?(doc)
-
+    def self.highlight_declaration(doc, declaration)
       if declaration.swift?
         declaration.declaration =
           Highlighter.highlight(make_swift_declaration(doc, declaration),
-                                declaration.highlight_language)
+                                declaration.language)
       else
         declaration.declaration =
           Highlighter.highlight(doc['key.parsed_declaration'],
-                                declaration.highlight_language)
+                                declaration.language)
         declaration.other_language_declaration =
           Highlighter.highlight(doc['key.swift_declaration'], 'swift')
       end
+    end
 
+    def self.make_doc_info(doc, declaration)
+      return unless should_document?(doc)
+
+      highlight_declaration(doc, declaration)
       make_deprecation_info(doc, declaration)
 
       unless doc['key.doc.full_as_xml']
@@ -343,7 +345,7 @@ module Jazzy
       end
 
       declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
-                                             declaration.highlight_language)
+                                             declaration.language)
       declaration.discussion = ''
       declaration.return = Markdown.rendered_returns
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
