@@ -320,20 +320,6 @@ module Jazzy
       end.reject { |param| param[:discussion].nil? }
     end
 
-    def self.highlight_declaration(doc, declaration)
-      if declaration.swift?
-        declaration.declaration =
-          Highlighter.highlight(make_swift_declaration(doc, declaration),
-                                declaration.language)
-      else
-        declaration.declaration =
-          Highlighter.highlight(doc['key.parsed_declaration'],
-                                declaration.language)
-        declaration.other_language_declaration =
-          Highlighter.highlight(doc['key.swift_declaration'], 'swift')
-      end
-    end
-
     def self.make_doc_info(doc, declaration)
       return unless should_document?(doc)
 
@@ -345,12 +331,24 @@ module Jazzy
       end
 
       declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
-                                             declaration.language)
+                                             declaration.highlight_language)
       declaration.discussion = ''
       declaration.return = Markdown.rendered_returns
       declaration.parameters = parameters(doc, Markdown.rendered_parameters)
 
       @stats.add_documented
+    end
+
+    def self.highlight_declaration(doc, declaration)
+      if declaration.swift?
+        declaration.declaration =
+          Highlighter.highlight_swift(make_swift_declaration(doc, declaration))
+      else
+        declaration.declaration =
+          Highlighter.highlight_objc(doc['key.parsed_declaration'])
+        declaration.other_language_declaration =
+          Highlighter.highlight_swift(doc['key.swift_declaration'])
+      end
     end
 
     def self.make_deprecation_info(doc, declaration)

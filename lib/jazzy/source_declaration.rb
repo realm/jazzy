@@ -19,6 +19,10 @@ module Jazzy
       swift? ? 'Swift' : 'Objective-C'
     end
 
+    def highlight_language
+      swift? ? Highlighter::SWIFT : Highlighter::OBJC
+    end
+
     def swift?
       type.swift_type?
     end

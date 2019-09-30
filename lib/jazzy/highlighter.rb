@@ -8,7 +8,7 @@ module Jazzy
 
     class Formatter < Rouge::Formatters::HTML
       def initialize(language)
-        @language = Highlighter.formatted_language(language)
+        @language = language
         super()
       end
 
@@ -19,21 +19,16 @@ module Jazzy
       end
     end
 
-    # Maps the language to the format required by Rouge
-    def self.formatted_language(language)
-      if language.downcase.include? SWIFT
-        SWIFT
-      else
-        OBJC
-      end
+    def self.highlight_swift(source)
+      highlight(source, SWIFT)
+    end
+
+    def self.highlight_objc(source)
+      highlight(source, OBJC)
     end
 
     def self.highlight(source, language)
-      source && Rouge.highlight(
-        source,
-        formatted_language(language),
-        Formatter.new(language),
-      )
+      source && Rouge.highlight(source, language, Formatter.new(language))
     end
   end
 end
