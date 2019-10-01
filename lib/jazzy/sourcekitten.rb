@@ -832,7 +832,7 @@ module Jazzy
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
       @stats = Stats.new
-      sourcekitten_json = filter_files(JSON.parse(sourcekitten_output))
+      sourcekitten_json = filter_files(JSON.parse(sourcekitten_output).flatten)
       docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = expand_extensions(docs)
       docs = deduplicate_declarations(docs)

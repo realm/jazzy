@@ -165,9 +165,10 @@ module Jazzy
       description: 'Back-compatibility alias for build_tool_arguments.'
 
     config_attr :sourcekitten_sourcefile,
-      command_line: ['-s', '--sourcekitten-sourcefile FILEPATH'],
-      description: 'File generated from sourcekitten output to parse',
-      parse: ->(s) { expand_path(s) }
+      command_line: ['-s', '--sourcekitten-sourcefile filepath1,…filepathN',
+                     Array],
+      description: 'Files generated from sourcekitten output to parse',
+      parse: ->(paths) { paths.map { |path| expand_path(path) } }
 
     config_attr :source_directory,
       command_line: '--source-directory DIRPATH',
