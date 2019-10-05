@@ -102,6 +102,14 @@ module Jazzy
       Pathname(Dir[abs_path][0] || abs_path) # Use existing filesystem spelling
     end
 
+    def hide_swift?
+      hide_declarations == 'swift'
+    end
+
+    def hide_objc?
+      hide_declarations == 'objc'
+    end
+
     # ──────── Build ────────
 
     # rubocop:disable Layout/AlignParameters

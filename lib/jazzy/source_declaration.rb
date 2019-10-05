@@ -15,8 +15,10 @@ module Jazzy
     end
 
     # The language in the templates for display
-    def language
-      swift? ? 'Swift' : 'Objective-C'
+    def display_language
+      return 'Swift' if swift?
+
+      Config.instance.hide_objc? ? 'Swift' : 'Objective-C'
     end
 
     def highlight_language
@@ -82,16 +84,16 @@ module Jazzy
     end
 
     def display_declaration
-      if Config.instance.hide_declarations == 'objc'
-        other_language_declaration
-      else
+      if swift?
         declaration
+      else
+        Config.instance.hide_objc? ? other_language_declaration : declaration
       end
     end
 
     def display_other_language_declaration
       other_language_declaration unless
-        %w[swift objc].include? Config.instance.hide_declarations
+        Config.instance.hide_objc? || Config.instance.hide_swift?
     end
 
     attr_accessor :file

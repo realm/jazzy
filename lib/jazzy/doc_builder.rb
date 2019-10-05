@@ -330,7 +330,7 @@ module Jazzy
         name:                       item.name,
         abstract:                   abstract,
         declaration:                item.display_declaration,
-        language:                   item.language,
+        language:                   item.display_language,
         other_language_declaration: item.display_other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,

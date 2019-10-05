@@ -267,6 +267,9 @@ module Jazzy
       # Always document Objective-C declarations.
       return true unless type.swift_type?
 
+      # Don't document Swift types if we are hiding Swift
+      return false if type.swift_type? && Config.instance.hide_swift?
+
       # Don't document @available declarations with no USR, since it means
       # they're unavailable.
       if availability_attribute?(doc) && !doc['key.usr']
@@ -477,8 +480,7 @@ module Jazzy
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
         declaration.objc_name = doc['key.name']
-        documented_name = if Config.instance.hide_declarations == 'objc' &&
-                             doc['key.swift_name']
+        documented_name = if Config.instance.hide_objc? && doc['key.swift_name']
                             doc['key.swift_name']
                           else
                             declaration.objc_name
