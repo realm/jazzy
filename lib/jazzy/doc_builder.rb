@@ -53,8 +53,8 @@ module Jazzy
     # @param [Config] options
     # @return [SourceModule] the documented source module
     def self.build(options)
-      if options.sourcekitten_sourcefile_configured
-        stdout = '[' + options.sourcekitten_sourcefile.map(&:read)
+      if options.sourcekitten_sourcefiles_configured
+        stdout = '[' + options.sourcekitten_sourcefiles.map(&:read)
                               .join(',') + ']'
       elsif options.podspec_configured
         pod_documenter = PodspecDocumenter.new(options.podspec)
