@@ -154,7 +154,7 @@ jazzy \
 
 To generate documentation for mixed Swift and Objective-C projects you will first need to independently generate two [SourceKitten][sourcekitten] files from your sourcecode. One for Swift and one for Objective-C.
 
-You will then need to use the `--sourcekitten-sourcefiles` argument to pass them to jazzy.
+You will then need to use the `--sourcekitten-sourcefile` argument to pass them to jazzy.
 
 #### Example
 
@@ -170,7 +170,7 @@ sourcekitten doc --objc $OBJC_HEADER \
       -I $SOURCE_CODE_DIRECTORY > objcDoc.json
 
 # Feed both outputs to Jazzy as a comma-separated list
-jazzy --sourcekitten-sourcefiles swiftDoc.json,objcDoc.json
+jazzy --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
 ```
 
 ### Themes

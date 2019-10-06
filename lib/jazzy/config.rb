@@ -171,8 +171,8 @@ module Jazzy
       command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
       description: 'Back-compatibility alias for build_tool_arguments.'
 
-    config_attr :sourcekitten_sourcefiles,
-      command_line: ['-s', '--sourcekitten-sourcefiles filepath1,…filepathN',
+    config_attr :sourcekitten_sourcefile,
+      command_line: ['-s', '--sourcekitten-sourcefile filepath1,…filepathN',
                      Array],
       description: 'File(s) generated from sourcekitten output to parse',
       parse: ->(paths) { paths.map { |path| expand_path(path) } }
