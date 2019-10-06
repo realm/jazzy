@@ -151,8 +151,9 @@ module Jazzy
       command_line: '--hide-declarations [objc|swift] ',
       description: 'Hide declarations in the specified language. Given that ' \
                    'generating Swift docs only generates Swift declarations, ' \
-                   'this is useful for hiding a specific interface for either ' \
-                   'Objective-C or mixed Objective-C and Swift projects.',
+                   'this is useful for hiding a specific interface for ' \
+                   'either Objective-C or mixed Objective-C and Swift ' \
+                   'projects.',
       default: ''
 
     config_attr :config_file,
