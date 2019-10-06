@@ -268,7 +268,7 @@ module Jazzy
       return true unless type.swift_type?
 
       # Don't document Swift types if we are hiding Swift
-      return false if type.swift_type? && Config.instance.hide_swift?
+      return false if Config.instance.hide_swift?
 
       # Don't document @available declarations with no USR, since it means
       # they're unavailable.
