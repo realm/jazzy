@@ -307,7 +307,7 @@ module Jazzy
         declaration.abstract = undocumented_abstract
       else
         declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
-                                               declaration.language)
+                                               declaration.display_language)
       end
 
       declaration
