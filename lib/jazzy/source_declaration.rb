@@ -14,19 +14,12 @@ module Jazzy
       children.any?
     end
 
-    # The language in the templates for display
-    def display_language
-      return 'Swift' if swift?
-
-      Config.instance.hide_objc? ? 'Swift' : 'Objective-C'
+    def swift?
+      type.swift_type?
     end
 
     def highlight_language
       swift? ? Highlighter::SWIFT : Highlighter::OBJC
-    end
-
-    def swift?
-      type.swift_type?
     end
 
     # When referencing this item from its parent category,
@@ -83,12 +76,17 @@ module Jazzy
       name.split(/[\(\)]/) if type.objc_category?
     end
 
+    # The language in the templates for display
+    def display_language
+      return 'Swift' if swift?
+
+      Config.instance.hide_objc? ? 'Swift' : 'Objective-C'
+    end
+
     def display_declaration
-      if swift?
-        declaration
-      else
-        Config.instance.hide_objc? ? other_language_declaration : declaration
-      end
+      return declaration if swift?
+
+      Config.instance.hide_objc? ? other_language_declaration : declaration
     end
 
     def display_other_language_declaration

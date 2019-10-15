@@ -152,22 +152,26 @@ jazzy \
 
 ### Mixed Objective-C / Swift
 
-To generate documentation for mixed Swift and Objective-C projects you will first need to independently generate two [SourceKitten][sourcekitten] files from your sourcecode. One for Swift and one for Objective-C.
+*This feature is new and has some rough edges.*
 
-You will then need to use the `--sourcekitten-sourcefile` argument to pass them to jazzy.
+To generate documentation for a mixed Swift and Objective-C project you must first
+generate two [SourceKitten][sourcekitten] files: one for Swift and one for Objective-C.
+
+Then pass these files to Jazzy together using `--sourcekitten-sourcefile`.
 
 #### Example
 
-The actual commands for generating the [SourceKitten][sourcekitten] output will likely vary but your workflow will look something like this:
+This is how docs are generated from an Xcode project for a module containing both
+Swift and Objective-C files:
 
 ```shell
-# Generate Swift Sourcekitten output
-sourcekitten doc -- -workspace $PROJECT_NAME.xcworkspace -scheme $SCHEME_NAME > swiftDoc.json
+# Generate Swift SourceKitten output
+sourcekitten doc -- -workspace MyProject.xcworkspace -scheme MyScheme > swiftDoc.json
 
-# Generate Objective-C Sourcekitten output
-sourcekitten doc --objc $OBJC_HEADER \
+# Generate Objective-C SourceKitten output
+sourcekitten doc --objc $(pwd)/MyProject/MyProject.h \
       -- -x objective-c  -isysroot $(xcrun --show-sdk-path --sdk iphonesimulator) \
-      -I $SOURCE_CODE_DIRECTORY > objcDoc.json
+      -I $(pwd) -fmodules > objcDoc.json
 
 # Feed both outputs to Jazzy as a comma-separated list
 jazzy --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
@@ -354,7 +358,7 @@ Instructions to build SourceKitten from source can be found at
 - Leverage modern HTML templating ([Mustache][mustache])
 - Leverage the power and accuracy of the [Clang AST][ast] and [SourceKit][sourcekit]
 - Support for Dash docsets
-- Support Swift and Objective-C (*mixed projects are a work in progress*)
+- Support Swift and Objective-C
 
 ## License
 
