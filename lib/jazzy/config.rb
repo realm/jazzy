@@ -102,6 +102,14 @@ module Jazzy
       Pathname(Dir[abs_path][0] || abs_path) # Use existing filesystem spelling
     end
 
+    def hide_swift?
+      hide_declarations == 'swift'
+    end
+
+    def hide_objc?
+      hide_declarations == 'objc'
+    end
+
     # ──────── Build ────────
 
     # rubocop:disable Layout/AlignParameters
@@ -143,9 +151,9 @@ module Jazzy
       command_line: '--hide-declarations [objc|swift] ',
       description: 'Hide declarations in the specified language. Given that ' \
                    'generating Swift docs only generates Swift declarations, ' \
-                   'this is only really useful to display just the Swift ' \
-                   'declarations & names when generating docs for an ' \
-                   'Objective-C framework.',
+                   'this is useful for hiding a specific interface for ' \
+                   'either Objective-C or mixed Objective-C and Swift ' \
+                   'projects.',
       default: ''
 
     config_attr :config_file,
@@ -165,9 +173,10 @@ module Jazzy
       description: 'Back-compatibility alias for build_tool_arguments.'
 
     config_attr :sourcekitten_sourcefile,
-      command_line: ['-s', '--sourcekitten-sourcefile FILEPATH'],
-      description: 'File generated from sourcekitten output to parse',
-      parse: ->(s) { expand_path(s) }
+      command_line: ['-s', '--sourcekitten-sourcefile filepath1,…filepathN',
+                     Array],
+      description: 'File(s) generated from sourcekitten output to parse',
+      parse: ->(paths) { paths.map { |path| expand_path(path) } }
 
     config_attr :source_directory,
       command_line: '--source-directory DIRPATH',

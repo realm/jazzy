@@ -150,6 +150,33 @@ jazzy \
   --module AFNetworking
 ```
 
+### Mixed Objective-C / Swift
+
+*This feature is new and has some rough edges.*
+
+To generate documentation for a mixed Swift and Objective-C project you must first
+generate two [SourceKitten][sourcekitten] files: one for Swift and one for Objective-C.
+
+Then pass these files to Jazzy together using `--sourcekitten-sourcefile`.
+
+#### Example
+
+This is how docs are generated from an Xcode project for a module containing both
+Swift and Objective-C files:
+
+```shell
+# Generate Swift SourceKitten output
+sourcekitten doc -- -workspace MyProject.xcworkspace -scheme MyScheme > swiftDoc.json
+
+# Generate Objective-C SourceKitten output
+sourcekitten doc --objc $(pwd)/MyProject/MyProject.h \
+      -- -x objective-c  -isysroot $(xcrun --show-sdk-path --sdk iphonesimulator) \
+      -I $(pwd) -fmodules > objcDoc.json
+
+# Feed both outputs to Jazzy as a comma-separated list
+jazzy --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
+```
+
 ### Themes
 
 Three themes are provided with jazzy: `apple` (default), `fullwidth` and `jony`.
@@ -331,7 +358,7 @@ Instructions to build SourceKitten from source can be found at
 - Leverage modern HTML templating ([Mustache][mustache])
 - Leverage the power and accuracy of the [Clang AST][ast] and [SourceKit][sourcekit]
 - Support for Dash docsets
-- Support Swift and Objective-C (*mixed projects are a work in progress*)
+- Support Swift and Objective-C
 
 ## License
 

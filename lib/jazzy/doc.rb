@@ -32,10 +32,6 @@ module Jazzy
       config.objc_mode && config.hide_declarations != 'objc'
     end
 
-    def language
-      objc_first? ? 'Objective-C' : 'Swift'
-    end
-
     def language_stub
       objc_first? ? 'objc' : 'swift'
     end

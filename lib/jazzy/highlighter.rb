@@ -3,6 +3,9 @@ require 'rouge'
 module Jazzy
   # This module helps highlight code
   module Highlighter
+    SWIFT = 'swift'.freeze
+    OBJC = 'objective_c'.freeze
+
     class Formatter < Rouge::Formatters::HTML
       def initialize(language)
         @language = language
@@ -16,16 +19,15 @@ module Jazzy
       end
     end
 
-    # What Rouge calls the language
-    def self.default_language
-      if Config.instance.objc_mode
-        'objective_c'
-      else
-        'swift'
-      end
+    def self.highlight_swift(source)
+      highlight(source, SWIFT)
     end
 
-    def self.highlight(source, language = default_language)
+    def self.highlight_objc(source)
+      highlight(source, OBJC)
+    end
+
+    def self.highlight(source, language)
       source && Rouge.highlight(source, language, Formatter.new(language))
     end
   end

@@ -77,6 +77,10 @@ module Jazzy
         kind == 'sourcekitten.source.lang.objc.decl.class'
       end
 
+      def swift_type?
+        kind.include? 'swift'
+      end
+
       def swift_enum_case?
         kind == 'source.lang.swift.decl.enumcase'
       end

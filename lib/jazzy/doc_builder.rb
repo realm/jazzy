@@ -53,8 +53,9 @@ module Jazzy
     # @param [Config] options
     # @return [SourceModule] the documented source module
     def self.build(options)
-      if options.sourcekitten_sourcefile
-        stdout = options.sourcekitten_sourcefile.read
+      if options.sourcekitten_sourcefile_configured
+        stdout = '[' + options.sourcekitten_sourcefile.map(&:read)
+                              .join(',') + ']'
       elsif options.podspec_configured
         pod_documenter = PodspecDocumenter.new(options.podspec)
         stdout = pod_documenter.sourcekitten_output(options)
@@ -329,6 +330,7 @@ module Jazzy
         name:                       item.name,
         abstract:                   abstract,
         declaration:                item.display_declaration,
+        language:                   item.display_language,
         other_language_declaration: item.display_other_language_declaration,
         usr:                        item.usr,
         dash_type:                  item.type.dash_type,

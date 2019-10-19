@@ -6,7 +6,11 @@
 
 ##### Enhancements
 
-* None.
+* Support for mixed Swift-ObjC modules: generate two sets of SourceKitten
+  json and pass them on using `--sourcekitten-sourcefile`.  
+  [Joe Susnick](https://github.com/joesus)
+  [John Fairhurst](https://github.com/johnfairh)
+  [#447](https://github.com/realm/jazzy/issues/447)
 
 ##### Bug Fixes
 

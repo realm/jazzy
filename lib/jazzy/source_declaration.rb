@@ -1,6 +1,7 @@
 require 'jazzy/source_declaration/access_control_level'
 require 'jazzy/source_declaration/type'
 
+# rubocop:disable Metrics/ClassLength
 module Jazzy
   class SourceDeclaration
     # kind of declaration (e.g. class, variable, function)
@@ -11,6 +12,14 @@ module Jazzy
     # Give the item its own page or just inline into parent?
     def render_as_page?
       children.any?
+    end
+
+    def swift?
+      type.swift_type?
+    end
+
+    def highlight_language
+      swift? ? Highlighter::SWIFT : Highlighter::OBJC
     end
 
     # When referencing this item from its parent category,
@@ -67,17 +76,22 @@ module Jazzy
       name.split(/[\(\)]/) if type.objc_category?
     end
 
+    # The language in the templates for display
+    def display_language
+      return 'Swift' if swift?
+
+      Config.instance.hide_objc? ? 'Swift' : 'Objective-C'
+    end
+
     def display_declaration
-      if Config.instance.hide_declarations == 'objc'
-        other_language_declaration
-      else
-        declaration
-      end
+      return declaration if swift?
+
+      Config.instance.hide_objc? ? other_language_declaration : declaration
     end
 
     def display_other_language_declaration
       other_language_declaration unless
-        %w[swift objc].include? Config.instance.hide_declarations
+        Config.instance.hide_objc? || Config.instance.hide_swift?
     end
 
     attr_accessor :file
