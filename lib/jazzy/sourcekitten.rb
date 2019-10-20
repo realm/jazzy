@@ -584,8 +584,8 @@ module Jazzy
 
     # Two declarations get merged if they have the same deduplication key.
     def self.deduplication_key(decl, root_decls)
-      if decl.type.swift_extensible? || decl.type.swift_extension?
-        [decl.usr, decl.name]
+      if decl.type.swift_extension?
+        [decl.swift_extension_objc_name, :objc_class_and_categories]
       elsif mergeable_objc?(decl, root_decls)
         name, _ = decl.objc_category_name || decl.name
         [name, :objc_class_and_categories]
