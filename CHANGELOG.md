@@ -14,7 +14,8 @@
 
 ##### Bug Fixes
 
-* None.
+* Stop displaying type attributes on extension declarations.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.11.2
 

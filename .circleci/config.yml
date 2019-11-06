@@ -12,25 +12,16 @@ aliases:
     BUNDLE_RETRY: 3
     BUNDLE_PATH: vendor/bundle
 
-  - &shell
-    /bin/bash --login -eo pipefail
-
-  - &set-ruby-version
-    echo "ruby-2.4" > ~/.ruby-version
-
 version: 2
 jobs:
 
   swift:
     macos:
-      xcode: "10.2.0"
+      xcode: "11.2.0"
     environment: *bundler-environment
-    # Used to invoke chruby
-    shell: *shell
     steps:
       - checkout
       - restore_cache: *restore-mac-bundler-cache
-      - run: *set-ruby-version
       - run: bundle install
       - run: git submodule update --init --recursive
       - run: bundle exec rake swift_spec
@@ -38,14 +29,11 @@ jobs:
 
   objc:
     macos:
-      xcode: "10.2.0"
+      xcode: "11.2.0"
     environment: *bundler-environment
-    # Used to invoke chruby
-    shell: *shell
     steps:
       - checkout
       - restore_cache: *restore-mac-bundler-cache
-      - run: *set-ruby-version
       - run: bundle install
       - run: git submodule update --init --recursive
       - run: bundle exec rake objc_spec
@@ -53,16 +41,13 @@ jobs:
 
   cocoapods:
     macos:
-      xcode: "10.2.0"
+      xcode: "11.2.0"
     environment: *bundler-environment
-    # Used to invoke chruby
-    shell: *shell
     steps:
       - checkout
       - restore_cache:
           key: cocoapods
       - restore_cache: *restore-mac-bundler-cache
-      - run: *set-ruby-version
       - run: bundle install
       - run: git submodule update --init --recursive
       - run: bundle exec rake cocoapods_spec
@@ -76,8 +61,6 @@ jobs:
     docker:
       - image: circleci/ruby:2.4-node
         environment: *bundler-environment
-        # Used to invoke chruby
-        shell: *shell
     steps:
       - checkout
       - restore_cache:

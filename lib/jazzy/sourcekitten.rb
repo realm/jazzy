@@ -408,8 +408,7 @@ module Jazzy
         parsed &&
           (annotated.include?(' = default') || # SR-2608
            parsed.match('@autoclosure|@escaping') || # SR-6321
-           parsed.include?("\n") ||
-           parsed.include?('extension '))
+           parsed.include?("\n"))
     end
 
     # Replace the fully qualified name of a type with its base name
@@ -430,6 +429,9 @@ module Jazzy
 
       # From source code
       parsed_decl = doc['key.parsed_declaration']
+
+      # Don't present type attributes on extensions
+      return parsed_decl if declaration.type.extension?
 
       decl =
         if prefer_parsed_decl?(parsed_decl, annotated_decl_body)
