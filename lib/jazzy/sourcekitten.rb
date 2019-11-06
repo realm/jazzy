@@ -65,7 +65,7 @@ module Jazzy
       type_categories, uncategorized = group_type_categories(
         docs, custom_categories.any? ? 'Other ' : ''
       )
-      custom_categories + type_categories + uncategorized
+      custom_categories + merge_categories(type_categories) + uncategorized
     end
 
     def self.group_custom_categories(docs)
@@ -96,6 +96,19 @@ module Jazzy
         )
       end
       [group.compact, docs]
+    end
+
+    # Join categories with the same name (eg. ObjC and Swift classes)
+    def self.merge_categories(categories)
+      merged = []
+      categories.each do |new_category|
+        if existing = merged.find { |c| c.name == new_category.name }
+          existing.children += new_category.children
+        else
+          merged.append(new_category)
+        end
+      end
+      merged
     end
 
     def self.make_group(group, name, abstract, url_name = nil)
