@@ -17,6 +17,9 @@
 * Stop displaying type attributes on extension declarations.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Show ObjC and Swift classes (etc.) in the same category.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ## 0.11.2
 
 ##### Breaking
