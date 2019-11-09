@@ -20,6 +20,9 @@
 * Show ObjC and Swift classes (etc.) in the same category.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Merge Swift extensions into ObjC classes.  
+  [John Fairhurst](https://github.com/johnfairh) [Joe Susnick](https://github.com/joesus)
+
 ## 0.11.2
 
 ##### Breaking

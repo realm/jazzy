@@ -549,6 +549,10 @@ module Jazzy
       decls.map do |decl|
         next decl unless decl.type.extension? && decl.name.include?('.')
 
+        # Don't expand the Swift namespace if we're in ObjC mode.
+        # ex: NS_SWIFT_NAME(Foo.Bar) should not create top-level Foo
+        next decl if decl.swift_objc_extension? && !Config.instance.hide_objc?
+
         name_parts = decl.name.split('.')
         decl.name = name_parts.pop
         expand_extension(decl, name_parts, decls)
@@ -599,11 +603,18 @@ module Jazzy
 
     # Two declarations get merged if they have the same deduplication key.
     def self.deduplication_key(decl, root_decls)
-      if decl.type.swift_extension?
+      # Swift extension of objc class
+      if decl.swift_objc_extension?
         [decl.swift_extension_objc_name, :objc_class_and_categories]
+      # Swift type or Swift extension of Swift type
+      elsif decl.type.swift_extensible? || decl.type.swift_extension?
+        [decl.usr, decl.name]
+      # Objc categories and classes
       elsif mergeable_objc?(decl, root_decls)
-        name, _ = decl.objc_category_name || decl.name
+        # Using the ObjC name to match swift_objc_extension.
+        name, _ = decl.objc_category_name || decl.objc_name
         [name, :objc_class_and_categories]
+      # Non-mergable declarations (funcs, typedefs etc...)
       else
         [decl.usr, decl.name, decl.type.kind]
       end
