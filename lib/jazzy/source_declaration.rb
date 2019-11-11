@@ -76,6 +76,16 @@ module Jazzy
       name.split(/[\(\)]/) if type.objc_category?
     end
 
+    def swift_objc_extension?
+      type.swift_extension? && usr && usr.start_with?('c:objc')
+    end
+
+    def swift_extension_objc_name
+      return unless type.swift_extension? && usr
+
+      usr.split('(cs)').last
+    end
+
     # The language in the templates for display
     def display_language
       return 'Swift' if swift?
