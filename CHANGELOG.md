@@ -1,4 +1,4 @@
-## Master
+## 0.12.0
 
 ##### Breaking
 
@@ -21,7 +21,8 @@
   [John Fairhurst](https://github.com/johnfairh)
 
 * Merge Swift extensions into ObjC classes.  
-  [John Fairhurst](https://github.com/johnfairh) [Joe Susnick](https://github.com/joesus)
+  [John Fairhurst](https://github.com/johnfairh)
+  [Joe Susnick](https://github.com/joesus)
 
 ## 0.11.2
 
