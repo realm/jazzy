@@ -182,7 +182,7 @@ header {
   background-color: $bg_color;
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
   img {
     padding-right: 6px;
     vertical-align: -4px;
@@ -204,7 +204,7 @@ header {
 #breadcrumbs-container {
   background-color: $bg_color;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
 }
 
@@ -310,6 +310,16 @@ header {
       margin: -$content_top_offset 0 0;
     }
   }
+
+  .section-name {
+    p {
+       margin-bottom: inherit;
+       line-height: inherit;
+    }
+    code {
+      color: inherit;
+    }
+  }
 }
 
 .highlight {
@@ -352,6 +362,29 @@ header {
       display: block;
       padding-top: $content_top_offset;
       margin: -$content_top_offset 0 0;
+    }
+  }
+}
+
+.section-name-container {
+  position: relative;
+  display: inline-block;
+
+  .section-name-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+  }
+
+  .section-name {
+    position: relative;
+    pointer-events: none;
+    z-index: 1;
+    a {
+      pointer-events: auto;
     }
   }
 }

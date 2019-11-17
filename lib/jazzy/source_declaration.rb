@@ -130,6 +130,7 @@ module Jazzy
     attr_accessor :deprecation_message
     attr_accessor :unavailable
     attr_accessor :unavailable_message
+    attr_accessor :generic_requirements
 
     def usage_discouraged?
       unavailable || deprecated
@@ -137,6 +138,19 @@ module Jazzy
 
     def filepath
       CGI.unescape(url)
+    end
+
+    def constrained_extension?
+      type.swift_extension? &&
+        generic_requirements
+    end
+
+    def mark_for_children
+      if constrained_extension?
+        SourceMark.new_generic_requirements(generic_requirements)
+      else
+        SourceMark.new
+      end
     end
 
     def alternative_abstract

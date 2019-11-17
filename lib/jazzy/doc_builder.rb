@@ -350,9 +350,10 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
 
-    def self.make_task(mark, uid, items)
+    def self.make_task(mark, uid, items, doc_model)
       {
         name: mark.name,
+        name_html: (render(doc_model, mark.name) if mark.name),
         uid: URI.encode(uid),
         items: items,
         pre_separator: mark.has_start_dash,
@@ -376,7 +377,7 @@ module Jazzy
         else
           mark_names_counts[uid] = 1
         end
-        make_task(mark, uid, items)
+        make_task(mark, uid, items, mark_children.first)
       end
     end
 

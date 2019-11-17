@@ -124,6 +124,18 @@ module Jazzy
       end
     end
 
+    # Merge consecutive sections with the same mark into one section
+    def self.merge_consecutive_marks(docs)
+      prev_mark = nil
+      docs.each do |doc|
+        if prev_mark && prev_mark.can_merge?(doc.mark)
+          doc.mark = prev_mark
+        end
+        prev_mark = doc.mark
+        merge_consecutive_marks(doc.children)
+      end
+    end
+
     def self.sanitize_filename(doc)
       unsafe_filename = doc.url_name || doc.name
       sanitzation_enabled = Config.instance.use_safe_filenames
@@ -467,14 +479,10 @@ module Jazzy
     end
 
     def self.make_substructure(doc, declaration)
-      declaration.children = if doc['key.substructure']
-                               make_source_declarations(
-                                 doc['key.substructure'],
-                                 declaration,
-                               )
-                             else
-                               []
-                             end
+      return [] unless subdocs = doc['key.substructure']
+      make_source_declarations(subdocs,
+                               declaration,
+                               declaration.mark_for_children)
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -531,9 +539,11 @@ module Jazzy
         declaration.end_line = doc['key.parsed_scope.end']
         declaration.deprecated = doc['key.always_deprecated']
         declaration.unavailable = doc['key.always_unavailable']
+        declaration.generic_requirements =
+          find_generic_requirements(doc['key.parsed_declaration'])
 
         next unless make_doc_info(doc, declaration)
-        make_substructure(doc, declaration)
+        declaration.children = make_substructure(doc, declaration)
         next if declaration.type.extension? && declaration.children.empty?
         declarations << declaration
       end
@@ -542,6 +552,12 @@ module Jazzy
     # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/MethodLength
+
+    def self.find_generic_requirements(parsed_declaration)
+      parsed_declaration =~ /\bwhere\s+(.*)$/m
+      return nil unless Regexp.last_match
+      Regexp.last_match[1].gsub(/\s+/, ' ')
+    end
 
     # Expands extensions of nested types declared at the top level into
     # a tree so they can be deduplicated properly
@@ -635,15 +651,19 @@ module Jazzy
 
       if typedecl
         if typedecl.type.swift_protocol?
-          merge_default_implementations_into_protocol(typedecl, extensions)
-          mark_members_from_protocol_extension(extensions)
+          mark_and_merge_protocol_extensions(typedecl, extensions)
           extensions.reject! { |ext| ext.children.empty? }
         end
 
-        merge_declaration_marks(typedecl, extensions)
+        merge_objc_declaration_marks(typedecl, extensions)
       end
 
-      decls = typedecls + extensions
+      # Constrained extensions at the end
+      constrained, regular_exts = extensions.partition(&:constrained_extension?)
+      decls = typedecls + regular_exts + constrained
+
+      move_merged_extension_marks(decls)
+
       decls.first.tap do |merged|
         merged.children = deduplicate_declarations(
           decls.flat_map(&:children).uniq,
@@ -655,52 +675,62 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
 
+    # Protocol extensions.
+    #
     # If any of the extensions provide default implementations for methods in
     # the given protocol, merge those members into the protocol doc instead of
     # keeping them on the extension. These get a “Default implementation”
-    # annotation in the generated docs.
-    def self.merge_default_implementations_into_protocol(protocol, extensions)
-      protocol.children.each do |proto_method|
-        extensions.each do |ext|
-          defaults, ext.children = ext.children.partition do |ext_member|
-            ext_member.name == proto_method.name
-          end
-          unless defaults.empty?
-            proto_method.default_impl_abstract =
-              defaults.flat_map { |d| [d.abstract, d.discussion] }.join
-          end
-        end
-      end
-    end
-
+    # annotation in the generated docs.  Default implementations added by
+    # conditional extensions are annotated but listed separately.
+    #
     # Protocol methods provided only in an extension and not in the protocol
     # itself are a special beast: they do not use dynamic dispatch. These get an
     # “Extension method” annotation in the generated docs.
-    def self.mark_members_from_protocol_extension(extensions)
+    def self.mark_and_merge_protocol_extensions(protocol, extensions)
       extensions.each do |ext|
-        ext.children.each do |ext_member|
-          ext_member.from_protocol_extension = true
+        ext.children = ext.children.select do |ext_member|
+          proto_member = protocol.children.find do |p|
+            p.name == ext_member.name && p.type == ext_member.type
+          end
+
+          # Extension-only method, keep.
+          unless proto_member
+            ext_member.from_protocol_extension = true
+            next true
+          end
+
+          # Default impl but constrained, mark and keep.
+          if ext.constrained_extension?
+            ext_member.default_impl_abstract = ext_member.abstract
+            ext_member.abstract = nil
+            next true
+          end
+
+          # Default impl for all users, merge.
+          proto_member.default_impl_abstract = ext_member.abstract
+          next false
         end
       end
     end
 
-    # Customize marks associated with to-be-merged declarations
-    def self.merge_declaration_marks(typedecl, extensions)
-      if typedecl.type.objc_class?
-        # Mark children merged from categories with the name of category
-        # (unless they already have a mark)
-        extensions.each do |ext|
-          _, category_name = ext.objc_category_name
-          ext.children.each { |c| c.mark.name ||= category_name }
-        end
-      else
-        # If the Swift extension has a mark and the first child doesn't
-        # then copy the mark contents down so it still shows up.
-        extensions.each do |ext|
-          child = ext.children.first
-          if child && child.mark.empty?
-            child.mark.copy(ext.mark)
-          end
+    # Mark children merged from categories with the name of category
+    # (unless they already have a mark)
+    def self.merge_objc_declaration_marks(typedecl, extensions)
+      return unless typedecl.type.objc_class?
+      extensions.each do |ext|
+        _, category_name = ext.objc_category_name
+        ext.children.each { |c| c.mark.name ||= category_name }
+      end
+    end
+
+    # For each extension to be merged, move any MARK from the extension
+    # declaration down to the extension contents so it still shows up.
+    def self.move_merged_extension_marks(decls)
+      return unless to_be_merged = decls[1..-1]
+      to_be_merged.each do |ext|
+        child = ext.children.first
+        if child && child.mark.empty?
+          child.mark.copy(ext.mark)
         end
       end
     end
@@ -870,6 +900,7 @@ module Jazzy
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
       docs = group_docs(docs)
+      merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, @stats]

@@ -201,13 +201,15 @@ code {
   font-family: $code_font;
 }
 
-p, li {
-  > code {
-    background: $code_bg_color;
-    padding: .2em;
-    &:before, &:after {
-      letter-spacing: -.2em;
-      content: "\00a0";
+.item-container, .top-matter {
+  p, li {
+    > code {
+      background: $code_bg_color;
+      padding: .2em;
+      &:before, &:after {
+        letter-spacing: -.2em;
+        content: "\00a0";
+      }
     }
   }
 }
@@ -367,6 +369,10 @@ pre code {
 .section-name {
   color: #666;
   display: block;
+
+  p {
+    margin-bottom: inherit;
+  }
 }
 
 .declaration .highlight {
@@ -390,6 +396,28 @@ pre code {
     &:before {
       content: "";
       display: block;
+    }
+  }
+}
+
+.section-name-container {
+  position: relative;
+
+  .section-name-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin-bottom: 0;
+  }
+
+  .section-name {
+    position: relative;
+    pointer-events: none;
+    z-index: 1;
+    a {
+      pointer-events: auto;
     }
   }
 }
