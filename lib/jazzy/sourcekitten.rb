@@ -301,20 +301,28 @@ module Jazzy
         return false
       end
 
-      # Document extensions & enum elements, since we can't tell their ACL.
+      # Document enum elements, since we can't tell their ACL.
       return true if type.swift_enum_element?
-      if type.swift_extension?
-        return Array(doc['key.substructure']).any? do |subdoc|
-          subtype = SourceDeclaration::Type.new(subdoc['key.kind'])
-          !subtype.mark? && should_document?(subdoc)
-        end
-      end
+      # Document extensions if they might have parts covered by the ACL.
+      return should_document_swift_extension?(doc) if type.swift_extension?
 
       acl_ok = SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
-      acl_ok.tap { @stats.add_acl_skipped unless acl_ok }
+      unless acl_ok
+        @stats.add_acl_skipped
+        @inaccessible_protocols.append(doc['key.name']) if type.swift_protocol?
+      end
+      acl_ok
     end
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
+
+    def self.should_document_swift_extension?(doc)
+      doc['key.inheritedtypes'] ||
+        Array(doc['key.substructure']).any? do |subdoc|
+          subtype = SourceDeclaration::Type.new(subdoc['key.kind'])
+          !subtype.mark? && should_document?(subdoc)
+        end
+    end
 
     def self.should_mark_undocumented(filepath)
       source_directory = Config.instance.source_directory.to_s
@@ -541,10 +549,15 @@ module Jazzy
         declaration.unavailable = doc['key.always_unavailable']
         declaration.generic_requirements =
           find_generic_requirements(doc['key.parsed_declaration'])
+        inherited_types = doc['key.inheritedtypes'] || []
+        declaration.inherited_types =
+          inherited_types.map { |type| type['key.name'] }.compact
 
         next unless make_doc_info(doc, declaration)
         declaration.children = make_substructure(doc, declaration)
-        next if declaration.type.extension? && declaration.children.empty?
+        next if declaration.type.extension? &&
+                declaration.children.empty? &&
+                !declaration.inherited_types?
         declarations << declaration
       end
       declarations
@@ -582,6 +595,7 @@ module Jazzy
       SourceDeclaration.new.tap do |decl|
         make_default_doc_info(decl)
         decl.name = name
+        decl.modulename = extension.modulename
         decl.type = extension.type
         decl.mark = extension.mark
         decl.usr = candidates.first.usr unless candidates.empty?
@@ -604,10 +618,10 @@ module Jazzy
                          .group_by { |d| deduplication_key(d, declarations) }
                          .values
 
-      duplicate_groups.map do |group|
+      duplicate_groups.flat_map do |group|
         # Put extended type (if present) before extensions
         merge_declarations(group)
-      end
+      end.compact
     end
 
     # Returns true if an Objective-C declaration is mergeable.
@@ -617,13 +631,21 @@ module Jazzy
             && name_match(decl.objc_category_name[0], root_decls))
     end
 
+    # Returns if a Swift declaration is mergeable.
+    # Start off merging in typealiases to help understand extensions.
+    def self.mergeable_swift?(decl)
+      decl.type.swift_extensible? ||
+        decl.type.swift_extension? ||
+        decl.type.swift_typealias?
+    end
+
     # Two declarations get merged if they have the same deduplication key.
     def self.deduplication_key(decl, root_decls)
       # Swift extension of objc class
       if decl.swift_objc_extension?
         [decl.swift_extension_objc_name, :objc_class_and_categories]
       # Swift type or Swift extension of Swift type
-      elsif decl.type.swift_extensible? || decl.type.swift_extension?
+      elsif mergeable_swift?(decl)
         [decl.usr, decl.name]
       # Objc categories and classes
       elsif mergeable_objc?(decl, root_decls)
@@ -649,6 +671,8 @@ module Jazzy
       end
       typedecl = typedecls.first
 
+      extensions = reject_inaccessible_extensions(typedecl, extensions)
+
       if typedecl
         if typedecl.type.swift_protocol?
           mark_and_merge_protocol_extensions(typedecl, extensions)
@@ -658,11 +682,24 @@ module Jazzy
         merge_objc_declaration_marks(typedecl, extensions)
       end
 
+      # Keep type-aliases separate from any extensions
+      if typedecl && typedecl.type.swift_typealias?
+        [merge_type_and_extensions(typedecls, []),
+         merge_type_and_extensions([], extensions)]
+      else
+        merge_type_and_extensions(typedecls, extensions)
+      end
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    def self.merge_type_and_extensions(typedecls, extensions)
       # Constrained extensions at the end
       constrained, regular_exts = extensions.partition(&:constrained_extension?)
       decls = typedecls + regular_exts + constrained
+      return nil if decls.empty?
 
       move_merged_extension_marks(decls)
+      merge_code_declaration(decls)
 
       decls.first.tap do |merged|
         merged.children = deduplicate_declarations(
@@ -673,7 +710,34 @@ module Jazzy
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
+
+    # Now we know all the public types and all the private protocols,
+    # reject extensions that add public protocols to private types
+    # or add private protocols to public types.
+    def self.reject_inaccessible_extensions(typedecl, extensions)
+      swift_exts, objc_exts = extensions.partition(&:swift?)
+
+      # Reject extensions that are just conformances to private protocols
+      unwanted_exts, wanted_exts = swift_exts.partition do |ext|
+        ext.children.empty? &&
+          !ext.other_inherited_types?(@inaccessible_protocols)
+      end
+
+      # Given extensions of a type from this module, without the
+      # type itself, the type must be private and the extensions
+      # should be rejected.
+      if !typedecl &&
+         wanted_exts.first &&
+         wanted_exts.first.type_from_doc_module?
+        unwanted_exts += wanted_exts
+        wanted_exts = []
+      end
+
+      # Don't tell the user to document them
+      unwanted_exts.each { |e| @stats.remove_undocumented(e) }
+
+      objc_exts + wanted_exts
+    end
 
     # Protocol extensions.
     #
@@ -732,6 +796,23 @@ module Jazzy
         if child && child.mark.empty?
           child.mark.copy(ext.mark)
         end
+      end
+    end
+
+    # Merge useful information added by extensions into the main
+    # declaration: public protocol conformances and, for top-level extensions,
+    # further conditional extensions of the same type.
+    def self.merge_code_declaration(decls)
+      first = decls.first
+
+      declarations = decls[1..-1].select do |decl|
+        decl.type.swift_extension? &&
+          (decl.other_inherited_types?(@inaccessible_protocols) ||
+            (first.type.swift_extension? && decl.constrained_extension?))
+      end.map(&:declaration)
+
+      unless declarations.empty?
+        first.declaration = declarations.prepend(first.declaration).uniq.join
       end
     end
 
@@ -890,6 +971,7 @@ module Jazzy
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
       @stats = Stats.new
+      @inaccessible_protocols = []
       sourcekitten_json = filter_files(JSON.parse(sourcekitten_output).flatten)
       docs = make_source_declarations(sourcekitten_json).concat inject_docs
       docs = expand_extensions(docs)

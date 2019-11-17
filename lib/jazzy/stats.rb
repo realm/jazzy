@@ -18,6 +18,10 @@ module Jazzy
       @undocumented_decls << decl
     end
 
+    def remove_undocumented(decl)
+      @undocumented_decls.delete(decl)
+    end
+
     def acl_included
       documented + undocumented
     end
