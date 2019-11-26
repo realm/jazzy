@@ -14,6 +14,9 @@
   `name_html` mustache tag key for section headings.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Include protocol conformances added by extensions in Swift docs.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * None.

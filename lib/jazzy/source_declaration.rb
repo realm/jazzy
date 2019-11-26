@@ -131,6 +131,7 @@ module Jazzy
     attr_accessor :unavailable
     attr_accessor :unavailable_message
     attr_accessor :generic_requirements
+    attr_accessor :inherited_types
 
     def usage_discouraged?
       unavailable || deprecated
@@ -151,6 +152,23 @@ module Jazzy
       else
         SourceMark.new
       end
+    end
+
+    def inherited_types?
+      inherited_types &&
+        !inherited_types.empty?
+    end
+
+    # Is there at least one inherited type that is not in the given list?
+    def other_inherited_types?(unwanted)
+      return false unless inherited_types?
+      inherited_types.any? { |t| !unwanted.include?(t) }
+    end
+
+    # SourceKit only sets modulename for imported modules
+    def type_from_doc_module?
+      !type.extension? ||
+        (swift? && usr && modulename.nil?)
     end
 
     def alternative_abstract
