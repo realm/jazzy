@@ -19,7 +19,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Render bullet lists correctly when followed by a callout.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#785](https://github.com/realm/jazzy/issues/785)
 
 ## 0.12.0
 
