@@ -112,7 +112,6 @@ module Jazzy
       autolink: true,
       fenced_code_blocks: true,
       no_intra_emphasis: true,
-      quote: true,
       strikethrough: true,
       space_after_headers: false,
       tables: true,
