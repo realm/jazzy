@@ -406,15 +406,17 @@ header {
     padding: 0;
   }
   .token, .direct-link {
+    display: inline-block;
+    text-indent: -20px;
     padding-left: 3px;
-    margin-left: 35px;
+    margin-left: 55px;
     transition: all 300ms;
   }
   .discouraged {
     text-decoration: line-through;
   }
   .token-open {
-    margin-left: 25px;
+    margin-left: 45px;
   }
   .declaration-note {
     font-size: .85em;

@@ -368,13 +368,15 @@ header {
     padding: 0;
   }
   .token, .direct-link {
+    display: inline-block;
+    text-indent: -20px;
     padding-left: 3px;
-    margin-left: 15px;
+    margin-left: 35px;
     font-size: 11.9px;
     transition: all 300ms;
   }
   .token-open {
-    margin-left: 0px;
+    margin-left: 20px;
   }
   .discouraged {
     text-decoration: line-through;
