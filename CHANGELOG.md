@@ -27,6 +27,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#992](https://github.com/realm/jazzy/issues/992)
 
+* Fix `sourcekitten_sourcefile` used from config file.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1137](https://github.com/realm/jazzy/issues/1137)
+
 ## 0.12.0
 
 ##### Breaking

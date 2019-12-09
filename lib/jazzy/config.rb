@@ -176,7 +176,7 @@ module Jazzy
       command_line: ['-s', '--sourcekitten-sourcefile filepath1,…filepathN',
                      Array],
       description: 'File(s) generated from sourcekitten output to parse',
-      parse: ->(paths) { paths.map { |path| expand_path(path) } }
+      parse: ->(paths) { [paths].flatten.map { |path| expand_path(path) } }
 
     config_attr :source_directory,
       command_line: '--source-directory DIRPATH',
