@@ -23,6 +23,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#785](https://github.com/realm/jazzy/issues/785)
 
+* Render markup of text inside double quotes.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#992](https://github.com/realm/jazzy/issues/992)
+
 ## 0.12.0
 
 ##### Breaking
