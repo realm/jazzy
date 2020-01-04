@@ -5,8 +5,8 @@ require File.expand_path('lib/jazzy/gem_version.rb', File.dirname(__FILE__))
 Gem::Specification.new do |spec|
   spec.name          = 'jazzy'
   spec.version       = Jazzy::VERSION
-  spec.authors       = ['JP Simard', 'Tim Anglade', 'Samuel Giddins']
-  spec.email         = ['jp@realm.io']
+  spec.authors       = ['JP Simard', 'Tim Anglade', 'Samuel Giddins', 'John Fairhurst']
+  spec.email         = ['jp@jpsim.com']
   spec.summary       = 'Soulful docs for Swift & Objective-C.'
   spec.description   = 'Soulful docs for Swift & Objective-C. ' \
                        "Run in your Xcode project's root directory for " \
