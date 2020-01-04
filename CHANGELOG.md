@@ -6,11 +6,19 @@
 
 ##### Enhancements
 
-* None.
+* Allow inline html tags in ObjC doc comments.  
+  [Chris Williams](https://github.com/ultramiraculous)
+  [#976](https://github.com/realm/jazzy/issues/976)
+
+* Support code formatting in ObjC doc comments with `@c`, `@code` and
+  `@endcode`.  
+  [Bryce Pauken](https://github.com/brycepauken)
+  [jpsim/SourceKitten#631](https://github.com/jpsim/SourceKitten/issues/631)
 
 ##### Bug Fixes
 
-* None.
+* Fix crash when SourceKit returns out of bounds string byte offsets.  
+  [JP Simard](https://github.com/jpsim)
 
 ## 0.13.0
 
