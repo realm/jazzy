@@ -29,23 +29,36 @@ module Jazzy
     # @return [Array] doc structure comprised of
     #                     section names & child names & URLs
     def self.doc_structure_for_docs(docs)
-      docs.map do |doc|
-        children = doc.children
-                      .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
-                      .flat_map do |child|
-          # FIXME: include arbitrarily nested extensible types
-          [{ name: child.name, url: child.url }] +
-            Array(child.children.select do |sub_child|
-              sub_child.type.swift_extensible? || sub_child.type.extension?
-            end).map do |sub_child|
-              { name: "– #{sub_child.name}", url: sub_child.url }
-            end
+      docs
+        .map do |doc|
+          children = children_for_doc(doc)
+          {
+            section: doc.name,
+            url: doc.url,
+            children: children,
+          }
         end
-        {
-          section: doc.name,
-          url: doc.url,
-          children: children,
-        }
+        .select do |structure|
+          if Config.instance.hide_unlisted_documentation
+            unlisted_prefix = Config.instance.custom_categories_unlisted_prefix
+            structure[:section] != "#{unlisted_prefix}Guides"
+          else
+            true
+          end
+        end
+    end
+
+    def self.children_for_doc(doc)
+      doc.children
+         .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
+         .flat_map do |child|
+        # FIXME: include arbitrarily nested extensible types
+        [{ name: child.name, url: child.url }] +
+          Array(child.children.select do |sub_child|
+            sub_child.type.swift_extensible? || sub_child.type.extension?
+          end).map do |sub_child|
+            { name: "– #{sub_child.name}", url: sub_child.url }
+          end
       end
     end
 
