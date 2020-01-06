@@ -62,8 +62,9 @@ module Jazzy
     # Group root-level docs by custom categories (if any) and type
     def self.group_docs(docs)
       custom_categories, docs = group_custom_categories(docs)
+      unlisted_prefix = Config.instance.custom_categories_unlisted_prefix
       type_categories, uncategorized = group_type_categories(
-        docs, custom_categories.any? ? 'Other ' : ''
+        docs, custom_categories.any? ? unlisted_prefix : ''
       )
       custom_categories + merge_categories(type_categories) + uncategorized
     end

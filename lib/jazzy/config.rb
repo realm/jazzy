@@ -355,6 +355,18 @@ module Jazzy
                     'Example: https://git.io/v4Bcp'],
       default: []
 
+    config_attr :custom_categories_unlisted_prefix,
+      description: "Prefix for navigation section names that aren't "\
+                   'explicitly listed in `custom_categories`.',
+      default: 'Other '
+
+    config_attr :hide_unlisted_documentation,
+      command_line: '--[no-]hide-unlisted-documentation',
+      description: "Don't include documentation in the sidebar from the "\
+                   "`documentation` config value that aren't explicitly "\
+                   'listed in `custom_categories`.',
+      default: false
+
     config_attr :custom_head,
       command_line: '--head HTML',
       description: 'Custom HTML to inject into <head></head>.',

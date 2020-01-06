@@ -47,6 +47,14 @@ module Jazzy
           children: children,
         }
       end
+      .select do |structure|
+        if Config.instance.hide_unlisted_documentation
+          unlisted_prefix = Config.instance.custom_categories_unlisted_prefix
+          structure[:section] != "#{unlisted_prefix}Guides"
+        else
+          true
+        end
+      end
     end
 
     # Build documentation from the given options

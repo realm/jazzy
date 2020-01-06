@@ -15,6 +15,17 @@
   [Bryce Pauken](https://github.com/brycepauken)
   [jpsim/SourceKitten#631](https://github.com/jpsim/SourceKitten/issues/631)
 
+* Add `custom_categories_unlisted_prefix` configuration setting. This
+  is the prefix for navigation section names that aren't explicitly
+  listed in `custom_categories`. Defaults to 'Other '.  
+  [JP Simard](https://github.com/jpsim)
+
+* Add `hide_unlisted_documentation` configuration setting. Setting this
+  to `true` hides documentation entries in the sidebar from the
+  `documentation` config value that aren't explicitly listed in
+  `custom_categories`.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * Fix crash when SourceKit returns out of bounds string byte offsets.  
