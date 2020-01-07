@@ -6,6 +6,20 @@
 
 ##### Enhancements
 
+* None.
+
+##### Bug Fixes
+
+* None.
+
+## 0.13.1
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
 * Allow inline html tags in ObjC doc comments.  
   [Chris Williams](https://github.com/ultramiraculous)
   [#976](https://github.com/realm/jazzy/issues/976)
