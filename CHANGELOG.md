@@ -31,6 +31,10 @@
 * Fix crash when SourceKit returns out of bounds string byte offsets.  
   [JP Simard](https://github.com/jpsim)
 
+* Pick the right version of declarations with type attributes.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1148](https://github.com/realm/jazzy/issues/1148)
+
 ## 0.13.0
 
 ##### Breaking

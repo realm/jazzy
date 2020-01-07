@@ -441,7 +441,8 @@ module Jazzy
       annotated.empty? ||
         parsed &&
           (annotated.include?(' = default') || # SR-2608
-           parsed.match('@autoclosure|@escaping') || # SR-6321
+            (parsed.scan(/@autoclosure|@escaping/).count >
+             annotated.scan(/@autoclosure|@escaping/).count) || # SR-6321
            parsed.include?("\n"))
     end
 
