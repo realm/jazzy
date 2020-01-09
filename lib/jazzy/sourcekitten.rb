@@ -437,13 +437,15 @@ module Jazzy
       Regexp.last_match.captures
     end
 
-    def self.prefer_parsed_decl?(parsed, annotated)
-      annotated.empty? ||
-        parsed &&
-          (annotated.include?(' = default') || # SR-2608
-            (parsed.scan(/@autoclosure|@escaping/).count >
-             annotated.scan(/@autoclosure|@escaping/).count) || # SR-6321
-           parsed.include?("\n"))
+    def self.prefer_parsed_decl?(parsed, annotated, type)
+      return true if annotated.empty?
+      return false unless parsed
+      return false if type.swift_variable? # prefer { get }-style
+
+      annotated.include?(' = default') || # SR-2608
+        (parsed.scan(/@autoclosure|@escaping/).count >
+         annotated.scan(/@autoclosure|@escaping/).count) || # SR-6321
+        parsed.include?("\n") # user formatting
     end
 
     # Replace the fully qualified name of a type with its base name
@@ -469,7 +471,9 @@ module Jazzy
       return parsed_decl if declaration.type.extension?
 
       decl =
-        if prefer_parsed_decl?(parsed_decl, annotated_decl_body)
+        if prefer_parsed_decl?(parsed_decl,
+                               annotated_decl_body,
+                               declaration.type)
           # Strip any attrs captured by parsed version
           inline_attrs, parsed_decl_body = split_decl_attributes(parsed_decl)
           parsed_decl_body.unindent(inline_attrs.length)
