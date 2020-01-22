@@ -129,6 +129,10 @@ module Jazzy
         kind == 'source.lang.swift.decl.generic_type_param'
       end
 
+      def swift_variable?
+        kind.start_with?('source.lang.swift.decl.var')
+      end
+
       def objc_unexposed?
         kind == 'sourcekitten.source.lang.objc.decl.unexposed'
       end

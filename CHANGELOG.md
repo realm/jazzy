@@ -10,7 +10,10 @@
 
 ##### Bug Fixes
 
-* None.
+* Use multi-line parsed declarations in more places including protocol
+  methods and typealiases.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#896](https://github.com/realm/jazzy/issues/896)
 
 ## 0.13.1
 
