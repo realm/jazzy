@@ -448,10 +448,16 @@ module Jazzy
         parsed.include?("\n") # user formatting
     end
 
-    # Replace the fully qualified name of a type with its base name
-    def self.unqualify_name(annotated_decl, declaration)
-      annotated_decl.gsub(declaration.fully_qualified_name_regexp,
-                          declaration.name)
+    # Apply fixes to improve the compiler's declaration
+    def self.fix_up_compiler_decl(annotated_decl, declaration)
+      annotated_decl.
+        # Replace the fully qualified name of a type with its base name
+        gsub(declaration.fully_qualified_name_regexp,
+             declaration.name).
+        # Workaround for SR-9816
+        gsub(" {\n  get\n  }", '').
+        # Workaround for SR-12139
+        gsub(/mutating\s+mutating/, 'mutating')
     end
 
     # Find the best Swift declaration
@@ -478,10 +484,8 @@ module Jazzy
           inline_attrs, parsed_decl_body = split_decl_attributes(parsed_decl)
           parsed_decl_body.unindent(inline_attrs.length)
         else
-          # Strip ugly references to decl type name
-          unqualified = unqualify_name(annotated_decl_body, declaration)
-          # Workaround for SR-9816
-          unqualified.gsub(" {\n  get\n  }", '')
+          # Improve the compiler declaration
+          fix_up_compiler_decl(annotated_decl_body, declaration)
         end
 
       # @available attrs only in compiler 'interface' style

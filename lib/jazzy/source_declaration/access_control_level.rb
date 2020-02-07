@@ -36,7 +36,7 @@ module Jazzy
           end
         end
         acl = from_doc_explicit_declaration(doc)
-        acl || AccessControlLevel.public # fallback on public ACL
+        acl || AccessControlLevel.internal # fallback on internal ACL
       end
 
       def self.implicit_deinit?(doc)
