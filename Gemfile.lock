@@ -135,7 +135,7 @@ GEM
     public_suffix (4.0.3)
     rainbow (2.2.2)
       rake
-    rake (10.5.0)
+    rake (13.0.1)
     redcarpet (3.5.0)
     rouge (3.14.0)
     rubocop (0.49.0)
@@ -186,7 +186,7 @@ DEPENDENCIES
   mocha
   mocha-on-bacon
   prettybacon
-  rake (~> 10.3)
+  rake (~> 13.0)
   rubocop (= 0.49.0)
   webmock
 
