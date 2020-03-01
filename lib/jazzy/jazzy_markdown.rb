@@ -21,6 +21,18 @@ module Jazzy
         "</h#{header_level}>\n"
       end
 
+      def codespan(text)
+        if /^\$\$(.*)\$\$$/ms =~ text
+          out = ["<div class='math m-block'>", Regexp.last_match[1], "</div>"]
+        elsif /^\$(.*)\$$/ms =~ text
+          out = ["<span class='math m-inline'>", Regexp.last_match[1], "</span>"]
+        else
+          out = ["<code>", text, "</code>"]
+        end
+
+        out[0] + CGI::escapeHTML(out[1]) + out[2]
+      end
+
       # List from
       # https://github.com/apple/swift/blob/master/include/swift/Markup/SimpleFields.def
       UNIQUELY_HANDLED_CALLOUTS = %w[parameters
