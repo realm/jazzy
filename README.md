@@ -47,6 +47,10 @@ If your Swift module is the first thing to build, and it builds fine when runnin
 just running `jazzy` (without any arguments) from the root of your project should
 succeed too!
 
+If Jazzy generates docs for the wrong module then use `--module` to tell it which
+one you'd prefer.  If this doesn't help, and you're using Xcode, then try passing
+extra arguments to `xcodebuild`, for example `jazzy --build-tool-arguments -target,MyTarget`.
+
 You can set options for your project’s documentation in a configuration file,
 `.jazzy.yaml` by default. For a detailed explanation and an exhaustive list of
 all available options, run `jazzy --help config`.
