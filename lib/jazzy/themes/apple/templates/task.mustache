@@ -22,10 +22,10 @@
         {{/direct_link}}
         {{^direct_link}}
         {{^usage_discouraged}}
-        <a class="token" href="#/{{usr}}">{{name}}</a>
+        <a class="token" href="#/{{usr}}">{{{name_html}}}</a>
         {{/usage_discouraged}}
         {{#usage_discouraged}}
-        <a class="token discouraged" href="#/{{usr}}">{{name}}</a>
+        <a class="token discouraged" href="#/{{usr}}">{{{name_html}}}</a>
         {{/usage_discouraged}}
         </code>
         {{#default_impl_abstract}}

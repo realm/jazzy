@@ -341,6 +341,7 @@ module Jazzy
       abstract = (item.abstract || '') + (item.discussion || '')
       {
         name:                       item.name,
+        name_html:                  item.name.gsub(':', ':<wbr>'),
         abstract:                   abstract,
         declaration:                item.display_declaration,
         language:                   item.display_language,
