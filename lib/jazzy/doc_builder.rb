@@ -130,6 +130,7 @@ module Jazzy
       end
 
       copy_assets(output_dir)
+      copy_extensions(output_dir)
 
       DocsetBuilder.new(output_dir, source_module).build!
 
@@ -208,6 +209,15 @@ module Jazzy
         css_filename.open('w') { |f| f.write(css) }
         FileUtils.rm scss
       end
+    end
+
+    def self.copy_extensions(destination)
+      copy_extension('katex', destination) if Markdown.has_math
+    end
+
+    def self.copy_extension(name, destination)
+      ext_directory = Pathname(__FILE__).parent + 'extensions/' + name
+      FileUtils.cp_r(ext_directory.children, destination)
     end
 
     def self.render(doc_model, markdown)

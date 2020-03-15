@@ -51,5 +51,9 @@ module Jazzy
         "#{config.module_name} Docs"
       end
     end
+
+    def enable_katex
+      Markdown.has_math
+    end
   end
 end
