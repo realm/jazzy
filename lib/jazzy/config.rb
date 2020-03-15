@@ -156,6 +156,11 @@ module Jazzy
                    'projects.',
       default: ''
 
+    config_attr :keep_property_attributes,
+      command_line: '--[no-]keep-property-attributes',
+      description: 'Include the default Objective-C property attributes.',
+      default: false
+
     config_attr :config_file,
       command_line: '--config PATH',
       description: ['Configuration file (.yaml or .json)',

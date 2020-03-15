@@ -382,7 +382,9 @@ module Jazzy
           Highlighter.highlight_swift(make_swift_declaration(doc, declaration))
       else
         declaration.declaration =
-          Highlighter.highlight_objc(doc['key.parsed_declaration'])
+          Highlighter.highlight_objc(
+            make_objc_declaration(doc['key.parsed_declaration']),
+          )
         declaration.other_language_declaration =
           Highlighter.highlight_swift(doc['key.swift_declaration'])
       end
@@ -494,6 +496,23 @@ module Jazzy
       available_attrs.concat(extract_attributes(annotated_decl_attrs))
                      .push(decl)
                      .join("\n")
+    end
+
+    # Strip default property attributes because libclang
+    # adds them all, even if absent in the original source code.
+    DEFAULT_ATTRIBUTES = %w[atomic readwrite assign unsafe_unretained].freeze
+
+    def self.make_objc_declaration(declaration)
+      return declaration if Config.instance.keep_property_attributes
+
+      declaration =~ /\A@property\s+\((.*?)\)/
+      return declaration unless Regexp.last_match
+
+      attrs = Regexp.last_match[1].split(',').map(&:strip) - DEFAULT_ATTRIBUTES
+      attrs_text = attrs.empty? ? '' : " (#{attrs.join(', ')})"
+
+      declaration.sub(/(?<=@property)\s+\(.*?\)/, attrs_text)
+                 .gsub(/\s+/, ' ')
     end
 
     def self.make_substructure(doc, declaration)
