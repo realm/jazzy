@@ -4,6 +4,9 @@ require 'rouge/plugins/redcarpet'
 
 module Jazzy
   module Markdown
+    # Publish if generated HTML needs math support
+    class << self; attr_accessor :has_math; end
+
     class JazzyHTML < Redcarpet::Render::HTML
       include Redcarpet::Render::SmartyPants
       include Rouge::Plugins::Redcarpet
@@ -19,6 +22,20 @@ module Jazzy
         "<h#{header_level} id='#{text_slug}' class='heading'>" \
           "#{text}" \
         "</h#{header_level}>\n"
+      end
+
+      def codespan(text)
+        if /^\$\$(.*)\$\$$/m =~ text
+          o = ["<div class='math m-block'>", Regexp.last_match[1], '</div>']
+          Markdown.has_math = true
+        elsif /^\$(.*)\$$/m =~ text
+          o = ["<span class='math m-inline'>", Regexp.last_match[1], '</span>']
+          Markdown.has_math = true
+        else
+          o = ['<code>', text, '</code>']
+        end
+
+        o[0] + CGI.escapeHTML(o[1]) + o[2]
       end
 
       # List from

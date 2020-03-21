@@ -6,6 +6,12 @@
 
 ##### Enhancements
 
+* Render LaTeX expressions written using `$equation$` or `$$equation$$`
+  syntax.  
+  [Arthur Guiot](https://github.com/arguiot)
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1156](https://github.com/realm/jazzy/issues/1156)
+
 * Wrap long method names on category pages.  Use `name_html` in custom
   mustache templates to take advantage of this.  
   [John Fairhurst](https://github.com/johnfairh)

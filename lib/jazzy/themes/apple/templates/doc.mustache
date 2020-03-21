@@ -4,8 +4,14 @@
     <title>{{name}} {{kind}} Reference</title>
     <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/highlight.css" />
+    {{#enable_katex}}
+    <link rel="stylesheet" type="text/css" href="{{path_to_root}}css/katex.min.css" />
+    {{/enable_katex}}
     <meta charset='utf-8'>
     <script src="{{path_to_root}}js/jquery.min.js" defer></script>
+    {{#enable_katex}}
+    <script src="{{path_to_root}}js/katex.min.js" defer></script>
+    {{/enable_katex}}
     <script src="{{path_to_root}}js/jazzy.js" defer></script>
     {{{custom_head}}}
   </head>
