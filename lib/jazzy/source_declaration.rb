@@ -136,6 +136,7 @@ module Jazzy
     attr_accessor :unavailable_message
     attr_accessor :generic_requirements
     attr_accessor :inherited_types
+    attr_accessor :swift_name
 
     def usage_discouraged?
       unavailable || deprecated

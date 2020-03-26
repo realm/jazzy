@@ -540,6 +540,7 @@ module Jazzy
         declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
         declaration.typename = doc['key.typename']
         declaration.objc_name = doc['key.name']
+        declaration.swift_name = doc['key.swift_name']
         documented_name = if Config.instance.hide_objc? && doc['key.swift_name']
                             doc['key.swift_name']
                           else
