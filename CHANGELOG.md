@@ -6,6 +6,12 @@
 
 ##### Enhancements
 
+* Support Xcode 11.4.  Default Objective-C property attributes are now
+  stripped from declarations: turn this off with
+  `--keep-default-property-attributes`.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#829](https://github.com/realm/jazzy/issues/829)
+
 * Render LaTeX expressions written using `$equation$` or `$$equation$$`
   syntax.  
   [Arthur Guiot](https://github.com/arguiot)

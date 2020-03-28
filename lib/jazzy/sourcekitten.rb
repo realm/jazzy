@@ -382,7 +382,9 @@ module Jazzy
           Highlighter.highlight_swift(make_swift_declaration(doc, declaration))
       else
         declaration.declaration =
-          Highlighter.highlight_objc(doc['key.parsed_declaration'])
+          Highlighter.highlight_objc(
+            make_objc_declaration(doc['key.parsed_declaration']),
+          )
         declaration.other_language_declaration =
           Highlighter.highlight_swift(doc['key.swift_declaration'])
       end
@@ -448,10 +450,16 @@ module Jazzy
         parsed.include?("\n") # user formatting
     end
 
-    # Replace the fully qualified name of a type with its base name
-    def self.unqualify_name(annotated_decl, declaration)
-      annotated_decl.gsub(declaration.fully_qualified_name_regexp,
-                          declaration.name)
+    # Apply fixes to improve the compiler's declaration
+    def self.fix_up_compiler_decl(annotated_decl, declaration)
+      annotated_decl.
+        # Replace the fully qualified name of a type with its base name
+        gsub(declaration.fully_qualified_name_regexp,
+             declaration.name).
+        # Workaround for SR-9816
+        gsub(" {\n  get\n  }", '').
+        # Workaround for SR-12139
+        gsub(/mutating\s+mutating/, 'mutating')
     end
 
     # Find the best Swift declaration
@@ -478,10 +486,8 @@ module Jazzy
           inline_attrs, parsed_decl_body = split_decl_attributes(parsed_decl)
           parsed_decl_body.unindent(inline_attrs.length)
         else
-          # Strip ugly references to decl type name
-          unqualified = unqualify_name(annotated_decl_body, declaration)
-          # Workaround for SR-9816
-          unqualified.gsub(" {\n  get\n  }", '')
+          # Improve the compiler declaration
+          fix_up_compiler_decl(annotated_decl_body, declaration)
         end
 
       # @available attrs only in compiler 'interface' style
@@ -490,6 +496,23 @@ module Jazzy
       available_attrs.concat(extract_attributes(annotated_decl_attrs))
                      .push(decl)
                      .join("\n")
+    end
+
+    # Strip default property attributes because libclang
+    # adds them all, even if absent in the original source code.
+    DEFAULT_ATTRIBUTES = %w[atomic readwrite assign unsafe_unretained].freeze
+
+    def self.make_objc_declaration(declaration)
+      return declaration if Config.instance.keep_property_attributes
+
+      declaration =~ /\A@property\s+\((.*?)\)/
+      return declaration unless Regexp.last_match
+
+      attrs = Regexp.last_match[1].split(',').map(&:strip) - DEFAULT_ATTRIBUTES
+      attrs_text = attrs.empty? ? '' : " (#{attrs.join(', ')})"
+
+      declaration.sub(/(?<=@property)\s+\(.*?\)/, attrs_text)
+                 .gsub(/\s+/, ' ')
     end
 
     def self.make_substructure(doc, declaration)
