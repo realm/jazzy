@@ -25,6 +25,10 @@
 
 ##### Bug Fixes
 
+* Don't generate documentation if the `xcodebuild` command fails.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [jpsim/SourceKitten#643](https://github.com/jpsim/SourceKitten/issues/643)
+
 * Use multi-line parsed declarations in more places including protocol
   methods and typealiases.  
   [John Fairhurst](https://github.com/johnfairh)
