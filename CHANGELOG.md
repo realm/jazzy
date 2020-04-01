@@ -23,6 +23,11 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#995](https://github.com/realm/jazzy/issues/995)
 
+* Support Dash-style `apple_ref` links to specific API items, for more
+  stable and human-readable links from external docs.
+  [Paul Cantrell](https://github.com/pcantrell)
+  [#1167](https://github.com/realm/jazzy/pull/1167)
+
 ##### Bug Fixes
 
 * Don't generate documentation if the `xcodebuild` command fails.  
