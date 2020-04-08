@@ -1,4 +1,7 @@
 require 'jazzy/symbol_graph/graph'
+require 'jazzy/symbol_graph/constraint'
+require 'jazzy/symbol_graph/symbol'
+require 'jazzy/symbol_graph/relationship'
 
 # This is the top-level symbolgraph driver that deals with
 # figuring out arguments, running the tool, and loading the
