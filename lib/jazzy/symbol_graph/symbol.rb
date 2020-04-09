@@ -35,8 +35,6 @@ module Jazzy::SymbolGraph
       init_availability(hash[:availability] || [])
     end
 
-    private
-
     # Repair problems with SymbolGraph's declprinter
 
     def init_declaration(raw_decl)

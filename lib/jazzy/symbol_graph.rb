@@ -2,6 +2,7 @@ require 'jazzy/symbol_graph/graph'
 require 'jazzy/symbol_graph/constraint'
 require 'jazzy/symbol_graph/symbol'
 require 'jazzy/symbol_graph/relationship'
+require 'jazzy/symbol_graph/symnode'
 
 # This is the top-level symbolgraph driver that deals with
 # figuring out arguments, running the tool, and loading the
@@ -25,8 +26,11 @@ module Jazzy
           # of types in another module (after the @).
           filename =~ /(.*?)(@(.*?))?\.symbols/
           module_name = Regexp.last_match[3] || Regexp.last_match[1]
-          Graph.new(File.read(filename), module_name).to_sourcekitten_hash
-        end.compact.to_json
+          {
+            filename =>
+              Graph.new(File.read(filename), module_name).to_sourcekit,
+          }
+        end.to_json
       end
     end
 
