@@ -8,9 +8,9 @@ module Jazzy::SymbolGraph
     def initialize(json, module_name)
       self.module_name = module_name
       graph = JSON.parse(json, symbolize_names: true)
-      self.symbols = graph[:symbols].map { |h| Symbol.new(h) }.compact
+      self.symbols = graph[:symbols].map { |hash| Symbol.new(hash) }
       self.relationships =
-        graph[:relationships].map { |h| Relationship.new(h) }.compact
+        graph[:relationships].map { |hash| Relationship.new(hash) }
     end
 
     def to_sourcekitten_hash

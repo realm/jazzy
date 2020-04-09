@@ -40,11 +40,10 @@ module Jazzy::SymbolGraph
     # Repair problems with SymbolGraph's declprinter
 
     def init_declaration(raw_decl)
+      # Too much 'Self.TypeName'; omitted arg labels look odd
       self.declaration =
-        # Too much 'Self.TypeName'
         raw_decl.gsub(/\bSelf\./, '')
                 .gsub(/(?<=\(|, )_: /, '_ arg: ')
-      # Omitted argument labels come out oddly
     end
 
     # Mapping SymbolGraph's declkinds to SourceKit
@@ -93,9 +92,8 @@ module Jazzy::SymbolGraph
     # Generic constraints for symbols
 
     def init_constraints(raw_constraints)
-      self.constraints = raw_constraints.map do |constraint|
-        Constraint.decode_for_symbol(constraint, path_components)
-      end.compact.sort
+      self.constraints = Constraint.decode_list_for_symbol(raw_constraints,
+                                                           path_components)
     end
 
     # Availability
