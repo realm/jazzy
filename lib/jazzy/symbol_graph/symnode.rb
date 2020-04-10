@@ -45,8 +45,25 @@ module Jazzy
         symbol.path_components.join('.')
       end
 
+      def parent_qualified_name
+        symbol.path_components[0...-1].join('.')
+      end
+
       def protocol?
         symbol.kind.end_with?('protocol')
+      end
+
+      # Add another SymNode as a member if possible.
+      # It must go in an extension if either:
+      #  - it has different generic constraints to us; or
+      #  - we're a protocol and it's a default impl / ext method
+      def try_add_child(node)
+        if symbol.constraints != node.symbol.constraints ||
+           (protocol? && !node.protocol_req?)
+          return false
+        end
+        add_child(node)
+        true
       end
 
       # Messy check whether we need to fabricate an extension for a protocol

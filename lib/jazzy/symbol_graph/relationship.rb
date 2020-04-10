@@ -24,7 +24,10 @@ module Jazzy
         self.kind = kind.to_sym
         self.source_usr = hash[:source]
         self.target_usr = hash[:target]
-        self.target_fallback = hash[:targetFallback]
+        if fallback = hash[:targetFallback]
+          # Strip the leading module name
+          self.target_fallback = fallback.sub(/^.*?\./, '')
+        end
         self.constraints = Constraint.decode_list(hash[:swiftConstraints] || [])
       end
     end

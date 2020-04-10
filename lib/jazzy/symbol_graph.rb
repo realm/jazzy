@@ -3,6 +3,7 @@ require 'jazzy/symbol_graph/constraint'
 require 'jazzy/symbol_graph/symbol'
 require 'jazzy/symbol_graph/relationship'
 require 'jazzy/symbol_graph/symnode'
+require 'jazzy/symbol_graph/extnode'
 
 # This is the top-level symbolgraph driver that deals with
 # figuring out arguments, running the tool, and loading the
@@ -69,7 +70,7 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
 
-    # Get the SDK path.  Not sure what the Linux version is.
+    # Get the SDK path.  Tbd how to do this on Linux.
     def self.sdk(config)
       `xcrun --show-sdk-path --sdk #{config.sdk}`.chomp
     end
@@ -78,6 +79,17 @@ module Jazzy
     def self.target
       `swift -version` =~ /Target: (.*?)$/
       Regexp.last_match[1] || 'x86_64-apple-macosx10.15'
+    end
+
+    # This is a last-ditch fallback for when symbolgraph doesn't
+    # provide a name - at least conforming external types to local
+    # protocols.
+    def self.demangle(usr)
+      args = %w[demangle -simplified -compact].append(usr.sub(/^s:/, 's'))
+      output, = Executable.execute_command('swift', args, true)
+      return output
+    rescue
+      usr
     end
   end
 end
