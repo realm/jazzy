@@ -2,8 +2,8 @@ require 'jazzy/symbol_graph/graph'
 require 'jazzy/symbol_graph/constraint'
 require 'jazzy/symbol_graph/symbol'
 require 'jazzy/symbol_graph/relationship'
-require 'jazzy/symbol_graph/symnode'
-require 'jazzy/symbol_graph/extnode'
+require 'jazzy/symbol_graph/sym_node'
+require 'jazzy/symbol_graph/ext_node'
 
 # This is the top-level symbolgraph driver that deals with
 # figuring out arguments, running the tool, and loading the
