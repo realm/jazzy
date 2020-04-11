@@ -6,7 +6,11 @@
 
 ##### Enhancements
 
-* None.
+* Added a config option to provide sources of privately hosted pod
+  dependencies when using the `--podspec` option.
+  `--pod-sources url1,url2,…urlN`.  
+  [Jonathan Bailey](https://github.com/jon889)
+  [#650](https://github.com/realm/jazzy/issues/650)
 
 ##### Bug Fixes
 

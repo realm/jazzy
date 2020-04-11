@@ -18,8 +18,7 @@ module Jazzy
       Pod::Config.instance.with_changes(installation_root: installation_root,
                                         verbose: false) do
         sandbox = Pod::Sandbox.new(Pod::Config.instance.sandbox_root)
-        swift_version = compiler_swift_version(config.swift_version)
-        installer = Pod::Installer.new(sandbox, podfile(swift_version))
+        installer = Pod::Installer.new(sandbox, podfile(config))
         installer.install!
         stdout = Dir.chdir(sandbox.root) do
           targets = installer.pod_targets
@@ -135,10 +134,15 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/MethodLength
-    def podfile(swift_version)
+    def podfile(config)
+      swift_version = compiler_swift_version(config.swift_version)
       podspec = @podspec
       path = pod_path
       @podfile ||= Pod::Podfile.new do
+        config.pod_sources.each do |src|
+          source src
+        end
+
         install! 'cocoapods',
                  integrate_targets: false,
                  deterministic_uuids: false

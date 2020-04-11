@@ -289,6 +289,14 @@ module Jazzy
       parse: ->(ps) { PodspecDocumenter.create_podspec(Pathname(ps)) if ps },
       default: Dir['*.podspec{,.json}'].first
 
+    config_attr :pod_sources,
+      command_line: ['--pod-sources url1,url2,…urlN', Array],
+      description: 'A list of sources to find pod dependencies. Used only with '\
+                   '--podspec when the podspec contains references to privately '\
+                   'hosted pods. You must include the default pod source if '\
+                   'public pods are also used.',
+      default: []
+
     config_attr :docset_icon,
       command_line: '--docset-icon FILEPATH',
       parse: ->(di) { expand_path(di) }
