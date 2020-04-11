@@ -291,10 +291,10 @@ module Jazzy
 
     config_attr :pod_sources,
       command_line: ['--pod-sources url1,url2,…urlN', Array],
-      description: 'A list of sources to find pod dependencies. Used only with '\
-                   '--podspec when the podspec contains references to privately '\
-                   'hosted pods. You must include the default pod source if '\
-                   'public pods are also used.',
+      description: 'A list of sources to find pod dependencies. Used only '\
+                   'with --podspec when the podspec contains references to '\
+                   'privately hosted pods. You must include the default pod '\
+                   'source if public pods are also used.',
       default: []
 
     config_attr :docset_icon,
