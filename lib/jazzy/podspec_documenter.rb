@@ -59,6 +59,7 @@ module Jazzy
       end
       unless config.version_configured
         config.version = podspec.version.to_s
+        config.version_configured = true
       end
       unless config.github_file_prefix_configured
         config.github_file_prefix = github_file_prefix(podspec)

@@ -10,7 +10,8 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix module version not being used from podspec.  
+  [Jonathan Bailey](https://github.com/jon889)
 
 ## 0.13.2
 
