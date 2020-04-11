@@ -28,7 +28,7 @@ module Jazzy
           # Strip the leading module name
           self.target_fallback = fallback.sub(/^.*?\./, '')
         end
-        self.constraints = Constraint.decode_list(hash[:swiftConstraints] || [])
+        self.constraints = Constraint.new_list(hash[:swiftConstraints] || [])
       end
     end
   end

@@ -1,3 +1,4 @@
+require 'set'
 require 'jazzy/symbol_graph/graph'
 require 'jazzy/symbol_graph/constraint'
 require 'jazzy/symbol_graph/symbol'
@@ -87,7 +88,7 @@ module Jazzy
     def self.demangle(usr)
       args = %w[demangle -simplified -compact].append(usr.sub(/^s:/, 's'))
       output, = Executable.execute_command('swift', args, true)
-      return output
+      return output.chomp
     rescue
       usr
     end

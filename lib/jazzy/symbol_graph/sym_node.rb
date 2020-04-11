@@ -57,13 +57,26 @@ module Jazzy
       # It must go in an extension if either:
       #  - it has different generic constraints to us; or
       #  - we're a protocol and it's a default impl / ext method
-      def try_add_child(node)
-        if symbol.constraints != node.symbol.constraints ||
-           (protocol? && !node.protocol_req?)
+      def try_add_child(node, unique_context_constraints)
+        unless unique_context_constraints.empty? &&
+               (!protocol? || node.protocol_req?)
           return false
         end
         add_child(node)
         true
+      end
+
+      # The `Constraint`s on this decl that are both:
+      # 1. Unique, ie. not just inherited from its context; and
+      # 2. Constraining the *context's* gen params rather than our own.
+      def unique_context_constraints(context)
+        return symbol.constraints unless context
+
+        new_generic_type_params =
+          symbol.generic_type_params - context.symbol.generic_type_params
+
+        (symbol.constraints - context.symbol.constraints)
+          .select { |con| con.type_names.disjoint?(new_generic_type_params) }
       end
 
       # Messy check whether we need to fabricate an extension for a protocol

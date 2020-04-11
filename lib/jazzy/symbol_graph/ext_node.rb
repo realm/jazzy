@@ -8,11 +8,12 @@ module Jazzy
       attr_accessor :constraints # array, can be empty
       attr_accessor :conformances # array, can be empty
 
-      # Deduce an extension from a member of an unknown type
-      def self.new_for_member(type_usr, member)
+      # Deduce an extension from a member of an unknown type or
+      # of known type with additional constraints
+      def self.new_for_member(type_usr, member, constraints)
         new(type_usr,
             member.parent_qualified_name,
-            member.symbol.constraints).tap { |o| o.add_child(member) }
+            constraints).tap { |o| o.add_child(member) }
       end
 
       # Deduce an extension from a protocol conformance for some type
@@ -44,7 +45,7 @@ module Jazzy
           decl += ' : ' + conformances.join(', ')
         end
         unless constraints.empty?
-          decl += ' where ' + constraints.join(', ')
+          decl += ' where ' + constraints.map(&:to_swift).join(', ')
         end
         decl
       end
@@ -79,7 +80,7 @@ module Jazzy
       include Comparable
 
       def sort_key
-        name + constraints.join
+        name + constraints.map(&:to_swift).join
       end
 
       def <=>(other)

@@ -1,40 +1,60 @@
 module Jazzy
   module SymbolGraph
-    # Constraints show up in both Symbols and Relationships.
-    # They're modelled with plain strings, just utilities here.
+    # Constraint is a tidied-up JSON object, used by both Symbol and
+    # Relationship, and key to reconstructing extensions.
     class Constraint
+      attr_accessor :kind
+      attr_accessor :lhs
+      attr_accessor :rhs
+
       KIND_MAP = {
         'conformance' => ':',
         'superclass' => ':',
         'sameType' => '==',
       }.freeze
 
-      def self.decode(constraint)
-        swift_spelling = KIND_MAP[constraint[:kind]]
-        raise "Unknown conformance kind '#{kind}'" unless swift_spelling
-
-        constraint[:lhs].sub(/^Self\./, '') +
-          " #{swift_spelling} " +
-          constraint[:rhs].sub(/^Self\./, '')
+      def initialize(hash)
+        self.kind = KIND_MAP[hash[:kind]]
+        raise "Unknown constraint kind '#{kind}'" unless kind
+        self.lhs = hash[:lhs].sub(/^Self\./, '')
+        self.rhs = hash[:rhs].sub(/^Self\./, '')
       end
 
-      def self.decode_list(constraints)
-        constraints.map do |constraint|
-          decode(constraint)
-        end.sort
+      def to_swift
+        "#{lhs} #{kind} #{rhs}"
+      end
+
+      # The first component of types in the constraint
+      def type_names
+        Set.new([lhs, rhs].map { |n| n.sub(/\..*$/, '') })
+      end
+
+      def self.new_list(hash_list)
+        hash_list.map { |h| Constraint.new(h) }.sort
       end
 
       # Swift protocols and reqs have an implementation/hidden conformance
       # to their own protocol: we don't want to think about this in docs.
-      def self.decode_list_for_symbol(constraints, path_components)
-        constraints.map do |constraint|
-          if constraint[:lhs] == 'Self' &&
-             constraint[:kind] == 'conformance' &&
-             path_components.include?(constraint[:rhs])
+      def self.new_list_for_symbol(hash_list, path_components)
+        hash_list.map do |hash|
+          if hash[:lhs] == 'Self' &&
+             hash[:kind] == 'conformance' &&
+             path_components.include?(hash[:rhs])
             next nil
           end
-          decode(constraint)
+          Constraint.new(hash)
         end.compact.sort
+      end
+
+      # Sort order - by Swift text
+      include Comparable
+
+      def <=>(other)
+        to_swift <=> other.to_swift
+      end
+
+      def eql?(other) # For Array.- ...
+        other == self
       end
     end
   end
