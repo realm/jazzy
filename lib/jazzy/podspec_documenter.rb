@@ -45,6 +45,7 @@ module Jazzy
 
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/MethodLength
     def self.apply_config_defaults(podspec, config)
       return unless podspec
 
@@ -71,6 +72,7 @@ module Jazzy
     end
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/MethodLength
 
     private
 
