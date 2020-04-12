@@ -51,12 +51,15 @@ module Jazzy
 
       unless config.author_name_configured
         config.author_name = author_name(podspec)
+        config.author_name_configured = true
       end
       unless config.module_name_configured
         config.module_name = podspec.module_name
+        config.module_name_configured = true
       end
       unless config.author_url_configured
         config.author_url = podspec.homepage || github_file_prefix(podspec)
+        config.author_url_configured = true
       end
       unless config.version_configured
         config.version = podspec.version.to_s
@@ -64,10 +67,12 @@ module Jazzy
       end
       unless config.github_file_prefix_configured
         config.github_file_prefix = github_file_prefix(podspec)
+        config.github_file_prefix_configured = true
       end
       unless config.swift_version_configured
         trunk_swift_build = podspec.attributes_hash['pushed_with_swift_version']
         config.swift_version = trunk_swift_build if trunk_swift_build
+        config.swift_version_configured = true
       end
     end
     # rubocop:enable Metrics/CyclomaticComplexity
