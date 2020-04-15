@@ -59,7 +59,7 @@ module Jazzy
 
       def full_command_line_name
         long_option_names = command_line.map do |opt|
-          Regexp.last_match(1) if opt =~ %r{
+          Regexp.last_match(1) if opt.to_s =~ %r{
             ^--           # starts with double dash
             (?:\[no-\])?  # optional prefix for booleans
             ([^\s]+)      # long option name
