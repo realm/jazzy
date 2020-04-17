@@ -16,6 +16,10 @@ module Jazzy
         %i[requirementOf optionalRequirementOf].include? kind
       end
 
+      def default_implementation?
+        kind == :defaultImplementationOf
+      end
+
       def initialize(hash)
         kind = hash[:kind]
         unless KINDS.include?(kind)

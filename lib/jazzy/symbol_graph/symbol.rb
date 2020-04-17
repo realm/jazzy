@@ -98,16 +98,16 @@ module Jazzy
         location[:character] = loc_hash[:position][:character]
       end
 
-      # Generic constraints: in one of two places depending on whether this
-      # decl is itself a generic context.
+      # Generic constraints: in one or both of two places.
+      # There can be duplicates; these are removed by `Constraint`.
       def init_constraints(hash)
-        self.constraints = []
-        constraints_container = hash[:swiftGenerics] || hash[:swiftExtension]
-        return unless constraints_container
-        if constraints = constraints_container[:constraints]
-          self.constraints =
-            Constraint.new_list_for_symbol(constraints, path_components)
+        raw_constraints = %i[swiftGenerics swiftExtension].flat_map do |key|
+          next [] unless container = hash[key]
+          container[:constraints] || []
         end
+
+        self.constraints =
+          Constraint.new_list_for_symbol(raw_constraints, path_components)
       end
 
       # Generic type params

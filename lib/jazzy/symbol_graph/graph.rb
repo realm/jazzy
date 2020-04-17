@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 module Jazzy
   module SymbolGraph
     # A Graph is the coordinator to import a symbolgraph json file.
@@ -75,69 +76,85 @@ module Jazzy
         type && rel.constraints.empty? && type.conformance?(protocol)
       end
 
+      # source is a member/protocol requirement of target
+      def rebuild_member(rel, source, target)
+        return unless source
+
+        source.protocol_requirement = rel.protocol_requirement?
+        context_constraints = source.unique_context_constraints(target)
+
+        # Add to its parent or invent an extension
+        unless target && target.try_add_child(source, context_constraints)
+          add_ext_member(rel.target_usr, source, context_constraints)
+        end
+      end
+
+      # "source : target" either from type decl or ext decl
+      def rebuild_conformance(rel, source, target)
+        protocol_name = rel_target_name(rel, target)
+
+        return if redundant_conformance?(rel, source, protocol_name)
+
+        constraints =
+          rel.constraints - ((source && source.symbol.constraints) || [])
+
+        # Create an extension or enhance an existing one
+        add_ext_conformance(rel.source_usr,
+                            rel_source_name(rel, source),
+                            protocol_name,
+                            constraints)
+      end
+
+      # "source is a default implementation of protocol requirement target"
+      def rebuild_default_implementation(_rel, source, target)
+        return unless source
+
+        unless target &&
+               (target_parent = target.parent) &&
+               target_parent.is_a?(SymNode)
+          # Could probably figure this out with demangle, but...
+          warn "Can't resolve membership of default implementation "\
+               "#{source.symbol.usr}."
+          source.unlisted = true
+          return
+        end
+
+        add_ext_member(target_parent.symbol.usr,
+                       source,
+                       source.unique_context_constraints(target_parent))
+      end
+
       # Process a structural relationship to link nodes
-      # rubocop:disable Metrics/CyclomaticComplexity
-      # rubocop:disable Metrics/PerceivedComplexity
       def rebuild_rel(rel)
         source = symbol_nodes[rel.source_usr]
         target = symbol_nodes[rel.target_usr]
 
         case rel.kind
-        when :memberOf
-          # source is a member of target
-          return unless source
-
-          context_constraints = source.unique_context_constraints(target)
-
-          # Add to its parent or invent an extension
-          unless target && target.try_add_child(source, context_constraints)
-            add_ext_member(rel.target_usr, source, context_constraints)
-          end
+        when :memberOf, :optionalRequirementOf, :requirementOf
+          rebuild_member(rel, source, target)
 
         when :conformsTo
-          # "source : target" either from type decl or ext decl
-          protocol_name = rel_target_name(rel, target)
+          rebuild_conformance(rel, source, target)
 
-          unless redundant_conformance?(rel, source, protocol_name)
-            constraints =
-              rel.constraints - ((source && source.symbol.constraints) || [])
-
-            # Create an extension or enhance an existing one
-            add_ext_conformance(rel.source_usr,
-                                rel_source_name(rel, source),
-                                protocol_name,
-                                constraints)
-          end
-          # don't seem to care about:
-          # - defaultImplementationOf: deduced in jazzy-real
-          # - overrides: not bothered, also unimplemented for protocols
-          # - inheritsFrom: not bothered
+        when :defaultImplementationOf
+          rebuild_default_implementation(rel, source, target)
         end
-      end
-      # rubocop:enable Metrics/PerceivedComplexity
-      # rubocop:enable Metrics/CyclomaticComplexity
-
-      # Scan the relationships and mark symnodes that are
-      # protocol reqs.  Return the other relationships
-      def mark_and_reject_protocol_requirements
-        relationships.select do |rel|
-          next true unless rel.protocol_requirement?
-          if node = symbol_nodes[rel.source_usr]
-            node.protocol_req = true
-          end
-          false
-        end
+        # don't seem to care about:
+        # - overrides: not bothered, also unimplemented for protocols
+        # - inheritsFrom: not bothered
       end
 
       # Rebuild the AST structure  and convert to SourceKit
       def to_sourcekit
-        mark_and_reject_protocol_requirements.each do |rel|
-          rebuild_rel(rel)
-        end
+        # Do default impls after the others so we can find protocol
+        # type nodes from protocol requirements.
+        default_impls, other_rels =
+          relationships.partition(&:default_implementation?)
+        (other_rels + default_impls).each { |r| rebuild_rel(r) }
 
         root_symbol_nodes =
           symbol_nodes.values
-                      .select { |n| n.parent.nil? }
+                      .select(&:top_level_decl?)
                       .sort
                       .map(&:to_sourcekit)
 
@@ -153,3 +170,4 @@ module Jazzy
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

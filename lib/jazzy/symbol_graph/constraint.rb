@@ -30,7 +30,7 @@ module Jazzy
       end
 
       def self.new_list(hash_list)
-        hash_list.map { |h| Constraint.new(h) }.sort
+        hash_list.map { |h| Constraint.new(h) }.sort.uniq
       end
 
       # Swift protocols and reqs have an implementation/hidden conformance
@@ -43,7 +43,7 @@ module Jazzy
             next nil
           end
           Constraint.new(hash)
-        end.compact.sort
+        end.compact.sort.uniq
       end
 
       # Sort order - by Swift text
@@ -53,8 +53,10 @@ module Jazzy
         to_swift <=> other.to_swift
       end
 
-      def eql?(other) # For Array.- ...
-        other == self
+      alias eql? ==
+
+      def hash
+        to_swift.hash
       end
     end
   end

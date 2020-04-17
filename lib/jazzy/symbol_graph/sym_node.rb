@@ -26,14 +26,19 @@ module Jazzy
     class SymNode < BaseNode
       attr_accessor :symbol
       attr_writer :override
-      attr_writer :protocol_req
+      attr_writer :protocol_requirement
+      attr_writer :unlisted
 
       def override?
         @override
       end
 
-      def protocol_req?
-        @protocol_req
+      def protocol_requirement?
+        @protocol_requirement
+      end
+
+      def top_level_decl?
+        !@unlisted && parent.nil?
       end
 
       def initialize(symbol)
@@ -59,7 +64,7 @@ module Jazzy
       #  - we're a protocol and it's a default impl / ext method
       def try_add_child(node, unique_context_constraints)
         unless unique_context_constraints.empty? &&
-               (!protocol? || node.protocol_req?)
+               (!protocol? || node.protocol_requirement?)
           return false
         end
         add_child(node)
