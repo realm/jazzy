@@ -17,6 +17,9 @@
 * Fix module version not being used from podspec.  
   [Jonathan Bailey](https://github.com/jon889)
 
+* Autolink Swift custom attributes/property wrappers.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ## 0.13.2
 
 ##### Breaking

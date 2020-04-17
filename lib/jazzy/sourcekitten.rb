@@ -17,7 +17,7 @@ ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
 def autolink_regex(middle_regex, after_highlight)
   start_tag_re, end_tag_re =
     if after_highlight
-      [/<span class="(?:n|kt|nc)">/, '</span>']
+      [/<span class="(?:n|kt|kd|nc)">/, '</span>']
     else
       ['<code>', '</code>']
     end
@@ -913,9 +913,9 @@ module Jazzy
     # The `after_highlight` flag is used to differentiate between the two modes.
     def self.autolink_text(text, doc, root_decls, after_highlight = false)
       text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
-        parts = raw_name
-                .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
-                .reject(&:empty?)
+        parts = raw_name.sub(/^@/, '') # ignore for custom attribute ref
+                        .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
+                        .reject(&:empty?)
 
         # First dot-separated component can match any ancestor or top-level doc
         first_part = parts.shift
