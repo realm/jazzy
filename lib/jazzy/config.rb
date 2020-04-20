@@ -329,6 +329,11 @@ module Jazzy
       description: 'GitHub URL file prefix of this project (e.g. '\
                    'https://github.com/realm/realm-cocoa/tree/v0.87.1)'
 
+    config_attr :docset_playground_url,
+      command_line: '--docset-playground-url URL',
+      description: 'URL of an interactive playground to demonstrate the '\
+                   'framework, linked to from the docset.'
+
     # ──────── Doc generation options ────────
     config_attr :disable_search,
       command_line: '--disable-search',

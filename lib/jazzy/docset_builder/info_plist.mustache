@@ -16,5 +16,13 @@
       <true/>
     <key>DashDocSetFamily</key>
       <string>dashtoc</string>
+    {{#root_url}}
+    <key>DashDocSetFallbackURL</key>
+      <string>{{{.}}}</string>
+    {{/root_url}}
+    {{#playground_url}}
+    <key>DashDocSetPlayURL</key>
+      <string>{{{.}}}</string>
+    {{/playground_url}}
   </dict>
 </plist>

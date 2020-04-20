@@ -12,6 +12,11 @@
   [Jonathan Bailey](https://github.com/jon889)
   [#650](https://github.com/realm/jazzy/issues/650)
 
+* Improve Dash docset support: support online redirection when
+  `--root-url` is set, and provide `--docset-playground-url` to
+  support docset playground links.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Fix module version not being used from podspec.  

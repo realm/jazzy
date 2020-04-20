@@ -43,6 +43,8 @@ module Jazzy
             template.read,
             lowercase_name: source_module.name.downcase,
             name: source_module.name,
+            root_url: config.root_url,
+            playground_url: config.docset_playground_url,
           )
         end
       end
