@@ -436,6 +436,18 @@ module Jazzy
                    'is "Undocumented", put "" if no text is required',
       default: 'Undocumented'
 
+    config_attr :render_as_page_kinds,
+      command_line: '--render-as-page REGEX',
+      description: 'Regular expression that match type kinds for which page generation should be forced',
+      default: '',
+      parse: ->(r) { 
+        if r.to_s.empty?
+          nil
+        else
+          Regexp.new(r) 
+        end
+      }
+
     # rubocop:enable Style/AlignParameter
 
     def initialize

@@ -11,7 +11,8 @@ module Jazzy
 
     # Give the item its own page or just inline into parent?
     def render_as_page?
-      children.any?
+      children.any? ||
+        (Config.instance.render_as_page_kinds.match? type.kind if Config.instance.render_as_page_kinds)
     end
 
     def swift?
