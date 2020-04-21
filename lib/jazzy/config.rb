@@ -438,13 +438,14 @@ module Jazzy
 
     config_attr :render_as_page_kinds,
       command_line: '--render-as-page REGEX',
-      description: 'Regular expression that match type kinds for which page generation should be forced',
+      description: 'Regular expression that match type kinds for which page '\
+                   'generation should be forced',
       default: '',
-      parse: ->(r) { 
+      parse: ->(r) {
         if r.to_s.empty?
           nil
         else
-          Regexp.new(r) 
+          Regexp.new(r)
         end
       }
 
