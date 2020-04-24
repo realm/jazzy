@@ -137,6 +137,30 @@ module Jazzy
         kind == 'sourcekitten.source.lang.objc.decl.unexposed'
       end
 
+      def should_have_extra_page?
+        # These kinds are meaned to be global and should be rendered
+        # as page in extra-page-rendering mode.
+        [
+          # Swift
+          'source.lang.swift.decl.class',
+          'source.lang.swift.decl.enum',
+          'source.lang.swift.decl.function.free',
+          'source.lang.swift.decl.protocol',
+          'source.lang.swift.decl.struct',
+          'source.lang.swift.decl.var.global',
+
+          # Objective-C
+          'sourcekitten.source.lang.objc.decl.category',
+          'sourcekitten.source.lang.objc.decl.class',
+          'sourcekitten.source.lang.objc.decl.constant',
+          'sourcekitten.source.lang.objc.decl.enum',
+          'sourcekitten.source.lang.objc.decl.function',
+          'sourcekitten.source.lang.objc.decl.protocol',
+          'sourcekitten.source.lang.objc.decl.struct',
+          'sourcekitten.source.lang.objc.decl.typedef',
+        ].include? kind
+      end
+
       def self.overview
         Type.new('Overview')
       end
