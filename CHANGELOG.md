@@ -10,9 +10,9 @@
   typeahead.js 1.3.1 (`fullwidth` theme only).  
   [John Fairhurst](https://github.com/johnfairh)
 
-* Added a config option to specify type kinds that should be rendered 
-  as pages. The option is `--render-as-page` and it accepts a regular 
-  expression matching type kinds.  
+* Added a config option `--[no-]extra-page-rendering` to enforce page
+  rendering for definitions meaned global (like classes, structs, enums etc.)
+  even if they don't have children.  
   [Nikolay Volosatov](https://github.com/bamx23)
 
 ##### Bug Fixes
