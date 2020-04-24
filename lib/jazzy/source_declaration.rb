@@ -11,8 +11,8 @@ module Jazzy
 
     # Give the item its own page or just inline into parent?
     def render_as_page?
-      children.any? || 
-        (Config.instance.extra_page_rendering && 
+      children.any? ||
+        (Config.instance.extra_page_rendering &&
           type.should_have_extra_page?)
     end
 
