@@ -436,18 +436,15 @@ module Jazzy
                    'is "Undocumented", put "" if no text is required',
       default: 'Undocumented'
 
-    config_attr :render_as_page_kinds,
-      command_line: '--render-as-page REGEX',
-      description: 'Regular expression that match type kinds for which page '\
-                   'generation should be forced',
-      default: '',
-      parse: ->(r) {
-        if r.to_s.empty?
-          nil
-        else
-          Regexp.new(r)
-        end
-      }
+    config_attr :page_render_level,
+      command_line: '--page-render-level [no-children | global]',
+      description: 'When definition should be rendered as a page. '\
+                   'Value "no-children" means that only definitions with '\
+                   'no children should have their pages. Value "global" '\
+                   'means that pages will be generated for both '\
+                   'no-children-definitions and definitions meaned to be '\
+                   'global like classes, structs, enums etc.',
+      default: 'no-children'
 
     # rubocop:enable Style/AlignParameter
 

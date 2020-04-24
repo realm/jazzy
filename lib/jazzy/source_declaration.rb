@@ -11,9 +11,25 @@ module Jazzy
 
     # Give the item its own page or just inline into parent?
     def render_as_page?
-      children.any? ||
-        (Config.instance.render_as_page_kinds.match? type.kind if
-          Config.instance.render_as_page_kinds)
+      case Config.instance.page_render_level
+      when 'no-children' then children.any?
+      when 'global' then children.any? || global_page?
+      end
+    end
+
+    # These sections are marked as global.
+    def global_page?
+      [
+        'Category',
+        'Class',
+        'Constant',
+        'Enumeration',
+        'Function',
+        'Global Variable',
+        'Protocol',
+        'Structure',
+        'Type Definition',
+      ].include? type.name
     end
 
     def swift?
