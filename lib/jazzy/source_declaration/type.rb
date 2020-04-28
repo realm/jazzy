@@ -148,6 +148,11 @@ module Jazzy
           'source.lang.swift.decl.protocol',
           'source.lang.swift.decl.struct',
           'source.lang.swift.decl.var.global',
+          'source.lang.swift.decl.extension',
+          'source.lang.swift.decl.extension.class',
+          'source.lang.swift.decl.extension.enum',
+          'source.lang.swift.decl.extension.protocol',
+          'source.lang.swift.decl.extension.struct',
 
           # Objective-C
           'sourcekitten.source.lang.objc.decl.category',
