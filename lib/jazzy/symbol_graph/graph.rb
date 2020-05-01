@@ -34,28 +34,21 @@ module Jazzy
         usr + constraints.map(&:to_swift).join
       end
 
-      def add_ext_member(type_usr,
-                         member_node,
-                         type_constraints,
-                         ext_constraints)
-        key = ext_key(type_usr, ext_constraints)
+      def add_ext_member(type_usr, member_node, constraints)
+        key = ext_key(type_usr, constraints.ext)
         if ext_node = ext_nodes[key]
           ext_node.add_child(member_node)
         else
           ext_nodes[key] =
-            ExtNode.new_for_member(type_usr,
-                                   member_node,
-                                   type_constraints,
-                                   ext_constraints)
+            ExtNode.new_for_member(type_usr, member_node, constraints)
         end
       end
 
       def add_ext_conformance(type_usr,
                               type_name,
                               protocol,
-                              type_constraints,
-                              ext_constraints)
-        key = ext_key(type_usr, ext_constraints)
+                              constraints)
+        key = ext_key(type_usr, constraints.ext)
         if ext_node = ext_nodes[key]
           ext_node.add_conformance(protocol)
         else
@@ -63,8 +56,7 @@ module Jazzy
             ExtNode.new_for_conformance(type_usr,
                                         type_name,
                                         protocol,
-                                        type_constraints,
-                                        ext_constraints)
+                                        constraints)
         end
       end
 
@@ -93,15 +85,13 @@ module Jazzy
         return unless source
 
         source.protocol_requirement = rel.protocol_requirement?
-        ext_constraints = source.unique_context_constraints(target)
-        type_constraints = target && target.constraints
+        constraints =
+          ExtConstraints.new(target && target.constraints,
+                             source.unique_context_constraints(target))
 
         # Add to its parent or invent an extension
-        unless target && target.try_add_child(source, ext_constraints)
-          add_ext_member(rel.target_usr,
-                         source,
-                         type_constraints,
-                         ext_constraints)
+        unless target && target.try_add_child(source, constraints.ext)
+          add_ext_member(rel.target_usr, source, constraints)
         end
       end
 
@@ -112,14 +102,15 @@ module Jazzy
         return if redundant_conformance?(rel, source, protocol_name)
 
         type_constraints = (source && source.constraints) || []
-        ext_constraints = rel.constraints - type_constraints
+        constraints =
+          ExtConstraints.new(type_constraints,
+                             rel.constraints - type_constraints)
 
         # Create an extension or enhance an existing one
         add_ext_conformance(rel.source_usr,
                             rel_source_name(rel, source),
                             protocol_name,
-                            type_constraints,
-                            ext_constraints)
+                            constraints)
       end
 
       # "source is a default implementation of protocol requirement target"
@@ -135,11 +126,13 @@ module Jazzy
           source.unlisted = true
           return
         end
+        constraints =
+          ExtConstraints.new(target_parent.constraints,
+                             source.unique_context_constraints(target_parent))
 
         add_ext_member(target_parent.symbol.usr,
                        source,
-                       target_parent.constraints,
-                       source.unique_context_constraints(target_parent))
+                       constraints)
       end
 
       # Process a structural relationship to link nodes

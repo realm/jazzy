@@ -1,44 +1,56 @@
 module Jazzy
   module SymbolGraph
+    # For extensions we need to track constraints of the extended type
+    # and the constraints introduced by the extension.
+    class ExtConstraints
+      attr_accessor :type # array
+      attr_accessor :ext # array
+
+      # all constraints inherited by members of the extension
+      def merged
+        (type + ext).sort
+      end
+
+      def initialize(type_constraints, ext_constraints)
+        self.type = type_constraints || []
+        self.ext = ext_constraints || []
+      end
+    end
+
     # An ExtNode is a node of the reconstructed syntax tree representing
     # an extension that we fabricate to resolve certain relationships.
     class ExtNode < BaseNode
       attr_accessor :usr
       attr_accessor :name
-      attr_accessor :type_constraints # array, can be empty
-      attr_accessor :ext_constraints # array, can be empty
+      attr_accessor :all_constraints
       attr_accessor :conformances # array, can be empty
 
       # Deduce an extension from a member of an unknown type or
       # of known type with additional constraints
       def self.new_for_member(type_usr,
                               member,
-                              type_constraints,
-                              ext_constraints)
+                              constraints)
         new(type_usr,
             member.parent_qualified_name,
-            type_constraints,
-            ext_constraints).tap { |o| o.add_child(member) }
+            constraints).tap { |o| o.add_child(member) }
       end
 
       # Deduce an extension from a protocol conformance for some type
       def self.new_for_conformance(type_usr,
                                    type_name,
                                    protocol,
-                                   type_constraints,
-                                   ext_constraints)
-        new(type_usr, type_name, type_constraints, ext_constraints).tap do |o|
+                                   constraints)
+        new(type_usr, type_name, constraints).tap do |o|
           o.add_conformance(protocol)
         end
       end
 
       private
 
-      def initialize(usr, name, type_constraints, ext_constraints)
+      def initialize(usr, name, constraints)
         self.usr = usr
         self.name = name
-        self.type_constraints = type_constraints || []
-        self.ext_constraints = ext_constraints
+        self.all_constraints = constraints
         self.conformances = []
         super()
       end
@@ -46,7 +58,7 @@ module Jazzy
       public
 
       def constraints
-        (ext_constraints + type_constraints).sort
+        all_constraints.merged
       end
 
       def add_conformance(protocol)
@@ -58,7 +70,7 @@ module Jazzy
         unless conformances.empty?
           decl += ' : ' + conformances.join(', ')
         end
-        decl + ext_constraints.to_where_clause
+        decl + all_constraints.ext.to_where_clause
       end
 
       def to_sourcekit(module_name)
