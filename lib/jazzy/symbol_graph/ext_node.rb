@@ -58,10 +58,7 @@ module Jazzy
         unless conformances.empty?
           decl += ' : ' + conformances.join(', ')
         end
-        unless ext_constraints.empty?
-          decl += ' where ' + ext_constraints.map(&:to_swift).join(', ')
-        end
-        decl
+        decl + ext_constraints.to_where_clause
       end
 
       def to_sourcekit(module_name)

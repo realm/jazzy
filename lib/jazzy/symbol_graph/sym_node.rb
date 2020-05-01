@@ -98,9 +98,7 @@ module Jazzy
       # Generate the 'where' clause for the declaration
       def where_clause
         parent_constraints = (parent && parent.constraints) || []
-        new_constraints = constraints - parent_constraints
-        return '' if new_constraints.empty?
-        ' where ' + new_constraints.map(&:to_swift).join(', ')
+        (constraints - parent_constraints).to_where_clause
       end
 
       def full_declaration
