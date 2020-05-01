@@ -27,32 +27,44 @@ module Jazzy
         self.ext_nodes = {}
       end
 
-      # ExtNode index.  (type USR, constraints) -> ExtNode.
+      # ExtNode index.  (type USR, extension constraints) -> ExtNode.
       # This minimizes the number of extensions
 
       def ext_key(usr, constraints)
         usr + constraints.map(&:to_swift).join
       end
 
-      def add_ext_member(type_usr, member_node, constraints)
-        key = ext_key(type_usr, constraints)
+      def add_ext_member(type_usr,
+                         member_node,
+                         type_constraints,
+                         ext_constraints)
+        key = ext_key(type_usr, ext_constraints)
         if ext_node = ext_nodes[key]
           ext_node.add_child(member_node)
         else
           ext_nodes[key] =
-            ExtNode.new_for_member(type_usr, member_node, constraints)
+            ExtNode.new_for_member(type_usr,
+                                   member_node,
+                                   type_constraints,
+                                   ext_constraints)
         end
       end
 
-      def add_ext_conformance(type_usr, type_name, protocol, constraints)
-        key = ext_key(type_usr, constraints)
+      def add_ext_conformance(type_usr,
+                              type_name,
+                              protocol,
+                              type_constraints,
+                              ext_constraints)
+        key = ext_key(type_usr, ext_constraints)
         if ext_node = ext_nodes[key]
           ext_node.add_conformance(protocol)
         else
-          ext_nodes[key] = ExtNode.new_for_conformance(type_usr,
-                                                       type_name,
-                                                       protocol,
-                                                       constraints)
+          ext_nodes[key] =
+            ExtNode.new_for_conformance(type_usr,
+                                        type_name,
+                                        protocol,
+                                        type_constraints,
+                                        ext_constraints)
         end
       end
 
@@ -81,11 +93,15 @@ module Jazzy
         return unless source
 
         source.protocol_requirement = rel.protocol_requirement?
-        context_constraints = source.unique_context_constraints(target)
+        ext_constraints = source.unique_context_constraints(target)
+        type_constraints = target && target.constraints
 
         # Add to its parent or invent an extension
-        unless target && target.try_add_child(source, context_constraints)
-          add_ext_member(rel.target_usr, source, context_constraints)
+        unless target && target.try_add_child(source, ext_constraints)
+          add_ext_member(rel.target_usr,
+                         source,
+                         type_constraints,
+                         ext_constraints)
         end
       end
 
@@ -95,14 +111,15 @@ module Jazzy
 
         return if redundant_conformance?(rel, source, protocol_name)
 
-        constraints =
-          rel.constraints - ((source && source.symbol.constraints) || [])
+        type_constraints = (source && source.constraints) || []
+        ext_constraints = rel.constraints - type_constraints
 
         # Create an extension or enhance an existing one
         add_ext_conformance(rel.source_usr,
                             rel_source_name(rel, source),
                             protocol_name,
-                            constraints)
+                            type_constraints,
+                            ext_constraints)
       end
 
       # "source is a default implementation of protocol requirement target"
@@ -121,6 +138,7 @@ module Jazzy
 
         add_ext_member(target_parent.symbol.usr,
                        source,
+                       target_parent.constraints,
                        source.unique_context_constraints(target_parent))
       end
 

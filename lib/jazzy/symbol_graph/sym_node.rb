@@ -58,6 +58,10 @@ module Jazzy
         symbol.kind.end_with?('protocol')
       end
 
+      def constraints
+        symbol.constraints
+      end
+
       # Add another SymNode as a member if possible.
       # It must go in an extension if either:
       #  - it has different generic constraints to us; or
@@ -91,8 +95,18 @@ module Jazzy
         Regexp.last_match[0] =~ /\b#{protocol}\b/
       end
 
+      # Generate the 'where' clause for the declaration
+      def where_clause
+        parent_constraints = (parent && parent.constraints) || []
+        new_constraints = constraints - parent_constraints
+        return '' if new_constraints.empty?
+        ' where ' + new_constraints.map(&:to_swift).join(', ')
+      end
+
       def full_declaration
-        symbol.availability.append(symbol.declaration).join("\n")
+        symbol.availability
+              .append(symbol.declaration + where_clause)
+              .join("\n")
       end
 
       # rubocop:disable Metrics/MethodLength
