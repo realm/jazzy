@@ -1,5 +1,6 @@
 jazzy-docs/
 /docs/
+node_modules
 
 *.gem
 *.rbc
