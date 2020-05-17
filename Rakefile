@@ -109,6 +109,31 @@ begin
     FileUtils.cp_r "#{sk_dir}/.build/release/sourcekitten", 'bin'
   end
 
+  #-- Theme Dependencies -----------------------------------------------------#
+
+  THEME_FILES = {
+    'jquery/dist/jquery.min.js' => [
+      'themes/apple/assets/js',
+      'themes/fullwidth/assets/js',
+      'themes/jony/assets/js'
+    ],
+    'lunr/lunr.min.js' => ['themes/fullwidth/assets/js'],
+    'corejs-typeahead/dist/typeahead.jquery.js' =>
+      ['themes/fullwidth/assets/js'],
+    'katex/dist/katex.min.css' => ['extensions/katex/css'],
+    'katex/dist/fonts' => ['extensions/katex/css'],
+    'katex/dist/katex.min.js' => ['extensions/katex/js']
+  }
+
+  desc 'Copies theme dependencies (`npm update/install` by hand first)'
+  task :theme_deps do
+    THEME_FILES.each_pair do |src, dsts|
+      dsts.each do |dst|
+        FileUtils.cp_r "js/node_modules/#{src}", "lib/jazzy/#{dst}"
+      end
+    end
+  end
+
 rescue LoadError, NameError => e
   $stderr.puts "\033[0;31m" \
     '[!] Some Rake tasks haven been disabled because the environment' \
