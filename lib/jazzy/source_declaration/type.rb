@@ -144,8 +144,12 @@ module Jazzy
       def should_have_extra_page?
         # These kinds are meaned to be global and should be rendered
         # as page in extra-page-rendering mode.
+        swift_should_have_extra_page? || objc_should_have_extra_page?
+      end
+
+      def swift_should_have_extra_page?
+        # See `should_have_extra_page`
         [
-          # Swift
           'source.lang.swift.decl.class',
           'source.lang.swift.decl.enum',
           'source.lang.swift.decl.function.free',
@@ -157,8 +161,12 @@ module Jazzy
           'source.lang.swift.decl.extension.enum',
           'source.lang.swift.decl.extension.protocol',
           'source.lang.swift.decl.extension.struct',
+        ].include? kind
+      end
 
-          # Objective-C
+      def objc_should_have_extra_page?
+        # See `should_have_extra_page`
+        [
           'sourcekitten.source.lang.objc.decl.category',
           'sourcekitten.source.lang.objc.decl.class',
           'sourcekitten.source.lang.objc.decl.constant',

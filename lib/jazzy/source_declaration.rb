@@ -147,7 +147,7 @@ module Jazzy
     def unsafe_filename
       result = url_name || name
       if render_as_page? && type.swift_global_function?
-        result += "_" + type_usr
+        result += '_' + type_usr
       end
       result
     end
