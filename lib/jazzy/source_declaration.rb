@@ -110,6 +110,7 @@ module Jazzy
     attr_accessor :line
     attr_accessor :column
     attr_accessor :usr
+    attr_accessor :type_usr
     attr_accessor :modulename
     attr_accessor :name
     attr_accessor :objc_name
@@ -141,6 +142,14 @@ module Jazzy
 
     def filepath
       CGI.unescape(url)
+    end
+
+    def unsafe_filename
+      result = url_name || name
+      if render_as_page? && type.swift_global_function?
+        result += "_" + type_usr
+      end
+      result
     end
 
     def constrained_extension?
