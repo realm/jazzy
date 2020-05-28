@@ -27,7 +27,8 @@ module Jazzy
     # When referencing this item from its parent category,
     # include the content or just link to it directly?
     def omit_content_from_parent?
-      false
+      Config.instance.extra_page_rendering &&
+        (children.any? || type.should_have_extra_page?)
     end
 
     # Element containing this declaration in the code
