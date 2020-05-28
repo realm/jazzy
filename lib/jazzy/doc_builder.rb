@@ -406,6 +406,8 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     # Build Mustache document from single parsed doc
     # @param [Config] options Build options
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
@@ -433,11 +435,16 @@ module Jazzy
       doc[:dash_type] = doc_model.type.dash_type
       doc[:declaration] = doc_model.display_declaration
       doc[:overview] = overview
+      doc[:parameters] = doc_model.parameters if
+        doc_model.parameters && doc_model.parameters.any?
+      doc[:return] = doc_model.return
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url
+      doc[:github_token_url] = gh_token_url(doc_model, source_module) unless
+        doc_model.children.any?
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:deprecation_message] = doc_model.deprecation_message
@@ -446,5 +453,7 @@ module Jazzy
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
     # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
   end
 end
