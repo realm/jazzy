@@ -16,6 +16,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1185](https://github.com/realm/jazzy/issues/1185)
 
+* Accept `root_url` without trailing slash.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1188](https://github.com/realm/jazzy/issues/1188)
+
 ## 0.13.3
 
 ##### Breaking

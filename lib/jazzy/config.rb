@@ -310,7 +310,8 @@ module Jazzy
     config_attr :root_url,
       command_line: ['-r', '--root-url URL'],
       description: 'Absolute URL root where these docs will be stored',
-      parse: ->(r) { URI(r) }
+      # ensure trailing slash for correct URI.join()
+      parse: ->(r) { URI(r.sub(%r{/?$}, '/')) }
 
     config_attr :dash_url,
       command_line: ['-d', '--dash_url URL'],
