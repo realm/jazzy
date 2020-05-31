@@ -378,7 +378,7 @@ module Jazzy
       {
         name: mark.name,
         name_html: (render(doc_model, mark.name) if mark.name),
-        uid: URI.encode(uid),
+        uid: ERB::Util.url_encode(uid),
         items: items,
         pre_separator: mark.has_start_dash,
         post_separator: mark.has_end_dash,

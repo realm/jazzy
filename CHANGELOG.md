@@ -12,7 +12,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix warnings from Ruby 2.7.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1185](https://github.com/realm/jazzy/issues/1185)
 
 ## 0.13.3
 
