@@ -207,7 +207,11 @@
 
 ##### Enhancements
 
-* None.
+* Added option `--[no-]separate-global-declarations` to always create separate
+  documentation pages for top-level declarations as well as classes,
+  structures, enums etc. even if they don't have members.  
+  [Nikolay Volosatov](https://github.com/bamx23)
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 

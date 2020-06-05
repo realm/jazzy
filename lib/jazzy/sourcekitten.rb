@@ -138,7 +138,7 @@ module Jazzy
     end
 
     def self.sanitize_filename(doc)
-      unsafe_filename = doc.url_name || doc.name
+      unsafe_filename = doc.docs_filename
       sanitzation_enabled = Config.instance.use_safe_filenames
       if sanitzation_enabled && !doc.type.name_controlled_manually?
         return CGI.escape(unsafe_filename).gsub('_', '%5F').tr('%', '_')
@@ -565,6 +565,7 @@ module Jazzy
 
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
         declaration.usr = doc['key.usr']
+        declaration.type_usr = doc['key.typeusr']
         declaration.modulename = doc['key.modulename']
         declaration.name = documented_name
         declaration.mark = current_mark

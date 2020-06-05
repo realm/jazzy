@@ -433,11 +433,14 @@ module Jazzy
       doc[:dash_type] = doc_model.type.dash_type
       doc[:declaration] = doc_model.display_declaration
       doc[:overview] = overview
+      doc[:parameters] = doc_model.parameters
+      doc[:return] = doc_model.return
       doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
       doc[:github_url] = source_module.github_url
+      doc[:github_token_url] = gh_token_url(doc_model, source_module)
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:deprecation_message] = doc_model.deprecation_message

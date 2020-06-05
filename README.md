@@ -281,6 +281,13 @@ Note that the `--include` option is applied before the `--exclude` option. For e
 Declarations with a documentation comment containing `:nodoc:` are excluded from the
 documentation.
 
+### Documentation structure
+
+By default Jazzy does not create separate web pages for declarations that do
+not have any members: instead they are nested into some parent page.  Use the
+`--separate-global-declarations` flag to change this and always create pages
+for declarations that can be directly accessed from client code.
+
 ### Choosing the Swift language version
 
 Jazzy normally uses the Swift compiler from the Xcode currently configured by
