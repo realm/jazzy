@@ -18,7 +18,7 @@ $content_wrapper_width: 980px;
 $content_top_offset: 70px;
 $content_body_margin: 16px;
 $content_body_left_offset: $sidebar_width + $content_body_margin;
-$header_height: 26px;
+$header_height: 32px;
 $breadcrumb_padding_top: 17px;
 
 $code_font: 0.95em Menlo, monospace;
@@ -152,7 +152,7 @@ header {
   background-color: $bg_color;
   position: fixed;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
   img {
     padding-right: 6px;
     vertical-align: -4px;
@@ -527,5 +527,72 @@ html.dash {
   }
   #footer {
     position: static;
+  }
+}
+
+// ===========================================================================
+//
+//  Search
+//
+// ===========================================================================
+form[role=search] {
+  float: right;
+
+  input {
+    font: Helvetica, freesans, Arial, sans-serif;
+    margin-top: 3px;
+    margin-left: 16px;
+    font-size: 13px;
+    line-height: 26px;
+    padding: 0px 10px;
+    border: none;
+    border-radius: 1em;
+    .loading & {
+      background: white url(../img/spinner.gif) center right 4px no-repeat;
+    }
+  }
+
+  // Typeahead elements
+
+  .tt-menu {
+    margin: 0;
+    min-width: 300px;
+    background: $white_color;
+    color: #333;
+    border: 1px solid #fbfbfb;
+    z-index: 4;
+  }
+
+  .tt-highlight {
+    font-weight: bold;
+  }
+
+  .tt-suggestion {
+    font: Helvetica, freesans, Arial, sans-serif;
+    font-size: 14px;
+    padding: 0 8px;
+    span {
+      display: table-cell;
+      white-space: nowrap;
+    }
+    .doc-parent-name {
+      width: 100%;
+      text-align: right;
+      font-weight: normal;
+      font-size: 0.9em;
+      padding-left: 16px;
+    }
+  }
+
+  .tt-suggestion:hover,
+  .tt-suggestion.tt-cursor {
+    cursor: pointer;
+    background-color: #4183c4;
+    color: #fff;
+  }
+
+  .tt-suggestion:hover .doc-parent-name,
+  .tt-suggestion.tt-cursor .doc-parent-name {
+    color: #fff;
   }
 }
