@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Add search function to `apple` theme.
+  [Giles Payne](https://github.com/komakai)
+  [#726](https://github.com/realm/jazzy/issues/726)
 
 ##### Bug Fixes
 
