@@ -117,9 +117,14 @@ begin
       'themes/fullwidth/assets/js',
       'themes/jony/assets/js'
     ],
-    'lunr/lunr.min.js' => ['themes/fullwidth/assets/js'],
-    'corejs-typeahead/dist/typeahead.jquery.js' =>
-      ['themes/fullwidth/assets/js'],
+    'lunr/lunr.min.js' => [
+      'themes/apple/assets/js',
+      'themes/fullwidth/assets/js'
+    ],
+    'corejs-typeahead/dist/typeahead.jquery.js' => [
+      'themes/apple/assets/js',
+      'themes/fullwidth/assets/js'
+    ],
     'katex/dist/katex.min.css' => ['extensions/katex/css'],
     'katex/dist/fonts' => ['extensions/katex/css'],
     'katex/dist/katex.min.js' => ['extensions/katex/js']

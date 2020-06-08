@@ -540,10 +540,9 @@ form[role=search] {
 
   input {
     font: Helvetica, freesans, Arial, sans-serif;
-    margin-top: 3px;
-    margin-left: 16px;
+    margin-top: 6px;
     font-size: 13px;
-    line-height: 26px;
+    line-height: 20px;
     padding: 0px 10px;
     border: none;
     border-radius: 1em;
@@ -559,7 +558,7 @@ form[role=search] {
     min-width: 300px;
     background: $white_color;
     color: #333;
-    border: 1px solid #fbfbfb;
+    border: $gray_border;
     z-index: 4;
   }
 
