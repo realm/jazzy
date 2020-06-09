@@ -4,7 +4,6 @@ module Jazzy
     # A Symbol is a tidied-up SymbolGraph JSON object
     class Symbol
       attr_accessor :usr
-      attr_accessor :name
       attr_accessor :path_components
       attr_accessor :declaration
       attr_accessor :kind
@@ -15,9 +14,12 @@ module Jazzy
       attr_accessor :availability # array, can be empty
       attr_accessor :generic_type_params # set, can be empty
 
+      def name
+        path_components[-1] || '??'
+      end
+
       def initialize(hash)
         self.usr = hash[:identifier][:precise]
-        self.name = hash[:names][:title]
         self.path_components = hash[:pathComponents]
         init_declaration(
           hash[:declarationFragments].map { |f| f[:spelling] }.join,
@@ -39,9 +41,11 @@ module Jazzy
 
       def init_declaration(raw_decl)
         # Too much 'Self.TypeName'; omitted arg labels look odd
+        # Duplicated constraints
         self.declaration =
           raw_decl.gsub(/\bSelf\./, '')
                   .gsub(/(?<=\(|, )_: /, '_ arg: ')
+                  .gsub(/ where.*$/, '')
       end
 
       # Mapping SymbolGraph's declkinds to SourceKit
@@ -134,15 +138,15 @@ module Jazzy
       def init_availability(avail_hash_list)
         self.availability = avail_hash_list.map do |avail|
           str = '@available('
-          if domain = avail[:domain]
+          if avail[:isUnconditionallyDeprecated]
+            str += '*, deprecated'
+          elsif domain = avail[:domain]
             str += domain
             %i[introduced deprecated obsoleted].each do |event|
               if version = avail[event]
                 str += ", #{event}: #{decode_version(version)}"
               end
             end
-          elsif avail[:isUnconditionallyDeprecated]
-            str += '*, deprecated'
           else
             warn "Found confusing availability: #{avail}"
             next nil

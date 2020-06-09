@@ -135,6 +135,13 @@ module Jazzy
                        constraints)
       end
 
+      # "source is a class that inherits from target"
+      def rebuild_inherits(_rel, source, target)
+        if source && target
+          source.superclass_name = target.symbol.name
+        end
+      end
+
       # Process a structural relationship to link nodes
       def rebuild_rel(rel)
         source = symbol_nodes[rel.source_usr]
@@ -149,10 +156,12 @@ module Jazzy
 
         when :defaultImplementationOf
           rebuild_default_implementation(rel, source, target)
+
+        when :inheritsFrom
+          rebuild_inherits(rel, source, target)
         end
         # don't seem to care about:
         # - overrides: not bothered, also unimplemented for protocols
-        # - inheritsFrom: not bothered
       end
 
       # Rebuild the AST structure  and convert to SourceKit

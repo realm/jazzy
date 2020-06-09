@@ -28,6 +28,7 @@ module Jazzy
       attr_writer :override
       attr_writer :protocol_requirement
       attr_writer :unlisted
+      attr_accessor :superclass_name
 
       def override?
         @override
@@ -101,9 +102,14 @@ module Jazzy
         (constraints - parent_constraints).to_where_clause
       end
 
+      def inherits_clause
+        return '' unless superclass_name
+        " : #{superclass_name}"
+      end
+
       def full_declaration
         symbol.availability
-              .append(symbol.declaration + where_clause)
+              .append(symbol.declaration + inherits_clause + where_clause)
               .join("\n")
       end
 
