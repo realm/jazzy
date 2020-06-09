@@ -47,8 +47,15 @@
             {{#declaration}}
               <div class="declaration">
                 <div class="language">
+                  {{#other_language_declaration}}<p class="aside-title">{{language}}</p>{{/other_language_declaration}}
                   {{{declaration}}}
                 </div>
+                {{#other_language_declaration}}
+                <div class="language">
+                  <p class="aside-title">Swift</p>
+                  {{{other_language_declaration}}}
+                </div>
+                {{/other_language_declaration}}
               </div>
             {{/declaration}}
             {{{overview}}}

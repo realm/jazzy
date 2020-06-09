@@ -432,6 +432,9 @@ module Jazzy
       doc[:kind] = doc_model.type.name
       doc[:dash_type] = doc_model.type.dash_type
       doc[:declaration] = doc_model.display_declaration
+      doc[:language] = doc_model.display_language
+      doc[:other_language_declaration] =
+        doc_model.display_other_language_declaration
       doc[:overview] = overview
       doc[:parameters] = doc_model.parameters
       doc[:return] = doc_model.return
