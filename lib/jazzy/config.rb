@@ -437,6 +437,13 @@ module Jazzy
                    'is "Undocumented", put "" if no text is required',
       default: 'Undocumented'
 
+    config_attr :separate_global_declarations,
+      command_line: '--[no-]separate-global-declarations',
+      description: 'Create separate pages for all global declarations '\
+                   "(classes, structures, enums etc.) even if they don't "\
+                   'have children.',
+      default: false
+
     # rubocop:enable Style/AlignParameter
 
     def initialize

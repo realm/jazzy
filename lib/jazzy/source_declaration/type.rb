@@ -23,6 +23,12 @@ module Jazzy
         @type && @type[:jazzy]
       end
 
+      # kinds that are 'global' and should get their own pages
+      # with --separate-global-declarations
+      def global?
+        @type && @type[:global]
+      end
+
       # name to use for type subdirectory in URLs for back-compatibility
       def url_name
         @type && (@type[:url] || @type[:jazzy])
@@ -118,6 +124,10 @@ module Jazzy
         kind == 'source.lang.swift.decl.typealias'
       end
 
+      def swift_global_function?
+        kind == 'source.lang.swift.decl.function.free'
+      end
+
       def param?
         # SourceKit strangely categorizes initializer parameters as local
         # variables, so both kinds represent a parameter in jazzy.
@@ -180,19 +190,23 @@ module Jazzy
         'sourcekitten.source.lang.objc.decl.category' => {
           jazzy: 'Category',
           dash: 'Extension',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.decl.class' => {
           jazzy: 'Class',
           dash: 'Class',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.decl.constant' => {
           jazzy: 'Constant',
           dash: 'Constant',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.decl.enum' => {
           jazzy: 'Enumeration',
           url: 'Enum',
           dash: 'Enum',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.decl.enumcase' => {
           jazzy: 'Enumeration Case',
@@ -217,10 +231,12 @@ module Jazzy
         'sourcekitten.source.lang.objc.decl.protocol' => {
           jazzy: 'Protocol',
           dash: 'Protocol',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.decl.typedef' => {
           jazzy: 'Type Definition',
           dash: 'Type',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.mark' => {
           jazzy: 'Mark',
@@ -229,11 +245,13 @@ module Jazzy
         'sourcekitten.source.lang.objc.decl.function' => {
           jazzy: 'Function',
           dash: 'Function',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.decl.struct' => {
           jazzy: 'Structure',
           url: 'Struct',
           dash: 'Struct',
+          global: true,
         }.freeze,
         'sourcekitten.source.lang.objc.decl.field' => {
           jazzy: 'Field',
@@ -300,6 +318,7 @@ module Jazzy
         'source.lang.swift.decl.class' => {
           jazzy: 'Class',
           dash: 'Class',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.function.constructor' => {
           jazzy: 'Initializer',
@@ -312,6 +331,7 @@ module Jazzy
         'source.lang.swift.decl.var.global' => {
           jazzy: 'Global Variable',
           dash: 'Global',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.enumcase' => {
           jazzy: 'Enumeration Case',
@@ -325,30 +345,37 @@ module Jazzy
           jazzy: 'Enumeration',
           url: 'Enum',
           dash: 'Enum',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.extension' => {
           jazzy: 'Extension',
           dash: 'Extension',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.extension.class' => {
           jazzy: 'Class Extension',
           dash: 'Extension',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.extension.enum' => {
           jazzy: 'Enumeration Extension',
           dash: 'Extension',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.extension.protocol' => {
           jazzy: 'Protocol Extension',
           dash: 'Extension',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.extension.struct' => {
           jazzy: 'Structure Extension',
           dash: 'Extension',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.function.free' => {
           jazzy: 'Function',
           dash: 'Function',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.function.method.instance' => {
           jazzy: 'Instance Method',
@@ -369,6 +396,7 @@ module Jazzy
         'source.lang.swift.decl.protocol' => {
           jazzy: 'Protocol',
           dash: 'Protocol',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.function.method.static' => {
           jazzy: 'Static Method',
@@ -382,6 +410,7 @@ module Jazzy
           jazzy: 'Structure',
           url: 'Struct',
           dash: 'Struct',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.function.subscript' => {
           jazzy: 'Subscript',
@@ -391,6 +420,7 @@ module Jazzy
           jazzy: 'Type Alias',
           url: 'Typealias',
           dash: 'Alias',
+          global: true,
         }.freeze,
         'source.lang.swift.decl.generic_type_param' => {
           jazzy: 'Generic Type Parameter',

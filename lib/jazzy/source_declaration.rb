@@ -11,7 +11,9 @@ module Jazzy
 
     # Give the item its own page or just inline into parent?
     def render_as_page?
-      children.any?
+      children.any? ||
+        (Config.instance.separate_global_declarations &&
+         type.global?)
     end
 
     def swift?
@@ -25,7 +27,8 @@ module Jazzy
     # When referencing this item from its parent category,
     # include the content or just link to it directly?
     def omit_content_from_parent?
-      false
+      Config.instance.separate_global_declarations &&
+        render_as_page?
     end
 
     # Element containing this declaration in the code
@@ -108,6 +111,7 @@ module Jazzy
     attr_accessor :line
     attr_accessor :column
     attr_accessor :usr
+    attr_accessor :type_usr
     attr_accessor :modulename
     attr_accessor :name
     attr_accessor :objc_name
@@ -139,6 +143,15 @@ module Jazzy
 
     def filepath
       CGI.unescape(url)
+    end
+
+    # Base filename (no extension) for the item
+    def docs_filename
+      result = url_name || name
+      # Workaround functions sharing names with
+      # different argument types (f(a:Int) vs. f(a:String))
+      return result unless type.swift_global_function?
+      result + "_#{type_usr}"
     end
 
     def constrained_extension?
