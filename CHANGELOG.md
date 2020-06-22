@@ -19,7 +19,11 @@
 
 ##### Bug Fixes
 
-* None.
+* Style fixes for `apple` and `jony` themes to codeblocks inside lists and
+  links.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#818](https://github.com/realm/jazzy/issues/818)
+  [#1177](https://github.com/realm/jazzy/issues/1177)
 
 ## 0.13.4
 
