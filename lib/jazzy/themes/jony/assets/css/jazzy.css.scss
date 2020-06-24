@@ -101,11 +101,18 @@ pre, code {
   word-wrap: normal;
 }
 
+pre {
+  line-height: 1.6;
+}
+
 // Links
 
 a {
   color: $link_color;
   text-decoration: none;
+  code {
+    color: inherit;
+  }
 }
 
 // Lists
