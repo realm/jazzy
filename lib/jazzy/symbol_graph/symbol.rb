@@ -21,15 +21,14 @@ module Jazzy
       def initialize(hash)
         self.usr = hash[:identifier][:precise]
         self.path_components = hash[:pathComponents]
-        init_declaration(
-          hash[:declarationFragments].map { |f| f[:spelling] }.join,
-        )
+        raw_decl = hash[:declarationFragments].map { |f| f[:spelling] }.join
+        init_declaration(raw_decl)
         init_kind(hash[:kind][:identifier])
         init_acl(hash[:accessLevel])
         if location = hash[:location]
           init_location(location)
         end
-        init_constraints(hash)
+        init_constraints(hash, raw_decl)
         if comments_hash = hash[:docComment]
           init_doc_comments(comments_hash)
         end
@@ -104,14 +103,20 @@ module Jazzy
 
       # Generic constraints: in one or both of two places.
       # There can be duplicates; these are removed by `Constraint`.
-      def init_constraints(hash)
+      def init_constraints(hash, raw_decl)
         raw_constraints = %i[swiftGenerics swiftExtension].flat_map do |key|
           next [] unless container = hash[key]
           container[:constraints] || []
         end
 
-        self.constraints =
+        constraints =
           Constraint.new_list_for_symbol(raw_constraints, path_components)
+        if raw_decl =~ /where (.*)$/
+          constraints +=
+            Constraint.new_list_from_declaration(Regexp.last_match[1])
+        end
+
+        self.constraints = constraints.sort.uniq
       end
 
       # Generic type params
