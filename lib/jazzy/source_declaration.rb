@@ -105,9 +105,11 @@ module Jazzy
     def display_other_language_declaration
       # Don't expose if API is NS_REFINED_FOR_SWIFT
       is_refined_for_swift = swift_name.to_s.include?('__')
-      
+
       return other_language_declaration unless
-        Config.instance.hide_objc? || Config.instance.hide_swift? || is_refined_for_swift
+        Config.instance.hide_objc? ||
+        Config.instance.hide_swift? ||
+        is_refined_for_swift
     end
 
     attr_accessor :file
