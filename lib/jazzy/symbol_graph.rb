@@ -37,41 +37,39 @@ module Jazzy
     end
 
     # Figure out the args to pass to symbolgraph-extract
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/CyclomaticComplexity
     def self.arguments(config, output_path)
       if config.module_name.empty?
         raise 'error: `--swift-build-tool symbolgraph` requires `--module`.'
       end
 
+      user_args = config.build_tool_arguments.join
+
+      if user_args =~ /--(?:module-name|minimum-access-level|output-dir)/
+        raise 'error: `--build-tool-arguments` for '\
+          "`--swift-build-tool symbolgraph` can't use `--module`, "\
+          '`--minimum-access-level`, or `--output-dir`.'
+      end
+
       # Default set
-      [
+      args = [
         "--module-name=#{config.module_name}",
         '--minimum-access-level=private',
         "--output-dir=#{output_path}",
-      ] +
-        # Overridable set
-        if config.build_tool_arguments.empty?
-          [
-            "--sdk=#{sdk(config)}",
-            "--target=#{target}",
-            '--skip-synthesized-members',
-            "-F=#{config.source_directory}",
-            "-I=#{config.source_directory}",
-          ]
-        else
-          forbidden = config.build_tool_arguments &
-                      ['--module', '--minimum-access-level', '--output-dir']
-          unless forbidden.empty?
-            raise 'error: `--build-tool-arguments` for '\
-              "`--swift-build-tool symbolgraph` can't use `--module`, "\
-              '`--minimum-access-level`, or `--output-dir`.'
-          end
-          config.build_tool_arguments
-        end
-    end
-    # rubocop:enable Metrics/MethodLength
+        '--skip-synthesized-members',
+      ]
 
-    # Get the SDK path.  Tbd how to do this on Linux.
+      # Things user can override
+      args.append("--sdk=#{sdk(config)}") unless user_args =~ /--sdk/
+      args.append("--target=#{target}") unless user_args =~ /--target/
+      args.append("-F=#{config.source_directory}") unless user_args =~ /-F(?!s)/
+      args.append("-I=#{config.source_directory}") unless user_args =~ /-I/
+
+      args + config.build_tool_arguments
+    end
+    # rubocop:enable Metrics/CyclomaticComplexity
+
+    # Get the SDK path.  On !darwin this just isn't needed.
     def self.sdk(config)
       `xcrun --show-sdk-path --sdk #{config.sdk}`.chomp
     end
