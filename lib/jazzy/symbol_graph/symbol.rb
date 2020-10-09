@@ -22,8 +22,8 @@ module Jazzy
         self.usr = hash[:identifier][:precise]
         self.path_components = hash[:pathComponents]
         raw_decl = hash[:declarationFragments].map { |f| f[:spelling] }.join
-        init_declaration(raw_decl)
         init_kind(hash[:kind][:identifier])
+        init_declaration(raw_decl)
         init_acl(hash[:accessLevel])
         if location = hash[:location]
           init_location(location)
@@ -39,12 +39,15 @@ module Jazzy
       # Repair problems with SymbolGraph's declprinter
 
       def init_declaration(raw_decl)
-        # Too much 'Self.TypeName'; omitted arg labels look odd
-        # Duplicated constraints
+        # Too much 'Self.TypeName'; omitted arg labels look odd;
+        # duplicated constraints; swift 5.3 vs. master workaround
         self.declaration =
           raw_decl.gsub(/\bSelf\./, '')
                   .gsub(/(?<=\(|, )_: /, '_ arg: ')
                   .gsub(/ where.*$/, '')
+        if kind == 'source.lang.swift.decl.class'
+          declaration.sub!(/\s*:.*$/, '')
+        end
       end
 
       # Mapping SymbolGraph's declkinds to SourceKit
