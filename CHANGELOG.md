@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Always bypass codesigning when building Xcode projects.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1183](https://github.com/realm/jazzy/issues/1183)
 
 ## 0.13.5
 
