@@ -222,8 +222,7 @@ describe_cli 'jazzy' do
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
-      behaves_like cli_spec 'misc_jazzy_features',
-                            '-b -Xswiftc,-swift-version,-Xswiftc,4.2'
+      behaves_like cli_spec 'misc_jazzy_features'
     end
   end if !spec_subset || spec_subset == 'swift'
 
