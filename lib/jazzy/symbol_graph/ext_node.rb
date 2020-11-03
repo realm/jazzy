@@ -62,7 +62,7 @@ module Jazzy
       end
 
       def add_conformance(protocol)
-        conformances.append(protocol).sort
+        conformances.append(protocol).sort!
       end
 
       def full_declaration
