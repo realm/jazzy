@@ -114,7 +114,8 @@ module Jazzy
 
         constraints =
           Constraint.new_list_for_symbol(raw_constraints, path_components)
-        if raw_decl =~ /where (.*)$/
+        if raw_decl =~ / where (.*)$/
+          puts "RD: #{raw_decl}"
           constraints +=
             Constraint.new_list_from_declaration(Regexp.last_match[1])
         end
