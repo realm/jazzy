@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Support documentation generation from `.swiftmodule` binaries using
+  `--swift-build-tool symbolgraph` with Swift 5.3.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 

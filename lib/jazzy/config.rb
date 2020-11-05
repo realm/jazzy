@@ -233,12 +233,6 @@ module Jazzy
               "supported values: #{SWIFT_BUILD_TOOLS.join(', ')}"
       end
 
-    config_attr :swift_symbolgraph_target,
-      command_line: '--swift-symbolgraph-target TARGET',
-      description: 'The LLVM target used to load the .swiftmodule in '\
-                   "Swift symbolgraph mode.  The default is the host's "\
-                   "target, for example 'x86_64-apple-darwin19.4.0'."
-
     # ──────── Metadata ────────
 
     config_attr :author_name,

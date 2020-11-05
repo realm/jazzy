@@ -13,7 +13,7 @@ Instead of parsing your source files, `jazzy` hooks into [Clang][clang] and
 its comments for more accurate results. The output matches the look and feel
 of Apple’s official reference documentation, post WWDC 2014.
 
-Jazzy can also generate docs from precompiled swift modules [using their
+Jazzy can also generate documentation from compiled swift modules [using their
 symbol graph](#docs-from-swiftmodules-or-frameworks) instead of source code.
 
 ![Screenshot](images/screenshot.jpg)
@@ -226,9 +226,12 @@ Some examples:
 2. Same but for iOS:
    ```shell
    jazzy --module Combine --swift-build-tool symbolgraph
-         --sdk iphoneos --swift-symbolgraph-target arm64-apple-ios14.1
+         --sdk iphoneos
+         --build-tool-arguments --target,arm64-apple-ios14.1
    ```
-   The `target` is the LLVM target triple and needs to match the SDK.
+   The `target` is the LLVM target triple and needs to match the SDK.  The
+   default here is the target of the host system that Jazzy is running on,
+   something like `x86_64-apple-darwin19.6.0`.
 3. Generate docs for a personal `.swiftmodule`:
    ```shell
    jazzy --module MyMod --swift-build-tool symbolgraph
@@ -243,7 +246,8 @@ Some examples:
          --build-tool-arguments -F,/Build/Products
    ```
    This implies that `/Build/Products/MyMod.framework` exists and contains
-   a `.swiftmodule`.  Again the `--source-directory` is searched by default.
+   a `.swiftmodule`.  Again the `--source-directory` is searched by default
+   if `-F` is not passed in.
 
 See `swift symbolgraph-extract --help` for all the things you can pass via
 `--build-tool-arguments`: if your module has dependencies then you may need
