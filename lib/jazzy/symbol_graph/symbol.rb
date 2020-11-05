@@ -70,8 +70,8 @@ module Jazzy
         'property' => 'var.instance',
         'var' => 'var.global',
         'subscript' => 'function.subscript',
-        'type.subscript' => 'function.subscript', # uh-oh
-        'static.subscript' => 'function.subscript', # uh-oh
+        'type.subscript' => 'function.subscript',
+        'static.subscript' => 'function.subscript',
         'typealias' => 'typealias',
         'associatedtype' => 'associatedtype',
       }.freeze
@@ -115,7 +115,6 @@ module Jazzy
         constraints =
           Constraint.new_list_for_symbol(raw_constraints, path_components)
         if raw_decl =~ / where (.*)$/
-          puts "RD: #{raw_decl}"
           constraints +=
             Constraint.new_list_from_declaration(Regexp.last_match[1])
         end

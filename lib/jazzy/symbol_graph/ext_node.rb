@@ -22,7 +22,7 @@ module Jazzy
     class ExtNode < BaseNode
       attr_accessor :usr
       attr_accessor :name
-      attr_accessor :all_constraints
+      attr_accessor :all_constraints # ExtConstraints
       attr_accessor :conformances # array, can be empty
 
       # Deduce an extension from a member of an unknown type or

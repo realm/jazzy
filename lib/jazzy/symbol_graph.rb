@@ -74,7 +74,8 @@ module Jazzy
       `xcrun --show-sdk-path --sdk #{config.sdk}`.chomp
     end
 
-    # Guess a default LLVM target.  Tool failure that it needs this.
+    # Guess a default LLVM target.  Feels like the tool should figure this
+    # out from sdk + the binary somehow?
     def self.target
       `swift -version` =~ /Target: (.*?)$/
       Regexp.last_match[1] || 'x86_64-apple-macosx10.15'

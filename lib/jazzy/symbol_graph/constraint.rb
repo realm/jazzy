@@ -10,7 +10,7 @@ module Jazzy
       private
 
       def initialize(kind, lhs, rhs)
-        self.kind = kind
+        self.kind = kind # "==" or ":"
         self.lhs = lhs
         self.rhs = rhs
       end
@@ -33,7 +33,6 @@ module Jazzy
       end
 
       # Init from a Swift declaration fragment eg. 'A : B'
-      # Jun 27 workaround
       def self.new_declaration(decl)
         decl =~ /^(.*?)\s*([:<=]+)\s*(.*)$/
         new(Regexp.last_match[2],
@@ -67,7 +66,7 @@ module Jazzy
         end.compact
       end
 
-      # Jun 27 workaround, where clause
+      # Workaround Swift 5.3 bug with missing constraint rels
       def self.new_list_from_declaration(decl)
         decl.split(/\s*,\s*/).map { |cons| Constraint.new_declaration(cons) }
       end
