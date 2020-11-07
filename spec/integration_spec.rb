@@ -174,7 +174,7 @@ describe_cli 'jazzy' do
                     "-I #{base} " \
                     '-fmodules'
         `#{sourcekitten} doc --objc #{objc_args} > objc.json`
-        `#{sourcekitten} doc > swift.json`
+        `#{sourcekitten} doc -- clean build > swift.json`
       end
 
       behaves_like cli_spec 'misc_jazzy_objc_features',
@@ -223,6 +223,17 @@ describe_cli 'jazzy' do
 
     describe 'Creates docs for Swift project with a variety of contents' do
       behaves_like cli_spec 'misc_jazzy_features'
+    end
+
+    describe 'Creates docs for Swift project from a .swiftmodule' do
+      build_path = Dir.getwd + 'tmp/.build'
+      package_path =
+        ROOT + 'spec/integration_specs/misc_jazzy_symgraph_features/before'
+      `swift build --package-path #{package_path} --build-path #{build_path}`
+      module_path = `swift build --build-path #{build_path} --show-bin-path`
+      behaves_like cli_spec 'misc_jazzy_symgraph_features',
+                            '--swift-build-tool symbolgraph ' \
+                            "--build-tool-arguments -I=#{module_path} "
     end
   end if !spec_subset || spec_subset == 'swift'
 

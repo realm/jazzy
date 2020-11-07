@@ -325,17 +325,16 @@ module Jazzy
         end
     end
 
-    def self.should_mark_undocumented(filepath)
-      source_directory = Config.instance.source_directory.to_s
-      (filepath || '').start_with?(source_directory)
+    # Call things undocumented if they were compiled properly
+    # and came from our module.
+    def self.should_mark_undocumented(declaration)
+      declaration.usr && !declaration.modulename
     end
 
     def self.process_undocumented_token(doc, declaration)
       make_default_doc_info(declaration)
 
-      filepath = doc['key.filepath']
-
-      if !declaration.swift? || should_mark_undocumented(filepath)
+      if !declaration.swift? || should_mark_undocumented(declaration)
         @stats.add_undocumented(declaration)
         return nil if @skip_undocumented
         declaration.abstract = undocumented_abstract

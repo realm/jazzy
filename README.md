@@ -8,12 +8,13 @@
 
 Both Swift and Objective-C projects are supported.
 
-*SwiftPM support was recently added, so please report any issues you find.*
-
 Instead of parsing your source files, `jazzy` hooks into [Clang][clang] and
 [SourceKit][sourcekit] to use the [AST][ast] representation of your code and
 its comments for more accurate results. The output matches the look and feel
 of Apple’s official reference documentation, post WWDC 2014.
+
+Jazzy can also generate documentation from compiled swift modules [using their
+symbol graph](#docs-from-swiftmodules-or-frameworks) instead of source code.
 
 ![Screenshot](images/screenshot.jpg)
 
@@ -49,13 +50,14 @@ succeed too!
 
 If Jazzy generates docs for the wrong module then use `--module` to tell it which
 one you'd prefer.  If this doesn't help, and you're using Xcode, then try passing
-extra arguments to `xcodebuild`, for example `jazzy --build-tool-arguments -target,MyTarget`.
+extra arguments to `xcodebuild`, for example
+`jazzy --build-tool-arguments -scheme,MyScheme,-target,MyTarget`.
 
 You can set options for your project’s documentation in a configuration file,
 `.jazzy.yaml` by default. For a detailed explanation and an exhaustive list of
 all available options, run `jazzy --help config`.
 
-### Supported keywords
+### Supported documentation keywords
 
 Swift documentation is written in markdown and supports a number of special keywords.
 For a complete list and examples, see Erica Sadun's post on [*Swift header documentation in Xcode 7*](https://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/),
@@ -199,6 +201,57 @@ sourcekitten doc --objc $(pwd)/MyProject/MyProject.h \
 # Feed both outputs to Jazzy as a comma-separated list
 jazzy --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
 ```
+
+### Docs from `.swiftmodule`s or frameworks
+
+*This feature is new and relies on a new Swift feature: there may be crashes
+and mistakes: reports welcome.*
+
+Swift 5.3 adds support for symbol graph generation from `.swiftmodule` files.
+This looks to be part of Apple's toolchain for generating their online docs.
+
+Jazzy can use this to generate API documentation.  This is faster than using
+the source code directly but does have limitations: for example documentation
+comments are available only for `public` declarations, and the presentation of
+Swift extensions may not match the way they are written in code.
+
+Some examples:
+
+1. Generate docs for the Apple Combine framework for macOS:
+   ```shell
+   jazzy --module Combine --swift-build-tool symbolgraph
+   ```
+   The SDK's library directories are included in the search path by
+   default.
+2. Same but for iOS:
+   ```shell
+   jazzy --module Combine --swift-build-tool symbolgraph
+         --sdk iphoneos
+         --build-tool-arguments --target,arm64-apple-ios14.1
+   ```
+   The `target` is the LLVM target triple and needs to match the SDK.  The
+   default here is the target of the host system that Jazzy is running on,
+   something like `x86_64-apple-darwin19.6.0`.
+3. Generate docs for a personal `.swiftmodule`:
+   ```shell
+   jazzy --module MyMod --swift-build-tool symbolgraph
+         --build-tool-arguments -I,/Build/Products
+   ```
+   This implies that `/Build/Products/MyMod.swiftmodule` exists.  Jazzy's
+   `--source-directory` (default current directory) is searched by default,
+   so you only need the `-I` override if that's not enough.
+4. For a personal framework:
+   ```shell
+   jazzy --module MyMod --swift-build-tool symbolgraph
+         --build-tool-arguments -F,/Build/Products
+   ```
+   This implies that `/Build/Products/MyMod.framework` exists and contains
+   a `.swiftmodule`.  Again the `--source-directory` is searched by default
+   if `-F` is not passed in.
+
+See `swift symbolgraph-extract --help` for all the things you can pass via
+`--build-tool-arguments`: if your module has dependencies then you may need
+to add various search path options to let Swift load it.
 
 ### Themes
 

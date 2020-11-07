@@ -219,14 +219,14 @@ module Jazzy
         end
       end
 
-    SWIFT_BUILD_TOOLS = %w[spm xcodebuild].freeze
+    SWIFT_BUILD_TOOLS = %w[spm xcodebuild symbolgraph].freeze
 
     config_attr :swift_build_tool,
       command_line: "--swift-build-tool #{SWIFT_BUILD_TOOLS.join(' | ')}",
-      description: 'Control whether Jazzy uses Swift Package Manager or '\
-                   'xcodebuild to build the module to be documented.  By '\
-                   'default it uses xcodebuild if there is a .xcodeproj '\
-                   'file in the source directory.',
+      description: 'Control whether Jazzy uses Swift Package Manager, '\
+                   'xcodebuild, or swift-symbolgraph to build the module '\
+                   'to be documented.  By default it uses xcodebuild if '\
+                   'there is a .xcodeproj file in the source directory.',
       parse: ->(tool) do
         return tool.to_sym if SWIFT_BUILD_TOOLS.include?(tool)
         raise "Unsupported swift_build_tool #{tool}, "\

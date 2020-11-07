@@ -14,6 +14,7 @@ require 'jazzy/source_declaration'
 require 'jazzy/source_document'
 require 'jazzy/source_module'
 require 'jazzy/sourcekitten'
+require 'jazzy/symbol_graph'
 
 module Jazzy
   # This module handles HTML generation, file writing, asset copying,
@@ -72,6 +73,8 @@ module Jazzy
       elsif options.podspec_configured
         pod_documenter = PodspecDocumenter.new(options.podspec)
         stdout = pod_documenter.sourcekitten_output(options)
+      elsif options.swift_build_tool == :symbolgraph
+        stdout = SymbolGraph.build(options)
       else
         stdout = Dir.chdir(options.source_directory) do
           arguments = SourceKitten.arguments_from_options(options)
@@ -192,7 +195,10 @@ module Jazzy
 
         lint_report = {
           warnings: warnings.sort_by do |w|
-            [w[:file], w[:line] || 0, w[:symbol], w[:symbol_kind]]
+            [w[:file] || Pathname(''),
+             w[:line] || 0,
+             w[:symbol],
+             w[:symbol_kind]]
           end,
           source_directory: options.source_directory,
         }
