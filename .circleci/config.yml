@@ -62,7 +62,7 @@ jobs:
 
   danger_and_rubocop:
     docker:
-      - image: circleci/ruby:2.4-node
+      - image: circleci/ruby:2.5-node
         environment: *bundler-environment
     steps:
       - checkout
