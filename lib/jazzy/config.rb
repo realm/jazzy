@@ -253,7 +253,7 @@ module Jazzy
 
     config_attr :version,
       command_line: '--module-version VERSION',
-      description: 'Version string to use as part of the the default docs '\
+      description: 'Version string to use as part of the default docs '\
                    'title and inside the docset.',
       default: '1.0'
 
