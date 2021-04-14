@@ -30,6 +30,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1183](https://github.com/realm/jazzy/issues/1183)
 
+* A few spelling fixes and attempts at clarification to the contributing
+  guidelines.  
+  [Morgan Davison](https://github.com/mdavison)
+
 ## 0.13.5
 
 ##### Breaking
