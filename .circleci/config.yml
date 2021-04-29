@@ -17,7 +17,7 @@ jobs:
 
   swift:
     macos:
-      xcode: "12.1.0"
+      xcode: "12.5.0"
     environment: *bundler-environment
     steps:
       - checkout
@@ -30,7 +30,7 @@ jobs:
 
   objc:
     macos:
-      xcode: "12.1.0"
+      xcode: "12.5.0"
     environment: *bundler-environment
     steps:
       - checkout
@@ -43,7 +43,7 @@ jobs:
 
   cocoapods:
     macos:
-      xcode: "12.1.0"
+      xcode: "12.5.0"
     environment: *bundler-environment
     steps:
       - checkout
