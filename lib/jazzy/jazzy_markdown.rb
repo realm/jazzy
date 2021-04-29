@@ -7,9 +7,45 @@ module Jazzy
     # Publish if generated HTML needs math support
     class << self; attr_accessor :has_math; end
 
+    module Footnotes
+      # Global unique footnote ID
+      def self.next_footnote
+        @next_footnote ||= 0
+        @next_footnote += 1
+      end
+
+      # Per-render map from user to global ID
+      attr_accessor :footnotes_hash
+
+      def reset
+        @footnotes_hash = {}
+      end
+
+      def map_footnote(user_num)
+        footnotes_hash.fetch(user_num) do
+          footnotes_hash[user_num] = Footnotes.next_footnote
+        end
+      end
+
+      def footnote_ref(num)
+        mapped = map_footnote(num)
+        "<span class='footnote-ref' id=\"fnref#{mapped}\">" \
+          "<sup><a href=\"#fn#{mapped}\">#{num}</a></sup></span>"
+      end
+
+      # follow native redcarpet: backlink goes before the first </p> tag
+      def footnote_def(text, num)
+        mapped = map_footnote(num)
+        "\n<li><div class='footnote-def' id=\"fn#{mapped}\">" +
+          text.sub(%r{(?=</p>)},
+                   "&nbsp;<a href=\"#fnref#{mapped}\">&#8617;</a></div></li>")
+      end
+    end
+
     class JazzyHTML < Redcarpet::Render::HTML
       include Redcarpet::Render::SmartyPants
       include Rouge::Plugins::Redcarpet
+      include Footnotes
 
       attr_accessor :default_language
 
@@ -133,6 +169,7 @@ module Jazzy
       space_after_headers: false,
       tables: true,
       lax_spacing: true,
+      footnotes: true,
     }.freeze
 
     # Spot and capture returns & param HTML for separate display.
@@ -142,6 +179,7 @@ module Jazzy
       def reset
         @returns = nil
         @parameters = {}
+        super
       end
 
       INTRO_PAT = '\A(?<intro>\s*(<p>\s*)?)'.freeze

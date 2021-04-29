@@ -10,6 +10,10 @@
   KaTeX 0.13.5.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Support the markdown [footnotes](https://www.markdownguide.org/extended-syntax/#footnotes) extension in all themes.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1246](https://github.com/realm/jazzy/issues/1246)
+
 ##### Bug Fixes
 
 * Fix parameter doc comments in Swft symbolgraph mode.  

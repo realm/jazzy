@@ -24,7 +24,8 @@ $breadcrumb_padding: 10px;
 
 $code_font: 'SF Mono', Menlo, monospace;
 
-$gray_border: 1px solid #e2e2e2;
+$gray_border_color: #e2e2e2;
+$gray_border: 1px solid $gray_border_color;
 $declaration_language_border: 5px solid #cde9f4;
 
 $aside_color: #aaa;
@@ -136,6 +137,25 @@ blockquote {
   margin-left: 0;
   padding: 0 10px;
   border-left: 4px solid #ccc;
+}
+
+// HRs
+
+hr {
+  height: 1px;
+  border: none;
+  background-color: $gray_border_color;
+}
+
+// Footnotes
+
+.footnote-ref {
+  display: inline-block;
+  scroll-margin-top: $content-top-offset;
+}
+
+.footnote-def {
+  scroll-margin-top: $content-top-offset;
 }
 
 // General Content Wrapper
