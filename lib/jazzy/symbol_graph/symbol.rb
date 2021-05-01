@@ -13,6 +13,7 @@ module Jazzy
       attr_accessor :doc_comments # can be nil
       attr_accessor :availability # array, can be empty
       attr_accessor :generic_type_params # set, can be empty
+      attr_accessor :parameter_names # array, can be nil
 
       def name
         path_components[-1] || '??'
@@ -24,6 +25,9 @@ module Jazzy
         raw_decl = hash[:declarationFragments].map { |f| f[:spelling] }.join
         init_kind(hash[:kind][:identifier])
         init_declaration(raw_decl)
+        if func_signature = hash[:functionSignature]
+          init_func_signature(func_signature)
+        end
         init_acl(hash[:accessLevel])
         if location = hash[:location]
           init_location(location)
@@ -48,6 +52,13 @@ module Jazzy
         if kind == 'source.lang.swift.decl.class'
           declaration.sub!(/\s*:.*$/, '')
         end
+      end
+
+      # Remember pieces of methods for later markdown parsing
+
+      def init_func_signature(func_signature)
+        self.parameter_names =
+          (func_signature[:parameters] || []).map { |h| h[:name] }
       end
 
       # Mapping SymbolGraph's declkinds to SourceKit

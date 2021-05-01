@@ -130,6 +130,10 @@ module Jazzy
           hash['key.doc.comment'] = docs
           hash['key.doc.full_as_xml'] = ''
         end
+        if params = symbol.parameter_names
+          hash['key.doc.parameters'] =
+            params.map { |name| { 'name' => name } }
+        end
         if location = symbol.location
           hash['key.filepath'] = location[:filename]
           hash['key.doc.line'] = location[:line]

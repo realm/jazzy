@@ -12,7 +12,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix parameter doc comments in Swft symbolgraph mode.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1244](https://github.com/realm/jazzy/issues/1244)
 
 ## 0.13.6
 
