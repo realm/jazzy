@@ -1,6 +1,6 @@
 ![jazzy](images/logo.jpg)
 
-[![Build Status](https://circleci.com/gh/realm/jazzy.svg?style=svg)](https://circleci.com/gh/realm/jazzy)
+[![Build Status](https://github.com/realm/jazzy/actions/workflows/Tests.yml/badge.svg)](https://github.com/realm/jazzy/actions/workflows/Tests.yml)
 
 *jazzy is a command-line utility that generates documentation for Swift or Objective-C*
 
