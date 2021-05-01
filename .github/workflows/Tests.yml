@@ -1,0 +1,52 @@
+name: Tests
+  
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: ['*']
+
+jobs:
+  danger_and_rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.5
+          bundler-cache: true
+      - name: Danger
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bundle exec danger --verbose
+      - name: Rubocop
+        run: |
+          bundle exec rake rubocop
+
+  spec:
+    runs-on: macos-11.0
+    continue-on-error: true
+    strategy:
+      matrix:
+        spec: ["objc_spec", "swift_spec", "cocoapods_spec"]
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12.5.app/Contents/Developer
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.6
+          bundler-cache: true
+      - name: Cache cocoapods
+        uses: actions/cache@v2
+        env:
+          cache-name: cocoapods
+        with:
+          path: ~/.cocoapods
+          key: ${{ matrix.spec }}-${{ env.cache-name }}
+      - name: Test
+        run: |
+          bundle exec rake ${{ matrix.spec }}
