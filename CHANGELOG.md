@@ -7,7 +7,7 @@
 ##### Enhancements
 
 * Update JavaScript libraries: jQuery 3.6.0, Lunr 2.3.9,
-  KaTeX 0.13.3.  
+  KaTeX 0.13.5.  
   [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
