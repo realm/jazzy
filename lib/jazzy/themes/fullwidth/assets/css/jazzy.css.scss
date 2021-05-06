@@ -185,6 +185,11 @@ th, td {
   border: 1px solid $table_border_color;
 }
 
+hr {
+  height: 1px;
+  border: none;
+  background-color: $table_border_color;
+}
 
 // ----- Code
 
