@@ -1,3 +1,17 @@
+## Master
+
+##### Breaking
+
+* None.
+
+##### Enhancements
+
+* None.
+
+##### Bug Fixes
+
+* None.
+
 ## 0.13.7
 
 The next release of Jazzy will require a minimum of Ruby 2.6.
