@@ -1,4 +1,6 @@
-## Master
+## 0.13.7
+
+The next release of Jazzy will require a minimum of Ruby 2.6.
 
 ##### Breaking
 
@@ -16,7 +18,7 @@
 
 ##### Bug Fixes
 
-* Fix parameter doc comments in Swft symbolgraph mode.  
+* Fix parameter doc comments in Swift symbolgraph mode.  
   [John Fairhurst](https://github.com/johnfairh)
   [#1244](https://github.com/realm/jazzy/issues/1244)
 
