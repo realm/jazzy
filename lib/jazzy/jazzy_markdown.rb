@@ -42,6 +42,7 @@ module Jazzy
       end
     end
 
+    # rubocop:disable Metrics/ClassLength
     class JazzyHTML < Redcarpet::Render::HTML
       include Redcarpet::Render::SmartyPants
       include Rouge::Plugins::Redcarpet
@@ -126,19 +127,24 @@ module Jazzy
           if UNIQUELY_HANDLED_CALLOUTS.include? type.downcase
             return ELIDED_LI_TOKEN
           end
-          return render_aside(type, text.sub(/#{Regexp.escape(type)}:\s+/, ''))
+          return render_list_aside(type,
+                                   text.sub(/#{Regexp.escape(type)}:\s+/, ''))
         end
         str = '<li>'
         str << text.strip
         str << "</li>\n"
       end
 
+      def render_list_aside(type, text)
+        "</ul>#{render_aside(type, text).chomp}<ul>\n"
+      end
+
       def render_aside(type, text)
         <<-HTML
-</ul><div class="aside aside-#{type.underscore.tr('_', '-')}">
+<div class="aside aside-#{type.underscore.tr('_', '-')}">
     <p class="aside-title">#{type.underscore.humanize}</p>
     #{text}
-</div><ul>
+</div>
         HTML
       end
 
@@ -149,7 +155,32 @@ module Jazzy
         str << (list_type == :ordered ? "<ol>\n" : "<ul>\n")
         str << text
         str << (list_type == :ordered ? "</ol>\n" : "</ul>\n")
-        str.gsub(%r{\n?<ul>\n<\/ul>}, '')
+        str.gsub(%r{\n?<ul>\n?<\/ul>}, '')
+      end
+
+      # List from
+      # https://developer.apple.com/documentation/xcode/formatting-your-documentation-content#Add-Notes-and-Other-Asides
+      DOCC_CALLOUTS = %w[note
+                         important
+                         warning
+                         tip
+                         experiment].freeze
+
+      DOCC_CALLOUT_REGEX = %r{
+        \A\s* # optional leading spaces
+        (?:<p>\s*)? # optional opening p tag
+        # any one of the callout names
+        (#{DOCC_CALLOUTS.map(&Regexp.method(:escape)).join('|')})
+        : # followed directly by a colon
+      }ix
+
+      def block_quote(html)
+        if html =~ DOCC_CALLOUT_REGEX
+          type = Regexp.last_match[1]
+          render_aside(type, html.sub(/#{Regexp.escape(type)}:\s*/, ''))
+        else
+          "\n<blockquote>\n#{html}</blockquote>\n"
+        end
       end
 
       def block_code(code, language)
@@ -160,6 +191,7 @@ module Jazzy
         Highlighter::Formatter.new(lexer.tag)
       end
     end
+    # rubocop:enable Metrics/ClassLength
 
     REDCARPET_OPTIONS = {
       autolink: true,
