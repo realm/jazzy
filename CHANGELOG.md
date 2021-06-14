@@ -6,7 +6,8 @@
 
 ##### Enhancements
 
-* None.
+* Support DocC-style autolinks and callouts in markdown.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 

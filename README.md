@@ -13,7 +13,7 @@ Instead of parsing your source files, `jazzy` hooks into [Clang][clang] and
 its comments for more accurate results. The output matches the look and feel
 of Apple’s official reference documentation, post WWDC 2014.
 
-Jazzy can also generate documentation from compiled swift modules [using their
+Jazzy can also generate documentation from compiled Swift modules [using their
 symbol graph](#docs-from-swiftmodules-or-frameworks) instead of source code.
 
 ![Screenshot](images/screenshot.jpg)
@@ -60,8 +60,11 @@ all available options, run `jazzy --help config`.
 ### Supported documentation keywords
 
 Swift documentation is written in markdown and supports a number of special keywords.
-For a complete list and examples, see Erica Sadun's post on [*Swift header documentation in Xcode 7*](https://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/),
-her [book on Swift Documentation Markup](https://itunes.apple.com/us/book/swift-documentation-markup/id1049010423), and the [Xcode Markup Formatting Reference](https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_markup_formatting_ref/).
+Here are some resources with tutorials and examples, starting with the most modern:
+* Apple's [Writing Symbol Documentation in Your Source Files](https://developer.apple.com/documentation/xcode/writing-symbol-documentation-in-your-source-files) article.
+* Apple's [Formatting Your Documentation Content](https://developer.apple.com/documentation/xcode/formatting-your-documentation-content) article.
+* Apple's [Xcode Markup Formatting Reference](https://developer.apple.com/library/content/documentation/Xcode/Reference/xcode_markup_formatting_ref/).
+* Erica Sadun's [Swift header documentation in Xcode 7](https://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/) post and her [book on Swift Documentation Markup](https://itunes.apple.com/us/book/swift-documentation-markup/id1049010423).
 
 For Objective-C documentation the same keywords are supported, but note that the format
 is slightly different. In Swift you would write `- returns:`, but in Objective-C you write `@return`. See Apple's [*HeaderDoc User Guide*](https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/HeaderDoc/tags/tags.html) for more details. **Note: `jazzy` currently does not support _all_ Objective-C keywords listed in this document, only @param, @return, @warning, @see, and @note.**
@@ -75,6 +78,12 @@ backticks generates a link, for example:
   method or property in the same class.
 * \`[MyClass method1]\` - a link to an Objective-C method.
 * \`-[MyClass method2:param1]\` - a link to another Objective-C method.
+
+Jazzy understands Apple's DocC-style links too, for example:
+* \`\`MyClass/method(param1:)\`\` - a link to the documentation for that method
+  that appears as just `method(param1:)` in the rendered page.
+* \`\`\<doc:method(_:)-e873\>\`\` - a link to a specific overload of `method(_:)`.
+  Jazzy can't tell which overload you intend and links to the first one.
 
 ### Math
 
