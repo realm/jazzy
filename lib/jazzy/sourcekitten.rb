@@ -565,7 +565,9 @@ module Jazzy
         end
         declaration = SourceDeclaration.new
         declaration.parent_in_code = parent
-        declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
+        declaration.type =
+          SourceDeclaration::Type.new(doc['key.kind'],
+                                      doc['key.fully_annotated_decl'])
         declaration.typename = doc['key.typename']
         declaration.objc_name = doc['key.name']
         documented_name = if Config.instance.hide_objc? && doc['key.swift_name']
