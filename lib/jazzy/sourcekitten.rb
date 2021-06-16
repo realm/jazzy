@@ -29,7 +29,7 @@ class String
     gsub(autolink_regex(middle_regex, after_highlight)) do
       original = Regexp.last_match(0)
       start_tag, raw_name, end_tag = Regexp.last_match.captures
-      link_target = yield(CGI.unescape_html(raw_name))
+      link_target, display_name = yield(CGI.unescape_html(raw_name))
 
       if link_target &&
          !link_target.type.extension? &&
@@ -38,7 +38,7 @@ class String
          link_target.url != doc_url # Don't link to self
         start_tag +
           "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
-          raw_name + '</a>' + end_tag
+          CGI.escape_html(display_name) + '</a>' + end_tag
       else
         original
       end
@@ -911,19 +911,26 @@ module Jazzy
     # - method signatures after they've been processed by the highlighter
     #
     # The `after_highlight` flag is used to differentiate between the two modes.
+    #
+    # DocC link format - follow Xcode and don't display slash-separated parts.
+    # rubocop:disable Metrics/MethodLength
     def self.autolink_text(text, doc, root_decls, after_highlight = false)
       text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
-        parts = raw_name.sub(/^@/, '') # ignore for custom attribute ref
-                        .split(/(?<!\.)\.(?!\.)/) # dot with no neighboring dots
-                        .reject(&:empty?)
+        sym_name =
+          (raw_name[/^<doc:(.*)>$/, 1] || raw_name).sub(/(?<!^)-.+$/, '')
+
+        parts = sym_name
+                .sub(/^@/, '') # ignore for custom attribute ref
+                .split(%r{(?<!\.)[/\.](?!\.)}) # dot or slash, but not '...'
+                .reject(&:empty?)
 
         # First dot-separated component can match any ancestor or top-level doc
         first_part = parts.shift
         name_root = ancestor_name_match(first_part, doc) ||
                     name_match(first_part, root_decls)
 
-        # Traverse children via subsequence components, if any
-        name_traversal(parts, name_root)
+        # Traverse children via subsequent components, if any
+        [name_traversal(parts, name_root), sym_name.sub(%r{^.*/}, '')]
       end.autolink_block(doc.url, '[+-]\[\w+(?: ?\(\w+\))? [\w:]+\]',
                          after_highlight) do |raw_name|
         match = raw_name.match(/([+-])\[(\w+(?: ?\(\w+\))?) ([\w:]+)\]/)
@@ -935,12 +942,13 @@ module Jazzy
 
         if name_root
           # Look up the verb in the subject’s children
-          name_match(match[1] + match[3], name_root.children)
+          [name_match(match[1] + match[3], name_root.children), raw_name]
         end
       end.autolink_block(doc.url, '[+-]\w[\w:]*', after_highlight) do |raw_name|
-        name_match(raw_name, doc.children)
+        [name_match(raw_name, doc.children), raw_name]
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     AUTOLINK_TEXT_FIELDS = %w[return
                               abstract
