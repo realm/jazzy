@@ -524,6 +524,14 @@ module Jazzy
         .join("\n")
     end
 
+    # Exclude non-async routines that accept async closures
+    def self.swift_async?(fully_annotated_decl)
+      document = REXML::Document.new(fully_annotated_decl)
+      !document.elements['/*/syntaxtype.keyword[text()="async"]'].nil?
+    rescue
+      nil
+    end
+
     # Strip default property attributes because libclang
     # adds them all, even if absent in the original source code.
     DEFAULT_ATTRIBUTES = %w[atomic readwrite assign unsafe_unretained].freeze
@@ -612,6 +620,9 @@ module Jazzy
         inherited_types = doc['key.inheritedtypes'] || []
         declaration.inherited_types =
           inherited_types.map { |type| type['key.name'] }.compact
+        if xml_declaration = doc['key.fully_annotated_decl']
+          declaration.async = swift_async?(xml_declaration)
+        end
 
         next unless make_doc_info(doc, declaration)
 

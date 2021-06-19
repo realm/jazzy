@@ -138,6 +138,7 @@ module Jazzy
     attr_accessor :unavailable_message
     attr_accessor :generic_requirements
     attr_accessor :inherited_types
+    attr_accessor :async
 
     def usage_discouraged?
       unavailable || deprecated
@@ -186,6 +187,14 @@ module Jazzy
     def type_from_doc_module?
       !type.extension? ||
         (swift? && usr && modulename.nil?)
+    end
+
+    # Info text for contents page by collapsed item name
+    def declaration_note
+      notes = [default_impl_abstract ? 'default implementation' : nil,
+               from_protocol_extension ? 'extension method' : nil,
+               async ? 'asynchronous' : nil].compact
+      notes.join(', ').humanize unless notes.empty?
     end
 
     def alternative_abstract
