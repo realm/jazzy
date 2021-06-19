@@ -2,6 +2,18 @@
 
 require 'rouge'
 
+# While Rouge is downlevel (Rouge PR#1715 unmerged)
+module Rouge
+  module Lexers
+    class Swift
+      prepend :root do
+        rule(/\b(?:async|await)\b/, Keyword)
+        rule(/\b(?:actor|nonisolated)\b/, Keyword::Declaration)
+      end
+    end
+  end
+end
+
 module Jazzy
   # This module helps highlight code
   module Highlighter
