@@ -290,7 +290,7 @@ module Jazzy
         # Swift
         'source.lang.swift.decl.actor' => {
           jazzy: 'Actor',
-          dash: 'Class', # have asked Dash for something else
+          dash: 'Actor',
           global: true,
         }.freeze,
         'source.lang.swift.decl.function.accessor.address' => {
