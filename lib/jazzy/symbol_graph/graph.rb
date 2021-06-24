@@ -78,8 +78,13 @@ module Jazzy
 
       # Protocol conformance is redundant if it's unconditional
       # and already expressed in the type's declaration.
+      #
+      # Skip implementation-detail conformances.
       def redundant_conformance?(rel, type, protocol)
-        type && rel.constraints.empty? && type.conformance?(protocol)
+        return false unless type
+
+        (rel.constraints.empty? && type.conformance?(protocol)) ||
+          (type.actor? && rel.actor_protocol?)
       end
 
       # source is a member/protocol requirement of target

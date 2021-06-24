@@ -22,6 +22,12 @@ module Jazzy
         kind == :defaultImplementationOf
       end
 
+      # Protocol conformances added by compiler to actor decls that
+      # users aren't interested in.
+      def actor_protocol?
+        %w[Actor Sendable].include?(target_fallback)
+      end
+
       def initialize(hash)
         kind = hash[:kind]
         unless KINDS.include?(kind)

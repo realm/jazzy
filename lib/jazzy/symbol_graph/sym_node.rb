@@ -61,6 +61,10 @@ module Jazzy
         symbol.kind.end_with?('protocol')
       end
 
+      def actor?
+        symbol.kind.end_with?('actor')
+      end
+
       def constraints
         symbol.constraints
       end
