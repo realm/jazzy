@@ -25,6 +25,7 @@ module Jazzy
 
     # A SymNode is a node of the reconstructed syntax tree holding a symbol.
     # It can turn itself into SourceKit and helps decode extensions.
+    # rubocop:disable Metrics/ClassLength
     class SymNode < BaseNode
       attr_accessor :symbol
       attr_writer :override
@@ -116,6 +117,11 @@ module Jazzy
         " : #{superclass_name}"
       end
 
+      # approximately...
+      def async?
+        symbol.declaration =~ /async[^\)]*$/
+      end
+
       def full_declaration
         symbol.attributes
           .append(symbol.declaration + inherits_clause + where_clause)
@@ -134,6 +140,7 @@ module Jazzy
           'key.accessibility' => symbol.acl,
           'key.parsed_decl' => declaration,
           'key.annotated_decl' => xml_declaration,
+          'key.async' => async?,
         }
         if docs = symbol.doc_comments
           hash['key.doc.comment'] = docs
@@ -164,5 +171,6 @@ module Jazzy
         symbol <=> other.symbol
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end

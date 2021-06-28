@@ -620,9 +620,11 @@ module Jazzy
         inherited_types = doc['key.inheritedtypes'] || []
         declaration.inherited_types =
           inherited_types.map { |type| type['key.name'] }.compact
-        if xml_declaration = doc['key.fully_annotated_decl']
-          declaration.async = swift_async?(xml_declaration)
-        end
+        declaration.async =
+          doc['key.async'] ||
+          if xml_declaration = doc['key.fully_annotated_decl']
+            swift_async?(xml_declaration)
+          end
 
         next unless make_doc_info(doc, declaration)
 
