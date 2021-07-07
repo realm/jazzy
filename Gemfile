@@ -4,7 +4,7 @@ gemspec
 
 group :development do
   # Code style
-  gem 'rubocop', '0.49.0'
+  gem 'rubocop', '~> 1.18'
 
   # Tests
   gem 'bacon'
