@@ -95,7 +95,7 @@ begin
 
   desc 'Runs RuboCop linter on Ruby files'
   task :rubocop do
-    sh 'bundle exec rubocop lib spec'
+    sh 'bundle exec rubocop'
   end
 
   #-- SourceKitten -----------------------------------------------------------#
