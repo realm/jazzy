@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'jazzy/source_declaration/access_control_level'
 require 'jazzy/source_declaration/type'
 

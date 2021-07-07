@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # The rebuilt syntax tree is made of nodes that either match

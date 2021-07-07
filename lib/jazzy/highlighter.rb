@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rouge'
 
 module Jazzy
   # This module helps highlight code
   module Highlighter
-    SWIFT = 'swift'.freeze
-    OBJC = 'objective_c'.freeze
+    SWIFT = 'swift'
+    OBJC = 'objective_c'
 
     class Formatter < Rouge::Formatters::HTML
       def initialize(language)

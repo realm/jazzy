@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tmpdir'
 require 'json'
 
@@ -96,15 +98,14 @@ module Jazzy
       return unless podspec.source[:url] =~ %r{github.com[:/]+(.+)/(.+)}
       org, repo = Regexp.last_match
       return unless org && repo
-      repo.sub!(/\.git$/, '')
       return unless rev = podspec.source[:tag] || podspec.source[:commit]
-      "https://github.com/#{org}/#{repo}/blob/#{rev}"
+      "https://github.com/#{org}/#{repo.sub(/\.git$/, '')}/blob/#{rev}"
     end
 
     private_class_method :github_file_prefix
 
     # Latest valid value for SWIFT_VERSION.
-    LATEST_SWIFT_VERSION = '5'.freeze
+    LATEST_SWIFT_VERSION = '5'
 
     # All valid values for SWIFT_VERSION that are longer
     # than a major version number.  Ordered ascending.

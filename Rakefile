@@ -1,4 +1,6 @@
-#-- Bootstrap --------------------------------------------------------------#
+# frozen_string_literal: true
+#
+# #-- Bootstrap --------------------------------------------------------------#
 
 desc 'Initializes your working copy to run the specs'
 task :bootstrap do
@@ -128,7 +130,7 @@ begin
     'katex/dist/katex.min.css' => ['extensions/katex/css'],
     'katex/dist/fonts' => ['extensions/katex/css'],
     'katex/dist/katex.min.js' => ['extensions/katex/js']
-  }
+  }.freeze
 
   desc 'Copies theme dependencies (`npm update/install` by hand first)'
   task :theme_deps do

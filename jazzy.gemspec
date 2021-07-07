@@ -1,4 +1,5 @@
 # coding: utf-8
+# frozen_string_literal: true
 
 require File.expand_path('lib/jazzy/gem_version.rb', File.dirname(__FILE__))
 

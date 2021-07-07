@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # Constraint is a tidied-up JSON object, used by both Symbol and

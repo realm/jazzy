@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # A Relationship is a tidied-up SymbolGraph JSON object

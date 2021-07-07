@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'optparse'
 require 'pathname'
 require 'uri'
@@ -523,9 +525,8 @@ module Jazzy
         unless attr = attrs_by_conf_key[key]
           message = "WARNING: Unknown config file attribute #{key.inspect}"
           if matching_name = attrs_by_name[key]
-            message << ' (Did you mean '
-            message << matching_name.first.config_file_key.inspect
-            message << '?)'
+            message +=
+              " (Did you mean #{matching_name.first.config_file_key.inspect}?)"
           end
           warn message
           next

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   class SourceMark
     attr_accessor :name
@@ -8,24 +10,24 @@ module Jazzy
       return unless mark_string
 
       # Format: 'MARK: - NAME -' with dashes optional
-      mark_string.sub!(/^MARK: /, '')
+      mark_content = mark_string.sub(/^MARK: /, '')
 
-      if mark_string.empty?
+      if mark_content.empty?
         # Empty
         return
-      elsif mark_string == '-'
+      elsif mark_content == '-'
         # Separator
         self.has_start_dash = true
         return
       end
 
-      self.has_start_dash = mark_string.start_with?('- ')
-      self.has_end_dash = mark_string.end_with?(' -')
+      self.has_start_dash = mark_content.start_with?('- ')
+      self.has_end_dash = mark_content.end_with?(' -')
 
       start_index = has_start_dash ? 2 : 0
       end_index = has_end_dash ? -3 : -1
 
-      self.name = mark_string[start_index..end_index]
+      self.name = mark_content[start_index..end_index]
     end
 
     def self.new_generic_requirements(requirements)

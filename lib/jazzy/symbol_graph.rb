@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'set'
 require 'jazzy/symbol_graph/graph'
 require 'jazzy/symbol_graph/constraint'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module Executable
     class IO < Array

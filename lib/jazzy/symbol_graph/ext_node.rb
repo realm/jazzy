@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # For extensions we need to track constraints of the extended type

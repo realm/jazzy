@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'pathname'
 require 'shellwords'
@@ -12,7 +14,7 @@ require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/stats'
 
-ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
+ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'
 
 def autolink_regex(middle_regex, after_highlight)
   start_tag_re, end_tag_re =

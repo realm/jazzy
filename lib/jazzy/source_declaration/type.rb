@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/inflector'
 
 module Jazzy
@@ -151,7 +153,7 @@ module Jazzy
         Type.new('Overview')
       end
 
-      MARKDOWN_KIND = 'document.markdown'.freeze
+      MARKDOWN_KIND = 'document.markdown'
 
       def self.markdown
         Type.new(MARKDOWN_KIND)

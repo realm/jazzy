@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   # Collect + report metadata about a processed module
   class Stats

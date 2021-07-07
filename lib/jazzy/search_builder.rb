@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SearchBuilder
     def self.build(source_module, output_dir)
