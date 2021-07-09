@@ -10,13 +10,13 @@ Gem::Specification.new do |spec|
   spec.email         = ['jp@jpsim.com']
   spec.summary       = 'Soulful docs for Swift & Objective-C.'
   spec.description   = 'Soulful docs for Swift & Objective-C. ' \
-                       "Run in your Xcode project's root directory for " \
-                       'instant HTML docs.'
+    "Run in your Xcode project's root directory for " \
+    'instant HTML docs.'
   spec.homepage      = 'https://github.com/realm/jazzy'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
-  spec.executables   << 'jazzy'
+  spec.executables << 'jazzy'
 
   spec.add_runtime_dependency 'cocoapods', '~> 1.5'
   spec.add_runtime_dependency 'mustache', '~> 1.1'

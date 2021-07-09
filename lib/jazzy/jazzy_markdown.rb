@@ -54,13 +54,13 @@ module Jazzy
 
       def header(text, header_level)
         text_slug = text.gsub(/[^[[:word:]]]+/, '-')
-                        .downcase
-                        .sub(/^-/, '')
-                        .sub(/-$/, '')
+          .downcase
+          .sub(/^-/, '')
+          .sub(/-$/, '')
 
         "<h#{header_level} id='#{text_slug}' class='heading'>" \
           "#{text}" \
-        "</h#{header_level}>\n"
+          "</h#{header_level}>\n"
       end
 
       def codespan(text)
@@ -129,6 +129,7 @@ module Jazzy
           if UNIQUELY_HANDLED_CALLOUTS.include? type.downcase
             return ELIDED_LI_TOKEN
           end
+
           return render_list_aside(type,
                                    text.sub(/#{Regexp.escape(type)}:\s+/, ''))
         end

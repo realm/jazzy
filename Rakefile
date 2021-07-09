@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 # #-- Bootstrap --------------------------------------------------------------#
 
 desc 'Initializes your working copy to run the specs'

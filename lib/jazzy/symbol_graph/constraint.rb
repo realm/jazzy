@@ -29,6 +29,7 @@ module Jazzy
       def self.new_hash(hash)
         kind = KIND_MAP[hash[:kind]]
         raise "Unknown constraint kind '#{kind}'" unless kind
+
         lhs = hash[:lhs].sub(/^Self\./, '')
         rhs = hash[:rhs].sub(/^Self\./, '')
         new(kind, lhs, rhs)
@@ -64,6 +65,7 @@ module Jazzy
              path_components.include?(hash[:rhs])
             next nil
           end
+
           Constraint.new_hash(hash)
         end.compact
       end

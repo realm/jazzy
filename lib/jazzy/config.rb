@@ -10,7 +10,7 @@ require 'jazzy/source_declaration/access_control_level'
 module Jazzy
   # rubocop:disable Metrics/ClassLength
   class Config
-    # rubocop:disable Style/AccessorMethodName
+    # rubocop:disable Naming/AccessorMethodName
     class Attribute
       attr_reader :name, :description, :command_line, :config_file_key,
                   :default, :parse
@@ -52,6 +52,7 @@ module Jazzy
 
       def attach_to_option_parser(config, opt)
         return if command_line.empty?
+
         opt.on(*command_line, *description) do |val|
           set(config, val)
         end
@@ -72,11 +73,12 @@ module Jazzy
         end
       end
     end
-    # rubocop:enable Style/AccessorMethodName
+    # rubocop:enable Naming/AccessorMethodName
 
     def self.config_attr(name, **opts)
       attr_accessor name
       attr_accessor "#{name}_configured"
+
       @all_config_attrs ||= []
       @all_config_attrs << Attribute.new(name, **opts)
     end
@@ -114,7 +116,7 @@ module Jazzy
 
     # ──────── Build ────────
 
-    # rubocop:disable Layout/AlignParameters
+    # rubocop:disable Layout/ArgumentAlignment
 
     config_attr :output,
       description: 'Folder to output the HTML docs to',
@@ -126,7 +128,7 @@ module Jazzy
       command_line: ['-c', '--[no-]clean'],
       description: ['Delete contents of output directory before running. ',
                     'WARNING: If --output is set to ~/Desktop, this will '\
-                    'delete the ~/Desktop directory.'],
+                      'delete the ~/Desktop directory.'],
       default: false
 
     config_attr :objc_mode,
@@ -215,8 +217,9 @@ module Jazzy
       parse: ->(v) do
         if v.to_s.empty?
           nil
+        elsif v.to_f < 2
+          raise 'jazzy only supports Swift 2.0 or later.'
         else
-          raise 'jazzy only supports Swift 2.0 or later.' if v.to_f < 2
           v
         end
       end
@@ -231,8 +234,9 @@ module Jazzy
                    'there is a .xcodeproj file in the source directory.',
       parse: ->(tool) do
         return tool.to_sym if SWIFT_BUILD_TOOLS.include?(tool)
+
         raise "Unsupported swift_build_tool #{tool}, "\
-              "supported values: #{SWIFT_BUILD_TOOLS.join(', ')}"
+          "supported values: #{SWIFT_BUILD_TOOLS.join(', ')}"
       end
 
     # ──────── Metadata ────────
@@ -318,7 +322,7 @@ module Jazzy
     config_attr :dash_url,
       command_line: ['-d', '--dash_url URL'],
       description: 'Location of the dash XML feed '\
-                    'e.g. https://realm.io/docsets/realm.xml)',
+                   'e.g. https://realm.io/docsets/realm.xml)',
       parse: ->(d) { URI(d) }
 
     config_attr :github_url,
@@ -340,8 +344,8 @@ module Jazzy
     # ──────── Doc generation options ────────
     config_attr :disable_search,
       command_line: '--disable-search',
-      description: ['Avoid generating a search index. '\
-                    'Search is available in some themes.'],
+      description: 'Avoid generating a search index. '\
+                   'Search is available in some themes.',
       default: false
 
     config_attr :skip_documentation,
@@ -370,10 +374,10 @@ module Jazzy
       default: false
 
     config_attr :custom_categories,
-      description: ['Custom navigation categories to replace the standard '\
-                    '“Classes, Protocols, etc.”', 'Types not explicitly named '\
-                    'in a custom category appear in generic groups at the end.',
-                    'Example: https://git.io/v4Bcp'],
+      description: 'Custom navigation categories to replace the standard '\
+                   "'Classes', 'Protocols', etc. Types not explicitly named "\
+                   'in a custom category appear in generic groups at the '\
+                   'end.  Example: https://git.io/v4Bcp',
       default: []
 
     config_attr :custom_categories_unlisted_prefix,
@@ -446,7 +450,7 @@ module Jazzy
                    'have children.',
       default: false
 
-    # rubocop:enable Style/AlignParameter
+    # rubocop:enable Layout/ArgumentAlignment
 
     def initialize
       self.class.all_config_attrs.each do |attr|
@@ -576,7 +580,7 @@ module Jazzy
 
         The config file can be in YAML or JSON format. Available options are:
 
-        _EOS_
+      _EOS_
         .gsub(/^ +/, '')
 
       print_option_help

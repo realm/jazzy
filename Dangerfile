@@ -6,6 +6,7 @@ warn("Big PR") if git.lines_of_code > 500
 # Don't let testing shortcuts get into master by accident
 (git.modified_files + git.added_files - %w(Dangerfile)).each do |file|
   next unless File.file?(file)
+
   contents = File.read(file)
   if file.start_with?('spec')
     fail("`xit` or `fit` left in tests (#{file})") if contents =~ /^\w*[xf]it/
@@ -26,5 +27,5 @@ end
 
 # Non-trivial amounts of app changes without tests
 if git.lines_of_code > 50 && has_app_changes && !has_test_changes
-    warn "This PR may need tests."
+  warn "This PR may need tests."
 end

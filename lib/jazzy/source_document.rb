@@ -45,6 +45,7 @@ module Jazzy
 
     def content(source_module)
       return readme_content(source_module) if name == 'index'
+
       overview
     end
 
@@ -85,7 +86,7 @@ pod '#{podspec.name}'
 ### Authors
 
 #{source_module.author_name}
-EOS
+        EOS
       else
         <<-EOS
 # #{source_module.name}
@@ -93,7 +94,7 @@ EOS
 ### Authors
 
 #{source_module.author_name}
-EOS
+        EOS
       end
     end
   end

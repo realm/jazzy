@@ -20,7 +20,7 @@ module Jazzy
         date = ENV['JAZZY_FAKE_DATE'] || DateTime.now.strftime('%Y-%m-%d')
         year = date[0..3]
         "&copy; #{year} [#{config.author_name}](#{config.author_url}). " \
-        "All rights reserved. (Last updated: #{date})"
+          "All rights reserved. (Last updated: #{date})"
       )
       Markdown.render_copyright(copyright).chomp
     end

@@ -24,8 +24,8 @@ module Jazzy
         installer.install!
         stdout = Dir.chdir(sandbox.root) do
           targets = installer.pod_targets
-                             .select { |pt| pt.pod_name == podspec.root.name }
-                             .map(&:label)
+            .select { |pt| pt.pod_name == podspec.root.name }
+            .map(&:label)
 
           targets.map do |t|
             args = %W[doc --module-name #{podspec.module_name} -- -target #{t}]
@@ -96,9 +96,10 @@ module Jazzy
 
     def self.github_file_prefix(podspec)
       return unless podspec.source[:url] =~ %r{github.com[:/]+(.+)/(.+)}
+
       org, repo = Regexp.last_match
-      return unless org && repo
       return unless rev = podspec.source[:tag] || podspec.source[:commit]
+
       "https://github.com/#{org}/#{repo.sub(/\.git$/, '')}/blob/#{rev}"
     end
 

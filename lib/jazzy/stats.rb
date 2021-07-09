@@ -58,6 +58,7 @@ module Jazzy
 
     def doc_coverage
       return 0 if acl_included == 0
+
       (100 * documented) / acl_included
     end
 

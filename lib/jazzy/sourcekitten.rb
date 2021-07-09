@@ -77,7 +77,7 @@ module Jazzy
           docs_with_name, docs = docs.partition { |doc| doc.name == name }
           if docs_with_name.empty?
             STDERR.puts 'WARNING: No documented top-level declarations match ' \
-                        "name \"#{name}\" specified in categories file"
+              "name \"#{name}\" specified in categories file"
           end
           docs_with_name
         end
@@ -164,11 +164,11 @@ module Jazzy
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
           if doc.typename == '<<error type>>'
-            warn 'A compile error prevented ' + doc.fully_qualified_name +
-                 ' from receiving a unique USR. Documentation may be ' \
-                 'incomplete. Please check for compile errors by running ' \
-                 '`xcodebuild` or `swift build` with arguments ' \
-                 "`#{Config.instance.build_tool_arguments.shelljoin}`."
+            warn "A compile error prevented #{doc.fully_qualified_name} " \
+              'from receiving a unique USR. Documentation may be ' \
+              'incomplete. Please check for compile errors by running ' \
+              '`xcodebuild` or `swift build` with arguments ' \
+              "`#{Config.instance.build_tool_arguments.shelljoin}`."
           end
           id = doc.usr
           unless id
@@ -176,9 +176,9 @@ module Jazzy
             warn "`#{id}` has no USR. First make sure all modules used in " \
               'your project have been imported. If all used modules are ' \
               'imported, please report this problem by filing an issue at ' \
-              'https://github.com/realm/jazzy/issues along with your Xcode ' \
-              'project. If this token is declared in an `#if` block, please ' \
-              'ignore this message.'
+              'https://github.com/realm/jazzy/issues along with your ' \
+              'Xcode project. If this token is declared in an `#if` block, ' \
+              'please ignore this message.'
           end
           doc.url = doc.parent_in_docs.url + '#/' + id
         end
@@ -191,6 +191,7 @@ module Jazzy
     # Declarations under outer namespace type (Structures, Classes, etc.)
     def self.subdir_for_doc(doc)
       return [] if doc.type.markdown?
+
       top_level_decl = doc.namespace_path.first
       if top_level_decl.type.name
         [top_level_decl.type.plural_url_name] +
@@ -260,6 +261,7 @@ module Jazzy
         unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
           raise "Unable to find an Xcode with swift version #{swift_version}."
         end
+
         env = xcode.as_env
       else
         env = ENV
@@ -280,6 +282,7 @@ module Jazzy
 
     def self.availability_attribute?(doc)
       return false unless doc['key.attributes']
+
       !doc['key.attributes'].select do |attribute|
         attribute.values.first == 'source.decl.attribute.available'
       end.empty?
@@ -339,6 +342,7 @@ module Jazzy
       if !declaration.swift? || should_mark_undocumented(declaration)
         @stats.add_undocumented(declaration)
         return nil if @skip_undocumented
+
         declaration.abstract = undocumented_abstract
       else
         declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
@@ -492,11 +496,10 @@ module Jazzy
         end
 
       # @available attrs only in compiler 'interface' style
-      available_attrs = extract_availability(doc['key.doc.declaration'] || '')
-
-      available_attrs.concat(extract_attributes(annotated_decl_attrs))
-                     .push(decl)
-                     .join("\n")
+      extract_availability(doc['key.doc.declaration'] || '')
+        .concat(extract_attributes(annotated_decl_attrs))
+        .push(decl)
+        .join("\n")
     end
 
     # Strip default property attributes because libclang
@@ -512,12 +515,14 @@ module Jazzy
       attrs = Regexp.last_match[1].split(',').map(&:strip) - DEFAULT_ATTRIBUTES
       attrs_text = attrs.empty? ? '' : " (#{attrs.join(', ')})"
 
-      declaration.sub(/(?<=@property)\s+\(.*?\)/, attrs_text)
-                 .gsub(/\s+/, ' ')
+      declaration
+        .sub(/(?<=@property)\s+\(.*?\)/, attrs_text)
+        .gsub(/\s+/, ' ')
     end
 
     def self.make_substructure(doc, declaration)
       return [] unless subdocs = doc['key.substructure']
+
       make_source_declarations(subdocs,
                                declaration,
                                declaration.mark_for_children)
@@ -560,8 +565,8 @@ module Jazzy
 
         unless declaration.type.name
           raise 'Please file an issue at ' \
-                'https://github.com/realm/jazzy/issues about adding support ' \
-                "for `#{declaration.type.kind}`."
+            'https://github.com/realm/jazzy/issues about adding support ' \
+            "for `#{declaration.type.kind}`."
         end
 
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
@@ -585,10 +590,12 @@ module Jazzy
           inherited_types.map { |type| type['key.name'] }.compact
 
         next unless make_doc_info(doc, declaration)
+
         declaration.children = make_substructure(doc, declaration)
         next if declaration.type.extension? &&
                 declaration.children.empty? &&
                 !declaration.inherited_types?
+
         declarations << declaration
       end
       declarations
@@ -600,6 +607,7 @@ module Jazzy
     def self.find_generic_requirements(parsed_declaration)
       parsed_declaration =~ /\bwhere\s+(.*)$/m
       return nil unless Regexp.last_match
+
       Regexp.last_match[1].gsub(/\s+/, ' ')
     end
 
@@ -621,6 +629,7 @@ module Jazzy
 
     def self.expand_extension(extension, name_parts, decls)
       return extension if name_parts.empty?
+
       name = name_parts.shift
       candidates = decls.select { |decl| decl.name == name }
       SourceDeclaration.new.tap do |decl|
@@ -646,8 +655,8 @@ module Jazzy
     # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
       duplicate_groups = declarations
-                         .group_by { |d| deduplication_key(d, declarations) }
-                         .values
+        .group_by { |d| deduplication_key(d, declarations) }
+        .values
 
       duplicate_groups.flat_map do |group|
         # Put extended type (if present) before extensions
@@ -695,10 +704,11 @@ module Jazzy
       extensions, typedecls = decls.partition { |d| d.type.extension? }
 
       if typedecls.size > 1
+        info = typedecls
+          .map { |t| "#{t.type.name.downcase} #{t.name}" }
+          .join(', ')
         warn 'Found conflicting type declarations with the same name, which ' \
-          'may indicate a build issue or a bug in Jazzy: ' +
-             typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }
-                      .join(', ')
+          "may indicate a build issue or a bug in Jazzy: #{info}"
       end
       typedecl = typedecls.first
 
@@ -812,6 +822,7 @@ module Jazzy
     # (unless they already have a mark)
     def self.merge_objc_declaration_marks(typedecl, extensions)
       return unless typedecl.type.objc_class?
+
       extensions.each do |ext|
         _, category_name = ext.objc_category_name
         ext.children.each { |c| c.mark.name ||= category_name }
@@ -822,6 +833,7 @@ module Jazzy
     # declaration down to the extension contents so it still shows up.
     def self.move_merged_extension_marks(decls)
       return unless to_be_merged = decls[1..-1]
+
       to_be_merged.each do |ext|
         child = ext.children.first
         if child && child.mark.empty?
@@ -881,9 +893,11 @@ module Jazzy
 
     def self.name_match(name_part, docs)
       return nil unless name_part
+
       wildcard_expansion = Regexp.escape(name_part)
-                                 .gsub('\.\.\.', '[^)]*')
-                                 .gsub(/<.*>/, '')
+        .gsub('\.\.\.', '[^)]*')
+        .gsub(/<.*>/, '')
+
       whole_name_pat = /\A#{wildcard_expansion}\Z/
       docs.find do |doc|
         whole_name_pat =~ doc.name
@@ -922,9 +936,9 @@ module Jazzy
           (raw_name[/^<doc:(.*)>$/, 1] || raw_name).sub(/(?<!^)-.+$/, '')
 
         parts = sym_name
-                .sub(/^@/, '') # ignore for custom attribute ref
-                .split(%r{(?<!\.)[/\.](?!\.)}) # dot or slash, but not '...'
-                .reject(&:empty?)
+          .sub(/^@/, '') # ignore for custom attribute ref
+          .split(%r{(?<!\.)[/\.](?!\.)}) # dot or slash, but not '...'
+          .reject(&:empty?)
 
         # First dot-separated component can match any ancestor or top-level doc
         first_part = parts.shift

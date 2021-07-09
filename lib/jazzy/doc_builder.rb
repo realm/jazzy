@@ -53,8 +53,8 @@ module Jazzy
 
     def self.children_for_doc(doc)
       doc.children
-         .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
-         .flat_map do |child|
+        .sort_by { |c| [c.nav_order, c.name, c.usr || ''] }
+        .flat_map do |child|
         # FIXME: include arbitrarily nested extensible types
         [{ name: child.name, url: child.url }] +
           Array(child.children.select do |sub_child|
@@ -71,7 +71,7 @@ module Jazzy
     def self.build(options)
       if options.sourcekitten_sourcefile_configured
         stdout = '[' + options.sourcekitten_sourcefile.map(&:read)
-                              .join(',') + ']'
+          .join(',') + ']'
       elsif options.podspec_configured
         pod_documenter = PodspecDocumenter.new(options.podspec)
         stdout = pod_documenter.sourcekitten_output(options)
@@ -106,6 +106,7 @@ module Jazzy
     def self.each_doc(output_dir, docs, &block)
       docs.each do |doc|
         next unless doc.render_as_page?
+
         # Filepath is relative to documentation root:
         path = output_dir + doc.filepath
         block.call(doc, path)
@@ -328,6 +329,7 @@ module Jazzy
 
     def self.should_link_to_github(file)
       return unless file
+
       file = file.realpath.to_path
       source_directory = Config.instance.source_directory.to_path
       file.start_with?(source_directory)
@@ -339,6 +341,7 @@ module Jazzy
     def self.gh_token_url(item, source_module)
       return unless github_prefix = source_module.github_file_prefix
       return unless should_link_to_github(item.file)
+
       gh_line = if item.start_line && (item.start_line != item.end_line)
                   "#L#{item.start_line}-L#{item.end_line}"
                 else
@@ -358,26 +361,26 @@ module Jazzy
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
       {
-        name:                       item.name,
-        name_html:                  item.name.gsub(':', ':<wbr>'),
-        abstract:                   abstract,
-        declaration:                item.display_declaration,
-        language:                   item.display_language,
+        name: item.name,
+        name_html: item.name.gsub(':', ':<wbr>'),
+        abstract: abstract,
+        declaration: item.display_declaration,
+        language: item.display_language,
         other_language_declaration: item.display_other_language_declaration,
-        usr:                        item.usr,
-        dash_type:                  item.type.dash_type,
-        github_token_url:           gh_token_url(item, source_module),
-        default_impl_abstract:      item.default_impl_abstract,
-        from_protocol_extension:    item.from_protocol_extension,
-        return:                     item.return,
-        parameters:                 (item.parameters if item.parameters.any?),
-        url:                        (item.url if item.render_as_page?),
-        start_line:                 item.start_line,
-        end_line:                   item.end_line,
-        direct_link:                item.omit_content_from_parent?,
-        deprecation_message:        item.deprecation_message,
-        unavailable_message:        item.unavailable_message,
-        usage_discouraged:          item.usage_discouraged?,
+        usr: item.usr,
+        dash_type: item.type.dash_type,
+        github_token_url: gh_token_url(item, source_module),
+        default_impl_abstract: item.default_impl_abstract,
+        from_protocol_extension: item.from_protocol_extension,
+        return: item.return,
+        parameters: (item.parameters if item.parameters.any?),
+        url: (item.url if item.render_as_page?),
+        start_line: item.start_line,
+        end_line: item.end_line,
+        direct_link: item.omit_content_from_parent?,
+        deprecation_message: item.deprecation_message,
+        unavailable_message: item.unavailable_message,
+        usage_discouraged: item.usage_discouraged?,
       }
     end
     # rubocop:enable Metrics/MethodLength

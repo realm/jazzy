@@ -10,8 +10,6 @@ AllCops:
 
 Gemspec/DateAssignment: # (new in 1.10)
   Enabled: true
-Layout/LineEndStringConcatenationIndentation: # (new in 1.18)
-  Enabled: true
 Layout/SpaceBeforeBrackets: # (new in 1.7)
   Enabled: true
 Lint/AmbiguousAssignment: # (new in 1.7)
@@ -172,9 +170,16 @@ Style/Next:
 Style/RegexpLiteral:
   EnforcedStyle: mixed
 
-# Somtimes easier to read either way
+# Sometimes easier to read either way
 Style/AccessorGrouping:
   Enabled: false
+
+# Avoid mandatory wide indentation
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
+  EnforcedStyle: indented
 
 #- Jazzy specs -----------------------------------------------------------#
 

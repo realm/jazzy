@@ -27,6 +27,7 @@ module Jazzy
         unless KINDS.include?(kind)
           raise "Unknown relationship kind '#{kind}'"
         end
+
         self.kind = kind.to_sym
         self.source_usr = hash[:source]
         self.target_usr = hash[:target]

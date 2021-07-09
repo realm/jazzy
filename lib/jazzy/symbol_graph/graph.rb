@@ -124,7 +124,7 @@ module Jazzy
                target_parent.is_a?(SymNode)
           # Could probably figure this out with demangle, but...
           warn "Can't resolve membership of default implementation "\
-               "#{source.symbol.usr}."
+            "#{source.symbol.usr}."
           source.unlisted = true
           return
         end
@@ -176,14 +176,14 @@ module Jazzy
 
         root_symbol_nodes =
           symbol_nodes.values
-                      .select(&:top_level_decl?)
-                      .sort
-                      .map(&:to_sourcekit)
+            .select(&:top_level_decl?)
+            .sort
+            .map(&:to_sourcekit)
 
         root_ext_nodes =
           ext_nodes.values
-                   .sort
-                   .map { |n| n.to_sourcekit(module_name) }
+            .sort
+            .map { |n| n.to_sourcekit(module_name) }
         {
           'key.diagnostic_stage' => 'parse',
           'key.substructure' => root_symbol_nodes + root_ext_nodes,

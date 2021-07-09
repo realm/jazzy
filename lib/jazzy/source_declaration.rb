@@ -153,6 +153,7 @@ module Jazzy
       # Workaround functions sharing names with
       # different argument types (f(a:Int) vs. f(a:String))
       return result unless type.swift_global_function?
+
       result + "_#{type_usr}"
     end
 
@@ -177,6 +178,7 @@ module Jazzy
     # Is there at least one inherited type that is not in the given list?
     def other_inherited_types?(unwanted)
       return false unless inherited_types?
+
       inherited_types.any? { |t| !unwanted.include?(t) }
     end
 
@@ -203,6 +205,7 @@ module Jazzy
       return [] unless
         Config.instance.abstract_glob_configured &&
         Config.instance.abstract_glob
+
       Config.instance.abstract_glob.select { |e| File.file? e }
     end
   end
