@@ -5,8 +5,7 @@ module Jazzy
   class Stats
     include Config::Mixin
 
-    attr_reader :documented, :acl_skipped
-    attr_reader :undocumented_decls
+    attr_reader :documented, :acl_skipped, :undocumented_decls
 
     def add_documented
       @documented += 1

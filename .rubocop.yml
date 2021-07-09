@@ -172,6 +172,10 @@ Style/Next:
 Style/RegexpLiteral:
   EnforcedStyle: mixed
 
+# Somtimes easier to read either way
+Style/AccessorGrouping:
+  Enabled: false
+
 #- Jazzy specs -----------------------------------------------------------#
 
 # Allow for `should.match /regexp/`.
