@@ -245,4 +245,6 @@ describe_cli 'jazzy' do
                             '--podspec=Moya.podspec'
     end
   end if !spec_subset || spec_subset == 'cocoapods'
+
+  # rubocop:enable Style/MultilineIfModifier
 end

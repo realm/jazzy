@@ -39,7 +39,6 @@ module Jazzy
     end
 
     # Figure out the args to pass to symbolgraph-extract
-    # rubocop:disable Metrics/CyclomaticComplexity
     def self.arguments(config, output_path)
       if config.module_name.empty?
         raise 'error: `--swift-build-tool symbolgraph` requires `--module`.'
@@ -69,7 +68,6 @@ module Jazzy
 
       args + config.build_tool_arguments
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     # Get the SDK path.  On !darwin this just isn't needed.
     def self.sdk(config)

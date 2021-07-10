@@ -179,4 +179,5 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
   end
+  # rubocop:enable Metrics/ClassLength
 end

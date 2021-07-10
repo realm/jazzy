@@ -463,7 +463,6 @@ module Jazzy
       Doc.template_path = theme_directory + 'templates'
     end
 
-    # rubocop:disable Metrics/MethodLength
     def self.parse!
       config = new
       config.parse_command_line
@@ -480,6 +479,7 @@ module Jazzy
       config
     end
 
+    # rubocop:disable Metrics/MethodLength
     def parse_command_line
       OptionParser.new do |opt|
         opt.banner = 'Usage: jazzy'
@@ -541,6 +541,7 @@ module Jazzy
 
       self.base_path = nil
     end
+    # rubocop:enable Metrics/MethodLength
 
     def locate_config_file
       return config_file if config_file
