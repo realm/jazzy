@@ -172,7 +172,7 @@ module Jazzy
 
     def self.relative_path_if_inside(path, base_path)
       relative = path.relative_path_from(base_path)
-      if relative.to_path =~ %r{/^..(\/|$)/}
+      if relative.to_path =~ %r{/^..(/|$)/}
         path
       else
         relative

@@ -78,7 +78,7 @@ module Jazzy
     # of the extended objc class and the category name itself, i.e.
     # ["NSString", "MyMethods"], nil otherwise.
     def objc_category_name
-      name.split(/[\(\)]/) if type.objc_category?
+      name.split(/[()]/) if type.objc_category?
     end
 
     def swift_objc_extension?

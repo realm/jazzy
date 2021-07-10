@@ -142,9 +142,9 @@ module Jazzy
       unsafe_filename = doc.docs_filename
       sanitzation_enabled = Config.instance.use_safe_filenames
       if sanitzation_enabled && !doc.type.name_controlled_manually?
-        return CGI.escape(unsafe_filename).gsub('_', '%5F').tr('%', '_')
+        CGI.escape(unsafe_filename).gsub('_', '%5F').tr('%', '_')
       else
-        return unsafe_filename
+        unsafe_filename
       end
     end
 
@@ -936,7 +936,7 @@ module Jazzy
 
         parts = sym_name
           .sub(/^@/, '') # ignore for custom attribute ref
-          .split(%r{(?<!\.)[/\.](?!\.)}) # dot or slash, but not '...'
+          .split(%r{(?<!\.)[/.](?!\.)}) # dot or slash, but not '...'
           .reject(&:empty?)
 
         # First dot-separated component can match any ancestor or top-level doc

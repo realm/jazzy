@@ -89,7 +89,7 @@ module Jazzy
     def self.demangle(usr)
       args = %w[demangle -simplified -compact].append(usr.sub(/^s:/, 's'))
       output, = Executable.execute_command('swift', args, true)
-      return output.chomp
+      output.chomp
     rescue
       usr
     end

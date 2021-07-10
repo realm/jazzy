@@ -155,7 +155,7 @@ module Jazzy
 
         tag = list_type == :ordered ? 'ol' : 'ul'
         "\n<#{tag}>\n#{text}</#{tag}>\n"
-          .gsub(%r{\n?<ul>\n?<\/ul>}, '')
+          .gsub(%r{\n?<ul>\n?</ul>}, '')
       end
 
       # List from
