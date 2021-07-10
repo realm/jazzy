@@ -101,13 +101,13 @@ module Jazzy
         sourcekit_kind = KIND_MAP[adjusted.sub('swift.', '')]
         raise "Unknown symbol kind '#{kind}'" unless sourcekit_kind
 
-        self.kind = 'source.lang.swift.decl.' + sourcekit_kind
+        self.kind = "source.lang.swift.decl.#{sourcekit_kind}"
       end
 
       # Mapping SymbolGraph's ACL to SourceKit
 
       def init_acl(acl)
-        self.acl = 'source.lang.swift.accessibility.' + acl
+        self.acl = "source.lang.swift.accessibility.#{acl}"
       end
 
       # Symbol location - only available for public+ decls
@@ -176,8 +176,8 @@ module Jazzy
             next nil
           end
 
-          str += ', message: "' + avail[:message] + '"' if avail[:message]
-          str += ', renamed: "' + avail[:renamed] + '"' if avail[:renamed]
+          str += ", message: \"#{avail[:message]}\"" if avail[:message]
+          str += ", renamed: \"#{avail[:renamed]}\"" if avail[:renamed]
 
           str + ')'
         end.compact

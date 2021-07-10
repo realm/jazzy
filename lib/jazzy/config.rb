@@ -491,7 +491,7 @@ module Jazzy
         end
 
         opt.on('-v', '--version', 'Print version number') do
-          puts 'jazzy version: ' + Jazzy::VERSION
+          puts "jazzy version: #{Jazzy::VERSION}"
           exit
         end
 

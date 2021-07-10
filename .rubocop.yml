@@ -181,6 +181,10 @@ Layout/LineEndStringConcatenationIndentation:
   Enabled: true
   EnforcedStyle: indented
 
+# Avoid false positives with `Pathname`
+Style/StringConcatenation:
+  Mode: conservative
+
 #- Jazzy specs -----------------------------------------------------------#
 
 # Allow for `should.match /regexp/`.

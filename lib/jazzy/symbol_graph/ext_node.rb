@@ -70,7 +70,7 @@ module Jazzy
       def full_declaration
         decl = "extension #{name}"
         unless conformances.empty?
-          decl += ' : ' + conformances.join(', ')
+          decl += " : #{conformances.join(', ')}"
         end
         decl + all_constraints.ext.to_where_clause
       end

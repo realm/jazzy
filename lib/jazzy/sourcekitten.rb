@@ -38,9 +38,8 @@ class String
          link_target.url &&
          link_target.url != doc_url.split('#').first && # Don't link to parent
          link_target.url != doc_url # Don't link to self
-        start_tag +
-          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
-          CGI.escape_html(display_name) + '</a>' + end_tag
+        "#{start_tag}<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" \
+          "#{CGI.escape_html(display_name)}</a>#{end_tag}"
       else
         original
       end
@@ -180,7 +179,7 @@ module Jazzy
               'Xcode project. If this token is declared in an `#if` block, ' \
               'please ignore this message.'
           end
-          doc.url = doc.parent_in_docs.url + '#/' + id
+          doc.url = "#{doc.parent_in_docs.url}#/#{id}"
         end
       end
     end

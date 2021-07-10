@@ -14,7 +14,7 @@ module Jazzy
         SourceDocument.new.tap do |sd|
           sd.name = File.basename(file_path, '.md')
           sd.overview = overview Pathname(file_path)
-          sd.usr = 'documentation.' + sd.name
+          sd.usr = "documentation.#{sd.name}"
         end
       end
     end

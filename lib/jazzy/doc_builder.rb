@@ -70,8 +70,7 @@ module Jazzy
     # @return [SourceModule] the documented source module
     def self.build(options)
       if options.sourcekitten_sourcefile_configured
-        stdout = '[' + options.sourcekitten_sourcefile.map(&:read)
-          .join(',') + ']'
+        stdout = "[#{options.sourcekitten_sourcefile.map(&:read).join(',')}]"
       elsif options.podspec_configured
         pod_documenter = PodspecDocumenter.new(options.podspec)
         stdout = pod_documenter.sourcekitten_output(options)
@@ -225,7 +224,7 @@ module Jazzy
     end
 
     def self.copy_extension(name, destination)
-      ext_directory = Pathname(__FILE__).parent + 'extensions/' + name
+      ext_directory = Pathname(__FILE__).parent + 'extensions' / name
       FileUtils.cp_r(ext_directory.children, destination)
     end
 

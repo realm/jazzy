@@ -93,6 +93,6 @@ end
 
 class Array
   def to_where_clause
-    empty? ? '' : ' where ' + map(&:to_swift).join(', ')
+    empty? ? '' : " where #{map(&:to_swift).join(', ')}"
   end
 end
