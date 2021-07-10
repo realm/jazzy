@@ -102,7 +102,7 @@ module Jazzy
 
       # Generate the 'where' clause for the declaration
       def where_clause
-        parent_constraints = (parent && parent.constraints) || []
+        parent_constraints = parent&.constraints || []
         (constraints - parent_constraints).to_where_clause
       end
 

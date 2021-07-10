@@ -397,7 +397,7 @@ module Jazzy
       description: 'Custom HTML to inject into <head></head>.',
       default: ''
 
-    BUILTIN_THEME_DIR = Pathname(__FILE__).parent + 'themes'
+    BUILTIN_THEME_DIR = Pathname(__dir__) + 'themes'
     BUILTIN_THEMES = BUILTIN_THEME_DIR.children(false).map(&:to_s)
 
     config_attr :theme_directory,
@@ -557,13 +557,7 @@ module Jazzy
       case File.extname(file)
         when '.json'         then JSON.parse(File.read(file))
         when '.yaml', '.yml' then
-          if YAML.respond_to?('safe_load') # ruby >= 2.1.0
-            YAML.safe_load(File.read(file))
-          else
-            # rubocop:disable Security/YAMLLoad
-            YAML.load(File.read(file))
-            # rubocop:enable Security/YAMLLoad
-          end
+          YAML.safe_load(File.read(file))
         else raise "Config file must be .yaml or .json, but got #{file.inspect}"
       end
     end

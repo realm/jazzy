@@ -54,7 +54,7 @@ module Jazzy
     end
 
     def config_readme
-      readme_path.read if readme_path && readme_path.exist?
+      readme_path.read if readme_path&.exist?
     end
 
     def fallback_readme

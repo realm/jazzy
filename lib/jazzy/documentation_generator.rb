@@ -20,7 +20,7 @@ module Jazzy
     end
 
     def self.overview(file_path)
-      return '' unless file_path && file_path.exist?
+      return '' unless file_path&.exist?
 
       file_path.read
     end

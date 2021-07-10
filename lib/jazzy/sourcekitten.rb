@@ -75,7 +75,7 @@ module Jazzy
         children = category['children'].flat_map do |name|
           docs_with_name, docs = docs.partition { |doc| doc.name == name }
           if docs_with_name.empty?
-            STDERR.puts 'WARNING: No documented top-level declarations match ' \
+            warn 'WARNING: No documented top-level declarations match ' \
               "name \"#{name}\" specified in categories file"
           end
           docs_with_name
@@ -130,7 +130,7 @@ module Jazzy
     def self.merge_consecutive_marks(docs)
       prev_mark = nil
       docs.each do |doc|
-        if prev_mark && prev_mark.can_merge?(doc.mark)
+        if prev_mark&.can_merge?(doc.mark)
           doc.mark = prev_mark
         end
         prev_mark = doc.mark
@@ -723,7 +723,7 @@ module Jazzy
       end
 
       # Keep type-aliases separate from any extensions
-      if typedecl && typedecl.type.swift_typealias?
+      if typedecl&.type&.swift_typealias?
         [merge_type_and_extensions(typedecls, []),
          merge_type_and_extensions([], extensions)]
       else
@@ -831,7 +831,7 @@ module Jazzy
     # For each extension to be merged, move any MARK from the extension
     # declaration down to the extension contents so it still shows up.
     def self.move_merged_extension_marks(decls)
-      return unless to_be_merged = decls[1..-1]
+      return unless to_be_merged = decls[1..]
 
       to_be_merged.each do |ext|
         child = ext.children.first
@@ -847,7 +847,7 @@ module Jazzy
     def self.merge_code_declaration(decls)
       first = decls.first
 
-      declarations = decls[1..-1].select do |decl|
+      declarations = decls[1..].select do |decl|
         decl.type.swift_extension? &&
           (decl.other_inherited_types?(@inaccessible_protocols) ||
             (first.type.swift_extension? && decl.constrained_extension?))

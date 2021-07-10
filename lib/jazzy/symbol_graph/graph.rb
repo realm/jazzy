@@ -65,14 +65,14 @@ module Jazzy
       # Increasingly desparate ways to find the name of the symbol
       # at the target end of a relationship
       def rel_target_name(rel, target_node)
-        (target_node && target_node.symbol.name) ||
+        target_node&.symbol&.name ||
           rel.target_fallback ||
           Jazzy::SymbolGraph.demangle(rel.target_usr)
       end
 
       # Same for the source end.  Less help from the tool here
       def rel_source_name(rel, source_node)
-        (source_node && source_node.qualified_name) ||
+        source_node&.qualified_name ||
           Jazzy::SymbolGraph.demangle(rel.source_usr)
       end
 
@@ -88,11 +88,11 @@ module Jazzy
 
         source.protocol_requirement = rel.protocol_requirement?
         constraints =
-          ExtConstraints.new(target && target.constraints,
+          ExtConstraints.new(target&.constraints,
                              source.unique_context_constraints(target))
 
         # Add to its parent or invent an extension
-        unless target && target.try_add_child(source, constraints.ext)
+        unless target&.try_add_child(source, constraints.ext)
           add_ext_member(rel.target_usr, source, constraints)
         end
       end
@@ -103,7 +103,7 @@ module Jazzy
 
         return if redundant_conformance?(rel, source, protocol_name)
 
-        type_constraints = (source && source.constraints) || []
+        type_constraints = source&.constraints || []
         constraints =
           ExtConstraints.new(type_constraints,
                              rel.constraints - type_constraints)

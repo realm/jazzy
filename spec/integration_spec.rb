@@ -40,7 +40,7 @@
 
 # @return [Pathname] The root of the repo.
 #
-ROOT = Pathname.new(File.expand_path('../../', __FILE__)) unless defined? ROOT
+ROOT = Pathname.new(File.expand_path('..', __dir__)) unless defined? ROOT
 $:.unshift((ROOT + 'spec').to_s)
 
 require 'rubygems'
