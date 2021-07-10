@@ -224,7 +224,7 @@ module Jazzy
     end
 
     def self.copy_extension(name, destination)
-      ext_directory = Pathname(__FILE__).parent + 'extensions' / name
+      ext_directory = Pathname(__FILE__).parent / 'extensions' / name
       FileUtils.cp_r(ext_directory.children, destination)
     end
 
