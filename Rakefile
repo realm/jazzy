@@ -11,7 +11,7 @@ task :bootstrap do
     title 'Updating submodules'
     sh 'git submodule update --init --recursive'
   else
-    $stderr.puts "\033[0;31m" \
+    warn "\033[0;31m" \
       "[!] Please install the bundler gem manually:\n" \
       '    $ [sudo] gem install bundler' \
       "\e[0m"
@@ -117,19 +117,19 @@ begin
     'jquery/dist/jquery.min.js' => [
       'themes/apple/assets/js',
       'themes/fullwidth/assets/js',
-      'themes/jony/assets/js'
+      'themes/jony/assets/js',
     ],
     'lunr/lunr.min.js' => [
       'themes/apple/assets/js',
-      'themes/fullwidth/assets/js'
+      'themes/fullwidth/assets/js',
     ],
     'corejs-typeahead/dist/typeahead.jquery.js' => [
       'themes/apple/assets/js',
-      'themes/fullwidth/assets/js'
+      'themes/fullwidth/assets/js',
     ],
     'katex/dist/katex.min.css' => ['extensions/katex/css'],
     'katex/dist/fonts' => ['extensions/katex/css'],
-    'katex/dist/katex.min.js' => ['extensions/katex/js']
+    'katex/dist/katex.min.js' => ['extensions/katex/js'],
   }.freeze
 
   desc 'Copies theme dependencies (`npm update/install` by hand first)'
@@ -140,15 +140,14 @@ begin
       end
     end
   end
-
 rescue LoadError, NameError => e
-  $stderr.puts "\033[0;31m" \
+  warn "\033[0;31m" \
     '[!] Some Rake tasks haven been disabled because the environment' \
     ' couldn’t be loaded. Be sure to run `rake bootstrap` first.' \
     "\e[0m"
-  $stderr.puts e.message
-  $stderr.puts e.backtrace
-  $stderr.puts
+  warn e.message
+  warn e.backtrace
+  warn ''
 end
 
 #-- Helpers ------------------------------------------------------------------#
