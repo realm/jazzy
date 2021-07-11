@@ -88,7 +88,7 @@ module Jazzy
       args = %w[demangle -simplified -compact].append(usr.sub(/^s:/, 's'))
       output, = Executable.execute_command('swift', args, true)
       output.chomp
-    rescue
+    rescue StandardError
       usr
     end
   end

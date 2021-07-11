@@ -41,7 +41,7 @@ module Jazzy
     attr_accessor :parent_in_docs
 
     # counterpart of parent_in_docs
-    attr_accessor :children
+    attr_reader :children
 
     def children=(new_children)
       # Freeze to ensure that parent_in_docs stays in sync

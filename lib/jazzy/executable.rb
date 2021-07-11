@@ -4,6 +4,7 @@ module Jazzy
   module Executable
     class IO < Array
       def initialize(io = nil)
+        super()
         @io = io
       end
 

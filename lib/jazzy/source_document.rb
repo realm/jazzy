@@ -70,7 +70,7 @@ module Jazzy
         ### License
 
         # <a href="#{license[:url]}">#{license[:license]}</a>
-        <<-EOS
+        <<-README
 # #{podspec.name}
 
 ### #{podspec.summary}
@@ -86,15 +86,15 @@ pod '#{podspec.name}'
 ### Authors
 
 #{source_module.author_name}
-        EOS
+        README
       else
-        <<-EOS
+        <<-README
 # #{source_module.name}
 
 ### Authors
 
 #{source_module.author_name}
-        EOS
+        README
       end
     end
   end

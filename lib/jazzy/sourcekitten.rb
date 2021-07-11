@@ -409,7 +409,7 @@ module Jazzy
     def self.xml_to_text(xml)
       document = REXML::Document.new(xml)
       REXML::XPath.match(document.root, '//text()').map(&:value).join
-    rescue
+    rescue StandardError
       ''
     end
 
@@ -929,7 +929,7 @@ module Jazzy
     #
     # DocC link format - follow Xcode and don't display slash-separated parts.
     # rubocop:disable Metrics/MethodLength
-    def self.autolink_text(text, doc, root_decls, after_highlight = false)
+    def self.autolink_text(text, doc, root_decls, after_highlight: false)
       text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
         sym_name =
           (raw_name[/^<doc:(.*)>$/, 1] || raw_name).sub(/(?<!^)-.+$/, '')
@@ -970,30 +970,37 @@ module Jazzy
                               unavailable_message
                               deprecation_message].freeze
 
+    def self.autolink_text_fields(doc, root_decls)
+      AUTOLINK_TEXT_FIELDS.each do |field|
+        if text = doc.send(field)
+          doc.send(field + '=', autolink_text(text, doc, root_decls))
+        end
+      end
+
+      (doc.parameters || []).each do |param|
+        param[:discussion] =
+          autolink_text(param[:discussion], doc, root_decls)
+      end
+    end
+
     AUTOLINK_HIGHLIGHT_FIELDS = %w[declaration
                                    other_language_declaration].freeze
+
+    def self.autolink_highlight_fields(doc, root_decls)
+      AUTOLINK_HIGHLIGHT_FIELDS.each do |field|
+        if text = doc.send(field)
+          doc.send(field + '=',
+                   autolink_text(text, doc, root_decls, after_highlight: true))
+        end
+      end
+    end
 
     def self.autolink(docs, root_decls)
       @autolink_root_decls = root_decls
       docs.each do |doc|
         doc.children = autolink(doc.children, root_decls)
-
-        AUTOLINK_TEXT_FIELDS.each do |field|
-          if text = doc.send(field)
-            doc.send(field + '=', autolink_text(text, doc, root_decls))
-          end
-        end
-
-        AUTOLINK_HIGHLIGHT_FIELDS.each do |field|
-          if text = doc.send(field)
-            doc.send(field + '=', autolink_text(text, doc, root_decls, true))
-          end
-        end
-
-        (doc.parameters || []).each do |param|
-          param[:discussion] =
-            autolink_text(param[:discussion], doc, root_decls)
-        end
+        autolink_text_fields(doc, root_decls)
+        autolink_highlight_fields(doc, root_decls)
       end
     end
 

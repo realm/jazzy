@@ -14,7 +14,7 @@ module Jazzy
         super()
       end
 
-      def stream(tokens, &b)
+      def stream(tokens, &block)
         yield "<pre class=\"highlight #{@language}\"><code>"
         super
         yield "</code></pre>\n"

@@ -64,10 +64,11 @@ module Jazzy
       end
 
       def codespan(text)
-        if /^\$\$(.*)\$\$$/m =~ text
+        case text
+        when /^\$\$(.*)\$\$$/m
           o = ["<div class='math m-block'>", Regexp.last_match[1], '</div>']
           Markdown.has_math = true
-        elsif /^\$(.*)\$$/m =~ text
+        when /^\$(.*)\$$/m
           o = ["<span class='math m-inline'>", Regexp.last_match[1], '</span>']
           Markdown.has_math = true
         else

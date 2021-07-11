@@ -164,9 +164,8 @@ module Jazzy
             # Travis builds take too long when building docs for all available
             # platforms for the Moya integration spec, so we just document OSX.
             # TODO: remove once jazzy is fast enough.
-            if ENV['JAZZY_INTEGRATION_SPECS']
-              next if p.name != :osx
-            end
+            next if ENV['JAZZY_INTEGRATION_SPECS'] && p.name != :osx
+
             target("Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}") do
               use_frameworks!
               platform p.name, p.deployment_target
