@@ -5,6 +5,7 @@ AllCops:
     - ./tmp/**/*
     - ./SourceKitten/**/*
   SuggestExtensions: false
+  TargetRubyVersion: 2.6
 
 #- Pending Cops as of 1.18.3 ---------------------------------------------#
 

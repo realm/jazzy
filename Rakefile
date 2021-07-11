@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# #-- Bootstrap --------------------------------------------------------------#
+#-- Bootstrap --------------------------------------------------------------#
 
 desc 'Initializes your working copy to run the specs'
 task :bootstrap do
