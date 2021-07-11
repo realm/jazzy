@@ -287,8 +287,6 @@ module Jazzy
       end.empty?
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
@@ -318,8 +316,6 @@ module Jazzy
       end
       acl_ok
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.should_document_swift_extension?(doc)
       doc['key.inheritedtypes'] ||
@@ -698,6 +694,7 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     # Merges all of the given types and extensions into a single document.
     def self.merge_declarations(decls)
       extensions, typedecls = decls.partition { |d| d.type.extension? }
@@ -730,6 +727,7 @@ module Jazzy
         merge_type_and_extensions(typedecls, extensions)
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength
 
     def self.merge_type_and_extensions(typedecls, extensions)

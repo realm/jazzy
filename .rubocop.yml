@@ -135,7 +135,6 @@ Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
 Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
-
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 
@@ -184,6 +183,12 @@ Layout/LineEndStringConcatenationIndentation:
 # Avoid false positives with `Pathname`
 Style/StringConcatenation:
   Mode: conservative
+
+# Compatibility with earlier Rubocops
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
 
 #- Jazzy specs -----------------------------------------------------------#
 

@@ -193,8 +193,6 @@ module Jazzy
       # Sort order
       include Comparable
 
-      # rubocop:disable Metrics/CyclomaticComplexity
-      # rubocop:disable Metrics/PerceivedComplexity
       def <=>(other)
         # Things with location: order by file/line/column
         # (pls tell what wheel i am reinventing :/)
@@ -218,8 +216,6 @@ module Jazzy
 
         name <=> other.name
       end
-      # rubocop:enable Metrics/PerceivedComplexity
-      # rubocop:enable Metrics/CyclomaticComplexity
     end
   end
 end
