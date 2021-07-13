@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 module Jazzy
   module SymbolGraph
@@ -63,14 +65,14 @@ module Jazzy
       # Increasingly desparate ways to find the name of the symbol
       # at the target end of a relationship
       def rel_target_name(rel, target_node)
-        (target_node && target_node.symbol.name) ||
+        target_node&.symbol&.name ||
           rel.target_fallback ||
           Jazzy::SymbolGraph.demangle(rel.target_usr)
       end
 
       # Same for the source end.  Less help from the tool here
       def rel_source_name(rel, source_node)
-        (source_node && source_node.qualified_name) ||
+        source_node&.qualified_name ||
           Jazzy::SymbolGraph.demangle(rel.source_usr)
       end
 
@@ -86,11 +88,11 @@ module Jazzy
 
         source.protocol_requirement = rel.protocol_requirement?
         constraints =
-          ExtConstraints.new(target && target.constraints,
+          ExtConstraints.new(target&.constraints,
                              source.unique_context_constraints(target))
 
         # Add to its parent or invent an extension
-        unless target && target.try_add_child(source, constraints.ext)
+        unless target&.try_add_child(source, constraints.ext)
           add_ext_member(rel.target_usr, source, constraints)
         end
       end
@@ -101,7 +103,7 @@ module Jazzy
 
         return if redundant_conformance?(rel, source, protocol_name)
 
-        type_constraints = (source && source.constraints) || []
+        type_constraints = source&.constraints || []
         constraints =
           ExtConstraints.new(type_constraints,
                              rel.constraints - type_constraints)
@@ -122,7 +124,7 @@ module Jazzy
                target_parent.is_a?(SymNode)
           # Could probably figure this out with demangle, but...
           warn "Can't resolve membership of default implementation "\
-               "#{source.symbol.usr}."
+            "#{source.symbol.usr}."
           source.unlisted = true
           return
         end
@@ -174,14 +176,14 @@ module Jazzy
 
         root_symbol_nodes =
           symbol_nodes.values
-                      .select(&:top_level_decl?)
-                      .sort
-                      .map(&:to_sourcekit)
+            .select(&:top_level_decl?)
+            .sort
+            .map(&:to_sourcekit)
 
         root_ext_nodes =
           ext_nodes.values
-                   .sort
-                   .map { |n| n.to_sourcekit(module_name) }
+            .sort
+            .map { |n| n.to_sourcekit(module_name) }
         {
           'key.diagnostic_stage' => 'parse',
           'key.substructure' => root_symbol_nodes + root_ext_nodes,

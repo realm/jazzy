@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tmpdir'
 require 'json'
 
@@ -22,8 +24,8 @@ module Jazzy
         installer.install!
         stdout = Dir.chdir(sandbox.root) do
           targets = installer.pod_targets
-                             .select { |pt| pt.pod_name == podspec.root.name }
-                             .map(&:label)
+            .select { |pt| pt.pod_name == podspec.root.name }
+            .map(&:label)
 
           targets.map do |t|
             args = %W[doc --module-name #{podspec.module_name} -- -target #{t}]
@@ -42,8 +44,6 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
     # rubocop:disable Metrics/MethodLength
     def self.apply_config_defaults(podspec, config)
       return unless podspec
@@ -74,8 +74,6 @@ module Jazzy
         config.swift_version_configured = true
       end
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength
 
     private
@@ -94,17 +92,17 @@ module Jazzy
 
     def self.github_file_prefix(podspec)
       return unless podspec.source[:url] =~ %r{github.com[:/]+(.+)/(.+)}
+
       org, repo = Regexp.last_match
-      return unless org && repo
-      repo.sub!(/\.git$/, '')
       return unless rev = podspec.source[:tag] || podspec.source[:commit]
-      "https://github.com/#{org}/#{repo}/blob/#{rev}"
+
+      "https://github.com/#{org}/#{repo.sub(/\.git$/, '')}/blob/#{rev}"
     end
 
     private_class_method :github_file_prefix
 
     # Latest valid value for SWIFT_VERSION.
-    LATEST_SWIFT_VERSION = '5'.freeze
+    LATEST_SWIFT_VERSION = '5'
 
     # All valid values for SWIFT_VERSION that are longer
     # than a major version number.  Ordered ascending.
@@ -162,9 +160,8 @@ module Jazzy
             # Travis builds take too long when building docs for all available
             # platforms for the Moya integration spec, so we just document OSX.
             # TODO: remove once jazzy is fast enough.
-            if ENV['JAZZY_INTEGRATION_SPECS']
-              next if p.name != :osx
-            end
+            next if ENV['JAZZY_INTEGRATION_SPECS'] && p.name != :osx
+
             target("Jazzy-#{ss.name.gsub('/', '__')}-#{p.name}") do
               use_frameworks!
               platform p.name, p.deployment_target
@@ -177,4 +174,5 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
   end
+  # rubocop:enable Metrics/ClassLength
 end

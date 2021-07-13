@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'jazzy/source_declaration/access_control_level'
 require 'jazzy/source_declaration/type'
 
-# rubocop:disable Metrics/ClassLength
 module Jazzy
+  # rubocop:disable Metrics/ClassLength
   class SourceDeclaration
     # kind of declaration (e.g. class, variable, function)
     attr_accessor :type
@@ -39,7 +41,7 @@ module Jazzy
     attr_accessor :parent_in_docs
 
     # counterpart of parent_in_docs
-    attr_accessor :children
+    attr_reader :children
 
     def children=(new_children)
       # Freeze to ensure that parent_in_docs stays in sync
@@ -76,7 +78,7 @@ module Jazzy
     # of the extended objc class and the category name itself, i.e.
     # ["NSString", "MyMethods"], nil otherwise.
     def objc_category_name
-      name.split(/[\(\)]/) if type.objc_category?
+      name.split(/[()]/) if type.objc_category?
     end
 
     def swift_objc_extension?
@@ -151,6 +153,7 @@ module Jazzy
       # Workaround functions sharing names with
       # different argument types (f(a:Int) vs. f(a:String))
       return result unless type.swift_global_function?
+
       result + "_#{type_usr}"
     end
 
@@ -175,6 +178,7 @@ module Jazzy
     # Is there at least one inherited type that is not in the given list?
     def other_inherited_types?(unwanted)
       return false unless inherited_types?
+
       inherited_types.any? { |t| !unwanted.include?(t) }
     end
 
@@ -201,7 +205,9 @@ module Jazzy
       return [] unless
         Config.instance.abstract_glob_configured &&
         Config.instance.abstract_glob
+
       Config.instance.abstract_glob.select { |e| File.file? e }
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

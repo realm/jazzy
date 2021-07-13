@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # Constraint is a tidied-up JSON object, used by both Symbol and
@@ -27,6 +29,7 @@ module Jazzy
       def self.new_hash(hash)
         kind = KIND_MAP[hash[:kind]]
         raise "Unknown constraint kind '#{kind}'" unless kind
+
         lhs = hash[:lhs].sub(/^Self\./, '')
         rhs = hash[:rhs].sub(/^Self\./, '')
         new(kind, lhs, rhs)
@@ -62,6 +65,7 @@ module Jazzy
              path_components.include?(hash[:rhs])
             next nil
           end
+
           Constraint.new_hash(hash)
         end.compact
       end
@@ -89,6 +93,6 @@ end
 
 class Array
   def to_where_clause
-    empty? ? '' : ' where ' + map(&:to_swift).join(', ')
+    empty? ? '' : " where #{map(&:to_swift).join(', ')}"
   end
 end

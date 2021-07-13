@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # A Relationship is a tidied-up SymbolGraph JSON object
@@ -25,6 +27,7 @@ module Jazzy
         unless KINDS.include?(kind)
           raise "Unknown relationship kind '#{kind}'"
         end
+
         self.kind = kind.to_sym
         self.source_usr = hash[:source]
         self.target_usr = hash[:target]

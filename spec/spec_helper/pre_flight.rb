@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Restores the config to the default state before each requirement
 
 module Bacon

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'uri'
 
 require 'jazzy/config'
@@ -27,6 +29,7 @@ module Jazzy
       self.github_file_prefix = options.github_file_prefix
       self.author_url = options.author_url
       return unless options.dash_url
+
       self.dash_url =
         "dash-feed://#{ERB::Util.url_encode(options.dash_url.to_s)}"
     end

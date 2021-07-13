@@ -1,16 +1,88 @@
 AllCops:
-  Include:
-    - ./Rakefile
-    - ./Gemfile
-    - ./*.gemspec
   Exclude:
     - ./spec/integration_specs/**/*
     - ./vendor/**/*
     - ./tmp/**/*
+    - ./SourceKitten/**/*
+  SuggestExtensions: false
+  TargetRubyVersion: 2.6
+
+#- Pending Cops as of 1.18.3 ---------------------------------------------#
+
+Gemspec/DateAssignment: # (new in 1.10)
+  Enabled: true
+Layout/SpaceBeforeBrackets: # (new in 1.7)
+  Enabled: true
+Lint/AmbiguousAssignment: # (new in 1.7)
+  Enabled: true
+Lint/DeprecatedConstants: # (new in 1.8)
+  Enabled: true
+Lint/DuplicateBranch: # (new in 1.3)
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
+  Enabled: true
+Lint/EmptyBlock: # (new in 1.1)
+  Enabled: true
+Lint/EmptyClass: # (new in 1.3)
+  Enabled: true
+Lint/EmptyInPattern: # (new in 1.16)
+  Enabled: true
+Lint/LambdaWithoutLiteralBlock: # (new in 1.8)
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
+  Enabled: true
+Lint/NumberedParameterAssignment: # (new in 1.9)
+  Enabled: true
+Lint/OrAssignmentToConstant: # (new in 1.9)
+  Enabled: true
+Lint/RedundantDirGlobSort: # (new in 1.8)
+  Enabled: true
+Lint/SymbolConversion: # (new in 1.9)
+  Enabled: true
+Lint/ToEnumArguments: # (new in 1.1)
+  Enabled: true
+Lint/TripleQuotes: # (new in 1.9)
+  Enabled: true
+Lint/UnexpectedBlockArity: # (new in 1.5)
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
+  Enabled: true
+Naming/InclusiveLanguage: # (new in 1.18)
+  Enabled: true
+Style/ArgumentsForwarding: # (new in 1.1)
+  Enabled: true
+Style/CollectionCompact: # (new in 1.2)
+  Enabled: true
+Style/DocumentDynamicEvalDefinition: # (new in 1.1)
+  Enabled: true
+Style/EndlessMethod: # (new in 1.8)
+  Enabled: true
+Style/HashConversion: # (new in 1.10)
+  Enabled: true
+Style/HashExcept: # (new in 1.7)
+  Enabled: true
+Style/IfWithBooleanLiteralBranches: # (new in 1.9)
+  Enabled: true
+Style/InPatternThen: # (new in 1.16)
+  Enabled: true
+Style/MultilineInPatternThen: # (new in 1.16)
+  Enabled: true
+Style/NegatedIfElseCondition: # (new in 1.2)
+  Enabled: true
+Style/NilLambda: # (new in 1.3)
+  Enabled: true
+Style/QuotedSymbols: # (new in 1.16)
+  Enabled: true
+Style/RedundantArgument: # (new in 1.4)
+  Enabled: true
+Style/StringChars: # (new in 1.12)
+  Enabled: true
+Style/SwapValues: # (new in 1.1)
+  Enabled: true
 
 # At the moment not ready to be used
 # https://github.com/bbatsov/rubocop/issues/947
-Documentation:
+Style/Documentation:
   Enabled: false
 
 #- Jazzy -----------------------------------------------------------------#
@@ -31,39 +103,40 @@ Metrics/BlockLength:
 Style/NumericPredicate:
   Enabled: false
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 
 # We adopted raise instead of fail.
-SignalException:
+Style/SignalException:
   EnforcedStyle: only_raise
 
 # They are idiomatic
-AssignmentInCondition:
+Lint/AssignmentInCondition:
   Enabled: false
 
 # Allow backticks
-AsciiComments:
+Style/AsciiComments:
   Enabled: false
 
 # Indentation clarifies logic branches in implementations
-IfUnlessModifier:
+Style/IfUnlessModifier:
   Enabled: false
 
 # No enforced convention here.
-SingleLineBlockParams:
+Style/SingleLineBlockParams:
   Enabled: false
 
 # We only add the comment when needed.
-Encoding:
+Style/Encoding:
   Enabled: false
 
 # Having these make it easier to *not* forget to add one when adding a new
 # value and you can simply copy the previous line.
-TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
-
-TrailingCommaInArguments:
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma
 
 Style/SpecialGlobalVars:
@@ -78,40 +151,62 @@ Style/TrailingUnderscoreVariable:
 
 # For lambdas nested within certain expressions, this rule forces either ugly
 # parens or curly braces that violate the "do/end for multiline blocks" rule.
-Lambda:
+Style/Lambda:
   Enabled: false
 
 # Disallowing indented "when" clauses destroys readability when using the
 # single-line "when/then" style.
-CaseIndentation:
+Layout/CaseIndentation:
   Enabled: false
 
 # These are both subjective judgements that depend on the situation, and are
 # not appropriate as absolute rules.
-GuardClause:
+Style/GuardClause:
   Enabled: false
-Next:
+Style/Next:
   Enabled: false
 
-RegexpLiteral:
+# Avoid the least-readable varieties of regular expressions.
+Style/RegexpLiteral:
   EnforcedStyle: mixed
+
+# Sometimes easier to read either way
+Style/AccessorGrouping:
+  Enabled: false
+
+# Avoid mandatory wide indentation
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+Layout/LineEndStringConcatenationIndentation:
+  Enabled: true
+  EnforcedStyle: indented
+
+# Avoid false positives with `Pathname`
+Style/StringConcatenation:
+  Mode: conservative
+
+# Compatibility with earlier Rubocops
+Metrics/CyclomaticComplexity:
+  Max: 10
+Metrics/PerceivedComplexity:
+  Max: 10
 
 #- Jazzy specs -----------------------------------------------------------#
 
 # Allow for `should.match /regexp/`.
-AmbiguousRegexpLiteral:
+Lint/AmbiguousRegexpLiteral:
   Exclude:
     - spec/**/*
 
 # Allow `object.should == object` syntax.
-Void:
+Lint/Void:
   Exclude:
     - spec/**/*
 
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
   Exclude:
     - spec/**/*
 
-UselessComparison:
+Lint/BinaryOperatorWithIdenticalOperands:
   Exclude:
     - spec/**/*

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 # ------------------------------------ #
 #  Jazzy Integration tests             #
@@ -39,7 +40,7 @@
 
 # @return [Pathname] The root of the repo.
 #
-ROOT = Pathname.new(File.expand_path('../../', __FILE__)) unless defined? ROOT
+ROOT = Pathname.new(File.expand_path('..', __dir__)) unless defined? ROOT
 $:.unshift((ROOT + 'spec').to_s)
 
 require 'rubygems'
@@ -98,15 +99,15 @@ describe_cli 'jazzy' do
   subject do |s|
     s.executable = "ruby #{ROOT + 'bin/jazzy'}"
     s.environment_vars = {
-      'JAZZY_FAKE_DATE'            => 'YYYY-MM-DD',
-      'JAZZY_FAKE_VERSION'         => 'X.X.X',
+      'JAZZY_FAKE_DATE' => 'YYYY-MM-DD',
+      'JAZZY_FAKE_VERSION' => 'X.X.X',
       'COCOAPODS_SKIP_UPDATE_MESSAGE' => 'TRUE',
       'JAZZY_INTEGRATION_SPECS' => 'TRUE',
       'JAZZY_FAKE_MODULE_VERSION' => 'Y.Y.Y',
     }
     s.default_args = []
     s.replace_path ROOT.to_s, 'ROOT'
-    s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$[\n]?/, ''
+    s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$\n?/, ''
     # Remove version numbers from CocoaPods dependencies
     # to make specs resilient against dependecy updates.
     s.replace_pattern(/(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)')
@@ -148,19 +149,19 @@ describe_cli 'jazzy' do
       end
       behaves_like cli_spec 'document_realm_objc',
                             '--objc ' \
-                            '--author Realm ' \
-                            '--author_url "https://realm.io" ' \
-                            '--github_url ' \
-                            'https://github.com/realm/realm-cocoa ' \
-                            '--github-file-prefix https://github.com/realm/' \
-                            "realm-cocoa/tree/v#{realm_version} " \
-                            '--module Realm ' \
-                            "--module-version #{realm_version} " \
-                            '--root-url https://realm.io/docs/objc/' \
-                            "#{realm_version}/api/ " \
-                            '--umbrella-header Realm/Realm.h ' \
-                            '--framework-root . ' \
-                            "--head #{realm_head.shellescape}"
+                              '--author Realm ' \
+                              '--author_url "https://realm.io" ' \
+                              '--github_url ' \
+                              'https://github.com/realm/realm-cocoa ' \
+                              '--github-file-prefix https://github.com/realm/' \
+                              "realm-cocoa/tree/v#{realm_version} " \
+                              '--module Realm ' \
+                              "--module-version #{realm_version} " \
+                              '--root-url https://realm.io/docs/objc/' \
+                              "#{realm_version}/api/ " \
+                              '--umbrella-header Realm/Realm.h ' \
+                              '--framework-root . ' \
+                              "--head #{realm_head.shellescape}"
     end
 
     describe 'Creates docs for ObjC-Swift project with a variety of contents' do
@@ -169,17 +170,17 @@ describe_cli 'jazzy' do
         sourcekitten = ROOT + 'bin/sourcekitten'
         sdk = `xcrun --show-sdk-path --sdk iphonesimulator`.chomp
         objc_args = "#{base}/MiscJazzyObjCFeatures/MiscJazzyObjCFeatures.h " \
-                    '-- -x objective-c ' \
-                    "-isysroot #{sdk} " \
-                    "-I #{base} " \
-                    '-fmodules'
+          '-- -x objective-c ' \
+          "-isysroot #{sdk} " \
+          "-I #{base} " \
+          '-fmodules'
         `#{sourcekitten} doc --objc #{objc_args} > objc.json`
         `#{sourcekitten} doc -- clean build > swift.json`
       end
 
       behaves_like cli_spec 'misc_jazzy_objc_features',
                             '--theme fullwidth '\
-                            '-s objc.json,swift.json'
+                              '-s objc.json,swift.json'
     end
   end if !spec_subset || spec_subset == 'objc'
 
@@ -199,18 +200,18 @@ describe_cli 'jazzy' do
       end
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
-                            '--author_url "https://realm.io" ' \
-                            '--github_url ' \
-                            'https://github.com/realm/realm-cocoa ' \
-                            '--github-file-prefix https://github.com/realm/' \
-                            "realm-cocoa/tree/v#{realm_version} " \
-                            '--module RealmSwift ' \
-                            "--module-version #{realm_version} " \
-                            '--root-url https://realm.io/docs/swift/' \
-                            "#{realm_version}/api/ " \
-                            '--xcodebuild-arguments ' \
-                            '-scheme,RealmSwift,SWIFT_VERSION=4.2 ' \
-                            "--head #{realm_head.shellescape}"
+                              '--author_url "https://realm.io" ' \
+                              '--github_url ' \
+                              'https://github.com/realm/realm-cocoa ' \
+                              '--github-file-prefix https://github.com/realm/' \
+                              "realm-cocoa/tree/v#{realm_version} " \
+                              '--module RealmSwift ' \
+                              "--module-version #{realm_version} " \
+                              '--root-url https://realm.io/docs/swift/' \
+                              "#{realm_version}/api/ " \
+                              '--xcodebuild-arguments ' \
+                              '-scheme,RealmSwift,SWIFT_VERSION=4.2 ' \
+                              "--head #{realm_head.shellescape}"
     end
 
     describe 'Creates Siesta docs' do
@@ -218,7 +219,7 @@ describe_cli 'jazzy' do
       # Use the default Swift version rather than the specified 4.0
       behaves_like cli_spec 'document_siesta',
                             '--output api-docs ' \
-                            '--swift-version= '
+                              '--swift-version= '
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
@@ -233,7 +234,7 @@ describe_cli 'jazzy' do
       module_path = `swift build --build-path #{build_path} --show-bin-path`
       behaves_like cli_spec 'misc_jazzy_symgraph_features',
                             '--swift-build-tool symbolgraph ' \
-                            "--build-tool-arguments -I=#{module_path} "
+                              "--build-tool-arguments -I=#{module_path} "
     end
   end if !spec_subset || spec_subset == 'swift'
 
@@ -244,4 +245,6 @@ describe_cli 'jazzy' do
                             '--podspec=Moya.podspec'
     end
   end if !spec_subset || spec_subset == 'cocoapods'
+
+  # rubocop:enable Style/MultilineIfModifier
 end

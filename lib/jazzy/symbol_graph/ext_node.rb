@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # For extensions we need to track constraints of the extended type
@@ -68,7 +70,7 @@ module Jazzy
       def full_declaration
         decl = "extension #{name}"
         unless conformances.empty?
-          decl += ' : ' + conformances.join(', ')
+          decl += " : #{conformances.join(', ')}"
         end
         decl + all_constraints.ext.to_where_clause
       end

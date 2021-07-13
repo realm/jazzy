@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'json'
 require 'pathname'
 require 'shellwords'
@@ -12,7 +14,7 @@ require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/stats'
 
-ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'.freeze
+ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'
 
 def autolink_regex(middle_regex, after_highlight)
   start_tag_re, end_tag_re =
@@ -36,9 +38,8 @@ class String
          link_target.url &&
          link_target.url != doc_url.split('#').first && # Don't link to parent
          link_target.url != doc_url # Don't link to self
-        start_tag +
-          "<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" +
-          CGI.escape_html(display_name) + '</a>' + end_tag
+        "#{start_tag}<a href=\"#{ELIDED_AUTOLINK_TOKEN}#{link_target.url}\">" \
+          "#{CGI.escape_html(display_name)}</a>#{end_tag}"
       else
         original
       end
@@ -74,8 +75,8 @@ module Jazzy
         children = category['children'].flat_map do |name|
           docs_with_name, docs = docs.partition { |doc| doc.name == name }
           if docs_with_name.empty?
-            STDERR.puts 'WARNING: No documented top-level declarations match ' \
-                        "name \"#{name}\" specified in categories file"
+            warn 'WARNING: No documented top-level declarations match ' \
+              "name \"#{name}\" specified in categories file"
           end
           docs_with_name
         end
@@ -129,7 +130,7 @@ module Jazzy
     def self.merge_consecutive_marks(docs)
       prev_mark = nil
       docs.each do |doc|
-        if prev_mark && prev_mark.can_merge?(doc.mark)
+        if prev_mark&.can_merge?(doc.mark)
           doc.mark = prev_mark
         end
         prev_mark = doc.mark
@@ -141,9 +142,9 @@ module Jazzy
       unsafe_filename = doc.docs_filename
       sanitzation_enabled = Config.instance.use_safe_filenames
       if sanitzation_enabled && !doc.type.name_controlled_manually?
-        return CGI.escape(unsafe_filename).gsub('_', '%5F').tr('%', '_')
+        CGI.escape(unsafe_filename).gsub('_', '%5F').tr('%', '_')
       else
-        return unsafe_filename
+        unsafe_filename
       end
     end
 
@@ -162,11 +163,11 @@ module Jazzy
           # Don't create HTML page for this doc if it doesn't have children
           # Instead, make its link a hash-link on its parent's page
           if doc.typename == '<<error type>>'
-            warn 'A compile error prevented ' + doc.fully_qualified_name +
-                 ' from receiving a unique USR. Documentation may be ' \
-                 'incomplete. Please check for compile errors by running ' \
-                 '`xcodebuild` or `swift build` with arguments ' \
-                 "`#{Config.instance.build_tool_arguments.shelljoin}`."
+            warn "A compile error prevented #{doc.fully_qualified_name} " \
+              'from receiving a unique USR. Documentation may be ' \
+              'incomplete. Please check for compile errors by running ' \
+              '`xcodebuild` or `swift build` with arguments ' \
+              "`#{Config.instance.build_tool_arguments.shelljoin}`."
           end
           id = doc.usr
           unless id
@@ -174,11 +175,11 @@ module Jazzy
             warn "`#{id}` has no USR. First make sure all modules used in " \
               'your project have been imported. If all used modules are ' \
               'imported, please report this problem by filing an issue at ' \
-              'https://github.com/realm/jazzy/issues along with your Xcode ' \
-              'project. If this token is declared in an `#if` block, please ' \
-              'ignore this message.'
+              'https://github.com/realm/jazzy/issues along with your ' \
+              'Xcode project. If this token is declared in an `#if` block, ' \
+              'please ignore this message.'
           end
-          doc.url = doc.parent_in_docs.url + '#/' + id
+          doc.url = "#{doc.parent_in_docs.url}#/#{id}"
         end
       end
     end
@@ -189,6 +190,7 @@ module Jazzy
     # Declarations under outer namespace type (Structures, Classes, etc.)
     def self.subdir_for_doc(doc)
       return [] if doc.type.markdown?
+
       top_level_decl = doc.namespace_path.first
       if top_level_decl.type.name
         [top_level_decl.type.plural_url_name] +
@@ -258,6 +260,7 @@ module Jazzy
         unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
           raise "Unable to find an Xcode with swift version #{swift_version}."
         end
+
         env = xcode.as_env
       else
         env = ENV
@@ -278,13 +281,12 @@ module Jazzy
 
     def self.availability_attribute?(doc)
       return false unless doc['key.attributes']
+
       !doc['key.attributes'].select do |attribute|
         attribute.values.first == 'source.decl.attribute.available'
       end.empty?
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
     def self.should_document?(doc)
       return false if doc['key.doc.comment'].to_s.include?(':nodoc:')
 
@@ -314,8 +316,6 @@ module Jazzy
       end
       acl_ok
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/PerceivedComplexity
 
     def self.should_document_swift_extension?(doc)
       doc['key.inheritedtypes'] ||
@@ -337,6 +337,7 @@ module Jazzy
       if !declaration.swift? || should_mark_undocumented(declaration)
         @stats.add_undocumented(declaration)
         return nil if @skip_undocumented
+
         declaration.abstract = undocumented_abstract
       else
         declaration.abstract = Markdown.render(doc['key.doc.comment'] || '',
@@ -404,7 +405,7 @@ module Jazzy
     def self.xml_to_text(xml)
       document = REXML::Document.new(xml)
       REXML::XPath.match(document.root, '//text()').map(&:value).join
-    rescue
+    rescue StandardError
       ''
     end
 
@@ -490,11 +491,10 @@ module Jazzy
         end
 
       # @available attrs only in compiler 'interface' style
-      available_attrs = extract_availability(doc['key.doc.declaration'] || '')
-
-      available_attrs.concat(extract_attributes(annotated_decl_attrs))
-                     .push(decl)
-                     .join("\n")
+      extract_availability(doc['key.doc.declaration'] || '')
+        .concat(extract_attributes(annotated_decl_attrs))
+        .push(decl)
+        .join("\n")
     end
 
     # Strip default property attributes because libclang
@@ -510,12 +510,14 @@ module Jazzy
       attrs = Regexp.last_match[1].split(',').map(&:strip) - DEFAULT_ATTRIBUTES
       attrs_text = attrs.empty? ? '' : " (#{attrs.join(', ')})"
 
-      declaration.sub(/(?<=@property)\s+\(.*?\)/, attrs_text)
-                 .gsub(/\s+/, ' ')
+      declaration
+        .sub(/(?<=@property)\s+\(.*?\)/, attrs_text)
+        .gsub(/\s+/, ' ')
     end
 
     def self.make_substructure(doc, declaration)
       return [] unless subdocs = doc['key.substructure']
+
       make_source_declarations(subdocs,
                                declaration,
                                declaration.mark_for_children)
@@ -558,8 +560,8 @@ module Jazzy
 
         unless declaration.type.name
           raise 'Please file an issue at ' \
-                'https://github.com/realm/jazzy/issues about adding support ' \
-                "for `#{declaration.type.kind}`."
+            'https://github.com/realm/jazzy/issues about adding support ' \
+            "for `#{declaration.type.kind}`."
         end
 
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
@@ -583,10 +585,12 @@ module Jazzy
           inherited_types.map { |type| type['key.name'] }.compact
 
         next unless make_doc_info(doc, declaration)
+
         declaration.children = make_substructure(doc, declaration)
         next if declaration.type.extension? &&
                 declaration.children.empty? &&
                 !declaration.inherited_types?
+
         declarations << declaration
       end
       declarations
@@ -598,6 +602,7 @@ module Jazzy
     def self.find_generic_requirements(parsed_declaration)
       parsed_declaration =~ /\bwhere\s+(.*)$/m
       return nil unless Regexp.last_match
+
       Regexp.last_match[1].gsub(/\s+/, ' ')
     end
 
@@ -619,6 +624,7 @@ module Jazzy
 
     def self.expand_extension(extension, name_parts, decls)
       return extension if name_parts.empty?
+
       name = name_parts.shift
       candidates = decls.select { |decl| decl.name == name }
       SourceDeclaration.new.tap do |decl|
@@ -644,8 +650,8 @@ module Jazzy
     # Merges redundant declarations when documenting podspecs.
     def self.deduplicate_declarations(declarations)
       duplicate_groups = declarations
-                         .group_by { |d| deduplication_key(d, declarations) }
-                         .values
+        .group_by { |d| deduplication_key(d, declarations) }
+        .values
 
       duplicate_groups.flat_map do |group|
         # Put extended type (if present) before extensions
@@ -688,15 +694,17 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/PerceivedComplexity
     # Merges all of the given types and extensions into a single document.
     def self.merge_declarations(decls)
       extensions, typedecls = decls.partition { |d| d.type.extension? }
 
       if typedecls.size > 1
+        info = typedecls
+          .map { |t| "#{t.type.name.downcase} #{t.name}" }
+          .join(', ')
         warn 'Found conflicting type declarations with the same name, which ' \
-          'may indicate a build issue or a bug in Jazzy: ' +
-             typedecls.map { |t| "#{t.type.name.downcase} #{t.name}" }
-                      .join(', ')
+          "may indicate a build issue or a bug in Jazzy: #{info}"
       end
       typedecl = typedecls.first
 
@@ -712,13 +720,14 @@ module Jazzy
       end
 
       # Keep type-aliases separate from any extensions
-      if typedecl && typedecl.type.swift_typealias?
+      if typedecl&.type&.swift_typealias?
         [merge_type_and_extensions(typedecls, []),
          merge_type_and_extensions([], extensions)]
       else
         merge_type_and_extensions(typedecls, extensions)
       end
     end
+    # rubocop:enable Metrics/PerceivedComplexity
     # rubocop:enable Metrics/MethodLength
 
     def self.merge_type_and_extensions(typedecls, extensions)
@@ -810,6 +819,7 @@ module Jazzy
     # (unless they already have a mark)
     def self.merge_objc_declaration_marks(typedecl, extensions)
       return unless typedecl.type.objc_class?
+
       extensions.each do |ext|
         _, category_name = ext.objc_category_name
         ext.children.each { |c| c.mark.name ||= category_name }
@@ -819,7 +829,8 @@ module Jazzy
     # For each extension to be merged, move any MARK from the extension
     # declaration down to the extension contents so it still shows up.
     def self.move_merged_extension_marks(decls)
-      return unless to_be_merged = decls[1..-1]
+      return unless to_be_merged = decls[1..]
+
       to_be_merged.each do |ext|
         child = ext.children.first
         if child && child.mark.empty?
@@ -834,7 +845,7 @@ module Jazzy
     def self.merge_code_declaration(decls)
       first = decls.first
 
-      declarations = decls[1..-1].select do |decl|
+      declarations = decls[1..].select do |decl|
         decl.type.swift_extension? &&
           (decl.other_inherited_types?(@inaccessible_protocols) ||
             (first.type.swift_extension? && decl.constrained_extension?))
@@ -879,9 +890,11 @@ module Jazzy
 
     def self.name_match(name_part, docs)
       return nil unless name_part
+
       wildcard_expansion = Regexp.escape(name_part)
-                                 .gsub('\.\.\.', '[^)]*')
-                                 .gsub(/<.*>/, '')
+        .gsub('\.\.\.', '[^)]*')
+        .gsub(/<.*>/, '')
+
       whole_name_pat = /\A#{wildcard_expansion}\Z/
       docs.find do |doc|
         whole_name_pat =~ doc.name
@@ -914,15 +927,15 @@ module Jazzy
     #
     # DocC link format - follow Xcode and don't display slash-separated parts.
     # rubocop:disable Metrics/MethodLength
-    def self.autolink_text(text, doc, root_decls, after_highlight = false)
+    def self.autolink_text(text, doc, root_decls, after_highlight: false)
       text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
         sym_name =
           (raw_name[/^<doc:(.*)>$/, 1] || raw_name).sub(/(?<!^)-.+$/, '')
 
         parts = sym_name
-                .sub(/^@/, '') # ignore for custom attribute ref
-                .split(%r{(?<!\.)[/\.](?!\.)}) # dot or slash, but not '...'
-                .reject(&:empty?)
+          .sub(/^@/, '') # ignore for custom attribute ref
+          .split(%r{(?<!\.)[/.](?!\.)}) # dot or slash, but not '...'
+          .reject(&:empty?)
 
         # First dot-separated component can match any ancestor or top-level doc
         first_part = parts.shift
@@ -955,30 +968,37 @@ module Jazzy
                               unavailable_message
                               deprecation_message].freeze
 
+    def self.autolink_text_fields(doc, root_decls)
+      AUTOLINK_TEXT_FIELDS.each do |field|
+        if text = doc.send(field)
+          doc.send(field + '=', autolink_text(text, doc, root_decls))
+        end
+      end
+
+      (doc.parameters || []).each do |param|
+        param[:discussion] =
+          autolink_text(param[:discussion], doc, root_decls)
+      end
+    end
+
     AUTOLINK_HIGHLIGHT_FIELDS = %w[declaration
                                    other_language_declaration].freeze
+
+    def self.autolink_highlight_fields(doc, root_decls)
+      AUTOLINK_HIGHLIGHT_FIELDS.each do |field|
+        if text = doc.send(field)
+          doc.send(field + '=',
+                   autolink_text(text, doc, root_decls, after_highlight: true))
+        end
+      end
+    end
 
     def self.autolink(docs, root_decls)
       @autolink_root_decls = root_decls
       docs.each do |doc|
         doc.children = autolink(doc.children, root_decls)
-
-        AUTOLINK_TEXT_FIELDS.each do |field|
-          if text = doc.send(field)
-            doc.send(field + '=', autolink_text(text, doc, root_decls))
-          end
-        end
-
-        AUTOLINK_HIGHLIGHT_FIELDS.each do |field|
-          if text = doc.send(field)
-            doc.send(field + '=', autolink_text(text, doc, root_decls, true))
-          end
-        end
-
-        (doc.parameters || []).each do |param|
-          param[:discussion] =
-            autolink_text(param[:discussion], doc, root_decls)
-        end
+        autolink_text_fields(doc, root_decls)
+        autolink_highlight_fields(doc, root_decls)
       end
     end
 

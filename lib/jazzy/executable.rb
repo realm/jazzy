@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 module Jazzy
   module Executable
     class IO < Array
       def initialize(io = nil)
+        super()
         @io = io
       end
 

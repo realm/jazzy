@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jazzy
   module SymbolGraph
     # The rebuilt syntax tree is made of nodes that either match
@@ -72,6 +74,7 @@ module Jazzy
                (!protocol? || node.protocol_requirement?)
           return false
         end
+
         add_child(node)
         true
       end
@@ -93,24 +96,26 @@ module Jazzy
       # conformance: don't bother if it's already in the type declaration.
       def conformance?(protocol)
         return false unless symbol.declaration =~ /(?<=:).*?(?=(where|$))/
+
         Regexp.last_match[0] =~ /\b#{protocol}\b/
       end
 
       # Generate the 'where' clause for the declaration
       def where_clause
-        parent_constraints = (parent && parent.constraints) || []
+        parent_constraints = parent&.constraints || []
         (constraints - parent_constraints).to_where_clause
       end
 
       def inherits_clause
         return '' unless superclass_name
+
         " : #{superclass_name}"
       end
 
       def full_declaration
         symbol.availability
-              .append(symbol.declaration + inherits_clause + where_clause)
-              .join("\n")
+          .append(symbol.declaration + inherits_clause + where_clause)
+          .join("\n")
       end
 
       # rubocop:disable Metrics/MethodLength
@@ -120,7 +125,7 @@ module Jazzy
 
         hash = {
           'key.kind' => symbol.kind,
-          'key.usr' =>  symbol.usr,
+          'key.usr' => symbol.usr,
           'key.name' => symbol.name,
           'key.accessibility' => symbol.acl,
           'key.parsed_decl' => declaration,

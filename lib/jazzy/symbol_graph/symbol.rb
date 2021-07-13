@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 module Jazzy
   module SymbolGraph
@@ -45,10 +47,10 @@ module Jazzy
       def init_declaration(raw_decl)
         # Too much 'Self.TypeName'; omitted arg labels look odd;
         # duplicated constraints; swift 5.3 vs. master workaround
-        self.declaration =
-          raw_decl.gsub(/\bSelf\./, '')
-                  .gsub(/(?<=\(|, )_: /, '_ arg: ')
-                  .gsub(/ where.*$/, '')
+        self.declaration = raw_decl
+          .gsub(/\bSelf\./, '')
+          .gsub(/(?<=\(|, )_: /, '_ arg: ')
+          .gsub(/ where.*$/, '')
         if kind == 'source.lang.swift.decl.class'
           declaration.sub!(/\s*:.*$/, '')
         end
@@ -90,6 +92,7 @@ module Jazzy
       # We treat 'static var' differently to 'class var'
       def adjust_kind_for_declaration(kind)
         return kind unless declaration =~ /\bstatic\b/
+
         kind.gsub(/type/, 'static')
       end
 
@@ -97,13 +100,14 @@ module Jazzy
         adjusted = adjust_kind_for_declaration(kind)
         sourcekit_kind = KIND_MAP[adjusted.sub('swift.', '')]
         raise "Unknown symbol kind '#{kind}'" unless sourcekit_kind
-        self.kind = 'source.lang.swift.decl.' + sourcekit_kind
+
+        self.kind = "source.lang.swift.decl.#{sourcekit_kind}"
       end
 
       # Mapping SymbolGraph's ACL to SourceKit
 
       def init_acl(acl)
-        self.acl = 'source.lang.swift.accessibility.' + acl
+        self.acl = "source.lang.swift.accessibility.#{acl}"
       end
 
       # Symbol location - only available for public+ decls
@@ -120,6 +124,7 @@ module Jazzy
       def init_constraints(hash, raw_decl)
         raw_constraints = %i[swiftGenerics swiftExtension].flat_map do |key|
           next [] unless container = hash[key]
+
           container[:constraints] || []
         end
 
@@ -146,9 +151,9 @@ module Jazzy
       end
 
       def init_doc_comments(comments_hash)
-        self.doc_comments =
-          comments_hash[:lines].map { |l| l[:text] }
-                               .join("\n")
+        self.doc_comments = comments_hash[:lines]
+          .map { |l| l[:text] }
+          .join("\n")
       end
 
       # Availability
@@ -171,8 +176,8 @@ module Jazzy
             next nil
           end
 
-          str += ', message: "' + avail[:message] + '"' if avail[:message]
-          str += ', renamed: "' + avail[:renamed] + '"' if avail[:renamed]
+          str += ", message: \"#{avail[:message]}\"" if avail[:message]
+          str += ", renamed: \"#{avail[:renamed]}\"" if avail[:renamed]
 
           str + ')'
         end.compact
@@ -188,8 +193,6 @@ module Jazzy
       # Sort order
       include Comparable
 
-      # rubocop:disable Metrics/CyclomaticComplexity
-      # rubocop:disable Metrics/PerceivedComplexity
       def <=>(other)
         # Things with location: order by file/line/column
         # (pls tell what wheel i am reinventing :/)
@@ -198,6 +201,7 @@ module Jazzy
             if location[:line] == other_loc[:line]
               return location[:character] <=> other_loc[:character]
             end
+
             return location[:line] <=> other_loc[:line]
           end
           return location[:filename] <=> other_loc[:filename]
@@ -209,10 +213,9 @@ module Jazzy
 
         # Things without a location: by name and then USR
         return usr <=> other.usr if name == other.name
+
         name <=> other.name
       end
-      # rubocop:enable Metrics/PerceivedComplexity
-      # rubocop:enable Metrics/CyclomaticComplexity
     end
   end
 end

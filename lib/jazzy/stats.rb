@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 module Jazzy
   # Collect + report metadata about a processed module
   class Stats
     include Config::Mixin
 
-    attr_reader :documented, :acl_skipped
-    attr_reader :undocumented_decls
+    attr_reader :documented, :acl_skipped, :undocumented_decls
 
     def add_documented
       @documented += 1
@@ -57,6 +58,7 @@ module Jazzy
 
     def doc_coverage
       return 0 if acl_included == 0
+
       (100 * documented) / acl_included
     end
 

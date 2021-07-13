@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'pathname'
 
 require 'jazzy/jazzy_markdown'
@@ -43,6 +45,7 @@ module Jazzy
 
     def content(source_module)
       return readme_content(source_module) if name == 'index'
+
       overview
     end
 
@@ -51,7 +54,7 @@ module Jazzy
     end
 
     def config_readme
-      readme_path.read if readme_path && readme_path.exist?
+      readme_path.read if readme_path&.exist?
     end
 
     def fallback_readme
@@ -67,7 +70,7 @@ module Jazzy
         ### License
 
         # <a href="#{license[:url]}">#{license[:license]}</a>
-        <<-EOS
+        <<-README
 # #{podspec.name}
 
 ### #{podspec.summary}
@@ -83,15 +86,15 @@ pod '#{podspec.name}'
 ### Authors
 
 #{source_module.author_name}
-EOS
+        README
       else
-        <<-EOS
+        <<-README
 # #{source_module.name}
 
 ### Authors
 
 #{source_module.author_name}
-EOS
+        README
       end
     end
   end

@@ -2,7 +2,7 @@
 
 ##### Breaking
 
-* None.
+* Require at least Ruby 2.6.3.  
 
 ##### Enhancements
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'redcarpet'
 require 'rouge'
 require 'rouge/plugins/redcarpet'
@@ -52,20 +54,21 @@ module Jazzy
 
       def header(text, header_level)
         text_slug = text.gsub(/[^[[:word:]]]+/, '-')
-                        .downcase
-                        .sub(/^-/, '')
-                        .sub(/-$/, '')
+          .downcase
+          .sub(/^-/, '')
+          .sub(/-$/, '')
 
         "<h#{header_level} id='#{text_slug}' class='heading'>" \
           "#{text}" \
-        "</h#{header_level}>\n"
+          "</h#{header_level}>\n"
       end
 
       def codespan(text)
-        if /^\$\$(.*)\$\$$/m =~ text
+        case text
+        when /^\$\$(.*)\$\$$/m
           o = ["<div class='math m-block'>", Regexp.last_match[1], '</div>']
           Markdown.has_math = true
-        elsif /^\$(.*)\$$/m =~ text
+        when /^\$(.*)\$$/m
           o = ["<span class='math m-inline'>", Regexp.last_match[1], '</span>']
           Markdown.has_math = true
         else
@@ -116,10 +119,10 @@ module Jazzy
         # any one of our special list types
         (#{SPECIAL_LIST_TYPES.map(&Regexp.method(:escape)).join('|')})
         [\s:] # followed by either a space or a colon
-      }ix
+        }ix.freeze
 
       ELIDED_LI_TOKEN =
-        '7wNVzLB0OYPL2eGlPKu8q4vITltqh0Y6DPZf659TPMAeYh49o'.freeze
+        '7wNVzLB0OYPL2eGlPKu8q4vITltqh0Y6DPZf659TPMAeYh49o'
 
       def list_item(text, _list_type)
         if text =~ SPECIAL_LIST_TYPE_REGEX
@@ -127,12 +130,11 @@ module Jazzy
           if UNIQUELY_HANDLED_CALLOUTS.include? type.downcase
             return ELIDED_LI_TOKEN
           end
+
           return render_list_aside(type,
                                    text.sub(/#{Regexp.escape(type)}:\s+/, ''))
         end
-        str = '<li>'
-        str << text.strip
-        str << "</li>\n"
+        "<li>#{text.strip}</li>\n"
       end
 
       def render_list_aside(type, text)
@@ -151,11 +153,10 @@ module Jazzy
       def list(text, list_type)
         elided = text.gsub!(ELIDED_LI_TOKEN, '')
         return if text =~ /\A\s*\Z/ && elided
-        str = "\n"
-        str << (list_type == :ordered ? "<ol>\n" : "<ul>\n")
-        str << text
-        str << (list_type == :ordered ? "</ol>\n" : "</ul>\n")
-        str.gsub(%r{\n?<ul>\n?<\/ul>}, '')
+
+        tag = list_type == :ordered ? 'ol' : 'ul'
+        "\n<#{tag}>\n#{text}</#{tag}>\n"
+          .gsub(%r{\n?<ul>\n?</ul>}, '')
       end
 
       # List from
@@ -172,7 +173,7 @@ module Jazzy
         # any one of the callout names
         (#{DOCC_CALLOUTS.map(&Regexp.method(:escape)).join('|')})
         : # followed directly by a colon
-      }ix
+      }ix.freeze
 
       def block_quote(html)
         if html =~ DOCC_CALLOUT_REGEX
@@ -214,22 +215,22 @@ module Jazzy
         super
       end
 
-      INTRO_PAT = '\A(?<intro>\s*(<p>\s*)?)'.freeze
-      OUTRO_PAT = '(?<outro>.*)\z'.freeze
+      INTRO_PAT = '\A(?<intro>\s*(<p>\s*)?)'
+      OUTRO_PAT = '(?<outro>.*)\z'
 
-      RETURNS_REGEX = /#{INTRO_PAT}returns:#{OUTRO_PAT}/im
+      RETURNS_REGEX = /#{INTRO_PAT}returns:#{OUTRO_PAT}/im.freeze
 
-      IDENT_PAT = '(?<param>\S+)'.freeze
+      IDENT_PAT = '(?<param>\S+)'
 
       # Param formats: normal swift, objc via sourcekitten, and
       # possibly inside 'Parameters:'
-      PARAM_PAT1 = "(parameter +#{IDENT_PAT}\\s*:)".freeze
-      PARAM_PAT2 = "(parameter:\\s*#{IDENT_PAT}\\s+)".freeze
-      PARAM_PAT3 = "(#{IDENT_PAT}\\s*:)".freeze
+      PARAM_PAT1 = "(parameter +#{IDENT_PAT}\\s*:)"
+      PARAM_PAT2 = "(parameter:\\s*#{IDENT_PAT}\\s+)"
+      PARAM_PAT3 = "(#{IDENT_PAT}\\s*:)"
 
-      PARAM_PAT = "(?:#{PARAM_PAT1}|#{PARAM_PAT2}|#{PARAM_PAT3})".freeze
+      PARAM_PAT = "(?:#{PARAM_PAT1}|#{PARAM_PAT2}|#{PARAM_PAT3})"
 
-      PARAM_REGEX = /#{INTRO_PAT}#{PARAM_PAT}#{OUTRO_PAT}/im
+      PARAM_REGEX = /#{INTRO_PAT}#{PARAM_PAT}#{OUTRO_PAT}/im.freeze
 
       def list_item(text, _list_type)
         if text =~ RETURNS_REGEX

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mustache'
 require 'sqlite3'
 
@@ -89,7 +91,7 @@ module Jazzy
         (output_dir + "#{source_module.name}.xml").open('w') do |xml|
           url = URI.join(config.root_url, "docsets/#{source_module.name}.tgz")
           xml << "<entry><version>#{config.version}</version><url>#{url}" \
-                 "</url></entry>\n"
+            "</url></entry>\n"
         end
       end
     end
