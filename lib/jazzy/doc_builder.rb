@@ -134,8 +134,8 @@ module Jazzy
         SearchBuilder.build(source_module, output_dir)
       end
 
-      copy_assets(output_dir)
       copy_extensions(output_dir)
+      copy_theme_assets(output_dir)
 
       DocsetBuilder.new(output_dir, source_module).build!
 
@@ -208,7 +208,7 @@ module Jazzy
       end
     end
 
-    def self.copy_assets(destination)
+    def self.copy_theme_assets(destination)
       assets_directory = Config.instance.theme_directory + 'assets'
       FileUtils.cp_r(assets_directory.children, destination)
       Pathname.glob(destination + 'css/**/*.scss').each do |scss|
@@ -224,7 +224,7 @@ module Jazzy
     end
 
     def self.copy_extension(name, destination)
-      ext_directory = Pathname(__FILE__).parent / 'extensions' / name
+      ext_directory = Pathname(__dir__) / 'extensions' / name
       FileUtils.cp_r(ext_directory.children, destination)
     end
 
