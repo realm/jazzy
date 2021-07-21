@@ -236,33 +236,37 @@ module Jazzy
       SourceKitten.autolink_document(html, doc_model)
     end
 
+    # Build Mustache document - common fields between page types
+    def self.new_document(source_module, doc_model)
+      Doc.new.tap do |doc|
+        doc[:custom_head] = Config.instance.custom_head
+        doc[:disable_search] = Config.instance.disable_search
+        doc[:doc_coverage] = source_module.doc_coverage unless
+          Config.instance.hide_documentation_coverage
+        doc[:structure] = source_module.doc_structure
+        doc[:module_name] = source_module.name
+        doc[:author_name] = source_module.author_name
+        if source_host = source_module.host
+          doc[:source_host_name] = source_host.name
+          doc[:source_host_url] = source_host.url
+          doc[:source_host_image] = source_host.image
+          doc[:source_host_item_url] = source_host.item_url(doc_model)
+          doc[:github_url] = doc[:source_host_url]
+          doc[:github_token_url] = doc[:source_host_item_url]
+        end
+        doc[:dash_url] = source_module.dash_url
+      end
+    end
+
     # Build Mustache document from a markdown source file
-    # @param [Config] options Build options
+    # @param [SourceModule] module-wide settings
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
     # @param [String] path_to_root
-    # @param [Array] doc_structure doc structure comprised of section names and
-    #        child names and URLs. @see doc_structure_for_docs
     def self.document_markdown(source_module, doc_model, path_to_root)
-      doc = Doc.new # Mustache model instance
+      doc = new_document(source_module, doc_model)
       name = doc_model.name == 'index' ? source_module.name : doc_model.name
       doc[:name] = name
       doc[:overview] = render(doc_model, doc_model.content(source_module))
-      doc[:custom_head] = Config.instance.custom_head
-      doc[:disable_search] = Config.instance.disable_search
-      doc[:doc_coverage] = source_module.doc_coverage unless
-        Config.instance.hide_documentation_coverage
-      doc[:structure] = source_module.doc_structure
-      doc[:module_name] = source_module.name
-      doc[:author_name] = source_module.author_name
-      if source_host = source_module.host
-        doc[:source_host_name] = source_host.name
-        doc[:source_host_url] = source_host.url
-        doc[:source_host_image] = source_host.image
-        doc[:source_host_item_url] = source_host.item_url(doc_model)
-        doc[:github_url] = doc[:source_host_url]
-        doc[:github_token_url] = doc[:source_host_item_url]
-      end
-      doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:hide_name] = true
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
@@ -402,12 +406,10 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/MethodLength
-    # Build Mustache document from single parsed doc
-    # @param [Config] options Build options
+    # Build Mustache document from single parsed decl
+    # @param [SourceModule] module-wide settings
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
     # @param [String] path_to_root
-    # @param [Array] doc_structure doc structure comprised of section names and
-    #        child names and URLs. @see doc_structure_for_docs
     def self.document(source_module, doc_model, path_to_root)
       if doc_model.type.markdown?
         return document_markdown(source_module, doc_model, path_to_root)
@@ -419,11 +421,7 @@ module Jazzy
         overview = render(doc_model, alternative_abstract) + overview
       end
 
-      doc = Doc.new # Mustache model instance
-      doc[:custom_head] = Config.instance.custom_head
-      doc[:disable_search] = Config.instance.disable_search
-      doc[:doc_coverage] = source_module.doc_coverage unless
-        Config.instance.hide_documentation_coverage
+      doc = new_document(source_module, doc_model)
       doc[:name] = doc_model.name
       doc[:kind] = doc_model.type.name
       doc[:dash_type] = doc_model.type.dash_type
@@ -434,19 +432,7 @@ module Jazzy
       doc[:overview] = overview
       doc[:parameters] = doc_model.parameters
       doc[:return] = doc_model.return
-      doc[:structure] = source_module.doc_structure
       doc[:tasks] = render_tasks(source_module, doc_model.children)
-      doc[:module_name] = source_module.name
-      doc[:author_name] = source_module.author_name
-      if source_host = source_module.host
-        doc[:source_host_name] = source_host.name
-        doc[:source_host_url] = source_host.url
-        doc[:source_host_image] = source_host.image
-        doc[:source_host_item_url] = source_host.item_url(doc_model)
-        doc[:github_url] = doc[:source_host_url]
-        doc[:github_token_url] = doc[:source_host_item_url]
-      end
-      doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:deprecation_message] = doc_model.deprecation_message
       doc[:unavailable_message] = doc_model.unavailable_message
