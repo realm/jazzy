@@ -272,8 +272,6 @@ module Jazzy
 
     def self.make_default_doc_info(declaration)
       # @todo: Fix these
-      declaration.line = nil
-      declaration.column = nil
       declaration.abstract = ''
       declaration.parameters = []
       declaration.children = []
@@ -572,8 +570,8 @@ module Jazzy
         declaration.mark = current_mark
         declaration.access_control_level =
           SourceDeclaration::AccessControlLevel.from_doc(doc)
-        declaration.line = doc['key.doc.line']
-        declaration.column = doc['key.doc.column']
+        declaration.line = doc['key.doc.line'] || doc['key.line']
+        declaration.column = doc['key.doc.column'] || doc['key.column']
         declaration.start_line = doc['key.parsed_scope.start']
         declaration.end_line = doc['key.parsed_scope.end']
         declaration.deprecated = doc['key.always_deprecated']

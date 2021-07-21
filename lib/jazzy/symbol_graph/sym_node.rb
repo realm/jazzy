@@ -141,8 +141,8 @@ module Jazzy
         end
         if location = symbol.location
           hash['key.filepath'] = location[:filename]
-          hash['key.doc.line'] = location[:line]
-          hash['key.doc.column'] = location[:character]
+          hash['key.doc.line'] = location[:line] + 1
+          hash['key.doc.column'] = location[:character] + 1
         end
         unless children.empty?
           hash['key.substructure'] = children_to_sourcekit
