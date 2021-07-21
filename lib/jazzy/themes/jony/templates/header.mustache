@@ -5,14 +5,14 @@
       <span class="no-mobile">{{#doc_coverage}} ({{doc_coverage}}% documented){{/doc_coverage}}</span>
     </p>
 
-    {{#github_url}}
+    {{#source_host_url}}
     <p class="header-right">
-      <a href="{{github_url}}">
-        <img src="{{path_to_root}}img/gh.png"/>
-        <span class="no-mobile">View on GitHub</span>
+      <a href="{{.}}">
+        <img src="{{path_to_root}}img/{{source_host_image}}"/>
+        <span class="no-mobile">View on {{source_host_name}}</span>
       </a>
     </p>
-    {{/github_url}}
+    {{/source_host_url}}
 
     {{#dash_url}}
     <p class="header-right">

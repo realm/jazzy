@@ -117,8 +117,9 @@ jazzy \
   --clean \
   --author Realm \
   --author_url https://realm.io \
-  --github_url https://github.com/realm/realm-cocoa \
-  --github-file-prefix https://github.com/realm/realm-cocoa/tree/v0.96.2 \
+  --source-host github \
+  --source-host-url https://github.com/realm/realm-cocoa \
+  --source-host-files-url https://github.com/realm/realm-cocoa/tree/v0.96.2 \
   --module-version 0.96.2 \
   --build-tool-arguments -scheme,RealmSwift \
   --module RealmSwift \
@@ -159,8 +160,9 @@ jazzy \
   --clean \
   --author Realm \
   --author_url https://realm.io \
-  --github_url https://github.com/realm/realm-cocoa \
-  --github-file-prefix https://github.com/realm/realm-cocoa/tree/v2.2.0 \
+  --source-host github \
+  --source-host-url https://github.com/realm/realm-cocoa \
+  --source-host-files-url https://github.com/realm/realm-cocoa/tree/v2.2.0 \
   --module-version 2.2.0 \
   --build-tool-arguments --objc,Realm/Realm.h,--,-x,objective-c,-isysroot,$(xcrun --show-sdk-path),-I,$(pwd) \
   --module Realm \
@@ -176,8 +178,9 @@ jazzy \
   --objc \
   --author AFNetworking \
   --author_url http://afnetworking.com \
-  --github_url https://github.com/AFNetworking/AFNetworking \
-  --github-file-prefix https://github.com/AFNetworking/AFNetworking/tree/2.6.2 \
+  --source-host github \
+  --source-host-url https://github.com/AFNetworking/AFNetworking \
+  --source-host-files-url https://github.com/AFNetworking/AFNetworking/tree/2.6.2 \
   --module-version 2.6.2 \
   --umbrella-header AFNetworking/AFNetworking.h \
   --framework-root . \

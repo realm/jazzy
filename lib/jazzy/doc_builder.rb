@@ -134,7 +134,7 @@ module Jazzy
         SearchBuilder.build(source_module, output_dir)
       end
 
-      copy_extensions(output_dir)
+      copy_extensions(source_module, output_dir)
       copy_theme_assets(output_dir)
 
       DocsetBuilder.new(output_dir, source_module).build!
@@ -219,7 +219,10 @@ module Jazzy
       end
     end
 
-    def self.copy_extensions(destination)
+    def self.copy_extensions(source_module, destination)
+      if source_host = source_module.host&.extension
+        copy_extension(source_host, destination)
+      end
       copy_extension('katex', destination) if Markdown.has_math
     end
 
@@ -251,7 +254,14 @@ module Jazzy
       doc[:structure] = source_module.doc_structure
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
-      doc[:github_url] = source_module.github_url
+      if source_host = source_module.host
+        doc[:source_host_name] = source_host.name
+        doc[:source_host_url] = source_host.url
+        doc[:source_host_image] = source_host.image
+        doc[:source_host_item_url] = source_host.item_url(doc_model)
+        doc[:github_url] = doc[:source_host_url]
+        doc[:github_token_url] = doc[:source_host_item_url]
+      end
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:hide_name] = true
@@ -326,32 +336,6 @@ module Jazzy
     end
     # rubocop:enable Metrics/MethodLength
 
-    def self.should_link_to_github(file)
-      return unless file
-
-      file = file.realpath.to_path
-      source_directory = Config.instance.source_directory.to_path
-      file.start_with?(source_directory)
-    end
-
-    # Construct Github token URL
-    # @param [Hash] item Parsed doc child item
-    # @param [Config] options Build options
-    def self.gh_token_url(item, source_module)
-      return unless github_prefix = source_module.github_file_prefix
-      return unless should_link_to_github(item.file)
-
-      gh_line = if item.start_line && (item.start_line != item.end_line)
-                  "#L#{item.start_line}-L#{item.end_line}"
-                else
-                  "#L#{item.line}"
-                end
-      relative_file_path = item.file.realpath.relative_path_from(
-        source_module.root_path,
-      )
-      "#{github_prefix}/#{relative_file_path}#{gh_line}"
-    end
-
     # Build mustache item for a top-level doc
     # @param [Hash] item Parsed doc child item
     # @param [Config] options Build options
@@ -359,6 +343,7 @@ module Jazzy
     def self.render_item(item, source_module)
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
+      source_host_item_url = source_module.host&.item_url(item)
       {
         name: item.name,
         name_html: item.name.gsub(':', ':<wbr>'),
@@ -368,7 +353,8 @@ module Jazzy
         other_language_declaration: item.display_other_language_declaration,
         usr: item.usr,
         dash_type: item.type.dash_type,
-        github_token_url: gh_token_url(item, source_module),
+        source_host_item_url: source_host_item_url,
+        github_token_url: source_host_item_url,
         default_impl_abstract: item.default_impl_abstract,
         from_protocol_extension: item.from_protocol_extension,
         return: item.return,
@@ -452,8 +438,14 @@ module Jazzy
       doc[:tasks] = render_tasks(source_module, doc_model.children)
       doc[:module_name] = source_module.name
       doc[:author_name] = source_module.author_name
-      doc[:github_url] = source_module.github_url
-      doc[:github_token_url] = gh_token_url(doc_model, source_module)
+      if source_host = source_module.host
+        doc[:source_host_name] = source_host.name
+        doc[:source_host_url] = source_host.url
+        doc[:source_host_image] = source_host.image
+        doc[:source_host_item_url] = source_host.item_url(doc_model)
+        doc[:github_url] = doc[:source_host_url]
+        doc[:github_token_url] = doc[:source_host_item_url]
+      end
       doc[:dash_url] = source_module.dash_url
       doc[:path_to_root] = path_to_root
       doc[:deprecation_message] = doc_model.deprecation_message

@@ -9,9 +9,18 @@
 * Support DocC-style autolinks and callouts in markdown.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Add `--source-host` option to support projects hosted on GitLab and
+  Bitbucket as well as GitHub.  Options `--source-host-url` and
+  `--source-host-files-url` and new Mustache tags replace the 'github' versions
+  which remain as back-compatibility aliases.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#314](https://github.com/realm/jazzy/issues/314)
+
 ##### Bug Fixes
 
-* None.
+* Fix source-host line number references in Swift symbolgraph mode, and
+  in ObjC mode for references to one-line declarations.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.13.7
 

@@ -325,16 +325,42 @@ module Jazzy
                    'e.g. https://realm.io/docsets/realm.xml)',
       parse: ->(d) { URI(d) }
 
-    config_attr :github_url,
-      command_line: ['-g', '--github_url URL'],
-      description: 'GitHub URL of this project (e.g. '\
-                   'https://github.com/realm/realm-cocoa)',
+    SOURCE_HOSTS = %w[github gitlab bitbucket].freeze
+
+    config_attr :source_host,
+      command_line: "--source-host #{SOURCE_HOSTS.join(' | ')}",
+      description: ['The source-code hosting site to be linked from documentation.',
+                    'This setting affects the logo image and link format.',
+                    "Default: 'github'"],
+      default: 'github',
+      parse: ->(host) do
+        return host.to_sym if SOURCE_HOSTS.include?(host)
+
+        raise "Unsupported source_host '#{host}', "\
+          "supported values: #{SOURCE_HOSTS.join(', ')}"
+      end
+
+    config_attr :source_host_url,
+      command_line: ['--source-host-url URL'],
+      description: ["URL to link from the source host's logo.",
+                    'For example https://github.com/realm/realm-cocoa'],
       parse: ->(g) { URI(g) }
 
-    config_attr :github_file_prefix,
+    alias_config_attr :github_url, :source_host_url,
+      command_line: ['-g', '--github_url URL'],
+      description: 'Back-compatibility alias for source_host_url.'
+
+    config_attr :source_host_files_url,
+      command_line: '--source-host-files-url PREFIX',
+      description: [
+        "The base URL on the source host of the project's files, to link "\
+          'from individual declarations.',
+        'For example https://github.com/realm/realm-cocoa/tree/v0.87.1',
+      ]
+
+    alias_config_attr :github_file_prefix, :source_host_files_url,
       command_line: '--github-file-prefix PREFIX',
-      description: 'GitHub URL file prefix of this project (e.g. '\
-                   'https://github.com/realm/realm-cocoa/tree/v0.87.1)'
+      description: 'Back-compatibility alias for source_host_files_url'
 
     config_attr :docset_playground_url,
       command_line: '--docset-playground-url URL',
@@ -476,7 +502,13 @@ module Jazzy
         )
       end
 
+      config.validate
+
       config
+    end
+
+    def warning(message)
+      warn "WARNING: #{message}"
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -510,6 +542,10 @@ module Jazzy
           exit
         end
       end.parse!
+
+      unless ARGV.empty?
+        warning "Leftover unused command-line text: #{ARGV}"
+      end
     end
 
     def parse_config_file
@@ -527,12 +563,12 @@ module Jazzy
 
       config_file.each do |key, value|
         unless attr = attrs_by_conf_key[key]
-          message = "WARNING: Unknown config file attribute #{key.inspect}"
+          message = "Unknown config file attribute #{key.inspect}"
           if matching_name = attrs_by_name[key]
             message +=
               " (Did you mean #{matching_name.first.config_file_key.inspect}?)"
           end
-          warn message
+          warning message
           next
         end
 
@@ -541,6 +577,16 @@ module Jazzy
 
       self.base_path = nil
     end
+
+    def validate
+      if source_host_configured &&
+         source_host_url.nil? &&
+         source_host_files_url.nil?
+        warning 'Option `source_host` is set but has no effect without either '\
+          '`source_host_url` or `source_host_files_url`.'
+      end
+    end
+
     # rubocop:enable Metrics/MethodLength
 
     def locate_config_file
