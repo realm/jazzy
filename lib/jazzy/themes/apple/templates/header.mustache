@@ -1,9 +1,9 @@
 <header>
   <div class="content-wrapper">
     <p><a href="{{path_to_root}}index.html">{{docs_title}}</a>{{#doc_coverage}} ({{doc_coverage}}% documented){{/doc_coverage}}</p>
-    {{#github_url}}
-    <p class="header-right"><a href="{{github_url}}"><img src="{{path_to_root}}img/gh.png"/>View on GitHub</a></p>
-    {{/github_url}}
+    {{#source_host_url}}
+    <p class="header-right"><a href="{{.}}"><img src="{{path_to_root}}img/{{source_host_image}}"/>View on {{source_host_name}}</a></p>
+    {{/source_host_url}}
     {{#dash_url}}
     <p class="header-right"><a href="{{dash_url}}"><img src="{{path_to_root}}img/dash.png"/>Install in Dash</a></p>
     {{/dash_url}}

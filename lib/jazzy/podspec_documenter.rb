@@ -64,9 +64,9 @@ module Jazzy
         config.version = podspec.version.to_s
         config.version_configured = true
       end
-      unless config.github_file_prefix_configured
-        config.github_file_prefix = github_file_prefix(podspec)
-        config.github_file_prefix_configured = true
+      unless config.source_host_files_url_configured
+        config.source_host_files_url = github_file_prefix(podspec)
+        config.source_host_files_url_configured = true
       end
       unless config.swift_version_configured
         trunk_swift_build = podspec.attributes_hash['pushed_with_swift_version']

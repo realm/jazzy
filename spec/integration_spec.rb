@@ -151,9 +151,9 @@ describe_cli 'jazzy' do
                             '--objc ' \
                               '--author Realm ' \
                               '--author_url "https://realm.io" ' \
-                              '--github_url ' \
+                              '--source-host-url ' \
                               'https://github.com/realm/realm-cocoa ' \
-                              '--github-file-prefix https://github.com/realm/' \
+                              '--source-host-files-url https://github.com/realm/' \
                               "realm-cocoa/tree/v#{realm_version} " \
                               '--module Realm ' \
                               "--module-version #{realm_version} " \
@@ -201,9 +201,9 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
                               '--author_url "https://realm.io" ' \
-                              '--github_url ' \
+                              '--source-host-url ' \
                               'https://github.com/realm/realm-cocoa ' \
-                              '--github-file-prefix https://github.com/realm/' \
+                              '--source-host-files-url https://github.com/realm/' \
                               "realm-cocoa/tree/v#{realm_version} " \
                               '--module RealmSwift ' \
                               "--module-version #{realm_version} " \

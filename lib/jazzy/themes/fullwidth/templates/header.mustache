@@ -14,14 +14,14 @@
   </p>
   {{/disable_search}}
 
-  {{#github_url}}
+  {{#source_host_url}}
     <p class="header-col header-col--secondary">
-      <a class="header-link" href="{{github_url}}">
-        <img class="header-icon" src="{{path_to_root}}img/gh.png"/>
-        View on GitHub
+      <a class="header-link" href="{{.}}">
+        <img class="header-icon" src="{{path_to_root}}img/{{source_host_image}}"/>
+        View on {{source_host_name}}
       </a>
     </p>
-  {{/github_url}}
+  {{/source_host_url}}
 
   {{#dash_url}}
     <p class="header-col header-col--secondary">

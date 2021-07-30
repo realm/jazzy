@@ -73,11 +73,11 @@
                 {{{return}}}
               </div>
             {{/return}}
-            {{#github_token_url}}
+            {{#source_host_item_url}}
               <div class="slightly-smaller">
-                <a href="{{{github_token_url}}}">Show on GitHub</a>
+                <a href="{{{.}}}">Show on {{source_host_name}}</a>
               </div>
-            {{/github_token_url}}
+            {{/source_host_item_url}}
           </section>
           {{> tasks}}
         </section>
