@@ -72,7 +72,7 @@ module Jazzy
           o = ["<span class='math m-inline'>", Regexp.last_match[1], '</span>']
           Markdown.has_math = true
         else
-          o = ['<code>', text, '</code>']
+          o = ['<code>', text.to_s, '</code>']
         end
 
         o[0] + CGI.escapeHTML(o[1]) + o[2]
