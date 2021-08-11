@@ -16,6 +16,9 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#314](https://github.com/realm/jazzy/issues/314)
 
+* Add `rel="noopener"` to all `target="_blank"` links.  
+  [JP Simard](https://github.com/jpsim)
+
 ##### Bug Fixes
 
 * Fix source-host line number references in Swift symbolgraph mode, and
