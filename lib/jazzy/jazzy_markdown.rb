@@ -275,7 +275,7 @@ module Jazzy
     class JazzyCopyright < Redcarpet::Render::HTML
       def link(link, _title, content)
         %(<a class="link" href="#{link}" target="_blank" \
-rel="external">#{content}</a>)
+rel="noopener" rel="external">#{content}</a>)
       end
     end
 
