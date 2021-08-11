@@ -476,6 +476,12 @@ module Jazzy
         'have children.',
       default: false
 
+    config_attr :include_spi_declarations,
+      command_line: '--[no-]include-spi-declarations',
+      description: 'Include Swift declarations marked `@_spi` even if '\
+        '--min-acl is set to `public` or `open`.',
+      default: false
+
     # rubocop:enable Layout/ArgumentAlignment
 
     def initialize

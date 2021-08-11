@@ -5,7 +5,7 @@ module Jazzy
   class Stats
     include Config::Mixin
 
-    attr_reader :documented, :acl_skipped, :undocumented_decls
+    attr_reader :documented, :acl_skipped, :spi_skipped, :undocumented_decls
 
     def add_documented
       @documented += 1
@@ -13,6 +13,10 @@ module Jazzy
 
     def add_acl_skipped
       @acl_skipped += 1
+    end
+
+    def add_spi_skipped
+      @spi_skipped += 1
     end
 
     def add_undocumented(decl)
@@ -32,7 +36,7 @@ module Jazzy
     end
 
     def initialize
-      @documented = @acl_skipped = 0
+      @documented = @acl_skipped = @spi_skipped = 0
       @undocumented_decls = []
     end
 
@@ -53,6 +57,11 @@ module Jazzy
           "#{comma_list(config.min_acl.excluded_levels)} " \
           "#{symbol_or_symbols(acl_skipped)} " \
           '(use `--min-acl` to specify a different minimum ACL)'
+      end
+
+      if spi_skipped > 0
+        puts "skipped #{spi_skipped} SPI #{symbol_or_symbols(spi_skipped)} " \
+          '(use `--include-spi-declarations` to include these)'
       end
     end
 
