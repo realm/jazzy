@@ -239,7 +239,7 @@ Some examples:
    ```shell
    jazzy --module Combine --swift-build-tool symbolgraph
          --sdk iphoneos
-         --build-tool-arguments --target,arm64-apple-ios14.1
+         --build-tool-arguments -target,arm64-apple-ios14.1
    ```
    The `target` is the LLVM target triple and needs to match the SDK.  The
    default here is the target of the host system that Jazzy is running on,
@@ -261,7 +261,7 @@ Some examples:
    a `.swiftmodule`.  Again the `--source-directory` is searched by default
    if `-F` is not passed in.
 
-See `swift symbolgraph-extract --help` for all the things you can pass via
+See `swift symbolgraph-extract -help` for all the things you can pass via
 `--build-tool-arguments`: if your module has dependencies then you may need
 to add various search path options to let Swift load it.
 
