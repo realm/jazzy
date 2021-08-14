@@ -46,25 +46,25 @@ module Jazzy
 
       user_args = config.build_tool_arguments.join
 
-      if user_args =~ /--(?:module-name|minimum-access-level|output-dir)/
+      if user_args =~ /-(?:module-name|minimum-access-level|output-dir)/
         raise 'error: `--build-tool-arguments` for '\
-          "`--swift-build-tool symbolgraph` can't use `--module`, "\
-          '`--minimum-access-level`, or `--output-dir`.'
+          "`--swift-build-tool symbolgraph` can't use `-module`, "\
+          '`-minimum-access-level`, or `-output-dir`.'
       end
 
       # Default set
       args = [
-        "--module-name=#{config.module_name}",
-        '--minimum-access-level=private',
-        "--output-dir=#{output_path}",
-        '--skip-synthesized-members',
+        '-module-name', config.module_name,
+        '-minimum-access-level', 'private',
+        '-output-dir', output_path,
+        '-skip-synthesized-members'
       ]
 
       # Things user can override
-      args.append("--sdk=#{sdk(config)}") unless user_args =~ /--sdk/
-      args.append("--target=#{target}") unless user_args =~ /--target/
-      args.append("-F=#{config.source_directory}") unless user_args =~ /-F(?!s)/
-      args.append("-I=#{config.source_directory}") unless user_args =~ /-I/
+      args += ['-sdk', sdk(config)] unless user_args =~ /-sdk/
+      args += ['-target', target] unless user_args =~ /-target/
+      args += ['-F', config.source_directory.to_s] unless user_args =~ /-F(?!s)/
+      args += ['-I', config.source_directory.to_s] unless user_args =~ /-I/
 
       args + config.build_tool_arguments
     end

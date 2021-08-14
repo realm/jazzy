@@ -29,6 +29,9 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1270](https://github.com/realm/jazzy/issues/1270)
 
+* Fix symbolgraph mode with Xcode 13.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ## 0.13.7
 
 The next release of Jazzy will require a minimum of Ruby 2.6.
