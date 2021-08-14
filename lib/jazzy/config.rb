@@ -154,10 +154,10 @@ module Jazzy
     config_attr :hide_declarations,
       command_line: '--hide-declarations [objc|swift] ',
       description: 'Hide declarations in the specified language. Given that ' \
-                   'generating Swift docs only generates Swift declarations, ' \
-                   'this is useful for hiding a specific interface for ' \
-                   'either Objective-C or mixed Objective-C and Swift ' \
-                   'projects.',
+        'generating Swift docs only generates Swift declarations, ' \
+        'this is useful for hiding a specific interface for ' \
+        'either Objective-C or mixed Objective-C and Swift ' \
+        'projects.',
       default: ''
 
     config_attr :keep_property_attributes,
@@ -174,7 +174,7 @@ module Jazzy
     config_attr :build_tool_arguments,
       command_line: ['-b', '--build-tool-arguments arg1,arg2,…argN', Array],
       description: 'Arguments to forward to xcodebuild, swift build, or ' \
-                   'sourcekitten.',
+        'sourcekitten.',
       default: []
 
     alias_config_attr :xcodebuild_arguments, :build_tool_arguments,
@@ -196,7 +196,7 @@ module Jazzy
     config_attr :excluded_files,
       command_line: ['-e', '--exclude filepath1,filepath2,…filepathN', Array],
       description: 'Source file pathnames to be excluded from documentation. '\
-                   'Supports wildcards.',
+        'Supports wildcards.',
       default: [],
       parse: ->(files) do
         Array(files).map { |f| expand_glob_path(f).to_s }
@@ -205,7 +205,7 @@ module Jazzy
     config_attr :included_files,
       command_line: ['-i', '--include filepath1,filepath2,…filepathN', Array],
       description: 'Source file pathnames to be included in documentation. '\
-                   'Supports wildcards.',
+        'Supports wildcards.',
       default: [],
       parse: ->(files) do
         Array(files).map { |f| expand_glob_path(f).to_s }
@@ -229,9 +229,9 @@ module Jazzy
     config_attr :swift_build_tool,
       command_line: "--swift-build-tool #{SWIFT_BUILD_TOOLS.join(' | ')}",
       description: 'Control whether Jazzy uses Swift Package Manager, '\
-                   'xcodebuild, or swift-symbolgraph to build the module '\
-                   'to be documented.  By default it uses xcodebuild if '\
-                   'there is a .xcodeproj file in the source directory.',
+        'xcodebuild, or swift-symbolgraph to build the module '\
+        'to be documented.  By default it uses xcodebuild if '\
+        'there is a .xcodeproj file in the source directory.',
       parse: ->(tool) do
         return tool.to_sym if SWIFT_BUILD_TOOLS.include?(tool)
 
@@ -260,13 +260,13 @@ module Jazzy
     config_attr :version,
       command_line: '--module-version VERSION',
       description: 'Version string to use as part of the default docs '\
-                   'title and inside the docset.',
+        'title and inside the docset.',
       default: '1.0'
 
     config_attr :title,
       command_line: '--title TITLE',
       description: 'Title to display at the top of each page, overriding the '\
-                   'default generated from module name and version.',
+        'default generated from module name and version.',
       default: ''
 
     config_attr :copyright,
@@ -291,16 +291,16 @@ module Jazzy
     config_attr :podspec,
       command_line: '--podspec FILEPATH',
       description: 'A CocoaPods Podspec that describes the Swift library to '\
-                   'document',
+        'document',
       parse: ->(ps) { PodspecDocumenter.create_podspec(Pathname(ps)) if ps },
       default: Dir['*.podspec{,.json}'].first
 
     config_attr :pod_sources,
       command_line: ['--pod-sources url1,url2,…urlN', Array],
       description: 'A list of sources to find pod dependencies. Used only '\
-                   'with --podspec when the podspec contains references to '\
-                   'privately hosted pods. You must include the default pod '\
-                   'source if public pods are also used.',
+        'with --podspec when the podspec contains references to '\
+        'privately hosted pods. You must include the default pod '\
+        'source if public pods are also used.',
       default: []
 
     config_attr :docset_icon,
@@ -322,7 +322,7 @@ module Jazzy
     config_attr :dash_url,
       command_line: ['-d', '--dash_url URL'],
       description: 'Location of the dash XML feed '\
-                   'e.g. https://realm.io/docsets/realm.xml)',
+        'e.g. https://realm.io/docsets/realm.xml)',
       parse: ->(d) { URI(d) }
 
     SOURCE_HOSTS = %w[github gitlab bitbucket].freeze
@@ -365,13 +365,13 @@ module Jazzy
     config_attr :docset_playground_url,
       command_line: '--docset-playground-url URL',
       description: 'URL of an interactive playground to demonstrate the '\
-                   'framework, linked to from the docset.'
+        'framework, linked to from the docset.'
 
     # ──────── Doc generation options ────────
     config_attr :disable_search,
       command_line: '--disable-search',
       description: 'Avoid generating a search index. '\
-                   'Search is available in some themes.',
+        'Search is available in some themes.',
       default: false
 
     config_attr :skip_documentation,
@@ -391,7 +391,7 @@ module Jazzy
     config_attr :skip_undocumented,
       command_line: '--[no-]skip-undocumented',
       description: "Don't document declarations that have no documentation "\
-                   'comments.',
+        'comments.',
       default: false
 
     config_attr :hide_documentation_coverage,
@@ -401,21 +401,21 @@ module Jazzy
 
     config_attr :custom_categories,
       description: 'Custom navigation categories to replace the standard '\
-                   "'Classes', 'Protocols', etc. Types not explicitly named "\
-                   'in a custom category appear in generic groups at the '\
-                   'end.  Example: https://git.io/v4Bcp',
+        "'Classes', 'Protocols', etc. Types not explicitly named "\
+        'in a custom category appear in generic groups at the '\
+        'end.  Example: https://git.io/v4Bcp',
       default: []
 
     config_attr :custom_categories_unlisted_prefix,
       description: "Prefix for navigation section names that aren't "\
-                   'explicitly listed in `custom_categories`.',
+        'explicitly listed in `custom_categories`.',
       default: 'Other '
 
     config_attr :hide_unlisted_documentation,
       command_line: '--[no-]hide-unlisted-documentation',
       description: "Don't include documentation in the sidebar from the "\
-                   "`documentation` config value that aren't explicitly "\
-                   'listed in `custom_categories`.',
+        "`documentation` config value that aren't explicitly "\
+        'listed in `custom_categories`.',
       default: false
 
     config_attr :custom_head,
@@ -429,9 +429,9 @@ module Jazzy
     config_attr :theme_directory,
       command_line: "--theme [#{BUILTIN_THEMES.join(' | ')} | DIRPATH]",
       description: "Which theme to use. Specify either 'apple' (default), "\
-                   'one of the other built-in theme names, or the path to '\
-                   'your mustache templates and other assets for a custom '\
-                   'theme.',
+        'one of the other built-in theme names, or the path to '\
+        'your mustache templates and other assets for a custom '\
+        'theme.',
       default: 'apple',
       parse: ->(t) do
         if BUILTIN_THEMES.include?(t)
@@ -444,9 +444,9 @@ module Jazzy
     config_attr :use_safe_filenames,
       command_line: '--use-safe-filenames',
       description: 'Replace unsafe characters in filenames with an encoded '\
-                   'representation. This will reduce human readability of '\
-                   'some URLs, but may be necessary for projects that '\
-                   'expose filename-unfriendly functions such as /(_:_:)',
+        'representation. This will reduce human readability of '\
+        'some URLs, but may be necessary for projects that '\
+        'expose filename-unfriendly functions such as /(_:_:)',
       default: false
 
     config_attr :template_directory,
@@ -466,14 +466,14 @@ module Jazzy
     config_attr :undocumented_text,
       command_line: '--undocumented-text UNDOCUMENTED_TEXT',
       description: 'Default text for undocumented symbols. The default '\
-                   'is "Undocumented", put "" if no text is required',
+        'is "Undocumented", put "" if no text is required',
       default: 'Undocumented'
 
     config_attr :separate_global_declarations,
       command_line: '--[no-]separate-global-declarations',
       description: 'Create separate pages for all global declarations '\
-                   "(classes, structures, enums etc.) even if they don't "\
-                   'have children.',
+        "(classes, structures, enums etc.) even if they don't "\
+        'have children.',
       default: false
 
     # rubocop:enable Layout/ArgumentAlignment
