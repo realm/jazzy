@@ -7,7 +7,7 @@ module Rouge
   module Lexers
     class Swift
       prepend :root do
-        rule(/\b(?:async|await)\b/, Keyword)
+        rule(/\b(?:async|await|isolated)\b/, Keyword)
         rule(/\b(?:actor|nonisolated)\b/, Keyword::Declaration)
       end
     end
