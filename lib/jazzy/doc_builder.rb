@@ -183,7 +183,7 @@ module Jazzy
       decls.map do |decl|
         {
           file: decl.file,
-          line: decl.line || decl.start_line,
+          line: decl.start_line || decl.line,
           symbol: decl.fully_qualified_name,
           symbol_kind: decl.type.kind,
           warning: 'undocumented',
