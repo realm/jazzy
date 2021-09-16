@@ -6,7 +6,8 @@
 
 ##### Enhancements
 
-* None.
+* Correct line number references with Xcode 13.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 
