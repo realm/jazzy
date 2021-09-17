@@ -188,9 +188,10 @@ describe_cli 'jazzy' do
     describe 'Creates docs with a module name, author name, project URL, ' \
       'xcodebuild options, and github info' do
       behaves_like cli_spec 'document_alamofire',
-                            '--skip-undocumented',
-                            # Ignore existing docs output
-                            '--clean'
+                            '--skip-undocumented ' \
+                              '--clean ' \
+                              '--xcodebuild-arguments ' \
+                              "-destination,'platform=OS X'"
     end
 
     describe 'Creates Realm Swift docs' do
@@ -210,7 +211,8 @@ describe_cli 'jazzy' do
                               '--root-url https://realm.io/docs/swift/' \
                               "#{realm_version}/api/ " \
                               '--xcodebuild-arguments ' \
-                              '-scheme,RealmSwift,SWIFT_VERSION=4.2 ' \
+                              '-scheme,RealmSwift,SWIFT_VERSION=4.2,' \
+                              "-destination,'platform=OS X' " \
                               "--head #{realm_head.shellescape}"
     end
 
