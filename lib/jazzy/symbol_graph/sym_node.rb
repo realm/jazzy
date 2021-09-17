@@ -119,7 +119,7 @@ module Jazzy
 
       # approximately...
       def async?
-        symbol.declaration =~ /async[^\)]*$/
+        symbol.declaration =~ /\basync\b[^)]*$/
       end
 
       def full_declaration

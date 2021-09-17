@@ -528,7 +528,7 @@ module Jazzy
     def self.swift_async?(fully_annotated_decl)
       document = REXML::Document.new(fully_annotated_decl)
       !document.elements['/*/syntaxtype.keyword[text()="async"]'].nil?
-    rescue
+    rescue StandardError
       nil
     end
 

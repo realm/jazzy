@@ -109,6 +109,7 @@ module Jazzy
           return 'swift.actor'
         end
         return kind unless keywords.member?('static')
+
         kind.gsub(/type/, 'static')
       end
 
