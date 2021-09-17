@@ -17,6 +17,10 @@
   [Brian Osborn](https://github.com/bosborn)
   [John Fairhurst](https://github.com/johnfairh)
 
+* Support Swift concurrency features: identify actors and asynchronous
+  methods.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * None.
