@@ -113,7 +113,7 @@ module Jazzy
       end
 
       def full_declaration
-        symbol.availability
+        symbol.attributes
           .append(symbol.declaration + inherits_clause + where_clause)
           .join("\n")
       end
@@ -147,6 +147,7 @@ module Jazzy
         unless children.empty?
           hash['key.substructure'] = children_to_sourcekit
         end
+        hash['key.symgraph_spi'] = true if symbol.spi
 
         hash
       end

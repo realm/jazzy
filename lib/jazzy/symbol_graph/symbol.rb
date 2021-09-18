@@ -10,10 +10,11 @@ module Jazzy
       attr_accessor :declaration
       attr_accessor :kind
       attr_accessor :acl
+      attr_accessor :spi
       attr_accessor :location # can be nil, keys :filename :line :character
       attr_accessor :constraints # array, can be empty
       attr_accessor :doc_comments # can be nil
-      attr_accessor :availability # array, can be empty
+      attr_accessor :attributes # array, can be empty
       attr_accessor :generic_type_params # set, can be empty
       attr_accessor :parameter_names # array, can be nil
 
@@ -31,6 +32,7 @@ module Jazzy
           init_func_signature(func_signature)
         end
         init_acl(hash[:accessLevel])
+        self.spi = hash[:spi]
         if location = hash[:location]
           init_location(location)
         end
@@ -38,7 +40,7 @@ module Jazzy
         if comments_hash = hash[:docComment]
           init_doc_comments(comments_hash)
         end
-        init_availability(hash[:availability] || [])
+        init_attributes(hash[:availability] || [])
         init_generic_type_params(hash)
       end
 
@@ -159,8 +161,8 @@ module Jazzy
       # Availability
       # Re-encode this as Swift.  Should really teach Jazzy about these,
       # could maybe then do something smarter here.
-      def init_availability(avail_hash_list)
-        self.availability = avail_hash_list.map do |avail|
+      def availability_attributes(avail_hash_list)
+        avail_hash_list.map do |avail|
           str = '@available('
           if avail[:isUnconditionallyDeprecated]
             str += '*, deprecated'
@@ -188,6 +190,15 @@ module Jazzy
         str += ".#{hash[:minor]}" if hash[:minor]
         str += ".#{hash[:patch]}" if hash[:patch]
         str
+      end
+
+      def spi_attributes
+        spi ? ['@_spi(Unknown)'] : []
+      end
+
+      def init_attributes(avail_hash_list)
+        self.attributes =
+          availability_attributes(avail_hash_list) + spi_attributes
       end
 
       # Sort order

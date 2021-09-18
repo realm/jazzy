@@ -2,7 +2,11 @@
 
 ##### Breaking
 
-* None.
+* Support Swift SPI groups.  Swift declarations marked `@_spi` are no longer
+  included in docs when `--min-acl` is set to `public` or `open`.  Use
+  `--include-spi-declarations` to include docs for these declarations.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1263](https://github.com/realm/jazzy/issues/1263)
 
 ##### Enhancements
 

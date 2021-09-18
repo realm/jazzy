@@ -318,6 +318,9 @@ In Swift mode, Jazzy by default documents only `public` and `open` declarations.
 include declarations with a lower access level, set the `--min-acl` flag to `internal`,
 `fileprivate`, or `private`.
 
+By default, Jazzy does not document declarations marked `@_spi` when `--min-acl` is
+set to `public` or `open`.  Set the `--include-spi-declarations` flag to include them.
+
 In Objective-C mode, Jazzy documents all declarations found in the `--umbrella-header`
 header file and any other header files included by it.
 

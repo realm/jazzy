@@ -277,12 +277,18 @@ module Jazzy
       declaration.children = []
     end
 
-    def self.availability_attribute?(doc)
-      return false unless doc['key.attributes']
+    def self.attribute?(doc, attr_name)
+      doc['key.attributes']&.find do |attribute|
+        attribute['key.attribute'] == "source.decl.attribute.#{attr_name}"
+      end
+    end
 
-      !doc['key.attributes'].select do |attribute|
-        attribute.values.first == 'source.decl.attribute.available'
-      end.empty?
+    def self.availability_attribute?(doc)
+      attribute?(doc, 'available')
+    end
+
+    def self.spi_attribute?(doc)
+      attribute?(doc, '_spi')
     end
 
     def self.should_document?(doc)
@@ -302,10 +308,31 @@ module Jazzy
         return false
       end
 
-      # Document enum elements, since we can't tell their ACL.
+      # Only document @_spi declarations in some scenarios
+      return false unless should_document_spi?(doc)
+
+      # Don't document declarations excluded by the min_acl setting
+      if type.swift_extension?
+        should_document_swift_extension?(doc)
+      else
+        should_document_acl?(type, doc)
+      end
+    end
+
+    # Check visibility: SPI
+    def self.should_document_spi?(doc)
+      spi_ok = @min_acl < SourceDeclaration::AccessControlLevel.public ||
+               Config.instance.include_spi_declarations ||
+               (!spi_attribute?(doc) && !doc['key.symgraph_spi'])
+
+      @stats.add_spi_skipped unless spi_ok
+      spi_ok
+    end
+
+    # Check visibility: access control
+    def self.should_document_acl?(type, doc)
+      # Include all enum elements for now, can't tell their ACL.
       return true if type.swift_enum_element?
-      # Document extensions if they might have parts covered by the ACL.
-      return should_document_swift_extension?(doc) if type.swift_extension?
 
       acl_ok = SourceDeclaration::AccessControlLevel.from_doc(doc) >= @min_acl
       unless acl_ok
@@ -315,6 +342,8 @@ module Jazzy
       acl_ok
     end
 
+    # Document extensions if they add protocol conformances, or have any
+    # member that needs to be documented.
     def self.should_document_swift_extension?(doc)
       doc['key.inheritedtypes'] ||
         Array(doc['key.substructure']).any? do |subdoc|
