@@ -140,7 +140,7 @@ module Jazzy
           'key.accessibility' => symbol.acl,
           'key.parsed_decl' => declaration,
           'key.annotated_decl' => xml_declaration,
-          'key.async' => async?,
+          'key.symgraph_async' => async?,
         }
         if docs = symbol.doc_comments
           hash['key.doc.comment'] = docs

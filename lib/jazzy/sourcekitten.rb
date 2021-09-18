@@ -621,7 +621,7 @@ module Jazzy
         declaration.inherited_types =
           inherited_types.map { |type| type['key.name'] }.compact
         declaration.async =
-          doc['key.async'] ||
+          doc['key.symgraph_async'] ||
           if xml_declaration = doc['key.fully_annotated_decl']
             swift_async?(xml_declaration)
           end
@@ -834,7 +834,9 @@ module Jazzy
       extensions.each do |ext|
         ext.children = ext.children.select do |ext_member|
           proto_member = protocol.children.find do |p|
-            p.name == ext_member.name && p.type == ext_member.type
+            p.name == ext_member.name &&
+              p.type == ext_member.type &&
+              p.async == ext_member.async
           end
 
           # Extension-only method, keep.
