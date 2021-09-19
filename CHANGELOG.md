@@ -13,6 +13,10 @@
 * Correct line number references with Xcode 13.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Support `union` declarations in Objective-C headers.  
+  [Brian Osborn](https://github.com/bosborn)
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * None.

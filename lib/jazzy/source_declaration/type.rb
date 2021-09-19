@@ -255,6 +255,11 @@ module Jazzy
           dash: 'Struct',
           global: true,
         }.freeze,
+        'sourcekitten.source.lang.objc.decl.union' => {
+          jazzy: 'Union',
+          dash: 'Union',
+          global: true,
+        }.freeze,
         'sourcekitten.source.lang.objc.decl.field' => {
           jazzy: 'Field',
           dash: 'Field',
