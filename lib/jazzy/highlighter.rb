@@ -2,7 +2,7 @@
 
 require 'rouge'
 
-# While Rouge is downlevel (Rouge PR#1715 unmerged)
+# While Rouge is downlevel (Rouge PR#1715 unreleased)
 module Rouge
   module Lexers
     class Swift
