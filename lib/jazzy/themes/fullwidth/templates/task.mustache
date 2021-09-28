@@ -28,16 +28,11 @@
         <a class="token discouraged" href="#/{{usr}}">{{{name_html}}}</a>
         {{/usage_discouraged}}
         </code>
-        {{#default_impl_abstract}}
+        {{#declaration_note}}
           <span class="declaration-note">
-            Default implementation
+            {{.}}
           </span>
-        {{/default_impl_abstract}}
-        {{#from_protocol_extension}}
-          <span class="declaration-note">
-            Extension method
-          </span>
-        {{/from_protocol_extension}}
+        {{/declaration_note}}
       </div>
       <div class="height-container">
         <div class="pointer-container"></div>

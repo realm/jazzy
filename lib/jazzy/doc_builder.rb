@@ -370,6 +370,8 @@ module Jazzy
         deprecation_message: item.deprecation_message,
         unavailable_message: item.unavailable_message,
         usage_discouraged: item.usage_discouraged?,
+        async: item.async,
+        declaration_note: item.declaration_note,
       }
     end
     # rubocop:enable Metrics/MethodLength

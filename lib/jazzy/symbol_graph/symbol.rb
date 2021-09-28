@@ -25,8 +25,8 @@ module Jazzy
       def initialize(hash)
         self.usr = hash[:identifier][:precise]
         self.path_components = hash[:pathComponents]
-        raw_decl = hash[:declarationFragments].map { |f| f[:spelling] }.join
-        init_kind(hash[:kind][:identifier])
+        raw_decl, keywords = parse_decl_fragments(hash[:declarationFragments])
+        init_kind(hash[:kind][:identifier], keywords)
         init_declaration(raw_decl)
         if func_signature = hash[:functionSignature]
           init_func_signature(func_signature)
@@ -42,6 +42,16 @@ module Jazzy
         end
         init_attributes(hash[:availability] || [])
         init_generic_type_params(hash)
+      end
+
+      def parse_decl_fragments(fragments)
+        decl = ''
+        keywords = Set.new
+        fragments.each do |frag|
+          decl += frag[:spelling]
+          keywords.add(frag[:spelling]) if frag[:kind] == 'keyword'
+        end
+        [decl, keywords]
       end
 
       # Repair problems with SymbolGraph's declprinter
@@ -89,17 +99,22 @@ module Jazzy
         'static.subscript' => 'function.subscript',
         'typealias' => 'typealias',
         'associatedtype' => 'associatedtype',
+        'actor' => 'actor',
       }.freeze
 
       # We treat 'static var' differently to 'class var'
-      def adjust_kind_for_declaration(kind)
-        return kind unless declaration =~ /\bstatic\b/
+      # We treat actors as first-class entities
+      def adjust_kind_for_declaration(kind, keywords)
+        if kind == 'swift.class' && keywords.member?('actor')
+          return 'swift.actor'
+        end
+        return kind unless keywords.member?('static')
 
         kind.gsub(/type/, 'static')
       end
 
-      def init_kind(kind)
-        adjusted = adjust_kind_for_declaration(kind)
+      def init_kind(kind, keywords)
+        adjusted = adjust_kind_for_declaration(kind, keywords)
         sourcekit_kind = KIND_MAP[adjusted.sub('swift.', '')]
         raise "Unknown symbol kind '#{kind}'" unless sourcekit_kind
 

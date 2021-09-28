@@ -524,6 +524,14 @@ module Jazzy
         .join("\n")
     end
 
+    # Exclude non-async routines that accept async closures
+    def self.swift_async?(fully_annotated_decl)
+      document = REXML::Document.new(fully_annotated_decl)
+      !document.elements['/*/syntaxtype.keyword[text()="async"]'].nil?
+    rescue StandardError
+      nil
+    end
+
     # Strip default property attributes because libclang
     # adds them all, even if absent in the original source code.
     DEFAULT_ATTRIBUTES = %w[atomic readwrite assign unsafe_unretained].freeze
@@ -565,7 +573,9 @@ module Jazzy
         end
         declaration = SourceDeclaration.new
         declaration.parent_in_code = parent
-        declaration.type = SourceDeclaration::Type.new(doc['key.kind'])
+        declaration.type =
+          SourceDeclaration::Type.new(doc['key.kind'],
+                                      doc['key.fully_annotated_decl'])
         declaration.typename = doc['key.typename']
         declaration.objc_name = doc['key.name']
         documented_name = if Config.instance.hide_objc? && doc['key.swift_name']
@@ -610,6 +620,11 @@ module Jazzy
         inherited_types = doc['key.inheritedtypes'] || []
         declaration.inherited_types =
           inherited_types.map { |type| type['key.name'] }.compact
+        declaration.async =
+          doc['key.symgraph_async'] ||
+          if xml_declaration = doc['key.fully_annotated_decl']
+            swift_async?(xml_declaration)
+          end
 
         next unless make_doc_info(doc, declaration)
 
@@ -819,7 +834,9 @@ module Jazzy
       extensions.each do |ext|
         ext.children = ext.children.select do |ext_member|
           proto_member = protocol.children.find do |p|
-            p.name == ext_member.name && p.type == ext_member.type
+            p.name == ext_member.name &&
+              p.type == ext_member.type &&
+              p.async == ext_member.async
           end
 
           # Extension-only method, keep.

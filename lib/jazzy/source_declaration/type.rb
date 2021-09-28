@@ -12,9 +12,22 @@ module Jazzy
 
       attr_reader :kind
 
-      def initialize(kind)
+      def initialize(kind, declaration = nil)
+        kind = fixup_kind(kind, declaration) if declaration
         @kind = kind
         @type = TYPES[kind]
+      end
+
+      # Improve kind from full declaration
+      def fixup_kind(kind, declaration)
+        if kind == 'source.lang.swift.decl.class' &&
+           declaration.include?(
+             '<syntaxtype.keyword>actor</syntaxtype.keyword>',
+           )
+          'source.lang.swift.decl.actor'
+        else
+          kind
+        end
       end
 
       def dash_type
@@ -115,7 +128,8 @@ module Jazzy
       end
 
       def swift_extensible?
-        kind =~ /^source\.lang\.swift\.decl\.(class|struct|protocol|enum)$/
+        kind =~
+          /^source\.lang\.swift\.decl\.(class|struct|protocol|enum|actor)$/
       end
 
       def swift_protocol?
@@ -274,6 +288,11 @@ module Jazzy
         }.freeze,
 
         # Swift
+        'source.lang.swift.decl.actor' => {
+          jazzy: 'Actor',
+          dash: 'Actor',
+          global: true,
+        }.freeze,
         'source.lang.swift.decl.function.accessor.address' => {
           jazzy: 'Addressor',
           dash: 'Function',
