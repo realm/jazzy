@@ -40,7 +40,8 @@ module Jazzy
         mapped = map_footnote(num)
         "\n<li><div class='footnote-def' id=\"fn#{mapped}\">" +
           text.sub(%r{(?=</p>)},
-                   "&nbsp;<a href=\"#fnref#{mapped}\">&#8617;</a></div></li>")
+                   "&nbsp;<a href=\"#fnref#{mapped}\">&#8617;</a>") +
+          '</div></li>'
       end
     end
 
