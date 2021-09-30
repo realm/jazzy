@@ -261,10 +261,17 @@ module Jazzy
       @markdown ||= Redcarpet::Markdown.new(renderer, REDCARPET_OPTIONS)
     end
 
+    # Produces <p>-delimited block content
     def self.render(markdown_text, default_language = nil)
       renderer.reset
       renderer.default_language = default_language
       markdown.render(markdown_text)
+    end
+
+    # Produces <span>-delimited inline content
+    def self.render_inline(markdown_text, default_language = nil)
+      render(markdown_text, default_language)
+        .sub(%r{^<p>(.*)</p>$}, '<span>\1</span>')
     end
 
     def self.rendered_returns
