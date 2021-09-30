@@ -8,11 +8,11 @@
     <p class="header-right"><a href="{{dash_url}}"><img src="{{path_to_root}}img/dash.png" alt="Dash"/>Install in Dash</a></p>
     {{/dash_url}}
     {{^disable_search}}
-    <p class="header-right">
+    <div class="header-right">
       <form role="search" action="{{path_to_root}}search.json">
         <input type="text" placeholder="Search documentation" data-typeahead>
       </form>
-    </p>
+    </div>
     {{/disable_search}}
   </div>
 </header>
