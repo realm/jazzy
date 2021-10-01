@@ -7,17 +7,17 @@
   </p>
 
   {{^disable_search}}
-  <p class="header-col--secondary">
+  <div class="header-col--secondary">
     <form role="search" action="{{path_to_root}}search.json">
       <input type="text" placeholder="Search documentation" data-typeahead>
     </form>
-  </p>
+  </div>
   {{/disable_search}}
 
   {{#source_host_url}}
     <p class="header-col header-col--secondary">
       <a class="header-link" href="{{.}}">
-        <img class="header-icon" src="{{path_to_root}}img/{{source_host_image}}"/>
+        <img class="header-icon" src="{{path_to_root}}img/{{source_host_image}}" alt="{{source_host_name}}"/>
         View on {{source_host_name}}
       </a>
     </p>
@@ -26,7 +26,7 @@
   {{#dash_url}}
     <p class="header-col header-col--secondary">
       <a class="header-link" href="{{dash_url}}">
-        <img class="header-icon" src="{{path_to_root}}img/dash.png"/>
+        <img class="header-icon" src="{{path_to_root}}img/dash.png" alt="Dash"/>
         Install in Dash
       </a>
     </p>

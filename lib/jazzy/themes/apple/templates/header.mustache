@@ -2,17 +2,17 @@
   <div class="content-wrapper">
     <p><a href="{{path_to_root}}index.html">{{docs_title}}</a>{{#doc_coverage}} ({{doc_coverage}}% documented){{/doc_coverage}}</p>
     {{#source_host_url}}
-    <p class="header-right"><a href="{{.}}"><img src="{{path_to_root}}img/{{source_host_image}}"/>View on {{source_host_name}}</a></p>
+    <p class="header-right"><a href="{{.}}"><img src="{{path_to_root}}img/{{source_host_image}}" alt="{{source_host_name}}"/>View on {{source_host_name}}</a></p>
     {{/source_host_url}}
     {{#dash_url}}
-    <p class="header-right"><a href="{{dash_url}}"><img src="{{path_to_root}}img/dash.png"/>Install in Dash</a></p>
+    <p class="header-right"><a href="{{dash_url}}"><img src="{{path_to_root}}img/dash.png" alt="Dash"/>Install in Dash</a></p>
     {{/dash_url}}
     {{^disable_search}}
-    <p class="header-right">
+    <div class="header-right">
       <form role="search" action="{{path_to_root}}search.json">
         <input type="text" placeholder="Search documentation" data-typeahead>
       </form>
-    </p>
+    </div>
     {{/disable_search}}
   </div>
 </header>

@@ -40,7 +40,8 @@ module Jazzy
         mapped = map_footnote(num)
         "\n<li><div class='footnote-def' id=\"fn#{mapped}\">" +
           text.sub(%r{(?=</p>)},
-                   "&nbsp;<a href=\"#fnref#{mapped}\">&#8617;</a></div></li>")
+                   "&nbsp;<a href=\"#fnref#{mapped}\">&#8617;</a>") +
+          '</div></li>'
       end
     end
 
@@ -66,7 +67,9 @@ module Jazzy
       def codespan(text)
         case text
         when /^\$\$(.*)\$\$$/m
-          o = ["<div class='math m-block'>", Regexp.last_match[1], '</div>']
+          o = ["</p><div class='math m-block'>",
+               Regexp.last_match[1],
+               '</div><p>']
           Markdown.has_math = true
         when /^\$(.*)\$$/m
           o = ["<span class='math m-inline'>", Regexp.last_match[1], '</span>']
@@ -258,10 +261,17 @@ module Jazzy
       @markdown ||= Redcarpet::Markdown.new(renderer, REDCARPET_OPTIONS)
     end
 
+    # Produces <p>-delimited block content
     def self.render(markdown_text, default_language = nil)
       renderer.reset
       renderer.default_language = default_language
       markdown.render(markdown_text)
+    end
+
+    # Produces <span>-delimited inline content
+    def self.render_inline(markdown_text, default_language = nil)
+      render(markdown_text, default_language)
+        .sub(%r{^<p>(.*)</p>$}, '<span>\1</span>')
     end
 
     def self.rendered_returns
@@ -275,7 +285,7 @@ module Jazzy
     class JazzyCopyright < Redcarpet::Render::HTML
       def link(link, _title, content)
         %(<a class="link" href="#{link}" target="_blank" \
-rel="noopener" rel="external">#{content}</a>)
+rel="external noopener">#{content}</a>)
       end
     end
 

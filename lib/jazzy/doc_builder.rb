@@ -236,6 +236,11 @@ module Jazzy
       SourceKitten.autolink_document(html, doc_model)
     end
 
+    def self.render_inline(doc_model, markdown)
+      html = Markdown.render_inline(markdown)
+      SourceKitten.autolink_document(html, doc_model)
+    end
+
     # Build Mustache document - common fields between page types
     def self.new_document(source_module, doc_model)
       Doc.new.tap do |doc|
@@ -379,7 +384,7 @@ module Jazzy
     def self.make_task(mark, uid, items, doc_model)
       {
         name: mark.name,
-        name_html: (render(doc_model, mark.name) if mark.name),
+        name_html: (render_inline(doc_model, mark.name) if mark.name),
         uid: ERB::Util.url_encode(uid),
         items: items,
         pre_separator: mark.has_start_dash,

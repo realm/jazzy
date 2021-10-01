@@ -23,7 +23,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Improve HTML5 correctness, all themes.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1280](https://github.com/realm/jazzy/issues/1280)
 
 ## 0.14.0
 
