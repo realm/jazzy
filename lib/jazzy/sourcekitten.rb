@@ -355,7 +355,9 @@ module Jazzy
     # Call things undocumented if they were compiled properly
     # and came from our module.
     def self.should_mark_undocumented(declaration)
-      declaration.usr && !declaration.modulename
+      declaration.usr &&
+        (declaration.modulename.nil? ||
+         declaration.modulename == Config.instance.module_name)
     end
 
     def self.process_undocumented_token(doc, declaration)

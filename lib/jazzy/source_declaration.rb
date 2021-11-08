@@ -183,10 +183,12 @@ module Jazzy
       inherited_types.any? { |t| !unwanted.include?(t) }
     end
 
-    # SourceKit only sets modulename for imported modules
+    # Pre-Swift 5.6: SourceKit only sets modulename for imported modules
+    # Swift 5.6+: modulename is always set
     def type_from_doc_module?
       !type.extension? ||
-        (swift? && usr && modulename.nil?)
+        (swift? && usr &&
+          (modulename.nil? || modulename == Config.instance.module_name))
     end
 
     # Info text for contents page by collapsed item name
