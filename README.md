@@ -260,6 +260,14 @@ Some examples:
    This implies that `/Build/Products/MyMod.framework` exists and contains
    a `.swiftmodule`.  Again the `--source-directory` is searched by default
    if `-F` is not passed in.
+5. With pre-generated symbolgraph files:
+    ```shell
+    jazzy --module MyMod --swift-build-tool symbolgraph
+          --symbolgraph_directory Build/symbolgraphs
+    ```
+    If you've separately generated symbolgraph files by the use of 
+    `-emit-symbol-graph`, you can pass the location of these files using
+    `--symbolgraph_directory` from where they can be parsed directly.
 
 See `swift symbolgraph-extract -help` for all the things you can pass via
 `--build-tool-arguments`: if your module has dependencies then you may need

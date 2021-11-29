@@ -193,6 +193,12 @@ module Jazzy
       default: Pathname.pwd,
       parse: ->(sd) { expand_path(sd) }
 
+    config_attr :symbolgraph_directory,
+      command_line: '--symbolgraph-directory DIRPATH',
+      description: 'A directory containing a set of Swift Symbolgraph files ' \
+        'representing the module to be documented',
+      parse: ->(sd) { expand_path(sd) }
+
     config_attr :excluded_files,
       command_line: ['-e', '--exclude filepath1,filepath2,…filepathN', Array],
       description: 'Source file pathnames to be excluded from documentation. '\
