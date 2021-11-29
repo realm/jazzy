@@ -40,18 +40,16 @@
 
 # @return [Pathname] The root of the repo.
 #
+ROOT = Pathname.new(File.expand_path('..', __dir__)) unless defined? ROOT
+$:.unshift((ROOT + 'spec').to_s)
 
 require 'rubygems'
 require 'bundler/setup'
 require 'pretty_bacon'
 require 'colored'
 require 'CLIntegracon'
-require 'pathname'
 
 require 'cocoapods'
-
-ROOT = Pathname.new(File.expand_path('..', __dir__)) unless defined? ROOT
-$:.unshift((ROOT + 'spec').to_s)
 
 def configure_cocoapods
   Pod::Config.instance.with_changes(silent: true) do
@@ -239,19 +237,6 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'misc_jazzy_symgraph_features',
                             '--swift-build-tool symbolgraph ' \
                               "--build-tool-arguments -I,#{module_path} "
-    end
-
-    describe 'Creates docs for Swift project from symbolgraph files' do
-      build_path = Dir.getwd + '/tmp/.build'
-      package_path =
-        ROOT + 'spec/integration_specs/misc_jazzy_symgraph_features/before'
-      `swift build --package-path #{package_path} --build-path #{build_path} \
-        -Xswiftc -emit-symbol-graph -Xswiftc -emit-symbol-graph-dir -Xswiftc #{build_path}`
-      module_path = `swift build --build-path #{build_path} --show-bin-path`
-
-      behaves_like cli_spec 'misc_jazzy_symgraph_features',
-                            '--swift-build-tool symbolgraph ' \
-                              "--symbolgraph-directory #{build_path} "
     end
   end if !spec_subset || spec_subset == 'swift'
 
