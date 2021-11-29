@@ -13,7 +13,10 @@
 
 ##### Bug Fixes
 
-* None.
+* In Swift symbolgraph mode, stop including extensions to types that are beneath
+  the minimum ACL.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1291](https://github.com/realm/jazzy/issues/1291)
 
 ## 0.14.1
 

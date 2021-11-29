@@ -28,7 +28,7 @@ module Jazzy
         Dir[tmp_dir + '/*.symbols.json'].map do |filename|
           # The @ part is for extensions in our module (before the @)
           # of types in another module (after the @).
-          filename =~ /(.*?)(@(.*?))?\.symbols/
+          File.basename(filename) =~ /(.*?)(@(.*?))?\.symbols/
           module_name = Regexp.last_match[3] || Regexp.last_match[1]
           {
             filename =>
