@@ -263,11 +263,11 @@ Some examples:
 5. With pre-generated symbolgraph files:
     ```shell
     jazzy --module MyMod --swift-build-tool symbolgraph
-          --symbolgraph_directory Build/symbolgraphs
+          --symbolgraph-directory Build/symbolgraphs
     ```
     If you've separately generated symbolgraph files by the use of 
     `-emit-symbol-graph`, you can pass the location of these files using
-    `--symbolgraph_directory` from where they can be parsed directly.
+    `--symbolgraph-directory` from where they can be parsed directly.
 
 See `swift symbolgraph-extract -help` for all the things you can pass via
 `--build-tool-arguments`: if your module has dependencies then you may need

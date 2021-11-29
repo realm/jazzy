@@ -9,7 +9,7 @@
 
 ##### Enhancements
 
-* Support using pre-generated symbolgraph files in Swift symbolgraph mode.
+* Support using pre-generated symbolgraph files in Swift symbolgraph mode.  
   [Nathan Wong](https://github.com/esteluk)
 
 ##### Bug Fixes

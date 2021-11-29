@@ -29,10 +29,10 @@ module Jazzy
                                       args.unshift('symbolgraph-extract'),
                                       true) # raise on error
 
-            parseSymbols(tmp_dir)
+            parse_symbols(tmp_dir)
         end
       else
-        parseSymbols(config.symbolgraph_directory.to_s)
+        parse_symbols(config.symbolgraph_directory.to_s)
       end
     end
 
@@ -68,7 +68,7 @@ module Jazzy
     end
 
     # Parse the symbol files in the given directory
-    def self.parseSymbols(directory)
+    def self.parse_symbols(directory)
       Dir[directory + '/*.symbols.json'].map do |filename|
         # The @ part is for extensions in our module (before the @)
         # of types in another module (after the @).
