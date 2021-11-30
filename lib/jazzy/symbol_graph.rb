@@ -20,16 +20,15 @@ module Jazzy
     # Then parse the results, and return as JSON in SourceKit[ten]
     # format.
     def self.build(config)
-
       if config.symbolgraph_directory.nil?
         Dir.mktmpdir do |tmp_dir|
-            args = arguments(config, tmp_dir)
+          args = arguments(config, tmp_dir)
 
-            Executable.execute_command('swift',
-                                      args.unshift('symbolgraph-extract'),
-                                      true) # raise on error
+          Executable.execute_command('swift',
+                                     args.unshift('symbolgraph-extract'),
+                                     true) # raise on error
 
-            parse_symbols(tmp_dir)
+          parse_symbols(tmp_dir)
         end
       else
         parse_symbols(config.symbolgraph_directory.to_s)

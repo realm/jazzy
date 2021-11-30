@@ -15,14 +15,14 @@ jobs:
         with:
           ruby-version: 2.6
           bundler-cache: true
+      - name: Rubocop
+        run: |
+          bundle exec rake rubocop
       - name: Danger
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bundle exec danger --verbose
-      - name: Rubocop
-        run: |
-          bundle exec rake rubocop
 
   spec:
     runs-on: macos-11
