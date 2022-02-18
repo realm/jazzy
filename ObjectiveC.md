@@ -1,25 +1,19 @@
-<!--
-
-1068 - general confusion about clang vs. xcodebuild
-       standalone
-       header file reference/location
-
-1033 - cli overflow with -I generation
-
-900 - xcodebuild options passed with objc & fw-root/um-h
-
-667 - master for header file inclusion
-
-609 - standalone AnyObject
-
--->
-
 This document is about Jazzy's Objective-C documentation generation.
 
 It's intended for users who are having problems after trying to follow the 
 examples in the [README](README.md#objective-c).  It gives some solutions to
 common problems and explains how the system works to help users work through
 uncommon problems.
+
+* [How it works](#how-objective-c-docs-generation-works)
+* Common problems:
+    * [Apple SDK include failure](#problem-apple-sdk-importinclude-failure)
+    * [Non-SDK include failure](#problem-non-sdk-include-failure)
+    * [Argument list too long](#problem-argument-list-too-long-e2big-and-more)
+    * [Enum cases with wrong doc comment](#problem-enum-cases-have-the-wrong-doc-comment)
+    * [Swift API versions missing](#problem-swift-api-versions-are-all-missing)
+    * [Swift API versions use `Any`](#problem-swift-api-versions-have-any-instead-of-type-name)
+    * [Structural `NS_SWIFT_NAME` not working](#problem-structural-ns_swift_name-not-working)
 
 # How Objective-C docs generation works
 
@@ -35,11 +29,11 @@ This means there are two problems to solve:
 
 Jazzy has two modes here: a smart mode that covers 90% of projects and a direct mode where the user provides all the flags.
 
-> Key Point: Jazzy does _not_ use any Objective-C build settings from your
+> *Important*: Jazzy does _not_ use any Objective-C build settings from your
   Xcode project or `Package.swift`.  If your project needs special settings
   such as `#define`s then you need to repeat those in the Jazzy invocation.
 
-### Direct mode
+## Direct mode
 
 Passing a basic set of `clang` flags looks like this:
 
@@ -65,7 +59,7 @@ clang -c -x objective-c -isysroot $(xcrun --show-sdk-path) -I $(pwd) MyProject/M
 This is a good method of experimenting with compiler flags to get a working
 build without getting bogged down in the Jazzy and SourceKitten layers.
 
-### Smart mode
+## Smart mode
 
 The smart mode takes the variable parts of the basic set of flags and maps
 them from Jazzy flags:
@@ -95,7 +89,7 @@ MyProject/Sources/Extension`.  This feature helps some projects resolve
 Finally the `--sdk` option is passed through instead of the default `macosx` to
 find the SDK.
 
-### Mixing modes
+## Mixing modes
 
 Do not mix modes.  For example do not set both `--umbrella-header` and
 `--build-tool-arguments`.  Jazzy does not flag this as an error for
@@ -163,7 +157,7 @@ there are too many subdirectories of its parameter.  If you cannot change this
 to something more specific that works then you need to use Jazzy's
 [direct mode](#direct-mode) to pass in the correct directories.
 
-# Problem: enum cases have the wrong doc comment
+# Problem: Enum cases have the wrong doc comment
 
 If you write an enum case with a doc comment followed by an enum case without
 a doc comment, then both get the same doc comment.
@@ -176,14 +170,14 @@ doc comment.
 This usually means the `clang` flags are malformed in a way that is ignored by
 `libclang` but not by the Swift Objective-C importer.
 
-One easy way to do this is by passing `-I` without a path, for example
-`--build-tool-flags ...,-I,-I,Headers`,....
+One easy way to accidentally do this is passing `-I` without a path, for
+example `--build-tool-flags ...,-I,-I,Headers`,....
 
 This also sometimes happens if you are frequently switching back and forth
 between some Swift / Xcode versions -- it's a bug somewhere in the Apple tools.
 The bad state goes away with time / reboot.
 
-# Problem: Swift API versions have `Any` instead of the type name
+# Problem: Swift API versions have `Any` instead of type name
 
 Jazzy finds the Swift version of an Objective-C API using the SourceKit
 `source.request.editor.open.interface.header` request on the header file that
@@ -201,7 +195,7 @@ Here, `Utils.h` has an implicit dependency on `MyClass.h` that is normally
 satisfied by the include order of `MyModule.h`.  One fix that allows `Utils.h`
 to compile standalone is to add `@class MyClass;`.
 
-# Problem: structural `NS_SWIFT_NAME` not honored
+# Problem: Structural `NS_SWIFT_NAME` not working
 
 The `NS_SWIFT_NAME` macro is mostly used to give an Objective-C API a
 different name in Swift.  There are no known problems with this part.
