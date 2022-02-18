@@ -419,6 +419,10 @@ Check the `--min-acl` setting -- see [above](#controlling-what-is-documented).
    environment variable to point to the Xcode you want before running Jazzy
    without the `--swift-version` flag.
 
+### Objective-C
+
+See [this document](ObjectiveC.md).
+
 ### Installation Problems
 
 **Can't find header files / clang**
@@ -441,10 +445,6 @@ Starting with Jazzy 0.10.0, if you see an error similar to `dyld: Symbol not fou
 Alternatively, you can:
 * Update to macOS 10.14.4 or later; or
 * Install Xcode 10.2 or later at `/Applications/Xcode.app`.
-
-### Objective-C
-
-See [this document](ObjectiveC.md).
 
 ## Development
 

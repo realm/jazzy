@@ -14,12 +14,12 @@
 
 -->
 
-This document is about Objective-C documentation generation.
+This document is about Jazzy's Objective-C documentation generation.
 
 It's intended for users who are having problems after trying to follow the 
-examples in the [README](README.md#???).  It gives some solutions to common
-problems and explains how the system works to help users work through uncommon
-problems.
+examples in the [README](README.md#objective-c).  It gives some solutions to
+common problems and explains how the system works to help users work through
+uncommon problems.
 
 # How Objective-C docs generation works
 
@@ -58,7 +58,7 @@ before the `--`.
 
 You can try these flags outside of Jazzy's environment:
 ```shell
-clang -c -x objective-c -isysroot $(xcrun --show-sdk-path) -I $(pwd) MyProject/MyProject.h
+clang -c -x objective-c -isysroot $(xcrun --show-sdk-path) -I $(pwd) MyProject/MyProject.h -fmodules
 ```
 (The `-c` stops `clang` from trying to link an executable.)
 
@@ -79,8 +79,8 @@ jazzy ...
 
 The `--umbrella-header` maps directly to the file passed to `sourcekitten`.
 
-The `--framework-root` is used for the `-I` include path, as well as _every
-directory beneath it_, recursively.  So if your project structure looks like:
+The `--framework-root` is used for the `-I` include path, as well as every
+directory beneath it, recursively.  So if your project structure looks like:
 ```
 MyProject/
          Sources/
@@ -106,7 +106,7 @@ historical compatibility reasons, but the results are at best confusing.
 For example `fatal error: module 'UIKit' not found`.
 
 This means Jazzy is using the wrong SDK: the default is for macOS which does
-not have `UIKit`.  Use `--sdk iphonesimulator`, for example.
+not have `UIKit`.  Use `--sdk iphonesimulator`.
 
 # Problem: Non-SDK include failure
 
@@ -116,7 +116,7 @@ This means `clang` is not being passed the right flags to resolve a `#include` /
 `#import`.
 
 Start by finding the header file in the filesystem.   You might be able to fix
-the problem just by adding extra `-I <dir>` flags.
+the problem just by adding extra `-I <path>` flags.
 
 Usually though the problem is that Xcode has done something clever that needs
 to be worked around or replicated.
@@ -144,7 +144,7 @@ of complexity:
   `-F <path of directory containing ModuleName.framework>`.
 
 * If you are happy to build the project before generating docs then you may
-  be able to use the header maps Xcode has generated -- check the build log
+  be able to use the header maps Xcode has generated.  Check the build log
   to find them and the invocation syntax.
 
 * Manually construct an equivalent header map.  This is complex not least
@@ -153,7 +153,7 @@ of complexity:
 
 # Problem: Argument list too long `E2BIG` (and more...)
 
-For example `...open4.rb:49:in `exec': Argument list too long - [...]/bin/sourcekitten (Errno::E2BIG)`
+For example ``...open4.rb:49:in `exec': Argument list too long - [...]/bin/sourcekitten (Errno::E2BIG)``
 
 Can also manifest as 'generally weird' errors such as `sourcekitten` just
 crashing and `fatal error: could not build module 'Foundation'`.
@@ -177,7 +177,7 @@ This usually means the `clang` flags are malformed in a way that is ignored by
 `libclang` but not by the Swift Objective-C importer.
 
 One easy way to do this is by passing `-I` without a path, for example
-`--build-tool-flags ....,-I,-I,Headers`.
+`--build-tool-flags ...,-I,-I,Headers`,....
 
 This also sometimes happens if you are frequently switching back and forth
 between some Swift / Xcode versions -- it's a bug somewhere in the Apple tools.
