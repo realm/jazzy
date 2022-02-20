@@ -12,6 +12,10 @@
 * Support using pre-generated symbolgraph files in Swift symbolgraph mode.  
   [Nathan Wong](https://github.com/esteluk)
 
+* Issue a warning on some combinations of Objective-C flags.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#900](https://github.com/realm/jazzy/issues/900)
+
 ##### Bug Fixes
 
 * In Swift symbolgraph mode, stop including extensions to types that are beneath

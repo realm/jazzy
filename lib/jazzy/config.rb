@@ -597,6 +597,13 @@ module Jazzy
         warning 'Option `source_host` is set but has no effect without either '\
           '`source_host_url` or `source_host_files_url`.'
       end
+
+      if objc_mode &&
+         build_tool_arguments_configured &&
+         (framework_root_configured || umbrella_header_configured)
+        warning 'Option `build_tool_arguments` is set: values passed to '\
+          '`framework_root` or `umbrella_header` may be ignored.'
+      end
     end
 
     # rubocop:enable Metrics/MethodLength

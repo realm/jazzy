@@ -67,7 +67,7 @@ Here are some resources with tutorials and examples, starting with the most mode
 * Erica Sadun's [Swift header documentation in Xcode 7](https://ericasadun.com/2015/06/14/swift-header-documentation-in-xcode-7/) post and her [book on Swift Documentation Markup](https://itunes.apple.com/us/book/swift-documentation-markup/id1049010423).
 
 For Objective-C documentation the same keywords are supported, but note that the format
-is slightly different. In Swift you would write `- returns:`, but in Objective-C you write `@return`. See Apple's [*HeaderDoc User Guide*](https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/HeaderDoc/tags/tags.html) for more details. **Note: `jazzy` currently does not support _all_ Objective-C keywords listed in this document, only @param, @return, @warning, @see, and @note.**
+is slightly different. In Swift you would write `- returns:`, but in Objective-C you write `@return`. See Apple's [*HeaderDoc User Guide*](https://developer.apple.com/legacy/library/documentation/DeveloperTools/Conceptual/HeaderDoc/tags/tags.html) for more details. **Note: `jazzy` currently does not support _all_ Objective-C keywords listed in this document, only @param, @return, @warning, @see, @note, @code, @endcode, and @c.**
 
 Jazzy can also generate cross-references within your documentation. A symbol name in
 backticks generates a link, for example:
@@ -139,20 +139,36 @@ jazzy \
 
 ### Objective-C
 
-To generate documentation for Objective-C headers, you must pass the following
-parameters to jazzy:
-
+To generate documentation for a simple Objective-C project, you must pass the
+following parameters:
 * `--objc`
 * `--umbrella-header ...`
 * `--framework-root ...`
-* `--sdk [iphone|watch|appletv][os|simulator]|macosx` (optional, default value
+
+...and optionally:
+* `--sdk [iphone|watch|appletv][os|simulator]|macosx` (default value
    of `macosx`)
-* `--hide-declarations [objc|swift]` (optional, hides the selected language
-   declarations)
+* `--hide-declarations [objc|swift]` (hides the selected language declarations)
 
-##### Example
+For example, this is how the `AFNetworking` docs are generated:
 
-This is how Realm Objective-C docs are generated:
+```shell
+jazzy \
+  --objc \
+  --author AFNetworking \
+  --author_url http://afnetworking.com \
+  --source-host github \
+  --source-host-url https://github.com/AFNetworking/AFNetworking \
+  --source-host-files-url https://github.com/AFNetworking/AFNetworking/tree/2.6.2 \
+  --module-version 2.6.2 \
+  --umbrella-header AFNetworking/AFNetworking.h \
+  --framework-root . \
+  --module AFNetworking
+```
+
+For a more complicated Objective-C project, instead use `--build-tool-arguments`
+to pass arbitrary compiler flags.  For example, this is how Realm Objective-C
+docs are generated:
 
 ```shell
 jazzy \
@@ -171,21 +187,8 @@ jazzy \
   --head "$(cat docs/custom_head.html)"
 ```
 
-This is how the AFNetworking docs are generated:
-
-```shell
-jazzy \
-  --objc \
-  --author AFNetworking \
-  --author_url http://afnetworking.com \
-  --source-host github \
-  --source-host-url https://github.com/AFNetworking/AFNetworking \
-  --source-host-files-url https://github.com/AFNetworking/AFNetworking/tree/2.6.2 \
-  --module-version 2.6.2 \
-  --umbrella-header AFNetworking/AFNetworking.h \
-  --framework-root . \
-  --module AFNetworking
-```
+See [the Objective-C docs](ObjectiveC.md) for more information and some tips
+on troubleshooting.
 
 ### Mixed Objective-C / Swift
 
@@ -415,6 +418,10 @@ Check the `--min-acl` setting -- see [above](#controlling-what-is-documented).
    may also help.  If none of these work then you can set the `DEVELOPER_DIR`
    environment variable to point to the Xcode you want before running Jazzy
    without the `--swift-version` flag.
+
+### Objective-C
+
+See [this document](ObjectiveC.md).
 
 ### Installation Problems
 
