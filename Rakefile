@@ -105,10 +105,12 @@ begin
   desc 'Vendors SourceKitten'
   task :sourcekitten do
     sk_dir = 'SourceKitten'
-    Dir.chdir(sk_dir) do
-      `swift build -c release`
+    bin_path = Dir.chdir(sk_dir) do
+      build_cmd = 'swift build -c release --arch arm64 --arch x86_64'
+      `#{build_cmd}`
+      `#{build_cmd} --show-bin-path`.chomp
     end
-    FileUtils.cp_r "#{sk_dir}/.build/release/sourcekitten", 'bin'
+    FileUtils.cp_r "#{bin_path}/sourcekitten", 'bin'
   end
 
   #-- Theme Dependencies -----------------------------------------------------#
