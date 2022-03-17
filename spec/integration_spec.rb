@@ -85,9 +85,8 @@ CLIntegracon.configure do |c|
 
   # Transform produced databases to csv
   c.transform_produced '**/*.dsidx' do |path|
-    File.open("#{path}.csv", 'w') do |file|
-      file.write `sqlite3 -header -csv #{path} "select * from searchIndex;"`
-    end
+    File.write("#{path}.csv",
+               `sqlite3 -header -csv #{path} "select * from searchIndex;"`)
   end
   # Now that we're comparing the CSV, we don't care about the binary
   c.ignores '**/*.dsidx'
