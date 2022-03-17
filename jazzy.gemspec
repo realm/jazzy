@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['jp@jpsim.com']
   spec.summary       = 'Soulful docs for Swift & Objective-C.'
   spec.description   = 'Soulful docs for Swift & Objective-C. ' \
-    "Run in your Xcode project's root directory for " \
+    "Run in your SPM or Xcode project's root directory for " \
     'instant HTML docs.'
   spec.homepage      = 'https://github.com/realm/jazzy'
   spec.license       = 'MIT'
@@ -32,4 +32,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 13.0'
 
   spec.required_ruby_version = '>= 2.6.3'
+  spec.metadata['rubygems_mfa_required'] = 'true'
 end

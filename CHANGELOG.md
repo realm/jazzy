@@ -1,4 +1,4 @@
-## Master
+## 0.14.2
 
 ##### Breaking
 
@@ -16,7 +16,7 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#900](https://github.com/realm/jazzy/issues/900)
 
-* Support Swift 5.6.  
+* Support Swift 5.6.  The bundled `sourcekitten` is a universal binary.  
   [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
