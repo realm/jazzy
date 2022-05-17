@@ -108,8 +108,10 @@ describe_cli 'jazzy' do
     s.replace_path ROOT.to_s, 'ROOT'
     s.replace_pattern /^[\d\s:.-]+ ruby\[\d+:\d+\] warning:.*$\n?/, ''
     # Remove version numbers from CocoaPods dependencies
-    # to make specs resilient against dependecy updates.
+    # to make specs resilient against dependency updates.
     s.replace_pattern(/(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)')
+    # Xcode 13.3 workaround
+    s.replace_pattern(/202.*?IDEWatchSupportCore\n/, '')
   end
 
   require 'shellwords'
