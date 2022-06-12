@@ -110,8 +110,8 @@ describe_cli 'jazzy' do
     # Remove version numbers from CocoaPods dependencies
     # to make specs resilient against dependency updates.
     s.replace_pattern(/(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)')
-    # Xcode 13.3 workaround
-    s.replace_pattern(/202.*?IDEWatchSupportCore\n/, '')
+    # Xcode 13.3 etc workaround
+    s.replace_pattern(/202[\d.:\- ]+xcodebuild.*?\n/, '')
   end
 
   require 'shellwords'
