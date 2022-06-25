@@ -96,7 +96,7 @@ GEM
       no_proxy_fix
       octokit (~> 4.7)
       terminal-table (>= 1, < 4)
-    diffy (3.4.0)
+    diffy (3.4.2)
     escape (0.0.4)
     ethon (0.15.0)
       ffi (>= 1.15.0)
