@@ -230,11 +230,11 @@ describe_cli 'jazzy' do
     end
 
     describe 'Creates docs for Swift project from a .swiftmodule' do
-      build_path = Dir.getwd + 'tmp/.build'
+      build_path = Dir.getwd + '/tmp/.build'
       package_path =
         ROOT + 'spec/integration_specs/misc_jazzy_symgraph_features/before'
-      `swift build --package-path #{package_path} --build-path #{build_path}`
-      module_path = `swift build --build-path #{build_path} --show-bin-path`
+      `swift build --package-path #{package_path} --scratch-path #{build_path}`
+      module_path = `swift build --scratch-path #{build_path} --show-bin-path`
       behaves_like cli_spec 'misc_jazzy_symgraph_features',
                             '--swift-build-tool symbolgraph ' \
                               "--build-tool-arguments -I,#{module_path} "
