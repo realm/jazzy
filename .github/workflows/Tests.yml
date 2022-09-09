@@ -31,7 +31,7 @@ jobs:
       matrix:
         spec: ["objc_spec", "swift_spec", "cocoapods_spec"]
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.3.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_14.0.app/Contents/Developer
     steps:
       - uses: actions/checkout@v2
         with:
