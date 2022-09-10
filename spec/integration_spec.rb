@@ -112,6 +112,8 @@ describe_cli 'jazzy' do
     s.replace_pattern(/(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)')
     # Xcode 13.3 etc workaround
     s.replace_pattern(/202[\d.:\- ]+xcodebuild.*?\n/, '')
+    # Xcode 14 / in-proc sourcekitd workaround
+    s.replace_pattern(/<unknown>:0: remark.*?\n/, '')
   end
 
   require 'shellwords'
