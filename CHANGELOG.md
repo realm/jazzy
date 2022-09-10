@@ -6,7 +6,8 @@
 
 ##### Enhancements
 
-* None.
+* Support Swift 5.7 and Xcode 14.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 
