@@ -7,17 +7,23 @@ AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 2.6
 
-#- Pending Cops as of 1.26.0 ---------------------------------------------#
+#- Pending Cops as of 1.36.0 ---------------------------------------------#
 
-Gemspec/DateAssignment: # (new in 1.10)
+Gemspec/DeprecatedAttributeAssignment: # new in 1.30
   Enabled: true
 Gemspec/RequireMFA: # new in 1.23
+  Enabled: true
+Layout/LineContinuationLeadingSpace: # new in 1.31
+  Enabled: false
+Layout/LineContinuationSpacing: # new in 1.31
   Enabled: true
 Layout/SpaceBeforeBrackets: # (new in 1.7)
   Enabled: true
 Lint/AmbiguousAssignment: # (new in 1.7)
   Enabled: true
 Lint/AmbiguousRange: # (new in 1.19)
+  Enabled: true
+Lint/ConstantOverwrittenInRescue: # new in 1.31
   Enabled: true
 Lint/DeprecatedConstants: # (new in 1.8)
   Enabled: true
@@ -35,6 +41,8 @@ Lint/IncompatibleIoSelectWithFiberScheduler: # new in 1.21
   Enabled: true
 Lint/LambdaWithoutLiteralBlock: # (new in 1.8)
   Enabled: true
+Lint/NonAtomicFileOperation: # new in 1.31
+  Enabled: true
 Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
   Enabled: true
 Lint/NumberedParameterAssignment: # (new in 1.9)
@@ -42,6 +50,10 @@ Lint/NumberedParameterAssignment: # (new in 1.9)
 Lint/OrAssignmentToConstant: # (new in 1.9)
   Enabled: true
 Lint/RedundantDirGlobSort: # (new in 1.8)
+  Enabled: true
+Lint/RefinementImportMethods: # new in 1.27
+  Enabled: true
+Lint/RequireRangeParentheses: # new in 1.32
   Enabled: true
 Lint/RequireRelativeSelfPath: # new in 1.22
   Enabled: true
@@ -61,6 +73,8 @@ Naming/BlockForwarding: # new in 1.24
   Enabled: true
 Naming/InclusiveLanguage: # (new in 1.18)
   Enabled: true
+Security/CompoundHash: # new in 1.28
+  Enabled: true
 Security/IoMethods: # new in 1.22
   Enabled: true
 Style/ArgumentsForwarding: # (new in 1.1)
@@ -69,7 +83,13 @@ Style/CollectionCompact: # (new in 1.2)
   Enabled: true
 Style/DocumentDynamicEvalDefinition: # (new in 1.1)
   Enabled: true
+Style/EmptyHeredoc: # new in 1.32
+  Enabled: true
 Style/EndlessMethod: # (new in 1.8)
+  Enabled: true
+Style/EnvHome: # new in 1.29
+  Enabled: true
+Style/FetchEnvVar: # new in 1.28
   Enabled: true
 Style/FileRead: # new in 1.24
   Enabled: true
@@ -82,6 +102,10 @@ Style/HashExcept: # (new in 1.7)
 Style/IfWithBooleanLiteralBranches: # (new in 1.9)
   Enabled: true
 Style/InPatternThen: # (new in 1.16)
+  Enabled: true
+Style/MagicCommentFormat: # new in 1.35
+  Enabled: true
+Style/MapCompactWithConditionalBlock: # new in 1.30
   Enabled: true
 Style/MapToHash: # new in 1.24
   Enabled: true
@@ -97,11 +121,15 @@ Style/NumberedParameters: # new in 1.22
   Enabled: true
 Style/NumberedParametersLimit: # new in 1.22
   Enabled: true
+Style/ObjectThen: # new in 1.28
+  Enabled: true
 Style/OpenStructUse: # new in 1.23
   Enabled: true
 Style/QuotedSymbols: # (new in 1.16)
   Enabled: true
 Style/RedundantArgument: # (new in 1.4)
+  Enabled: true
+Style/RedundantInitialize: # new in 1.27
   Enabled: true
 Style/RedundantSelfAssignmentBranch: # (new in 1.19)
   Enabled: true

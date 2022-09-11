@@ -128,7 +128,7 @@ module Jazzy
                (target_parent = target.parent) &&
                target_parent.is_a?(SymNode)
           # Could probably figure this out with demangle, but...
-          warn "Can't resolve membership of default implementation "\
+          warn "Can't resolve membership of default implementation " \
             "#{source.symbol.usr}."
           source.unlisted = true
           return

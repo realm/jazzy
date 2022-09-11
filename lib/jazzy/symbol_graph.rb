@@ -44,8 +44,8 @@ module Jazzy
       user_args = config.build_tool_arguments.join
 
       if user_args =~ /-(?:module-name|minimum-access-level|output-dir)/
-        raise 'error: `--build-tool-arguments` for '\
-          "`--swift-build-tool symbolgraph` can't use `-module`, "\
+        raise 'error: `--build-tool-arguments` for ' \
+          "`--swift-build-tool symbolgraph` can't use `-module`, " \
           '`-minimum-access-level`, or `-output-dir`.'
       end
 

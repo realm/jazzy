@@ -1,4 +1,4 @@
-## Master
+## 0.14.3
 
 ##### Breaking
 
@@ -7,6 +7,9 @@
 ##### Enhancements
 
 * Support Swift 5.7 and Xcode 14.  
+  [John Fairhurst](https://github.com/johnfairh)
+
+* Update Javascript: jQuery 3.6.1, KaTeX 0.13.5  
   [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
