@@ -137,7 +137,7 @@ describe_cli 'jazzy' do
 </script>
   HTML
 
-  spec_subset = ENV['JAZZY_SPEC_SUBSET']
+  spec_subset = ENV.fetch('JAZZY_SPEC_SUBSET', nil)
 
   # rubocop:disable Style/MultilineIfModifier
 
@@ -182,7 +182,7 @@ describe_cli 'jazzy' do
       end
 
       behaves_like cli_spec 'misc_jazzy_objc_features',
-                            '--theme fullwidth '\
+                            '--theme fullwidth ' \
                               '-s objc.json,swift.json'
     end
   end if !spec_subset || spec_subset == 'objc'

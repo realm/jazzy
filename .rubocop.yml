@@ -7,10 +7,40 @@ AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 2.6
 
-#- Pending Cops as of 1.26.0 ---------------------------------------------#
+#- Pending Cops as of 1.36.0 ---------------------------------------------#
 
-Gemspec/DateAssignment: # (new in 1.10)
+Gemspec/DeprecatedAttributeAssignment: # new in 1.30
   Enabled: true
+Layout/LineContinuationLeadingSpace: # new in 1.31
+  Enabled: false
+Layout/LineContinuationSpacing: # new in 1.31
+  Enabled: true
+Lint/ConstantOverwrittenInRescue: # new in 1.31
+  Enabled: true
+Lint/NonAtomicFileOperation: # new in 1.31
+  Enabled: true
+Lint/RefinementImportMethods: # new in 1.27
+  Enabled: true
+Lint/RequireRangeParentheses: # new in 1.32
+  Enabled: true
+Security/CompoundHash: # new in 1.28
+  Enabled: true
+Style/EmptyHeredoc: # new in 1.32
+  Enabled: true
+Style/EnvHome: # new in 1.29
+  Enabled: true
+Style/FetchEnvVar: # new in 1.28
+  Enabled: true
+Style/MagicCommentFormat: # new in 1.35
+  Enabled: true
+Style/MapCompactWithConditionalBlock: # new in 1.30
+  Enabled: true
+Style/ObjectThen: # new in 1.28
+  Enabled: true
+Style/RedundantInitialize: # new in 1.27
+  Enabled: true
+
+
 Gemspec/RequireMFA: # new in 1.23
   Enabled: true
 Layout/SpaceBeforeBrackets: # (new in 1.7)
