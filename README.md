@@ -370,15 +370,20 @@ for declarations that can be directly accessed from client code.
 ### Choosing the Swift language version
 
 Jazzy normally uses the Swift compiler from the Xcode currently configured by
-`xcode-select`.  Use the `--swift-version` flag to compile with a different
-Xcode.
+`xcode-select`.  Use the `--swift-version` flag or the environment variable
+`DEVELOPER_DIR` to compile with a different Xcode.
 
 The value you pass to `--swift-version` must be the Swift language version given
-by `swift --version` in the Xcode you want to use.
+by `swift --version` in the Xcode you want to use. Jazzy uses
+[xcinvoke](https://github.com/segiddins/xcinvoke) to find a suitable Xcode
+installation on your system, which is passed as `DEVELOPER_DIR` and which may
+take some time.
 
-For example to use Xcode 9.4:
+For example to use Xcode 14:
 ```shell
-jazzy --swift-version 4.1.2
+jazzy --swift-version 5.7
+or
+DEVELOPER_DIR=/Applications/Xcode_14.app/Contents/Developer jazzy
 ```
 
 ## Linux
