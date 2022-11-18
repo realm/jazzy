@@ -603,6 +603,14 @@ module Jazzy
             "for `#{declaration.type.kind}`."
         end
 
+        unless documented_name
+          warn 'Found a declaration without `key.name` that will be ' \
+            'ignored.  Documentation may be incomplete.  This is probably ' \
+            'caused by unresolved compiler errors: check the sourcekitten ' \
+            'output for error messages.'
+          next
+        end
+
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
         declaration.usr = doc['key.usr']
         declaration.type_usr = doc['key.typeusr']

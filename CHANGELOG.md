@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Issue a warning instead of crashing on declarations without names.  
+  [#1325](https://github.com/realm/jazzy/issues/1325)
+  [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.14.3
 
