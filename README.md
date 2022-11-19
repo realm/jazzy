@@ -362,10 +362,39 @@ documentation.
 
 ### Documentation structure
 
-By default Jazzy does not create separate web pages for declarations that do
-not have any members: instead they are nested into some parent page.  Use the
-`--separate-global-declarations` flag to change this and always create pages
-for declarations that can be directly accessed from client code.
+Jazzy arranges documentation into categories.  The default categories are things
+ like “Classes” and “Structures” corresponding to programming-language concepts,
+ as well as “Guides” if relevant.
+
+You can customize the categories and their contents using `custom_categories` in
+the config file — see the ReSwift [docs](https://reswift.github.io/ReSwift/) and
+[config file](https://github.com/ReSwift/ReSwift/blob/e94737282850fa038b625b4e351d1608a3d02cee/.jazzy.json)
+for an example.
+
+Within each category the items are ordered first alphabetically by source
+filename, and then by declaration order within the file.  You can use
+`// MARK: ` comments within the file to create subheadings on the page, for
+example to split up properties and methods.  There’s no way to customize this
+order short of editing the generated web pages.
+
+Swift extensions and Objective-C categories allow type members to be declared
+across multiple source files.  In general, extensions follow the main type
+declaration: first extensions from the same source file, then extensions from
+other files ordered alphabetically by filename.  Swift conditional extensions
+(`extension A where …`) always appear beneath unconditional extensions.
+
+Use this pattern to add or customize the subheading before extension members:
+```swift
+extension MyType {
+  // MARK: Subheading for this group of methods
+  …
+}
+```swift
+
+Jazzy does not normally create separate web pages for declarations that do not
+have any members: instead they are entirely nested into their parent page.  Use
+the `--separate-global-declarations` flag to change this and  create pages for
+these empty types.
 
 ### Choosing the Swift language version
 
@@ -429,6 +458,37 @@ Check the `--min-acl` setting -- see [above](#controlling-what-is-documented).
 ### Objective-C
 
 See [this document](ObjectiveC.md).
+
+### Miscellaneous
+
+**Missing docset**
+
+Jazzy only produces a docset if you set the `--module` flag.
+
+**Unable to pass --build-tool-arguments containing commas**
+
+If you want Jazzy to run something like `xcodebuild -scheme Scheme -destination 'a=x,b=y,c=z'
+then you must use the config file instead of the `--build-tool-arguments` flag because the
+CLI parser that jazzy uses cannot handle arguments that themselves contain commas.
+
+The example config file here would be:
+
+```yaml
+build_tool_arguments:
+  - "-scheme"
+  - "Scheme"
+  - "-destination"
+  - "a=x,b=y,c=z"
+```
+
+**Errors in Xcode Run Script phase**
+
+Running Jazzy from an Xcode build phase can go wrong in hard-to-understand ways
+when Jazzy has to run `xcodebuild`.
+
+Users [have reported](https://github.com/realm/jazzy/issues/1012) that error
+messages about symbols lacking USRs can be fixed by unsetting
+`LLVM_TARGET_TRIPLE_SUFFIX` as part of the run script.
 
 ### Installation Problems
 
