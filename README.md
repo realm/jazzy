@@ -375,7 +375,7 @@ Within each category the items are ordered first alphabetically by source
 filename, and then by declaration order within the file.  You can use
 `// MARK:` comments within the file to create subheadings on the page, for
 example to split up properties and methods.  There’s no way to customize this
-order short of editing the generated web pages.
+order short of editing either the generated web page or the SourceKitten JSON.
 
 Swift extensions and Objective-C categories allow type members to be declared
 across multiple source files.  In general, extensions follow the main type
@@ -480,10 +480,10 @@ build_tool_arguments:
   - "a=x,b=y,c=z"
 ```
 
-**Errors in Xcode Run Script phase**
+**Errors running in an Xcode Run Script phase**
 
-Running Jazzy from an Xcode build phase can go wrong in hard-to-understand ways
-when Jazzy has to run `xcodebuild`.
+Running Jazzy from an Xcode build phase can go wrong in cryptic ways when Jazzy
+has to run `xcodebuild`.
 
 Users [have reported](https://github.com/realm/jazzy/issues/1012) that error
 messages about symbols lacking USRs can be fixed by unsetting
