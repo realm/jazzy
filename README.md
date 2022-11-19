@@ -219,7 +219,7 @@ jazzy --module MyProject --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
 
 ### Docs from `.swiftmodule`s or frameworks
 
-*This feature is new: there may be crashes and mistakes: reports welcome.*
+*This feature is new: there may be crashes and mistakes. Reports welcome.*
 
 Swift 5.3 added support for symbol graph generation from `.swiftmodule` files.
 
@@ -390,11 +390,11 @@ extension MyType {
 ```
 
 When Jazzy is using `--swift-build-tool symgraph` the source file names and
-line numbers may not be available: in this case the ordering is approximately
-alphabetical by symbol name and USR: the order is stable for the same input.
+line numbers may not be available. In this case the ordering is approximately
+alphabetical by symbol name and USR; the order is stable for the same input.
 
 Jazzy does not normally create separate web pages for declarations that do not
-have any members: instead they are entirely nested into their parent page.  Use
+have any members -- instead they are entirely nested into their parent page.  Use
 the `--separate-global-declarations` flag to change this and  create pages for
 these empty types.
 
