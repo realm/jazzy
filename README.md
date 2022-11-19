@@ -214,16 +214,14 @@ sourcekitten doc --objc $(pwd)/MyProject/MyProject.h \
       -I $(pwd) -fmodules > objcDoc.json
 
 # Feed both outputs to Jazzy as a comma-separated list
-jazzy --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
+jazzy --module MyProject --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
 ```
 
 ### Docs from `.swiftmodule`s or frameworks
 
-*This feature is new and relies on a new Swift feature: there may be crashes
-and mistakes: reports welcome.*
+*This feature is new: there may be crashes and mistakes: reports welcome.*
 
-Swift 5.3 adds support for symbol graph generation from `.swiftmodule` files.
-This looks to be part of Apple's toolchain for generating their online docs.
+Swift 5.3 added support for symbol graph generation from `.swiftmodule` files.
 
 Jazzy can use this to generate API documentation.  This is faster than using
 the source code directly but does have limitations: for example documentation
@@ -390,6 +388,10 @@ extension MyType {
   …
 }
 ```
+
+When Jazzy is using `--swift-build-tool symgraph` the source file names and
+line numbers may not be available: in this case the ordering is approximately
+alphabetical by symbol name and USR: the order is stable for the same input.
 
 Jazzy does not normally create separate web pages for declarations that do not
 have any members: instead they are entirely nested into their parent page.  Use
