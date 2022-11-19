@@ -10,7 +10,7 @@ jobs:
   danger_and_rubocop:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.1
@@ -33,7 +33,7 @@ jobs:
     env:
       DEVELOPER_DIR: /Applications/Xcode_14.1.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - uses: ruby/setup-ruby@v1
@@ -41,7 +41,7 @@ jobs:
           ruby-version: 3.1
           bundler-cache: true
       - name: Cache cocoapods
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cocoapods
         with:
