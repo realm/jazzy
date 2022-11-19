@@ -363,8 +363,8 @@ documentation.
 ### Documentation structure
 
 Jazzy arranges documentation into categories.  The default categories are things
- like “Classes” and “Structures” corresponding to programming-language concepts,
- as well as “Guides” if relevant.
+like _Classes_ and _Structures_ corresponding to programming-language concepts,
+as well as _Guides_ if `--documentation` is set.
 
 You can customize the categories and their contents using `custom_categories` in
 the config file — see the ReSwift [docs](https://reswift.github.io/ReSwift/) and
@@ -373,7 +373,7 @@ for an example.
 
 Within each category the items are ordered first alphabetically by source
 filename, and then by declaration order within the file.  You can use
-`// MARK: ` comments within the file to create subheadings on the page, for
+`// MARK:` comments within the file to create subheadings on the page, for
 example to split up properties and methods.  There’s no way to customize this
 order short of editing the generated web pages.
 
@@ -389,7 +389,7 @@ extension MyType {
   // MARK: Subheading for this group of methods
   …
 }
-```swift
+```
 
 Jazzy does not normally create separate web pages for declarations that do not
 have any members: instead they are entirely nested into their parent page.  Use
@@ -463,16 +463,15 @@ See [this document](ObjectiveC.md).
 
 **Missing docset**
 
-Jazzy only produces a docset if you set the `--module` flag.
+Jazzy only builds a docset when you set the `--module` flag.
 
 **Unable to pass --build-tool-arguments containing commas**
 
-If you want Jazzy to run something like `xcodebuild -scheme Scheme -destination 'a=x,b=y,c=z'
-then you must use the config file instead of the `--build-tool-arguments` flag because the
-CLI parser that jazzy uses cannot handle arguments that themselves contain commas.
+If you want Jazzy to run something like `xcodebuild -scheme Scheme -destination 'a=x,b=y,c=z'`
+then you must use the config file instead of the CLI flag because the CLI parser
+that Jazzy uses cannot handle arguments that themselves contain commas.
 
 The example config file here would be:
-
 ```yaml
 build_tool_arguments:
   - "-scheme"
