@@ -16,7 +16,7 @@ group :development do
   gem 'webmock'
 
   # Integration tests
-  gem 'clintegracon', '0.7.0'
+  gem 'clintegracon', git: 'https://github.com/mrackwitz/CLIntegracon.git'
   gem 'diffy'
 
   # Code Review

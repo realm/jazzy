@@ -14,6 +14,9 @@
   [#1325](https://github.com/realm/jazzy/issues/1325)
   [John Fairhurst](https://github.com/johnfairh)
 
+* Fix extension ordering in symbolgraph mode.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ## 0.14.3
 
 ##### Breaking

@@ -71,7 +71,7 @@ begin
       destination = "spec/integration_specs/#{source.gsub('tmp/', '')}/after"
       if File.exist?(destination)
         sh "rm -rf #{destination}"
-        sh "mv #{source} #{destination}"
+        sh "mv #{source}/transformed #{destination}"
       end
     end
 

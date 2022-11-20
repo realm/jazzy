@@ -46,7 +46,7 @@ $:.unshift((ROOT + 'spec').to_s)
 require 'rubygems'
 require 'bundler/setup'
 require 'pretty_bacon'
-require 'colored'
+require 'colored2'
 require 'CLIntegracon'
 
 require 'cocoapods'
@@ -66,8 +66,8 @@ CLIntegracon.configure do |c|
   # Ignore certain OSX files
   c.ignores '.DS_Store'
   c.ignores '.git'
-  c.ignores %r{^(?!((api-)?docs/|execution_output.txt))}
-  c.ignores '*.tgz'
+  c.ignores %r{^(?!((api-)?docs(/|\z)|execution_output.txt))}
+  c.ignores '**/*.tgz'
 
   # Remove absolute paths from output
   c.transform_produced '**/undocumented.json' do |path|
@@ -79,6 +79,9 @@ CLIntegracon.configure do |c|
       ).gsub(
         c.spec_path.to_s,
         '<SPEC>',
+      ).gsub(
+        '/transformed',
+        '',
       ),
     )
   end
@@ -114,6 +117,8 @@ describe_cli 'jazzy' do
     s.replace_pattern(/202[\d.:\- ]+xcodebuild.*?\n/, '')
     # Xcode 14 / in-proc sourcekitd workaround
     s.replace_pattern(/<unknown>:0: remark.*?\n/, '')
+    # CLIntegracon 0.8
+    s.replace_pattern(%r{/transformed/}, '/')
   end
 
   require 'shellwords'

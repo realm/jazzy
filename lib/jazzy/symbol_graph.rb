@@ -68,7 +68,7 @@ module Jazzy
 
     # Parse the symbol files in the given directory
     def self.parse_symbols(directory)
-      Dir[directory + '/*.symbols.json'].map do |filename|
+      Dir[directory + '/*.symbols.json'].sort.map do |filename|
         # The @ part is for extensions in our module (before the @)
         # of types in another module (after the @).
         File.basename(filename) =~ /(.*?)(@(.*?))?\.symbols/
