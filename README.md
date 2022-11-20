@@ -214,16 +214,14 @@ sourcekitten doc --objc $(pwd)/MyProject/MyProject.h \
       -I $(pwd) -fmodules > objcDoc.json
 
 # Feed both outputs to Jazzy as a comma-separated list
-jazzy --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
+jazzy --module MyProject --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
 ```
 
 ### Docs from `.swiftmodule`s or frameworks
 
-*This feature is new and relies on a new Swift feature: there may be crashes
-and mistakes: reports welcome.*
+*This feature is new: there may be crashes and mistakes. Reports welcome.*
 
-Swift 5.3 adds support for symbol graph generation from `.swiftmodule` files.
-This looks to be part of Apple's toolchain for generating their online docs.
+Swift 5.3 added support for symbol graph generation from `.swiftmodule` files.
 
 Jazzy can use this to generate API documentation.  This is faster than using
 the source code directly but does have limitations: for example documentation
@@ -362,10 +360,43 @@ documentation.
 
 ### Documentation structure
 
-By default Jazzy does not create separate web pages for declarations that do
-not have any members: instead they are nested into some parent page.  Use the
-`--separate-global-declarations` flag to change this and always create pages
-for declarations that can be directly accessed from client code.
+Jazzy arranges documentation into categories.  The default categories are things
+like _Classes_ and _Structures_ corresponding to programming-language concepts,
+as well as _Guides_ if `--documentation` is set.
+
+You can customize the categories and their contents using `custom_categories` in
+the config file — see the ReSwift [docs](https://reswift.github.io/ReSwift/) and
+[config file](https://github.com/ReSwift/ReSwift/blob/e94737282850fa038b625b4e351d1608a3d02cee/.jazzy.json)
+for an example.
+
+Within each category the items are ordered first alphabetically by source
+filename, and then by declaration order within the file.  You can use
+`// MARK:` comments within the file to create subheadings on the page, for
+example to split up properties and methods.  There’s no way to customize this
+order short of editing either the generated web page or the SourceKitten JSON.
+
+Swift extensions and Objective-C categories allow type members to be declared
+across multiple source files.  In general, extensions follow the main type
+declaration: first extensions from the same source file, then extensions from
+other files ordered alphabetically by filename.  Swift conditional extensions
+(`extension A where …`) always appear beneath unconditional extensions.
+
+Use this pattern to add or customize the subheading before extension members:
+```swift
+extension MyType {
+  // MARK: Subheading for this group of methods
+  …
+}
+```
+
+When Jazzy is using `--swift-build-tool symgraph` the source file names and
+line numbers may not be available. In this case the ordering is approximately
+alphabetical by symbol name and USR; the order is stable for the same input.
+
+Jazzy does not normally create separate web pages for declarations that do not
+have any members -- instead they are entirely nested into their parent page.  Use
+the `--separate-global-declarations` flag to change this and  create pages for
+these empty types.
 
 ### Choosing the Swift language version
 
@@ -429,6 +460,36 @@ Check the `--min-acl` setting -- see [above](#controlling-what-is-documented).
 ### Objective-C
 
 See [this document](ObjectiveC.md).
+
+### Miscellaneous
+
+**Missing docset**
+
+Jazzy only builds a docset when you set the `--module` flag.
+
+**Unable to pass --build-tool-arguments containing commas**
+
+If you want Jazzy to run something like `xcodebuild -scheme Scheme -destination 'a=x,b=y,c=z'`
+then you must use the config file instead of the CLI flag because the CLI parser
+that Jazzy uses cannot handle arguments that themselves contain commas.
+
+The example config file here would be:
+```yaml
+build_tool_arguments:
+  - "-scheme"
+  - "Scheme"
+  - "-destination"
+  - "a=x,b=y,c=z"
+```
+
+**Errors running in an Xcode Run Script phase**
+
+Running Jazzy from an Xcode build phase can go wrong in cryptic ways when Jazzy
+has to run `xcodebuild`.
+
+Users [have reported](https://github.com/realm/jazzy/issues/1012) that error
+messages about symbols lacking USRs can be fixed by unsetting
+`LLVM_TARGET_TRIPLE_SUFFIX` as part of the run script.
 
 ### Installation Problems
 
