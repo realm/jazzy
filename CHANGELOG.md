@@ -6,7 +6,8 @@
 
 ##### Enhancements
 
-* None.
+* Update Javascript: jQuery 3.6.3, KaTeX 0.16.4  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 
