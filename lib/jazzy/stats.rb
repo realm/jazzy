@@ -41,7 +41,7 @@ module Jazzy
     end
 
     def report
-      puts "#{doc_coverage}\% documentation coverage " \
+      puts "#{doc_coverage}% documentation coverage " \
         "with #{undocumented} undocumented " \
         "#{symbol_or_symbols(undocumented)}"
 
