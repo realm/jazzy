@@ -7,9 +7,11 @@ AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 2.6
 
-#- Pending Cops as of 1.36.0 ---------------------------------------------#
+#- Pending Cops as of 1.44.0 ---------------------------------------------#
 
 Gemspec/DeprecatedAttributeAssignment: # new in 1.30
+  Enabled: true
+Gemspec/DevelopmentDependencies: # new in 1.44
   Enabled: true
 Gemspec/RequireMFA: # new in 1.23
   Enabled: true
@@ -28,6 +30,8 @@ Lint/ConstantOverwrittenInRescue: # new in 1.31
 Lint/DeprecatedConstants: # (new in 1.8)
   Enabled: true
 Lint/DuplicateBranch: # (new in 1.3)
+  Enabled: true
+Lint/DuplicateMagicComment: # new in 1.37
   Enabled: true
 Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
   Enabled: true
@@ -67,6 +71,8 @@ Lint/UnexpectedBlockArity: # (new in 1.5)
   Enabled: true
 Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
   Enabled: true
+Lint/UselessRescue: # new in 1.43
+  Enabled: true
 Lint/UselessRuby2Keywords: # new in 1.23
   Enabled: true
 Naming/BlockForwarding: # new in 1.24
@@ -75,11 +81,17 @@ Naming/InclusiveLanguage: # (new in 1.18)
   Enabled: true
 Security/CompoundHash: # new in 1.28
   Enabled: true
+Style/ConcatArrayLiterals: # new in 1.41
+  Enabled: true
 Security/IoMethods: # new in 1.22
   Enabled: true
 Style/ArgumentsForwarding: # (new in 1.1)
   Enabled: true
+Style/ArrayIntersect: # new in 1.40
+  Enabled: true
 Style/CollectionCompact: # (new in 1.2)
+  Enabled: true
+Style/ComparableClamp: # new in 1.44
   Enabled: true
 Style/DocumentDynamicEvalDefinition: # (new in 1.1)
   Enabled: true
@@ -109,6 +121,10 @@ Style/MapCompactWithConditionalBlock: # new in 1.30
   Enabled: true
 Style/MapToHash: # new in 1.24
   Enabled: true
+Style/MapToSet: # new in 1.42
+  Enabled: true
+Style/MinMaxComparison: # new in 1.42
+  Enabled: true
 Style/MultilineInPatternThen: # (new in 1.16)
   Enabled: true
 Style/NegatedIfElseCondition: # (new in 1.2)
@@ -125,13 +141,23 @@ Style/ObjectThen: # new in 1.28
   Enabled: true
 Style/OpenStructUse: # new in 1.23
   Enabled: true
+Style/OperatorMethodCall: # new in 1.37
+  Enabled: true
 Style/QuotedSymbols: # (new in 1.16)
   Enabled: true
 Style/RedundantArgument: # (new in 1.4)
   Enabled: true
+Style/RedundantConstantBase: # new in 1.40
+  Enabled: true
+Style/RedundantDoubleSplatHashBraces: # new in 1.41
+  Enabled: true
+Style/RedundantEach: # new in 1.38
+  Enabled: true
 Style/RedundantInitialize: # new in 1.27
   Enabled: true
 Style/RedundantSelfAssignmentBranch: # (new in 1.19)
+  Enabled: true
+Style/RedundantStringEscape: # new in 1.37
   Enabled: true
 Style/SelectByRegexp: # new in 1.22
   Enabled: true
