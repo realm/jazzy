@@ -70,8 +70,13 @@ module Jazzy
         end.compact
       end
 
-      # Workaround Swift 5.3 bug with missing constraint rels
+      # Workaround Swift 5.3 bug with missing constraint rels, eg.
+      # extension P {
+      #   func f<C>(a: C) where C: P {}
+      # }
       def self.new_list_from_declaration(decl)
+        return [] if decl.include?('(')
+
         decl.split(/\s*,\s*/).map { |cons| Constraint.new_declaration(cons) }
       end
 
