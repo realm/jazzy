@@ -18,6 +18,9 @@
 * Fix extension ordering in symbolgraph mode.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Fix symbolgraph mode crash involving tuple generic constraints.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ## 0.14.3
 
 ##### Breaking
