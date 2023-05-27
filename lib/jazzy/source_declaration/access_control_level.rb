@@ -11,6 +11,7 @@ module Jazzy
       ACCESSIBILITY_FILEPRIVATE =
         'source.lang.swift.accessibility.fileprivate'
       ACCESSIBILITY_INTERNAL = 'source.lang.swift.accessibility.internal'
+      ACCESSIBILITY_PACKAGE = 'source.lang.swift.accessibility.package'
       ACCESSIBILITY_PUBLIC = 'source.lang.swift.accessibility.public'
       ACCESSIBILITY_OPEN = 'source.lang.swift.accessibility.open'
 
@@ -19,6 +20,7 @@ module Jazzy
                  when ACCESSIBILITY_PRIVATE then :private
                  when ACCESSIBILITY_FILEPRIVATE then :fileprivate
                  when ACCESSIBILITY_INTERNAL then :internal
+                 when ACCESSIBILITY_PACKAGE then :package
                  when ACCESSIBILITY_PUBLIC then :public
                  when ACCESSIBILITY_OPEN then :open
                  else
@@ -48,11 +50,12 @@ module Jazzy
 
       def self.from_doc_explicit_declaration(doc)
         case doc['key.parsed_declaration']
-        when /private\ / then private
         when /fileprivate\ / then fileprivate
+        when /private\ / then private
+        when /internal\ / then internal
+        when /package\ / then package
         when /public\ / then public
         when /open\ / then open
-        when /internal\ / then internal
         end
       end
 
@@ -61,6 +64,7 @@ module Jazzy
         when 'private' then private
         when 'fileprivate' then fileprivate
         when 'internal' then internal
+        when 'package' then package
         when 'public' then public
         when 'open' then open
         else raise "cannot initialize AccessControlLevel with '#{string}'"
@@ -79,6 +83,10 @@ module Jazzy
         new(ACCESSIBILITY_INTERNAL)
       end
 
+      def self.package
+        new(ACCESSIBILITY_PACKAGE)
+      end
+
       def self.public
         new(ACCESSIBILITY_PUBLIC)
       end
@@ -91,8 +99,9 @@ module Jazzy
         private: 0,
         fileprivate: 1,
         internal: 2,
-        public: 3,
-        open: 4,
+        package: 3,
+        public: 4,
+        open: 5,
       }.freeze
 
       def <=>(other)
