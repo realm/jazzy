@@ -9,6 +9,9 @@
 * Update Javascript: jQuery 3.6.3, KaTeX 0.16.4  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Support Swift 5.9 `package` access control level.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Issue a warning instead of crashing on declarations without names.  

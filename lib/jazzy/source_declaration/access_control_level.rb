@@ -5,42 +5,37 @@ module Jazzy
     class AccessControlLevel
       include Comparable
 
+      # Order matters
+      LEVELS = %i[private fileprivate internal package public open].freeze
+
+      LEVELS_INDEX = LEVELS.to_h { |i| [i, LEVELS.index(i)] }.freeze
+
       attr_reader :level
 
-      ACCESSIBILITY_PRIVATE = 'source.lang.swift.accessibility.private'
-      ACCESSIBILITY_FILEPRIVATE =
-        'source.lang.swift.accessibility.fileprivate'
-      ACCESSIBILITY_INTERNAL = 'source.lang.swift.accessibility.internal'
-      ACCESSIBILITY_PACKAGE = 'source.lang.swift.accessibility.package'
-      ACCESSIBILITY_PUBLIC = 'source.lang.swift.accessibility.public'
-      ACCESSIBILITY_OPEN = 'source.lang.swift.accessibility.open'
-
-      def initialize(accessibility)
-        @level = case accessibility
-                 when ACCESSIBILITY_PRIVATE then :private
-                 when ACCESSIBILITY_FILEPRIVATE then :fileprivate
-                 when ACCESSIBILITY_INTERNAL then :internal
-                 when ACCESSIBILITY_PACKAGE then :package
-                 when ACCESSIBILITY_PUBLIC then :public
-                 when ACCESSIBILITY_OPEN then :open
-                 else
-                   raise 'cannot initialize AccessControlLevel with ' \
-                     "'#{accessibility}'"
-                 end
+      def initialize(level)
+        @level = level
       end
 
+      # From a SourceKit accessibility string
+      def self.from_accessibility(accessibility)
+        return nil if accessibility.nil?
+
+        if accessibility =~ /^source\.lang\.swift\.accessibility\.(.*)$/ &&
+           (matched = Regexp.last_match(1).to_sym) &&
+           !LEVELS_INDEX[matched].nil?
+          return new(matched)
+        end
+
+        raise "cannot initialize AccessControlLevel with '#{accessibility}'"
+      end
+
+      # From a SourceKit declaration hash
       def self.from_doc(doc)
         return AccessControlLevel.internal if implicit_deinit?(doc)
 
-        accessibility = doc['key.accessibility']
-        if accessibility
-          acl = new(accessibility)
-          if acl
-            return acl
-          end
-        end
-        acl = from_doc_explicit_declaration(doc)
-        acl || AccessControlLevel.internal # fallback on internal ACL
+        from_accessibility(doc['key.accessibility']) ||
+          from_doc_explicit_declaration(doc) ||
+          AccessControlLevel.internal # fallback on internal ACL
       end
 
       def self.implicit_deinit?(doc)
@@ -48,72 +43,47 @@ module Jazzy
           from_doc_explicit_declaration(doc).nil?
       end
 
+      # From a Swift declaration
       def self.from_doc_explicit_declaration(doc)
-        case doc['key.parsed_declaration']
-        when /fileprivate\ / then fileprivate
-        when /private\ / then private
-        when /internal\ / then internal
-        when /package\ / then package
-        when /public\ / then public
-        when /open\ / then open
+        declaration = doc['key.parsed_declaration']
+        LEVELS.each do |level|
+          if declaration =~ /\b#{level}\b/
+            return send(level)
+          end
         end
+        nil
       end
 
+      # From a config instruction
       def self.from_human_string(string)
-        case string.to_s.downcase
-        when 'private' then private
-        when 'fileprivate' then fileprivate
-        when 'internal' then internal
-        when 'package' then package
-        when 'public' then public
-        when 'open' then open
-        else raise "cannot initialize AccessControlLevel with '#{string}'"
+        normalized = string.to_s.downcase.to_sym
+        if LEVELS_INDEX[normalized].nil?
+          raise "cannot initialize AccessControlLevel with '#{string}'"
+        end
+
+        send(normalized)
+      end
+
+      # Define `AccessControlLevel.public` etc.
+
+      LEVELS.each do |level|
+        define_singleton_method(level) do
+          new(level)
         end
       end
 
-      def self.private
-        new(ACCESSIBILITY_PRIVATE)
-      end
-
-      def self.fileprivate
-        new(ACCESSIBILITY_FILEPRIVATE)
-      end
-
-      def self.internal
-        new(ACCESSIBILITY_INTERNAL)
-      end
-
-      def self.package
-        new(ACCESSIBILITY_PACKAGE)
-      end
-
-      def self.public
-        new(ACCESSIBILITY_PUBLIC)
-      end
-
-      def self.open
-        new(ACCESSIBILITY_OPEN)
-      end
-
-      LEVELS = {
-        private: 0,
-        fileprivate: 1,
-        internal: 2,
-        package: 3,
-        public: 4,
-        open: 5,
-      }.freeze
+      # Comparing access levels
 
       def <=>(other)
-        LEVELS[level] <=> LEVELS[other.level]
+        LEVELS_INDEX[level] <=> LEVELS_INDEX[other.level]
       end
 
       def included_levels
-        LEVELS.select { |_, v| v >= LEVELS[level] }.keys
+        LEVELS_INDEX.select { |_, v| v >= LEVELS_INDEX[level] }.keys
       end
 
       def excluded_levels
-        LEVELS.select { |_, v| v < LEVELS[level] }.keys
+        LEVELS_INDEX.select { |_, v| v < LEVELS_INDEX[level] }.keys
       end
     end
   end
