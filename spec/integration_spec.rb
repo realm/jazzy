@@ -249,6 +249,10 @@ describe_cli 'jazzy' do
   end if !spec_subset || spec_subset == 'swift'
 
   describe 'jazzy cocoapods' do
+    # Xcode 14.3 workaround, special podspec
+    podspec_patch = ROOT + 'spec/Moya.podspec'
+    podspec_path = ROOT + 'spec/integration_specs/document_moya_podspec/before'
+    FileUtils.cp_r podspec_patch, podspec_path, remove_destination: true
     configure_cocoapods
     describe 'Creates docs for a podspec with dependencies and subspecs' do
       behaves_like cli_spec 'document_moya_podspec',

@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - ./spec/integration_specs/**/*
+    - ./spec/Moya.podspec
     - ./vendor/**/*
     - ./tmp/**/*
     - ./SourceKitten/**/*
