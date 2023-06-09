@@ -16,6 +16,9 @@
   `--swift-build-tool symbolgraph`.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Support Swift `@_documentation(visibility:)` attribute.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Issue a warning instead of crashing on declarations without names.  
