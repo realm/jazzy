@@ -69,7 +69,7 @@ module Jazzy
       # From a @_documentation(visibility:) attribute
       def self.from_documentation_attribute(doc)
         if doc['key.annotated_decl'] =~ /@_documentation\(\s*visibility\s*:\s*(\w+)/
-          return from_human_string(Regexp.last_match[1])
+          from_human_string(Regexp.last_match[1])
         end
       end
 
