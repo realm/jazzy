@@ -9,7 +9,10 @@
 * Update Javascript: jQuery 3.6.3, KaTeX 0.16.4  
   [John Fairhurst](https://github.com/johnfairh)
 
-* Support Swift 5.9 `package` access control level.  
+* Support Swift `package` access control level.  
+  [John Fairhurst](https://github.com/johnfairh)
+
+* Support documenting Swift macro declarations.  
   [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
