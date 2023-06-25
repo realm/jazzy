@@ -251,13 +251,17 @@ describe_cli 'jazzy' do
   describe 'jazzy cocoapods' do
     # Xcode 14.3 workaround, special podspec
     podspec_patch = ROOT + 'spec/Moya.podspec'
-    podspec_path = ROOT + 'spec/integration_specs/document_moya_podspec/before'
-    FileUtils.cp_r podspec_patch, podspec_path, remove_destination: true
+    podspec_used = ROOT + 'spec/integration_specs/document_moya_podspec/before/Moya.podspec'
+    podspec_save = ROOT + 'spec/Moya.podspec.safe'
+    FileUtils.cp_r podspec_used, podspec_save, remove_destination: true
+    FileUtils.cp_r podspec_patch, podspec_used, remove_destination: true
     configure_cocoapods
     describe 'Creates docs for a podspec with dependencies and subspecs' do
       behaves_like cli_spec 'document_moya_podspec',
                             '--podspec=Moya.podspec'
     end
+    FileUtils.cp_r podspec_save, podspec_used, remove_destination: true
+    FileUtils.rm_rf podspec_save
   end if !spec_subset || spec_subset == 'cocoapods'
 
   # rubocop:enable Style/MultilineIfModifier
