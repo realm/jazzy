@@ -119,6 +119,8 @@ describe_cli 'jazzy' do
     s.replace_pattern(/<unknown>:0: remark.*?\n/, '')
     # CLIntegracon 0.8
     s.replace_pattern(%r{/transformed/}, '/')
+    # Xcode 15 workaround
+    s.replace_pattern(/objc\[.....\]: Class _?DTX\w+ is implemented in both.*?\n/, '')
   end
 
   require 'shellwords'
