@@ -12,7 +12,8 @@
 * Support Swift `package` access control level.  
   [John Fairhurst](https://github.com/johnfairh)
 
-* Support documenting Swift macro declarations.  
+* Initial support for Swift macro declarations.  Requires
+  `--swift-build-tool symbolgraph`.  
   [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
