@@ -33,11 +33,13 @@ module Jazzy
       def self.from_doc(doc)
         return AccessControlLevel.internal if implicit_deinit?(doc)
 
-        from_accessibility(doc['key.accessibility']) ||
+        from_documentation_attribute(doc) ||
+          from_accessibility(doc['key.accessibility']) ||
           from_doc_explicit_declaration(doc) ||
           AccessControlLevel.internal # fallback on internal ACL
       end
 
+      # Workaround `deinit` being always technically public
       def self.implicit_deinit?(doc)
         doc['key.name'] == 'deinit' &&
           from_doc_explicit_declaration(doc).nil?
@@ -62,6 +64,13 @@ module Jazzy
         end
 
         send(normalized)
+      end
+
+      # From a @_documentation(visibility:) attribute
+      def self.from_documentation_attribute(doc)
+        if doc['key.annotated_decl'] =~ /@_documentation\(\s*visibility\s*:\s*(\w+)/
+          from_human_string(Regexp.last_match[1])
+        end
       end
 
       # Define `AccessControlLevel.public` etc.

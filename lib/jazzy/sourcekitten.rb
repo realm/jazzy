@@ -458,6 +458,13 @@ module Jazzy
       attrs.map { |str| str.gsub(/\)(?!\s*$)/, "\ufe5a") }
     end
 
+    # Keep everything except instructions to us
+    def self.extract_documented_attributes(declaration)
+      extract_attributes(declaration).reject do |attr|
+        attr.start_with?('@_documentation')
+      end
+    end
+
     def self.extract_availability(declaration)
       extract_attributes(declaration, 'available')
     end
@@ -521,7 +528,7 @@ module Jazzy
 
       # @available attrs only in compiler 'interface' style
       extract_availability(doc['key.doc.declaration'] || '')
-        .concat(extract_attributes(annotated_decl_attrs))
+        .concat(extract_documented_attributes(annotated_decl_attrs))
         .push(decl)
         .join("\n")
     end

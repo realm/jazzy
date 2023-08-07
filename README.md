@@ -358,6 +358,10 @@ Note that the `--include` option is applied before the `--exclude` option. For e
 Declarations with a documentation comment containing `:nodoc:` are excluded from the
 documentation.
 
+Declarations with the `@_documentation(visibility:)` attribute are treated as though they
+are written with the given visibility.  You can use this as a replacement for `:nodoc:` as
+part of a transition to Apple's DocC but it is not compatible with Jazzy's symbolgraph mode.
+
 ### Documentation structure
 
 Jazzy arranges documentation into categories.  The default categories are things
