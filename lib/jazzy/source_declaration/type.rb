@@ -456,6 +456,10 @@ module Jazzy
           jazzy: 'Associated Type',
           dash: 'Alias',
         }.freeze,
+        'source.lang.swift.decl.macro' => {
+          jazzy: 'Macro',
+          dash: 'Macro',
+        }.freeze,
       }.freeze
     end
     # rubocop:enable Metrics/ClassLength

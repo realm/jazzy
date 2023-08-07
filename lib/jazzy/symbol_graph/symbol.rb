@@ -100,6 +100,7 @@ module Jazzy
         'typealias' => 'typealias',
         'associatedtype' => 'associatedtype',
         'actor' => 'actor',
+        'macro' => 'macro',
       }.freeze
 
       # We treat 'static var' differently to 'class var'
