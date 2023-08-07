@@ -359,8 +359,8 @@ Declarations with a documentation comment containing `:nodoc:` are excluded from
 documentation.
 
 Declarations with the `@_documentation(visibility:)` attribute are treated as though they
-are written with the given visibility.  This is an alternative to `:nodoc:` that is compatible
-with Apple's DocC.
+are written with the given visibility.  You can use this as a replacement for `:nodoc:` as
+part of a transition to Apple's DocC but it is not compatible with Jazzy's symbolgraph mode.
 
 ### Documentation structure
 
