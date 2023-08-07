@@ -16,7 +16,8 @@
   `--swift-build-tool symbolgraph`.  
   [John Fairhurst](https://github.com/johnfairh)
 
-* Support Swift `@_documentation(visibility:)` attribute.  
+* Support Swift `@_documentation(visibility:)` attribute.  Requires
+  `--swift-build-tool spm|xcodebuild`.  
   [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
