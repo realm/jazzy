@@ -25,7 +25,7 @@ GEM
   specs:
     CFPropertyList (3.0.6)
       rexml
-    activesupport (6.1.7.2)
+    activesupport (6.1.7.6)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
@@ -82,7 +82,7 @@ GEM
       netrc (~> 0.11)
     cocoapods-try (1.2.0)
     colored2 (3.1.2)
-    concurrent-ruby (1.2.0)
+    concurrent-ruby (1.2.2)
     cork (0.3.0)
       colored2 (~> 3.1)
     crack (0.4.5)
@@ -119,7 +119,7 @@ GEM
       rchardet (~> 1.8)
     hashdiff (1.0.1)
     httpclient (2.8.3)
-    i18n (1.12.0)
+    i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     json (2.6.3)
     kramdown (2.4.0)
@@ -128,7 +128,7 @@ GEM
       kramdown (~> 2.0)
     liferaft (0.0.6)
     mini_portile2 (2.8.1)
-    minitest (5.17.0)
+    minitest (5.19.0)
     mocha (2.0.2)
       ruby2_keywords (>= 0.0.5)
     mocha-on-bacon (0.2.3)
@@ -198,7 +198,7 @@ GEM
       colored2 (~> 3.1)
       nanaimo (~> 0.3.0)
       rexml (~> 3.2.4)
-    zeitwerk (2.6.6)
+    zeitwerk (2.6.11)
 
 PLATFORMS
   ruby
