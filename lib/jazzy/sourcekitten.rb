@@ -72,20 +72,9 @@ module Jazzy
     def self.group_type_categories2(docs, type_category_prefix)
         group = type_category_prefix.map do |moduleName|
           children = docs.select { |doc| doc.modulename == moduleName }
-          make_group2(children, moduleName)
+          make_group(children, moduleName, '')
         end
         [group.compact, docs]
-    end
-    
-    def self.make_group2(group, name)
-      group.reject! { |doc| doc.name.empty? }
-      unless group.empty?
-        SourceDeclaration.new.tap do |sd|
-          sd.type     = SourceDeclaration::Type.overview
-          sd.name     = name
-          sd.children = group
-        end
-      end
     end
 
     # Group root-level docs by custom categories (if any) and type
@@ -1017,37 +1006,39 @@ module Jazzy
     # DocC link format - follow Xcode and don't display slash-separated parts.
     # rubocop:disable Metrics/MethodLength
     def self.autolink_text(text, doc, root_decls, after_highlight: false)
-      text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
-        sym_name =
-          (raw_name[/^<doc:(.*)>$/, 1] || raw_name).sub(/(?<!^)-.+$/, '')
+      if !doc.url.nil?
+        text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
+          sym_name =
+            (raw_name[/^<doc:(.*)>$/, 1] || raw_name).sub(/(?<!^)-.+$/, '')
 
-        parts = sym_name
-          .sub(/^@/, '') # ignore for custom attribute ref
-          .split(%r{(?<!\.)[/.](?!\.)}) # dot or slash, but not '...'
-          .reject(&:empty?)
+          parts = sym_name
+            .sub(/^@/, '') # ignore for custom attribute ref
+            .split(%r{(?<!\.)[/.](?!\.)}) # dot or slash, but not '...'
+            .reject(&:empty?)
 
-        # First dot-separated component can match any ancestor or top-level doc
-        first_part = parts.shift
-        name_root = ancestor_name_match(first_part, doc) ||
-                    name_match(first_part, root_decls)
+          # First dot-separated component can match any ancestor or top-level doc
+          first_part = parts.shift
+          name_root = ancestor_name_match(first_part, doc) ||
+                      name_match(first_part, root_decls)
 
-        # Traverse children via subsequent components, if any
-        [name_traversal(parts, name_root), sym_name.sub(%r{^.*/}, '')]
-      end.autolink_block(doc.url, '[+-]\[\w+(?: ?\(\w+\))? [\w:]+\]',
-                         after_highlight) do |raw_name|
-        match = raw_name.match(/([+-])\[(\w+(?: ?\(\w+\))?) ([\w:]+)\]/)
+          # Traverse children via subsequent components, if any
+          [name_traversal(parts, name_root), sym_name.sub(%r{^.*/}, '')]
+        end.autolink_block(doc.url, '[+-]\[\w+(?: ?\(\w+\))? [\w:]+\]',
+                          after_highlight) do |raw_name|
+          match = raw_name.match(/([+-])\[(\w+(?: ?\(\w+\))?) ([\w:]+)\]/)
 
-        # Subject component can match any ancestor or top-level doc
-        subject = match[2].delete(' ')
-        name_root = ancestor_name_match(subject, doc) ||
-                    name_match(subject, root_decls)
+          # Subject component can match any ancestor or top-level doc
+          subject = match[2].delete(' ')
+          name_root = ancestor_name_match(subject, doc) ||
+                      name_match(subject, root_decls)
 
-        if name_root
-          # Look up the verb in the subject’s children
-          [name_match(match[1] + match[3], name_root.children), raw_name]
+          if name_root
+            # Look up the verb in the subject’s children
+            [name_match(match[1] + match[3], name_root.children), raw_name]
+          end
+        end.autolink_block(doc.url, '[+-]\w[\w:]*', after_highlight) do |raw_name|
+          [name_match(raw_name, doc.children), raw_name]
         end
-      end.autolink_block(doc.url, '[+-]\w[\w:]*', after_highlight) do |raw_name|
-        [name_match(raw_name, doc.children), raw_name]
       end
     end
     # rubocop:enable Metrics/MethodLength
