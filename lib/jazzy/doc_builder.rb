@@ -154,6 +154,7 @@ module Jazzy
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       (docs, stats) = SourceKitten.parse(
         sourcekitten_output,
+        options,
         options.min_acl,
         options.skip_undocumented,
         DocumentationGenerator.source_docs,

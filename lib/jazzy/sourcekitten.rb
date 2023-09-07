@@ -60,6 +60,34 @@ module Jazzy
       ).freeze
     end
 
+    # Modified functions for top-level changes
+    # Group root-level docs by custom categories (if any) and type
+    def self.group_docs2(docs, categoriesDynamic)
+      type_categories, uncategorized = group_type_categories2(
+       docs, categoriesDynamic
+      )
+      type_categories
+    end
+
+    def self.group_type_categories2(docs, type_category_prefix)
+        group = type_category_prefix.map do |moduleName|
+          children = docs.select { |doc| doc.modulename == moduleName }
+          make_group2(children, moduleName)
+        end
+        [group.compact, docs]
+    end
+    
+    def self.make_group2(group, name)
+      group.reject! { |doc| doc.name.empty? }
+      unless group.empty?
+        SourceDeclaration.new.tap do |sd|
+          sd.type     = SourceDeclaration::Type.overview
+          sd.name     = name
+          sd.children = group
+        end
+      end
+    end
+
     # Group root-level docs by custom categories (if any) and type
     def self.group_docs(docs)
       custom_categories, docs = group_custom_categories(docs)
@@ -1085,7 +1113,7 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    def self.parse(sourcekitten_output, min_acl, skip_undocumented, inject_docs)
+    def self.parse(sourcekitten_output, sourcekitten_options, min_acl, skip_undocumented, inject_docs)
       @min_acl = min_acl
       @skip_undocumented = skip_undocumented
       @stats = Stats.new
@@ -1099,11 +1127,21 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
-      docs = group_docs(docs)
+      moduleNames = extractFileName(sourcekitten_options.sourcekitten_sourcefile)
+      binding.pry
+      docs = group_docs2(docs, moduleNames)
+      # docs = group_docs(docs)
       merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, @stats]
+    end
+
+    def self.extractFileName(filePaths)
+      files = filePaths.map do |filepath|
+        filepath.basename.to_s.sub(/\.[^.]+\z/, '')
+      end
+      files
     end
   end
 end
