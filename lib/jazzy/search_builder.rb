@@ -10,7 +10,7 @@ module Jazzy
         [d.url,
          {
            name: d.name,
-           abstract: d.abstract && d.abstract.split(/\n/).map(&:strip).first,
+           abstract: d.abstract && d.abstract.split("\n").map(&:strip).first,
            parent_name: d.parent_in_code&.name,
          }.reject { |_, v| v.nil? || v.empty? }]
       end

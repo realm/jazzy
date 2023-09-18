@@ -111,7 +111,7 @@ module Jazzy
         end
         return kind unless keywords.member?('static')
 
-        kind.gsub(/type/, 'static')
+        kind.gsub('type', 'static')
       end
 
       def init_kind(kind, keywords)
