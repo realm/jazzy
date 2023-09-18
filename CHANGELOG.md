@@ -6,7 +6,7 @@
 
 ##### Enhancements
 
-* Update Javascript: jQuery 3.6.3, KaTeX 0.16.4  
+* Update Javascript: jQuery 3.7.1, KaTeX 0.16.8  
   [John Fairhurst](https://github.com/johnfairh)
 
 * Support Swift `package` access control level.  
