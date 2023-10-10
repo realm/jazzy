@@ -51,6 +51,7 @@ module Jazzy
       end
 
       def attach_to_option_parser(config, opt)
+        
         return if command_line.empty?
 
         opt.on(*command_line, *description) do |val|
@@ -176,6 +177,11 @@ module Jazzy
       description: 'Arguments to forward to xcodebuild, swift build, or ' \
         'sourcekitten.',
       default: []
+
+    config_attr :modules,
+      description: 'Array of modules that are going to be documented ' \
+      'It will contain arguments:  - name, build-tool-arguments arg1,arg2,…argN, source_directory.',
+      default: false
 
     alias_config_attr :xcodebuild_arguments, :build_tool_arguments,
       command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
@@ -513,7 +519,7 @@ module Jazzy
           "docsets/#{config.module_name}.xml",
         )
       end
-
+      
       config.validate
 
       config
@@ -573,6 +579,7 @@ module Jazzy
         self.class.all_config_attrs.group_by(&prop)
       end
 
+
       config_file.each do |key, value|
         unless attr = attrs_by_conf_key[key]
           message = "Unknown config file attribute #{key.inspect}"
@@ -583,7 +590,6 @@ module Jazzy
           warning message
           next
         end
-
         attr.first.set_if_unconfigured(self, value)
       end
 
@@ -604,6 +610,11 @@ module Jazzy
         warning 'Option `build_tool_arguments` is set: values passed to ' \
           '`framework_root` or `umbrella_header` may be ignored.'
       end
+
+      if modules_configured && module_name_configured
+        raise 'Jazzy only allows the use of a single command for generating documentation.' \
+        'Using both module configuration and modules configuration together is not supported.'
+      end
     end
 
     # rubocop:enable Metrics/MethodLength
@@ -615,7 +626,6 @@ module Jazzy
         candidate = dir.join('.jazzy.yaml')
         return candidate if candidate.exist?
       end
-
       nil
     end
 
