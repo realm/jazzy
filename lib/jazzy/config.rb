@@ -263,6 +263,10 @@ module Jazzy
       description: 'Name of module being documented. (e.g. RealmSwift)',
       default: ''
 
+    config_attr :multiple_modules,
+      command_line: ['--multiple_modules MODULE_NAME1,...ModuleNameN', Array],
+      description: 'Name of modules being documented. (e.g. RealmSwift,...)'
+
     config_attr :version,
       command_line: '--module-version VERSION',
       description: 'Version string to use as part of the default docs ' \

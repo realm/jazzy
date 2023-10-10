@@ -76,14 +76,41 @@ module Jazzy
         stdout = pod_documenter.sourcekitten_output(options)
       elsif options.swift_build_tool == :symbolgraph
         stdout = SymbolGraph.build(options)
-      else
-        stdout = Dir.chdir(options.source_directory) do
-          arguments = SourceKitten.arguments_from_options(options)
-          SourceKitten.run_sourcekitten(arguments)
+      elsif options.multiple_modules_configured
+        modules_parsed = Array[]
+        options.multiple_modules.each do |directory|
+          if options.build_tool_arguments_configured 
+            replace_scheme_name_for_new_module(options)
+            build_options = options.build_tool_arguments
+            build_options.push(directory)
+            options.build_tool_arguments = build_options
+          end
+          directory = options.source_directory + directory
+          module_parsed_string = run_xcode(directory, options)
+          modules_parsed.push(module_parsed_string)
         end
+        stdout = "[#{modules_parsed.join(',')}]"
+      else
+        stdout = run_xcode(options.source_directory, options)
       end
-
       build_docs_for_sourcekitten_output(stdout, options)
+    end
+
+    def self.replace_scheme_name_for_new_module(options)
+      if options.build_tool_arguments.count > 3 
+        options.build_tool_arguments.pop()
+      end
+    end
+
+    # Build Xcode project and parse the api documentation into a string
+    # @param [String] source_directory where xcode project is
+    # @param [Config] options
+    # @return [String] the documented source module
+    def self.run_xcode(sourceDirectory, options)
+      Dir.chdir(sourceDirectory) do
+        arguments = SourceKitten.arguments_from_options(options)
+        SourceKitten.run_sourcekitten(arguments)
+      end
     end
 
     # Build & write HTML docs to disk from structured docs array
