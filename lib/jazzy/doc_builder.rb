@@ -69,7 +69,9 @@ module Jazzy
     # @param [Config] options
     # @return [SourceModule] the documented source module
     def self.build(options)
-      if options.sourcekitten_sourcefile_configured
+      if options.modules_configured
+        stdout = multiple_modules(options)
+      elsif options.sourcekitten_sourcefile_configured
         stdout = "[#{options.sourcekitten_sourcefile.map(&:read).join(',')}]"
       elsif options.podspec_configured
         pod_documenter = PodspecDocumenter.new(options.podspec)
@@ -84,6 +86,21 @@ module Jazzy
       end
 
       build_docs_for_sourcekitten_output(stdout, options)
+    end
+
+    # Build Xcode project for multiple modules and parse the api documentation into a string
+    # @param [Config] options
+    # @return String the documented source module
+    def self.multiple_modules(options)
+      modules_parsed = Array[]
+      options.modules.each do |arguments|
+        module_parsed_string = Dir.chdir(arguments['source_directory']) do
+          arguments = SourceKitten.arguments_from_options(options) + (arguments['build_tool_arguments']||[])
+          SourceKitten.run_sourcekitten(arguments)
+        end
+        modules_parsed.push(module_parsed_string)
+      end
+      stdout = "[#{modules_parsed.join(',')}]"
     end
 
     # Build & write HTML docs to disk from structured docs array
@@ -154,11 +171,10 @@ module Jazzy
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       (docs, stats) = SourceKitten.parse(
         sourcekitten_output,
-        options.min_acl,
-        options.skip_undocumented,
+        options,
         DocumentationGenerator.source_docs,
       )
-
+      
       prepare_output_dir(options.output, options.clean)
 
       stats.report

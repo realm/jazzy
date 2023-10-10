@@ -70,6 +70,16 @@ module Jazzy
       custom_categories + merge_categories(type_categories) + uncategorized
     end
 
+    # Group root-level docs by module name
+    def self.group_docs_per_module(docs, modules)
+      modules = modules.map { |mod| mod['name']}
+      categories, extra = navigation_module_section(
+        docs, modules
+      )
+
+      merge_categories(categories) + self.group_docs(extra)
+    end
+
     def self.group_custom_categories(docs)
       group = Config.instance.custom_categories.map do |category|
         children = category['children'].flat_map do |name|
@@ -98,6 +108,33 @@ module Jazzy
         )
       end
       [group.compact, docs]
+    end
+
+    def self.navigation_module_section(docs, modules)
+      group = modules.map do |modulename|
+        children, docs = docs.partition { |doc| doc.modulename == modulename }
+        make_group(
+          children,
+          modulename,
+          "",
+        )
+      end
+
+      # Get from the remaining docs if there are extensions that should also be part of this module.
+      group = group.compact.map { |group|
+        newDocs = docs
+          .select { |doc| doc.children.map { |doc| doc.modulename }.include?(group.name) }
+          .map { |doc| 
+            newdoc = doc.clone
+            newdoc.children, doc.children = doc.children.partition { |doc| doc.modulename == group.name } 
+            newdoc.name = group.name + "+" + newdoc.name
+            newdoc
+          }
+        group.children = group.children + newDocs
+        group
+      }
+
+      [group, docs.select { |doc| !doc.children.empty?()}]
     end
 
     # Join categories with the same name (eg. ObjC and Swift classes)
@@ -230,9 +267,15 @@ module Jazzy
         end
         arguments += ['--']
       end
-
-      arguments + options.build_tool_arguments
+      
+      if options.modules_configured
+        arguments
+      else 
+        arguments + options.build_tool_arguments
+      end
     end
+
+
 
     def self.objc_arguments_from_options(options)
       arguments = []
@@ -1085,9 +1128,9 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    def self.parse(sourcekitten_output, min_acl, skip_undocumented, inject_docs)
-      @min_acl = min_acl
-      @skip_undocumented = skip_undocumented
+    def self.parse(sourcekitten_output, options, inject_docs)
+      @min_acl = options.min_acl
+      @skip_undocumented = options.skip_undocumented
       @stats = Stats.new
       @inaccessible_protocols = []
       sourcekitten_json = filter_files(JSON.parse(sourcekitten_output).flatten)
@@ -1099,7 +1142,12 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
-      docs = group_docs(docs)
+      if options.modules_configured
+        docs = group_docs_per_module(docs, options.modules)
+      else
+        docs = group_docs(docs)
+      end
+      
       merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
