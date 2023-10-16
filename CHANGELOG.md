@@ -10,7 +10,8 @@
 
 ##### Bug Fixes
 
-* None.
+* Fix incorrect activesupport usage.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.14.4
 
