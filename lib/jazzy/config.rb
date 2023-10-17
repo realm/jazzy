@@ -263,8 +263,8 @@ module Jazzy
       description: 'Name of module being documented. (e.g. RealmSwift)',
       default: ''
 
-    config_attr :multiple_modules,
-      command_line: ['--multiple_modules MODULE_NAME1,...ModuleNameN', Array],
+    config_attr :modules,
+      command_line: ['--modules MODULE_NAME1,...ModuleNameN', Array],
       description: 'Name of modules being documented. (e.g. RealmSwift,...)'
 
     config_attr :version,
@@ -522,6 +522,17 @@ module Jazzy
 
       config
     end
+
+    def self.module_configuration(directory)
+      config = new
+      config.source_directory = directory
+      config.parse_config_file
+ 
+      config.validate
+ 
+      config
+    end
+
 
     def warning(message)
       warn "WARNING: #{message}"
