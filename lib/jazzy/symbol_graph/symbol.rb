@@ -226,6 +226,25 @@ module Jazzy
           availability_attributes(avail_hash_list) + spi_attributes
       end
 
+      # SourceKit common fields, shared by extension and regular symbols.
+      # Things we do not know for fabricated extensions.
+      def add_to_sourcekit(hash)
+        unless doc_comments.nil?
+          hash['key.doc.comment'] = doc_comments
+          hash['key.doc.full_as_xml'] = ''
+        end
+
+        hash['key.accessibility'] = acl
+
+        unless location.nil?
+          hash['key.filepath'] = location[:filename]
+          hash['key.doc.line'] = location[:line] + 1
+          hash['key.doc.column'] = location[:character] + 1
+        end
+
+        hash
+      end
+
       # Sort order
       include Comparable
 
