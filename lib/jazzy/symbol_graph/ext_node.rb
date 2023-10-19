@@ -23,7 +23,9 @@ module Jazzy
     # an extension that we fabricate to resolve certain relationships.
     class ExtNode < BaseNode
       attr_accessor :usr
+      attr_accessor :real_usr
       attr_accessor :name
+      attr_accessor :docs
       attr_accessor :all_constraints # ExtConstraints
       attr_accessor :conformances # array, can be empty
 
@@ -49,9 +51,10 @@ module Jazzy
 
       private
 
-      def initialize(usr, name, constraints)
+      def initialize(usr, name, constraints, docs = nil)
         self.usr = usr
         self.name = name
+        self.docs = docs
         self.all_constraints = constraints
         self.conformances = []
         super()
@@ -75,18 +78,23 @@ module Jazzy
         decl + all_constraints.ext.to_where_clause
       end
 
-      def to_sourcekit(module_name)
+      def to_sourcekit(module_name, ext_module_name)
         declaration = full_declaration
         xml_declaration = "<swift>#{CGI.escapeHTML(declaration)}</swift>"
 
         hash = {
           'key.kind' => 'source.lang.swift.decl.extension',
-          'key.usr' => usr,
+          'key.usr' => real_usr || usr,
           'key.name' => name,
-          'key.modulename' => module_name,
+          'key.modulename' => ext_module_name,
           'key.parsed_declaration' => declaration,
           'key.annotated_decl' => xml_declaration,
         }
+
+        unless docs.nil?
+          hash['key.doc.comment'] = docs
+          hash['key.doc.full_as_xml'] = ''
+        end
 
         unless conformances.empty?
           hash['key.inheritedtypes'] = conformances.map do |conformance|
@@ -95,7 +103,7 @@ module Jazzy
         end
 
         unless children.empty?
-          hash['key.substructure'] = children_to_sourcekit
+          hash['key.substructure'] = children_to_sourcekit(module_name)
         end
 
         hash
@@ -110,6 +118,16 @@ module Jazzy
 
       def <=>(other)
         sort_key <=> other.sort_key
+      end
+    end
+
+    # An ExtSymNode is an extension generated from a Swift 5.9 extension
+    # symbol, for extensions of types from other modules only.
+    class ExtSymNode < ExtNode
+      def initialize(symbol)
+        super(symbol.usr, symbol.full_name,
+              ExtConstraints.new([], symbol.constraints), # ?
+              symbol.doc_comments)
       end
     end
   end

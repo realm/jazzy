@@ -10,9 +10,14 @@ module Jazzy
       attr_accessor :target_fallback # can be nil
       attr_accessor :constraints # array, can be empty
 
-      KINDS = %w[memberOf conformsTo defaultImplementationOf
-                 overrides inheritsFrom requirementOf
-                 optionalRequirementOf].freeze
+      # Order matters: defaultImplementationOf after the protocols
+      # have been defined; extensionTo after all the extensions have
+      # been discovered.
+      KINDS = %w[memberOf conformsTo overrides inheritsFrom
+                 requirementOf optionalRequirementOf
+                 defaultImplementationOf extensionTo].freeze
+
+      KINDS_INDEX = KINDS.to_h { |i| [i.to_sym, KINDS.index(i)] }.freeze
 
       def protocol_requirement?
         %i[requirementOf optionalRequirementOf].include? kind
@@ -20,6 +25,10 @@ module Jazzy
 
       def default_implementation?
         kind == :defaultImplementationOf
+      end
+
+      def extension_to?
+        kind == :extensionTo
       end
 
       # Protocol conformances added by compiler to actor decls that
@@ -42,6 +51,15 @@ module Jazzy
           self.target_fallback = fallback.sub(/^.*?\./, '')
         end
         self.constraints = Constraint.new_list(hash[:swiftConstraints] || [])
+      end
+
+      # Sort order
+      include Comparable
+
+      def <=>(other)
+        return 0 if kind == other.kind
+
+        KINDS_INDEX[kind] <=> KINDS_INDEX[other.kind]
       end
     end
   end

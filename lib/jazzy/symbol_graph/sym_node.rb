@@ -18,8 +18,8 @@ module Jazzy
         children.append(child)
       end
 
-      def children_to_sourcekit
-        children.sort.map(&:to_sourcekit)
+      def children_to_sourcekit(module_name)
+        children.sort.map { |c| c.to_sourcekit(module_name) }
       end
     end
 
@@ -129,7 +129,7 @@ module Jazzy
       end
 
       # rubocop:disable Metrics/MethodLength
-      def to_sourcekit
+      def to_sourcekit(module_name)
         declaration = full_declaration
         xml_declaration = "<swift>#{CGI.escapeHTML(declaration)}</swift>"
 
@@ -137,8 +137,9 @@ module Jazzy
           'key.kind' => symbol.kind,
           'key.usr' => symbol.usr,
           'key.name' => symbol.name,
+          'key.modulename' => module_name,
           'key.accessibility' => symbol.acl,
-          'key.parsed_decl' => declaration,
+          'key.parsed_declaration' => declaration,
           'key.annotated_decl' => xml_declaration,
           'key.symgraph_async' => async?,
         }
@@ -156,7 +157,7 @@ module Jazzy
           hash['key.doc.column'] = location[:character] + 1
         end
         unless children.empty?
-          hash['key.substructure'] = children_to_sourcekit
+          hash['key.substructure'] = children_to_sourcekit(module_name)
         end
         hash['key.symgraph_spi'] = true if symbol.spi
 

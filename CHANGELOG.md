@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Support Swift 5.9 symbolgraph extension symbols.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1368](https://github.com/realm/jazzy/issues/1368)
 
 ##### Bug Fixes
 

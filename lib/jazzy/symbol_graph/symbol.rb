@@ -22,6 +22,10 @@ module Jazzy
         path_components[-1] || '??'
       end
 
+      def full_name
+        path_components.join('.')
+      end
+
       def initialize(hash)
         self.usr = hash[:identifier][:precise]
         self.path_components = hash[:pathComponents]
@@ -101,6 +105,7 @@ module Jazzy
         'associatedtype' => 'associatedtype',
         'actor' => 'actor',
         'macro' => 'macro',
+        'extension' => 'extension',
       }.freeze
 
       # We treat 'static var' differently to 'class var'
@@ -120,6 +125,10 @@ module Jazzy
         raise "Unknown symbol kind '#{kind}'" unless sourcekit_kind
 
         self.kind = "source.lang.swift.decl.#{sourcekit_kind}"
+      end
+
+      def extension?
+        kind.end_with?('extension')
       end
 
       # Mapping SymbolGraph's ACL to SourceKit
