@@ -18,14 +18,16 @@ module Jazzy
         children.append(child)
       end
 
-      def children_to_sourcekit
-        children.sort.map(&:to_sourcekit)
+      def add_children_to_sourcekit(hash, module_name)
+        unless children.empty?
+          hash['key.substructure'] =
+            children.sort.map { |c| c.to_sourcekit(module_name) }
+        end
       end
     end
 
     # A SymNode is a node of the reconstructed syntax tree holding a symbol.
     # It can turn itself into SourceKit and helps decode extensions.
-    # rubocop:disable Metrics/ClassLength
     class SymNode < BaseNode
       attr_accessor :symbol
       attr_writer :override
@@ -128,8 +130,7 @@ module Jazzy
           .join("\n")
       end
 
-      # rubocop:disable Metrics/MethodLength
-      def to_sourcekit
+      def to_sourcekit(module_name)
         declaration = full_declaration
         xml_declaration = "<swift>#{CGI.escapeHTML(declaration)}</swift>"
 
@@ -137,32 +138,20 @@ module Jazzy
           'key.kind' => symbol.kind,
           'key.usr' => symbol.usr,
           'key.name' => symbol.name,
-          'key.accessibility' => symbol.acl,
-          'key.parsed_decl' => declaration,
+          'key.modulename' => module_name,
+          'key.parsed_declaration' => declaration,
           'key.annotated_decl' => xml_declaration,
           'key.symgraph_async' => async?,
         }
-        if docs = symbol.doc_comments
-          hash['key.doc.comment'] = docs
-          hash['key.doc.full_as_xml'] = ''
-        end
         if params = symbol.parameter_names
           hash['key.doc.parameters'] =
             params.map { |name| { 'name' => name } }
         end
-        if location = symbol.location
-          hash['key.filepath'] = location[:filename]
-          hash['key.doc.line'] = location[:line] + 1
-          hash['key.doc.column'] = location[:character] + 1
-        end
-        unless children.empty?
-          hash['key.substructure'] = children_to_sourcekit
-        end
         hash['key.symgraph_spi'] = true if symbol.spi
 
-        hash
+        add_children_to_sourcekit(hash, module_name)
+        symbol.add_to_sourcekit(hash)
       end
-      # rubocop:enable Metrics/MethodLength
 
       # Sort order - by symbol
       include Comparable
@@ -171,6 +160,5 @@ module Jazzy
         symbol <=> other.symbol
       end
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end

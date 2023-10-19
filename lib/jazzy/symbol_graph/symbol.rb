@@ -22,6 +22,10 @@ module Jazzy
         path_components[-1] || '??'
       end
 
+      def full_name
+        path_components.join('.')
+      end
+
       def initialize(hash)
         self.usr = hash[:identifier][:precise]
         self.path_components = hash[:pathComponents]
@@ -101,6 +105,7 @@ module Jazzy
         'associatedtype' => 'associatedtype',
         'actor' => 'actor',
         'macro' => 'macro',
+        'extension' => 'extension',
       }.freeze
 
       # We treat 'static var' differently to 'class var'
@@ -120,6 +125,10 @@ module Jazzy
         raise "Unknown symbol kind '#{kind}'" unless sourcekit_kind
 
         self.kind = "source.lang.swift.decl.#{sourcekit_kind}"
+      end
+
+      def extension?
+        kind.end_with?('extension')
       end
 
       # Mapping SymbolGraph's ACL to SourceKit
@@ -215,6 +224,25 @@ module Jazzy
       def init_attributes(avail_hash_list)
         self.attributes =
           availability_attributes(avail_hash_list) + spi_attributes
+      end
+
+      # SourceKit common fields, shared by extension and regular symbols.
+      # Things we do not know for fabricated extensions.
+      def add_to_sourcekit(hash)
+        unless doc_comments.nil?
+          hash['key.doc.comment'] = doc_comments
+          hash['key.doc.full_as_xml'] = ''
+        end
+
+        hash['key.accessibility'] = acl
+
+        unless location.nil?
+          hash['key.filepath'] = location[:filename]
+          hash['key.doc.line'] = location[:line] + 1
+          hash['key.doc.column'] = location[:character] + 1
+        end
+
+        hash
       end
 
       # Sort order

@@ -7,6 +7,7 @@ require 'jazzy/symbol_graph/symbol'
 require 'jazzy/symbol_graph/relationship'
 require 'jazzy/symbol_graph/sym_node'
 require 'jazzy/symbol_graph/ext_node'
+require 'jazzy/symbol_graph/ext_key'
 
 # This is the top-level symbolgraph driver that deals with
 # figuring out arguments, running the tool, and loading the
@@ -72,10 +73,12 @@ module Jazzy
         # The @ part is for extensions in our module (before the @)
         # of types in another module (after the @).
         File.basename(filename) =~ /(.*?)(@(.*?))?\.symbols/
-        module_name = Regexp.last_match[3] || Regexp.last_match[1]
+        module_name = Regexp.last_match[1]
+        ext_module_name = Regexp.last_match[3] || module_name
+        json = File.read(filename)
         {
           filename =>
-            Graph.new(File.read(filename), module_name).to_sourcekit,
+            Graph.new(json, module_name, ext_module_name).to_sourcekit,
         }
       end.to_json
     end

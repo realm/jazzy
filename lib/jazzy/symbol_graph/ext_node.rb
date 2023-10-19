@@ -23,6 +23,7 @@ module Jazzy
     # an extension that we fabricate to resolve certain relationships.
     class ExtNode < BaseNode
       attr_accessor :usr
+      attr_accessor :real_usr
       attr_accessor :name
       attr_accessor :all_constraints # ExtConstraints
       attr_accessor :conformances # array, can be empty
@@ -75,15 +76,15 @@ module Jazzy
         decl + all_constraints.ext.to_where_clause
       end
 
-      def to_sourcekit(module_name)
+      def to_sourcekit(module_name, ext_module_name)
         declaration = full_declaration
         xml_declaration = "<swift>#{CGI.escapeHTML(declaration)}</swift>"
 
         hash = {
           'key.kind' => 'source.lang.swift.decl.extension',
-          'key.usr' => usr,
+          'key.usr' => real_usr || usr,
           'key.name' => name,
-          'key.modulename' => module_name,
+          'key.modulename' => ext_module_name,
           'key.parsed_declaration' => declaration,
           'key.annotated_decl' => xml_declaration,
         }
@@ -94,9 +95,7 @@ module Jazzy
           end
         end
 
-        unless children.empty?
-          hash['key.substructure'] = children_to_sourcekit
-        end
+        add_children_to_sourcekit(hash, module_name)
 
         hash
       end
@@ -110,6 +109,24 @@ module Jazzy
 
       def <=>(other)
         sort_key <=> other.sort_key
+      end
+    end
+
+    # An ExtSymNode is an extension generated from a Swift 5.9 extension
+    # symbol, for extensions of types from other modules only.
+    class ExtSymNode < ExtNode
+      attr_accessor :symbol
+
+      def initialize(symbol)
+        self.symbol = symbol
+        super(symbol.usr, symbol.full_name,
+              # sadly can't tell what constraints are inherited vs added
+              ExtConstraints.new([], symbol.constraints))
+      end
+
+      def to_sourcekit(module_name, ext_module_name)
+        hash = super
+        symbol.add_to_sourcekit(hash)
       end
     end
   end

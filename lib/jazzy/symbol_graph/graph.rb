@@ -7,37 +7,40 @@ module Jazzy
     # Deserialize it to Symbols and Relationships, then rebuild
     # the AST shape using SymNodes and ExtNodes and extract SourceKit json.
     class Graph
-      attr_accessor :module_name
+      attr_accessor :module_name # Our module
+      attr_accessor :ext_module_name # Module being extended
       attr_accessor :symbol_nodes # usr -> SymNode
       attr_accessor :relationships # [Relationship]
       attr_accessor :ext_nodes # (usr, constraints) -> ExtNode
 
       # Parse the JSON into flat tables of data
-      def initialize(json, module_name)
+      def initialize(json, module_name, ext_module_name)
         self.module_name = module_name
+        self.ext_module_name = ext_module_name
         graph = JSON.parse(json, symbolize_names: true)
 
         self.symbol_nodes = {}
+        self.ext_nodes = {}
+
         graph[:symbols].each do |hash|
           symbol = Symbol.new(hash)
-          symbol_nodes[symbol.usr] = SymNode.new(symbol)
+          if symbol.extension?
+            node = ExtSymNode.new(symbol)
+            ext_nodes[node.ext_key] = node
+          else
+            symbol_nodes[symbol.usr] = SymNode.new(symbol)
+          end
         end
 
         self.relationships =
           graph[:relationships].map { |hash| Relationship.new(hash) }
-
-        self.ext_nodes = {}
       end
 
-      # ExtNode index.  (type USR, extension constraints) -> ExtNode.
+      # ExtNode index.  ExtKey (type USR, extension constraints) -> ExtNode.
       # This minimizes the number of extensions
 
-      def ext_key(usr, constraints)
-        usr + constraints.map(&:to_swift).join
-      end
-
       def add_ext_member(type_usr, member_node, constraints)
-        key = ext_key(type_usr, constraints.ext)
+        key = ExtKey.new(type_usr, constraints.ext)
         if ext_node = ext_nodes[key]
           ext_node.add_child(member_node)
         else
@@ -50,7 +53,7 @@ module Jazzy
                               type_name,
                               protocol,
                               constraints)
-        key = ext_key(type_usr, constraints.ext)
+        key = ExtKey.new(type_usr, constraints.ext)
         if ext_node = ext_nodes[key]
           ext_node.add_conformance(protocol)
         else
@@ -149,6 +152,15 @@ module Jazzy
         end
       end
 
+      # "References to fake_usr should be real_usr"
+      def unalias_extensions(fake_usr, real_usr)
+        ext_nodes.each_pair do |key, ext|
+          if key.usr == fake_usr
+            ext.real_usr = real_usr
+          end
+        end
+      end
+
       # Process a structural relationship to link nodes
       def rebuild_rel(rel)
         source = symbol_nodes[rel.source_usr]
@@ -166,29 +178,29 @@ module Jazzy
 
         when :inheritsFrom
           rebuild_inherits(rel, source, target)
+
+        when :extensionTo
+          unalias_extensions(rel.source_usr, rel.target_usr)
         end
+
         # don't seem to care about:
         # - overrides: not bothered, also unimplemented for protocols
       end
 
       # Rebuild the AST structure  and convert to SourceKit
       def to_sourcekit
-        # Do default impls after the others so we can find protocol
-        # type nodes from protocol requirements.
-        default_impls, other_rels =
-          relationships.partition(&:default_implementation?)
-        (other_rels + default_impls).each { |r| rebuild_rel(r) }
+        relationships.sort.each { |r| rebuild_rel(r) }
 
         root_symbol_nodes =
           symbol_nodes.values
             .select(&:top_level_decl?)
             .sort
-            .map(&:to_sourcekit)
+            .map { |n| n.to_sourcekit(module_name) }
 
         root_ext_nodes =
           ext_nodes.values
             .sort
-            .map { |n| n.to_sourcekit(module_name) }
+            .map { |n| n.to_sourcekit(module_name, ext_module_name) }
         {
           'key.diagnostic_stage' => 'parse',
           'key.substructure' => root_symbol_nodes + root_ext_nodes,
