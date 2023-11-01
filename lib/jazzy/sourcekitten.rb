@@ -70,6 +70,13 @@ module Jazzy
       custom_categories + merge_categories(type_categories) + uncategorized
     end
 
+    def self.group_docs_per_module(docs, modules)
+      categories, extra = navigation_module_section(
+        docs, modules
+      )
+      merge_categories(categories) + self.group_docs(extra)
+    end
+
     def self.group_custom_categories(docs)
       group = Config.instance.custom_categories.map do |category|
         children = category['children'].flat_map do |name|
@@ -95,6 +102,20 @@ module Jazzy
           type_category_prefix + type.plural_name,
           "The following #{type.plural_name.downcase} are available globally.",
           type_category_prefix + type.plural_url_name,
+        )
+      end
+      [group.compact, docs]
+    end
+
+    def self.navigation_module_section(docs, modules)
+      # binding.pry
+      group = modules.map do |modulename|
+        moduleN = "TomTomSDK" + modulename
+        children, docs = docs.partition { |doc| doc.modulename == moduleN}
+        make_group(
+          children,
+          modulename,
+          "Find a way to add the correct abstract for each module",
         )
       end
       [group.compact, docs]
@@ -231,8 +252,16 @@ module Jazzy
         arguments += ['--']
       end
 
-      arguments + options.build_tool_arguments
+      # binding.pry
+      
+      if options.custom_modules_configured
+        arguments
+      else 
+        arguments + options.build_tool_arguments
+      end
     end
+
+
 
     def self.objc_arguments_from_options(options)
       arguments = []
@@ -256,6 +285,7 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
+      # binding.pry
       if swift_version = Config.instance.swift_version
         unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
           raise "Unable to find an Xcode with swift version #{swift_version}."
@@ -1085,9 +1115,9 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    def self.parse(sourcekitten_output, min_acl, skip_undocumented, inject_docs)
-      @min_acl = min_acl
-      @skip_undocumented = skip_undocumented
+    def self.parse(sourcekitten_output, options, inject_docs)
+      @min_acl = options.min_acl
+      @skip_undocumented = options.skip_undocumented
       @stats = Stats.new
       @inaccessible_protocols = []
       sourcekitten_json = filter_files(JSON.parse(sourcekitten_output).flatten)
@@ -1099,7 +1129,13 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
-      docs = group_docs(docs)
+      # if options.modules_configured
+      #   # binding.pry
+        docs = group_docs_per_module(docs, options.modules)
+      # else
+        # docs = group_docs(docs)
+      # end
+      
       merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)

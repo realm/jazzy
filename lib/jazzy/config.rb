@@ -51,6 +51,7 @@ module Jazzy
       end
 
       def attach_to_option_parser(config, opt)
+        
         return if command_line.empty?
 
         opt.on(*command_line, *description) do |val|
@@ -177,6 +178,14 @@ module Jazzy
         'sourcekitten.',
       default: []
 
+    config_attr :custom_modules,
+      # command_line: ['-cm', '--build-tool-arguments arg1,arg2,…argN', NArray],
+      description: 'Custom navigation categories to replace the standard ' \
+        "'Classes', 'Protocols', etc. Types not explicitly named " \
+        'in a custom category appear in generic groups at the ' \
+        'end.  Example: https://git.io/v4Bcp',
+      default: false
+
     alias_config_attr :xcodebuild_arguments, :build_tool_arguments,
       command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
       description: 'Back-compatibility alias for build_tool_arguments.'
@@ -265,7 +274,7 @@ module Jazzy
 
     config_attr :modules,
       command_line: ['--modules MODULE_NAME1,...ModuleNameN', Array],
-      description: 'Name of modules being documented. (e.g. RealmSwift,...)'
+      description: 'Name of module being documented. (e.g. RealmSwift)'
 
     config_attr :version,
       command_line: '--module-version VERSION',
@@ -517,22 +526,11 @@ module Jazzy
           "docsets/#{config.module_name}.xml",
         )
       end
-
+      
       config.validate
 
       config
     end
-
-    def self.module_configuration(directory)
-      config = new
-      config.source_directory = directory
-      config.parse_config_file
- 
-      config.validate
- 
-      config
-    end
-
 
     def warning(message)
       warn "WARNING: #{message}"
@@ -618,6 +616,10 @@ module Jazzy
          (framework_root_configured || umbrella_header_configured)
         warning 'Option `build_tool_arguments` is set: values passed to ' \
           '`framework_root` or `umbrella_header` may be ignored.'
+      end
+
+      if custom_modules_configured && module_name_configured
+        raise 'Usage of config and comand line'
       end
     end
 

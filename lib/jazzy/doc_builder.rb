@@ -69,34 +69,45 @@ module Jazzy
     # @param [Config] options
     # @return [SourceModule] the documented source module
     def self.build(options)
-      if options.sourcekitten_sourcefile_configured
+      # binding.pry
+      if options.modules_configured
+        stdout = multiple_modules(options)
+      elsif options.sourcekitten_sourcefile_configured
         stdout = "[#{options.sourcekitten_sourcefile.map(&:read).join(',')}]"
       elsif options.podspec_configured
         pod_documenter = PodspecDocumenter.new(options.podspec)
         stdout = pod_documenter.sourcekitten_output(options)
       elsif options.swift_build_tool == :symbolgraph
         stdout = SymbolGraph.build(options)
-      elsif options.modules_configured
-        modules_parsed = Array[]
-        options.modules.each do |directory|
-          directory = options.source_directory + directory
-          module_options = Config.module_configuration(directory)
-          module_parsed_string = run_xcode(module_options)
-          modules_parsed.push(module_parsed_string)
-        end
-        stdout = "[#{modules_parsed.join(',')}]"
       else
-        stdout = run_xcode(options)
+        stdout = Dir.chdir(options.source_directory) do
+          arguments = SourceKitten.arguments_from_options(options)
+          SourceKitten.run_sourcekitten(arguments)
+        end
       end
+
       build_docs_for_sourcekitten_output(stdout, options)
+    end
+
+    def self.multiple_modules(options)
+      modules_parsed = Array[]
+      # binding.pry
+      options.custom_modules.each do |arguments|
+        module_parsed_string = Dir.chdir(arguments['source_directory']) do
+          arguments = SourceKitten.arguments_from_options(options) + arguments['build_tool_arguments']
+          SourceKitten.run_sourcekitten(arguments)
+        end
+        modules_parsed.push(module_parsed_string)
+      end
+      stdout = "[#{modules_parsed.join(',')}]"
     end
 
     # Build Xcode project and parse the api documentation into a string
     # @param [String] source_directory where xcode project is
     # @param [Config] options
     # @return [String] the documented source module
-    def self.run_xcode(options)
-      Dir.chdir(options.source_directory) do
+    def self.run_xcode(options, directory)
+      Dir.chdir(directory) do
         arguments = SourceKitten.arguments_from_options(options)
         SourceKitten.run_sourcekitten(arguments)
       end
@@ -170,11 +181,10 @@ module Jazzy
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       (docs, stats) = SourceKitten.parse(
         sourcekitten_output,
-        options.min_acl,
-        options.skip_undocumented,
+        options,
         DocumentationGenerator.source_docs,
       )
-
+      
       prepare_output_dir(options.output, options.clean)
 
       stats.report
