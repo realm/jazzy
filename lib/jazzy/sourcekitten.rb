@@ -110,7 +110,7 @@ module Jazzy
     def self.navigation_module_section(docs, modules)
       # binding.pry
       group = modules.map do |modulename|
-        moduleN = "TomTomSDK" + modulename
+        moduleN = modulename
         children, docs = docs.partition { |doc| doc.modulename == moduleN}
         make_group(
           children,
