@@ -111,14 +111,30 @@ module Jazzy
       # binding.pry
       group = modules.map do |modulename|
         moduleN = modulename
-        children, docs = docs.partition { |doc| doc.modulename == moduleN}
+        children, docs = docs.partition { |doc| doc.modulename == moduleN }
+          
         make_group(
           children,
           modulename,
           "Find a way to add the correct abstract for each module",
         )
       end
-      [group.compact, docs]
+
+      # Get from the remaining docs if there are extensions that should also be part of this module.
+      group = group.compact.map { |group|
+        newDocs = docs
+          .select { |doc| doc.children.map { |doc| doc.modulename }.include?(group.name) }
+          .map { |doc| 
+            newdoc = doc.clone
+            newdoc.children, doc.children = doc.children.partition { |doc| doc.modulename == group.name } 
+            newdoc.name = group.name + "+" + newdoc.name
+            newdoc
+          }
+        group.children = group.children + newDocs
+        group
+      }
+
+      [group, docs.select { |doc| !doc.children.empty?()}]
     end
 
     # Join categories with the same name (eg. ObjC and Swift classes)
@@ -251,8 +267,6 @@ module Jazzy
         end
         arguments += ['--']
       end
-
-      # binding.pry
       
       if options.custom_modules_configured
         arguments
@@ -285,7 +299,7 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      # binding.pry
+      
       if swift_version = Config.instance.swift_version
         unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
           raise "Unable to find an Xcode with swift version #{swift_version}."
@@ -1130,7 +1144,7 @@ module Jazzy
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
       # if options.modules_configured
-      #   # binding.pry
+      
         docs = group_docs_per_module(docs, options.modules)
       # else
         # docs = group_docs(docs)

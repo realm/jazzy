@@ -69,7 +69,6 @@ module Jazzy
     # @param [Config] options
     # @return [SourceModule] the documented source module
     def self.build(options)
-      # binding.pry
       if options.modules_configured
         stdout = multiple_modules(options)
       elsif options.sourcekitten_sourcefile_configured
@@ -91,10 +90,9 @@ module Jazzy
 
     def self.multiple_modules(options)
       modules_parsed = Array[]
-      # binding.pry
       options.custom_modules.each do |arguments|
         module_parsed_string = Dir.chdir(arguments['source_directory']) do
-          arguments = SourceKitten.arguments_from_options(options) + arguments['build_tool_arguments']
+          arguments = SourceKitten.arguments_from_options(options) + (arguments['build_tool_arguments']||[])
           SourceKitten.run_sourcekitten(arguments)
         end
         modules_parsed.push(module_parsed_string)
