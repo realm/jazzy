@@ -178,12 +178,9 @@ module Jazzy
         'sourcekitten.',
       default: []
 
-    config_attr :custom_modules,
-      # command_line: ['-cm', '--build-tool-arguments arg1,arg2,…argN', NArray],
-      description: 'Custom navigation categories to replace the standard ' \
-        "'Classes', 'Protocols', etc. Types not explicitly named " \
-        'in a custom category appear in generic groups at the ' \
-        'end.  Example: https://git.io/v4Bcp',
+    config_attr :modules,
+      description: 'Array of modules that are going to be documented ' \
+      'It will contain arguments:  - name, build-tool-arguments arg1,arg2,…argN, source_directory.',
       default: false
 
     alias_config_attr :xcodebuild_arguments, :build_tool_arguments,
@@ -271,10 +268,6 @@ module Jazzy
       command_line: ['-m', '--module MODULE_NAME'],
       description: 'Name of module being documented. (e.g. RealmSwift)',
       default: ''
-
-    config_attr :modules,
-      command_line: ['--modules MODULE_NAME1,...ModuleNameN', Array],
-      description: 'Name of module being documented. (e.g. RealmSwift)'
 
     config_attr :version,
       command_line: '--module-version VERSION',
@@ -586,6 +579,7 @@ module Jazzy
         self.class.all_config_attrs.group_by(&prop)
       end
 
+
       config_file.each do |key, value|
         unless attr = attrs_by_conf_key[key]
           message = "Unknown config file attribute #{key.inspect}"
@@ -596,7 +590,6 @@ module Jazzy
           warning message
           next
         end
-
         attr.first.set_if_unconfigured(self, value)
       end
 
@@ -618,8 +611,9 @@ module Jazzy
           '`framework_root` or `umbrella_header` may be ignored.'
       end
 
-      if custom_modules_configured && module_name_configured
-        raise 'Usage of config and comand line'
+      if modules_configured && module_name_configured
+        raise 'Jazzy only allows the use of a single command for generating documentation.' \
+        'Using both module configuration and modules configuration together is not supported.'
       end
     end
 
@@ -632,7 +626,6 @@ module Jazzy
         candidate = dir.join('.jazzy.yaml')
         return candidate if candidate.exist?
       end
-
       nil
     end
 

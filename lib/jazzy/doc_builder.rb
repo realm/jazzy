@@ -88,9 +88,12 @@ module Jazzy
       build_docs_for_sourcekitten_output(stdout, options)
     end
 
+    # Build Xcode project for multiple modules and parse the api documentation into a string
+    # @param [Config] options
+    # @return String the documented source module
     def self.multiple_modules(options)
       modules_parsed = Array[]
-      options.custom_modules.each do |arguments|
+      options.modules.each do |arguments|
         module_parsed_string = Dir.chdir(arguments['source_directory']) do
           arguments = SourceKitten.arguments_from_options(options) + (arguments['build_tool_arguments']||[])
           SourceKitten.run_sourcekitten(arguments)
@@ -98,17 +101,6 @@ module Jazzy
         modules_parsed.push(module_parsed_string)
       end
       stdout = "[#{modules_parsed.join(',')}]"
-    end
-
-    # Build Xcode project and parse the api documentation into a string
-    # @param [String] source_directory where xcode project is
-    # @param [Config] options
-    # @return [String] the documented source module
-    def self.run_xcode(options, directory)
-      Dir.chdir(directory) do
-        arguments = SourceKitten.arguments_from_options(options)
-        SourceKitten.run_sourcekitten(arguments)
-      end
     end
 
     # Build & write HTML docs to disk from structured docs array

@@ -70,10 +70,13 @@ module Jazzy
       custom_categories + merge_categories(type_categories) + uncategorized
     end
 
+    # Group root-level docs by module name
     def self.group_docs_per_module(docs, modules)
+      modules = modules.map { |mod| mod['name']}
       categories, extra = navigation_module_section(
         docs, modules
       )
+
       merge_categories(categories) + self.group_docs(extra)
     end
 
@@ -108,15 +111,12 @@ module Jazzy
     end
 
     def self.navigation_module_section(docs, modules)
-      # binding.pry
       group = modules.map do |modulename|
-        moduleN = modulename
-        children, docs = docs.partition { |doc| doc.modulename == moduleN }
-          
+        children, docs = docs.partition { |doc| doc.modulename == modulename }
         make_group(
           children,
           modulename,
-          "Find a way to add the correct abstract for each module",
+          "",
         )
       end
 
@@ -268,7 +268,7 @@ module Jazzy
         arguments += ['--']
       end
       
-      if options.custom_modules_configured
+      if options.modules_configured
         arguments
       else 
         arguments + options.build_tool_arguments
@@ -299,7 +299,6 @@ module Jazzy
 
     # Run sourcekitten with given arguments and return STDOUT
     def self.run_sourcekitten(arguments)
-      
       if swift_version = Config.instance.swift_version
         unless xcode = XCInvoke::Xcode.find_swift_version(swift_version)
           raise "Unable to find an Xcode with swift version #{swift_version}."
@@ -1143,12 +1142,11 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
-      # if options.modules_configured
-      
+      if options.modules_configured
         docs = group_docs_per_module(docs, options.modules)
-      # else
-        # docs = group_docs(docs)
-      # end
+      else
+        docs = group_docs(docs)
+      end
       
       merge_consecutive_marks(docs)
       make_doc_urls(docs)
