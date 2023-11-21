@@ -290,8 +290,8 @@ directory.
 
 | Description | Command |
 | ---         | ---     |
-| Command line option | `--documentation={file pattern}` |
-| Example             | `--documentation=Docs/*.md` |
+| Command line option | `--documentation='{file pattern}'` |
+| Example             | `--documentation='Docs/*.md'` |
 | jazzy.yaml example  | `documentation: Docs/*.md` |
 
 By default, jazzy looks for one of README.md, README.markdown, README.mdown or README (in that order) in the directory from where it runs to render the index page at the root of the docs output directory.
@@ -307,8 +307,8 @@ There are a few limitations:
 
 | Description | Command |
 | ---         | ---     |
-| Command line option | `--abstract={file pattern}` |
-| Example             | `--abstract=Docs/Sections/*.md` |
+| Command line option | `--abstract='{file pattern}'` |
+| Example             | `--abstract='Docs/Sections/*.md'` |
 | jazzy.yaml example  | `abstract: Docs/Sections/*.md` |
 
 Using the `--abstract` options, extra markdown can be included after the heading of section overview pages. Think of it as a template include.
