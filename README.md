@@ -495,6 +495,13 @@ Users [have reported](https://github.com/realm/jazzy/issues/1012) that error
 messages about symbols lacking USRs can be fixed by unsetting
 `LLVM_TARGET_TRIPLE_SUFFIX` as part of the run script.
 
+**Warnings about matches and leftovers when using globs and wildcards**
+
+Some flags such as `--include` and `--documentation` support '*' characters as
+wildcards.  If you are using the CLI then you must make sure that your shell
+does not itself try to interpret them, for example by quoting the token: use
+`jazzy --documentation '*.md'` instead of `jazzy --documentation *.md`.
+
 ### Installation Problems
 
 **Can't find header files / clang**
