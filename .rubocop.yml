@@ -221,6 +221,9 @@ Metrics/ModuleLength:
 Metrics/BlockLength:
   Enabled: false
 
+Metrics/ParameterLists:
+  CountKeywordArgs: false
+
 Style/NumericPredicate:
   Enabled: false
 

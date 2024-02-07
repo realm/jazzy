@@ -52,7 +52,7 @@ module Jazzy
         config.author_name = author_name(podspec)
         config.author_name_configured = true
       end
-      unless config.module_name_configured
+      unless config.module_name_known?
         config.module_name = podspec.module_name
         config.module_name_configured = true
       end
