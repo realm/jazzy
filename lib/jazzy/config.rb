@@ -13,16 +13,17 @@ module Jazzy
     # rubocop:disable Naming/AccessorMethodName
     class Attribute
       attr_reader :name, :description, :command_line, :config_file_key,
-                  :default, :parse
+                  :default, :parse, :per_module
 
       def initialize(name, description: nil, command_line: nil,
-                     default: nil, parse: ->(x) { x })
+                     default: nil, parse: ->(x) { x }, per_module: false)
         @name = name.to_s
         @description = Array(description)
         @command_line = Array(command_line)
         @default = default
         @parse = parse
         @config_file_key = full_command_line_name || @name
+        @per_module = per_module
       end
 
       def get(config)
@@ -51,7 +52,6 @@ module Jazzy
       end
 
       def attach_to_option_parser(config, opt)
-        
         return if command_line.empty?
 
         opt.on(*command_line, *description) do |val|
@@ -135,22 +135,26 @@ module Jazzy
     config_attr :objc_mode,
       command_line: '--[no-]objc',
       description: 'Generate docs for Objective-C.',
-      default: false
+      default: false,
+      per_module: true
 
     config_attr :umbrella_header,
       command_line: '--umbrella-header PATH',
       description: 'Umbrella header for your Objective-C framework.',
-      parse: ->(uh) { expand_path(uh) }
+      parse: ->(uh) { expand_path(uh) },
+      per_module: true
 
     config_attr :framework_root,
       command_line: '--framework-root PATH',
       description: 'The root path to your Objective-C framework.',
-      parse: ->(fr) { expand_path(fr) }
+      parse: ->(fr) { expand_path(fr) },
+      per_module: true
 
     config_attr :sdk,
       command_line: '--sdk [iphone|watch|appletv][os|simulator]|macosx',
       description: 'The SDK for which your code should be built.',
-      default: 'macosx'
+      default: 'macosx',
+      per_module: true
 
     config_attr :hide_declarations,
       command_line: '--hide-declarations [objc|swift] ',
@@ -176,12 +180,14 @@ module Jazzy
       command_line: ['-b', '--build-tool-arguments arg1,arg2,…argN', Array],
       description: 'Arguments to forward to xcodebuild, swift build, or ' \
         'sourcekitten.',
-      default: []
+      default: [],
+      per_module: true
 
     config_attr :modules,
-      description: 'Array of modules that are going to be documented ' \
-      'It will contain arguments:  - name, build-tool-arguments arg1,arg2,…argN, source_directory.',
-      default: false
+      command_line: ['--modules Mod1,Mod2,…ModN', Array],
+      description: 'List of modules to document.  Use the config file to set per-module ' \
+        'build flags, see xxxREADMExxx.',
+      default: []
 
     alias_config_attr :xcodebuild_arguments, :build_tool_arguments,
       command_line: ['-x', '--xcodebuild-arguments arg1,arg2,…argN', Array],
@@ -191,19 +197,23 @@ module Jazzy
       command_line: ['-s', '--sourcekitten-sourcefile filepath1,…filepathN',
                      Array],
       description: 'File(s) generated from sourcekitten output to parse',
-      parse: ->(paths) { [paths].flatten.map { |path| expand_path(path) } }
+      parse: ->(paths) { [paths].flatten.map { |path| expand_path(path) } },
+      default: [],
+      per_module: true
 
     config_attr :source_directory,
       command_line: '--source-directory DIRPATH',
       description: 'The directory that contains the source to be documented',
       default: Pathname.pwd,
-      parse: ->(sd) { expand_path(sd) }
+      parse: ->(sd) { expand_path(sd) },
+      per_module: true
 
     config_attr :symbolgraph_directory,
       command_line: '--symbolgraph-directory DIRPATH',
       description: 'A directory containing a set of Swift Symbolgraph files ' \
         'representing the module to be documented',
-      parse: ->(sd) { expand_path(sd) }
+      parse: ->(sd) { expand_path(sd) },
+      per_module: true
 
     config_attr :excluded_files,
       command_line: ['-e', '--exclude filepath1,filepath2,…filepathN', Array],
@@ -267,7 +277,8 @@ module Jazzy
     config_attr :module_name,
       command_line: ['-m', '--module MODULE_NAME'],
       description: 'Name of module being documented. (e.g. RealmSwift)',
-      default: ''
+      default: '',
+      per_module: true
 
     config_attr :version,
       command_line: '--module-version VERSION',
@@ -516,10 +527,12 @@ module Jazzy
       if config.root_url
         config.dash_url ||= URI.join(
           config.root_url,
-          "docsets/#{config.module_name}.xml",
+          "docsets/#{config.module_name}.xml", # XXX help
         )
       end
-      
+
+      config.set_module_configs
+
       config.validate
 
       config
@@ -575,12 +588,13 @@ module Jazzy
       puts "Using config file #{config_path}"
       config_file = read_config_file(config_path)
 
-      attrs_by_conf_key, attrs_by_name = %i[config_file_key name].map do |prop|
-        self.class.all_config_attrs.group_by(&prop)
-      end
+      attrs_by_conf_key, attrs_by_name = grouped_attributes
 
+      parse_config_hash(config_file, attrs_by_conf_key, attrs_by_name)
+    end
 
-      config_file.each do |key, value|
+    def parse_config_hash(hash, attrs_by_conf_key, attrs_by_name, override: false)
+      hash.each do |key, value|
         unless attr = attrs_by_conf_key[key]
           message = "Unknown config file attribute #{key.inspect}"
           if matching_name = attrs_by_name[key]
@@ -590,10 +604,19 @@ module Jazzy
           warning message
           next
         end
-        attr.first.set_if_unconfigured(self, value)
+        setter = override ? :set : :set_if_unconfigured
+        attr.first.method(setter).call(self, value)
       end
+    end
 
-      self.base_path = nil
+    # Find keyed versions of the attributes, by config file key and then name-in-code
+    # Optional block allows filtering/overriding of attribute list.
+    def grouped_attributes
+      attrs = self.class.all_config_attrs
+      attrs = yield attrs if block_given?
+      %i[config_file_key name].map do |property|
+        attrs.group_by(&property)
+      end
     end
 
     def validate
@@ -604,20 +627,95 @@ module Jazzy
           '`source_host_url` or `source_host_files_url`.'
       end
 
+      if modules_configured && module_name_configured
+        raise 'Options `modules` and `module` are both set.  See ' \
+          'XXX readme URL XXX.'
+      end
+
+      if modules_configured && podspec_configured
+        raise 'Options `modules` and `podspec` are both set.  See ' \
+          'XXX readme URL XXX.'
+      end
+
+      module_configs.each(&:validate_module)
+    end
+
+    def validate_module
       if objc_mode &&
          build_tool_arguments_configured &&
          (framework_root_configured || umbrella_header_configured)
         warning 'Option `build_tool_arguments` is set: values passed to ' \
           '`framework_root` or `umbrella_header` may be ignored.'
       end
-
-      if modules_configured && module_name_configured
-        raise 'Jazzy only allows the use of a single command for generating documentation.' \
-        'Using both module configuration and modules configuration together is not supported.'
-      end
     end
 
     # rubocop:enable Metrics/MethodLength
+
+    # Module Configs
+    #
+    # The user can enter module information in three different ways.  This
+    # consolidates them into one view for the rest of the code.
+    #
+    # 1) Single module, back-compatible
+    #    --module Foo etc etc (or not given at all)
+    #
+    # 2) Multiple modules, simple, sharing build params
+    #    --modules Foo,Bar,Baz --source-directory Xyz
+    #
+    # 3) Multiple modules, custom, different build params but
+    #    inheriting others from the top level.
+    #    This is config-file only.
+    #    - modules
+    #      - module: Foo
+    #        source_directory: Xyz
+    #        build_tool_arguments: [a, b, c]
+    #
+    # After this we're left with `config.module_configs` that is an
+    # array of `Config` objects.
+
+    attr_reader :module_configs
+    attr_reader :module_names
+
+    def set_module_configs
+      @module_configs = parse_module_configs
+      @module_names = module_configs.map(&:module_name)
+      @module_names_set = Set.new(module_names)
+    end
+
+    def module_name?(name)
+      @module_names_set.include?(name)
+    end
+
+    def parse_module_configs
+      return [self] unless modules_configured
+
+      raise 'Config file key `modules` must be an array' unless modules.is_a?(Array)
+
+      if modules.first.is_a?(String)
+        # Massage format (2) into (3)
+        self.modules = modules.map { { 'module' => _1 } }
+      end
+
+      # Allow per-module overrides of only some config options
+      attrs_by_conf_key, attrs_by_name =
+        grouped_attributes { _1.select(&:per_module) }
+
+      modules.map do |module_hash|
+        mod_name = module_hash['module'] || ''
+        raise 'Missing `modules.module` config key' if mod_name.empty?
+
+        dup.tap do |module_config|
+          module_config.parse_config_hash(
+            module_hash, attrs_by_conf_key, attrs_by_name, override: true
+          )
+        end
+      end
+    end
+
+    # For podspec query
+    def module_name_known?
+      module_name_configured || modules_configured
+    end
 
     def locate_config_file
       return config_file if config_file

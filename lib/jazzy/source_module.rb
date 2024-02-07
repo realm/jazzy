@@ -21,7 +21,7 @@ module Jazzy
       self.docs = docs
       self.doc_structure = doc_structure
       self.doc_coverage = doc_coverage
-      self.name = options.module_name
+      self.name = options.module_configs.first.module_name # XXX what actually is this type for
       self.author_name = options.author_name
       self.author_url = options.author_url
       self.host = SourceHost.create(options)

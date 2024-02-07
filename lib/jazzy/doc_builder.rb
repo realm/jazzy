@@ -67,40 +67,25 @@ module Jazzy
 
     # Build documentation from the given options
     # @param [Config] options
-    # @return [SourceModule] the documented source module
     def self.build(options)
-      if options.modules_configured
-        stdout = multiple_modules(options)
-      elsif options.sourcekitten_sourcefile_configured
-        stdout = "[#{options.sourcekitten_sourcefile.map(&:read).join(',')}]"
-      elsif options.podspec_configured
-        pod_documenter = PodspecDocumenter.new(options.podspec)
-        stdout = pod_documenter.sourcekitten_output(options)
-      elsif options.swift_build_tool == :symbolgraph
-        stdout = SymbolGraph.build(options)
-      else
-        stdout = Dir.chdir(options.source_directory) do
-          arguments = SourceKitten.arguments_from_options(options)
-          SourceKitten.run_sourcekitten(arguments)
+      module_jsons = options.module_configs.map do |module_config|
+        if module_config.podspec_configured
+          # Config#validate guarantees not multi-module here
+          pod_documenter = PodspecDocumenter.new(options.podspec)
+          pod_documenter.sourcekitten_output(options)
+        elsif !module_config.sourcekitten_sourcefile.empty?
+          "[#{module_config.sourcekitten_sourcefile.map(&:read).join(',')}]"
+        elsif module_config.swift_build_tool == :symbolgraph
+          SymbolGraph.build(module_config)
+        else
+          Dir.chdir(module_config.source_directory) do
+            arguments = SourceKitten.arguments_from_options(module_config)
+            SourceKitten.run_sourcekitten(arguments)
+          end
         end
       end
 
-      build_docs_for_sourcekitten_output(stdout, options)
-    end
-
-    # Build Xcode project for multiple modules and parse the api documentation into a string
-    # @param [Config] options
-    # @return String the documented source module
-    def self.multiple_modules(options)
-      modules_parsed = Array[]
-      options.modules.each do |arguments|
-        module_parsed_string = Dir.chdir(arguments['source_directory']) do
-          arguments = SourceKitten.arguments_from_options(options) + (arguments['build_tool_arguments']||[])
-          SourceKitten.run_sourcekitten(arguments)
-        end
-        modules_parsed.push(module_parsed_string)
-      end
-      stdout = "[#{modules_parsed.join(',')}]"
+      build_docs_for_sourcekitten_output(module_jsons, options)
     end
 
     # Build & write HTML docs to disk from structured docs array
@@ -165,16 +150,15 @@ module Jazzy
     end
 
     # Build docs given sourcekitten output
-    # @param [String] sourcekitten_output Output of sourcekitten command
+    # @param [Array<String>] sourcekitten_output Output of sourcekitten command for each module
     # @param [Config] options Build options
-    # @return [SourceModule] the documented source module
     def self.build_docs_for_sourcekitten_output(sourcekitten_output, options)
       (docs, stats) = SourceKitten.parse(
         sourcekitten_output,
         options,
         DocumentationGenerator.source_docs,
       )
-      
+
       prepare_output_dir(options.output, options.clean)
 
       stats.report

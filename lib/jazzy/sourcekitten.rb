@@ -71,13 +71,12 @@ module Jazzy
     end
 
     # Group root-level docs by module name
-    def self.group_docs_per_module(docs, modules)
-      modules = modules.map { |mod| mod['name']}
+    def self.group_docs_per_module(docs, config)
       categories, extra = navigation_module_section(
-        docs, modules
+        docs, config.module_names
       )
 
-      merge_categories(categories) + self.group_docs(extra)
+      merge_categories(categories) + group_docs(extra)
     end
 
     def self.group_custom_categories(docs)
@@ -110,32 +109,36 @@ module Jazzy
       [group.compact, docs]
     end
 
+    # rubocop:disable Metrics/MethodLength XXX tmp
     def self.navigation_module_section(docs, modules)
-      group = modules.map do |modulename|
-        children, docs = docs.partition { |doc| doc.modulename == modulename }
+      group = modules.map do |module_name|
+        children, docs = docs.partition { |doc| doc.module_name == module_name }
         make_group(
           children,
-          modulename,
-          "",
+          module_name,
+          '',
         )
       end
 
       # Get from the remaining docs if there are extensions that should also be part of this module.
-      group = group.compact.map { |group|
-        newDocs = docs
-          .select { |doc| doc.children.map { |doc| doc.modulename }.include?(group.name) }
-          .map { |doc| 
+      group = group.compact.map do |group2|
+        new_docs = docs
+          .select { |doc| doc.children.map(&:module_name).include?(group2.name) }
+          .map do |doc|
             newdoc = doc.clone
-            newdoc.children, doc.children = doc.children.partition { |doc| doc.modulename == group.name } 
-            newdoc.name = group.name + "+" + newdoc.name
+            newdoc.children, doc.children =
+              doc.children.partition { _1.module_name == group2.name }
+            newdoc.name = group2.name + '+' + newdoc.name
+            newdoc.doc_module_name = group2.name # XXX not really but for now
             newdoc
-          }
-        group.children = group.children + newDocs
-        group
-      }
+          end
+        group2.children = group2.children + new_docs
+        group2
+      end
 
-      [group, docs.select { |doc| !doc.children.empty?()}]
+      [group, docs.reject { |doc| doc.children.empty? }]
     end
+    # rubocop:enable Metrics/MethodLength XXX tmp
 
     # Join categories with the same name (eg. ObjC and Swift classes)
     def self.merge_categories(categories)
@@ -247,48 +250,42 @@ module Jazzy
       end.select { |x| x }.flatten(1)
     end
 
-    def self.use_spm?(options)
-      options.swift_build_tool == :spm ||
-        (!options.swift_build_tool_configured &&
+    def self.use_spm?(module_config)
+      module_config.swift_build_tool == :spm ||
+        (!module_config.swift_build_tool_configured &&
          Dir['*.xcodeproj', '*.xcworkspace'].empty? &&
-         !options.build_tool_arguments.include?('-project') &&
-         !options.build_tool_arguments.include?('-workspace'))
+         !module_config.build_tool_arguments.include?('-project') &&
+         !module_config.build_tool_arguments.include?('-workspace'))
     end
 
     # Builds SourceKitten arguments based on Jazzy options
-    def self.arguments_from_options(options)
+    def self.arguments_from_options(module_config)
       arguments = ['doc']
-      if options.objc_mode
-        arguments += objc_arguments_from_options(options)
+      if module_config.objc_mode
+        arguments += objc_arguments_from_options(module_config)
       else
-        arguments += ['--spm'] if use_spm?(options)
-        unless options.module_name.empty?
-          arguments += ['--module-name', options.module_name]
+        arguments += ['--spm'] if use_spm?(module_config)
+        unless module_config.module_name.empty?
+          arguments += ['--module-name', module_config.module_name]
         end
         arguments += ['--']
       end
-      
-      if options.modules_configured
-        arguments
-      else 
-        arguments + options.build_tool_arguments
-      end
+
+      arguments + module_config.build_tool_arguments
     end
 
-
-
-    def self.objc_arguments_from_options(options)
+    def self.objc_arguments_from_options(module_config)
       arguments = []
-      if options.build_tool_arguments.empty?
-        arguments += ['--objc', options.umbrella_header.to_s, '--', '-x',
+      if module_config.build_tool_arguments.empty?
+        arguments += ['--objc', module_config.umbrella_header.to_s, '--', '-x',
                       'objective-c', '-isysroot',
-                      `xcrun --show-sdk-path --sdk #{options.sdk}`.chomp,
-                      '-I', options.framework_root.to_s,
+                      `xcrun --show-sdk-path --sdk #{module_config.sdk}`.chomp,
+                      '-I', module_config.framework_root.to_s,
                       '-fmodules']
       end
       # add additional -I arguments for each subdirectory of framework_root
-      unless options.framework_root.nil?
-        rec_path(Pathname.new(options.framework_root.to_s)).collect do |child|
+      unless module_config.framework_root.nil?
+        rec_path(Pathname.new(module_config.framework_root.to_s)).collect do |child|
           if child.directory?
             arguments += ['-I', child.to_s]
           end
@@ -395,18 +392,10 @@ module Jazzy
         end
     end
 
-    # Call things undocumented if they were compiled properly
-    # and came from our module.
-    def self.should_mark_undocumented(declaration)
-      declaration.usr &&
-        (declaration.modulename.nil? ||
-         declaration.modulename == Config.instance.module_name)
-    end
-
     def self.process_undocumented_token(doc, declaration)
       make_default_doc_info(declaration)
 
-      if !declaration.swift? || should_mark_undocumented(declaration)
+      if declaration.mark_undocumented?
         @stats.add_undocumented(declaration)
         return nil if @skip_undocumented
 
@@ -664,7 +653,14 @@ module Jazzy
         declaration.file = Pathname(doc['key.filepath']) if doc['key.filepath']
         declaration.usr = doc['key.usr']
         declaration.type_usr = doc['key.typeusr']
-        declaration.modulename = doc['key.modulename']
+        declaration.module_name =
+          if declaration.swift?
+            doc['key.modulename']
+          else
+            # ObjC best effort, category original module is unavailable
+            @current_module_name
+          end
+        declaration.doc_module_name = @current_module_name
         declaration.name = documented_name
         declaration.mark = current_mark
         declaration.access_control_level =
@@ -732,7 +728,8 @@ module Jazzy
       SourceDeclaration.new.tap do |decl|
         make_default_doc_info(decl)
         decl.name = name
-        decl.modulename = extension.modulename
+        decl.module_name = extension.module_name
+        decl.doc_module_name = extension.doc_module_name
         decl.type = extension.type
         decl.mark = extension.mark
         decl.usr = candidates.first.usr unless candidates.empty?
@@ -763,9 +760,9 @@ module Jazzy
 
     # Returns true if an Objective-C declaration is mergeable.
     def self.mergeable_objc?(decl, root_decls)
-      decl.type.objc_class? \
-        || (decl.type.objc_category? \
-            && name_match(decl.objc_category_name[0], root_decls))
+      decl.type.objc_class? ||
+        (decl.type.objc_category? &&
+          name_match(decl.objc_category_name[0], root_decls))
     end
 
     # Returns if a Swift declaration is mergeable.
@@ -1128,13 +1125,20 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
+    # rubocop:disable Metrics/MethodLength XXX tmp
     def self.parse(sourcekitten_output, options, inject_docs)
       @min_acl = options.min_acl
       @skip_undocumented = options.skip_undocumented
       @stats = Stats.new
       @inaccessible_protocols = []
-      sourcekitten_json = filter_files(JSON.parse(sourcekitten_output).flatten)
-      docs = make_source_declarations(sourcekitten_json).concat inject_docs
+
+      # Process each module separately to inject the source module name
+      docs = sourcekitten_output.zip(options.module_names).map do |json, name|
+        @current_module_name = name
+        sourcekitten_dicts = filter_files(JSON.parse(json).flatten)
+        make_source_declarations(sourcekitten_dicts)
+      end.flatten + inject_docs
+
       docs = expand_extensions(docs)
       docs = deduplicate_declarations(docs)
       docs = reject_objc_types(docs)
@@ -1142,16 +1146,18 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
-      if options.modules_configured
-        docs = group_docs_per_module(docs, options.modules)
-      else
-        docs = group_docs(docs)
-      end
-      
+      docs =
+        if options.module_configs.count > 1 # XXX need a --merge-modules or something
+          group_docs_per_module(docs, options)
+        else
+          group_docs(docs)
+        end
+
       merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, @stats]
     end
+    # rubocop:enable Metrics/MethodLength XXX tmp
   end
 end

@@ -20,10 +20,10 @@ module Jazzy
     # with configured args.
     # Then parse the results, and return as JSON in SourceKit[ten]
     # format.
-    def self.build(config)
-      if config.symbolgraph_directory.nil?
+    def self.build(module_config)
+      if module_config.symbolgraph_directory.nil?
         Dir.mktmpdir do |tmp_dir|
-          args = arguments(config, tmp_dir)
+          args = arguments(module_config, tmp_dir)
 
           Executable.execute_command('swift',
                                      args.unshift('symbolgraph-extract'),
@@ -32,17 +32,17 @@ module Jazzy
           parse_symbols(tmp_dir)
         end
       else
-        parse_symbols(config.symbolgraph_directory.to_s)
+        parse_symbols(module_config.symbolgraph_directory.to_s)
       end
     end
 
     # Figure out the args to pass to symbolgraph-extract
-    def self.arguments(config, output_path)
-      if config.module_name.empty?
+    def self.arguments(module_config, output_path)
+      if module_config.module_name.empty?
         raise 'error: `--swift-build-tool symbolgraph` requires `--module`.'
       end
 
-      user_args = config.build_tool_arguments.join
+      user_args = module_config.build_tool_arguments.join
 
       if user_args =~ /-(?:module-name|minimum-access-level|output-dir)/
         raise 'error: `--build-tool-arguments` for ' \
@@ -52,19 +52,19 @@ module Jazzy
 
       # Default set
       args = [
-        '-module-name', config.module_name,
+        '-module-name', module_config.module_name,
         '-minimum-access-level', 'private',
         '-output-dir', output_path,
         '-skip-synthesized-members'
       ]
 
       # Things user can override
-      args += ['-sdk', sdk(config)] unless user_args =~ /-sdk/
+      args += ['-sdk', sdk(module_config)] unless user_args =~ /-sdk/
       args += ['-target', target] unless user_args =~ /-target/
-      args += ['-F', config.source_directory.to_s] unless user_args =~ /-F(?!s)/
-      args += ['-I', config.source_directory.to_s] unless user_args =~ /-I/
+      args += ['-F', module_config.source_directory.to_s] unless user_args =~ /-F(?!s)/
+      args += ['-I', module_config.source_directory.to_s] unless user_args =~ /-I/
 
-      args + config.build_tool_arguments
+      args + module_config.build_tool_arguments
     end
 
     # Parse the symbol files in the given directory
@@ -84,8 +84,8 @@ module Jazzy
     end
 
     # Get the SDK path.  On !darwin this just isn't needed.
-    def self.sdk(config)
-      `xcrun --show-sdk-path --sdk #{config.sdk}`.chomp
+    def self.sdk(module_config)
+      `xcrun --show-sdk-path --sdk #{module_config.sdk}`.chomp
     end
 
     # Guess a default LLVM target.  Feels like the tool should figure this

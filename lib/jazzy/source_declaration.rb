@@ -114,7 +114,7 @@ module Jazzy
     attr_accessor :column
     attr_accessor :usr
     attr_accessor :type_usr
-    attr_accessor :modulename
+    attr_accessor :module_name
     attr_accessor :name
     attr_accessor :objc_name
     attr_accessor :declaration
@@ -139,6 +139,11 @@ module Jazzy
     attr_accessor :generic_requirements
     attr_accessor :inherited_types
     attr_accessor :async
+
+    # The name of the module being documented that contains this
+    # declaration.  Only different from module_name when this is
+    # an extension of a type from another module.  Nil for guides.
+    attr_accessor :doc_module_name
 
     def usage_discouraged?
       unavailable || deprecated
@@ -183,12 +188,20 @@ module Jazzy
       inherited_types.any? { |t| !unwanted.include?(t) }
     end
 
-    # Pre-Swift 5.6: SourceKit only sets modulename for imported modules
-    # Swift 5.6+: modulename is always set
+    # Pre-Swift 5.6: SourceKit only sets module_name for imported modules
+    # Swift 5.6+: module_name is always set
     def type_from_doc_module?
       !type.extension? ||
         (swift? && usr &&
-          (modulename.nil? || modulename == Config.instance.module_name))
+          (module_name.nil? || module_name == doc_module_name))
+    end
+
+    # Don't ask the user to write documentation for types being extended
+    # from other modules.  Compile errors leave no docs and a `nil` USR.
+    def mark_undocumented?
+      !swift? || (usr &&
+        (module_name.nil? ||
+          Config.instance.module_name?(module_name)))
     end
 
     # Info text for contents page by collapsed item name
