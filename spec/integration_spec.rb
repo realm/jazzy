@@ -249,6 +249,10 @@ describe_cli 'jazzy' do
                               '--build-tool-arguments ' \
                               "-emit-extension-block-symbols,-I,#{module_path}"
     end
+
+    describe 'Creates docs for a multiple-module project' do
+      behaves_like cli_spec 'jazzy_multi_modules'
+    end
   end if !spec_subset || spec_subset == 'swift'
 
   describe 'jazzy cocoapods' do
