@@ -250,7 +250,7 @@ module Jazzy
         doc[:doc_coverage] = source_module.doc_coverage unless
           Config.instance.hide_documentation_coverage
         doc[:structure] = source_module.doc_structure
-        doc[:module_name] = source_module.name
+        doc[:module_name] = source_module.readme_title # historical name
         doc[:author_name] = source_module.author_name
         if source_host = source_module.host
           doc[:source_host_name] = source_host.name
@@ -270,7 +270,7 @@ module Jazzy
     # @param [String] path_to_root
     def self.document_markdown(source_module, doc_model, path_to_root)
       doc = new_document(source_module, doc_model)
-      name = doc_model.name == 'index' ? source_module.name : doc_model.name
+      name = doc_model.name == 'index' ? source_module.readme_title : doc_model.name
       doc[:name] = name
       doc[:overview] = render(doc_model, doc_model.content(source_module))
       doc[:path_to_root] = path_to_root

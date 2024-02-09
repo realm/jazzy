@@ -301,6 +301,10 @@ module Jazzy
       description: 'The path to a markdown README file',
       parse: ->(rp) { expand_path(rp) }
 
+    config_attr :readme_title,
+      command_line: '--readme-title TITLE',
+      description: 'The title for the README in the generated documentation'
+
     config_attr :documentation_glob,
       command_line: '--documentation GLOB',
       description: 'Glob that matches available documentation',
