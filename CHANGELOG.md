@@ -6,8 +6,8 @@
 
 ##### Enhancements
 
-* Add `--docset-title` to set the title of a docset separately
-  to the module name.  
+* Add `--readme-title` and `--docset-title` to set the titles of the readme
+  docs page and the Dash docset independently of the module name.  
   [John Fairhurst](https://github.com/johnfairh)
 
 * Support Swift 5.9 symbolgraph extension symbols.  

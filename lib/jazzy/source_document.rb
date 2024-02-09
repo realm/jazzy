@@ -89,7 +89,7 @@ pod '#{podspec.name}'
         README
       else
         <<-README
-# #{source_module.name}
+# #{source_module.readme_title}
 
 ### Authors
 

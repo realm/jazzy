@@ -12,7 +12,7 @@ module Jazzy
   class SourceModule
     include Config::Mixin
 
-    attr_accessor :name
+    attr_accessor :readme_title
     attr_accessor :docs
     attr_accessor :doc_coverage
     attr_accessor :doc_structure
@@ -25,7 +25,8 @@ module Jazzy
       self.docs = docs
       self.doc_structure = doc_structure
       self.doc_coverage = doc_coverage
-      self.name = config.module_names.first # XXX what actually is this type for
+      self.readme_title =
+        config.readme_title || config.module_names.first
       self.author_name = config.author_name
       self.author_url = config.author_url
       self.host = SourceHost.create(config)
