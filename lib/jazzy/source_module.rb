@@ -7,28 +7,29 @@ require 'jazzy/source_declaration'
 require 'jazzy/source_host'
 
 module Jazzy
+  # A cache of info that is common across all page templating, gathered
+  # from other parts of the program.
   class SourceModule
+    include Config::Mixin
+
     attr_accessor :name
     attr_accessor :docs
     attr_accessor :doc_coverage
     attr_accessor :doc_structure
     attr_accessor :author_name
     attr_accessor :author_url
-    attr_accessor :dash_url
+    attr_accessor :dash_feed_url
     attr_accessor :host
 
-    def initialize(options, docs, doc_structure, doc_coverage)
+    def initialize(docs, doc_structure, doc_coverage, docset_builder)
       self.docs = docs
       self.doc_structure = doc_structure
       self.doc_coverage = doc_coverage
-      self.name = options.module_configs.first.module_name # XXX what actually is this type for
-      self.author_name = options.author_name
-      self.author_url = options.author_url
-      self.host = SourceHost.create(options)
-      return unless options.dash_url
-
-      self.dash_url =
-        "dash-feed://#{ERB::Util.url_encode(options.dash_url.to_s)}"
+      self.name = config.module_names.first # XXX what actually is this type for
+      self.author_name = config.author_name
+      self.author_url = config.author_url
+      self.host = SourceHost.create(config)
+      self.dash_feed_url = docset_builder.dash_feed_url
     end
 
     def all_declarations

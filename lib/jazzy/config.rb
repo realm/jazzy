@@ -334,6 +334,13 @@ module Jazzy
       command_line: '--docset-path DIRPATH',
       description: 'The relative path for the generated docset'
 
+    config_attr :docset_title,
+      command_line: '--docset-title TITLE',
+      description: 'The title of the generated docset.  A simplified version ' \
+        'is used for the filenames associated with the docset.  If the ' \
+        'option is not set then the name of the module being documented is ' \
+        'used as the docset title.'
+
     # ──────── URLs ────────
 
     config_attr :root_url,
@@ -523,13 +530,6 @@ module Jazzy
       config.parse_command_line
       config.parse_config_file
       PodspecDocumenter.apply_config_defaults(config.podspec, config)
-
-      if config.root_url
-        config.dash_url ||= URI.join(
-          config.root_url,
-          "docsets/#{config.module_name}.xml", # XXX help
-        )
-      end
 
       config.set_module_configs
 

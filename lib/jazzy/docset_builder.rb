@@ -14,28 +14,33 @@ module Jazzy
       attr_reader :source_module
       attr_reader :docset_dir
       attr_reader :documents_dir
+      attr_reader :name
 
-      def initialize(generated_docs_dir, source_module)
-        @source_module = source_module
+      def initialize(generated_docs_dir)
+        @name = config.docset_title || config.module_names.first
         docset_path = config.docset_path ||
-                      "docsets/#{source_module.name}.docset"
+                      "docsets/#{safe_name}.docset"
         @docset_dir = generated_docs_dir + docset_path
         @generated_docs_dir = generated_docs_dir
         @output_dir = docset_dir.parent
         @documents_dir = docset_dir + 'Contents/Resources/Documents/'
       end
 
-      def build!
+      def build!(all_declarations)
         docset_dir.rmtree if docset_dir.exist?
         copy_docs
         copy_icon if config.docset_icon
         write_plist
-        create_index
+        create_index(all_declarations)
         create_archive
         create_xml if config.version && config.root_url
       end
 
       private
+
+      def safe_name
+        name.gsub(/[^a-z0-9_\-]+/i, '_')
+      end
 
       def write_plist
         info_plist_path = docset_dir + 'Contents/Info.plist'
@@ -43,8 +48,9 @@ module Jazzy
           template = Pathname(__dir__) + 'docset_builder/info_plist.mustache'
           plist << Mustache.render(
             template.read,
-            lowercase_name: source_module.name.downcase,
-            name: source_module.name,
+            lowercase_name: name.downcase,
+            lowercase_safe_name: safe_name.downcase,
+            name: name,
             root_url: config.root_url,
             playground_url: config.docset_playground_url,
           )
@@ -52,7 +58,7 @@ module Jazzy
       end
 
       def create_archive
-        target  = "#{source_module.name}.tgz"
+        target  = "#{safe_name}.tgz"
         source  = docset_dir.basename.to_s
         options = {
           chdir: output_dir.to_s,
@@ -70,17 +76,17 @@ module Jazzy
       end
 
       def copy_icon
-        FileUtils.cp config.docset_icon, @docset_dir + 'icon.png'
+        FileUtils.cp config.docset_icon, docset_dir + 'icon.png'
       end
 
-      def create_index
+      def create_index(all_declarations)
         search_index_path = docset_dir + 'Contents/Resources/docSet.dsidx'
         SQLite3::Database.new(search_index_path.to_s) do |db|
           db.execute('CREATE TABLE searchIndex(' \
             'id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT);')
           db.execute('CREATE UNIQUE INDEX anchor ON ' \
             'searchIndex (name, type, path);')
-          source_module.all_declarations.select(&:type).each do |doc|
+          all_declarations.select(&:type).each do |doc|
             db.execute('INSERT OR IGNORE INTO searchIndex(name, type, path) ' \
               'VALUES (?, ?, ?);', [doc.name, doc.type.dash_type, doc.filepath])
           end
@@ -88,10 +94,35 @@ module Jazzy
       end
 
       def create_xml
-        (output_dir + "#{source_module.name}.xml").open('w') do |xml|
-          url = URI.join(config.root_url, "docsets/#{source_module.name}.tgz")
+        (output_dir + "#{safe_name}.xml").open('w') do |xml|
+          url = URI.join(config.root_url, "docsets/#{safe_name}.tgz")
           xml << "<entry><version>#{config.version}</version><url>#{url}" \
             "</url></entry>\n"
+        end
+      end
+
+      # The web URL where the user intends to place the docset XML file.
+      def dash_url
+        return nil unless config.dash_url || config.root_url
+
+        config.dash_url ||
+          URI.join(
+            config.root_url,
+            "docsets/#{safe_name}.xml",
+          )
+      end
+
+      public
+
+      # The dash-feed:// URL that links from the Dash icon in generated
+      # docs.  This is passed to the Dash app and encodes the actual web
+      # `dash_url` where the user has placed the XML file.
+      #
+      # Unfortunately for historical reasons this is *also* called the
+      # 'dash_url' where it appears in mustache templates and so on.
+      def dash_feed_url
+        dash_url&.then do |url|
+          "dash-feed://#{ERB::Util.url_encode(url.to_s)}"
         end
       end
     end

@@ -423,6 +423,24 @@ jazzy --swift-version 5.7
 DEVELOPER_DIR=/Applications/Xcode_14.app/Contents/Developer jazzy
 ```
 
+### Dash Docset Support
+
+As well as the browsable HTML documentation, Jazzy creates a _docset_ for use
+with the [Dash][dash] app.
+
+By default the docset is created at `docs/docsets/ModuleName.tgz`.  Use
+`--docset-path` to create it somewhere else; use `--docset-title` to change
+the docset's title.
+
+Use `--docset-playground-url` and `--docset-icon` to further customize the
+docset.
+
+If you set both `--root-url` to be the (https://) URL where you plan to deploy
+your documentation and `--version` to give your documentation a version number
+then Jazzy also creates a docset feed XML file and includes an "Install in Dash"
+button on the site.  This lets users who are browsing your documentation on the
+web install and start using the docs in Dash locally.
+
 ## Linux
 
 Jazzy uses [SourceKitten][sourcekitten] to communicate with the Swift build
@@ -576,3 +594,4 @@ read [our blog](https://realm.io/news) or say hi on twitter
 [bundler]: https://rubygems.org/gems/bundler
 [mustache]: https://mustache.github.io "Mustache"
 [spm]: https://swift.org/package-manager/ "Swift Package Manager"
+[dash]: https://kapeli.com/dash/ "Dash"
