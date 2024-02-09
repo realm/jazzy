@@ -90,11 +90,9 @@ module Jazzy
 
     # Build & write HTML docs to disk from structured docs array
     # @param [String] output_dir Root directory to write docs
-    # @param [Array] docs Array of structured docs
-    # @param [Config] options Build options
-    # @param [Array] doc_structure @see #doc_structure_for_docs
-    def self.build_docs(output_dir, docs, source_module)
-      each_doc(output_dir, docs) do |doc, path|
+    # @param [SourceModule] source_module All info to generate docs
+    def self.build_docs(output_dir, source_module)
+      each_doc(output_dir, source_module.docs) do |doc, path|
         prepare_output_dir(path.parent, false)
         depth = path.relative_path_from(output_dir).each_filename.count - 1
         path_to_root = '../' * depth
@@ -126,10 +124,13 @@ module Jazzy
 
       docs << SourceDocument.make_index(options.readme_path)
 
-      source_module = SourceModule.new(options, docs, structure, coverage)
-
       output_dir = options.output
-      build_docs(output_dir, source_module.docs, source_module)
+
+      docset_builder = DocsetBuilder.new(output_dir)
+
+      source_module = SourceModule.new(docs, structure, coverage, docset_builder)
+
+      build_docs(output_dir, source_module)
 
       unless options.disable_search
         warn 'building search index'
@@ -139,7 +140,7 @@ module Jazzy
       copy_extensions(source_module, output_dir)
       copy_theme_assets(output_dir)
 
-      DocsetBuilder.new(output_dir, source_module).build!
+      docset_builder.build!(source_module.all_declarations)
 
       generate_badge(source_module.doc_coverage, options)
 
@@ -259,7 +260,7 @@ module Jazzy
           doc[:github_url] = doc[:source_host_url]
           doc[:github_token_url] = doc[:source_host_item_url]
         end
-        doc[:dash_url] = source_module.dash_url
+        doc[:dash_url] = source_module.dash_feed_url
       end
     end
 

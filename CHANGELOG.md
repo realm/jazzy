@@ -6,6 +6,10 @@
 
 ##### Enhancements
 
+* Add `--docset-title` to set the title of a docset separately
+  to the module name.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 * Support Swift 5.9 symbolgraph extension symbols.  
   [John Fairhurst](https://github.com/johnfairh)
   [#1368](https://github.com/realm/jazzy/issues/1368)
