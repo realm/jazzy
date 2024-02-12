@@ -164,8 +164,14 @@ module Jazzy
         kind == 'sourcekitten.source.lang.objc.decl.unexposed'
       end
 
+      OVERVIEW_KIND = 'Overview'
+
       def self.overview
-        Type.new('Overview')
+        Type.new(OVERVIEW_KIND)
+      end
+
+      def overview?
+        kind == OVERVIEW_KIND
       end
 
       MARKDOWN_KIND = 'document.markdown'
@@ -194,7 +200,8 @@ module Jazzy
           dash: 'Guide',
         }.freeze,
 
-        'Overview' => {
+        # Group/Overview
+        OVERVIEW_KIND => {
           jazzy: nil,
           dash: 'Section',
         }.freeze,

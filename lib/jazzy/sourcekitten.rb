@@ -189,7 +189,7 @@ module Jazzy
     end
 
     # rubocop:disable Metrics/MethodLength
-    # Generate doc URL by prepending its parents URLs
+    # Generate doc URL by prepending its parents' URLs
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs)
       docs.each do |doc|
@@ -229,16 +229,44 @@ module Jazzy
     # Guides in the root for back-compatibility.
     # Declarations under outer namespace type (Structures, Classes, etc.)
     def self.subdir_for_doc(doc)
-      return [] if doc.type.markdown?
-
-      top_level_decl = doc.namespace_path.first
-      if top_level_decl.type.name
-        [top_level_decl.type.plural_url_name] +
-          doc.namespace_ancestors.map(&:name)
+      if Config.instance.multiple_modules?
+        subdir_for_doc_multi_module(doc)
       else
-        # Category - in the root
-        []
+        # Back-compatibility layout version
+        subdir_for_doc_single_module(doc)
       end
+    end
+
+    # Pre-multi-module site layout, does not allow for
+    # types with the same name.
+    def self.subdir_for_doc_single_module(doc)
+      # Guides + Groups in the root
+      return [] if doc.type.markdown? || doc.type.overview?
+
+      [doc.namespace_path.first.type.plural_url_name] +
+        doc.namespace_ancestors.map(&:name)
+    end
+
+    # Multi-module site layout, separate each module that
+    # is being documented.
+    def self.subdir_for_doc_multi_module(doc)
+      # Guides + Groups in the root
+      return [] if doc.type.markdown? || doc.type.overview?
+
+      root_decl = doc.namespace_path.first
+
+      # Extensions need an extra dir to allow for extending
+      # ExternalModule1.TypeName and ExternalModule2.TypeName
+      namespace_subdir =
+        if root_decl.type.swift_extension?
+          ['Extensions', root_decl.module_name]
+        else
+          ['Types']
+        end
+
+      [root_decl.doc_module_name] +
+        namespace_subdir +
+        doc.namespace_ancestors.map(&:name)
     end
 
     # returns all subdirectories of specified path
