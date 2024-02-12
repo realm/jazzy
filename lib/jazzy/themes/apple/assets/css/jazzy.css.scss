@@ -23,7 +23,7 @@ $content_top_offset: 70px;
 $content_body_margin: 16px;
 $content_body_left_offset: $sidebar_width + $content_body_margin;
 $header_height: 32px;
-$breadcrumb_padding_top: 17px;
+$breadcrumb_padding_top: 12px;
 
 $code_font: 0.95em Menlo, monospace;
 
@@ -206,9 +206,11 @@ header {
   height: $content_top_offset - $header_height - $breadcrumb_padding_top;
   padding-top: $breadcrumb_padding_top;
   position: fixed;
-  width: 100%;
+  width: inherit;
   z-index: 2;
   margin-top: $header_height;
+  white-space: nowrap;
+  overflow-x: scroll;
   #carat {
     height: 10px;
     margin: 0 5px;

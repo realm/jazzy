@@ -25,8 +25,8 @@ module Jazzy
       self.docs = docs
       self.doc_structure = doc_structure
       self.doc_coverage = doc_coverage
-      self.readme_title =
-        config.readme_title || config.module_names.first
+      title = config.readme_title || config.module_names.first
+      self.readme_title = title.empty? ? 'Index' : title
       self.author_name = config.author_name
       self.author_url = config.author_url
       self.host = SourceHost.create(config)
