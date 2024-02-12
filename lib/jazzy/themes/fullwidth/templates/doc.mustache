@@ -31,9 +31,16 @@
     {{> header}}
 
     <p class="breadcrumbs">
-      <a class="breadcrumb" href="{{path_to_root}}index.html">{{module_name}} Reference</a>
+      <a class="breadcrumb" href="{{path_to_root}}index.html">{{readme_title}}</a>
+      {{#breadcrumbs}}
       <img class="carat" src="{{path_to_root}}img/carat.png" alt=""/>
+      {{#last}}
       {{name}} {{kind}} Reference
+      {{/last}}
+      {{^last}}
+      <a class="breadcrumb" href="{{path_to_root}}{{url}}">{{name}}</a>
+      {{/last}}
+      {{/breadcrumbs}}
     </p>
 
     <div class="content-wrapper">

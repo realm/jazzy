@@ -6,6 +6,10 @@
 
 ##### Enhancements
 
+* Improve page breadcrumbs to include parent pages and indicate source module
+  of extensions from other modules.  
+  [John Fairhurst](https://github.com/johnfairh)
+
 * Add `--readme-title` and `--docset-title` to set the titles of the readme
   docs page and the Dash docset independently of the module name.  
   [John Fairhurst](https://github.com/johnfairh)

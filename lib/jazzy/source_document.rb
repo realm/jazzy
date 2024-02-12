@@ -27,6 +27,10 @@ module Jazzy
       end
     end
 
+    def readme?
+      url == 'index.html'
+    end
+
     def render_as_page?
       true
     end

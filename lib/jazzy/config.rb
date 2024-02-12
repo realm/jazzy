@@ -690,6 +690,10 @@ module Jazzy
       @module_names_set.include?(name)
     end
 
+    def multiple_modules?
+      @module_names.count > 1
+    end
+
     def parse_module_configs
       return [self] unless modules_configured
 

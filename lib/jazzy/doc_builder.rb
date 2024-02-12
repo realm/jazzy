@@ -250,7 +250,8 @@ module Jazzy
         doc[:doc_coverage] = source_module.doc_coverage unless
           Config.instance.hide_documentation_coverage
         doc[:structure] = source_module.doc_structure
-        doc[:module_name] = source_module.readme_title # historical name
+        doc[:readme_title] = source_module.readme_title
+        doc[:module_name] = doc[:readme_title]
         doc[:author_name] = source_module.author_name
         if source_host = source_module.host
           doc[:source_host_name] = source_host.name
@@ -261,6 +262,7 @@ module Jazzy
           doc[:github_token_url] = doc[:source_host_item_url]
         end
         doc[:dash_url] = source_module.dash_feed_url
+        doc[:breadcrumbs] = make_breadcrumbs(doc_model)
       end
     end
 
@@ -270,7 +272,7 @@ module Jazzy
     # @param [String] path_to_root
     def self.document_markdown(source_module, doc_model, path_to_root)
       doc = new_document(source_module, doc_model)
-      name = doc_model.name == 'index' ? source_module.readme_title : doc_model.name
+      name = doc_model.readme? ? source_module.readme_title : doc_model.name
       doc[:name] = name
       doc[:overview] = render(doc_model, doc_model.content(source_module))
       doc[:path_to_root] = path_to_root
@@ -448,5 +450,28 @@ module Jazzy
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
     # rubocop:enable Metrics/MethodLength
+
+    # Breadcrumbs for a page - doesn't include the top 'readme' crumb
+    def self.make_breadcrumbs(doc_model)
+      return [] if doc_model.readme?
+
+      docs_path = doc_model.docs_path
+      breadcrumbs = docs_path.map do |doc|
+        {
+          name: doc.name,
+          url: doc.url,
+          last: doc == doc_model,
+        }
+      end
+
+      return breadcrumbs if breadcrumbs.count == 1
+
+      # Add the module name to the outer type if not clear from context
+      if docs_path[1].ambiguous_module_name?(docs_path[0].name)
+        breadcrumbs[1][:name] = docs_path[1].fully_qualified_module_name
+      end
+
+      breadcrumbs
+    end
   end
 end

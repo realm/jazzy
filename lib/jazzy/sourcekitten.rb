@@ -655,7 +655,8 @@ module Jazzy
         declaration.type_usr = doc['key.typeusr']
         declaration.module_name =
           if declaration.swift?
-            doc['key.modulename']
+            # Filter out Apple sub-framework implementation names
+            doc['key.modulename']&.sub(/\..*$/, '')
           else
             # ObjC best effort, category original module is unavailable
             @current_module_name

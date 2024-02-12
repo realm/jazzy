@@ -62,6 +62,7 @@ module Jazzy
       end
     end
 
+    # 'OuterType.NestedType.method(arg:)'
     def fully_qualified_name
       namespace_path.map(&:name).join('.')
     end
@@ -72,6 +73,17 @@ module Jazzy
       Regexp.new(namespace_path.map(&:name)
                                .map { |n| Regexp.escape(n) }
                                .join('(?:<.*?>)?\.'))
+    end
+
+    # 'MyModule.OuterType.NestedType.method(arg:)'
+    def fully_qualified_module_name
+      prefix = module_name&.then { _1 + '.' } || ''
+      prefix + fully_qualified_name
+    end
+
+    # List of doc_parent decls, .last is self
+    def docs_path
+      (parent_in_docs&.docs_path || []) + [self]
     end
 
     # If this declaration is an objc category, returns an array with the name
@@ -199,9 +211,20 @@ module Jazzy
     # Don't ask the user to write documentation for types being extended
     # from other modules.  Compile errors leave no docs and a `nil` USR.
     def mark_undocumented?
-      !swift? || (usr &&
-        (module_name.nil? ||
-          Config.instance.module_name?(module_name)))
+      !swift? || (usr && !extension_of_external_type?)
+    end
+
+    def extension_of_external_type?
+      !module_name.nil? &&
+        !Config.instance.module_name?(module_name)
+    end
+
+    # Is it unclear from context what module the (top-level) decl is from?
+    def ambiguous_module_name?(group_name)
+      extension_of_external_type? ||
+        (Config.instance.multiple_modules? &&
+          !module_name.nil? &&
+          group_name != module_name)
     end
 
     # Info text for contents page by collapsed item name
@@ -210,6 +233,10 @@ module Jazzy
                from_protocol_extension ? 'extension method' : nil,
                async ? 'asynchronous' : nil].compact
       notes.join(', ').humanize unless notes.empty?
+    end
+
+    def readme?
+      false
     end
 
     def alternative_abstract
