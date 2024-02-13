@@ -13,6 +13,7 @@ require 'jazzy/highlighter'
 require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/stats'
+require 'jazzy/grouper'
 
 ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'
 
@@ -60,115 +61,9 @@ module Jazzy
       ).freeze
     end
 
-    # Group root-level docs by custom categories (if any) and type or module
-    def self.group_docs(docs)
-      custom_categories, docs = group_custom_categories(docs)
-      unlisted_prefix = Config.instance.custom_categories_unlisted_prefix
-      type_category_prefix = custom_categories.any? ? unlisted_prefix : ''
-      custom_categories +
-        if Config.instance.merge_modules == :all
-          group_docs_by_type(docs, type_category_prefix)
-        else
-          group_docs_by_module(docs, type_category_prefix)
-        end
-    end
-
-    # Group root-level docs by type
-    def self.group_docs_by_type(docs, type_category_prefix)
-      type_groups = SourceDeclaration::Type.all.map do |type|
-        children, docs = docs.partition { |doc| doc.type == type }
-        make_type_group(children, type, type_category_prefix)
-      end
-      merge_categories(type_groups.compact) + docs
-    end
-
-    # Group root-level docs by module name
-    def self.group_docs_by_module(docs, type_category_prefix)
-      guide_categories, docs = group_guides(docs, type_category_prefix)
-
-      module_categories = docs
-        .group_by(&:doc_module_name)
-        .map do |name, module_docs|
-          make_group(
-            module_docs,
-            name,
-            "The following declarations are provided by module #{name}.",
-          )
-        end
-
-      guide_categories + module_categories
-    end
-
-    def self.group_custom_categories(docs)
-      group = Config.instance.custom_categories.map do |category|
-        children = category['children'].flat_map do |name|
-          docs_with_name, docs = docs.partition { |doc| doc.name == name }
-          if docs_with_name.empty?
-            warn 'WARNING: No documented top-level declarations match ' \
-              "name \"#{name}\" specified in categories file"
-          end
-          docs_with_name
-        end
-        # Category config overrides alphabetization
-        children.each.with_index { |child, i| child.nav_order = i }
-        make_group(children, category['name'], '')
-      end
-      [group.compact, docs]
-    end
-
-    def self.group_guides(docs, prefix)
-      guides, others = docs.partition { |doc| doc.type.markdown? }
-      return [[], others] unless guides.any?
-
-      [[make_type_group(guides, guides.first.type, prefix)], others]
-    end
-
-    def self.make_type_group(docs, type, type_category_prefix)
-      make_group(
-        docs,
-        type_category_prefix + type.plural_name,
-        "The following #{type.plural_name.downcase} are available globally.",
-        type_category_prefix + type.plural_url_name,
-      )
-    end
-
-    # Join categories with the same name (eg. ObjC and Swift classes)
-    def self.merge_categories(categories)
-      merged = []
-      categories.each do |new_category|
-        if existing = merged.find { |c| c.name == new_category.name }
-          existing.children += new_category.children
-        else
-          merged.append(new_category)
-        end
-      end
-      merged
-    end
-
-    def self.make_group(group, name, abstract, url_name = nil)
-      group.reject! { |doc| doc.name.empty? }
-      unless group.empty?
-        SourceDeclaration.new.tap do |sd|
-          sd.type     = SourceDeclaration::Type.overview
-          sd.name     = name
-          sd.url_name = url_name
-          sd.abstract = Markdown.render(abstract)
-          sd.children = group
-        end
-      end
-    end
-
-    # Merge consecutive sections with the same mark into one section
-    def self.merge_consecutive_marks(docs)
-      prev_mark = nil
-      docs.each do |doc|
-        if prev_mark&.can_merge?(doc.mark)
-          doc.mark = prev_mark
-        end
-        prev_mark = doc.mark
-        merge_consecutive_marks(doc.children)
-      end
-    end
+    #
+    # URL assignment
+    #
 
     def self.sanitize_filename(doc)
       unsafe_filename = doc.docs_filename
@@ -261,6 +156,10 @@ module Jazzy
         doc.namespace_ancestors.map(&:name)
     end
 
+    #
+    # CLI argument calculation
+    #
+
     # returns all subdirectories of specified path
     def self.rec_path(path)
       path.children.collect do |child|
@@ -329,6 +228,10 @@ module Jazzy
       output, = Executable.execute_command(bin_path, arguments, true, env: env)
       output
     end
+
+    #
+    # SourceDeclaration generation
+    #
 
     def self.make_default_doc_info(declaration)
       # @todo: Fix these
@@ -725,6 +628,10 @@ module Jazzy
       Regexp.last_match[1].gsub(/\s+/, ' ')
     end
 
+    #
+    # SourceDeclaration generation - extension management
+    #
+
     # Expands extensions of nested types declared at the top level into
     # a tree so they can be deduplicated properly
     def self.expand_extensions(decls)
@@ -1001,37 +908,9 @@ module Jazzy
       end
     end
 
-    # Apply filtering based on the "included" and "excluded" flags.
-    def self.filter_files(json)
-      json = filter_included_files(json) if Config.instance.included_files.any?
-      json = filter_excluded_files(json) if Config.instance.excluded_files.any?
-      json.map do |doc|
-        key = doc.keys.first
-        doc[key]
-      end.compact
-    end
-
-    # Filter based on the "included" flag.
-    def self.filter_included_files(json)
-      included_files = Config.instance.included_files
-      json.map do |doc|
-        key = doc.keys.first
-        doc if included_files.detect do |include|
-          File.fnmatch?(include, key)
-        end
-      end.compact
-    end
-
-    # Filter based on the "excluded" flag.
-    def self.filter_excluded_files(json)
-      excluded_files = Config.instance.excluded_files
-      json.map do |doc|
-        key = doc.keys.first
-        doc unless excluded_files.detect do |exclude|
-          File.fnmatch?(exclude, key)
-        end
-      end.compact
-    end
+    #
+    # Autolinking
+    #
 
     def self.name_match(name_part, docs)
       return nil unless name_part
@@ -1152,6 +1031,42 @@ module Jazzy
       autolink_text(html, doc, @autolink_root_decls || [])
     end
 
+    #
+    # Entrypoint and misc filtering
+    #
+
+    # Apply filtering based on the "included" and "excluded" flags.
+    def self.filter_files(json)
+      json = filter_included_files(json) if Config.instance.included_files.any?
+      json = filter_excluded_files(json) if Config.instance.excluded_files.any?
+      json.map do |doc|
+        key = doc.keys.first
+        doc[key]
+      end.compact
+    end
+
+    # Filter based on the "included" flag.
+    def self.filter_included_files(json)
+      included_files = Config.instance.included_files
+      json.map do |doc|
+        key = doc.keys.first
+        doc if included_files.detect do |include|
+          File.fnmatch?(include, key)
+        end
+      end.compact
+    end
+
+    # Filter based on the "excluded" flag.
+    def self.filter_excluded_files(json)
+      excluded_files = Config.instance.excluded_files
+      json.map do |doc|
+        key = doc.keys.first
+        doc unless excluded_files.detect do |exclude|
+          File.fnmatch?(exclude, key)
+        end
+      end.compact
+    end
+
     def self.reject_objc_types(docs)
       enums = docs.map do |doc|
         [doc, doc.children]
@@ -1189,9 +1104,8 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
-      docs = group_docs(ungrouped_docs)
+      docs = Grouper.group_docs(ungrouped_docs)
 
-      merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, @stats]

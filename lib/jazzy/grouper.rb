@@ -1,0 +1,122 @@
+# frozen_string_literal: true
+
+module Jazzy
+  # This module deals with arranging top-level declarations and guides into
+  # groups automatically and/or using a custom list.
+  module Grouper
+    extend Config::Mixin
+
+    # Group root-level docs by custom categories (if any) and type or module
+    def self.group_docs(docs)
+      custom_categories, docs = group_custom_categories(docs)
+      unlisted_prefix = config.custom_categories_unlisted_prefix
+      type_category_prefix = custom_categories.any? ? unlisted_prefix : ''
+      all_categories =
+        custom_categories +
+        if config.merge_modules == :all
+          group_docs_by_type(docs, type_category_prefix)
+        else
+          group_docs_by_module(docs, type_category_prefix)
+        end
+      merge_consecutive_marks(all_categories)
+    end
+
+    # Group root-level docs by type
+    def self.group_docs_by_type(docs, type_category_prefix)
+      type_groups = SourceDeclaration::Type.all.map do |type|
+        children, docs = docs.partition { _1.type == type }
+        make_type_group(children, type, type_category_prefix)
+      end
+      merge_categories(type_groups.compact) + docs
+    end
+
+    # Group root-level docs by module name
+    def self.group_docs_by_module(docs, type_category_prefix)
+      guide_categories, docs = group_guides(docs, type_category_prefix)
+
+      module_categories = docs
+        .group_by(&:doc_module_name)
+        .map do |name, module_docs|
+          make_group(
+            module_docs,
+            name,
+            "The following declarations are provided by module #{name}.",
+          )
+        end
+
+      guide_categories + module_categories
+    end
+
+    def self.group_custom_categories(docs)
+      group = config.custom_categories.map do |category|
+        children = category['children'].flat_map do |name|
+          docs_with_name, docs = docs.partition { _1.name == name }
+          if docs_with_name.empty?
+            warn 'WARNING: No documented top-level declarations match ' \
+              "name \"#{name}\" specified in categories file"
+          end
+          docs_with_name
+        end
+        # Category config overrides alphabetization
+        children.each.with_index { |child, i| child.nav_order = i }
+        make_group(children, category['name'], '')
+      end
+      [group.compact, docs]
+    end
+
+    def self.group_guides(docs, prefix)
+      guides, others = docs.partition { _1.type.markdown? }
+      return [[], others] unless guides.any?
+
+      [[make_type_group(guides, guides.first.type, prefix)], others]
+    end
+
+    def self.make_type_group(docs, type, type_category_prefix)
+      make_group(
+        docs,
+        type_category_prefix + type.plural_name,
+        "The following #{type.plural_name.downcase} are available globally.",
+        type_category_prefix + type.plural_url_name,
+      )
+    end
+
+    # Join categories with the same name (eg. ObjC and Swift classes)
+    def self.merge_categories(categories)
+      merged = []
+      categories.each do |new_category|
+        if existing = merged.find { _1.name == new_category.name }
+          existing.children += new_category.children
+        else
+          merged.append(new_category)
+        end
+      end
+      merged
+    end
+
+    def self.make_group(group, name, abstract, url_name = nil)
+      group.reject! { _1.name.empty? }
+      unless group.empty?
+        SourceDeclaration.new.tap do |sd|
+          sd.type     = SourceDeclaration::Type.overview
+          sd.name     = name
+          sd.url_name = url_name
+          sd.abstract = Markdown.render(abstract)
+          sd.children = group
+        end
+      end
+    end
+
+    # Merge consecutive sections with the same mark into one section
+    # Needed because of pulling various decls into groups
+    def self.merge_consecutive_marks(docs)
+      prev_mark = nil
+      docs.each do |doc|
+        if prev_mark&.can_merge?(doc.mark)
+          doc.mark = prev_mark
+        end
+        prev_mark = doc.mark
+        merge_consecutive_marks(doc.children)
+      end
+    end
+  end
+end
