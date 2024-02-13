@@ -60,23 +60,43 @@ module Jazzy
       ).freeze
     end
 
-    # Group root-level docs by custom categories (if any) and type
+    # Group root-level docs by custom categories (if any) and type or module
     def self.group_docs(docs)
       custom_categories, docs = group_custom_categories(docs)
       unlisted_prefix = Config.instance.custom_categories_unlisted_prefix
-      type_categories, uncategorized = group_type_categories(
-        docs, custom_categories.any? ? unlisted_prefix : ''
-      )
-      custom_categories + merge_categories(type_categories) + uncategorized
+      type_category_prefix = custom_categories.any? ? unlisted_prefix : ''
+      custom_categories +
+        if Config.instance.merge_modules == :all
+          group_docs_by_type(docs, type_category_prefix)
+        else
+          group_docs_by_module(docs, type_category_prefix)
+        end
+    end
+
+    # Group root-level docs by type
+    def self.group_docs_by_type(docs, type_category_prefix)
+      type_groups = SourceDeclaration::Type.all.map do |type|
+        children, docs = docs.partition { |doc| doc.type == type }
+        make_type_group(children, type, type_category_prefix)
+      end
+      merge_categories(type_groups.compact) + docs
     end
 
     # Group root-level docs by module name
-    def self.group_docs_per_module(docs, config)
-      categories, extra = navigation_module_section(
-        docs, config.module_names
-      )
+    def self.group_docs_by_module(docs, type_category_prefix)
+      guide_categories, docs = group_guides(docs, type_category_prefix)
 
-      merge_categories(categories) + group_docs(extra)
+      module_categories = docs
+        .group_by(&:doc_module_name)
+        .map do |name, module_docs|
+          make_group(
+            module_docs,
+            name,
+            "The following declarations are provided by module #{name}.",
+          )
+        end
+
+      guide_categories + module_categories
     end
 
     def self.group_custom_categories(docs)
@@ -96,49 +116,21 @@ module Jazzy
       [group.compact, docs]
     end
 
-    def self.group_type_categories(docs, type_category_prefix)
-      group = SourceDeclaration::Type.all.map do |type|
-        children, docs = docs.partition { |doc| doc.type == type }
-        make_group(
-          children,
-          type_category_prefix + type.plural_name,
-          "The following #{type.plural_name.downcase} are available globally.",
-          type_category_prefix + type.plural_url_name,
-        )
-      end
-      [group.compact, docs]
+    def self.group_guides(docs, prefix)
+      guides, others = docs.partition { |doc| doc.type.markdown? }
+      return [[], others] unless guides.any?
+
+      [[make_type_group(guides, guides.first.type, prefix)], others]
     end
 
-    # rubocop:disable Metrics/MethodLength XXX tmp
-    def self.navigation_module_section(docs, modules)
-      group = modules.map do |module_name|
-        children, docs = docs.partition { |doc| doc.module_name == module_name }
-        make_group(
-          children,
-          module_name,
-          '',
-        )
-      end
-
-      # Get from the remaining docs if there are extensions that should also be part of this module.
-      group = group.compact.map do |group2|
-        new_docs = docs
-          .select { |doc| doc.children.map(&:module_name).include?(group2.name) }
-          .map do |doc|
-            newdoc = doc.clone
-            newdoc.children, doc.children =
-              doc.children.partition { _1.module_name == group2.name }
-            newdoc.name = group2.name + '+' + newdoc.name
-            newdoc.doc_module_name = group2.name # XXX not really but for now
-            newdoc
-          end
-        group2.children = group2.children + new_docs
-        group2
-      end
-
-      [group, docs.reject { |doc| doc.children.empty? }]
+    def self.make_type_group(docs, type, type_category_prefix)
+      make_group(
+        docs,
+        type_category_prefix + type.plural_name,
+        "The following #{type.plural_name.downcase} are available globally.",
+        type_category_prefix + type.plural_url_name,
+      )
     end
-    # rubocop:enable Metrics/MethodLength XXX tmp
 
     # Join categories with the same name (eg. ObjC and Swift classes)
     def self.merge_categories(categories)
@@ -802,22 +794,45 @@ module Jazzy
         decl.type.swift_typealias?
     end
 
+    # Normally merge all extensions into their types and each other.
+    #
+    # :none means only merge within a module -- so two extensions to
+    #     some type get merged, but an extension to a type from
+    #     another documented module does not get merged into that type
+    # :extensions means extensions of documented modules get merged,
+    #     but if we're documenting ModA and ModB, and they both provide
+    #     extensions to Swift.String, then those two extensions still
+    #     appear separately.
+    #
+    # (The USR part of the dedup key means ModA.Foo and ModB.Foo do not
+    # get merged.)
+    def self.module_deduplication_key(decl)
+      if (Config.instance.merge_modules == :none) ||
+         (Config.instance.merge_modules == :extensions &&
+          decl.extension_of_external_type?)
+        decl.doc_module_name
+      else
+        ''
+      end
+    end
+
     # Two declarations get merged if they have the same deduplication key.
     def self.deduplication_key(decl, root_decls)
+      mod_key = module_deduplication_key(decl)
       # Swift extension of objc class
       if decl.swift_objc_extension?
-        [decl.swift_extension_objc_name, :objc_class_and_categories]
+        [decl.swift_extension_objc_name, :objc_class_and_categories, mod_key]
       # Swift type or Swift extension of Swift type
       elsif mergeable_swift?(decl)
-        [decl.usr, decl.name]
+        [decl.usr, decl.name, mod_key]
       # Objc categories and classes
       elsif mergeable_objc?(decl, root_decls)
         # Using the ObjC name to match swift_objc_extension.
         name, _ = decl.objc_category_name || decl.objc_name
-        [name, :objc_class_and_categories]
+        [name, :objc_class_and_categories, mod_key]
       # Non-mergable declarations (funcs, typedefs etc...)
       else
-        [decl.usr, decl.name, decl.type.kind]
+        [decl.usr, decl.name, decl.type.kind, '']
       end
     end
 
@@ -1154,7 +1169,6 @@ module Jazzy
 
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
-    # rubocop:disable Metrics/MethodLength XXX tmp
     def self.parse(sourcekitten_output, options, inject_docs)
       @min_acl = options.min_acl
       @skip_undocumented = options.skip_undocumented
@@ -1175,18 +1189,12 @@ module Jazzy
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
       ungrouped_docs = docs
-      docs =
-        if options.module_configs.count > 1 # XXX need a --merge-modules or something
-          group_docs_per_module(docs, options)
-        else
-          group_docs(docs)
-        end
+      docs = group_docs(ungrouped_docs)
 
       merge_consecutive_marks(docs)
       make_doc_urls(docs)
       autolink(docs, ungrouped_docs)
       [docs, @stats]
     end
-    # rubocop:enable Metrics/MethodLength XXX tmp
   end
 end

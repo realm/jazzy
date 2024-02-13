@@ -516,6 +516,23 @@ module Jazzy
         '--min-acl is set to `public` or `open`.',
       default: false
 
+    MERGE_MODULES = %w[all extensions none].freeze
+
+    config_attr :merge_modules,
+      command_line: "--merge-modules #{MERGE_MODULES.join(' | ')}",
+      description: 'Control how to display declarations from multiple ' \
+        'modules.  `all`, the default, places all declarations of the ' \
+        "same kind together.  `none` keeps each module's declarations " \
+        'separate.  `extensions` is like `none` but merges ' \
+        'cross-module extensions into their extended type.',
+      default: 'all',
+      parse: ->(merge) do
+        return merge.to_sym if MERGE_MODULES.include?(merge)
+
+        raise "Unsupported merge_modules #{merge}, " \
+          "supported values: #{MERGE_MODULES.join(', ')}"
+      end
+
     # rubocop:enable Layout/ArgumentAlignment
 
     def initialize
