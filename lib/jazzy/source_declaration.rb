@@ -227,12 +227,29 @@ module Jazzy
           group_name != module_name)
     end
 
+    # Does the user need help understanding how to get this declaration?
+    def need_doc_module_note?
+      return false unless Config.instance.multiple_modules?
+      return false if docs_path.first.name == doc_module_name
+
+      if parent_in_code.nil?
+        # Top-level decls with no page of their own
+        !render_as_page?
+      else
+        # Members added by extension
+        parent_in_code.module_name != doc_module_name
+      end
+    end
+
     # Info text for contents page by collapsed item name
     def declaration_note
-      notes = [default_impl_abstract ? 'default implementation' : nil,
-               from_protocol_extension ? 'extension method' : nil,
-               async ? 'asynchronous' : nil].compact
-      notes.join(', ').humanize unless notes.empty?
+      notes = [
+        default_impl_abstract ? 'default implementation' : nil,
+        from_protocol_extension ? 'extension method' : nil,
+        async ? 'asynchronous' : nil,
+        need_doc_module_note? ? "from #{doc_module_name}" : nil,
+      ].compact
+      notes.join(', ').upcase_first unless notes.empty?
     end
 
     def readme?
