@@ -895,17 +895,40 @@ module Jazzy
     # declaration: public protocol conformances and, for top-level extensions,
     # further conditional extensions of the same type.
     def self.merge_code_declaration(decls)
-      first = decls.first
-
       declarations = decls[1..].select do |decl|
         decl.type.swift_extension? &&
           (decl.other_inherited_types?(@inaccessible_protocols) ||
-            (first.type.swift_extension? && decl.constrained_extension?))
-      end.map(&:declaration)
+            (decls.first.type.swift_extension? && decl.constrained_extension?))
+      end.prepend(decls.first)
 
-      unless declarations.empty?
-        first.declaration = declarations.prepend(first.declaration).uniq.join
+      html_declaration = ''
+      until declarations.empty?
+        module_decls, declarations = next_doc_module_group(declarations)
+        first = module_decls.first
+        if need_doc_module_note?(first, html_declaration)
+          html_declaration += "<span class='declaration-note'>From #{first.doc_module_name}:</span>"
+        end
+        html_declaration += module_decls.map(&:declaration).uniq.join
       end
+
+      # Must preserve `nil` for edge cases
+      decls.first.declaration = html_declaration unless html_declaration.empty?
+    end
+
+    # Grab all the extensions from the same doc module
+    def self.next_doc_module_group(decls)
+      decls.partition { _1.doc_module_name == decls.first.doc_module_name }
+    end
+
+    # Does this extension/type need a note explaining which doc module it is from?
+    # Only for extensions, if there actually are multiple modules.
+    # Last condition avoids it for simple 'extension Array'.
+    def self.need_doc_module_note?(decl, html_declaration)
+      Config.instance.multiple_modules? &&
+        decl.type.swift_extension? &&
+        !(html_declaration.empty? &&
+          !decl.constrained_extension? &&
+          !decl.inherited_types?)
     end
 
     #
