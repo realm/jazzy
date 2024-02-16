@@ -450,11 +450,12 @@ header {
   .token-open {
     margin-left: 45px;
   }
-  .declaration-note {
-    font-size: .85em;
-    color: rgba(128,128,128,1);
-    font-style: italic;
-  }
+}
+
+.declaration-note {
+  font-size: .85em;
+  color: rgba(128,128,128,1);
+  font-style: italic;
 }
 
 .pointer-container {
