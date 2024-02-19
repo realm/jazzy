@@ -14,6 +14,7 @@ require 'jazzy/source_declaration'
 require 'jazzy/source_mark'
 require 'jazzy/stats'
 require 'jazzy/grouper'
+require 'jazzy/doc_index'
 
 ELIDED_AUTOLINK_TOKEN = '36f8f5912051ae747ef441d6511ca4cb'
 
@@ -690,7 +691,8 @@ module Jazzy
     def self.mergeable_objc?(decl, root_decls)
       decl.type.objc_class? ||
         (decl.type.objc_category? &&
-          name_match(decl.objc_category_name[0], root_decls))
+          (category_classname = decl.objc_category_name[0]) &&
+          root_decls.any? { _1.name == category_classname })
     end
 
     # Returns if a Swift declaration is mergeable.
@@ -935,37 +937,6 @@ module Jazzy
     # Autolinking
     #
 
-    def self.name_match(name_part, docs)
-      return nil unless name_part
-
-      wildcard_expansion = Regexp.escape(name_part)
-        .gsub('\.\.\.', '[^)]*')
-        .gsub(/<.*>/, '')
-
-      whole_name_pat = /\A#{wildcard_expansion}\Z/
-      docs.find do |doc|
-        whole_name_pat =~ doc.name
-      end
-    end
-
-    # Find the first ancestor of doc whose name matches name_part.
-    def self.ancestor_name_match(name_part, doc)
-      doc.namespace_ancestors.reverse_each do |ancestor|
-        if match = name_match(name_part, ancestor.children)
-          return match
-        end
-      end
-      nil
-    end
-
-    def self.name_traversal(name_parts, doc)
-      while doc && !name_parts.empty?
-        next_part = name_parts.shift
-        doc = name_match(next_part, doc.children)
-      end
-      doc
-    end
-
     # Links recognized top-level declarations within
     # - inlined code within docs
     # - method signatures after they've been processed by the highlighter
@@ -973,85 +944,61 @@ module Jazzy
     # The `after_highlight` flag is used to differentiate between the two modes.
     #
     # DocC link format - follow Xcode and don't display slash-separated parts.
-    # rubocop:disable Metrics/MethodLength
-    def self.autolink_text(text, doc, root_decls, after_highlight: false)
+    def self.autolink_text(text, doc, after_highlight: false)
       text.autolink_block(doc.url, '[^\s]+', after_highlight) do |raw_name|
         sym_name =
           (raw_name[/^<doc:(.*)>$/, 1] || raw_name).sub(/(?<!^)-.+$/, '')
 
-        parts = sym_name
-          .sub(/^@/, '') # ignore for custom attribute ref
-          .split(%r{(?<!\.)[/.](?!\.)}) # dot or slash, but not '...'
-          .reject(&:empty?)
-
-        # First dot-separated component can match any ancestor or top-level doc
-        first_part = parts.shift
-        name_root = ancestor_name_match(first_part, doc) ||
-                    name_match(first_part, root_decls)
-
-        # Traverse children via subsequent components, if any
-        [name_traversal(parts, name_root), sym_name.sub(%r{^.*/}, '')]
+        [@doc_index.lookup(sym_name, doc), sym_name.sub(%r{^.*/}, '')]
       end.autolink_block(doc.url, '[+-]\[\w+(?: ?\(\w+\))? [\w:]+\]',
                          after_highlight) do |raw_name|
-        match = raw_name.match(/([+-])\[(\w+(?: ?\(\w+\))?) ([\w:]+)\]/)
-
-        # Subject component can match any ancestor or top-level doc
-        subject = match[2].delete(' ')
-        name_root = ancestor_name_match(subject, doc) ||
-                    name_match(subject, root_decls)
-
-        if name_root
-          # Look up the verb in the subject’s children
-          [name_match(match[1] + match[3], name_root.children), raw_name]
-        end
+        [@doc_index.lookup(raw_name, doc), raw_name]
       end.autolink_block(doc.url, '[+-]\w[\w:]*', after_highlight) do |raw_name|
-        [name_match(raw_name, doc.children), raw_name]
+        [@doc_index.lookup(raw_name, doc), raw_name]
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     AUTOLINK_TEXT_FIELDS = %w[return
                               abstract
                               unavailable_message
                               deprecation_message].freeze
 
-    def self.autolink_text_fields(doc, root_decls)
+    def self.autolink_text_fields(doc)
       AUTOLINK_TEXT_FIELDS.each do |field|
         if text = doc.send(field)
-          doc.send(field + '=', autolink_text(text, doc, root_decls))
+          doc.send(field + '=', autolink_text(text, doc))
         end
       end
 
       (doc.parameters || []).each do |param|
         param[:discussion] =
-          autolink_text(param[:discussion], doc, root_decls)
+          autolink_text(param[:discussion], doc)
       end
     end
 
     AUTOLINK_HIGHLIGHT_FIELDS = %w[declaration
                                    other_language_declaration].freeze
 
-    def self.autolink_highlight_fields(doc, root_decls)
+    def self.autolink_highlight_fields(doc)
       AUTOLINK_HIGHLIGHT_FIELDS.each do |field|
         if text = doc.send(field)
           doc.send(field + '=',
-                   autolink_text(text, doc, root_decls, after_highlight: true))
+                   autolink_text(text, doc, after_highlight: true))
         end
       end
     end
 
-    def self.autolink(docs, root_decls)
-      @autolink_root_decls = root_decls
+    def self.autolink(docs)
       docs.each do |doc|
-        doc.children = autolink(doc.children, root_decls)
-        autolink_text_fields(doc, root_decls)
-        autolink_highlight_fields(doc, root_decls)
+        doc.children = autolink(doc.children)
+        autolink_text_fields(doc)
+        autolink_highlight_fields(doc)
       end
     end
 
     # For autolinking external markdown documents
     def self.autolink_document(html, doc)
-      autolink_text(html, doc, @autolink_root_decls || [])
+      autolink_text(html, doc)
     end
 
     #
@@ -1126,11 +1073,13 @@ module Jazzy
       # Remove top-level enum cases because it means they have an ACL lower
       # than min_acl
       docs = docs.reject { |doc| doc.type.swift_enum_element? }
-      ungrouped_docs = docs
-      docs = Grouper.group_docs(ungrouped_docs)
+
+      @doc_index = DocIndex.new(docs)
+
+      docs = Grouper.group_docs(docs)
 
       make_doc_urls(docs)
-      autolink(docs, ungrouped_docs)
+      autolink(docs)
       [docs, @stats]
     end
   end

@@ -75,10 +75,14 @@ module Jazzy
                                .join('(?:<.*?>)?\.'))
     end
 
+    def fully_qualified_module_name_parts
+      path = namespace_path
+      path.map(&:name).prepend(path.first.module_name).compact
+    end
+
     # 'MyModule.OuterType.NestedType.method(arg:)'
     def fully_qualified_module_name
-      prefix = module_name&.then { _1 + '.' } || ''
-      prefix + fully_qualified_name
+      fully_qualified_module_name_parts.join('.')
     end
 
     # List of doc_parent decls, .last is self
