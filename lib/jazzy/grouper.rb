@@ -7,8 +7,8 @@ module Jazzy
     extend Config::Mixin
 
     # Group root-level docs by custom categories (if any) and type or module
-    def self.group_docs(docs)
-      custom_categories, docs = group_custom_categories(docs)
+    def self.group_docs(docs, doc_index)
+      custom_categories, docs = group_custom_categories(docs, doc_index)
       unlisted_prefix = config.custom_categories_unlisted_prefix
       type_category_prefix = custom_categories.any? ? unlisted_prefix : ''
       all_categories =
@@ -47,15 +47,23 @@ module Jazzy
       guide_categories + module_categories
     end
 
-    def self.group_custom_categories(docs)
+    def self.group_custom_categories(docs, doc_index)
       group = config.custom_categories.map do |category|
-        children = category['children'].flat_map do |name|
-          docs_with_name, docs = docs.partition { _1.name == name }
-          if docs_with_name.empty?
+        children = category['children'].filter_map do |name|
+          unless doc = doc_index.lookup(name)
             warn 'WARNING: No documented top-level declarations match ' \
               "name \"#{name}\" specified in categories file"
+            next nil
           end
-          docs_with_name
+
+          unless doc.parent_in_code.nil?
+            warn "WARNING: Declaration \"#{doc.fully_qualified_module_name}\" " \
+              'specified in categories file exists but is not top-level and ' \
+              'cannot be included here'
+            next nil
+          end
+
+          docs.delete(doc)
         end
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }
