@@ -1076,7 +1076,7 @@ module Jazzy
 
       @doc_index = DocIndex.new(docs)
 
-      docs = Grouper.group_docs(docs)
+      docs = Grouper.group_docs(docs, @doc_index)
 
       make_doc_urls(docs)
       autolink(docs)
