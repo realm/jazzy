@@ -53,6 +53,9 @@ one you'd prefer.  If this doesn't help, and you're using Xcode, then try passin
 extra arguments to `xcodebuild`, for example
 `jazzy --build-tool-arguments -scheme,MyScheme,-target,MyTarget`.
 
+If you want to generate docs for several modules at once then see [Documenting multiple
+modules](#documenting-multiple-modules).
+
 You can set options for your project’s documentation in a configuration file,
 `.jazzy.yaml` by default. For a detailed explanation and an exhaustive list of
 all available options, run `jazzy --help config`.
@@ -84,6 +87,13 @@ Jazzy understands Apple's DocC-style links too, for example:
   that appears as just `method(param1:)` in the rendered page.
 * \`\`\<doc:method(_:)-e873\>\`\` - a link to a specific overload of `method(_:)`.
   Jazzy can't tell which overload you intend and links to the first one.
+
+If your documentation is for multiple modules then symbol name resolution works
+approximately as though all the modules have been imported: you can use \`TypeName\`
+to refer to a top-level type in any of the modules, or \`ModuleName.TypeName\` to
+be specific.  If there is an ambiguity then you can use a leading slash to
+indicate that the first part of the name should be read as a module name:
+\`/ModuleName.TypeName\`.
 
 ### Math
 
@@ -192,7 +202,7 @@ on troubleshooting.
 
 ### Mixed Objective-C / Swift
 
-*This feature is new and has some rough edges.*
+*This feature has some rough edges.*
 
 To generate documentation for a mixed Swift and Objective-C project you must first
 generate two [SourceKitten][sourcekitten] files: one for Swift and one for Objective-C.
@@ -218,8 +228,6 @@ jazzy --module MyProject --sourcekitten-sourcefile swiftDoc.json,objcDoc.json
 ```
 
 ### Docs from `.swiftmodule`s or frameworks
-
-*This feature is new: there may be crashes and mistakes. Reports welcome.*
 
 Swift 5.3 added support for symbol graph generation from `.swiftmodule` files.
 
@@ -274,6 +282,78 @@ See `swift symbolgraph-extract -help` for all the things you can pass via
 `--build-tool-arguments`: if your module has dependencies then you may need
 to add various search path options to let Swift load it.
 
+### Documenting multiple modules
+
+*This feature is new, bugs and feedback welcome*
+
+Sometimes it's useful to document multiple modules together in the same site,
+for example an app and its extensions, or an SDK that happens to be implemented
+as several modules.
+
+Jazzy can build docs for all these together and create a single site with
+search, cross-module linking, and navigation.
+
+#### Build configuration
+
+If all the modules share the same build flags then the easiest way to do this
+is with `--modules`, for example `jazzy --modules ModuleA,ModuleB,ModuleC`.
+
+If your modules have different build flags then you have to use the config file.
+For example:
+```yaml
+modules:
+  - module: ModuleA
+  - module: ModuleB
+    build_tool_arguments:
+      - -scheme
+      - SpecialScheme
+      - -target
+      - ModuleB
+    source_directory: ModuleBProject
+  - module: ModuleC
+    objc: true
+    umbrella_header: ModuleC/ModuleC.h
+    framework_root: ModuleC
+    sdk: appletvsimulator
+  - module: ModuleD
+    sourcekitten_sourcefile: [ModuleD1.json, ModuleD2.json]
+```
+This describes a four-module project of which one is 'normal', one requires
+special Xcode treatment, one is Objective-C, and one has prebuilt SourceKitten
+JSON.
+
+Per-module options set at the top level are inherited by each module unless
+also set locally -- but you can't set both `--module` and `--modules`.
+
+Jazzy doesn't support `--podspec` mode in conjunction with the multiple
+modules feature.
+
+#### Presentation
+
+The `--merge-modules` flag controls how declarations from multiple modules
+are arranged into categories.
+
+The default of `all` has Jazzy combine declarations from the modules so there
+is one category of classes, one of structures, and so on.  To the user this means
+they do not worry about which module exports a particular type, although that
+information remains available in the type's page.
+
+Setting `--merge-modules none` changes this so each module is a top-level
+category, with the module's symbols listed under it.  
+
+Setting `--merge-modules extensions` is like `none` except cross-module
+extensions are shown as part of their extended type.  For example if `ModuleA`
+extends `ModuleB.SomeType` then those extension members from `ModuleA` are shown
+on the `ModuleB.SomeType` page along with the rest of `SomeType`.
+
+You can use `--documentation` to include guides, `custom_categories` to customize
+the layout with types from whichever modules you want, and `--abstract` to add
+additional markdown content to the per-module category pages.
+
+Use the `--title`, `--readme-title`, and `--docset-title` flags to control the
+top-level names of your documentation.  Without these, Jazzy uses the name of one
+of the modules being documented.
+
 ### Themes
 
 Three themes are provided with jazzy: `apple` (default), `fullwidth` and `jony`.
@@ -302,6 +382,10 @@ Any files found matching the file pattern will be parsed and included as a docum
 There are a few limitations:
 - File names must be unique from source files.
 - Readme should be specified separately using the `readme` option.
+
+You can link to a guide from other guides or doc comments using the name of the page
+as it appears in the site.  For example, to link to the guide generated from a file
+called `My Guide.md` you would write \`My Guide\`.
 
 ### Section description abstracts
 
@@ -399,7 +483,7 @@ alphabetical by symbol name and USR; the order is stable for the same input.
 
 Jazzy does not normally create separate web pages for declarations that do not
 have any members -- instead they are entirely nested into their parent page.  Use
-the `--separate-global-declarations` flag to change this and  create pages for
+the `--separate-global-declarations` flag to change this and create pages for
 these empty types.
 
 ### Choosing the Swift language version
@@ -487,7 +571,7 @@ See [this document](ObjectiveC.md).
 
 **Missing docset**
 
-Jazzy only builds a docset when you set the `--module` flag.
+Jazzy only builds a docset when you set the `--module` or `--modules` flag.
 
 **Unable to pass --build-tool-arguments containing commas**
 

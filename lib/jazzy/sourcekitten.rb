@@ -149,7 +149,7 @@ module Jazzy
         if root_decl.type.swift_extension?
           ['Extensions', root_decl.module_name]
         else
-          ['Types']
+          [doc.namespace_path.first.type.plural_url_name]
         end
 
       [root_decl.doc_module_name] +
@@ -1052,6 +1052,24 @@ module Jazzy
       end
     end
 
+    # Remove top-level enum cases because it means they have an ACL lower
+    # than min_acl
+    def self.reject_swift_types(docs)
+      docs.reject { _1.type.swift_enum_element? }
+    end
+
+    # Spot and mark any categories on classes not declared in these docs
+    def self.mark_objc_external_categories(docs)
+      class_names = docs.select { _1.type.objc_class? }.to_set(&:name)
+
+      docs.map do |doc|
+        if (names = doc.objc_category_name) && !class_names.include?(names.first)
+          doc.module_name = '(Imported)'
+        end
+        doc
+      end
+    end
+
     # Parse sourcekitten STDOUT output as JSON
     # @return [Hash] structured docs
     def self.parse(sourcekitten_output, options, inject_docs)
@@ -1070,9 +1088,8 @@ module Jazzy
       docs = expand_extensions(docs)
       docs = deduplicate_declarations(docs)
       docs = reject_objc_types(docs)
-      # Remove top-level enum cases because it means they have an ACL lower
-      # than min_acl
-      docs = docs.reject { |doc| doc.type.swift_enum_element? }
+      docs = reject_swift_types(docs)
+      docs = mark_objc_external_categories(docs)
 
       @doc_index = DocIndex.new(docs)
 

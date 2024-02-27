@@ -186,7 +186,7 @@ module Jazzy
     config_attr :modules,
       command_line: ['--modules Mod1,Mod2,…ModN', Array],
       description: 'List of modules to document.  Use the config file to set per-module ' \
-        'build flags, see xxxREADMExxx.',
+        "build flags, see 'Documenting multiple modules' in the README.",
       default: []
 
     alias_config_attr :xcodebuild_arguments, :build_tool_arguments,
@@ -649,13 +649,12 @@ module Jazzy
       end
 
       if modules_configured && module_name_configured
-        raise 'Options `modules` and `module` are both set.  See ' \
-          'XXX readme URL XXX.'
+        raise 'Options `modules` and `module` are both set which is not supported. ' \
+          'To document multiple modules, use just `modules`.'
       end
 
       if modules_configured && podspec_configured
-        raise 'Options `modules` and `podspec` are both set.  See ' \
-          'XXX readme URL XXX.'
+        raise 'Options `modules` and `podspec` are both set which is not supported.'
       end
 
       module_configs.each(&:validate_module)
