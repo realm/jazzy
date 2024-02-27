@@ -6,6 +6,12 @@
 
 ##### Enhancements
 
+* Support documentation of multiple modules in a single website.  Use
+  `--modules` or the config-file `modules` for more control.  See the
+  README 'Documenting multiple modules' for more details.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#564](https://github.com/realm/jazzy/issues/564)
+
 * Improve page breadcrumbs to include parent pages and indicate source module
   of extensions from other modules.  
   [John Fairhurst](https://github.com/johnfairh)
