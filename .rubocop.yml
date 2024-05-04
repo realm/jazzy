@@ -46,7 +46,11 @@ Lint/EmptyInPattern: # (new in 1.16)
   Enabled: true
 Lint/IncompatibleIoSelectWithFiberScheduler: # new in 1.21
   Enabled: true
+Lint/ItWithoutArgumentsInBlock: # new in 1.59
+  Enabled: true
 Lint/LambdaWithoutLiteralBlock: # (new in 1.8)
+  Enabled: true
+Lint/LiteralAssignmentInCondition: # new in 1.58
   Enabled: true
 Lint/MixedCaseRange: # new in 1.53
   Enabled: true
@@ -136,6 +140,8 @@ Style/MagicCommentFormat: # new in 1.35
   Enabled: true
 Style/MapCompactWithConditionalBlock: # new in 1.30
   Enabled: true
+Style/MapIntoArray: # new in 1.63
+  Enabled: true
 Style/MapToHash: # new in 1.24
   Enabled: true
 Style/MapToSet: # new in 1.42
@@ -194,7 +200,11 @@ Style/ReturnNilInPredicateMethodDefinition: # new in 1.53
   Enabled: true
 Style/SelectByRegexp: # new in 1.22
   Enabled: true
+Style/SingleLineDoEndBlock: # new in 1.57
+  Enabled: true
 Style/StringChars: # (new in 1.12)
+  Enabled: true
+Style/SuperWithArgsParentheses: # new in 1.58
   Enabled: true
 Style/SwapValues: # (new in 1.1)
   Enabled: true

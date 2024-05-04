@@ -6,9 +6,15 @@
 
 ##### Enhancements
 
+* Support Swift 5.10 with Swift Package Manager projects.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1381](https://github.com/realm/jazzy/issues/1381)
+
 * Support documentation of multiple modules in a single website.  Use
   `--modules` or the config-file `modules` for more control.  See the
   README 'Documenting multiple modules' for more details.  
+  [Argjira Mala](https://github.com/argjiramala-tomtom)
+  [Pedro Alcobia](https://github.com/PedroAlcobia-TomTom)
   [John Fairhurst](https://github.com/johnfairh)
   [#564](https://github.com/realm/jazzy/issues/564)
 
