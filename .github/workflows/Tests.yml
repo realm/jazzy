@@ -10,7 +10,7 @@ jobs:
   danger_and_rubocop:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2
@@ -25,17 +25,18 @@ jobs:
           bundle exec danger --verbose
 
   spec:
-    runs-on: macos-13
+    runs-on: macos-14
     continue-on-error: true
     strategy:
       matrix:
         spec: ["objc_spec", "swift_spec", "cocoapods_spec"]
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 15.3
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2
