@@ -121,6 +121,8 @@ describe_cli 'jazzy' do
     s.replace_pattern(%r{/transformed/}, '/')
     # Xcode 15 workaround
     s.replace_pattern(/objc\[.....\]: Class _?DTX\w+ is implemented in both.*?\n/, '')
+    # arm vs. intel workaround
+    s.replace_pattern(%r{(?<=build/)(arm64|x86_64)(?=-apple)}, '')
   end
 
   require 'shellwords'
