@@ -6,6 +6,9 @@
 
 ##### Enhancements
 
+* Update Javascript: typeahead.js 1.3.4, KaTeX 0.16.10  
+  [John Fairhurst](https://github.com/johnfairh)
+
 * Support Swift 5.10 with Swift Package Manager projects.  
   [John Fairhurst](https://github.com/johnfairh)
   [#1381](https://github.com/realm/jazzy/issues/1381)
