@@ -24,7 +24,7 @@ module Jazzy
     # Group root-level docs by type
     def self.group_docs_by_type(docs, type_category_prefix)
       type_groups = SourceDeclaration::Type.all.map do |type|
-        children, docs = docs.partition { _1.type == type }
+        children, docs = docs.partition { |doc| doc.type == type }
         make_type_group(children, type, type_category_prefix)
       end
       merge_categories(type_groups.compact) + docs
@@ -49,7 +49,7 @@ module Jazzy
 
     def self.group_custom_categories(docs, doc_index)
       group = config.custom_categories.map do |category|
-        children = category['children'].filter_map do |name|
+        children = category['children'].map do |name|
           unless doc = doc_index.lookup(name)
             warn 'WARNING: No documented top-level declarations match ' \
               "name \"#{name}\" specified in categories file"
@@ -64,7 +64,7 @@ module Jazzy
           end
 
           docs.delete(doc)
-        end
+        end.compact
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }
         make_group(children, category['name'], '')
@@ -73,7 +73,7 @@ module Jazzy
     end
 
     def self.group_guides(docs, prefix)
-      guides, others = docs.partition { _1.type.markdown? }
+      guides, others = docs.partition { |doc| doc.type.markdown? }
       return [[], others] unless guides.any?
 
       [[make_type_group(guides, guides.first.type, prefix)], others]
@@ -92,7 +92,7 @@ module Jazzy
     def self.merge_categories(categories)
       merged = []
       categories.each do |new_category|
-        if existing = merged.find { _1.name == new_category.name }
+        if existing = merged.find { |cat| cat.name == new_category.name }
           existing.children += new_category.children
         else
           merged.append(new_category)
@@ -102,7 +102,7 @@ module Jazzy
     end
 
     def self.make_group(group, name, abstract, url_name = nil)
-      group.reject! { _1.name.empty? }
+      group.reject! { |decl| decl.name.empty? }
       unless group.empty?
         SourceDeclaration.new.tap do |sd|
           sd.type     = SourceDeclaration::Type.overview
