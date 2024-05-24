@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'mustache', '~> 1.1'
   spec.add_runtime_dependency 'open4', '~> 1.3'
   spec.add_runtime_dependency 'redcarpet', '~> 3.4'
-  spec.add_runtime_dependency 'rexml', '~> 3.2'
+  spec.add_runtime_dependency 'rexml', ['>= 3.2.7', '< 4.0']
   spec.add_runtime_dependency 'rouge', ['>= 2.0.6', '< 5.0']
   spec.add_runtime_dependency 'sassc', '~> 2.1'
   spec.add_runtime_dependency 'sqlite3', '~> 1.3'
