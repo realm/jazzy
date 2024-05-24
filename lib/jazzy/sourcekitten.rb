@@ -692,7 +692,7 @@ module Jazzy
       decl.type.objc_class? ||
         (decl.type.objc_category? &&
           (category_classname = decl.objc_category_name[0]) &&
-          root_decls.any? { _1.name == category_classname })
+          root_decls.any? { |d| d.name == category_classname })
     end
 
     # Returns if a Swift declaration is mergeable.
@@ -919,7 +919,9 @@ module Jazzy
 
     # Grab all the extensions from the same doc module
     def self.next_doc_module_group(decls)
-      decls.partition { _1.doc_module_name == decls.first.doc_module_name }
+      decls.partition do |decl|
+        decl.doc_module_name == decls.first.doc_module_name
+      end
     end
 
     # Does this extension/type need a note explaining which doc module it is from?
@@ -1055,12 +1057,12 @@ module Jazzy
     # Remove top-level enum cases because it means they have an ACL lower
     # than min_acl
     def self.reject_swift_types(docs)
-      docs.reject { _1.type.swift_enum_element? }
+      docs.reject { |doc| doc.type.swift_enum_element? }
     end
 
     # Spot and mark any categories on classes not declared in these docs
     def self.mark_objc_external_categories(docs)
-      class_names = docs.select { _1.type.objc_class? }.to_set(&:name)
+      class_names = docs.select { |doc| doc.type.objc_class? }.to_set(&:name)
 
       docs.map do |doc|
         if (names = doc.objc_category_name) && !class_names.include?(names.first)

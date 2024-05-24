@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Restore compatibility with Ruby 2.6  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1388](https://github.com/realm/jazzy/issues/1388)
 
 ## 0.15.0
 

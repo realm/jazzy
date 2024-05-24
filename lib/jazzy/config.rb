@@ -717,12 +717,12 @@ module Jazzy
 
       if modules.first.is_a?(String)
         # Massage format (2) into (3)
-        self.modules = modules.map { { 'module' => _1 } }
+        self.modules = modules.map { |mod| { 'module' => mod } }
       end
 
       # Allow per-module overrides of only some config options
       attrs_by_conf_key, attrs_by_name =
-        grouped_attributes { _1.select(&:per_module) }
+        grouped_attributes { |attr| attr.select(&:per_module) }
 
       modules.map do |module_hash|
         mod_name = module_hash['module'] || ''
