@@ -10,6 +10,8 @@ AllCops:
 
 #- Pending Cops as of 1.56.3 ---------------------------------------------#
 
+
+
 Gemspec/DeprecatedAttributeAssignment: # new in 1.30
   Enabled: true
 Gemspec/DevelopmentDependencies: # new in 1.44
@@ -200,9 +202,13 @@ Style/ReturnNilInPredicateMethodDefinition: # new in 1.53
   Enabled: true
 Style/SelectByRegexp: # new in 1.22
   Enabled: true
+Style/SendWithLiteralMethodName: # new in 1.64
+  Enabled: true
 Style/SingleLineDoEndBlock: # new in 1.57
   Enabled: true
 Style/StringChars: # (new in 1.12)
+  Enabled: true
+Style/SuperArguments: # new in 1.64
   Enabled: true
 Style/SuperWithArgsParentheses: # new in 1.58
   Enabled: true
