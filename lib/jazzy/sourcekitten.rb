@@ -485,8 +485,17 @@ module Jazzy
       # @available attrs only in compiler 'interface' style
       extract_availability(doc['key.doc.declaration'] || '')
         .concat(extract_documented_attributes(annotated_decl_attrs))
+        .concat(fabricate_spi_attributes(doc, annotated_decl_attrs))
         .push(decl)
         .join("\n")
+    end
+
+    # Swift 6 workaround: @_spi attribute & SPI group missing
+    def self.fabricate_spi_attributes(doc, attrs)
+      return [] unless spi_attribute?(doc)
+      return [] if attrs =~ /@_spi/
+
+      ['@_spi(<<unknown>>)']
     end
 
     # Exclude non-async routines that accept async closures
