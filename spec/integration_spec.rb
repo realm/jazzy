@@ -249,7 +249,8 @@ describe_cli 'jazzy' do
       behaves_like cli_spec 'misc_jazzy_symgraph_features',
                             '--swift-build-tool symbolgraph ' \
                               '--build-tool-arguments ' \
-                              "-emit-extension-block-symbols,-I,#{module_path}"
+                              '-emit-extension-block-symbols,-I,' \
+                              "#{module_path.chomp}/Modules"
     end
 
     describe 'Creates docs for a multiple-module project' do

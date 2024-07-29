@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 module Jazzy
   module SymbolGraph
     # For extensions we need to track constraints of the extended type
@@ -26,7 +28,7 @@ module Jazzy
       attr_accessor :real_usr
       attr_accessor :name
       attr_accessor :all_constraints # ExtConstraints
-      attr_accessor :conformances # array, can be empty
+      attr_accessor :conformances # set, can be empty
 
       # Deduce an extension from a member of an unknown type or
       # of known type with additional constraints
@@ -54,7 +56,7 @@ module Jazzy
         self.usr = usr
         self.name = name
         self.all_constraints = constraints
-        self.conformances = []
+        self.conformances = Set.new
         super()
       end
 
@@ -65,13 +67,13 @@ module Jazzy
       end
 
       def add_conformance(protocol)
-        conformances.append(protocol).sort!
+        conformances.add(protocol)
       end
 
       def full_declaration
         decl = "extension #{name}"
         unless conformances.empty?
-          decl += " : #{conformances.join(', ')}"
+          decl += " : #{conformances.sort.join(', ')}"
         end
         decl + all_constraints.ext.to_where_clause
       end
@@ -90,7 +92,7 @@ module Jazzy
         }
 
         unless conformances.empty?
-          hash['key.inheritedtypes'] = conformances.map do |conformance|
+          hash['key.inheritedtypes'] = conformances.sort.map do |conformance|
             { 'key.name' => conformance }
           end
         end
@@ -100,11 +102,13 @@ module Jazzy
         hash
       end
 
-      # Sort order - by type name then constraint
+      # Sort order - by type name then constraint then conformances
+      # Conformance check needed for stable order with Swift 5.9
+      # extension symbols that can't merge as well as previously.
       include Comparable
 
       def sort_key
-        name + constraints.map(&:to_swift).join
+        name + constraints.map(&:to_swift).join + conformances.sort.join
       end
 
       def <=>(other)
