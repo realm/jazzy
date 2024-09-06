@@ -146,6 +146,15 @@ describe_cli 'jazzy' do
 </script>
   HTML
 
+  realm_jazzy_yaml = <<-YAML
+build_tool_arguments:
+  - "-scheme"
+  - "RealmSwift"
+  - "SWIFT_VERSION=4.2"
+  - "-destination"
+  - "platform=OS X,arch=x86_64"
+  YAML
+
   spec_subset = ENV.fetch('JAZZY_SPEC_SUBSET', nil)
 
   # rubocop:disable Style/MultilineIfModifier
@@ -208,9 +217,15 @@ describe_cli 'jazzy' do
 
     describe 'Creates Realm Swift docs' do
       realm_version = ''
-      Dir.chdir(ROOT + 'spec/integration_specs/document_realm_swift/before') do
+      realm_path = ROOT + 'spec/integration_specs/document_realm_swift/before'
+      realm_jazzy_path = realm_path + '.jazzy.yaml'
+
+      Dir.chdir(realm_path) do
         realm_version = `./build.sh get-version`.chomp
       end
+      # Xcode 16 workaround
+      File.write(realm_jazzy_path, realm_jazzy_yaml)
+
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
                               '--author_url "https://realm.io" ' \
@@ -222,10 +237,8 @@ describe_cli 'jazzy' do
                               "--module-version #{realm_version} " \
                               '--root-url https://realm.io/docs/swift/' \
                               "#{realm_version}/api/ " \
-                              '--xcodebuild-arguments ' \
-                              '-scheme,RealmSwift,SWIFT_VERSION=4.2,' \
-                              "-destination,'platform=OS X' " \
                               "--head #{realm_head.shellescape}"
+      FileUtils.rm_rf realm_jazzy_path
     end
 
     describe 'Creates Siesta docs' do
