@@ -74,31 +74,34 @@ module Jazzy
       [group.compact, docs + globals_grouped_by_file]
     end
 
+    # Group root level Constants and Functions by the file they're declared in.
     def self.group_globals_by_file(docs, doc_index)
       types_to_files_to_symbols = {}
+      # Group symbols by file and type.
       doc_index.each do |index_item|
         if index_item.parent_in_code.nil? && (index_item.type.name == "Constant" || index_item.type.name == "Function")
           file_name = File.basename(index_item.file, ".*")
           types_to_files_to_symbols[index_item.type.plural_name] ||= {}
           types_to_files_to_symbols[index_item.type.plural_name][file_name] ||= []
-
           types_to_files_to_symbols[index_item.type.plural_name][file_name] << docs.delete(index_item)
-
         end
       end
 
+      # Create `SourceDeclaration`s for each file for each type of symbols it holds.
       types_to_file_groups = {}
       types_to_files_to_symbols.each do |type_name, files|
         types_to_file_groups[type_name] ||= []
         files.each do |file, declarations|
-          file_group = make_group(declarations, file, 'Globally available these types, are.')
+          file_group = make_group(declarations, file, '')
+          # Append the type this `SourceDeclaration` holds to the URL to avoid collisions when the same file holds both constants and functions.
           file_group.url_name = "#{file}+#{type_name}"
           types_to_file_groups[type_name] << file_group
         end
       end
 
+      # Create `SourceDeclaration`s for each type (Constants / Functions) to hold all the file level source declarations created above.
       type_groups = types_to_file_groups.map do |type_name, files_level_declarations|
-        make_group(files_level_declarations, type_name, 'These types are available globally.')
+        make_group(files_level_declarations, type_name, "The following #{type_name.downcase} are available globally.")
       end.compact
       
       type_groups
