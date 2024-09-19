@@ -69,12 +69,30 @@ module Jazzy
         [self] +
           (children[parts.first]&.lookup_path(parts[1...]) || [])
       end
+
+      include Enumerable
+
+      def each(&block)
+        return to_enum(:each) unless block_given?
+
+        block.call(decl) if decl
+
+        children.each do |index_name, scope|
+          scope.each(&block) unless index_name.include?('...')
+        end
+      end
     end
 
     attr_reader :root_scope
 
     def initialize(all_decls)
       @root_scope = Scope.new_root(all_decls.group_by(&:module_name))
+    end
+
+    include Enumerable
+
+    def each(&block)
+      root_scope.each(&block)
     end
 
     # Look up a name and return the matching SourceDeclaration or nil.

@@ -69,7 +69,39 @@ module Jazzy
         children.each.with_index { |child, i| child.nav_order = i }
         make_group(children, category['name'], '')
       end
-      [group.compact, docs]
+
+      globals_grouped_by_file = self.group_globals_by_file(docs, doc_index)
+      [group.compact, docs + globals_grouped_by_file]
+    end
+
+    def self.group_globals_by_file(docs, doc_index)
+      types_to_files_to_symbols = {}
+      doc_index.each do |index_item|
+        if index_item.parent_in_code.nil? && (index_item.type.name == "Constant" || index_item.type.name == "Function")
+          file_name = File.basename(index_item.file, ".*")
+          types_to_files_to_symbols[index_item.type.plural_name] ||= {}
+          types_to_files_to_symbols[index_item.type.plural_name][file_name] ||= []
+
+          types_to_files_to_symbols[index_item.type.plural_name][file_name] << docs.delete(index_item)
+
+        end
+      end
+
+      types_to_file_groups = {}
+      types_to_files_to_symbols.each do |type_name, files|
+        types_to_file_groups[type_name] ||= []
+        files.each do |file, declarations|
+          file_group = make_group(declarations, file, 'Globally available these types, are.')
+          file_group.url_name = "#{file}+#{type_name}"
+          types_to_file_groups[type_name] << file_group
+        end
+      end
+
+      type_groups = types_to_file_groups.map do |type_name, files_level_declarations|
+        make_group(files_level_declarations, type_name, 'These types are available globally.')
+      end.compact
+      
+      type_groups
     end
 
     def self.group_guides(docs, prefix)
