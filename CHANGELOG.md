@@ -6,7 +6,8 @@
 
 ##### Enhancements
 
-* None.
+* Support Swift 6.0 / Xcode 16.0  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 
