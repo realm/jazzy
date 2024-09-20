@@ -8,10 +8,10 @@ AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 2.6
 
-#- Pending Cops as of 1.56.3 ---------------------------------------------#
+#- Pending Cops as of 1.66.1 ---------------------------------------------#
 
-
-
+Gemspec/AddRuntimeDependency: # new in 1.65
+  Enabled: true
 Gemspec/DeprecatedAttributeAssignment: # new in 1.30
   Enabled: true
 Gemspec/DevelopmentDependencies: # new in 1.44
@@ -83,6 +83,8 @@ Lint/TripleQuotes: # (new in 1.9)
 Lint/UnexpectedBlockArity: # (new in 1.5)
   Enabled: true
 Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
+  Enabled: true
+Lint/UselessNumericOperation: # new in 1.66
   Enabled: true
 Lint/UselessRescue: # new in 1.43
   Enabled: true
@@ -187,6 +189,8 @@ Style/RedundantFilterChain: # new in 1.52
 Style/RedundantHeredocDelimiterQuotes: # new in 1.45
   Enabled: true
 Style/RedundantInitialize: # new in 1.27
+  Enabled: true
+Style/RedundantInterpolationUnfreeze: # new in 1.66
   Enabled: true
 Style/RedundantLineContinuation: # new in 1.49
   Enabled: true
