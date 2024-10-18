@@ -6,7 +6,9 @@
 
 ##### Enhancements
 
-* None.
+* Group global constants and functions by file name.\
+  [Pushkar Sharma](https://github.com/thepsguy)
+  [#1400](https://github.com/realm/jazzy/issues/1400)
 
 ##### Bug Fixes
 
