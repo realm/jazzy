@@ -8,7 +8,7 @@ AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 2.6
 
-#- Pending Cops as of 1.66.1 ---------------------------------------------#
+#- Pending Cops as of 1.67.0 ---------------------------------------------#
 
 Gemspec/AddRuntimeDependency: # new in 1.65
   Enabled: true
@@ -39,6 +39,8 @@ Lint/DuplicateMagicComment: # new in 1.37
 Lint/DuplicateMatchPattern: # new in 1.50
   Enabled: true
 Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
+  Enabled: true
+Lint/DuplicateSetElement: # new in 1.67
   Enabled: true
 Lint/EmptyBlock: # (new in 1.1)
   Enabled: true

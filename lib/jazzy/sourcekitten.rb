@@ -826,8 +826,7 @@ module Jazzy
       # type itself, the type must be private and the extensions
       # should be rejected.
       if !typedecl &&
-         wanted_exts.first &&
-         wanted_exts.first.type_from_doc_module?
+         wanted_exts.first&.type_from_doc_module?
         unwanted_exts += wanted_exts
         wanted_exts = []
       end

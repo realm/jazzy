@@ -1,4 +1,4 @@
-## Master
+## 0.15.3
 
 ##### Breaking
 
@@ -10,8 +10,8 @@
 
 ##### Bug Fixes
 
-* Don't crash when the Swift 6 compiler reports educational
-  notes.  
+* Don't crash in SourceKitten when the Swift 6 compiler reports
+  educational notes.  
   [John Fairhurst](https://github.com/johnfairh)
   [#1399](https://github.com/realm/jazzy/issues/1399)
 
