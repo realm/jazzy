@@ -98,7 +98,7 @@ module Jazzy
     end
 
     def swift_objc_extension?
-      type.swift_extension? && usr && usr.start_with?('c:objc')
+      type.swift_extension? && usr&.start_with?('c:objc')
     end
 
     def swift_extension_objc_name

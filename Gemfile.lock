@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    jazzy (0.15.2)
+    jazzy (0.15.3)
       cocoapods (~> 1.5)
       mustache (~> 1.1)
       open4 (~> 1.3)
@@ -27,7 +27,7 @@ GEM
       base64
       nkf
       rexml
-    activesupport (7.2.1)
+    activesupport (7.2.1.1)
       base64
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.3.1)
@@ -156,7 +156,7 @@ GEM
       uri
     netrc (0.11.0)
     nkf (0.2.0)
-    octokit (9.1.0)
+    octokit (9.2.0)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
     open4 (1.3.4)
@@ -173,9 +173,9 @@ GEM
     rchardet (1.8.0)
     redcarpet (3.6.0)
     regexp_parser (2.9.2)
-    rexml (3.3.7)
+    rexml (3.3.8)
     rouge (4.4.0)
-    rubocop (1.66.1)
+    rubocop (1.67.0)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
@@ -206,19 +206,19 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.6.0)
     uri (0.13.1)
-    webmock (3.23.1)
+    webmock (3.24.0)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     xcinvoke (0.3.0)
       liferaft (~> 0.0.6)
-    xcodeproj (1.25.0)
+    xcodeproj (1.25.1)
       CFPropertyList (>= 2.3.3, < 4.0)
       atomos (~> 0.1.3)
       claide (>= 1.0.2, < 2.0)
       colored2 (~> 3.1)
       nanaimo (~> 0.3.0)
-      rexml (>= 3.3.2, < 4.0)
+      rexml (>= 3.3.6, < 4.0)
 
 PLATFORMS
   ruby
