@@ -831,8 +831,12 @@ module Jazzy
         wanted_exts = []
       end
 
-      # Don't tell the user to document them
-      unwanted_exts.each { |e| @stats.remove_undocumented(e) }
+      # Don't tell the user to document them or their contents
+      remover = lambda do |decls|
+        decls.each { |d| @stats.remove_undocumented(d) }
+        decls.map(&:children).each { |c| remover[c] }
+      end
+      remover[unwanted_exts]
 
       objc_exts + wanted_exts
     end

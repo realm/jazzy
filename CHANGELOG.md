@@ -10,7 +10,9 @@
 
 ##### Bug Fixes
 
-* None.
+* Don't call extension members that do not need documentation
+  'undocumented'.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ## 0.15.3
 
