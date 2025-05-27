@@ -18,7 +18,9 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files`.split($/)
   spec.executables << 'jazzy'
 
+  spec.add_dependency 'activesupport', '>= 5.0', '< 8'
   spec.add_dependency 'cocoapods', '~> 1.5'
+  spec.add_dependency 'logger'
   spec.add_dependency 'mustache', '~> 1.1'
   spec.add_dependency 'open4', '~> 1.3'
   spec.add_dependency 'redcarpet', '~> 3.4'

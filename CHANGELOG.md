@@ -14,6 +14,10 @@
   'undocumented'.  
   [John Fairhurst](https://github.com/johnfairh)
 
+* Work around activesupport vs. concurrent-ruby crash.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1414](https://github.com/realm/jazzy/issues/1414)
+
 ## 0.15.3
 
 ##### Breaking
