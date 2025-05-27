@@ -407,7 +407,7 @@ module Jazzy
         uid = (mark.name || 'Unnamed').to_s
         if mark_names_counts.key?(uid)
           mark_names_counts[uid] += 1
-          uid += (mark_names_counts[uid]).to_s
+          uid += mark_names_counts[uid].to_s
         else
           mark_names_counts[uid] = 1
         end

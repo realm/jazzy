@@ -49,7 +49,7 @@ git push
 You'll need push access to the integration specs repo to do this. You can
 request access from one of the maintainers when filing your PR.
 
-You must have Xcode 16.3 installed to build the integration specs.
+You must have Xcode 26.1 beta 1 installed to build the integration specs.
 
 ## Making changes to SourceKitten
 

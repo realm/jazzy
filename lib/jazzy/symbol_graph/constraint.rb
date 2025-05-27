@@ -17,13 +17,14 @@ module Jazzy
         self.rhs = rhs
       end
 
-      public
-
       KIND_MAP = {
         'conformance' => ':',
         'superclass' => ':',
         'sameType' => '==',
       }.freeze
+      private_constant :KIND_MAP
+
+      public
 
       # Init from a JSON hash
       def self.new_hash(hash)

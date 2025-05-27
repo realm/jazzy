@@ -103,10 +103,12 @@ module Jazzy
 
     # Latest valid value for SWIFT_VERSION.
     LATEST_SWIFT_VERSION = '6'
+    private_constant :LATEST_SWIFT_VERSION
 
     # All valid values for SWIFT_VERSION that are longer
     # than a major version number.  Ordered ascending.
     LONG_SWIFT_VERSIONS = ['4.2'].freeze
+    private_constant :LONG_SWIFT_VERSIONS
 
     # Go from a full Swift version like 4.2.1 to
     # something valid for SWIFT_VERSION.
