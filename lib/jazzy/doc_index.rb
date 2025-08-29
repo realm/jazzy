@@ -66,9 +66,8 @@ module Jazzy
 
       # Look up of a regex matching all children for current level only.
       def lookup_regex(regex)
-        pattern = /#{Regexp.quote(regex)}/
-        matching_children = children.select { |name, scope| name =~ pattern }
-        matching_children.map { |name, scope| scope.decl }.compact
+        children.select { |name, scope| name.match(regex)}
+          .map { |name, scope| scope.decl }.compact
       end
 
       # Get an array of scopes matching the name parts.
