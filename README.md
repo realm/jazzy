@@ -458,11 +458,12 @@ the config file. `custom_categories` is an array of objects.  Each category must
 - `children`: An array used to specify the root level declarations that you want to add to
 this category. 
 
-Each child then can be one of the following:
-- A string containing either the exact name of one root level declaration you want to
-match, or the fully qualified one (`ModuleName.DeclarationName`)
-- An object, containing the property `regex`: a regex string which will be used to match 
-multiple root level declarations from all of the modules.
+Each child, then, can be one of the following:
+- A string, containing either the exact name of one root level declaration you want to
+match, or the fully qualified name (`ModuleName.DeclarationName`)
+- An object, containing the property:
+  - `regex`: a string which will be used to match multiple root level declarations from
+all of the modules.
 
 See the ReSwift [docs](https://reswift.github.io/ReSwift/) and
 [config file](https://github.com/ReSwift/ReSwift/blob/e94737282850fa038b625b4e351d1608a3d02cee/.jazzy.json)
