@@ -6,7 +6,7 @@
 
 ##### Enhancements
 
-* Allow `custom_categories` to specify a regex for a child.
+* Allow `custom_categories` to specify a regex for a child.  
   [Enrico Zannini](https://github.com/Enricoza)
   [#688](https://github.com/realm/jazzy/issues/688)
 

@@ -50,18 +50,7 @@ module Jazzy
     def self.group_custom_categories(docs, doc_index)
       group = config.custom_categories.map do |category|
         children = category['children'].map do |selector|
-          selected = if selector.is_a?(String)
-            unless doc = doc_index.lookup(selector)
-              warn 'WARNING: No documented top-level declarations match ' \
-                "name \"#{name}\" specified in categories file"
-              []
-            else
-              [doc]
-            end
-          else
-            doc_index.lookup_regex(selector['regex'])
-              .sort_by { |doc| doc.name.downcase }
-          end
+          selected = select_docs(doc_index, selector)
           selected.map do |doc|
             unless doc.parent_in_code.nil?
               warn "WARNING: Declaration \"#{doc.fully_qualified_module_name}\" " \
@@ -77,6 +66,20 @@ module Jazzy
         make_group(children, category['name'], '')
       end
       [group.compact, docs]
+    end
+
+    def self.select_docs(doc_index, selector)
+      if selector.is_a?(String)
+        unless single_doc = doc_index.lookup(selector)
+          warn 'WARNING: No documented top-level declarations match ' \
+            "name \"#{selector}\" specified in categories file"
+          []
+        end
+        [single_doc]
+      else
+        doc_index.lookup_regex(selector['regex'])
+          .sort_by(&:name)
+      end
     end
 
     def self.group_guides(docs, prefix)
