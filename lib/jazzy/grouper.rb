@@ -73,7 +73,7 @@ module Jazzy
         unless single_doc = doc_index.lookup(selector)
           warn 'WARNING: No documented top-level declarations match ' \
             "name \"#{selector}\" specified in categories file"
-          []
+          return []
         end
         [single_doc]
       else
