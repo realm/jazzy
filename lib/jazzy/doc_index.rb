@@ -64,6 +64,12 @@ module Jazzy
         children[parts.first]&.lookup(parts[1...])
       end
 
+      # Look up of a regex matching all children for current level only.
+      def lookup_regex(regex)
+        children.select { |name, _| name.match(regex) }
+          .map { |_, scope| scope.decl }.compact
+      end
+
       # Get an array of scopes matching the name parts.
       def lookup_path(parts)
         [self] +
@@ -88,6 +94,11 @@ module Jazzy
       return lookup_guess(lookup_name) if context.nil?
 
       lookup_context(lookup_name, context)
+    end
+
+    # Look up a regex and return all matching top level SourceDeclaration.
+    def lookup_regex(regex)
+      root_scope.children.map { |_, scope| scope.lookup_regex(regex) }.flatten
     end
 
     private

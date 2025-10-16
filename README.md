@@ -453,7 +453,19 @@ like _Classes_ and _Structures_ corresponding to programming-language concepts,
 as well as _Guides_ if `--documentation` is set.
 
 You can customize the categories and their contents using `custom_categories` in
-the config file — see the ReSwift [docs](https://reswift.github.io/ReSwift/) and
+the config file. `custom_categories` is an array of objects.  Each category must contain two properties:
+- `name`: A string with the name you want to give to this category
+- `children`: An array used to specify the root level declarations that you want to add to
+this category. 
+
+Each child, then, can be one of the following:
+- A string, containing either the exact name of one root level declaration you want to
+match, or the fully qualified name (`ModuleName.DeclarationName`)
+- An object, containing the property:
+  - `regex`: a string which will be used to match multiple root level declarations from
+all of the modules.
+
+See the ReSwift [docs](https://reswift.github.io/ReSwift/) and
 [config file](https://github.com/ReSwift/ReSwift/blob/e94737282850fa038b625b4e351d1608a3d02cee/.jazzy.json)
 for an example.
 

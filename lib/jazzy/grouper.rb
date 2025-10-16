@@ -49,27 +49,37 @@ module Jazzy
 
     def self.group_custom_categories(docs, doc_index)
       group = config.custom_categories.map do |category|
-        children = category['children'].map do |name|
-          unless doc = doc_index.lookup(name)
-            warn 'WARNING: No documented top-level declarations match ' \
-              "name \"#{name}\" specified in categories file"
-            next nil
+        children = category['children'].map do |selector|
+          selected = select_docs(doc_index, selector)
+          selected.map do |doc|
+            unless doc.parent_in_code.nil?
+              warn "WARNING: Declaration \"#{doc.fully_qualified_module_name}\" " \
+                'specified in categories file exists but is not top-level and ' \
+                'cannot be included here'
+              next nil
+            end
+            docs.delete(doc)
           end
-
-          unless doc.parent_in_code.nil?
-            warn "WARNING: Declaration \"#{doc.fully_qualified_module_name}\" " \
-              'specified in categories file exists but is not top-level and ' \
-              'cannot be included here'
-            next nil
-          end
-
-          docs.delete(doc)
-        end.compact
+        end.flatten.compact
         # Category config overrides alphabetization
         children.each.with_index { |child, i| child.nav_order = i }
         make_group(children, category['name'], '')
       end
       [group.compact, docs]
+    end
+
+    def self.select_docs(doc_index, selector)
+      if selector.is_a?(String)
+        unless single_doc = doc_index.lookup(selector)
+          warn 'WARNING: No documented top-level declarations match ' \
+            "name \"#{selector}\" specified in categories file"
+          return []
+        end
+        [single_doc]
+      else
+        doc_index.lookup_regex(selector['regex'])
+          .sort_by(&:name)
+      end
     end
 
     def self.group_guides(docs, prefix)
