@@ -149,8 +149,8 @@ module Jazzy
       def param?
         # SourceKit strangely categorizes initializer parameters as local
         # variables, so both kinds represent a parameter in jazzy.
-        kind == 'source.lang.swift.decl.var.parameter' ||
-          kind == 'source.lang.swift.decl.var.local'
+        ['source.lang.swift.decl.var.parameter',
+         'source.lang.swift.decl.var.local'].include?(kind)
       end
 
       def generic_type_param?
