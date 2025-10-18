@@ -10,6 +10,9 @@
   [Enrico Zannini](https://github.com/Enricoza)
   [#688](https://github.com/realm/jazzy/issues/688)
 
+* Update Javascript: KaTeX 0.16.25  
+  [John Fairhurst](https://github.com/johnfairh)
+
 ##### Bug Fixes
 
 * Don't call extension members that do not need documentation
