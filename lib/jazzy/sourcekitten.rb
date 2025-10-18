@@ -621,7 +621,8 @@ module Jazzy
         declaration.children = make_substructure(doc, declaration)
         next if declaration.type.extension? &&
                 declaration.children.empty? &&
-                !declaration.inherited_types?
+                !declaration.inherited_types? &&
+                !declaration.type.objc_category? # Don't discard empty Obj-C categories
 
         declarations << declaration
       end
