@@ -256,6 +256,21 @@ module Jazzy
       notes.join(', ').upcase_first unless notes.empty?
     end
 
+    # For matching where `Self` is equivalent without considering
+    # constraints
+    def simplified_typename
+      typename&.gsub(/<Self .*?>/, '<Self>')
+    end
+
+    # Is the candidate `SourceDeclaration` probably a default
+    # implementation of this declaration?
+    def default_implementation?(candidate)
+      name == candidate.name &&
+        type == candidate.type &&
+        simplified_typename == candidate.simplified_typename &&
+        async == candidate.async
+    end
+
     def readme?
       false
     end

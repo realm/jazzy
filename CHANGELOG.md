@@ -20,6 +20,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1414](https://github.com/realm/jazzy/issues/1414)
 
+* Better identify default implementations.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1420](https://github.com/realm/jazzy/issues/1420)
+
 ## 0.15.3
 
 ##### Breaking

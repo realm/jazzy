@@ -856,9 +856,7 @@ module Jazzy
       extensions.each do |ext|
         ext.children = ext.children.select do |ext_member|
           proto_member = protocol.children.find do |p|
-            p.name == ext_member.name &&
-              p.type == ext_member.type &&
-              p.async == ext_member.async
+            p.default_implementation?(ext_member)
           end
 
           # Extension-only method, keep.
