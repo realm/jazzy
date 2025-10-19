@@ -39,7 +39,7 @@ module Jazzy
       private
 
       def safe_name
-        name.gsub(/[^a-z0-9_\-]+/i, '_')
+        name.gsub(/[^a-z0-9_-]+/i, '_')
       end
 
       def write_plist

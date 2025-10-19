@@ -178,7 +178,7 @@ module Jazzy
            Regexp.last_match[1] + Regexp.last_match[3]]
         else
           name
-            .sub(%r{^[@\/]}, '') # ignore custom attribute reference, fully-qualified
+            .sub(%r{^[@/]}, '') # ignore custom attribute reference, fully-qualified
             .gsub(/<.*?>/, '') # remove generic parameters
             .split(%r{(?<!\.)[/.](?!\.)}) # dot or slash, but not '...'
             .reject(&:empty?)
