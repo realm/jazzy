@@ -739,18 +739,19 @@ module Jazzy
       mod_key = module_deduplication_key(decl)
       # Swift extension of objc class
       if decl.swift_objc_extension?
-        [decl.swift_extension_objc_name, :objc_class_and_categories, mod_key]
+        [decl.swift_extension_objc_name, nil, :objc_class_and_categories, mod_key]
       # Swift type or Swift extension of Swift type
       elsif mergeable_swift?(decl)
-        [decl.usr, decl.name, mod_key]
+        [decl.usr, nil, decl.name, mod_key]
       # Objc categories and classes
       elsif mergeable_objc?(decl, root_decls)
         # Using the ObjC name to match swift_objc_extension.
         name, _ = decl.objc_category_name || decl.objc_name
-        [name, :objc_class_and_categories, mod_key]
+        [name, nil, :objc_class_and_categories, mod_key]
       # Non-mergable declarations (funcs, typedefs etc...)
       else
-        [decl.usr, decl.name, decl.type.kind, '']
+        # The typename part works around a Swift bug, jazzy#1396
+        [decl.usr, decl.typename, decl.name, decl.type.kind, '']
       end
     end
 
