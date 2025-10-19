@@ -27,6 +27,10 @@
   [John Fairhurst](https://github.com/johnfairh)
   [#1420](https://github.com/realm/jazzy/issues/1420)
 
+* Suppress warning on extensions providing default implementations.  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1396](https://github.com/realm/jazzy/issues/1396)
+
 ## 0.15.3
 
 ##### Breaking
