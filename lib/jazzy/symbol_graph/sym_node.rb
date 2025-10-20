@@ -76,7 +76,7 @@ module Jazzy
       # It must go in an extension if either:
       #  - it has different generic constraints to us; or
       #  - we're a protocol and it's a default impl / ext method
-      def try_add_child(node, unique_context_constraints)
+      def add_child?(node, unique_context_constraints)
         unless unique_context_constraints.empty? &&
                (!protocol? || node.protocol_requirement?)
           return false

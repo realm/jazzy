@@ -464,7 +464,7 @@ module Jazzy
         }
       end
 
-      return breadcrumbs if breadcrumbs.count == 1
+      return breadcrumbs if breadcrumbs.one?
 
       # Add the module name to the outer type if not clear from context
       if docs_path[1].ambiguous_module_name?(docs_path[0].name)

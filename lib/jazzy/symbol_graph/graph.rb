@@ -100,7 +100,7 @@ module Jazzy
                              source.unique_context_constraints(target))
 
         # Add to its parent or invent an extension
-        unless target&.try_add_child(source, constraints.ext)
+        unless target&.add_child?(source, constraints.ext)
           add_ext_member(rel.target_usr, source, constraints)
         end
       end

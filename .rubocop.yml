@@ -8,15 +8,19 @@ AllCops:
   SuggestExtensions: false
   TargetRubyVersion: 2.6
 
-#- Pending Cops as of 1.75.7 ---------------------------------------------#
+#- Pending Cops as of 1.81.1 ---------------------------------------------#
 
 Gemspec/AddRuntimeDependency: # new in 1.65
+  Enabled: true
+Gemspec/AttributeAssignment: # new in 1.77
   Enabled: true
 Gemspec/DeprecatedAttributeAssignment: # new in 1.30
   Enabled: true
 Gemspec/DevelopmentDependencies: # new in 1.44
   Enabled: false
 Gemspec/RequireMFA: # new in 1.23
+  Enabled: true
+Layout/EmptyLinesAfterModuleInclusion: # new in 1.79
   Enabled: true
 Layout/LineContinuationLeadingSpace: # new in 1.31
   Enabled: false
@@ -106,9 +110,13 @@ Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
   Enabled: true
 Lint/UselessConstantScoping: # new in 1.72
   Enabled: true
+Lint/UselessDefaultValueArgument: # new in 1.76
+  Enabled: true
 Lint/UselessDefined: # new in 1.69
   Enabled: true
 Lint/UselessNumericOperation: # new in 1.66
+  Enabled: true
+Lint/UselessOr: # new in 1.76
   Enabled: true
 Lint/UselessRescue: # new in 1.43
   Enabled: true
@@ -119,6 +127,8 @@ Metrics/CollectionLiteralLength: # new in 1.47
 Naming/BlockForwarding: # new in 1.24
   Enabled: true
 Naming/InclusiveLanguage: # (new in 1.18)
+  Enabled: true
+Naming/PredicateMethod: # new in 1.76
   Enabled: true
 Security/CompoundHash: # new in 1.28
   Enabled: true
@@ -138,7 +148,11 @@ Style/ArgumentsForwarding: # (new in 1.1)
   Enabled: true
 Style/ArrayIntersect: # new in 1.40
   Enabled: true
+Style/ArrayIntersectWithSingleElement: # new in 1.81
+  Enabled: true
 Style/CollectionCompact: # (new in 1.2)
+  Enabled: true
+Style/CollectionQuerying: # new in 1.77
   Enabled: true
 Style/ComparableClamp: # new in 1.44
   Enabled: true
@@ -151,6 +165,8 @@ Style/DirEmpty: # new in 1.48
 Style/DocumentDynamicEvalDefinition: # (new in 1.1)
   Enabled: true
 Style/EmptyHeredoc: # new in 1.32
+  Enabled: true
+Style/EmptyStringInsideInterpolation: # new in 1.76
   Enabled: true
 Style/EndlessMethod: # (new in 1.8)
   Enabled: true
@@ -223,6 +239,8 @@ Style/QuotedSymbols: # (new in 1.16)
 Style/RedundantArgument: # (new in 1.4)
   Enabled: true
 Style/RedundantArrayConstructor: # new in 1.52
+  Enabled: true
+Style/RedundantArrayFlatten: # new in 1.76
   Enabled: true
 Style/RedundantConstantBase: # new in 1.40
   Enabled: true
