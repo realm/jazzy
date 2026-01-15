@@ -358,7 +358,7 @@ of the modules being documented.
 
 Three themes are provided with jazzy: `apple` (default), `fullwidth` and `jony`.
 
-* `apple` example: <https://realm.io/docs/swift/latest/api/>
+* `apple` example: <https://johnfairh.github.io/demo-jazzy-apple-theme/>
 * `fullwidth` example: <https://reduxkit.github.io/ReduxKit/>
 * `jony` example: <https://harshilshah.github.io/IGListKit/>
 

@@ -37,7 +37,7 @@ jobs:
           persist-credentials: false
       - uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '26.1.0-beta'
+          xcode-version: '26.2'
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3
