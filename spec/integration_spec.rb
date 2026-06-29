@@ -146,15 +146,6 @@ describe_cli 'jazzy' do
 </script>
   HTML
 
-  realm_jazzy_yaml = <<-YAML
-build_tool_arguments:
-  - "-scheme"
-  - "RealmSwift"
-  - "SWIFT_VERSION=4.2"
-  - "-destination"
-  - "platform=OS X,arch=x86_64"
-  YAML
-
   spec_subset = ENV.fetch('JAZZY_SPEC_SUBSET', nil)
 
   # rubocop:disable Style/MultilineIfModifier
@@ -165,9 +156,11 @@ build_tool_arguments:
       relative_path = 'spec/integration_specs/document_realm_objc/before'
       Dir.chdir(ROOT + relative_path) do
         realm_version = `./build.sh get-version`.chomp
+        `./build.sh update-core`
         # jazzy will fail if it can't find all public header files
         `touch Realm/RLMPlatform.h`
       end
+
       behaves_like cli_spec 'document_realm_objc',
                             '--objc ' \
                               '--author Realm ' \
@@ -218,19 +211,25 @@ build_tool_arguments:
     describe 'Creates Realm Swift docs' do
       realm_version = ''
       realm_path = ROOT + 'spec/integration_specs/document_realm_swift/before'
-      realm_jazzy_path = realm_path + '.jazzy.yaml'
 
       Dir.chdir(realm_path) do
         realm_version = `./build.sh get-version`.chomp
+        `./build.sh download-core`
       end
-      # Xcode 16 workaround
-      File.write(realm_jazzy_path, realm_jazzy_yaml)
+
+      build_patch = ROOT + 'spec/realm-build.sh'
+      build_used = ROOT + realm_path + 'build.sh'
+      build_save = ROOT + 'spec/realm-build.sh.safe'
+      FileUtils.cp_r build_used, build_save, remove_destination: true
+      FileUtils.cp_r build_patch, build_used, remove_destination: true
 
       behaves_like cli_spec 'document_realm_swift',
                             '--author Realm ' \
                               '--author_url "https://realm.io" ' \
                               '--source-host-url ' \
                               'https://github.com/realm/realm-cocoa ' \
+                              '--xcodebuild-arguments ' \
+                              '-scheme,RealmSwift ' \
                               '--source-host-files-url https://github.com/realm/' \
                               "realm-cocoa/tree/v#{realm_version} " \
                               '--module RealmSwift ' \
@@ -238,7 +237,9 @@ build_tool_arguments:
                               '--root-url https://realm.io/docs/swift/' \
                               "#{realm_version}/api/ " \
                               "--head #{realm_head.shellescape}"
-      FileUtils.rm_rf realm_jazzy_path
+
+      FileUtils.cp_r build_save, build_used, remove_destination: true
+      FileUtils.rm_rf build_save
     end
 
     describe 'Creates Siesta docs' do
