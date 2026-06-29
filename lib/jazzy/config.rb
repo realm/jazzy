@@ -791,7 +791,7 @@ module Jazzy
           puts attr.name.to_s.tr('_', ' ').upcase
           puts
           puts "  Config file:   #{attr.config_file_key}"
-          cmd_line_forms = attr.command_line.select { |opt| opt.is_a?(String) }
+          cmd_line_forms = attr.command_line.grep(String)
           if cmd_line_forms.any?
             puts "  Command line:  #{cmd_line_forms.join(', ')}"
           end
