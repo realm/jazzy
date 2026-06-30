@@ -113,16 +113,12 @@ describe_cli 'jazzy' do
     # Remove version numbers from CocoaPods dependencies
     # to make specs resilient against dependency updates.
     s.replace_pattern(/(Installing \w+ )\((.*)\)/, '\1(X.Y.Z)')
-    # Xcode 13.3 etc workaround
-    s.replace_pattern(/202[\d.:\- ]+xcodebuild.*?\n/, '')
-    # Xcode 14 / in-proc sourcekitd workaround
-    s.replace_pattern(/<unknown>:0: remark.*?\n/, '')
     # CLIntegracon 0.8
     s.replace_pattern(%r{/transformed/}, '/')
-    # Xcode 15 workaround
-    s.replace_pattern(/objc\[.....\]: Class _?DTX\w+ is implemented in both.*?\n/, '')
     # arm vs. intel workaround
     s.replace_pattern(%r{(?<=build/)(arm64|x86_64)(?=-apple)}, '')
+    # Xcode install dependencies
+    s.replace_pattern(/^{ platform:.*\n/, '')
   end
 
   require 'shellwords'
