@@ -119,6 +119,10 @@ describe_cli 'jazzy' do
     s.replace_pattern(%r{(?<=build/)(arm64|x86_64)(?=-apple)}, '')
     # Xcode install dependencies
     s.replace_pattern(/^{ platform:.*\n/, '')
+    # SourceKit spam #1 (really SPM#10238)
+    s.replace_pattern(/^sourcekit: .*\n/, '')
+    # SourceKit spam #2 (really SPM#10238)
+    s.replace_pattern(/^<unknown>:0: error: error opening input file .*\n/, '')
   end
 
   require 'shellwords'
@@ -201,7 +205,7 @@ describe_cli 'jazzy' do
                             '--skip-undocumented ' \
                               '--clean ' \
                               '--xcodebuild-arguments ' \
-                              "-destination,'platform=OS X'"
+                              "-destination,'platform=OS X',__DIAGNOSE_INVALID_DEPLOYMENT_TARGET_AS_ERROR=NO"
     end
 
     describe 'Creates Realm Swift docs' do
@@ -243,7 +247,8 @@ describe_cli 'jazzy' do
       # Use the default Swift version rather than the specified 4.0
       behaves_like cli_spec 'document_siesta',
                             '--output api-docs ' \
-                              '--swift-version= '
+                              '--swift-version= ' \
+                              '--xcodebuild-arguments __DIAGNOSE_INVALID_DEPLOYMENT_TARGET_AS_ERROR=NO'
     end
 
     describe 'Creates docs for Swift project with a variety of contents' do
@@ -254,13 +259,14 @@ describe_cli 'jazzy' do
       build_path = Dir.getwd + '/tmp/.build'
       package_path =
         ROOT + 'spec/integration_specs/misc_jazzy_symgraph_features/before'
-      `swift build --package-path #{package_path} --scratch-path #{build_path}`
-      module_path = `swift build --scratch-path #{build_path} --show-bin-path`
+      path_args = "--package-path #{package_path} --scratch-path #{build_path}"
+      `swift build #{path_args}`
+      module_path = `swift build #{path_args} --show-bin-path`
       behaves_like cli_spec 'misc_jazzy_symgraph_features',
                             '--swift-build-tool symbolgraph ' \
                               '--build-tool-arguments ' \
                               '-emit-extension-block-symbols,-I,' \
-                              "#{module_path.chomp}/Modules"
+                              "#{module_path.chomp}"
     end
 
     describe 'Creates docs for a multiple-module project' do
@@ -268,21 +274,23 @@ describe_cli 'jazzy' do
     end
   end if !spec_subset || spec_subset == 'swift'
 
-  describe 'jazzy cocoapods' do
-    # Xcode 14.3 workaround, special podspec
-    podspec_patch = ROOT + 'spec/Moya.podspec'
-    podspec_used = ROOT + 'spec/integration_specs/document_moya_podspec/before/Moya.podspec'
-    podspec_save = ROOT + 'spec/Moya.podspec.safe'
-    FileUtils.cp_r podspec_used, podspec_save, remove_destination: true
-    FileUtils.cp_r podspec_patch, podspec_used, remove_destination: true
-    configure_cocoapods
-    describe 'Creates docs for a podspec with dependencies and subspecs' do
-      behaves_like cli_spec 'document_moya_podspec',
-                            '--podspec=Moya.podspec'
-    end
-    FileUtils.cp_r podspec_save, podspec_used, remove_destination: true
-    FileUtils.rm_rf podspec_save
-  end if !spec_subset || spec_subset == 'cocoapods'
+# Can't build on xcode27 because alamofire dep has bad ios deployment level
+#
+#  describe 'jazzy cocoapods' do
+#    # Xcode 14.3 workaround, special podspec
+#    podspec_patch = ROOT + 'spec/Moya.podspec'
+#    podspec_used = ROOT + 'spec/integration_specs/document_moya_podspec/before/Moya.podspec'
+#    podspec_save = ROOT + 'spec/Moya.podspec.safe'
+#    FileUtils.cp_r podspec_used, podspec_save, remove_destination: true
+#    FileUtils.cp_r podspec_patch, podspec_used, remove_destination: true
+#    configure_cocoapods
+#    describe 'Creates docs for a podspec with dependencies and subspecs' do
+#      behaves_like cli_spec 'document_moya_podspec',
+#                            '--podspec=Moya.podspec'
+#    end
+#    FileUtils.cp_r podspec_save, podspec_used, remove_destination: true
+#    FileUtils.rm_rf podspec_save
+#  end if !spec_subset || spec_subset == 'cocoapods'
 
   # rubocop:enable Style/MultilineIfModifier
 end
