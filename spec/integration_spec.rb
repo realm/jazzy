@@ -119,10 +119,6 @@ describe_cli 'jazzy' do
     s.replace_pattern(%r{(?<=build/)(arm64|x86_64)(?=-apple)}, '')
     # Xcode install dependencies
     s.replace_pattern(/^{ platform:.*\n/, '')
-    # SourceKit spam #1 (really SPM#10238)
-    s.replace_pattern(/^sourcekit: .*\n/, '')
-    # SourceKit spam #2 (really SPM#10238)
-    s.replace_pattern(/^<unknown>:0: error: error opening input file .*\n/, '')
   end
 
   require 'shellwords'
