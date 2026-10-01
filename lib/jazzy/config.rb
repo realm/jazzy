@@ -543,7 +543,7 @@ module Jazzy
 
     def theme_directory=(theme_directory)
       @theme_directory = theme_directory
-      Doc.template_path = theme_directory + 'templates'
+      Doc.template_path = (theme_directory + 'templates').to_s
     end
 
     def self.parse!
