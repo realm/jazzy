@@ -6,7 +6,8 @@
 
 ##### Enhancements
 
-* None.
+* Generate docs using SwiftPM 6.4.  
+  [John Fairhurst](https://github.com/johnfairh)
 
 ##### Bug Fixes
 
