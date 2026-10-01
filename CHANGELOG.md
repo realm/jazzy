@@ -1,4 +1,4 @@
-## Master
+## 0.15.5
 
 ##### Breaking
 
@@ -6,8 +6,12 @@
 
 ##### Enhancements
 
-* Generate docs using SwiftPM 6.4.  
+* Generate docs using SwiftPM 6.4  
   [John Fairhurst](https://github.com/johnfairh)
+
+* Support mustache 1.1.3  
+  [John Fairhurst](https://github.com/johnfairh)
+  [#1435](https://github.com/realm/jazzy/issues/1435)
 
 ##### Bug Fixes
 

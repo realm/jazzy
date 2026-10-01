@@ -9,7 +9,7 @@ GIT
 PATH
   remote: .
   specs:
-    jazzy (0.15.4)
+    jazzy (0.15.5)
       activesupport (>= 5.0, < 8)
       cocoapods (~> 1.5)
       logger
