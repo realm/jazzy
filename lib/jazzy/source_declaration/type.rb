@@ -6,7 +6,7 @@ require 'active_support/inflector'
 
 module Jazzy
   class SourceDeclaration
-    # rubocop:disable Metrics/ClassLength
+    # rubocop:disable-next Metrics/ClassLength
     class Type
       def self.all
         TYPES.keys.map { |k| new(k) }.reject { |t| t.name.nil? }
@@ -471,6 +471,5 @@ module Jazzy
         }.freeze,
       }.freeze
     end
-    # rubocop:enable Metrics/ClassLength
   end
 end

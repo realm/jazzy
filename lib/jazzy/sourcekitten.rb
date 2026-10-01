@@ -76,7 +76,7 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     # Generate doc URL by prepending its parents' URLs
     # @return [Hash] input docs with URLs
     def self.make_doc_urls(docs)
@@ -111,7 +111,6 @@ module Jazzy
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     # Determine the subdirectory in which a doc should be placed.
     # Guides in the root for back-compatibility.
@@ -532,9 +531,9 @@ module Jazzy
                                declaration.mark_for_children)
     end
 
-    # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/CyclomaticComplexity
-    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/MethodLength
+    # rubocop:disable-next Metrics/CyclomaticComplexity
+    # rubocop:disable-next Metrics/PerceivedComplexity
     def self.make_source_declarations(docs, parent = nil, mark = SourceMark.new)
       declarations = []
       current_mark = mark
@@ -627,9 +626,6 @@ module Jazzy
       end
       declarations
     end
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/CyclomaticComplexity
-    # rubocop:enable Metrics/MethodLength
 
     def self.find_generic_requirements(parsed_declaration)
       parsed_declaration =~ /\bwhere\s+(.*)$/m
@@ -755,8 +751,8 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
-    # rubocop:disable Metrics/PerceivedComplexity
+    # rubocop:disable-next Metrics/MethodLength
+    # rubocop:disable-next Metrics/PerceivedComplexity
     # Merges all of the given types and extensions into a single document.
     def self.merge_declarations(decls)
       extensions, typedecls = decls.partition { |d| d.type.extension? }
@@ -789,8 +785,6 @@ module Jazzy
         merge_type_and_extensions(typedecls, extensions)
       end
     end
-    # rubocop:enable Metrics/PerceivedComplexity
-    # rubocop:enable Metrics/MethodLength
 
     def self.merge_type_and_extensions(typedecls, extensions)
       # Constrained extensions at the end

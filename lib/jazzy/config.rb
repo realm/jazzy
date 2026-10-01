@@ -8,9 +8,9 @@ require 'jazzy/podspec_documenter'
 require 'jazzy/source_declaration/access_control_level'
 
 module Jazzy
-  # rubocop:disable Metrics/ClassLength
+  # rubocop:disable-next Metrics/ClassLength
   class Config
-    # rubocop:disable Naming/AccessorMethodName
+    # rubocop:disable-next Naming/AccessorMethodName
     class Attribute
       attr_reader :name, :description, :command_line, :config_file_key,
                   :default, :parse, :per_module
@@ -74,7 +74,6 @@ module Jazzy
         end
       end
     end
-    # rubocop:enable Naming/AccessorMethodName
 
     def self.config_attr(name, **opts)
       attr_accessor name
@@ -563,7 +562,7 @@ module Jazzy
       warn "WARNING: #{message}"
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def parse_command_line
       OptionParser.new do |opt|
         opt.banner = 'Usage: jazzy'
@@ -668,8 +667,6 @@ module Jazzy
           '`framework_root` or `umbrella_header` may be ignored.'
       end
     end
-
-    # rubocop:enable Metrics/MethodLength
 
     # Module Configs
     #
@@ -839,5 +836,4 @@ module Jazzy
       end
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end

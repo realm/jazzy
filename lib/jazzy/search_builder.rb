@@ -11,8 +11,8 @@
 module JSON
   class << self
     # Store a reference to the original json gem's parse method
-    alias_method :real_parse, :parse
-    alias_method :real_generate, :generate
+    alias real_parse parse
+    alias real_generate generate
 
     def parse(source, **opts)
       opts = opts.dup

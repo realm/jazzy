@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 module Jazzy
   module SymbolGraph
     # A Symbol is a tidied-up SymbolGraph JSON object
@@ -274,4 +274,3 @@ module Jazzy
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

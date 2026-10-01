@@ -4,7 +4,7 @@ require 'tmpdir'
 require 'json'
 
 module Jazzy
-  # rubocop:disable Metrics/ClassLength
+  # rubocop:disable-next Metrics/ClassLength
   class PodspecDocumenter
     attr_reader :podspec
 
@@ -44,7 +44,7 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def self.apply_config_defaults(podspec, config)
       return unless podspec
 
@@ -74,7 +74,6 @@ module Jazzy
         config.swift_version_configured = true
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     private
 
@@ -141,7 +140,7 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def podfile(config)
       swift_version = compiler_swift_version(config.swift_version)
       podspec = @podspec
@@ -174,7 +173,5 @@ module Jazzy
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
   end
-  # rubocop:enable Metrics/ClassLength
 end

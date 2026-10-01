@@ -45,7 +45,7 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/ClassLength
+    # rubocop:disable-next Metrics/ClassLength
     class JazzyHTML < Redcarpet::Render::HTML
       include Redcarpet::Render::SmartyPants
       include Rouge::Plugins::Redcarpet
@@ -195,7 +195,6 @@ module Jazzy
         Highlighter::Formatter.new(lexer.tag)
       end
     end
-    # rubocop:enable Metrics/ClassLength
 
     REDCARPET_OPTIONS = {
       autolink: true,
