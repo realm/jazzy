@@ -299,8 +299,8 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
-
+    # rubocop:disable-next Metrics/MethodLength
+    #
     # Generates an SVG similar to those from shields.io displaying the
     # documentation percentage
     # @param [Number] coverage The documentation coverage percentage
@@ -346,12 +346,11 @@ module Jazzy
       badge_output = options.output + 'badge.svg'
       File.open(badge_output, 'w') { |f| f << svg }
     end
-    # rubocop:enable Metrics/MethodLength
 
     # Build mustache item for a top-level doc
     # @param [Hash] item Parsed doc child item
     # @param [Config] options Build options
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def self.render_item(item, source_module)
       # Combine abstract and discussion into abstract
       abstract = (item.abstract || '') + (item.discussion || '')
@@ -382,7 +381,6 @@ module Jazzy
         declaration_note: item.declaration_note,
       }
     end
-    # rubocop:enable Metrics/MethodLength
 
     def self.make_task(mark, uid, items, doc_model)
       {
@@ -415,7 +413,7 @@ module Jazzy
       end
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     # Build Mustache document from single parsed decl
     # @param [SourceModule] module-wide settings
     # @param [Hash] doc_model Parsed doc. @see SourceKitten.parse
@@ -449,7 +447,6 @@ module Jazzy
       doc[:usage_discouraged] = doc_model.usage_discouraged?
       doc.render.gsub(ELIDED_AUTOLINK_TOKEN, path_to_root)
     end
-    # rubocop:enable Metrics/MethodLength
 
     # Breadcrumbs for a page - doesn't include the top 'readme' crumb
     def self.make_breadcrumbs(doc_model)

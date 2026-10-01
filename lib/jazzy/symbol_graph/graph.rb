@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
+# rubocop:disable-next Metrics/ClassLength
 module Jazzy
   module SymbolGraph
     # A Graph is the coordinator to import a symbolgraph json file.
@@ -209,4 +209,3 @@ module Jazzy
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

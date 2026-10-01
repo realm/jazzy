@@ -4,7 +4,7 @@ require 'jazzy/source_declaration/access_control_level'
 require 'jazzy/source_declaration/type'
 
 module Jazzy
-  # rubocop:disable Metrics/ClassLength
+  # rubocop:disable-next Metrics/ClassLength
   class SourceDeclaration
     # kind of declaration (e.g. class, variable, function)
     attr_accessor :type
@@ -296,5 +296,4 @@ module Jazzy
       Config.instance.abstract_glob.select { |e| File.file? e }
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
